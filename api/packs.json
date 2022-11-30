@@ -3,6 +3,6 @@
         "name":"Jackbox Party Pack 1",
         "description":"Le premier party pack de Jackbox",
         "games":[],
-        "icon":"/assets/jpp1.ico"
+        "icon":"jpp1.ico"
     }
 ]

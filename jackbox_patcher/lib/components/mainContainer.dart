@@ -55,10 +55,10 @@ class _MainContainerState extends State<MainContainer> {
     }
     for (var pack in packs) {
       items.add(PaneItem(
-          icon: Icon(FluentIcons.box_addition_solid),
+          icon: Image.network(APIService().assetLink(pack.icon)),
           title: Text(pack.name),
           body: Center(
-            child: Text(pack.name),
+            child: Text(pack.description),
           )));
     }
     return items;

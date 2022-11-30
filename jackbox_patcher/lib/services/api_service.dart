@@ -8,6 +8,7 @@ import 'api_endpoints.dart';
 class APIService {
   static final APIService _instance = APIService._internal();
   final String baseEndpoint = "https://alexisl61.github.io/JackboxPatcherFR/api";
+  final String baseAssets = "https://alexisl61.github.io/JackboxPatcherFR/assets";
   // Build factory
   factory APIService() {
     return _instance;
@@ -25,5 +26,9 @@ class APIService {
     } else {
       throw Exception('Failed to load packs');
     }
+  }
+
+  String assetLink(String asset) {
+    return '$baseAssets$asset';
   }
 }
