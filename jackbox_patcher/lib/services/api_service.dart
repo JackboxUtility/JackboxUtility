@@ -29,6 +29,6 @@ class APIService {
   }
 
   String assetLink(String asset) {
-    return '$baseAssets$asset';
+    return '$baseAssets/$asset';
   }
 }

@@ -4,5 +4,53 @@
         "description":"Le premier party pack de Jackbox",
         "games":[],
         "icon":"jpp1.ico"
+    },
+    {
+        "name":"Jackbox Party Pack 2",
+        "description":"Le deuxième party pack de Jackbox",
+        "games":[],
+        "icon":"jpp2.ico"
+    },
+    {
+        "name":"Jackbox Party Pack 3",
+        "description":"Le troisième party pack de Jackbox",
+        "games":[],
+        "icon":"jpp3.ico"
+    },
+    {
+        "name":"Jackbox Party Pack 4",
+        "description":"Le quatrième party pack de Jackbox",
+        "games":[],
+        "icon":"jpp4.ico"
+    },
+    {
+        "name":"Jackbox Party Pack 5",
+        "description":"Le cinquième party pack de Jackbox",
+        "games":[],
+        "icon":"jpp5.ico"
+    },
+    {
+        "name":"Jackbox Party Pack 6",
+        "description":"Le sixième party pack de Jackbox",
+        "games":[],
+        "icon":"jpp6.ico"
+    },
+    {
+        "name":"Jackbox Party Pack 7",
+        "description":"Le septième party pack de Jackbox",
+        "games":[],
+        "icon":"jpp7.ico"
+    },
+    {
+        "name":"Jackbox Party Pack 8",
+        "description":"Le huitième party pack de Jackbox",
+        "games":[],
+        "icon":"jpp8.ico"
+    },
+    {
+        "name":"Jackbox Party Pack 9",
+        "description":"Le neuvième party pack de Jackbox",
+        "games":[],
+        "icon":"jpp9.ico"
     }
 ]

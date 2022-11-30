@@ -1,5 +1,4 @@
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:flutter/material.dart';
 import 'package:jackbox_patcher/components/mainContainer.dart';
 
 void main() {
@@ -13,6 +12,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FluentApp(
+      darkTheme: ThemeData(
+            brightness: Brightness.dark,
+            accentColor: Colors.blue,
+            visualDensity: VisualDensity.standard,
+            focusTheme: FocusThemeData(
+              glowFactor: is10footScreen() ? 2.0 : 0.0,
+            ),
+          ),
+      themeMode: ThemeMode.dark,
       title: 'Flutter Demo',
       home: MainContainer(),
     );
