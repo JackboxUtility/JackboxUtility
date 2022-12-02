@@ -1,7 +1,9 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:jackbox_patcher/components/pack.dart';
 import 'package:jackbox_patcher/model/jackboxpack.dart';
-import 'package:jackbox_patcher/services/api_service.dart';
+import 'package:jackbox_patcher/services/api/api_service.dart';
+import 'package:jackbox_patcher/services/user/userdata.dart';
 
 class MainContainer extends StatefulWidget {
   MainContainer({Key? key}) : super(key: key);
@@ -13,7 +15,6 @@ class MainContainer extends StatefulWidget {
 class _MainContainerState extends State<MainContainer> {
   int _selectedView = 0;
   bool _loaded = false;
-  List<JackboxPack> packs = [];
 
   @override
   void initState() {
@@ -34,7 +35,6 @@ class _MainContainerState extends State<MainContainer> {
         },
         selected: _selectedView,
         items: _buildPaneItems(),
-      
       ),
     );
   }
@@ -45,27 +45,25 @@ class _MainContainerState extends State<MainContainer> {
           icon: Icon(FluentIcons.home),
           title: Text("Menu"),
           body: Center(
-            child: Text( _loaded?"Menu":"Chargement..."),
+            child: Text(_loaded ? "Menu" : "Chargement..."),
           )),
     ];
-    if (packs.isNotEmpty) {
+    if (UserData().packs.isNotEmpty) {
       items.add(PaneItemHeader(
         header: Text("Packs"),
       ));
     }
-    for (var pack in packs) {
+    for (var userPack in UserData().packs) {
       items.add(PaneItem(
-          icon: Image.network(APIService().assetLink(pack.icon)),
-          title: Text(pack.name),
-          body: Center(
-            child: Text(pack.description),
-          )));
+          icon: Image.network(APIService().assetLink(userPack.pack.icon)),
+          title: Text(userPack.pack.name),
+          body: PackWidget(userPack: userPack)));
     }
     return items;
   }
 
   Future<void> _loadPacks() async {
-    packs = await APIService().getPacks();
+    await UserData().syncPacks();
     setState(() {
       _loaded = true;
     });

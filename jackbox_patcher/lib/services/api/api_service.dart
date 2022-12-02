@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart';
 
-import '../model/jackboxpack.dart';
+import '../../model/jackboxpack.dart';
 import 'api_endpoints.dart';
 
 class APIService {

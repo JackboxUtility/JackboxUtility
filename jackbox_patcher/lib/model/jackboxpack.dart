@@ -1,6 +1,7 @@
 import 'jackboxgame.dart';
 
 class JackboxPack {
+  final String id;
   final String name;
   final String description;
   final String icon;
@@ -8,6 +9,7 @@ class JackboxPack {
   final String background;
 
   JackboxPack({
+    required this.id,
     required this.name,
     required this.description,
     required this.icon,
@@ -17,6 +19,7 @@ class JackboxPack {
 
   factory JackboxPack.fromJson(Map<String, dynamic> json) {
     return JackboxPack(
+      id: json['id'],
       name: json['name'],
       description: json['description'],
       icon: json['icon'],
