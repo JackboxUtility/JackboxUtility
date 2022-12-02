@@ -67,7 +67,15 @@
         "id":"jpp9",
         "name":"Jackbox Party Pack 9",
         "description":"Le neuvième party pack de Jackbox",
-        "games":[],
+        "games":[
+            {
+                "id":"roomerang",
+                "name":"Roomerang",
+                "description":"Roomerang",
+                "icon":"roomerang.ico",
+                "version":"1.0.0"
+            }
+        ],
         "icon":"jpp9.ico",
         "background":"backgrounds/jpp9.jpg"
     }
