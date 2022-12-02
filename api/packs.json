@@ -3,54 +3,63 @@
         "name":"Jackbox Party Pack 1",
         "description":"Le premier party pack de Jackbox",
         "games":[],
-        "icon":"jpp1.ico"
+        "icon":"jpp1.ico",
+        "background":"backgrounds/jpp1.jpg"
     },
     {
         "name":"Jackbox Party Pack 2",
         "description":"Le deuxième party pack de Jackbox",
         "games":[],
-        "icon":"jpp2.ico"
+        "icon":"jpp2.ico",
+        "background":"backgrounds/jpp2.jpg"
     },
     {
         "name":"Jackbox Party Pack 3",
         "description":"Le troisième party pack de Jackbox",
         "games":[],
-        "icon":"jpp3.ico"
+        "icon":"jpp3.ico",
+        "background":"backgrounds/jpp3.jpg"
     },
     {
         "name":"Jackbox Party Pack 4",
         "description":"Le quatrième party pack de Jackbox",
         "games":[],
-        "icon":"jpp4.ico"
+        "icon":"jpp4.ico",
+        "background":"backgrounds/jpp4.jpg"
     },
     {
         "name":"Jackbox Party Pack 5",
         "description":"Le cinquième party pack de Jackbox",
         "games":[],
-        "icon":"jpp5.ico"
+        "icon":"jpp5.ico",
+        "background":"backgrounds/jpp5.jpg"
     },
     {
         "name":"Jackbox Party Pack 6",
         "description":"Le sixième party pack de Jackbox",
         "games":[],
-        "icon":"jpp6.ico"
+        "icon":"jpp6.ico",
+        "background":"backgrounds/jpp6.jpg"
     },
     {
         "name":"Jackbox Party Pack 7",
         "description":"Le septième party pack de Jackbox",
         "games":[],
-        "icon":"jpp7.ico"
+        "icon":"jpp7.ico",
+        "background":"backgrounds/jpp7.jpg"
     },
     {
         "name":"Jackbox Party Pack 8",
         "description":"Le huitième party pack de Jackbox",
         "games":[],
-        "icon":"jpp8.ico"
+        "icon":"jpp8.ico",
+        "background":"backgrounds/jpp8.jpg"
     },
     {
         "name":"Jackbox Party Pack 9",
         "description":"Le neuvième party pack de Jackbox",
         "games":[],
-        "icon":"jpp9.ico"
+        "icon":"jpp9.ico",
+        "background":"backgrounds/jpp9.jpg"
     }
 ]
