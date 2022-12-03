@@ -75,35 +75,41 @@
                 "name":"Fibbage 4",
                 "description":"La nouvelle version de Fibbage avec encore plus de moyens de tromper vos amis",
                 "background":"game_backgrounds/Fibbage4.webp",
-                "version":"1.0.0"
+                "version":"1.0.0",
+                "path":"games/Fibbage4",
+                "patch_path":"patch/fibbage4_1.0.0"
             },
             {
                 "id":"roomerang",
                 "name":"Roomerang",
                 "description":"Êtes-vous là pour vous faire des amis ou pour... GAGNER ?",
                 "background":"game_backgrounds/Roomerang.webp",
-                "version":"1.0.0"
+                "version":"",
+                "path":"games/MakeFriends"
             },
             {
                 "id":"junktopia",
                 "name":"Junktopia",
                 "description":"Tous les objets étranges ont une histoire",
                 "background":"game_backgrounds/Junktopia.webp",
-                "version":"1.0.0"
+                "version":"",
+                "path":"games/AntiqueGame"
             },
             {
                 "id":"nonsensory",
                 "name":"Nonsensory",
-                "description":"Écrivez, déssinez et lisez dans les pensées",
+                "description":"Écrivez, dessinez et lisez dans les pensées",
                 "background":"game_backgrounds/Nonsensory.webp",
-                "version":"1.0.0"
+                "version":"",
+                "path":"games/RangeGame"
             },
             {
                 "id":"quixort",
                 "name":"Quixort",
                 "description":"Ces blocs ne vont pas se trier tout seuls",
                 "background":"game_backgrounds/Quixort.webp",
-                "version":"1.0.0"
+                "version":"",
+                "path":"games/Lineup"
             }
         ],
         "icon":"jpp9.ico",

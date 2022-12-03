@@ -14,7 +14,7 @@ class UserData {
   }
 
   UserData._internal() {
-     SharedPreferences.getInstance().then((value) => preferences = value);
+    SharedPreferences.getInstance().then((value) => preferences = value);
   }
 
   List<UserJackboxPack> packs = [];
@@ -26,8 +26,20 @@ class UserData {
       UserJackboxPack userPack = UserJackboxPack(pack: pack, path: packPath);
       packs.add(userPack);
       for (var game in pack.games) {
-        final String? gamePath = preferences.getString("${game.id}_path");
-        userPack.games.add(UserJackboxGame(game: game, installed:true, installedVersion: "1.0.0"));
+        final String? gameVersionInstalled =
+            preferences.getString("${pack.id}_version");
+        userPack.games.add(UserJackboxGame(
+            game: game, installedVersion: gameVersionInstalled));
+      }
+    }
+  }
+
+  Future<void> savePack(UserJackboxPack pack) async {
+    await preferences.setString("${pack.pack.id}_path", pack.path!);
+    for (var game in pack.games) {
+      if (game.installedVersion != null) {
+        await preferences.setString(
+            "${game.game.id}_version", game.installedVersion!);
       }
     }
   }

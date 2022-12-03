@@ -26,8 +26,8 @@ class _GameCardState extends State<GameCard> {
   }
 
   void _loadBackgroundColor() {
-    PaletteGenerator.fromImageProvider(
-             CachedNetworkImageProvider(APIService().assetLink(widget.pack.pack.background)))
+    PaletteGenerator.fromImageProvider(CachedNetworkImageProvider(
+            APIService().assetLink(widget.pack.pack.background)))
         .then((value) {
       setState(() {
         backgroundColor = value.dominantColor?.color;
@@ -43,19 +43,15 @@ class _GameCardState extends State<GameCard> {
       children: [
         Container(
             margin: EdgeInsets.only(top: 30, left: 5),
-            child: Flyout(
-                openMode: FlyoutOpenMode.hover,
-                content: (context) =>
-                    FlyoutContent(child: Text("Ce jeu est à jour")),
-                child: Container(
-                    width: 20,
-                    height: 20,
-                    decoration: new BoxDecoration(
-                      color: Colors.green,
-                      shape: BoxShape.circle,
-                    )))),
+            child: Container(
+                width: 20,
+                height: 20,
+                decoration: new BoxDecoration(
+                  color: widget.game.getInstalledStatus(widget.pack.path).color,
+                  shape: BoxShape.circle,
+                ))),
         Container(
-          height:200,
+            height: 200,
             margin: EdgeInsets.only(top: 25),
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(8.0),
@@ -76,14 +72,17 @@ class _GameCardState extends State<GameCard> {
                                 child: Column(children: [
                                   Text(widget.game.game.name,
                                       style: TextStyle(fontSize: 25)),
-                                      SizedBox(height:10),
+                                  SizedBox(height: 10),
                                   Text(
-                                      widget.game.game.description,),
-                                  Expanded(child:SizedBox()),
+                                    widget.game.game.description,
+                                  ),
+                                  Expanded(child: SizedBox()),
                                   Row(children: [
                                     Expanded(
                                         child: Button(
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              _installPatchDialog();
+                                            },
                                             child: Text("Installer")))
                                   ])
                                 ]),
@@ -97,8 +96,9 @@ class _GameCardState extends State<GameCard> {
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   ClipRRect(
                       borderRadius: BorderRadius.circular(8.0),
-                      child:  CachedNetworkImage(imageUrl:
-                        APIService().assetLink(widget.game.game.background),
+                      child: CachedNetworkImage(
+                        imageUrl:
+                            APIService().assetLink(widget.game.game.background),
                         fit: BoxFit.contain,
                       ))
                 ]))),
@@ -106,16 +106,40 @@ class _GameCardState extends State<GameCard> {
             margin: EdgeInsets.only(top: 35, left: 10),
             child: Flyout(
                 openMode: FlyoutOpenMode.hover,
-                content: (context) =>
-                    FlyoutContent(child: Text("Ce jeu est à jour")),
+                content: (context) => FlyoutContent(
+                    child: Text(
+                        widget.game.getInstalledStatus(widget.pack.path).info)),
                 child: Container(
                     width: 10,
                     height: 10,
                     decoration: new BoxDecoration(
-                      color: Colors.green,
+                      color: widget.game
+                          .getInstalledStatus(widget.pack.path)
+                          .color,
                       shape: BoxShape.circle,
                     )))),
       ],
     ));
+  }
+
+  void _installPatchDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => ContentDialog(
+        title: Text("Installation du patch"),
+        content: Text(
+            "Vous allez installer le patch. Cette action est irréversible."),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text("Annuler"),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text("Continuer"),
+          ),
+        ],
+      ),
+    );
   }
 }
