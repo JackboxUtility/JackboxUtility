@@ -1,4 +1,5 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:jackbox_patcher/components/game.dart';
 import 'package:jackbox_patcher/model/jackboxpack.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
@@ -14,7 +15,7 @@ class PackWidget extends StatefulWidget {
 class _PackWidgetState extends State<PackWidget> {
   @override
   Widget build(BuildContext context) {
-    return ListView(children: [_buildHeader()]);
+    return ListView(children: [_buildHeader(), _buildGames()]);
   }
 
   Widget _buildHeader() {
@@ -77,5 +78,13 @@ class _PackWidgetState extends State<PackWidget> {
         ],
       ),
     );
+  }
+
+  Widget _buildGames() {
+    return Container(
+        child: Column(
+            children: widget.userPack.games
+                .map((e) => GameCard(game: e))
+                .toList()));
   }
 }

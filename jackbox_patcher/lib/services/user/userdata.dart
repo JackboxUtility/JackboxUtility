@@ -2,6 +2,7 @@ import 'package:jackbox_patcher/model/jackboxpack.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../model/usermodel/userjackboxgame.dart';
 import '../../model/usermodel/userjackboxpack.dart';
 
 class UserData {
@@ -24,6 +25,10 @@ class UserData {
       final String? packPath = preferences.getString("${pack.id}_path");
       UserJackboxPack userPack = UserJackboxPack(pack: pack, path: packPath);
       packs.add(userPack);
+      for (var game in pack.games) {
+        final String? gamePath = preferences.getString("${game.id}_path");
+        userPack.games.add(UserJackboxGame(game: game, installed:true, installedVersion: "1.0.0"));
+      }
     }
   }
 }

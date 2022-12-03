@@ -72,7 +72,7 @@
                 "id":"roomerang",
                 "name":"Roomerang",
                 "description":"Roomerang",
-                "icon":"roomerang.ico",
+                "background":"game_backgrounds/Roomerang.webp",
                 "version":"1.0.0"
             }
         ],
