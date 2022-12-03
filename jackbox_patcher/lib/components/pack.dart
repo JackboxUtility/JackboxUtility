@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:jackbox_patcher/components/game.dart';
@@ -27,7 +28,7 @@ class _PackWidgetState extends State<PackWidget> {
               height: 200,
               child: Row(children: [
                 Expanded(
-                    child: Image.network(
+                    child:  CachedNetworkImage(imageUrl:
                   APIService().assetLink(widget.userPack.pack.background),
                   fit: BoxFit.fitWidth,
                 ))
@@ -71,8 +72,7 @@ class _PackWidgetState extends State<PackWidget> {
           Positioned(
             top: 20,
             left: 20,
-            child: Image.network(
-              APIService().assetLink(widget.userPack.pack.icon),
+            child: CachedNetworkImage(imageUrl: APIService().assetLink(widget.userPack.pack.icon),
               height: 100,
             ),
           )
@@ -87,7 +87,7 @@ class _PackWidgetState extends State<PackWidget> {
           crossAxisSpacing: 6,
           crossAxisCount: 3,
             children: widget.userPack.games
-                .map((e) => GameCard(game: e))
+                .map((e) => GameCard(pack:widget.userPack,game: e))
                 .toList()));
   }
 }

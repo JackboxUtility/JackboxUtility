@@ -1,36 +1,46 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:palette_generator/palette_generator.dart';
 
 import '../model/usermodel/userjackboxgame.dart';
+import '../model/usermodel/userjackboxpack.dart';
 import '../services/api/api_service.dart';
 
 class GameCard extends StatefulWidget {
-  GameCard({Key? key, required this.game}) : super(key: key);
+  GameCard({Key? key, required this.pack, required this.game})
+      : super(key: key);
 
+  final UserJackboxPack pack;
   final UserJackboxGame game;
   @override
   State<GameCard> createState() => _GameCardState();
 }
 
 class _GameCardState extends State<GameCard> {
+  Color? backgroundColor;
+
+  @override
+  void initState() {
+    _loadBackgroundColor();
+    super.initState();
+  }
+
+  void _loadBackgroundColor() {
+    PaletteGenerator.fromImageProvider(
+             CachedNetworkImageProvider(APIService().assetLink(widget.pack.pack.background)))
+        .then((value) {
+      setState(() {
+        backgroundColor = value.dominantColor?.color;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
         child: Stack(
       clipBehavior: Clip.none,
       children: [
-        SizedBox(
-            height: 75,
-            child: Padding(
-                padding: EdgeInsets.all(32),
-                child:
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  ClipRRect(
-                      borderRadius: BorderRadius.circular(8.0),
-                      child: Image.network(
-                        APIService().assetLink(widget.game.game.background),
-                        fit: BoxFit.contain,
-                      ))
-                ]))),
         Container(
             margin: EdgeInsets.only(top: 30, left: 5),
             child: Flyout(
@@ -49,10 +59,12 @@ class _GameCardState extends State<GameCard> {
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(8.0),
                 child: Acrylic(
-                  blurAmount: 2,
-                  tintAlpha: 1,
+                    shadowColor: backgroundColor,
+                    blurAmount: 1,
+                    tintAlpha: 1,
                     tint: Color.fromARGB(255, 48, 48, 48),
                     child: Container(
+                        padding: EdgeInsets.only(bottom: 12),
                         margin: EdgeInsets.only(top: 50),
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -63,16 +75,11 @@ class _GameCardState extends State<GameCard> {
                                 child: Column(children: [
                                   Text(widget.game.game.name,
                                       style: TextStyle(fontSize: 25)),
+                                      SizedBox(height:10),
                                   Text(
-                                      "Lorem ipsum dolor imset lorem ipsum dolor imset lorem ipsum dolor imset"),
-                                  Text("À jour",
-                                      style: TextStyle(
-                                          color: Colors.green, fontSize: 20)),
+                                      widget.game.game.description,),
+                                  SizedBox(height:20),
                                   Row(children: [
-                                    Expanded(
-                                        child: Button(
-                                            onPressed: () {},
-                                            child: Text("Désinstaller"))),
                                     Expanded(
                                         child: Button(
                                             onPressed: () {},
@@ -89,7 +96,7 @@ class _GameCardState extends State<GameCard> {
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   ClipRRect(
                       borderRadius: BorderRadius.circular(8.0),
-                      child: Image.network(
+                      child:  CachedNetworkImage(imageUrl:
                         APIService().assetLink(widget.game.game.background),
                         fit: BoxFit.contain,
                       ))
