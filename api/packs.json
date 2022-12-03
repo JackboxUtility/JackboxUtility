@@ -59,7 +59,15 @@
         "id":"jpp8",
         "name":"Jackbox Party Pack 8",
         "description":"Le huitième party pack de Jackbox",
-        "games":[],
+        "games":[
+            {
+                "id":"roomerang",
+                "name":"Roomerang",
+                "description":"Roomerang",
+                "background":"game_backgrounds/Roomerang.webp",
+                "version":"1.0.0"
+            }
+        ],
         "icon":"jpp8.ico",
         "background":"backgrounds/jpp8.jpg"
     },

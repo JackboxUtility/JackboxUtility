@@ -1,4 +1,5 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:jackbox_patcher/components/game.dart';
 import 'package:jackbox_patcher/model/jackboxpack.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
@@ -15,7 +16,7 @@ class PackWidget extends StatefulWidget {
 class _PackWidgetState extends State<PackWidget> {
   @override
   Widget build(BuildContext context) {
-    return ListView(children: [_buildHeader(), _buildGames()]);
+    return ListView(children: [_buildHeader(), SizedBox(height: 30),  _buildGames()]);
   }
 
   Widget _buildHeader() {
@@ -81,8 +82,10 @@ class _PackWidgetState extends State<PackWidget> {
   }
 
   Widget _buildGames() {
-    return Container(
-        child: Column(
+    return Padding(padding: EdgeInsets.symmetric(horizontal: 6),child:StaggeredGrid.count(
+          mainAxisSpacing: 6,
+          crossAxisSpacing: 6,
+          crossAxisCount: 3,
             children: widget.userPack.games
                 .map((e) => GameCard(game: e))
                 .toList()));

@@ -2,14 +2,14 @@ class JackboxGame {
   final String id;
   final String name;
   final String description;
-  final String icon;
+  final String background;
   final String latestVersion;
 
   JackboxGame({
     required this.id,
     required this.name,
     required this.description,
-    required this.icon,
+    required this.background,
     required this.latestVersion,
   });
 
@@ -18,7 +18,7 @@ class JackboxGame {
       id: json['id'],
       name: json['name'],
       description: json['description'],
-      icon: json['icon'],
+      background: json['background'],
       latestVersion: json['version'],
     );
   }
