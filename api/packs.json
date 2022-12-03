@@ -60,11 +60,21 @@
         "name":"Jackbox Party Pack 8",
         "description":"Le huitième party pack de Jackbox",
         "games":[
+            
+        ],
+        "icon":"jpp8.ico",
+        "background":"backgrounds/jpp8.jpg"
+    },
+    {
+        "id":"jpp9",
+        "name":"Jackbox Party Pack 9",
+        "description":"Le neuvième party pack de Jackbox",
+        "games":[
             {
                 "id":"fibbage4",
                 "name":"Fibbage 4",
                 "description":"La nouvelle version de Fibbage avec encore plus de moyens de tromper vos amis",
-                "background":"game_backgrounds/fibbage4.webp",
+                "background":"game_backgrounds/Fibbage4.webp",
                 "version":"1.0.0"
             },
             {
@@ -92,23 +102,7 @@
                 "id":"quixort",
                 "name":"Quixort",
                 "description":"Ces blocs ne vont pas se trier tout seuls",
-                "background":"game_backgrounds/Nonsensory.webp",
-                "version":"1.0.0"
-            }
-        ],
-        "icon":"jpp8.ico",
-        "background":"backgrounds/jpp8.jpg"
-    },
-    {
-        "id":"jpp9",
-        "name":"Jackbox Party Pack 9",
-        "description":"Le neuvième party pack de Jackbox",
-        "games":[
-            {
-                "id":"roomerang",
-                "name":"Roomerang",
-                "description":"Roomerang",
-                "background":"game_backgrounds/Roomerang.webp",
+                "background":"game_backgrounds/Quixort.webp",
                 "version":"1.0.0"
             }
         ],
