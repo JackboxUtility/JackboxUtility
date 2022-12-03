@@ -1,6 +1,8 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/model/jackboxgame.dart';
 
+import '../../services/api/api_service.dart';
+
 class UserJackboxGame {
   final JackboxGame game;
   final String? installedVersion;
@@ -24,6 +26,10 @@ class UserJackboxGame {
     } else {
       return UserInstalledPatchStatus.INEXISTANT;
     }
+  }
+
+  Future<void> downloadPatch() async {
+    await APIService().downloadPatch(game);
   }
 }
 

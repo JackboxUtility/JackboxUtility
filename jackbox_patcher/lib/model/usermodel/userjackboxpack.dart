@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:jackbox_patcher/model/jackboxpack.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
+import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 
 class UserJackboxPack {
@@ -24,5 +25,5 @@ class UserJackboxPack {
   Future<void> setPath(String p) async{
     this.path = p;
     await UserData().savePack(this);
-  }
+  } 
 }

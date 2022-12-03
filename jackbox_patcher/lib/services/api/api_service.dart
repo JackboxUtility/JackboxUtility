@@ -37,6 +37,7 @@ class APIService {
   // Download patch
   Future<File> downloadPatch(JackboxGame game) async {
     Dio dio = Dio();
+    print('$baseAssets/${game.patchPath}');
     final response = await dio.downloadUri(
         Uri.parse('$baseAssets/${game.patchPath}'),
         "./${game.id}_${game.latestVersion}.zip");

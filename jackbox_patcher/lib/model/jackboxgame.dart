@@ -24,7 +24,7 @@ class JackboxGame {
       description: json['description'],
       background: json['background'],
       latestVersion: json['version'],
-      patchPath: json['patch'],
+      patchPath: json['patch_path'],
       path: json['path'],
     );
   }

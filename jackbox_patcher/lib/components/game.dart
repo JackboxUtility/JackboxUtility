@@ -135,7 +135,9 @@ class _GameCardState extends State<GameCard> {
             child: Text("Annuler"),
           ),
           TextButton(
-            onPressed: () => Navigator.pop(context),
+            onPressed: () {
+              widget.game.downloadPatch();
+            },
             child: Text("Continuer"),
           ),
         ],
