@@ -82,9 +82,9 @@ class _PackWidgetState extends State<PackWidget> {
   }
 
   Widget _buildGames() {
-    return Padding(padding: EdgeInsets.symmetric(horizontal: 6),child:StaggeredGrid.count(
-          mainAxisSpacing: 6,
-          crossAxisSpacing: 6,
+    return Padding(padding: EdgeInsets.only(left: 20, right:20, bottom: 20),child:StaggeredGrid.count(
+          mainAxisSpacing: 20,
+          crossAxisSpacing: 20,
           crossAxisCount: 3,
             children: widget.userPack.games
                 .map((e) => GameCard(pack:widget.userPack,game: e))

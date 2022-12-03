@@ -55,6 +55,7 @@ class _GameCardState extends State<GameCard> {
                       shape: BoxShape.circle,
                     )))),
         Container(
+          height:200,
             margin: EdgeInsets.only(top: 25),
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(8.0),
@@ -78,7 +79,7 @@ class _GameCardState extends State<GameCard> {
                                       SizedBox(height:10),
                                   Text(
                                       widget.game.game.description,),
-                                  SizedBox(height:20),
+                                  Expanded(child:SizedBox()),
                                   Row(children: [
                                     Expanded(
                                         child: Button(

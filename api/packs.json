@@ -94,7 +94,7 @@
             {
                 "id":"nonsensory",
                 "name":"Nonsensory",
-                "description":"Ecrivez, désinnez et lisez dans les pensées",
+                "description":"Écrivez, déssinez et lisez dans les pensées",
                 "background":"game_backgrounds/Nonsensory.webp",
                 "version":"1.0.0"
             },
