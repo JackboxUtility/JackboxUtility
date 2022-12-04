@@ -35,7 +35,48 @@
         "id":"jpp5",
         "name":"Jackbox Party Pack 5",
         "description":"Le cinquième party pack de Jackbox",
-        "games":[],
+        "games":[
+            {
+                "id":"ydkjfullstream",
+                "name":"You Don't Know Jack Full Stream",
+                "description":"Répondez aux questions tordus de Cookie",
+                "background":"game_backgrounds/YDKJFullStream.webp",
+                "version":"",
+                "path":"games/YDKJ2018"
+            },
+            {
+                "id":"splittheroom",
+                "name":"Split The Room",
+                "description":"Essayez de spliter la concurrence",
+                "background":"game_backgrounds/SplitTheRoom.webp",
+                "version":"",
+                "path":"games/SplitTheRoom"
+            },
+            {
+                "id":"patentlystupid",
+                "name":"Patently Stupid",
+                "description":"Inventez des choses... stupides",
+                "background":"game_backgrounds/PatentlyStupid.webp",
+                "version":"",
+                "path":"games/PatentlyStupid"
+            },
+            {
+                "id":"madversecity",
+                "name":"Mad Verse City",
+                "description":"Battez-vous dans des duels de rap",
+                "background":"game_backgrounds/MadVerseCity.webp",
+                "version":"",
+                "path":"games/RapBattle"
+            },
+            {
+                "id":"zeepledome",
+                "name":"Zeeple Dome",
+                "description":"Combattez-vous en temps réel",
+                "background":"game_backgrounds/ZeepleDome.webp",
+                "version":"",
+                "path":"games/SlingShoot"
+            }
+        ],
         "icon":"jpp5.ico",
         "background":"backgrounds/jpp5.jpg"
     },
