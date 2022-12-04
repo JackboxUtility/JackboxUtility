@@ -20,6 +20,7 @@ class UserData {
   }
 
   List<UserJackboxPack> packs = [];
+  String welcomeMessage = "";
 
   Future<void> syncPacks() async {
     List<JackboxPack> networkPacks = await APIService().getPacks();
@@ -36,6 +37,10 @@ class UserData {
     }
   }
 
+  Future<void> syncWelcomeMessage() async {
+    welcomeMessage = await APIService().getWelcome();
+  }
+
   Future<void> savePack(UserJackboxPack pack) async {
     await preferences.setString("${pack.pack.id}_path", pack.path!);
     for (var game in pack.games) {
@@ -50,9 +55,8 @@ class UserData {
     if (game.installedVersion != null) {
       await preferences.setString(
           "${game.game.id}_version", game.installedVersion!);
-    }else{
-      await preferences.remove(
-          "${game.game.id}_version");
+    } else {
+      await preferences.remove("${game.game.id}_version");
     }
   }
 

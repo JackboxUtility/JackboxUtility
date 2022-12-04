@@ -34,6 +34,16 @@ class APIService {
     }
   }
 
+  Future<String> getWelcome() async{
+    final response =
+    await get(Uri.parse('$baseEndpoint' + APIEndpoints.WELCOME.path));
+    if (response.statusCode == 200) {
+      return response.body;
+    } else {
+      throw Exception('Failed to load welcome');
+    }
+  }
+
   // Download patch
   Future<String> downloadPatch(
       JackboxGame game, void Function(double, double) progressCallback) async {

@@ -1,5 +1,6 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:jackbox_patcher/components/menu.dart';
 import 'package:jackbox_patcher/components/pack.dart';
 import 'package:jackbox_patcher/model/jackboxpack.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
@@ -18,7 +19,7 @@ class _MainContainerState extends State<MainContainer> {
 
   @override
   void initState() {
-    _loadPacks();
+    _load();
     super.initState();
   }
 
@@ -45,7 +46,7 @@ class _MainContainerState extends State<MainContainer> {
           icon: Icon(FluentIcons.home),
           title: Text("Menu"),
           body: Center(
-            child: Text(_loaded ? "Menu" : "Chargement..."),
+            child: _loaded ? MenuWidget() : Text("Chargement..."),
           )),
     ];
     if (UserData().packs.isNotEmpty) {
@@ -62,10 +63,19 @@ class _MainContainerState extends State<MainContainer> {
     return items;
   }
 
-  Future<void> _loadPacks() async {
-    await UserData().syncPacks();
+  void _load() async {
+    await _loadWelcome();
+    await _loadPacks();
     setState(() {
       _loaded = true;
     });
+  }
+
+  Future<void> _loadWelcome() async {
+    await UserData().syncWelcomeMessage();
+  }
+
+  Future<void> _loadPacks() async {
+    await UserData().syncPacks();
   }
 }

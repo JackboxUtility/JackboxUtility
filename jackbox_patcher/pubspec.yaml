@@ -38,6 +38,7 @@ dependencies:
   cached_network_image:
   dio:
   archive:
+  flutter_markdown:
 
 
   # The following adds the Cupertino Icons font to your application.

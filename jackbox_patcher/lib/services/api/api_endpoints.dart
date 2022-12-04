@@ -1,5 +1,6 @@
 enum APIEndpoints {
-  PACKS
+  PACKS,
+  WELCOME
 }
 
 extension APIEndpointsExtension on APIEndpoints {
@@ -7,6 +8,8 @@ extension APIEndpointsExtension on APIEndpoints {
     switch (this) {
       case APIEndpoints.PACKS:
         return '/packs.json';
+      case APIEndpoints.WELCOME:
+        return '/welcome.md';
     }
   }
 }
