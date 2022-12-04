@@ -30,20 +30,36 @@
                 "path":"games/Fibbage3"
             },
             {
-                "id":"survivetheinternet",
-                "name":"Survive The Internet",
-                "description":"Survivez à la magie d'internet",
+                "id":"survivetheinternet_fr",
+                "name":"Survive The Internet FR",
+                "description":"Traduisez votre jeu en Français !",
+                "authors":"CubicOtter",
                 "background":"game_backgrounds/SurviveTheInternet.webp",
-                "version":"",
-                "path":"games/SurviveTheInternet"
+                "version":"1.0.0",
+                "path":"games/SurviveTheInternet",
+                "patch_path":"patchs/survivetheinternet_1.0.0.zip",
+                "patch_type":{
+                    "game_text":true,
+                    "game_assets":false,
+                    "website":false,
+                    "audios":false
+                }
             },
             {
                 "id":"monsterseekingmonster",
                 "name":"Monster Seeking Monster",
                 "description":"Les monstres aussi peuvent être amoureux",
+                "authors":"Fizzrocks et Alexis",
                 "background":"game_backgrounds/MonsterSeekingMonster.webp",
-                "version":"",
-                "path":"games/MonsterMingle"
+                "version":"1.0.0",
+                "path":"games/MonsterMingle",
+                "patch_path":"patchs/monsterseekingmonster_1.0.0.zip",
+                "patch_type":{
+                    "game_text":true,
+                    "game_assets":true,
+                    "website":true,
+                    "audios":false
+                }
             },
             {
                 "id":"bracketeering",

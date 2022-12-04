@@ -74,8 +74,9 @@ class _GameCardState extends State<GameCard> {
                                   child: Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 12),
                                 child: Column(children: [
+                                  _buildPatchTypeIcons(),
                                   Text(widget.game.game.name,
-                                  overflow: TextOverflow.ellipsis,
+                                      overflow: TextOverflow.ellipsis,
                                       style: TextStyle(fontSize: 25)),
                                   SizedBox(height: 10),
                                   Text(
@@ -116,6 +117,9 @@ class _GameCardState extends State<GameCard> {
                           .color,
                       shape: BoxShape.circle,
                     )))),
+        Container(
+            margin: EdgeInsets.only(top: 30, right: 5),
+            child: Icon(FluentIcons.text_box)),
       ],
     ));
   }
@@ -207,6 +211,29 @@ class _GameCardState extends State<GameCard> {
                     style: TextStyle(fontSize: 16)),
               ]))),
     );
+  }
+
+  Widget _buildPatchTypeIcons() {
+    List<Widget> patchType = [];
+    if (widget.game.game.patchType!.gameText) {
+      patchType.add(Icon(FluentIcons.text_box));
+    }
+    if (widget.game.game.patchType!.gameAssets) {
+      patchType.add(Icon(FluentIcons.picture));
+    }
+    if (widget.game.game.patchType!.website) {
+      patchType.add(Icon(FluentIcons.internet_sharing));
+    }
+    if (widget.game.game.patchType!.audios) {
+      patchType.add(Icon(FluentIcons.music_note));
+    }
+
+    return Container(
+        child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: patchType
+            
+            ));
   }
 
   Widget _buildRowButtons() {
