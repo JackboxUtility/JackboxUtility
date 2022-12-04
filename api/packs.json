@@ -24,7 +24,7 @@
             {
                 "id":"survivetheinternet_fr",
                 "name":"Survive The Internet FR",
-                "smallDescription":"Traduisez votre jeu en Français !",
+                "small_description":"Traduisez votre jeu en Français !",
                 "description":"Ce patch transforme votre jeu en français !\nIl traduit principalement le contenu textuel du jeu",
                 "authors":"CubicOtter",
                 "background":"game_backgrounds/SurviveTheInternet.webp",
@@ -41,7 +41,7 @@
             {
                 "id":"monsterseekingmonster",
                 "name":"Monster Seeking Monster",
-                "smallDescription":"Traduisez votre jeu en Français !",
+                "small_description":"Traduisez votre jeu en Français !",
                 "description":"Les monstres aussi peuvent être amoureux",
                 "authors":"Fizzrocks et Alexis",
                 "background":"game_backgrounds/MonsterSeekingMonster.webp",

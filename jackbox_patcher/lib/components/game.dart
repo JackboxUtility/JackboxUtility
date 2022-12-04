@@ -87,7 +87,7 @@ class _GameCardState extends State<GameCard> {
                                         style: TextStyle(fontSize: 25)),
                                     SizedBox(height: 10),
                                     Text(
-                                      widget.game.game.description,
+                                      widget.game.game.smallDescription!,
                                     ),
                                     Expanded(child: SizedBox()),
                                     _buildRowButtons()

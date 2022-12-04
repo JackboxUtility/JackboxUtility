@@ -2,6 +2,7 @@ class JackboxGame {
   final String id;
   final String name;
   final String description;
+  final String? smallDescription;
   final String background;
   final String latestVersion;
   final String? patchPath;
@@ -19,6 +20,7 @@ class JackboxGame {
     required this.path,
     required this.patchType,
     required this.authors,
+    this.smallDescription,
   });
 
   factory JackboxGame.fromJson(Map<String, dynamic> json) {
@@ -34,6 +36,7 @@ class JackboxGame {
           ? null
           : PatchType.fromJson(json['patch_type']),
       authors: json['authors'],
+      smallDescription: json['small_description'],
     );
   }
 }
