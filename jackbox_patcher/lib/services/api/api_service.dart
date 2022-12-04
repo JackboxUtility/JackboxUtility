@@ -52,10 +52,10 @@ class APIService {
     print('$baseAssets/${game.patchPath}');
     final response = await dio.downloadUri(
         Uri.parse('$baseAssets/${game.patchPath}'),
-        "./${game.id}_${game.latestVersion}.zip",
+        "./downloads/tmp.zip",
         onReceiveProgress: (received, total) { progressCallback(received.toDouble(), total.toDouble()); });
     if (response.statusCode == 200) {
-      return "./${game.id}_${game.latestVersion}.zip";
+      return "./downloads/tmp.zip";
     } else {
       throw Exception('Failed to download patch');
     }

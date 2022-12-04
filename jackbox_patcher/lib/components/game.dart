@@ -75,6 +75,7 @@ class _GameCardState extends State<GameCard> {
                                 padding: EdgeInsets.symmetric(horizontal: 12),
                                 child: Column(children: [
                                   Text(widget.game.game.name,
+                                  overflow: TextOverflow.ellipsis,
                                       style: TextStyle(fontSize: 25)),
                                   SizedBox(height: 10),
                                   Text(

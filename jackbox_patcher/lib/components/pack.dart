@@ -172,7 +172,7 @@ class _PackWidgetState extends State<PackWidget> {
         context: context,
         builder: (context) => ContentDialog(
               title: Text("Paramètres"),
-              content: Column(
+              content: SizedBox(height:100,child:Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text("Chemin du pack"),
@@ -185,7 +185,7 @@ class _PackWidgetState extends State<PackWidget> {
                         widget.userPack.setPath(value);
                       },
                     )
-                  ]),
+                  ])),
               actions: [
                 TextButton(
                     child: Text("Valider"),

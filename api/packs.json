@@ -51,7 +51,48 @@
         "id":"jpp7",
         "name":"Jackbox Party Pack 7",
         "description":"Le septième party pack de Jackbox",
-        "games":[],
+        "games":[
+            {
+                "id":"quiplashthree",
+                "name":"Quiplash 3",
+                "description":"Essayez d'être le plus drôle possible",
+                "background":"game_backgrounds/Quiplash3.webp",
+                "version":"",
+                "path":"games/Quiplash3"
+            },
+            {
+                "id":"thedevilsandthedetails",
+                "name":"The devil's and the details",
+                "description":"Travaillez... Comme des humains...",
+                "background":"game_backgrounds/TheDevilsAndTheDetails.webp",
+                "version":"",
+                "path":"games/Everyday"
+            },
+            {
+                "id":"champdup",
+                "name":"Champ'd Up",
+                "description":"Dessinez et envoyez vos combattants au combat",
+                "background":"game_backgrounds/Champdup.webp",
+                "version":"",
+                "path":"games/WorldChampions"
+            },
+            {
+                "id":"talkingpoints",
+                "name":"Talking Points",
+                "description":"Parlez et présentez votre pire sujet",
+                "background":"game_backgrounds/TalkingPoints.webp",
+                "version":"",
+                "path":"games/JackboxTalks"
+            },
+            {
+                "id":"blatherround",
+                "name":"Blather Round",
+                "description":"Faites découvrir des mots... difficilement",
+                "background":"game_backgrounds/BlatherRound.webp",
+                "version":"",
+                "path":"games/BlankyBlank"
+            }
+        ],
         "icon":"jpp7.ico",
         "background":"backgrounds/jpp7.jpg"
     },
