@@ -122,8 +122,9 @@
                 "name":"Push The Button",
                 "description":"Découvrez qui sont les aliens",
                 "background":"game_backgrounds/PushTheButton.webp",
-                "version":"",
-                "path":"games/PushTheButton"
+                "version":"1.0.0",
+                "path":"games/PushTheButton",
+                "patch_path":"patchs/pushthebutton_1.0.0.zip"
             }
         ],
         "icon":"jpp6.ico",
