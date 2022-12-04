@@ -9,7 +9,7 @@ extension APIEndpointsExtension on APIEndpoints {
       case APIEndpoints.PACKS:
         return '/packs.json';
       case APIEndpoints.WELCOME:
-        return '/welcome.md';
+        return '/welcome.json';
     }
   }
 }

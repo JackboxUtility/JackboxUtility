@@ -38,7 +38,8 @@ class APIService {
     final response =
     await get(Uri.parse('$baseEndpoint' + APIEndpoints.WELCOME.path));
     if (response.statusCode == 200) {
-      return response.body;
+      final Map<dynamic,dynamic> welcome = jsonDecode(response.body);
+      return welcome["data"];
     } else {
       throw Exception('Failed to load welcome');
     }
