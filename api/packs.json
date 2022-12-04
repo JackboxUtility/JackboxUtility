@@ -43,7 +43,48 @@
         "id":"jpp6",
         "name":"Jackbox Party Pack 6",
         "description":"Le sixième party pack de Jackbox",
-        "games":[],
+        "games":[
+            {
+                "id":"tmp2",
+                "name":"Trivia Murder Party 2",
+                "description":"Arriverez-vous à survivre à l'hotel",
+                "background":"game_backgrounds/TriviaMurderParty2.webp",
+                "version":"",
+                "path":"games/TriviaDeath2"
+            },
+            {
+                "id":"rolemodels",
+                "name":"Role models",
+                "description":"Qui sont vraiment vos amis ?",
+                "background":"game_backgrounds/RoleModels.webp",
+                "version":"",
+                "path":"games/RoleModels"
+            },
+            {
+                "id":"jokeboat",
+                "name":"Joke Boat",
+                "description":"Rigolez sur un bateau",
+                "background":"game_backgrounds/JokeBoat.webp",
+                "version":"",
+                "path":"games/Jokeboat"
+            },
+            {
+                "id":"dictionarium",
+                "name":"Dictionarium",
+                "description":"Inventez des mots",
+                "background":"game_backgrounds/Dictionarium.webp",
+                "version":"",
+                "path":"games/Ridictionary"
+            },
+            {
+                "id":"pushthebutton",
+                "name":"Push The Button",
+                "description":"Découvrez qui sont les aliens",
+                "background":"game_backgrounds/PushTheButton.webp",
+                "version":"",
+                "path":"games/PushTheButton"
+            }
+        ],
         "icon":"jpp6.ico",
         "background":"backgrounds/jpp6.jpg"
     },
