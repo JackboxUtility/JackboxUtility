@@ -39,6 +39,7 @@ dependencies:
   dio:
   archive:
   flutter_markdown:
+  url_launcher:
 
 
   # The following adds the Cupertino Icons font to your application.
