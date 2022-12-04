@@ -25,7 +25,7 @@
                 "id":"survivetheinternet_fr",
                 "name":"Survive The Internet FR",
                 "small_description":"Traduisez votre jeu en Français !",
-                "description":"Ce patch transforme votre jeu en français !\nIl traduit principalement le contenu textuel du jeu",
+                "description":"Ce patch transforme votre jeu en français !",
                 "authors":"CubicOtter",
                 "background":"game_backgrounds/SurviveTheInternet.webp",
                 "version":"1.0.0",
@@ -42,7 +42,7 @@
                 "id":"monsterseekingmonster",
                 "name":"Monster Seeking Monster",
                 "small_description":"Traduisez votre jeu en Français !",
-                "description":"Les monstres aussi peuvent être amoureux",
+                "description":"Ce patch traduit votre jeu en français !",
                 "authors":"Fizzrocks et Alexis",
                 "background":"game_backgrounds/MonsterSeekingMonster.webp",
                 "version":"1.0.0",
@@ -65,44 +65,21 @@
         "description":"Le cinquième party pack de Jackbox",
         "games":[
             {
-                "id":"ydkjfullstream",
-                "name":"You Don't Know Jack Full Stream",
-                "description":"Répondez aux questions tordues de Cookie",
-                "background":"game_backgrounds/YDKJFullStream.webp",
-                "version":"",
-                "path":"games/YDKJ2018"
-            },
-            {
-                "id":"splittheroom",
-                "name":"Split The Room",
-                "description":"Essayez de spliter la concurrence",
-                "background":"game_backgrounds/SplitTheRoom.webp",
-                "version":"",
-                "path":"games/SplitTheRoom"
-            },
-            {
                 "id":"patentlystupid",
                 "name":"Patently Stupid",
-                "description":"Inventez des choses... stupides",
+                "small_description":"Traduction du jeu en Français",
+                "description":"Ce patch traduit votre jeu en français !",
                 "background":"game_backgrounds/PatentlyStupid.webp",
-                "version":"",
-                "path":"games/PatentlyStupid"
-            },
-            {
-                "id":"madversecity",
-                "name":"Mad Verse City",
-                "description":"Battez-vous dans des duels de rap",
-                "background":"game_backgrounds/MadVerseCity.webp",
-                "version":"",
-                "path":"games/RapBattle"
-            },
-            {
-                "id":"zeepledome",
-                "name":"Zeeple Dome",
-                "description":"Combattez-vous en temps réel",
-                "background":"game_backgrounds/ZeepleDome.webp",
-                "version":"",
-                "path":"games/SlingShoot"
+                "version":"1.0.0",
+                "authors":"Alexis",
+                "path":"games/PatentlyStupid",
+                "patch_path":"patchs/patentlystupid_1.0.0.zip",
+                "patch_type":{
+                    "game_text":true,
+                    "game_assets":false,
+                    "website":false,
+                    "audios":false
+                }
             }
         ],
         "icon":"jpp5.ico",
@@ -114,45 +91,55 @@
         "description":"Le sixième party pack de Jackbox",
         "games":[
             {
-                "id":"tmp2",
-                "name":"Trivia Murder Party 2",
-                "description":"Arriverez-vous à survivre à l'hotel",
-                "background":"game_backgrounds/TriviaMurderParty2.webp",
-                "version":"",
-                "path":"games/TriviaDeath2"
-            },
-            {
-                "id":"rolemodels",
-                "name":"Role models",
-                "description":"Qui sont vraiment vos amis ?",
-                "background":"game_backgrounds/RoleModels.webp",
-                "version":"",
-                "path":"games/RoleModels"
-            },
-            {
                 "id":"jokeboat",
                 "name":"Joke Boat",
-                "description":"Rigolez sur un bateau",
+                "small_description":"Traduisez votre jeu en Français !",
+                "description":"Ce patch traduit votre jeu en français !",
+                "authors":"CubicOtter",
                 "background":"game_backgrounds/JokeBoat.webp",
-                "version":"",
-                "path":"games/Jokeboat"
+                "version":"1.0.0",
+                "path":"games/Jokeboat",
+                "patch_path":"patchs/jokeboat_1.0.0.zip",
+                "patch_type":{
+                    "game_text":true,
+                    "game_assets":false,
+                    "website":false,
+                    "audios":false
+                }
             },
             {
                 "id":"dictionarium",
                 "name":"Dictionarium",
-                "description":"Inventez des mots",
+                "small_description":"Traduisez votre jeu en Français !",
+                "description":"Ce patch traduit votre jeu en français !",
+                "authors":"CubicOtter",
                 "background":"game_backgrounds/Dictionarium.webp",
-                "version":"",
-                "path":"games/Ridictionary"
+                "version":"1.0.0",
+                "path":"games/Ridictionary",
+                "patch_path":"patchs/dictionarium_1.0.0.zip",
+                "patch_type":{
+                    "game_text":true,
+                    "game_assets":false,
+                    "website":false,
+                    "audios":false
+                }
             },
             {
                 "id":"pushthebutton",
                 "name":"Push The Button",
-                "description":"Découvrez qui sont les aliens",
+                "small_description":"Traduisez votre jeu en Français !",
+                "description":"Ce patch traduit votre jeu en français !",
+                "authors":"Alexis et Fizzrocks",
                 "background":"game_backgrounds/PushTheButton.webp",
                 "version":"1.0.0",
                 "path":"games/PushTheButton",
-                "patch_path":"patchs/pushthebutton_1.0.0.zip"
+                "patch_path":"patchs/pushthebutton_1.0.0.zip",
+                "patch_type":{
+                    "game_text":true,
+                    "game_assets":true,
+                    "website":true,
+                    "audios":false
+                }
             }
         ],
         "icon":"jpp6.ico",
@@ -164,44 +151,38 @@
         "description":"Le septième party pack de Jackbox",
         "games":[
             {
-                "id":"quiplashthree",
-                "name":"Quiplash 3",
-                "description":"Essayez d'être le plus drôle possible",
-                "background":"game_backgrounds/Quiplash3.webp",
-                "version":"",
-                "path":"games/Quiplash3"
-            },
-            {
-                "id":"thedevilsandthedetails",
-                "name":"The devil's and the details",
-                "description":"Travaillez... Comme des humains...",
-                "background":"game_backgrounds/TheDevilsAndTheDetails.webp",
-                "version":"",
-                "path":"games/Everyday"
-            },
-            {
                 "id":"champdup",
                 "name":"Champ'd Up",
+                "small_description":"Traduisez votre jeu en Français !",
                 "description":"Dessinez et envoyez vos combattants au combat",
+                "authors":"CubicOtter",
                 "background":"game_backgrounds/Champdup.webp",
-                "version":"",
-                "path":"games/WorldChampions"
+                "version":"1.0.0",
+                "path":"games/WorldChampions",
+                "patch_path":"patchs/champdup_1.0.0.zip",
+                "patch_type":{
+                    "game_text":true,
+                    "game_assets":true,
+                    "website":false,
+                    "audios":false
+                }
             },
             {
                 "id":"talkingpoints",
                 "name":"Talking Points",
+                "small_description":"Traduisez votre jeu en Français !",
                 "description":"Parlez et présentez votre pire sujet",
+                "authors":"Alexis",
                 "background":"game_backgrounds/TalkingPoints.webp",
-                "version":"",
-                "path":"games/JackboxTalks"
-            },
-            {
-                "id":"blatherround",
-                "name":"Blather Round",
-                "description":"Faites découvrir des mots... difficilement",
-                "background":"game_backgrounds/BlatherRound.webp",
-                "version":"",
-                "path":"games/BlankyBlank"
+                "version":"1.0.0",
+                "path":"games/JackboxTalks",
+                "patch_path":"patchs/talkingpoints_1.0.0.zip",
+                "patch_type":{
+                    "game_text":true,
+                    "game_assets":false,
+                    "website":false,
+                    "audios":false
+                }
             }
         ],
         "icon":"jpp7.ico",
@@ -213,97 +194,24 @@
         "description":"Le huitième party pack de Jackbox",
         "games":[
             {
-                "id":"drawful_animate",
-                "name":"Drawful Animate",
-                "description":"La nouvelle version de Drawful avec des dessins animés",
-                "background":"game_backgrounds/DrawfulAnimate.webp",
-                "version":"",
-                "path":"games/DrawfulAnimate"
-            },
-            {
                 "id":"jobjob",
                 "name":"Job Job",
+                "small_description":"Traduisez votre jeu en Français !",
                 "description":"Utilisez les mots des autres pour gagner des points",
+                "authors":"Alexis",
                 "background":"game_backgrounds/JobJob.webp",
                 "version":"1.0.0",
                 "path":"games/JobGame",
-                "patch_path":"patchs/jobjob_1.0.0.zip"
-            },
-            {
-                "id":"thewheelofenormousproportions",
-                "name":"The wheel of enormous proportions",
-                "description":"Faites tourner la roue et gagnez !",
-                "background":"game_backgrounds/TheWheelOfEnormousProportions.webp",
-                "version":"",
-                "path":"games/TheWheel"
-            },
-            {
-                "id":"thepollmine",
-                "name":"The poll mine",
-                "description":"Arriverez-vou à sortir de la caverne ?",
-                "background":"game_backgrounds/ThePollMine.webp",
-                "version":"",
-                "path":"games/SurveyBomb"
-            },
-            {
-                "id":"weaponsdrawn",
-                "name":"Weapon's Drawn",
-                "description":"Tuez vos ennemis sans vous faire découvrir",
-                "background":"game_backgrounds/WeaponsDrawn.webp",
-                "version":"",
-                "path":"games/MurderDetectives"
+                "patch_path":"patchs/jobjob_1.0.0.zip",
+                "patch_type":{
+                    "game_text":true,
+                    "game_assets":false,
+                    "website":false,
+                    "audios":false
+                }
             }
         ],
         "icon":"jpp8.ico",
         "background":"backgrounds/jpp8.jpg"
-    },
-    {
-        "id":"jpp9",
-        "name":"Jackbox Party Pack 9",
-        "description":"Le neuvième party pack de Jackbox",
-        "games":[
-            {
-                "id":"fibbage4",
-                "name":"Fibbage 4",
-                "description":"La nouvelle version de Fibbage avec encore plus de moyens de tromper vos amis",
-                "background":"game_backgrounds/Fibbage4.webp",
-                "version":"",
-                "path":"games/Fibbage4"
-            },
-            {
-                "id":"roomerang",
-                "name":"Roomerang",
-                "description":"Êtes-vous là pour vous faire des amis ou pour... GAGNER ?",
-                "background":"game_backgrounds/Roomerang.webp",
-                "version":"",
-                "path":"games/MakeFriends"
-            },
-            {
-                "id":"junktopia",
-                "name":"Junktopia",
-                "description":"Tous les objets étranges ont une histoire",
-                "background":"game_backgrounds/Junktopia.webp",
-                "version":"",
-                "path":"games/AntiqueGame"
-            },
-            {
-                "id":"nonsensory",
-                "name":"Nonsensory",
-                "description":"Écrivez, dessinez et lisez dans les pensées",
-                "background":"game_backgrounds/Nonsensory.webp",
-                "version":"",
-                "path":"games/RangeGame"
-            },
-            {
-                "id":"quixort",
-                "name":"Quixort",
-                "description":"Ces blocs ne vont pas se trier tout seuls",
-                "background":"game_backgrounds/Quixort.webp",
-                "version":"",
-                "path":"games/Lineup"
-            }
-        ],
-        "icon":"jpp9.ico",
-        "background":"backgrounds/jpp9.jpg"
     }
 ]

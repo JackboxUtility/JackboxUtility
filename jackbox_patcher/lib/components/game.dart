@@ -323,6 +323,21 @@ class _GameCardState extends State<GameCard> {
               children: [
               Text("Description", style: TextStyle(fontSize: 20)),
               Text(widget.game.game.description),
+              SizedBox(height:20),
+              Text("Modification du patch", style: TextStyle(fontSize: 20)),
+              Text("Ce patch modifie le jeu de la manière suivante :"),
+              widget.game.game.patchType!.gameText
+                  ? Text("- Modification du contenu textuel du jeu")
+                  : SizedBox(),
+              widget.game.game.patchType!.gameAssets
+                  ? Text("- Modification des fichiers internes du jeu (images, textes...)")
+                  : SizedBox(),
+              widget.game.game.patchType!.website
+                  ? Text("- Modification du contenu textuel du client jackbox (seulement disponible sur laboxdejack.fr)")
+                  : SizedBox(),
+              widget.game.game.patchType!.audios
+                  ? Text("- Modification des fichiers audio du jeu")
+                  : SizedBox(),
             SizedBox(height: 20,),
             Text("Version", style:TextStyle(fontSize: 20)),
             Text("${widget.game.game.latestVersion}"),
