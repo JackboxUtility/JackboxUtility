@@ -27,7 +27,7 @@ class UserData {
       packs.add(userPack);
       for (var game in pack.games) {
         final String? gameVersionInstalled =
-            preferences.getString("${pack.id}_version");
+            preferences.getString("${game.id}_version");
         userPack.games.add(UserJackboxGame(
             game: game, installedVersion: gameVersionInstalled));
       }
@@ -42,5 +42,9 @@ class UserData {
             "${game.game.id}_version", game.installedVersion!);
       }
     }
+  }
+
+  Future<void> saveGame(UserJackboxGame game) async {
+    await preferences.setString("${game.game.id}_version", game.installedVersion!);
   }
 }

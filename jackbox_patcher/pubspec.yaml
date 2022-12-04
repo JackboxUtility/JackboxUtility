@@ -37,6 +37,7 @@ dependencies:
   palette_generator:
   cached_network_image:
   dio:
+  archive:
 
 
   # The following adds the Cupertino Icons font to your application.

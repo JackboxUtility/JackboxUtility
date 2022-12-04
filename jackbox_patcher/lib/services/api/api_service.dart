@@ -35,14 +35,16 @@ class APIService {
   }
 
   // Download patch
-  Future<File> downloadPatch(JackboxGame game) async {
+  Future<String> downloadPatch(
+      JackboxGame game, void Function(double, double) progressCallback) async {
     Dio dio = Dio();
     print('$baseAssets/${game.patchPath}');
     final response = await dio.downloadUri(
         Uri.parse('$baseAssets/${game.patchPath}'),
-        "./${game.id}_${game.latestVersion}.zip");
+        "./${game.id}_${game.latestVersion}.zip",
+        onReceiveProgress: (received, total) { progressCallback(received.toDouble(), total.toDouble()); });
     if (response.statusCode == 200) {
-      return File("./${game.id}_${game.latestVersion}.zip");
+      return "./${game.id}_${game.latestVersion}.zip";
     } else {
       throw Exception('Failed to download patch');
     }

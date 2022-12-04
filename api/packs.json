@@ -60,7 +60,47 @@
         "name":"Jackbox Party Pack 8",
         "description":"Le huitième party pack de Jackbox",
         "games":[
-            
+            {
+                "id":"drawful_animate",
+                "name":"Drawful Animate",
+                "description":"La nouvelle version de Drawful avec des dessins animés",
+                "background":"game_backgrounds/DrawfulAnimate.webp",
+                "version":"",
+                "path":"games/DrawfulAnimate"
+            },
+            {
+                "id":"jobjob",
+                "name":"Job Job",
+                "description":"Utilisez les mots des autres pour gagner des points",
+                "background":"game_backgrounds/JobJob.webp",
+                "version":"1.0.0",
+                "path":"games/JobGame",
+                "patch_path":"patchs/jobjob_1.0.0.zip"
+            },
+            {
+                "id":"thewheelofenormousproportions",
+                "name":"The wheel of enormous proportions",
+                "description":"Faites tourner la roue et gagnez !",
+                "background":"game_backgrounds/TheWheelOfEnormousProportions.webp",
+                "version":"",
+                "path":"games/TheWheel"
+            },
+            {
+                "id":"thepollmine",
+                "name":"The poll mine",
+                "description":"Arriverez-vou à sortir de la caverne ?",
+                "background":"game_backgrounds/ThePollMine.webp",
+                "version":"",
+                "path":"games/SurveyBomb"
+            },
+            {
+                "id":"weaponsdrawn",
+                "name":"Weapon's Drawn",
+                "description":"Tuez vos ennemis sans vous faire découvrir",
+                "background":"game_backgrounds/WeaponsDrawn.webp",
+                "version":"",
+                "path":"games/MurderDetectives"
+            }
         ],
         "icon":"jpp8.ico",
         "background":"backgrounds/jpp8.jpg"
@@ -75,9 +115,8 @@
                 "name":"Fibbage 4",
                 "description":"La nouvelle version de Fibbage avec encore plus de moyens de tromper vos amis",
                 "background":"game_backgrounds/Fibbage4.webp",
-                "version":"1.0.0",
-                "path":"games/Fibbage4",
-                "patch_path":"patchs/fibbage4_1.0.0.zip"
+                "version":"",
+                "path":"games/Fibbage4"
             },
             {
                 "id":"roomerang",

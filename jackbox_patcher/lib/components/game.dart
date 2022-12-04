@@ -18,6 +18,10 @@ class GameCard extends StatefulWidget {
 
 class _GameCardState extends State<GameCard> {
   Color? backgroundColor;
+  int downloadingProgress = 0;
+  String status = "";
+  double progression = 0;
+  String substatus = "";
 
   @override
   void initState() {
@@ -125,23 +129,89 @@ class _GameCardState extends State<GameCard> {
   void _installPatchDialog() {
     showDialog(
       context: context,
-      builder: (context) => ContentDialog(
-        title: Text("Installation du patch"),
-        content: Text(
-            "Vous allez installer le patch. Cette action est irréversible."),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text("Annuler"),
-          ),
-          TextButton(
-            onPressed: () {
-              widget.game.downloadPatch();
-            },
-            child: Text("Continuer"),
-          ),
-        ],
-      ),
+      builder: (context) {
+        return StatefulBuilder(builder: (context, StateSetter setState) {
+          return downloadingProgress == 0
+              ? ContentDialog(
+                  title: Text("Installation du patch"),
+                  content: Text(
+                      "Vous allez installer le patch. Cette action est irréversible."),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: Text("Annuler"),
+                    ),
+                    TextButton(
+                      onPressed: () async {
+                        downloadingProgress = 1;
+                        setState(() {});
+                        await widget.game.downloadPatch(widget.pack.path!,
+                            (String stat, String substat, double progress) {
+                          status = stat;
+                          substatus = substat;
+                          progression = progress;
+                          setState(() {});
+                        });
+                        downloadingProgress = 2;
+                        setState(() {});
+                      },
+                      child: Text("Continuer"),
+                    ),
+                  ],
+                )
+              : (downloadingProgress == 1
+                  ? buildDownloadingPatchDialog(status, substatus, progression)
+                  : buildFinishDialog());
+        });
+      },
+    );
+  }
+
+  ContentDialog buildDownloadingPatchDialog(
+      String status, String substatus, double progression) {
+    return ContentDialog(
+      title: Text("Installation du patch"),
+      content: SizedBox(
+          height: 200,
+          child: Center(
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                ProgressRing(value: progression),
+                SizedBox(height: 10),
+                Text(status, style: TextStyle(fontSize: 20)),
+                Text(substatus, style: TextStyle(fontSize: 16)),
+              ]))),
+    );
+  }
+
+  ContentDialog buildFinishDialog() {
+    return ContentDialog(
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.pop(context);
+            downloadingProgress = 0;
+            setState(() {});
+          },
+          child: Text("Fermer"),
+        ),
+      ],
+      title: Text("Installation du patch"),
+      content: SizedBox(
+          height: 200,
+          child: Center(
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                Icon(FluentIcons.check_mark),
+                SizedBox(height: 10),
+                Text("Installation terminée", style: TextStyle(fontSize: 20)),
+                Text("Vous pouvez fermer cette pop-up",
+                    style: TextStyle(fontSize: 16)),
+              ]))),
     );
   }
 }

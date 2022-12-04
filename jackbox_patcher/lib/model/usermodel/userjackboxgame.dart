@@ -1,11 +1,15 @@
+import 'dart:io';
+
+import 'package:archive/archive_io.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/model/jackboxgame.dart';
+import 'package:jackbox_patcher/services/user/userdata.dart';
 
 import '../../services/api/api_service.dart';
 
 class UserJackboxGame {
   final JackboxGame game;
-  final String? installedVersion;
+  String? installedVersion;
 
   UserJackboxGame({
     required this.game,
@@ -28,8 +32,18 @@ class UserJackboxGame {
     }
   }
 
-  Future<void> downloadPatch() async {
-    await APIService().downloadPatch(game);
+  Future<void> downloadPatch(
+      String gameUri, void Function(String, String, double) callback) async {
+    callback("Téléchargement (1/3)", "Démarrage", 0);
+    String filePath = await APIService().downloadPatch(game, (double progress, double max){
+      callback("Téléchargement (1/3)",(progress/1000000).toString()+" MB /"+(max/1000000).toString()+" MB", (progress/max) * 100);
+    });
+    callback("Extraction (2/3)", "", 100);
+    await extractFileToDisk(filePath, gameUri + "/" + game.path!, asyncWrite: false);
+    callback("Finalisation (3/3)", "", 100);
+    installedVersion = game.latestVersion;
+    await UserData().saveGame(this);
+    //File(filePath).deleteSync(recursive: true);
   }
 }
 
