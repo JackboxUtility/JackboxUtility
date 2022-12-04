@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:jackbox_patcher/model/jackboxpack.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -45,6 +47,17 @@ class UserData {
   }
 
   Future<void> saveGame(UserJackboxGame game) async {
-    await preferences.setString("${game.game.id}_version", game.installedVersion!);
+    if (game.installedVersion != null) {
+      await preferences.setString(
+          "${game.game.id}_version", game.installedVersion!);
+    }else{
+      await preferences.remove(
+          "${game.game.id}_version");
+    }
+  }
+
+  Future<void> writeLogs(String logs) async {
+    File logFile = File("./logs.txt");
+    await logFile.writeAsString(logs);
   }
 }

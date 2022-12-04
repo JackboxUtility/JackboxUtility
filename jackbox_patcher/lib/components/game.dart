@@ -81,14 +81,7 @@ class _GameCardState extends State<GameCard> {
                                     widget.game.game.description,
                                   ),
                                   Expanded(child: SizedBox()),
-                                  Row(children: [
-                                    Expanded(
-                                        child: Button(
-                                            onPressed: () {
-                                              _installPatchDialog();
-                                            },
-                                            child: Text("Installer")))
-                                  ])
+                                  _buildRowButtons()
                                 ]),
                               ))
                             ]))))),
@@ -213,5 +206,76 @@ class _GameCardState extends State<GameCard> {
                     style: TextStyle(fontSize: 16)),
               ]))),
     );
+  }
+
+  Widget _buildRowButtons() {
+    void Function()? onPressFunction;
+    String buttonText = "";
+    bool removePatchButtonVisible = false;
+    UserInstalledPatchStatus status =
+        widget.game.getInstalledStatus(widget.pack.path);
+    if (status == UserInstalledPatchStatus.INEXISTANT ||
+        status == UserInstalledPatchStatus.INSTALLED) {
+      onPressFunction = null;
+    } else {
+      onPressFunction = () => _installPatchDialog();
+    }
+
+    switch (status) {
+      case UserInstalledPatchStatus.INEXISTANT:
+        buttonText = "Patch non disponible";
+        break;
+      case UserInstalledPatchStatus.INSTALLED:
+        buttonText = "Patch installé";
+        removePatchButtonVisible = true;
+        break;
+      case UserInstalledPatchStatus.INSTALLED_OUTDATED:
+        buttonText = "Mettre à jour";
+        removePatchButtonVisible = true;
+        break;
+      case UserInstalledPatchStatus.NOT_INSTALLED:
+        buttonText = "Installer";
+        break;
+      default:
+    }
+
+    return Row(children: [
+      Expanded(
+          child: Button(onPressed: onPressFunction, child: Text(buttonText))),
+      removePatchButtonVisible ? SizedBox(width: 10) : SizedBox(),
+      removePatchButtonVisible
+          ? IconButton(
+              icon: Icon(FluentIcons.remove),
+              onPressed: () {
+                _removePatchDialog();
+              })
+          : SizedBox(),
+    ]);
+  }
+
+  void _removePatchDialog() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return ContentDialog(
+            title: Text("Suppression de la version"),
+            content: Text(
+                "Si vous avez réinitialisé votre jeu, vous pouvez supprimer la version installée de cette application. Cela vous permettra de réinstaller les patchs."),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text("Annuler"),
+              ),
+              TextButton(
+                onPressed: () async {
+                  await widget.game.removePatch();
+                  Navigator.pop(context);
+                  setState(() {});
+                },
+                child: Text("Valider"),
+              ),
+            ],
+          );
+        });
   }
 }

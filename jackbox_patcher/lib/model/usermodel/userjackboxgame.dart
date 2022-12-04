@@ -17,7 +17,7 @@ class UserJackboxGame {
   });
 
   UserInstalledPatchStatus getInstalledStatus(String? packPath) {
-    if (packPath != null && packPath != "") {
+    if (game.latestVersion != "" && packPath != null && packPath != "") {
       if (installedVersion != null && installedVersion != "") {
         if (installedVersion == game.latestVersion) {
           return UserInstalledPatchStatus.INSTALLED;
@@ -34,16 +34,34 @@ class UserJackboxGame {
 
   Future<void> downloadPatch(
       String gameUri, void Function(String, String, double) callback) async {
-    callback("Téléchargement (1/3)", "Démarrage", 0);
-    String filePath = await APIService().downloadPatch(game, (double progress, double max){
-      callback("Téléchargement (1/3)",(progress/1000000).toString()+" MB /"+(max/1000000).toString()+" MB", (progress/max) * 100);
-    });
-    callback("Extraction (2/3)", "", 100);
-    await extractFileToDisk(filePath, gameUri + "/" + game.path!, asyncWrite: false);
-    callback("Finalisation (3/3)", "", 100);
-    installedVersion = game.latestVersion;
+    try {
+      callback("Téléchargement (1/3)", "Démarrage", 0);
+      String filePath =
+          await APIService().downloadPatch(game, (double progress, double max) {
+        callback(
+            "Téléchargement (1/3)",
+            (progress / 1000000).toString() +
+                " MB /" +
+                (max / 1000000).toString() +
+                " MB",
+            (progress / max) * 100);
+      });
+      callback("Extraction (2/3)", "", 100);
+      await extractFileToDisk(filePath, gameUri + "/" + game.path!,
+          asyncWrite: false);
+      callback("Finalisation (3/3)", "", 100);
+      installedVersion = game.latestVersion;
+      await UserData().saveGame(this);
+      //File(filePath).deleteSync(recursive: true);
+    } on Exception catch (e) {
+      callback("Erreur iconnue", "Contactez Alexis#1588 sur Discord", 0);
+      UserData().writeLogs(e.toString());
+    }
+  }
+
+  Future<void> removePatch() async {
+    installedVersion = null;
     await UserData().saveGame(this);
-    //File(filePath).deleteSync(recursive: true);
   }
 }
 
@@ -71,7 +89,7 @@ extension UserInstalledPatchStatusExtension on UserInstalledPatchStatus {
   String get info {
     switch (this) {
       case UserInstalledPatchStatus.INEXISTANT:
-        return "Chemin du jeu introuvable";
+        return "Aucune traduction disponible";
       case UserInstalledPatchStatus.NOT_INSTALLED:
         return "Un patch est disponible";
       case UserInstalledPatchStatus.INSTALLED:
