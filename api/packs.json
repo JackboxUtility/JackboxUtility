@@ -1,27 +1,20 @@
 [
     {
-        "id":"jpp1",
-        "name":"Jackbox Party Pack 1",
-        "description":"Le premier party pack de Jackbox",
-        "games":[],
-        "icon":"jpp1.ico",
-        "background":"backgrounds/jpp1.jpg"
-    },
-    {
         "id":"jpp2",
         "name":"Jackbox Party Pack 2",
         "description":"Le deuxième party pack de Jackbox",
-        "games":[],
+        "games":[
+            {
+                "id":"bombcorp",
+                "name":"Bomb Corp",
+                "description":"Désamorcez des bombes",
+                "background":"game_backgrounds/BombCorp.webp",
+                "version":"",
+                "path":"games/BombInterns"
+            }
+        ],
         "icon":"jpp2.ico",
         "background":"backgrounds/jpp2.jpg"
-    },
-    {
-        "id":"jpp3",
-        "name":"Jackbox Party Pack 3",
-        "description":"Le troisième party pack de Jackbox",
-        "games":[],
-        "icon":"jpp3.ico",
-        "background":"backgrounds/jpp3.jpg"
     },
     {
         "id":"jpp4",
@@ -46,7 +39,7 @@
             },
             {
                 "id":"monsterseekingmonster",
-                "name":"Patently Stupid",
+                "name":"Monster Seeking Monster",
                 "description":"Les monstres aussi peuvent être amoureux",
                 "background":"game_backgrounds/MonsterSeekingMonster.webp",
                 "version":"",
