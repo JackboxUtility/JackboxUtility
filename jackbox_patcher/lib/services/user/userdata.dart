@@ -22,6 +22,9 @@ class UserData {
   List<UserJackboxPack> packs = [];
   String welcomeMessage = "";
 
+  /// Sync every pack on the server.
+  /// 
+  /// Every pack available will be added to the list of packs (UserData().packs).
   Future<void> syncPacks() async {
     List<JackboxPack> networkPacks = await APIService().getPacks();
     for (var pack in networkPacks) {
@@ -37,10 +40,12 @@ class UserData {
     }
   }
 
+  /// Sync the welcome message from the server
   Future<void> syncWelcomeMessage() async {
     welcomeMessage = await APIService().getWelcome();
   }
 
+  /// Save pack (mostly used when the path parameter is changed)
   Future<void> savePack(UserJackboxPack pack) async {
     await preferences.setString("${pack.pack.id}_path", pack.path!);
     for (var game in pack.games) {
@@ -51,6 +56,7 @@ class UserData {
     }
   }
 
+  /// Save a game (mostly used when a patch is downloaded)
   Future<void> saveGame(UserJackboxGame game) async {
     if (game.installedVersion != null) {
       await preferences.setString(
@@ -60,6 +66,7 @@ class UserData {
     }
   }
 
+  /// Write logs (mostly used when a patch is not downloaded properly)
   Future<void> writeLogs(String logs) async {
     File logFile = File("./logs.txt");
     await logFile.writeAsString(logs);
