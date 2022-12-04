@@ -7,10 +7,17 @@
             {
                 "id":"bombcorp",
                 "name":"Bomb Corp",
-                "description":"Désamorcez des bombes",
+                "small_description":"Le patch arrive bientot !",
+                "description":"Le patch arrive bientot !",
                 "background":"game_backgrounds/BombCorp.webp",
                 "version":"",
-                "path":"games/BombInterns"
+                "path":"games/BombInterns",
+                "patch_type":{
+                    "game_text":true,
+                    "game_assets":true,
+                    "website":true,
+                    "audios":false
+                }
             }
         ],
         "icon":"jpp2.ico",
