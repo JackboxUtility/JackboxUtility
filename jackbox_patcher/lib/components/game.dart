@@ -64,29 +64,37 @@ class _GameCardState extends State<GameCard> {
                     blurAmount: 1,
                     tintAlpha: 1,
                     tint: Color.fromARGB(255, 48, 48, 48),
-                    child: Container(
-                        padding: EdgeInsets.only(bottom: 12),
-                        margin: EdgeInsets.only(top: 50),
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                  child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 12),
-                                child: Column(children: [
-                                  _buildPatchTypeIcons(),
-                                  Text(widget.game.game.name,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(fontSize: 25)),
-                                  SizedBox(height: 10),
-                                  Text(
-                                    widget.game.game.description,
-                                  ),
-                                  Expanded(child: SizedBox()),
-                                  _buildRowButtons()
-                                ]),
-                              ))
-                            ]))))),
+                    child: Stack(children: [
+                      Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                        IconButton(
+                            icon: Icon(FluentIcons.info),
+                            onPressed: () {
+                              _openPatchInfo();
+                            })
+                      ]),
+                      Container(
+                          padding: EdgeInsets.only(bottom: 12),
+                          margin: EdgeInsets.only(top: 50),
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                    child: Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 12),
+                                  child: Column(children: [
+                                    Text(widget.game.game.name,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(fontSize: 25)),
+                                    SizedBox(height: 10),
+                                    Text(
+                                      widget.game.game.description,
+                                    ),
+                                    Expanded(child: SizedBox()),
+                                    _buildRowButtons()
+                                  ]),
+                                ))
+                              ]))
+                    ])))),
         SizedBox(
             height: 75,
             child: Padding(
@@ -117,9 +125,6 @@ class _GameCardState extends State<GameCard> {
                           .color,
                       shape: BoxShape.circle,
                     )))),
-        Container(
-            margin: EdgeInsets.only(top: 30, right: 5),
-            child: Icon(FluentIcons.text_box)),
       ],
     ));
   }
@@ -213,28 +218,28 @@ class _GameCardState extends State<GameCard> {
     );
   }
 
-  Widget _buildPatchTypeIcons() {
-    List<Widget> patchType = [];
-    if (widget.game.game.patchType!.gameText) {
-      patchType.add(Icon(FluentIcons.text_box));
-    }
-    if (widget.game.game.patchType!.gameAssets) {
-      patchType.add(Icon(FluentIcons.picture));
-    }
-    if (widget.game.game.patchType!.website) {
-      patchType.add(Icon(FluentIcons.internet_sharing));
-    }
-    if (widget.game.game.patchType!.audios) {
-      patchType.add(Icon(FluentIcons.music_note));
-    }
+  // Widget _buildPatchTypeIcons() {
+  //   List<Widget> patchType = [];
+  //   if (widget.game.game.patchType!.gameText) {
+  //     patchType.add(Icon(FluentIcons.align_left));
+  //   }
+  //   if (widget.game.game.patchType!.gameAssets) {
+  //     patchType.add(SizedBox(width: 10));
+  //     patchType.add(Icon(FluentIcons.image_pixel));
+  //   }
+  //   if (widget.game.game.patchType!.website) {
+  //     patchType.add(SizedBox(width: 10));
+  //     patchType.add(Icon(FluentIcons.internet_sharing));
+  //   }
+  //   if (widget.game.game.patchType!.audios) {
+  //     patchType.add(SizedBox(width: 10));
+  //     patchType.add(Icon(FluentIcons.music_note));
+  //   }
 
-    return Container(
-        child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: patchType
-            
-            ));
-  }
+  //   return Container(
+  //       child: Row(
+  //           mainAxisAlignment: MainAxisAlignment.end, children: patchType));
+  // }
 
   Widget _buildRowButtons() {
     void Function()? onPressFunction;
@@ -301,6 +306,34 @@ class _GameCardState extends State<GameCard> {
                   setState(() {});
                 },
                 child: Text("Valider"),
+              ),
+            ],
+          );
+        });
+  }
+
+  void _openPatchInfo() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return ContentDialog(
+            title: Text(widget.game.game.name),
+            content: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+              Text("Description", style: TextStyle(fontSize: 20)),
+              Text(widget.game.game.description),
+            SizedBox(height: 20,),
+            Text("Version", style:TextStyle(fontSize: 20)),
+            Text("${widget.game.game.latestVersion}"),
+            SizedBox(height: 20,),
+            Text("Auteurs", style: TextStyle(fontSize: 20)),
+            Text(widget.game.game.authors!),
+            ]),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text("Fermer"),
               ),
             ],
           );
