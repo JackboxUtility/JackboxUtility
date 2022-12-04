@@ -22,14 +22,6 @@
         "description":"Le quatrième party pack de Jackbox",
         "games":[
             {
-                "id":"fibbage3",
-                "name":"Fibbage 3",
-                "description":"Mentez encore plus dans cette troisième version",
-                "background":"game_backgrounds/Fibbage3.webp",
-                "version":"",
-                "path":"games/Fibbage3"
-            },
-            {
                 "id":"survivetheinternet_fr",
                 "name":"Survive The Internet FR",
                 "description":"Traduisez votre jeu en Français !",
@@ -60,22 +52,6 @@
                     "website":true,
                     "audios":false
                 }
-            },
-            {
-                "id":"bracketeering",
-                "name":"Bracketeering",
-                "description":"Jouez au plus grand tournoi de la galaxie",
-                "background":"game_backgrounds/Bracketeering.webp",
-                "version":"",
-                "path":"games/Bracketeering"
-            },
-            {
-                "id":"civicdoodle",
-                "name":"Civic Doodle",
-                "description":"Dessinez ce qui vous passe par la tête",
-                "background":"game_backgrounds/CivicDoodle.webp",
-                "version":"",
-                "path":"games/Overdrawn"
             }
         ],
         "icon":"jpp4.ico",
