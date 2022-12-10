@@ -1,5 +1,7 @@
 # Jackbox Patcher
 
+![image](https://user-images.githubusercontent.com/30233189/206864842-a1282984-8214-4387-bd41-d51d6bbfd982.png)
+
 ## Description 
 
 **Application de patch FR pour les jeux Jackbox**
