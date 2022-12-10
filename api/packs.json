@@ -10,6 +10,7 @@
                 "small_description":"Le patch arrive bientot !",
                 "description":"Le patch arrive bientot !",
                 "background":"game_backgrounds/BombCorp.webp",
+                "authors":"Alexis",
                 "version":"",
                 "path":"games/BombInterns",
                 "patch_type":{
@@ -50,11 +51,28 @@
                 "name":"Monster Seeking Monster",
                 "small_description":"Traduisez votre jeu en Français !",
                 "description":"Ce patch traduit votre jeu en français !",
-                "authors":"fizzrocks et Alexis",
+                "authors":"Fizzrocks et Alexis",
                 "background":"game_backgrounds/MonsterSeekingMonster.webp",
                 "version":"1.0.0",
                 "path":"games/MonsterMingle",
                 "patch_path":"patchs/monsterseekingmonster_1.0.0.zip",
+                "patch_type":{
+                    "game_text":true,
+                    "game_assets":true,
+                    "website":true,
+                    "audios":false
+                }
+            },
+            {
+                "id":"bracketeering",
+                "name":"Bracketeeing",
+                "small_description":"Traduisez votre jeu en Français !",
+                "description":"Ce patch traduit votre jeu en français !",
+                "authors":"FishingGuppy",
+                "background":"game_backgrounds/Bracketeering.webp",
+                "version":"1.0.0",
+                "path":"games/Bracketeering",
+                "patch_path":"patchs/bracketeering_1.0.0.zip",
                 "patch_type":{
                     "game_text":true,
                     "game_assets":true,
@@ -136,7 +154,7 @@
                 "name":"Push The Button",
                 "small_description":"Traduisez votre jeu en Français !",
                 "description":"Ce patch traduit votre jeu en français !",
-                "authors":"Alexis et fizzrocks",
+                "authors":"Alexis et Fizzrocks",
                 "background":"game_backgrounds/PushTheButton.webp",
                 "version":"1.0.0",
                 "path":"games/PushTheButton",
