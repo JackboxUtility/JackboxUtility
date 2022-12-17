@@ -6,13 +6,14 @@
         "games":[
             {
                 "id":"bombcorp",
-                "name":"Bomb Corp",
-                "small_description":"Le patch arrive bientot !",
-                "description":"Le patch arrive bientot !",
+                "name":"[PREVIEW] Bomb Corp",
+                "small_description":"[PREVIEW] Traduisez votre jeu en français",
+                "description":"Le patch complet arrive bientôt. Vous pouvez toujours télécharger la preview mais gardez à l'esprit que la traduction n'est pas terminée",
                 "background":"game_backgrounds/BombCorp.webp",
                 "authors":"Alexis",
-                "version":"",
+                "version":"0.1.0",
                 "path":"games/BombInterns",
+                "patch_path":"patchs/bombcorp_0.1.0.zip",
                 "patch_type":{
                     "game_text":true,
                     "game_assets":true,
