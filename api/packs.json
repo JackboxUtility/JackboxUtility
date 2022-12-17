@@ -8,7 +8,7 @@
                 "id":"bombcorp",
                 "name":"[PREVIEW] Bomb Corp",
                 "small_description":"[PREVIEW] Traduisez votre jeu en français",
-                "description":"Le patch complet arrive bientôt. Vous pouvez toujours télécharger la preview mais gardez à l'esprit que la traduction n'est pas terminée",
+                "description":"Le patch complet arrive bientôt. Vous pouvez toujours télécharger la preview mais gardez à l'esprit que la traduction n'est pas terminée. Avec cette preview, vous pouvez aller jusqu'au jour 8 sans soucis de traduction (sauf pour la bombe de tutoriel).",
                 "background":"game_backgrounds/BombCorp.webp",
                 "authors":"Alexis",
                 "version":"0.1.0",
