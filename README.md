@@ -8,6 +8,14 @@
 
 Avec cette application, vous allez pouvoir télécharger les patchs français créés par la communauté Jackbox France et Jackbox International.
 
+## Installation
+
+https://github.com/AlexisL61/JackboxPatcherFR/releases/
+
+## Tutoriel 
+
+http://blog.laboxdejack.fr/application-jackbox-patcher/
+
 ## Contenu des dossiers
 
 api -> Les fichiers json de l'api utilisée par l'application
