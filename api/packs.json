@@ -243,7 +243,7 @@
                 "description":"Le patch complet arrive bientôt. Vous pouvez toujours télécharger la preview mais gardez à l'esprit que la traduction n'est pas terminée. Avec cette preview, vous avez accès à 70 questions en français.",
                 "authors":"Pachat, Alexis et fizzrocks",
                 "background":"game_backgrounds/ThePollMine.webp",
-                "version":"1.0.0",
+                "version":"0.1.0",
                 "path":"games/SurveyBomb",
                 "patch_path":"patchs/thepollmine_0.1.0.zip",
                 "patch_type":{
