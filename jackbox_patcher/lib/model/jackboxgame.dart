@@ -44,12 +44,14 @@ class JackboxGame {
 class PatchType {
   bool gameText = false;
   bool gameAssets = false;
+  bool gameSubtitles = false;
   bool website = false;
   bool audios = false;
 
   PatchType({
     required this.gameText,
     required this.gameAssets,
+    required this.gameSubtitles,
     required this.website,
     required this.audios,
   });
@@ -58,6 +60,7 @@ class PatchType {
     return PatchType(
       gameText: json['game_text'],
       gameAssets: json['game_assets'],
+      gameSubtitles: json['game_subtitles'],
       website: json['website'],
       audios: json['audios'],
     );

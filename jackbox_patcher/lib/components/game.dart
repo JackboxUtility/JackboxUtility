@@ -332,6 +332,9 @@ class _GameCardState extends State<GameCard> {
               widget.game.game.patchType!.gameAssets
                   ? Text("- Modification des fichiers internes du jeu (images, textes...)")
                   : SizedBox(),
+              widget.game.game.patchType!.gameSubtitles
+                  ? Text("- Modification des sous-titres du jeu")
+                  : SizedBox(),
               widget.game.game.patchType!.website
                   ? Text("- Modification du contenu textuel du client jackbox (seulement disponible sur laboxdejack.fr)")
                   : SizedBox(),

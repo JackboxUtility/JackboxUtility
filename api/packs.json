@@ -22,6 +22,7 @@
                 "patch_type":{
                     "game_text":true,
                     "game_assets":true,
+                    "game_subtitles":false,
                     "website":true,
                     "audios":false
                 }
@@ -53,6 +54,7 @@
                 "patch_type":{
                     "game_text":true,
                     "game_assets":false,
+                    "game_subtitles":false,
                     "website":false,
                     "audios":false
                 }
@@ -70,6 +72,7 @@
                 "patch_type":{
                     "game_text":true,
                     "game_assets":true,
+                    "game_subtitles":false,
                     "website":true,
                     "audios":false
                 }
@@ -87,6 +90,7 @@
                 "patch_type":{
                     "game_text":true,
                     "game_assets":true,
+                    "game_subtitles":false,
                     "website":true,
                     "audios":false
                 }
@@ -118,6 +122,7 @@
                 "patch_type":{
                     "game_text":true,
                     "game_assets":false,
+                    "game_subtitles":false,
                     "website":false,
                     "audios":false
                 }
@@ -149,6 +154,7 @@
                 "patch_type":{
                     "game_text":true,
                     "game_assets":false,
+                    "game_subtitles":false,
                     "website":false,
                     "audios":false
                 }
@@ -166,6 +172,7 @@
                 "patch_type":{
                     "game_text":true,
                     "game_assets":false,
+                    "game_subtitles":false,
                     "website":false,
                     "audios":false
                 }
@@ -183,6 +190,7 @@
                 "patch_type":{
                     "game_text":true,
                     "game_assets":true,
+                    "game_subtitles":false,
                     "website":true,
                     "audios":false
                 }
@@ -214,6 +222,7 @@
                 "patch_type":{
                     "game_text":true,
                     "game_assets":true,
+                    "game_subtitles":true,
                     "website":false,
                     "audios":false
                 }
@@ -231,6 +240,7 @@
                 "patch_type":{
                     "game_text":true,
                     "game_assets":false,
+                    "game_subtitles":false,
                     "website":false,
                     "audios":false
                 }
@@ -262,6 +272,7 @@
                 "patch_type":{
                     "game_text":true,
                     "game_assets":false,
+                    "game_subtitles":false,
                     "website":false,
                     "audios":false
                 }
@@ -279,6 +290,7 @@
                 "patch_type":{
                     "game_text":true,
                     "game_assets":true,
+                    "game_subtitles":false,
                     "website":true,
                     "audios":false
                 }
@@ -296,6 +308,7 @@
                 "patch_type":{
                     "game_text":true,
                     "game_assets":false,
+                    "game_subtitles":false,
                     "website":false,
                     "audios":false
                 }
