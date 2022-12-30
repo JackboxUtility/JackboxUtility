@@ -115,6 +115,11 @@
         "id":"jpp6",
         "name":"Jackbox Party Pack 6",
         "description":"Le sixième party pack de Jackbox",
+        "executables":{
+            "windows":"The Jackbox Party Pack 6.exe",
+            "mac":"The Jackbox Party Pack 6.app/Contents/MacOS/The Jackbox Party Pack 6",
+            "linux":"TJPP6"
+        },
         "games":[
             {
                 "id":"jokeboat",
@@ -175,6 +180,11 @@
         "id":"jpp7",
         "name":"Jackbox Party Pack 7",
         "description":"Le septième party pack de Jackbox",
+        "executables":{
+            "windows":"The Jackbox Party Pack 7.exe",
+            "mac":"The Jackbox Party Pack 7.app/Contents/MacOS/The Jackbox Party Pack 7",
+            "linux":"TJPP7"
+        },
         "games":[
             {
                 "id":"champdup",

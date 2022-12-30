@@ -111,6 +111,17 @@ class _PackWidgetState extends State<PackWidget> {
                 height: 100,
               ),
             ),
+            pathFoundStatus=="FOUND" && widget.userPack.pack.executable!=null ?Positioned(
+                top: 20,
+                right: 60,
+                child: IconButton(
+                    style: ButtonStyle(
+                        backgroundColor: ButtonState.all(
+                            Colors.green)),
+                    onPressed: () async {
+                      openPack();
+                    },
+                    icon: Icon(FluentIcons.play))):Container(),
             Positioned(
                 top: 20,
                 right: 20,
@@ -165,6 +176,12 @@ class _PackWidgetState extends State<PackWidget> {
             children: widget.userPack.games
                 .map((e) => GameCard(pack: widget.userPack, game: e))
                 .toList()));
+  }
+
+  void openPack(){
+    if(widget.userPack.pack.executable!=null){
+      Process.run("${widget.userPack.path!}/${widget.userPack.pack.executable!}", []);
+    }
   }
 
   Future<void> _showParametersDialog() async {
