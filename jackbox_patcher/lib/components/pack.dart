@@ -19,6 +19,7 @@ class PackWidget extends StatefulWidget {
 class _PackWidgetState extends State<PackWidget> {
   String pathFoundStatus = "LOADING";
   late TextEditingController pathController;
+  String launchingStatus = "NOT_LAUNCHED";
 
   @override
   void initState() {
@@ -111,17 +112,19 @@ class _PackWidgetState extends State<PackWidget> {
                 height: 100,
               ),
             ),
-            pathFoundStatus=="FOUND" && widget.userPack.pack.executable!=null ?Positioned(
-                top: 20,
-                right: 60,
-                child: IconButton(
-                    style: ButtonStyle(
-                        backgroundColor: ButtonState.all(
-                            Colors.green)),
-                    onPressed: () async {
-                      openPack();
-                    },
-                    icon: Icon(FluentIcons.play))):Container(),
+            pathFoundStatus == "FOUND" &&
+                    widget.userPack.pack.executable != null
+                ? Positioned(
+                    top: 20,
+                    right: 60,
+                    child: IconButton(
+                        style: ButtonStyle(
+                            backgroundColor: ButtonState.all(Colors.green)),
+                        onPressed: () async {
+                          openPack();
+                        },
+                        icon:launchingStatus=="NOT_LAUNCHED"? Icon( FluentIcons.play): (launchingStatus=="LOADING"? Row(children: [Icon( FluentIcons.play), SizedBox(width:10),Text("Lancement...",style: TextStyle(fontSize: 11),)]) : Row(children: [Icon( FluentIcons.check_mark), SizedBox(width:10),Text("Lancé !",style: TextStyle(fontSize: 11),)]) )))
+                : Container(),
             Positioned(
                 top: 20,
                 right: 20,
@@ -178,9 +181,16 @@ class _PackWidgetState extends State<PackWidget> {
                 .toList()));
   }
 
-  void openPack(){
-    if(widget.userPack.pack.executable!=null){
-      Process.run("${widget.userPack.path!}/${widget.userPack.pack.executable!}", []);
+  void openPack() async {
+    if (widget.userPack.pack.executable != null) {
+      setState(() {
+        launchingStatus = "LOADING";
+      });
+      await Process.run(
+          "${widget.userPack.path!}/${widget.userPack.pack.executable!}", []);
+      setState(() {
+        launchingStatus = "LAUNCHED";
+      });
     }
   }
 
@@ -189,20 +199,22 @@ class _PackWidgetState extends State<PackWidget> {
         context: context,
         builder: (context) => ContentDialog(
               title: Text("Paramètres"),
-              content: SizedBox(height:100,child:Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text("Chemin du pack"),
-                    SizedBox(
-                      height: 6,
-                    ),
-                    TextBox(
-                      controller: pathController,
-                      onChanged: (value) {
-                        widget.userPack.setPath(value);
-                      },
-                    )
-                  ])),
+              content: SizedBox(
+                  height: 100,
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text("Chemin du pack"),
+                        SizedBox(
+                          height: 6,
+                        ),
+                        TextBox(
+                          controller: pathController,
+                          onChanged: (value) {
+                            widget.userPack.setPath(value);
+                          },
+                        )
+                      ])),
               actions: [
                 TextButton(
                     child: Text("Valider"),

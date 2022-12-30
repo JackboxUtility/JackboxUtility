@@ -30,7 +30,7 @@ class JackboxPack {
         games: (json['games'] as List<dynamic>)
             .map((e) => JackboxGame.fromJson(e))
             .toList(),
-        executable: JackboxPack.generateExecutableFromJson(json['executable']));
+        executable: JackboxPack.generateExecutableFromJson(json['executables']));
   }
 
   static List<JackboxPack> fromJsonList(List<dynamic> jsonList) {
@@ -38,6 +38,7 @@ class JackboxPack {
   }
 
   static String? generateExecutableFromJson(json) {
+    print(json);
     if (json == null) {
       return null;
     } else {
@@ -46,7 +47,7 @@ class JackboxPack {
       } else {
         if (Platform.isMacOS) {
           return json['mac'];
-        }else{
+        } else {
           return json['linux'];
         }
       }
