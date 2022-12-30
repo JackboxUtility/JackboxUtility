@@ -3,6 +3,11 @@
         "id":"jpp2",
         "name":"Jackbox Party Pack 2",
         "description":"Le deuxième party pack de Jackbox",
+        "executables":{
+            "windows":"The Jackbox Party Pack 2.exe",
+            "mac":"The Jackbox Party Pack 2.app/Contents/MacOS/The Jackbox Party Pack 2",
+            "linux":"TJPP2"
+        },
         "games":[
             {
                 "id":"bombcorp",
@@ -29,6 +34,11 @@
         "id":"jpp4",
         "name":"Jackbox Party Pack 4",
         "description":"Le quatrième party pack de Jackbox",
+        "executables":{
+            "windows":"The Jackbox Party Pack 4.exe",
+            "mac":"The Jackbox Party Pack 4.app/Contents/MacOS/The Jackbox Party Pack 4",
+            "linux":"TJPP4"
+        },
         "games":[
             {
                 "id":"survivetheinternet_fr",
@@ -89,6 +99,11 @@
         "id":"jpp5",
         "name":"Jackbox Party Pack 5",
         "description":"Le cinquième party pack de Jackbox",
+        "executables":{
+            "windows":"The Jackbox Party Pack 5.exe",
+            "mac":"The Jackbox Party Pack 5.app/Contents/MacOS/The Jackbox Party Pack 5",
+            "linux":"TJPP5"
+        },
         "games":[
             {
                 "id":"patentlystupid",
@@ -228,6 +243,11 @@
         "id":"jpp8",
         "name":"Jackbox Party Pack 8",
         "description":"Le huitième party pack de Jackbox",
+        "executables":{
+            "windows":"The Jackbox Party Pack 8.exe",
+            "mac":"The Jackbox Party Pack 8.app/Contents/MacOS/The Jackbox Party Pack 8",
+            "linux":"TJPP8"
+        },
         "games":[
             {
                 "id":"jobjob",
