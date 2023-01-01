@@ -84,9 +84,9 @@
                 "description":"Ce patch traduit votre jeu en français !",
                 "authors":"FishingGuppy",
                 "background":"game_backgrounds/Bracketeering.webp",
-                "version":"1.0.0",
+                "version":"1.0.1",
                 "path":"games/Bracketeering",
-                "patch_path":"patchs/bracketeering_1.0.0.zip",
+                "patch_path":"patchs/bracketeering_1.0.1.zip",
                 "patch_type":{
                     "game_text":true,
                     "game_assets":true,
