@@ -110,6 +110,24 @@
         },
         "games":[
             {
+                "id":"splittheroom",
+                "name":"[PREVIEW] Split The Room",
+                "small_description":"[PREVIEW] Traduction du jeu en Français",
+                "description":"Le patch complet arrive bientôt. Vous pouvez toujours télécharger la preview mais gardez à l'esprit que la traduction n'est pas terminée. Avec cette preview, le jeu est traduit en français, mais il peut y avoir des fautes. N'hésitez pas à prévenir MisterShaokahn#0765 si il y a des problèmes de traduction",
+                "background":"game_backgrounds/SplitTheRoom.webp",
+                "version":"1.0.0",
+                "authors":"Alexis",
+                "path":"games/SplitTheRoom",
+                "patch_path":"patchs/splittheroom_0.1.0.zip",
+                "patch_type":{
+                    "game_text":true,
+                    "game_assets":false,
+                    "game_subtitles":false,
+                    "website":false,
+                    "audios":false
+                }
+            },
+            {
                 "id":"patentlystupid",
                 "name":"Patently Stupid",
                 "small_description":"Traduction du jeu en Français",
