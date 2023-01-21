@@ -320,9 +320,9 @@
                 "description":"Traduisez votre jeu en français avec ce patch !",
                 "authors":"MisterShaokahn#0765",
                 "background":"game_backgrounds/WeaponsDrawn.webp",
-                "version":"1.0.0",
+                "version":"1.0.1",
                 "path":"games/MurderDetectives",
-                "patch_path":"patchs/weaponsdrawn_1.0.0.zip",
+                "patch_path":"patchs/weaponsdrawn_1.0.1.zip",
                 "patch_type":{
                     "game_text":true,
                     "game_assets":false,
