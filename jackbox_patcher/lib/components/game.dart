@@ -1,27 +1,31 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:jackbox_patcher/model/usermodel/userjackboxpatch.dart';
 import 'package:palette_generator/palette_generator.dart';
 
 import '../model/usermodel/userjackboxgame.dart';
 import '../model/usermodel/userjackboxpack.dart';
 import '../services/api/api_service.dart';
 
-class GameCard extends StatefulWidget {
-  GameCard({Key? key, required this.pack, required this.game})
+class PatchCard extends StatefulWidget {
+  PatchCard(
+      {Key? key, required this.pack, required this.game, required this.patch})
       : super(key: key);
 
   final UserJackboxPack pack;
   final UserJackboxGame game;
+  final UserJackboxPatch patch;
   @override
-  State<GameCard> createState() => _GameCardState();
+  State<PatchCard> createState() => _PatchCardState();
 }
 
-class _GameCardState extends State<GameCard> {
+class _PatchCardState extends State<PatchCard> {
   Color? backgroundColor;
   int downloadingProgress = 0;
   String status = "";
   double progression = 0;
   String substatus = "";
+  FlyoutController controller = FlyoutController();
 
   @override
   void initState() {
@@ -51,7 +55,8 @@ class _GameCardState extends State<GameCard> {
                 width: 20,
                 height: 20,
                 decoration: new BoxDecoration(
-                  color: widget.game.getInstalledStatus(widget.pack.path).color,
+                  color:
+                      widget.patch.getInstalledStatus(widget.pack.path).color,
                   shape: BoxShape.circle,
                 ))),
         Container(
@@ -111,20 +116,18 @@ class _GameCardState extends State<GameCard> {
                 ]))),
         Container(
             margin: EdgeInsets.only(top: 35, left: 10),
-            child: Flyout(
-                openMode: FlyoutOpenMode.hover,
-                content: (context) => FlyoutContent(
-                    child: Text(
-                        widget.game.getInstalledStatus(widget.pack.path).info)),
+            child: Tooltip(
                 child: Container(
                     width: 10,
                     height: 10,
                     decoration: new BoxDecoration(
-                      color: widget.game
+                      color: widget.patch
                           .getInstalledStatus(widget.pack.path)
                           .color,
                       shape: BoxShape.circle,
-                    )))),
+                    )),
+                message:
+                    widget.patch.getInstalledStatus(widget.pack.path).info)),
       ],
     ));
   }
@@ -148,7 +151,8 @@ class _GameCardState extends State<GameCard> {
                       onPressed: () async {
                         downloadingProgress = 1;
                         setState(() {});
-                        await widget.game.downloadPatch(widget.pack.path!,
+                        await widget.patch.downloadPatch(
+                            widget.pack.path!, widget.game.game.path!,
                             (String stat, String substat, double progress) {
                           status = stat;
                           substatus = substat;
@@ -246,7 +250,7 @@ class _GameCardState extends State<GameCard> {
     String buttonText = "";
     bool removePatchButtonVisible = false;
     UserInstalledPatchStatus status =
-        widget.game.getInstalledStatus(widget.pack.path);
+        widget.patch.getInstalledStatus(widget.pack.path);
     if (status == UserInstalledPatchStatus.INEXISTANT ||
         status == UserInstalledPatchStatus.INSTALLED) {
       onPressFunction = null;
@@ -301,7 +305,7 @@ class _GameCardState extends State<GameCard> {
               ),
               TextButton(
                 onPressed: () async {
-                  await widget.game.removePatch();
+                  await widget.patch.removePatch();
                   Navigator.pop(context);
                   setState(() {});
                 },
@@ -318,35 +322,40 @@ class _GameCardState extends State<GameCard> {
         builder: (context) {
           return ContentDialog(
             title: Text(widget.game.game.name),
-            content: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+            content:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text("Description", style: TextStyle(fontSize: 20)),
               Text(widget.game.game.description),
-              SizedBox(height:20),
+              SizedBox(height: 20),
               Text("Modification du patch", style: TextStyle(fontSize: 20)),
               Text("Ce patch modifie le jeu de la manière suivante :"),
-              widget.game.game.patchType!.gameText
+              widget.patch.patch.patchType!.gameText
                   ? Text("- Modification du contenu textuel du jeu")
                   : SizedBox(),
-              widget.game.game.patchType!.gameAssets
-                  ? Text("- Modification des fichiers internes du jeu (images, textes...)")
+              widget.patch.patch.patchType!.gameAssets
+                  ? Text(
+                      "- Modification des fichiers internes du jeu (images, textes...)")
                   : SizedBox(),
-              widget.game.game.patchType!.gameSubtitles
+              widget.patch.patch.patchType!.gameSubtitles
                   ? Text("- Modification des sous-titres du jeu")
                   : SizedBox(),
-              widget.game.game.patchType!.website
-                  ? Text("- Modification du contenu textuel du client jackbox (seulement disponible sur laboxdejack.fr)")
+              widget.patch.patch.patchType!.website
+                  ? Text(
+                      "- Modification du contenu textuel du client jackbox (seulement disponible sur laboxdejack.fr)")
                   : SizedBox(),
-              widget.game.game.patchType!.audios
+              widget.patch.patch.patchType!.audios
                   ? Text("- Modification des fichiers audio du jeu")
                   : SizedBox(),
-            SizedBox(height: 20,),
-            Text("Version", style:TextStyle(fontSize: 20)),
-            Text("${widget.game.game.latestVersion}"),
-            SizedBox(height: 20,),
-            Text("Auteurs", style: TextStyle(fontSize: 20)),
-            Text(widget.game.game.authors!),
+              SizedBox(
+                height: 20,
+              ),
+              Text("Version", style: TextStyle(fontSize: 20)),
+              Text("${widget.patch.patch.latestVersion}"),
+              SizedBox(
+                height: 20,
+              ),
+              Text("Auteurs", style: TextStyle(fontSize: 20)),
+              Text(widget.patch.patch.authors!),
             ]),
             actions: [
               TextButton(

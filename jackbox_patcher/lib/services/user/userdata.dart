@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:jackbox_patcher/model/jackboxpack.dart';
+import 'package:jackbox_patcher/model/usermodel/userjackboxpatch.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -57,12 +58,12 @@ class UserData {
   }
 
   /// Save a game (mostly used when a patch is downloaded)
-  Future<void> saveGame(UserJackboxGame game) async {
-    if (game.installedVersion != null) {
+  Future<void> saveGame(UserJackboxPatch patch) async {
+    if (patch.installedVersion != null) {
       await preferences.setString(
-          "${game.game.id}_version", game.installedVersion!);
+          "${patch.patch.id}_version", patch.installedVersion!);
     } else {
-      await preferences.remove("${game.game.id}_version");
+      await preferences.remove("${patch.patch.id}_version");
     }
   }
 

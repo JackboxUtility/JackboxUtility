@@ -30,7 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  fluent_ui:
+  fluent_ui: 4.2.0
   http:
   shared_preferences:
   flutter_staggered_grid_view: 0.6.0

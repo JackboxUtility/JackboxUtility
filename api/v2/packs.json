@@ -1,0 +1,338 @@
+[
+    {
+        "id":"jpp2",
+        "name":"Jackbox Party Pack 2",
+        "description":"Le deuxième party pack de Jackbox",
+        "executables":{
+            "windows":"The Jackbox Party Pack 2.exe",
+            "mac":"The Jackbox Party Pack 2.app/Contents/MacOS/The Jackbox Party Pack 2",
+            "linux":"TJPP2"
+        },
+        "games":[
+            {
+                "id":"bombcorp",
+                "name":"[PREVIEW] Bomb Corp",
+                "small_description":"[PREVIEW] Traduisez votre jeu en français",
+                "description":"Le patch complet arrive bientôt. Vous pouvez toujours télécharger la preview mais gardez à l'esprit que la traduction n'est pas terminée. Avec cette preview, vous pouvez aller jusqu'au jour 8 sans soucis de traduction (sauf pour la bombe de tutoriel).",
+                "background":"game_backgrounds/BombCorp.webp",
+                "authors":"Alexis",
+                "version":"0.1.0",
+                "path":"games/BombInterns",
+                "patch_path":"patchs/bombcorp_0.1.0.zip",
+                "patch_type":{
+                    "game_text":true,
+                    "game_assets":true,
+                    "game_subtitles":false,
+                    "website":true,
+                    "audios":false
+                }
+            }
+        ],
+        "icon":"jpp2.ico",
+        "background":"backgrounds/jpp2.jpg"
+    },
+    {
+        "id":"jpp4",
+        "name":"Jackbox Party Pack 4",
+        "description":"Le quatrième party pack de Jackbox",
+        "executables":{
+            "windows":"The Jackbox Party Pack 4.exe",
+            "mac":"The Jackbox Party Pack 4.app/Contents/MacOS/The Jackbox Party Pack 4",
+            "linux":"TJPP4"
+        },
+        "games":[
+            {
+                "id":"survivetheinternet_fr",
+                "name":"Survive The Internet FR",
+                "small_description":"Traduisez votre jeu en Français !",
+                "description":"Ce patch transforme votre jeu en français !",
+                "authors":"CubicOtter",
+                "background":"game_backgrounds/SurviveTheInternet.webp",
+                "version":"1.0.0",
+                "path":"games/SurviveTheInternet",
+                "patch_path":"patchs/survivetheinternet_1.0.0.zip",
+                "patch_type":{
+                    "game_text":true,
+                    "game_assets":false,
+                    "game_subtitles":false,
+                    "website":false,
+                    "audios":false
+                }
+            },
+            {
+                "id":"monsterseekingmonster",
+                "name":"Monster Seeking Monster",
+                "small_description":"Traduisez votre jeu en Français !",
+                "description":"Ce patch traduit votre jeu en français !",
+                "authors":"Fizzrocks et Alexis",
+                "background":"game_backgrounds/MonsterSeekingMonster.webp",
+                "version":"1.0.0",
+                "path":"games/MonsterMingle",
+                "patch_path":"patchs/monsterseekingmonster_1.0.0.zip",
+                "patch_type":{
+                    "game_text":true,
+                    "game_assets":true,
+                    "game_subtitles":false,
+                    "website":true,
+                    "audios":false
+                }
+            },
+            {
+                "id":"bracketeering",
+                "name":"Bracketeering",
+                "small_description":"Traduisez votre jeu en Français !",
+                "description":"Ce patch traduit votre jeu en français !",
+                "authors":"FishingGuppy",
+                "background":"game_backgrounds/Bracketeering.webp",
+                "version":"1.0.1",
+                "path":"games/Bracketeering",
+                "patch_path":"patchs/bracketeering_1.0.1.zip",
+                "patch_type":{
+                    "game_text":true,
+                    "game_assets":true,
+                    "game_subtitles":false,
+                    "website":true,
+                    "audios":false
+                }
+            }
+        ],
+        "icon":"jpp4.ico",
+        "background":"backgrounds/jpp4.jpg"
+    },
+    {
+        "id":"jpp5",
+        "name":"Jackbox Party Pack 5",
+        "description":"Le cinquième party pack de Jackbox",
+        "executables":{
+            "windows":"The Jackbox Party Pack 5.exe",
+            "mac":"The Jackbox Party Pack 5.app/Contents/MacOS/The Jackbox Party Pack 5",
+            "linux":"TJPP5"
+        },
+        "games":[
+            {
+                "id":"splittheroom",
+                "name":"[PREVIEW] Split The Room",
+                "small_description":"[PREVIEW] Traduction du jeu en Français",
+                "description":"Le patch complet arrive bientôt. Vous pouvez toujours télécharger la preview mais gardez à l'esprit que la traduction n'est pas terminée. Avec cette preview, le jeu est traduit en français, mais il peut y avoir des fautes. N'hésitez pas à prévenir MisterShaokahn#0765 si il y a des problèmes de traduction",
+                "background":"game_backgrounds/SplitTheRoom.webp",
+                "version":"0.1.0",
+                "authors":"MisterShaokahn#0765",
+                "path":"games/SplitTheRoom",
+                "patch_path":"patchs/splittheroom_0.1.0.zip",
+                "patch_type":{
+                    "game_text":true,
+                    "game_assets":false,
+                    "game_subtitles":false,
+                    "website":false,
+                    "audios":false
+                }
+            },
+            {
+                "id":"patentlystupid",
+                "name":"Patently Stupid",
+                "small_description":"Traduction du jeu en Français",
+                "description":"Ce patch traduit votre jeu en français !",
+                "background":"game_backgrounds/PatentlyStupid.webp",
+                "version":"1.0.0",
+                "authors":"Alexis",
+                "path":"games/PatentlyStupid",
+                "patch_path":"patchs/patentlystupid_1.0.0.zip",
+                "patch_type":{
+                    "game_text":true,
+                    "game_assets":false,
+                    "game_subtitles":false,
+                    "website":false,
+                    "audios":false
+                }
+            }
+        ],
+        "icon":"jpp5.ico",
+        "background":"backgrounds/jpp5.jpg"
+    },
+    {
+        "id":"jpp6",
+        "name":"Jackbox Party Pack 6",
+        "description":"Le sixième party pack de Jackbox",
+        "executables":{
+            "windows":"The Jackbox Party Pack 6.exe",
+            "mac":"The Jackbox Party Pack 6.app/Contents/MacOS/The Jackbox Party Pack 6",
+            "linux":"TJPP6"
+        },
+        "games":[
+            {
+                "id":"jokeboat",
+                "name":"Joke Boat",
+                "small_description":"Traduisez votre jeu en Français !",
+                "description":"Ce patch traduit votre jeu en français !",
+                "authors":"CubicOtter",
+                "background":"game_backgrounds/JokeBoat.webp",
+                "version":"1.0.0",
+                "path":"games/Jokeboat",
+                "patch_path":"patchs/jokeboat_1.0.0.zip",
+                "patch_type":{
+                    "game_text":true,
+                    "game_assets":false,
+                    "game_subtitles":false,
+                    "website":false,
+                    "audios":false
+                }
+            },
+            {
+                "id":"dictionarium",
+                "name":"Dictionarium",
+                "small_description":"Traduisez votre jeu en Français !",
+                "description":"Ce patch traduit votre jeu en français !",
+                "authors":"CubicOtter",
+                "background":"game_backgrounds/Dictionarium.webp",
+                "version":"1.0.0",
+                "path":"games/Ridictionary",
+                "patch_path":"patchs/dictionarium_1.0.0.zip",
+                "patch_type":{
+                    "game_text":true,
+                    "game_assets":false,
+                    "game_subtitles":false,
+                    "website":false,
+                    "audios":false
+                }
+            },
+            {
+                "id":"pushthebutton",
+                "name":"Push The Button",
+                "small_description":"Traduisez votre jeu en Français !",
+                "description":"Ce patch traduit votre jeu en français !",
+                "authors":"Alexis et Fizzrocks",
+                "background":"game_backgrounds/PushTheButton.webp",
+                "version":"1.0.0",
+                "path":"games/PushTheButton",
+                "patch_path":"patchs/pushthebutton_1.0.0.zip",
+                "patch_type":{
+                    "game_text":true,
+                    "game_assets":true,
+                    "game_subtitles":false,
+                    "website":true,
+                    "audios":false
+                }
+            }
+        ],
+        "icon":"jpp6.ico",
+        "background":"backgrounds/jpp6.jpg"
+    },
+    {
+        "id":"jpp7",
+        "name":"Jackbox Party Pack 7",
+        "description":"Le septième party pack de Jackbox",
+        "executables":{
+            "windows":"The Jackbox Party Pack 7.exe",
+            "mac":"The Jackbox Party Pack 7.app/Contents/MacOS/The Jackbox Party Pack 7",
+            "linux":"TJPP7"
+        },
+        "games":[
+            {
+                "id":"champdup",
+                "name":"Champ'd Up",
+                "small_description":"Traduisez votre jeu en Français !",
+                "description":"Dessinez et envoyez vos combattants au combat",
+                "authors":"CubicOtter",
+                "background":"game_backgrounds/Champdup.webp",
+                "version":"1.0.0",
+                "path":"games/WorldChampions",
+                "patch_path":"patchs/champdup_1.0.0.zip",
+                "patch_type":{
+                    "game_text":true,
+                    "game_assets":true,
+                    "game_subtitles":true,
+                    "website":false,
+                    "audios":false
+                }
+            },
+            {
+                "id":"talkingpoints",
+                "name":"Talking Points",
+                "small_description":"Traduisez votre jeu en Français !",
+                "description":"Parlez et présentez votre pire sujet",
+                "authors":"Alexis",
+                "background":"game_backgrounds/TalkingPoints.webp",
+                "version":"1.0.0",
+                "path":"games/JackboxTalks",
+                "patch_path":"patchs/talkingpoints_1.0.0.zip",
+                "patch_type":{
+                    "game_text":true,
+                    "game_assets":false,
+                    "game_subtitles":false,
+                    "website":false,
+                    "audios":false
+                }
+            }
+        ],
+        "icon":"jpp7.ico",
+        "background":"backgrounds/jpp7.jpg"
+    },
+    {
+        "id":"jpp8",
+        "name":"Jackbox Party Pack 8",
+        "description":"Le huitième party pack de Jackbox",
+        "executables":{
+            "windows":"The Jackbox Party Pack 8.exe",
+            "mac":"The Jackbox Party Pack 8.app/Contents/MacOS/The Jackbox Party Pack 8",
+            "linux":"TJPP8"
+        },
+        "games":[
+            {
+                "id":"jobjob",
+                "name":"Job Job",
+                "small_description":"Traduisez votre jeu en Français !",
+                "description":"Utilisez les mots des autres pour gagner des points",
+                "authors":"Alexis",
+                "background":"game_backgrounds/JobJob.webp",
+                "version":"1.0.0",
+                "path":"games/JobGame",
+                "patch_path":"patchs/jobjob_1.0.0.zip",
+                "patch_type":{
+                    "game_text":true,
+                    "game_assets":false,
+                    "game_subtitles":false,
+                    "website":false,
+                    "audios":false
+                }
+            },
+            {
+                "id":"thepollmine",
+                "name":"[PREVIEW] The Poll Mine",
+                "small_description":"[PREVIEW] Traduisez votre jeu en Français !",
+                "description":"Le patch complet arrive bientôt. Vous pouvez toujours télécharger la preview mais gardez à l'esprit que la traduction n'est pas terminée. Avec cette preview, vous avez accès à 70 questions en français.",
+                "authors":"Pachat, Alexis et fizzrocks",
+                "background":"game_backgrounds/ThePollMine.webp",
+                "version":"0.1.0",
+                "path":"games/SurveyBomb",
+                "patch_path":"patchs/thepollmine_0.1.0.zip",
+                "patch_type":{
+                    "game_text":true,
+                    "game_assets":true,
+                    "game_subtitles":false,
+                    "website":true,
+                    "audios":false
+                }
+            },
+            {
+                "id":"weaponsdrawn",
+                "name":"Weapon's Drawn",
+                "small_description":"Traduisez votre jeu en Français !",
+                "description":"Traduisez votre jeu en français avec ce patch !",
+                "authors":"MisterShaokahn#0765",
+                "background":"game_backgrounds/WeaponsDrawn.webp",
+                "version":"1.0.1",
+                "path":"games/MurderDetectives",
+                "patch_path":"patchs/weaponsdrawn_1.0.1.zip",
+                "patch_type":{
+                    "game_text":true,
+                    "game_assets":false,
+                    "game_subtitles":false,
+                    "website":false,
+                    "audios":false
+                }
+            }
+        ],
+        "icon":"jpp8.ico",
+        "background":"backgrounds/jpp8.jpg"
+    }
+]

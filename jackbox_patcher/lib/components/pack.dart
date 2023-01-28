@@ -4,8 +4,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:jackbox_patcher/components/game.dart';
+import 'package:jackbox_patcher/model/jackboxgame.dart';
 import 'package:jackbox_patcher/model/jackboxpack.dart';
+import 'package:jackbox_patcher/model/jackboxpatch.dart';
+import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
+import 'package:jackbox_patcher/model/usermodel/userjackboxpatch.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 
 class PackWidget extends StatefulWidget {
@@ -123,7 +127,25 @@ class _PackWidgetState extends State<PackWidget> {
                         onPressed: () async {
                           openPack();
                         },
-                        icon:launchingStatus=="NOT_LAUNCHED"? Icon( FluentIcons.play): (launchingStatus=="LOADING"? Row(children: [Icon( FluentIcons.play), SizedBox(width:10),Text("Lancement...",style: TextStyle(fontSize: 11),)]) : Row(children: [Icon( FluentIcons.check_mark), SizedBox(width:10),Text("Lancé !",style: TextStyle(fontSize: 11),)]) )))
+                        icon: launchingStatus == "NOT_LAUNCHED"
+                            ? Icon(FluentIcons.play)
+                            : (launchingStatus == "LOADING"
+                                ? Row(children: [
+                                    Icon(FluentIcons.play),
+                                    SizedBox(width: 10),
+                                    Text(
+                                      "Lancement...",
+                                      style: TextStyle(fontSize: 11),
+                                    )
+                                  ])
+                                : Row(children: [
+                                    Icon(FluentIcons.check_mark),
+                                    SizedBox(width: 10),
+                                    Text(
+                                      "Lancé !",
+                                      style: TextStyle(fontSize: 11),
+                                    )
+                                  ]))))
                 : Container(),
             Positioned(
                 top: 20,
@@ -170,15 +192,23 @@ class _PackWidgetState extends State<PackWidget> {
   }
 
   Widget _buildGames() {
+    List<Widget> children = [];
+    for (UserJackboxGame g in widget.userPack.games) {
+      for (UserJackboxPatch p in g.patches) {
+        children.add( PatchCard(
+                      pack: widget.userPack,
+                      game: g,
+                      patch: p,
+                    ));
+      }
+    }
     return Padding(
         padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
         child: StaggeredGrid.count(
             mainAxisSpacing: 20,
             crossAxisSpacing: 20,
             crossAxisCount: 3,
-            children: widget.userPack.games
-                .map((e) => GameCard(pack: widget.userPack, game: e))
-                .toList()));
+            children:children));
   }
 
   void openPack() async {

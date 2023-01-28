@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:http/http.dart';
 import 'package:jackbox_patcher/model/jackboxgame.dart';
+import 'package:jackbox_patcher/model/jackboxpatch.dart';
 
 import '../../model/jackboxpack.dart';
 import 'api_endpoints.dart';
@@ -11,7 +12,7 @@ import 'api_endpoints.dart';
 class APIService {
   static final APIService _instance = APIService._internal();
   final String baseEndpoint =
-      "https://alexisl61.github.io/JackboxPatcherFR/api";
+      "https://alexisl61.github.io/JackboxPatcherFR/api/v2";
   final String baseAssets =
       "https://alexisl61.github.io/JackboxPatcherFR/assets";
   // Build factory
@@ -47,11 +48,11 @@ class APIService {
 
   // Download patch
   Future<String> downloadPatch(
-      JackboxGame game, void Function(double, double) progressCallback) async {
+      JackboxPatch patch, void Function(double, double) progressCallback) async {
     Dio dio = Dio();
-    print('$baseAssets/${game.patchPath}');
+    print('$baseAssets/${patch.patchPath}');
     final response = await dio.downloadUri(
-        Uri.parse('$baseAssets/${game.patchPath}'),
+        Uri.parse('$baseAssets/${patch.patchPath}'),
         "./downloads/tmp.zip",
         onReceiveProgress: (received, total) { progressCallback(received.toDouble(), total.toDouble()); });
     if (response.statusCode == 200) {
