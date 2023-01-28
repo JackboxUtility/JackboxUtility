@@ -13,6 +13,7 @@
                 "id":"bombcorp",
                 "name":"Bomb Corp",
                 "small_description":"Désamorcez des bombes en équipe",
+                "description":"Désamorcez des bombes en équipe",
                 "background":"game_backgrounds/BombCorp.webp",
                 "path":"games/BombInterns",
                 "patchs":[
@@ -53,6 +54,7 @@
                 "id":"survivetheinternet",
                 "name":"Survive The Internet",
                 "small_description":"Allez-vous survivre à Internet",
+                "description":"Allez-vous survivre à Internet",
                 "background":"game_backgrounds/SurviveTheInternet.webp",
                 "path":"games/SurviveTheInternet",
                 "patchs":[
@@ -79,6 +81,7 @@
                 "id":"monsterseekingmonster",
                 "name":"Monster Seeking Monster",
                 "small_description":"Mêmes les monstres ont le droit à l'amour",
+                "description":"Mêmes les monstres ont le droit à l'amour",
                 "background":"game_backgrounds/MonsterSeekingMonster.webp",
                 "path":"games/MonsterMingle",
                 "patchs":[
@@ -105,6 +108,7 @@
                 "id":"bracketeering",
                 "name":"Bracketeering",
                 "small_description":"Participez au tournoi interstellaire",
+                "description":"Participez au tournoi interstellaire",
                 "background":"game_backgrounds/Bracketeering.webp",
                 "path":"games/Bracketeering",
                 "patchs":[
@@ -144,6 +148,7 @@
                 "id":"splittheroom",
                 "name":"Split The Room",
                 "small_description":"Arriverez-vous à splitter la salle ?",
+                "description":"Arriverez-vous à splitter la salle ?",
                 "background":"game_backgrounds/SplitTheRoom.webp",
                 "path":"games/SplitTheRoom",
                 "patchs":[
@@ -169,6 +174,7 @@
                 "id":"patentlystupid",
                 "name":"Patently Stupid",
                 "small_description":"Vendez vos inventions",
+                "description":"Vendez vos inventions",
                 "background":"game_backgrounds/PatentlyStupid.webp",
                 "path":"games/PatentlyStupid",
                 "patchs":[
@@ -208,6 +214,7 @@
                 "id":"jokeboat",
                 "name":"Joke Boat",
                 "small_description":"Faites rigoler le public",
+                "description":"Faites rigoler le public",
                 "background":"game_backgrounds/JokeBoat.webp",
                 "path":"games/JokeBoat",
                 "patchs":[
@@ -233,6 +240,7 @@
                 "id":"dictionarium",
                 "name":"Dictionarium",
                 "small_description":"Inventez des mots",
+                "description":"Inventez des mots",
                 "background":"game_backgrounds/Dictionarium.webp",
                 "path":"games/Ridictionary",
                 "patchs":[
@@ -258,6 +266,7 @@
                 "id":"pushthebutton",
                 "name":"Push The Button",
                 "small_description":"Trouvez les aliens",
+                "description":"Trouvez les aliens",
                 "background":"game_backgrounds/PushTheButton.webp",
                 "path":"games/PushTheButton",
                 "patchs":[
@@ -298,6 +307,7 @@
                 "id":"champdup",
                 "name":"Champ'd Up",
                 "small_description":"Faites combattre vos dessins",
+                "description":"Dessinez et envoyez vos combattants au combat",
                 "background":"game_backgrounds/Champdup.webp",
                 "path":"games/WorldChampions",
                 "patchs":[
@@ -323,6 +333,7 @@
                 "id":"talkingpoints",
                 "name":"Talking Points",
                 "small_description":"Présentez votre pire sujet",
+                "description":"Parlez et présentez votre pire sujet",
                 "background":"game_backgrounds/TalkingPoints.webp",
                 "path":"games/JackboxTalks",
                 "patchs":[
@@ -362,6 +373,7 @@
                 "id":"jobjob",
                 "name":"Job Job",
                 "small_description":"Devenez le meilleur employé",
+                "description":"Utilisez les mots des autres pour gagner des points",
                 "background":"game_backgrounds/JobJob.webp",
                 "path":"games/JobGame",
                 "patchs":[
@@ -387,6 +399,7 @@
                 "id":"thepollmine",
                 "name":"The Poll Mine",
                 "small_description":"Sortez de la caverne",
+                "description":"Répondez aux questions pour sortir de la caverne",
                 "background":"game_backgrounds/ThePollMine.webp",
                 "path":"games/SurveyBomb",
                 "patchs":[
@@ -412,6 +425,7 @@
                 "id":"weaponsdrawn",
                 "name":"Weapon's Drawn",
                 "small_description":"Trouvez les tueurs",
+                "description":"Trouvez les tueurs",
                 "background":"game_backgrounds/WeaponsDrawn.webp",
                 "path":"games/MurderDetectives",
                 "patchs":[
