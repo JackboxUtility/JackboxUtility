@@ -24,7 +24,7 @@ class UserData {
   String welcomeMessage = "";
 
   /// Sync every pack on the server.
-  /// 
+  ///
   /// Every pack available will be added to the list of packs (UserData().packs).
   Future<void> syncPacks() async {
     List<JackboxPack> networkPacks = await APIService().getPacks();
@@ -35,8 +35,12 @@ class UserData {
       for (var game in pack.games) {
         final String? gameVersionInstalled =
             preferences.getString("${game.id}_version");
-        userPack.games.add(UserJackboxGame(
-            game: game, installedVersion: gameVersionInstalled));
+        UserJackboxGame currentGame = UserJackboxGame(game: game);
+        userPack.games.add(currentGame);
+        for (var patch in game.patches) {
+          currentGame.patches.add(UserJackboxPatch(
+              patch: patch, installedVersion: gameVersionInstalled));
+        }
       }
     }
   }
@@ -50,9 +54,11 @@ class UserData {
   Future<void> savePack(UserJackboxPack pack) async {
     await preferences.setString("${pack.pack.id}_path", pack.path!);
     for (var game in pack.games) {
-      if (game.installedVersion != null) {
-        await preferences.setString(
-            "${game.game.id}_version", game.installedVersion!);
+      for (var patch in game.patches) {
+        if (patch.installedVersion != null) {
+          await preferences.setString(
+              "${patch.patch.id}_version", patch.installedVersion!);
+        }
       }
     }
   }

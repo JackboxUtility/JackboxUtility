@@ -7,7 +7,7 @@ class JackboxGame {
   final String? smallDescription;
   final String background;
   final String? path;
-  final List<JackboxPatch> patches = [];
+  final List<JackboxPatch> patches;
 
   JackboxGame({
     required this.id,
@@ -15,6 +15,7 @@ class JackboxGame {
     required this.description,
     required this.background,
     required this.path,
+    required this.patches,
     this.smallDescription,
   });
 
@@ -25,6 +26,9 @@ class JackboxGame {
       description: json['description'],
       background: json['background'],
       path: json['path'],
+      patches:(json['patch'] as List<dynamic>)
+            .map((e) => JackboxPatch.fromJson(e))
+            .toList(),
       smallDescription: json['small_description'],
     );
   }

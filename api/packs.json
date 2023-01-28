@@ -11,29 +11,21 @@
         "games":[
             {
                 "id":"bombcorp",
-                "name":"Bomb Corp",
-                "small_description":"Désamorcez des bombes en équipe",
+                "name":"[PREVIEW] Bomb Corp",
+                "small_description":"[PREVIEW] Traduisez votre jeu en français",
+                "description":"Le patch complet arrive bientôt. Vous pouvez toujours télécharger la preview mais gardez à l'esprit que la traduction n'est pas terminée. Avec cette preview, vous pouvez aller jusqu'au jour 8 sans soucis de traduction (sauf pour la bombe de tutoriel).",
                 "background":"game_backgrounds/BombCorp.webp",
+                "authors":"Alexis",
+                "version":"0.1.0",
                 "path":"games/BombInterns",
-                "patchs":[
-                    {
-                        "id":"bombcorp_fr",
-                        "name":"[PREVIEW] Bomb Corp",
-                        "small_description":"[PREVIEW] Traduisez votre jeu en français",
-                        "description":"Le patch complet arrive bientôt. Vous pouvez toujours télécharger la preview mais gardez à l'esprit que la traduction n'est pas terminée. Avec cette preview, vous pouvez aller jusqu'au jour 8 sans soucis de traduction (sauf pour la bombe de tutoriel).",
-                        "authors":"Alexis",
-                        "version":"0.1.0",
-                        "patch_path":"patchs/bombcorp_0.1.0.zip",
-                        "patch_type":{
-                            "game_text":true,
-                            "game_assets":true,
-                            "game_subtitles":false,
-                            "website":true,
-                            "audios":false
-                        }
-                    }
-                ]
-                
+                "patch_path":"patchs/bombcorp_0.1.0.zip",
+                "patch_type":{
+                    "game_text":true,
+                    "game_assets":true,
+                    "game_subtitles":false,
+                    "website":true,
+                    "audios":false
+                }
             }
         ],
         "icon":"jpp2.ico",
@@ -50,81 +42,58 @@
         },
         "games":[
             {
-                "id":"survivetheinternet",
-                "name":"Survive The Internet",
-                "small_description":"Allez-vous survivre à Internet",
+                "id":"survivetheinternet_fr",
+                "name":"Survive The Internet FR",
+                "small_description":"Traduisez votre jeu en Français !",
+                "description":"Ce patch transforme votre jeu en français !",
+                "authors":"CubicOtter",
                 "background":"game_backgrounds/SurviveTheInternet.webp",
+                "version":"1.0.0",
                 "path":"games/SurviveTheInternet",
-                "patchs":[
-                    {
-                        "id":"survivetheinternet_fr",
-                        "name":"Survive The Internet FR",
-                        "small_description":"Traduisez votre jeu en Français !",
-                        "description":"Ce patch transforme votre jeu en français !",
-                        "authors":"CubicOtter",
-                        "version":"1.0.0",
-                        "path":"games/SurviveTheInternet",
-                        "patch_path":"patchs/survivetheinternet_1.0.0.zip",
-                        "patch_type":{
-                            "game_text":true,
-                            "game_assets":false,
-                            "game_subtitles":false,
-                            "website":false,
-                            "audios":false
-                        }
-                    }
-                ]
+                "patch_path":"patchs/survivetheinternet_1.0.0.zip",
+                "patch_type":{
+                    "game_text":true,
+                    "game_assets":false,
+                    "game_subtitles":false,
+                    "website":false,
+                    "audios":false
+                }
             },
             {
                 "id":"monsterseekingmonster",
                 "name":"Monster Seeking Monster",
-                "small_description":"Mêmes les monstres ont le droit à l'amour",
+                "small_description":"Traduisez votre jeu en Français !",
+                "description":"Ce patch traduit votre jeu en français !",
+                "authors":"Fizzrocks et Alexis",
                 "background":"game_backgrounds/MonsterSeekingMonster.webp",
+                "version":"1.0.0",
                 "path":"games/MonsterMingle",
-                "patchs":[
-                    {
-                        "id":"monsterseekingmonster_fr",
-                        "name":"Monster Seeking Monster FR",
-                        "small_description":"Traduisez votre jeu en Français !",
-                        "description":"Ce patch traduit votre jeu en français !",
-                        "authors":"Fizzrocks et Alexis",
-                        "version":"1.0.0",
-                        "path":"games/MonsterMingle",
-                        "patch_path":"patchs/monsterseekingmonster_1.0.0.zip",
-                        "patch_type":{
-                            "game_text":true,
-                            "game_assets":true,
-                            "game_subtitles":false,
-                            "website":true,
-                            "audios":false
-                        }
-                    }
-                ]
+                "patch_path":"patchs/monsterseekingmonster_1.0.0.zip",
+                "patch_type":{
+                    "game_text":true,
+                    "game_assets":true,
+                    "game_subtitles":false,
+                    "website":true,
+                    "audios":false
+                }
             },
             {
                 "id":"bracketeering",
                 "name":"Bracketeering",
-                "small_description":"Participez au tournoi interstellaire",
+                "small_description":"Traduisez votre jeu en Français !",
+                "description":"Ce patch traduit votre jeu en français !",
+                "authors":"FishingGuppy",
                 "background":"game_backgrounds/Bracketeering.webp",
+                "version":"1.0.1",
                 "path":"games/Bracketeering",
-                "patchs":[
-                    {
-                        "id":"bracketeering",
-                        "name":"Bracketeering",
-                        "small_description":"Traduisez votre jeu en Français !",
-                        "description":"Ce patch traduit votre jeu en français !",
-                        "authors":"FishingGuppy",
-                        "version":"1.0.1",
-                        "patch_path":"patchs/bracketeering_1.0.1.zip",
-                        "patch_type":{
-                            "game_text":true,
-                            "game_assets":true,
-                            "game_subtitles":false,
-                            "website":true,
-                            "audios":false
-                        }
-                    }
-                ]
+                "patch_path":"patchs/bracketeering_1.0.1.zip",
+                "patch_type":{
+                    "game_text":true,
+                    "game_assets":true,
+                    "game_subtitles":false,
+                    "website":true,
+                    "audios":false
+                }
             }
         ],
         "icon":"jpp4.ico",
@@ -142,53 +111,39 @@
         "games":[
             {
                 "id":"splittheroom",
-                "name":"Split The Room",
-                "small_description":"Arriverez-vous à splitter la salle ?",
+                "name":"[PREVIEW] Split The Room",
+                "small_description":"[PREVIEW] Traduction du jeu en Français",
+                "description":"Le patch complet arrive bientôt. Vous pouvez toujours télécharger la preview mais gardez à l'esprit que la traduction n'est pas terminée. Avec cette preview, le jeu est traduit en français, mais il peut y avoir des fautes. N'hésitez pas à prévenir MisterShaokahn#0765 si il y a des problèmes de traduction",
                 "background":"game_backgrounds/SplitTheRoom.webp",
+                "version":"0.1.0",
+                "authors":"MisterShaokahn#0765",
                 "path":"games/SplitTheRoom",
-                "patchs":[
-                    {
-                        "id":"splittheroom_fr",
-                        "name":"[PREVIEW] Split The Room",
-                        "small_description":"[PREVIEW] Traduction du jeu en Français",
-                        "description":"Le patch complet arrive bientôt. Vous pouvez toujours télécharger la preview mais gardez à l'esprit que la traduction n'est pas terminée. Avec cette preview, le jeu est traduit en français, mais il peut y avoir des fautes. N'hésitez pas à prévenir MisterShaokahn#0765 si il y a des problèmes de traduction",
-                        "version":"0.1.0",
-                        "authors":"MisterShaokahn#0765",
-                        "patch_path":"patchs/splittheroom_0.1.0.zip",
-                        "patch_type":{
-                            "game_text":true,
-                            "game_assets":false,
-                            "game_subtitles":false,
-                            "website":false,
-                            "audios":false
-                        }
-                    }
-                ]
+                "patch_path":"patchs/splittheroom_0.1.0.zip",
+                "patch_type":{
+                    "game_text":true,
+                    "game_assets":false,
+                    "game_subtitles":false,
+                    "website":false,
+                    "audios":false
+                }
             },
             {
                 "id":"patentlystupid",
                 "name":"Patently Stupid",
-                "small_description":"Vendez vos inventions",
+                "small_description":"Traduction du jeu en Français",
+                "description":"Ce patch traduit votre jeu en français !",
                 "background":"game_backgrounds/PatentlyStupid.webp",
+                "version":"1.0.0",
+                "authors":"Alexis",
                 "path":"games/PatentlyStupid",
-                "patchs":[
-                    {
-                        "id":"patentlystupid_fr",
-                        "name":"Patently Stupid FR",
-                        "small_description":"Traduction du jeu en Français",
-                        "description":"Ce patch traduit votre jeu en français !",
-                        "version":"1.0.0",
-                        "authors":"Alexis",
-                        "patch_path":"patchs/patentlystupid_1.0.0.zip",
-                        "patch_type":{
-                            "game_text":true,
-                            "game_assets":false,
-                            "game_subtitles":false,
-                            "website":false,
-                            "audios":false
-                        }
-                    }
-                ]
+                "patch_path":"patchs/patentlystupid_1.0.0.zip",
+                "patch_type":{
+                    "game_text":true,
+                    "game_assets":false,
+                    "game_subtitles":false,
+                    "website":false,
+                    "audios":false
+                }
             }
         ],
         "icon":"jpp5.ico",
@@ -207,78 +162,56 @@
             {
                 "id":"jokeboat",
                 "name":"Joke Boat",
-                "small_description":"Faites rigoler le public",
+                "small_description":"Traduisez votre jeu en Français !",
+                "description":"Ce patch traduit votre jeu en français !",
+                "authors":"CubicOtter",
                 "background":"game_backgrounds/JokeBoat.webp",
-                "path":"games/JokeBoat",
-                "patchs":[
-                    {
-                        "id":"jokeboat_fr",
-                        "name":"Joke Boat FR",
-                        "small_description":"Traduisez votre jeu en Français !",
-                        "description":"Ce patch traduit votre jeu en français !",
-                        "authors":"CubicOtter",
-                        "version":"1.0.0",
-                        "patch_path":"patchs/jokeboat_1.0.0.zip",
-                        "patch_type":{
-                            "game_text":true,
-                            "game_assets":false,
-                            "game_subtitles":false,
-                            "website":false,
-                            "audios":false
-                        }
-                    }
-                ]
+                "version":"1.0.0",
+                "path":"games/Jokeboat",
+                "patch_path":"patchs/jokeboat_1.0.0.zip",
+                "patch_type":{
+                    "game_text":true,
+                    "game_assets":false,
+                    "game_subtitles":false,
+                    "website":false,
+                    "audios":false
+                }
             },
             {
                 "id":"dictionarium",
                 "name":"Dictionarium",
-                "small_description":"Inventez des mots",
+                "small_description":"Traduisez votre jeu en Français !",
+                "description":"Ce patch traduit votre jeu en français !",
+                "authors":"CubicOtter",
                 "background":"game_backgrounds/Dictionarium.webp",
+                "version":"1.0.0",
                 "path":"games/Ridictionary",
-                "patchs":[
-                    {
-                        "id":"dictionarium_fr",
-                        "name":"Dictionarium FR",
-                        "small_description":"Traduisez votre jeu en Français !",
-                        "description":"Ce patch traduit votre jeu en français !",
-                        "authors":"CubicOtter",
-                        "version":"1.0.0",
-                        "patch_path":"patchs/dictionarium_1.0.0.zip",
-                        "patch_type":{
-                            "game_text":true,
-                            "game_assets":false,
-                            "game_subtitles":false,
-                            "website":false,
-                            "audios":false
-                        }
-                    }
-                ]
+                "patch_path":"patchs/dictionarium_1.0.0.zip",
+                "patch_type":{
+                    "game_text":true,
+                    "game_assets":false,
+                    "game_subtitles":false,
+                    "website":false,
+                    "audios":false
+                }
             },
             {
                 "id":"pushthebutton",
                 "name":"Push The Button",
-                "small_description":"Trouvez les aliens",
+                "small_description":"Traduisez votre jeu en Français !",
+                "description":"Ce patch traduit votre jeu en français !",
+                "authors":"Alexis et Fizzrocks",
                 "background":"game_backgrounds/PushTheButton.webp",
+                "version":"1.0.0",
                 "path":"games/PushTheButton",
-                "patchs":[
-                    {
-                        "id":"pushthebutton_fr",
-                        "name":"Push The Button FR",
-                        "small_description":"Traduisez votre jeu en Français !",
-                        "description":"Ce patch traduit votre jeu en français !",
-                        "authors":"Alexis et Fizzrocks",
-                        "version":"1.0.0",
-                        "path":"games/PushTheButton",
-                        "patch_path":"patchs/pushthebutton_1.0.0.zip",
-                        "patch_type":{
-                            "game_text":true,
-                            "game_assets":true,
-                            "game_subtitles":false,
-                            "website":true,
-                            "audios":false
-                        }
-                    }
-                ]
+                "patch_path":"patchs/pushthebutton_1.0.0.zip",
+                "patch_type":{
+                    "game_text":true,
+                    "game_assets":true,
+                    "game_subtitles":false,
+                    "website":true,
+                    "audios":false
+                }
             }
         ],
         "icon":"jpp6.ico",
@@ -297,52 +230,38 @@
             {
                 "id":"champdup",
                 "name":"Champ'd Up",
-                "small_description":"Faites combattre vos dessins",
+                "small_description":"Traduisez votre jeu en Français !",
+                "description":"Dessinez et envoyez vos combattants au combat",
+                "authors":"CubicOtter",
                 "background":"game_backgrounds/Champdup.webp",
+                "version":"1.0.0",
                 "path":"games/WorldChampions",
-                "patchs":[
-                    {
-                        "id":"champdup_fr",
-                        "name":"Champ'd Up FR",
-                        "small_description":"Traduisez votre jeu en Français !",
-                        "description":"Dessinez et envoyez vos combattants au combat",
-                        "authors":"CubicOtter",
-                        "version":"1.0.0",
-                        "patch_path":"patchs/champdup_1.0.0.zip",
-                        "patch_type":{
-                            "game_text":true,
-                            "game_assets":true,
-                            "game_subtitles":true,
-                            "website":false,
-                            "audios":false
-                        }
-                    }
-                ]
+                "patch_path":"patchs/champdup_1.0.0.zip",
+                "patch_type":{
+                    "game_text":true,
+                    "game_assets":true,
+                    "game_subtitles":true,
+                    "website":false,
+                    "audios":false
+                }
             },
             {
                 "id":"talkingpoints",
                 "name":"Talking Points",
-                "small_description":"Présentez votre pire sujet",
+                "small_description":"Traduisez votre jeu en Français !",
+                "description":"Parlez et présentez votre pire sujet",
+                "authors":"Alexis",
                 "background":"game_backgrounds/TalkingPoints.webp",
+                "version":"1.0.0",
                 "path":"games/JackboxTalks",
-                "patchs":[
-                    {
-                        "id":"talkingpoints_fr",
-                        "name":"Talking Points FR",
-                        "small_description":"Traduisez votre jeu en Français !",
-                        "description":"Parlez et présentez votre pire sujet",
-                        "authors":"Alexis",
-                        "version":"1.0.0",
-                        "patch_path":"patchs/talkingpoints_1.0.0.zip",
-                        "patch_type":{
-                            "game_text":true,
-                            "game_assets":false,
-                            "game_subtitles":false,
-                            "website":false,
-                            "audios":false
-                        }
-                    }
-                ]
+                "patch_path":"patchs/talkingpoints_1.0.0.zip",
+                "patch_type":{
+                    "game_text":true,
+                    "game_assets":false,
+                    "game_subtitles":false,
+                    "website":false,
+                    "audios":false
+                }
             }
         ],
         "icon":"jpp7.ico",
@@ -361,77 +280,56 @@
             {
                 "id":"jobjob",
                 "name":"Job Job",
-                "small_description":"Devenez le meilleur employé",
+                "small_description":"Traduisez votre jeu en Français !",
+                "description":"Utilisez les mots des autres pour gagner des points",
+                "authors":"Alexis",
                 "background":"game_backgrounds/JobJob.webp",
+                "version":"1.0.0",
                 "path":"games/JobGame",
-                "patchs":[
-                    {
-                        "id":"jobjob_fr",
-                        "name":"Job Job FR",
-                        "small_description":"Traduisez votre jeu en Français !",
-                        "description":"Utilisez les mots des autres pour gagner des points",
-                        "authors":"Alexis",
-                        "version":"1.0.0",
-                        "patch_path":"patchs/jobjob_1.0.0.zip",
-                        "patch_type":{
-                            "game_text":true,
-                            "game_assets":false,
-                            "game_subtitles":false,
-                            "website":false,
-                            "audios":false
-                        }
-                    }
-                ]
+                "patch_path":"patchs/jobjob_1.0.0.zip",
+                "patch_type":{
+                    "game_text":true,
+                    "game_assets":false,
+                    "game_subtitles":false,
+                    "website":false,
+                    "audios":false
+                }
             },
             {
                 "id":"thepollmine",
-                "name":"The Poll Mine",
-                "small_description":"Sortez de la caverne",
+                "name":"[PREVIEW] The Poll Mine",
+                "small_description":"[PREVIEW] Traduisez votre jeu en Français !",
+                "description":"Le patch complet arrive bientôt. Vous pouvez toujours télécharger la preview mais gardez à l'esprit que la traduction n'est pas terminée. Avec cette preview, vous avez accès à 70 questions en français.",
+                "authors":"Pachat, Alexis et fizzrocks",
                 "background":"game_backgrounds/ThePollMine.webp",
+                "version":"0.1.0",
                 "path":"games/SurveyBomb",
-                "patchs":[
-                    {
-                        "id":"thepollmine",
-                        "name":"[PREVIEW] The Poll Mine",
-                        "small_description":"[PREVIEW] Traduisez votre jeu en Français !",
-                        "description":"Le patch complet arrive bientôt. Vous pouvez toujours télécharger la preview mais gardez à l'esprit que la traduction n'est pas terminée. Avec cette preview, vous avez accès à 70 questions en français.",
-                        "authors":"Pachat, Alexis et fizzrocks",
-                        "version":"0.1.0",
-                        "patch_path":"patchs/thepollmine_0.1.0.zip",
-                        "patch_type":{
-                            "game_text":true,
-                            "game_assets":true,
-                            "game_subtitles":false,
-                            "website":true,
-                            "audios":false
-                        }
-                    }
-                ]
+                "patch_path":"patchs/thepollmine_0.1.0.zip",
+                "patch_type":{
+                    "game_text":true,
+                    "game_assets":true,
+                    "game_subtitles":false,
+                    "website":true,
+                    "audios":false
+                }
             },
             {
                 "id":"weaponsdrawn",
                 "name":"Weapon's Drawn",
-                "small_description":"Trouvez les tueurs",
+                "small_description":"Traduisez votre jeu en Français !",
+                "description":"Traduisez votre jeu en français avec ce patch !",
+                "authors":"MisterShaokahn#0765",
                 "background":"game_backgrounds/WeaponsDrawn.webp",
+                "version":"1.0.1",
                 "path":"games/MurderDetectives",
-                "patchs":[
-                    {
-                        "id":"weaponsdrawn_fr",
-                        "name":"Weapon's Drawn FR",
-                        "small_description":"Traduisez votre jeu en Français !",
-                        "description":"Traduisez votre jeu en français avec ce patch !",
-                        "authors":"MisterShaokahn#0765",
-                        "version":"1.0.1",
-                        "patch_path":"patchs/weaponsdrawn_1.0.1.zip",
-                        "patch_type":{
-                            "game_text":true,
-                            "game_assets":false,
-                            "game_subtitles":false,
-                            "website":false,
-                            "audios":false
-                        }
-                    }
-                ]
+                "patch_path":"patchs/weaponsdrawn_1.0.1.zip",
+                "patch_type":{
+                    "game_text":true,
+                    "game_assets":false,
+                    "game_subtitles":false,
+                    "website":false,
+                    "audios":false
+                }
             }
         ],
         "icon":"jpp8.ico",

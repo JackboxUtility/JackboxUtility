@@ -11,11 +11,9 @@ import '../../services/api/api_service.dart';
 class UserJackboxGame {
   final JackboxGame game;
   final List<UserJackboxPatch> patches = [];
-  String? installedVersion;
 
   UserJackboxGame({
-    required this.game,
-    required this.installedVersion,
+    required this.game
   });
 }
 
