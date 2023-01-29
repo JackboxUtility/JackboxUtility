@@ -315,7 +315,7 @@
                 "background":"game_backgrounds/Champdup.webp",
                 "path":"games/WorldChampions",
                 "loader":{
-                    "path":"loaders/tjpp7/default.zip",
+                    "path":"loaders/tjpp7/champdup.zip",
                     "version":"1.0.0"
                 },
                 "patchs":[
