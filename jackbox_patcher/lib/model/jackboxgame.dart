@@ -26,7 +26,7 @@ class JackboxGame {
       description: json['description'],
       background: json['background'],
       path: json['path'],
-      patches:(json['patch'] as List<dynamic>)
+      patches:(json['patchs'] as List<dynamic>)
             .map((e) => JackboxPatch.fromJson(e))
             .toList(),
       smallDescription: json['small_description'],
