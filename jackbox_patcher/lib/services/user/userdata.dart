@@ -29,17 +29,30 @@ class UserData {
   Future<void> syncPacks() async {
     List<JackboxPack> networkPacks = await APIService().getPacks();
     for (var pack in networkPacks) {
+      // Load the pack loader
+      UserJackboxLoader loader = UserJackboxLoader(
+          loader: pack.loader!,
+          path: preferences.getString("${pack.id}_loader_path"),
+          version: preferences.getString("${pack.id}_loader_version"));
+
       final String? packPath = preferences.getString("${pack.id}_path");
-      UserJackboxPack userPack = UserJackboxPack(pack: pack, path: packPath);
+      UserJackboxPack userPack =
+          UserJackboxPack(pack: pack, loader: loader, path: packPath);
       packs.add(userPack);
       for (var game in pack.games) {
-        final String? gameVersionInstalled =
-            preferences.getString("${game.id}_version");
-        UserJackboxGame currentGame = UserJackboxGame(game: game);
+        UserJackboxLoader loader = UserJackboxLoader(
+            loader: game.loader!,
+            path: preferences.getString("${game.id}_loader_path"),
+            version: preferences.getString("${game.id}_loader_version"));
+
+        UserJackboxGame currentGame =
+            UserJackboxGame(game: game, loader: loader);
         userPack.games.add(currentGame);
         for (var patch in game.patches) {
+          final String? patchVersionInstalled =
+              preferences.getString("${patch.id}_version");
           currentGame.patches.add(UserJackboxPatch(
-              patch: patch, installedVersion: gameVersionInstalled));
+              patch: patch, installedVersion: patchVersionInstalled));
         }
       }
     }
@@ -70,6 +83,14 @@ class UserData {
           "${patch.patch.id}_version", patch.installedVersion!);
     } else {
       await preferences.remove("${patch.patch.id}_version");
+    }
+  }
+
+  /// Save a loader path (mostly used when a loader is downloaded)
+  Future<void> saveLoader(UserJackboxLoader loader, String id) async {
+    if (loader.path != null) {
+      await preferences.setString("${id}_loader_path", loader.path!);
+      await preferences.setString("${id}_loader_version", loader.version!);
     }
   }
 

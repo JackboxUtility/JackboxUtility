@@ -62,6 +62,34 @@ class APIService {
     }
   }
 
+  Future<String> downloadPackLoader(
+      JackboxPack pack, void Function(double, double) progressCallback) async {
+    Dio dio = Dio();
+    final response = await dio.downloadUri(
+        Uri.parse('$baseAssets/${pack.loader!.path}'),
+        "./downloads/loader/${pack.id}/default.zip}",
+        onReceiveProgress: (received, total) { progressCallback(received.toDouble(), total.toDouble()); });
+    if (response.statusCode == 200) {
+      return "./downloads/loader/${pack.id}/default.zip}";
+    } else {
+      throw Exception('Failed to download patch');
+    }
+  }
+
+  Future<String> downloadGameLoader(JackboxPack pack,
+      JackboxGame game, void Function(double, double) progressCallback) async {
+    Dio dio = Dio();
+    final response = await dio.downloadUri(
+        Uri.parse('$baseAssets/${game.loader!.path}'),
+        "./downloads/loader/${pack.id}/${game.id}.zip",
+        onReceiveProgress: (received, total) { progressCallback(received.toDouble(), total.toDouble()); });
+    if (response.statusCode == 200) {
+      return "./downloads/loader/${pack.id}/${game.id}.zip";
+    } else {
+      throw Exception('Failed to download patch');
+    }
+  }
+
   String assetLink(String asset) {
     return '$baseAssets/$asset';
   }

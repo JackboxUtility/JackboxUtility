@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:jackbox_patcher/services/launcher/launcher.dart';
+
 import 'jackboxgame.dart';
 
 class JackboxPack {
@@ -7,6 +9,7 @@ class JackboxPack {
   final String name;
   final String description;
   final String icon;
+  final JackboxLoader? loader;
   final List<JackboxGame> games;
   final String background;
   final String? executable;
@@ -16,6 +19,7 @@ class JackboxPack {
       required this.name,
       required this.description,
       required this.icon,
+      required this.loader,
       required this.background,
       required this.games,
       required this.executable});
@@ -26,11 +30,13 @@ class JackboxPack {
         name: json['name'],
         description: json['description'],
         icon: json['icon'],
+        loader:json['loader']!=null? JackboxLoader.fromJson(json['loader']):null,
         background: json['background'],
         games: (json['games'] as List<dynamic>)
             .map((e) => JackboxGame.fromJson(e))
             .toList(),
-        executable: JackboxPack.generateExecutableFromJson(json['executables']));
+        executable:
+            JackboxPack.generateExecutableFromJson(json['executables']));
   }
 
   static List<JackboxPack> fromJsonList(List<dynamic> jsonList) {
@@ -52,5 +58,16 @@ class JackboxPack {
         }
       }
     }
+  }
+}
+
+class JackboxLoader {
+  final String path;
+  final String version;
+
+  JackboxLoader({required this.path, required this.version});
+
+  factory JackboxLoader.fromJson(Map<String, dynamic> json) {
+    return JackboxLoader(path: json['path'], version: json['version']);
   }
 }

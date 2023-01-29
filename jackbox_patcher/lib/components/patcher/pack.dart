@@ -11,6 +11,7 @@ import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpatch.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
+import 'package:jackbox_patcher/services/launcher/launcher.dart';
 
 class PatcherPackWidget extends StatefulWidget {
   PatcherPackWidget({Key? key, required this.userPack}) : super(key: key);
@@ -216,8 +217,7 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
       setState(() {
         launchingStatus = "LOADING";
       });
-      await Process.run(
-          "${widget.userPack.path!}/${widget.userPack.pack.executable!}", []);
+      await Launcher.launchPack(widget.userPack);
       setState(() {
         launchingStatus = "LAUNCHED";
       });
