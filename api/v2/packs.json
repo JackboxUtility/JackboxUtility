@@ -302,6 +302,10 @@
             "mac":"The Jackbox Party Pack 7.app/Contents/MacOS/The Jackbox Party Pack 7",
             "linux":"TJPP7"
         },
+        "loader":{
+            "loader_path":"loaders/jpp7/default.zip",
+            "loader_version":"1.0.0"
+        },
         "games":[
             {
                 "id":"champdup",
@@ -310,6 +314,10 @@
                 "description":"Dessinez et envoyez vos combattants au combat",
                 "background":"game_backgrounds/Champdup.webp",
                 "path":"games/WorldChampions",
+                "loader":{
+                    "loader_path":"loaders/jpp7/default.zip",
+                    "loader_version":"1.0.0"
+                },
                 "patchs":[
                     {
                         "id":"champdup_fr",
@@ -336,6 +344,10 @@
                 "description":"Parlez et présentez votre pire sujet",
                 "background":"game_backgrounds/TalkingPoints.webp",
                 "path":"games/JackboxTalks",
+                "loader":{
+                    "loader_path":"loaders/jpp7/default.zip",
+                    "loader_version":"1.0.0"
+                },
                 "patchs":[
                     {
                         "id":"talkingpoints_fr",

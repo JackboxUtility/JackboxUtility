@@ -221,10 +221,6 @@
         "id":"jpp7",
         "name":"Jackbox Party Pack 7",
         "description":"Le septième party pack de Jackbox",
-        "loader":{
-            "loader_path":"loaders/jpp7/default.zip",
-            "loader_version":"1.0.0"
-        },
         "executables":{
             "windows":"The Jackbox Party Pack 7.exe",
             "mac":"The Jackbox Party Pack 7.app/Contents/MacOS/The Jackbox Party Pack 7",
