@@ -30,20 +30,26 @@ class UserData {
     List<JackboxPack> networkPacks = await APIService().getPacks();
     for (var pack in networkPacks) {
       // Load the pack loader
-      UserJackboxLoader loader = UserJackboxLoader(
-          loader: pack.loader!,
-          path: preferences.getString("${pack.id}_loader_path"),
-          version: preferences.getString("${pack.id}_loader_version"));
+      UserJackboxLoader? loader = null;
+      if (pack.loader != null) {
+        loader = UserJackboxLoader(
+            loader: pack.loader!,
+            path: preferences.getString("${pack.id}_loader_path"),
+            version: preferences.getString("${pack.id}_loader_version"));
+      }
 
       final String? packPath = preferences.getString("${pack.id}_path");
       UserJackboxPack userPack =
           UserJackboxPack(pack: pack, loader: loader, path: packPath);
       packs.add(userPack);
       for (var game in pack.games) {
-        UserJackboxLoader loader = UserJackboxLoader(
-            loader: game.loader!,
-            path: preferences.getString("${game.id}_loader_path"),
-            version: preferences.getString("${game.id}_loader_version"));
+        UserJackboxLoader? loader = null;
+        if (game.loader != null) {
+          UserJackboxLoader loader = UserJackboxLoader(
+              loader: game.loader!,
+              path: preferences.getString("${game.id}_loader_path"),
+              version: preferences.getString("${game.id}_loader_version"));
+        }
 
         UserJackboxGame currentGame =
             UserJackboxGame(game: game, loader: loader);

@@ -10,7 +10,7 @@ import '../../services/launcher/launcher.dart';
 class UserJackboxPack {
   final JackboxPack pack;
   final List<UserJackboxGame> games = [];
-  final UserJackboxLoader loader;
+  UserJackboxLoader? loader;
   String? path;
 
   UserJackboxPack({
@@ -37,7 +37,7 @@ class UserJackboxPack {
 }
 
 class UserJackboxLoader {
-  final JackboxLoader loader;
+  JackboxLoader? loader;
 
   /// The path to the loader on the device
   String? path;

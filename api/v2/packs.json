@@ -303,7 +303,7 @@
             "linux":"TJPP7"
         },
         "loader":{
-            "path":"loaders/jpp7/default.zip",
+            "path":"loaders/tjpp7/default.zip",
             "version":"1.0.0"
         },
         "games":[
@@ -315,7 +315,7 @@
                 "background":"game_backgrounds/Champdup.webp",
                 "path":"games/WorldChampions",
                 "loader":{
-                    "path":"loaders/jpp7/default.zip",
+                    "path":"loaders/tjpp7/default.zip",
                     "version":"1.0.0"
                 },
                 "patchs":[
@@ -345,7 +345,7 @@
                 "background":"game_backgrounds/TalkingPoints.webp",
                 "path":"games/JackboxTalks",
                 "loader":{
-                    "path":"loaders/jpp7/default.zip",
+                    "path":"loaders/tjpp7/default.zip",
                     "version":"1.0.0"
                 },
                 "patchs":[

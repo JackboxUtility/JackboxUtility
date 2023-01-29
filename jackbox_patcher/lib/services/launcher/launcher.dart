@@ -13,17 +13,17 @@ class Launcher {
       throw Exception("Pack path is null");
     } else {
       // If the loader is not already installed or need update, download it
-      if (pack.loader.path == null ||
-          pack.loader.version != pack.pack.loader!.version || !File(pack.loader.path!).existsSync()) {
-        pack.loader.path =
+      if (pack.loader!.path == null ||
+          pack.loader!.version != pack.pack.loader!.version || !File(pack.loader!.path!).existsSync()) {
+        pack.loader!.path =
             await APIService().downloadPackLoader(pack.pack, (p0, p1) {});
-        pack.loader.version = pack.pack.loader!.version;
+        pack.loader!.version = pack.pack.loader!.version;
         await UserData().savePack(pack);
       }
 
       // Extracting into game file
       String packFolder = pack.path!;
-      await extractFileToDisk(pack.loader.path!, packFolder);
+      await extractFileToDisk(pack.loader!.path!, packFolder);
       await Process.run("${pack.path}/${pack.pack.executable}", []);
     }
   }

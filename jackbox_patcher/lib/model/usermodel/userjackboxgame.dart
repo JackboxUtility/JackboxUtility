@@ -12,7 +12,7 @@ import '../../services/api/api_service.dart';
 class UserJackboxGame {
   final JackboxGame game;
   final List<UserJackboxPatch> patches = [];
-  final UserJackboxLoader loader;
+  final UserJackboxLoader? loader;
 
   UserJackboxGame({
     required this.game,
