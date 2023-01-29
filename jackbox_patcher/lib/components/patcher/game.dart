@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpatch.dart';
+import 'package:jackbox_patcher/services/launcher/launcher.dart';
 import 'package:palette_generator/palette_generator.dart';
 
 import '../../model/usermodel/userjackboxgame.dart';
@@ -100,7 +101,7 @@ class _PatchCardState extends State<PatchCard> {
                                 ))
                               ])),
                     ])))),
-        GameImageWithOpener(game: widget.game),
+        GameImageWithOpener(pack:widget.pack,game: widget.game),
         Container(
             margin: EdgeInsets.only(top: 35, left: 10),
             child: Tooltip(
@@ -356,7 +357,8 @@ class _PatchCardState extends State<PatchCard> {
 }
 
 class GameImageWithOpener extends StatefulWidget {
-  GameImageWithOpener({Key? key, required this.game}) : super(key: key);
+  GameImageWithOpener({Key? key,required this.pack, required this.game}) : super(key: key);
+  UserJackboxPack pack;
   UserJackboxGame game;
   @override
   State<GameImageWithOpener> createState() => _GameImageWithOpenerState();
@@ -374,7 +376,9 @@ class _GameImageWithOpenerState extends State<GameImageWithOpener> {
               ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
                   child: IntrinsicWidth(
-                      child: MouseRegion(
+                      child: GestureDetector(
+                        onTap:()=>Launcher.launchGame(widget.pack, widget.game),
+                        child: MouseRegion(
                           onEnter: (a) => setState(() {
                                 playButtonVisible = true;
                               }),
@@ -424,7 +428,7 @@ class _GameImageWithOpenerState extends State<GameImageWithOpener> {
                                     );
                                   }),
                             )
-                          ]))))
+                          ])))))
             ])));
   }
 }

@@ -67,10 +67,10 @@ class APIService {
     Dio dio = Dio();
     final response = await dio.downloadUri(
         Uri.parse('$baseAssets/${pack.loader!.path}'),
-        "./downloads/loader/${pack.id}/default.zip}",
+        "./downloads/loader/${pack.id}/default.zip",
         onReceiveProgress: (received, total) { progressCallback(received.toDouble(), total.toDouble()); });
     if (response.statusCode == 200) {
-      return "./downloads/loader/${pack.id}/default.zip}";
+      return "./downloads/loader/${pack.id}/default.zip";
     } else {
       throw Exception('Failed to download patch');
     }

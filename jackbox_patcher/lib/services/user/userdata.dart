@@ -43,16 +43,17 @@ class UserData {
           UserJackboxPack(pack: pack, loader: loader, path: packPath);
       packs.add(userPack);
       for (var game in pack.games) {
-        UserJackboxLoader? loader = null;
+        UserJackboxLoader? gameLoader = null;
         if (game.loader != null) {
-          UserJackboxLoader loader = UserJackboxLoader(
+          print("LOADER FOUND");
+          gameLoader = UserJackboxLoader(
               loader: game.loader!,
               path: preferences.getString("${game.id}_loader_path"),
               version: preferences.getString("${game.id}_loader_version"));
         }
 
         UserJackboxGame currentGame =
-            UserJackboxGame(game: game, loader: loader);
+            UserJackboxGame(game: game, loader: gameLoader);
         userPack.games.add(currentGame);
         for (var patch in game.patches) {
           final String? patchVersionInstalled =
@@ -73,17 +74,25 @@ class UserData {
   Future<void> savePack(UserJackboxPack pack) async {
     await preferences.setString("${pack.pack.id}_path", pack.path!);
     for (var game in pack.games) {
-      for (var patch in game.patches) {
-        if (patch.installedVersion != null) {
-          await preferences.setString(
-              "${patch.patch.id}_version", patch.installedVersion!);
-        }
-      }
+      await saveGame(game);
+    }
+    if (pack.loader != null) {
+      await saveLoader(pack.loader!, pack.pack.id);
     }
   }
 
-  /// Save a game (mostly used when a patch is downloaded)
-  Future<void> saveGame(UserJackboxPatch patch) async {
+  /// Save a game
+  Future<void> saveGame(UserJackboxGame game) async {
+    for (var patch in game.patches) {
+      savePatch(patch);
+    }
+    if (game.loader != null) {
+      await saveLoader(game.loader!, game.game.id);
+    }
+  }
+
+  /// Save a patch (mostly used when a patch is downloaded)
+  Future<void> savePatch(UserJackboxPatch patch) async {
     if (patch.installedVersion != null) {
       await preferences.setString(
           "${patch.patch.id}_version", patch.installedVersion!);

@@ -13,7 +13,7 @@ class UserJackboxPatch {
     required this.patch,
     required this.installedVersion,
   });
-  
+
   UserInstalledPatchStatus getInstalledStatus(String? packPath) {
     if (patch.latestVersion != "" && packPath != null && packPath != "") {
       if (installedVersion != null && installedVersion != "") {
@@ -30,12 +30,12 @@ class UserJackboxPatch {
     }
   }
 
-  Future<void> downloadPatch(
-      String patchUri, String gameUri, void Function(String, String, double) callback) async {
+  Future<void> downloadPatch(String patchUri, String gameUri,
+      void Function(String, String, double) callback) async {
     try {
       callback("Téléchargement (1/3)", "Démarrage", 0);
-      String filePath =
-          await APIService().downloadPatch(patch, (double progress, double max) {
+      String filePath = await APIService().downloadPatch(patch,
+          (double progress, double max) {
         callback(
             "Téléchargement (1/3)",
             (progress / 1000000).toString() +
@@ -49,7 +49,7 @@ class UserJackboxPatch {
           asyncWrite: false);
       callback("Finalisation (3/3)", "", 100);
       installedVersion = patch.latestVersion;
-      await UserData().saveGame(this);
+      await UserData().savePatch(this);
       //File(filePath).deleteSync(recursive: true);
     } on Exception catch (e) {
       callback("Erreur iconnue", "Contactez Alexis#1588 sur Discord", 0);
@@ -59,7 +59,7 @@ class UserJackboxPatch {
 
   Future<void> removePatch() async {
     installedVersion = null;
-    await UserData().saveGame(this);
+    await UserData().savePatch(this);
   }
 }
 
