@@ -241,6 +241,8 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
                         TextBox(
                           controller: pathController,
                           onChanged: (value) {
+                            print("Set owned");
+                            widget.userPack.setOwned(true);
                             widget.userPack.setPath(value);
                           },
                         )

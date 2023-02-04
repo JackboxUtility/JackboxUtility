@@ -12,8 +12,23 @@
             {
                 "id":"bombcorp",
                 "name":"Bomb Corp",
-                "small_description":"Désamorcez des bombes en équipe",
-                "description":"Désamorcez des bombes en équipe",
+                "game_info":{
+                    "players":{
+                        "min":1,
+                        "max":4
+                    },
+                    "length":"",
+                    "type":"COOP",
+                    "small_description":"Désamorcez des bombes à 4",
+                    "description":"Désamorcez des bombes à 4",
+                    "images":[
+
+                    ],
+                    "tags":[
+                        "talking"
+                    ]
+
+                },
                 "background":"game_backgrounds/BombCorp.webp",
                 "path":"games/BombInterns",
                 "patchs":[
@@ -57,6 +72,23 @@
                 "description":"Allez-vous survivre à Internet",
                 "background":"game_backgrounds/SurviveTheInternet.webp",
                 "path":"games/SurviveTheInternet",
+                "game_info":{
+                    "players":{
+                        "min":1,
+                        "max":4
+                    },
+                    "length":"",
+                    "type":"COOP",
+                    "small_description":"Désamorcez des bombes à 4",
+                    "description":"Désamorcez des bombes à 4",
+                    "images":[
+
+                    ],
+                    "tags":[
+                        "talking"
+                    ]
+
+                },
                 "patchs":[
                     {
                         "id":"survivetheinternet_fr",
@@ -84,6 +116,23 @@
                 "description":"Mêmes les monstres ont le droit à l'amour",
                 "background":"game_backgrounds/MonsterSeekingMonster.webp",
                 "path":"games/MonsterMingle",
+                "game_info":{
+                    "players":{
+                        "min":1,
+                        "max":4
+                    },
+                    "length":"",
+                    "type":"COOP",
+                    "small_description":"Désamorcez des bombes à 4",
+                    "description":"Désamorcez des bombes à 4",
+                    "images":[
+
+                    ],
+                    "tags":[
+                        "talking"
+                    ]
+
+                },
                 "patchs":[
                     {
                         "id":"monsterseekingmonster_fr",
@@ -111,6 +160,23 @@
                 "description":"Participez au tournoi interstellaire",
                 "background":"game_backgrounds/Bracketeering.webp",
                 "path":"games/Bracketeering",
+                "game_info":{
+                    "players":{
+                        "min":1,
+                        "max":4
+                    },
+                    "length":"",
+                    "type":"COOP",
+                    "small_description":"Désamorcez des bombes à 4",
+                    "description":"Désamorcez des bombes à 4",
+                    "images":[
+
+                    ],
+                    "tags":[
+                        "talking"
+                    ]
+
+                },
                 "patchs":[
                     {
                         "id":"bracketeering",
@@ -151,6 +217,23 @@
                 "description":"Arriverez-vous à splitter la salle ?",
                 "background":"game_backgrounds/SplitTheRoom.webp",
                 "path":"games/SplitTheRoom",
+                "game_info":{
+                    "players":{
+                        "min":1,
+                        "max":4
+                    },
+                    "length":"",
+                    "type":"COOP",
+                    "small_description":"Désamorcez des bombes à 4",
+                    "description":"Désamorcez des bombes à 4",
+                    "images":[
+
+                    ],
+                    "tags":[
+                        "talking"
+                    ]
+
+                },
                 "patchs":[
                     {
                         "id":"splittheroom_fr",
@@ -177,6 +260,23 @@
                 "description":"Vendez vos inventions",
                 "background":"game_backgrounds/PatentlyStupid.webp",
                 "path":"games/PatentlyStupid",
+                "game_info":{
+                    "players":{
+                        "min":1,
+                        "max":4
+                    },
+                    "length":"",
+                    "type":"COOP",
+                    "small_description":"Désamorcez des bombes à 4",
+                    "description":"Désamorcez des bombes à 4",
+                    "images":[
+
+                    ],
+                    "tags":[
+                        "talking"
+                    ]
+
+                },
                 "patchs":[
                     {
                         "id":"patentlystupid_fr",
@@ -217,6 +317,23 @@
                 "description":"Faites rigoler le public",
                 "background":"game_backgrounds/JokeBoat.webp",
                 "path":"games/JokeBoat",
+                "game_info":{
+                    "players":{
+                        "min":1,
+                        "max":4
+                    },
+                    "length":"",
+                    "type":"COOP",
+                    "small_description":"Désamorcez des bombes à 4",
+                    "description":"Désamorcez des bombes à 4",
+                    "images":[
+
+                    ],
+                    "tags":[
+                        "talking"
+                    ]
+
+                },
                 "patchs":[
                     {
                         "id":"jokeboat_fr",
@@ -243,6 +360,23 @@
                 "description":"Inventez des mots",
                 "background":"game_backgrounds/Dictionarium.webp",
                 "path":"games/Ridictionary",
+                "game_info":{
+                    "players":{
+                        "min":1,
+                        "max":4
+                    },
+                    "length":"",
+                    "type":"COOP",
+                    "small_description":"Désamorcez des bombes à 4",
+                    "description":"Désamorcez des bombes à 4",
+                    "images":[
+
+                    ],
+                    "tags":[
+                        "talking"
+                    ]
+
+                },
                 "patchs":[
                     {
                         "id":"dictionarium_fr",
@@ -269,6 +403,23 @@
                 "description":"Trouvez les aliens",
                 "background":"game_backgrounds/PushTheButton.webp",
                 "path":"games/PushTheButton",
+                "game_info":{
+                    "players":{
+                        "min":1,
+                        "max":4
+                    },
+                    "length":"",
+                    "type":"COOP",
+                    "small_description":"Désamorcez des bombes à 4",
+                    "description":"Désamorcez des bombes à 4",
+                    "images":[
+
+                    ],
+                    "tags":[
+                        "talking"
+                    ]
+
+                },
                 "patchs":[
                     {
                         "id":"pushthebutton_fr",
@@ -314,6 +465,23 @@
                 "description":"Dessinez et envoyez vos combattants au combat",
                 "background":"game_backgrounds/Champdup.webp",
                 "path":"games/WorldChampions",
+                "game_info":{
+                    "players":{
+                        "min":1,
+                        "max":4
+                    },
+                    "length":"",
+                    "type":"COOP",
+                    "small_description":"Désamorcez des bombes à 4",
+                    "description":"Désamorcez des bombes à 4",
+                    "images":[
+
+                    ],
+                    "tags":[
+                        "talking"
+                    ]
+
+                },
                 "loader":{
                     "path":"loaders/tjpp7/champdup.zip",
                     "version":"1.0.0"
@@ -344,6 +512,23 @@
                 "description":"Parlez et présentez votre pire sujet",
                 "background":"game_backgrounds/TalkingPoints.webp",
                 "path":"games/JackboxTalks",
+                "game_info":{
+                    "players":{
+                        "min":1,
+                        "max":4
+                    },
+                    "length":"",
+                    "type":"COOP",
+                    "small_description":"Désamorcez des bombes à 4",
+                    "description":"Désamorcez des bombes à 4",
+                    "images":[
+
+                    ],
+                    "tags":[
+                        "talking"
+                    ]
+
+                },
                 "loader":{
                     "path":"loaders/tjpp7/default.zip",
                     "version":"1.0.0"
@@ -388,6 +573,23 @@
                 "description":"Utilisez les mots des autres pour gagner des points",
                 "background":"game_backgrounds/JobJob.webp",
                 "path":"games/JobGame",
+                "game_info":{
+                    "players":{
+                        "min":1,
+                        "max":4
+                    },
+                    "length":"",
+                    "type":"COOP",
+                    "small_description":"Désamorcez des bombes à 4",
+                    "description":"Désamorcez des bombes à 4",
+                    "images":[
+
+                    ],
+                    "tags":[
+                        "talking"
+                    ]
+
+                },
                 "patchs":[
                     {
                         "id":"jobjob_fr",
@@ -414,6 +616,23 @@
                 "description":"Répondez aux questions pour sortir de la caverne",
                 "background":"game_backgrounds/ThePollMine.webp",
                 "path":"games/SurveyBomb",
+                "game_info":{
+                    "players":{
+                        "min":1,
+                        "max":4
+                    },
+                    "length":"",
+                    "type":"COOP",
+                    "small_description":"Désamorcez des bombes à 4",
+                    "description":"Désamorcez des bombes à 4",
+                    "images":[
+
+                    ],
+                    "tags":[
+                        "talking"
+                    ]
+
+                },
                 "patchs":[
                     {
                         "id":"thepollmine",
@@ -440,6 +659,23 @@
                 "description":"Trouvez les tueurs",
                 "background":"game_backgrounds/WeaponsDrawn.webp",
                 "path":"games/MurderDetectives",
+                "game_info":{
+                    "players":{
+                        "min":1,
+                        "max":4
+                    },
+                    "length":"",
+                    "type":"COOP",
+                    "small_description":"Désamorcez des bombes à 4",
+                    "description":"Désamorcez des bombes à 4",
+                    "images":[
+
+                    ],
+                    "tags":[
+                        "talking"
+                    ]
+
+                },
                 "patchs":[
                     {
                         "id":"weaponsdrawn_fr",

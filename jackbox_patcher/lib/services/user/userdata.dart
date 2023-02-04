@@ -39,8 +39,9 @@ class UserData {
       }
 
       final String? packPath = preferences.getString("${pack.id}_path");
+      final bool packOwned = preferences.getBool("${pack.id}_owned") ?? false;
       UserJackboxPack userPack =
-          UserJackboxPack(pack: pack, loader: loader, path: packPath);
+          UserJackboxPack(pack: pack, loader: loader, path: packPath, owned: packOwned);
       packs.add(userPack);
       for (var game in pack.games) {
         UserJackboxLoader? gameLoader = null;
@@ -73,6 +74,7 @@ class UserData {
   /// Save pack (mostly used when the path parameter is changed)
   Future<void> savePack(UserJackboxPack pack) async {
     await preferences.setString("${pack.pack.id}_path", pack.path!);
+    await preferences.setBool("${pack.pack.id}_owned", pack.owned);
     for (var game in pack.games) {
       await saveGame(game);
     }

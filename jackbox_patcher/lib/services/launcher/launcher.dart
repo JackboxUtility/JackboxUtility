@@ -40,7 +40,7 @@ class Launcher {
           game.loader!.version != game.game.loader!.version ||
           !File(game.loader!.path!).existsSync()) {
         game.loader!.path =
-            await APIService().downloadPackLoader(pack.pack, (p0, p1) {});
+            await APIService().downloadGameLoader(pack.pack, game.game, (p0, p1) {});
         game.loader!.version = pack.pack.loader!.version;
         await UserData().savePack(pack);
       }

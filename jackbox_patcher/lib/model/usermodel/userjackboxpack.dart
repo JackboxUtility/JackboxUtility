@@ -12,11 +12,13 @@ class UserJackboxPack {
   final List<UserJackboxGame> games = [];
   UserJackboxLoader? loader;
   String? path;
+  bool owned = false;
 
   UserJackboxPack({
     required this.pack,
     required this.loader,
     required this.path,
+    required this.owned,
   });
 
   Directory? getPackFolder() {
@@ -26,8 +28,26 @@ class UserJackboxPack {
     return Directory(path!);
   }
 
+  Future<String> getPathStatus() async {
+    Directory? folder = getPackFolder();
+    if (folder == null) {
+      return "INEXISTANT";
+    } else {
+      if (await folder.exists()) {
+          return "FOUND";
+      } else {
+        return  "NOT_FOUND";
+      }
+    }
+  }
+
   Future<void> setPath(String p) async {
     this.path = p;
+    await UserData().savePack(this);
+  }
+
+  Future<void> setOwned(bool o) async {
+    this.owned = o;
     await UserData().savePack(this);
   }
 
