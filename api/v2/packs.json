@@ -17,7 +17,7 @@
                         "min":1,
                         "max":4
                     },
-                    "length":"",
+                    "length":"10 - 30 minutes",
                     "type":"COOP",
                     "small_description":"Bienvenue à Bomb Corp ! En tant que stagiaire, vous allez devoir désamorcer les bombes qui se trouvent dans l'entreprise. Arriverez-vous à atteindre le dernier jour ?",
                     "description":"Désamorcez des bombes à 4",

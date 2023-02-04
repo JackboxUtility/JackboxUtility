@@ -73,7 +73,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
           ),
           Positioned(
               top: 140,
-              left: 60,
+              left: calculatePadding(),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -100,37 +100,139 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
     });
   }
 
+  double calculatePadding() {
+    if (MediaQuery.of(context).size.width > 1000) {
+      return (MediaQuery.of(context).size.width - 880) / 2;
+    } else {
+      return 60;
+    }
+  }
+
   Widget _buildBottom() {
     return Padding(
-        padding: EdgeInsets.symmetric(horizontal: 60),
-        child: Column(
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(child: CachedNetworkImage(
-                  imageUrl: APIService().assetLink(widget.game.game.background),
-                  fit: BoxFit.fitWidth,
-                )), 
-                SizedBox(width: 40,),
-                ClipRRect(
-                borderRadius: BorderRadius.circular(8.0),
-                child: Acrylic(
-                    shadowColor: backgroundColor,
-                    blurAmount: 1,
-                    tintAlpha: 1,
-                    tint: Color.fromARGB(255, 48, 48, 48),
-                    child:SizedBox(width: 300,child:Column(crossAxisAlignment:CrossAxisAlignment.start, children: [
-                  CachedNetworkImage(
-                  imageUrl: APIService().assetLink(widget.game.game.background),
-                  fit: BoxFit.fitWidth,
-                ), 
-                Padding(padding: EdgeInsets.symmetric(horizontal: 6,vertical: 10),child:
-                Text(widget.game.game.info.smallDescription))
-                ],))))
-              ],
-            ),
-          ],
-        ));
+      padding: EdgeInsets.symmetric(horizontal: calculatePadding()),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+              child: Column(children: [
+            Stack(children: [
+              SizedBox(
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: CachedNetworkImage(
+                        imageUrl:
+                            APIService().assetLink(widget.game.game.background),
+                        fit: BoxFit.fitWidth,
+                      )))
+            ])
+          ])),
+          SizedBox(
+            width: 40,
+          ),
+          Column(children: [
+            _buildPlayPanel(),
+            SizedBox(height: 20),
+            _buildGameTags()
+          ])
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPlayPanel() {
+    return ClipRRect(
+        borderRadius: BorderRadius.circular(8.0),
+        child: Acrylic(
+            shadowColor: backgroundColor,
+            blurAmount: 1,
+            tintAlpha: 1,
+            tint: Color.fromARGB(255, 48, 48, 48),
+            child: SizedBox(
+                width: 300,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CachedNetworkImage(
+                      imageUrl:
+                          APIService().assetLink(widget.game.game.background),
+                      fit: BoxFit.fitWidth,
+                    ),
+                    Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                        child: Column(children: [
+                          Text(widget.game.game.info.smallDescription),
+                          SizedBox(height: 10),
+                          FilledButton(
+                              style: ButtonStyle(
+                                  backgroundColor:
+                                      ButtonState.all(Colors.green)),
+                              onPressed: () {},
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(FluentIcons.play, color: Colors.white),
+                                  SizedBox(width: 10),
+                                  Text("Jouer",
+                                      style: TextStyle(color: Colors.white)),
+                                ],
+                              ))
+                        ]))
+                  ],
+                ))));
+  }
+
+  Widget _buildGameTags() {
+    return ClipRRect(
+        borderRadius: BorderRadius.circular(8.0),
+        child: Acrylic(
+            shadowColor: backgroundColor,
+            blurAmount: 1,
+            tintAlpha: 1,
+            tint: Color.fromARGB(255, 48, 48, 48),
+            child: SizedBox(
+                width: 300,
+                child: Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _buildGameTag(
+                              Icon(FluentIcons.allIcons["people"]),
+                              widget.game.game.info.players.min.toString() +
+                                  " - " +
+                                  widget.game.game.info.players.max.toString() +
+                                  " joueurs"),
+                          _buildGameTag(Icon(FluentIcons.timer),
+                              widget.game.game.info.length.toString()),
+                          _buildGameTag(
+                            Icon(FluentIcons.group),
+                            _generateGameType(widget.game.game.info.type),
+                          ),
+                          
+                        ])))));
+  }
+
+  String _generateGameType(String v) { 
+    if (v == "COOP") {
+      return "Jeu en coopération";
+    }else{
+      if (v == "VERSUS"){
+        return "Chacun pour soi";
+      }else{
+        return "Jeu en équipe";
+      }
+    }
+  }
+
+  Widget _buildGameTag(Widget icon, String text) {
+    return Padding(
+        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+        child: Row(children: [
+          icon,
+          SizedBox(width: 10),
+          Expanded(child: Text(text))
+        ]));
   }
 }
