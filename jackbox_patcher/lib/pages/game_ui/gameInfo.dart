@@ -122,7 +122,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                       borderRadius: BorderRadius.circular(8.0),
                       child: CachedNetworkImage(
                         imageUrl:
-                            APIService().assetLink(widget.game.game.background),
+                            APIService().assetLink(widget.game.game.info.images[0]),
                         fit: BoxFit.fitWidth,
                       )))
             ])
@@ -210,6 +210,11 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                             Icon(FluentIcons.group),
                             _generateGameType(widget.game.game.info.type),
                           ),
+                          _buildGameTag(
+                            Icon(FluentIcons.translate),
+                            _generateGameTranslation(
+                                widget.game.game.info.translation),
+                          ),
                           
                         ])))));
   }
@@ -222,6 +227,18 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
         return "Chacun pour soi";
       }else{
         return "Jeu en équipe";
+      }
+    }
+  }
+
+  String _generateGameTranslation(String v) { 
+    if (v == "FRENCH") {
+      return "Traduit en français";
+    }else{
+      if (v == "FRENCH_JBFR"){
+        return "Traduit par la communauté";
+      }else{
+        return "Non traduit";
       }
     }
   }

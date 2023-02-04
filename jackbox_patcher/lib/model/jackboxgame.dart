@@ -42,7 +42,9 @@ class JackboxGameInfo {
   final String smallDescription;
   final String length;
   final String type;
+  final String translation;
   final List<String> tags;
+  final List<String> images;
   final JackboxGamePlayersInfo players;
 
   JackboxGameInfo({
@@ -50,7 +52,9 @@ class JackboxGameInfo {
     required this.description,
     required this.length,
     required this.type,
+    required this.translation,
     required this.tags,
+    required this.images,
     required this.players,
   });
 
@@ -60,6 +64,9 @@ class JackboxGameInfo {
       smallDescription: json['small_description'],
       length: json['length'],
       type: json['type'],
+      translation: json['translation'],
+      images:
+          (json['images'] as List<dynamic>).map((e) => e.toString()).toList(),
       tags: (json['tags'] as List<dynamic>).map((e) => e.toString()).toList(),
       players: JackboxGamePlayersInfo.fromJson(json['players']),
     );

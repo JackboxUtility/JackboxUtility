@@ -19,6 +19,7 @@
                     },
                     "length":"10 - 30 minutes",
                     "type":"COOP",
+                    "translation":"FRENCH_JBFR",
                     "small_description":"Bienvenue à Bomb Corp ! En tant que stagiaire, vous allez devoir désamorcer les bombes qui se trouvent dans l'entreprise. Arriverez-vous à atteindre le dernier jour ?",
                     "description":"Désamorcez des bombes à 4",
                     "images":[
@@ -74,6 +75,7 @@
                 "description":"Allez-vous survivre à Internet",
                 "background":"game_backgrounds/SurviveTheInternet.webp",
                 "path":"games/SurviveTheInternet",
+                "translation":"FRENCH_JBFR",
                 "game_info":{
                     "players":{
                         "min":1,
@@ -125,6 +127,7 @@
                     },
                     "length":"",
                     "type":"COOP",
+                    "translation":"FRENCH_JBFR",
                     "small_description":"Désamorcez des bombes à 4",
                     "description":"Désamorcez des bombes à 4",
                     "images":[
@@ -169,6 +172,7 @@
                     },
                     "length":"",
                     "type":"COOP",
+                    "translation":"FRENCH_JBFR",
                     "small_description":"Désamorcez des bombes à 4",
                     "description":"Désamorcez des bombes à 4",
                     "images":[
@@ -219,6 +223,7 @@
                 "description":"Arriverez-vous à splitter la salle ?",
                 "background":"game_backgrounds/SplitTheRoom.webp",
                 "path":"games/SplitTheRoom",
+                "translation":"FRENCH_JBFR",
                 "game_info":{
                     "players":{
                         "min":1,
@@ -269,6 +274,7 @@
                     },
                     "length":"",
                     "type":"COOP",
+                    "translation":"FRENCH_JBFR",
                     "small_description":"Désamorcez des bombes à 4",
                     "description":"Désamorcez des bombes à 4",
                     "images":[
@@ -326,6 +332,7 @@
                     },
                     "length":"",
                     "type":"COOP",
+                    "translation":"FRENCH_JBFR",
                     "small_description":"Désamorcez des bombes à 4",
                     "description":"Désamorcez des bombes à 4",
                     "images":[
@@ -387,6 +394,7 @@
                         "description":"Ce patch traduit votre jeu en français !",
                         "authors":"CubicOtter",
                         "version":"1.0.0",
+                        "translation":"FRENCH_JBFR",
                         "patch_path":"patchs/dictionarium_1.0.0.zip",
                         "patch_type":{
                             "game_text":true,
@@ -473,6 +481,7 @@
                         "max":4
                     },
                     "length":"",
+                    "translation":"FRENCH_JBFR",
                     "type":"COOP",
                     "small_description":"Désamorcez des bombes à 4",
                     "description":"Désamorcez des bombes à 4",
@@ -521,6 +530,7 @@
                     },
                     "length":"",
                     "type":"COOP",
+                    "translation":"FRENCH_JBFR",
                     "small_description":"Désamorcez des bombes à 4",
                     "description":"Désamorcez des bombes à 4",
                     "images":[
@@ -582,6 +592,7 @@
                     },
                     "length":"",
                     "type":"COOP",
+                    "translation":"FRENCH_JBFR",
                     "small_description":"Désamorcez des bombes à 4",
                     "description":"Désamorcez des bombes à 4",
                     "images":[
@@ -625,6 +636,7 @@
                     },
                     "length":"",
                     "type":"COOP",
+                    "translation":"FRENCH_JBFR",
                     "small_description":"Désamorcez des bombes à 4",
                     "description":"Désamorcez des bombes à 4",
                     "images":[
@@ -668,6 +680,7 @@
                     },
                     "length":"",
                     "type":"COOP",
+                    "translation":"FRENCH_JBFR",
                     "small_description":"Bienvenue à Bomb Corp ! En tant que stagiaire, vous allez devoir désamorcer les bombes qui se trouvent dans l'entreprise. Arriverez-vous à atteindre le dernier jour ?",
                     "description":"Désamorcez des bombes à 4",
                     "images":[
