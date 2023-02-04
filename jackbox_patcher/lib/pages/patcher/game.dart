@@ -377,7 +377,8 @@ class _GameImageWithOpenerState extends State<GameImageWithOpener> {
                   borderRadius: BorderRadius.circular(8.0),
                   child: IntrinsicWidth(
                       child: GestureDetector(
-                        onTap:()=>Launcher.launchGame(widget.pack, widget.game),
+                        onSecondaryTap:()=>Launcher.launchGame(widget.pack, widget.game),
+                        onTap:()=>Navigator.pushNamed(context, "/game", arguments: [widget.pack,widget.game]),
                         child: MouseRegion(
                           onEnter: (a) => setState(() {
                                 playButtonVisible = true;
@@ -396,7 +397,7 @@ class _GameImageWithOpenerState extends State<GameImageWithOpener> {
                               height: 100,
                               width: double.infinity,
                               decoration: BoxDecoration(
-                                color: Colors.green
+                                color: Colors.blue
                                     .withOpacity(playButtonVisible ? 0.9 : 0),
                               ),
                               child: TweenAnimationBuilder<double>(
@@ -412,12 +413,12 @@ class _GameImageWithOpenerState extends State<GameImageWithOpener> {
                                           MainAxisAlignment.center,
                                       children: [
                                         Icon(
-                                          FluentIcons.play,
+                                          FluentIcons.info,
                                           color:
                                               Colors.white.withOpacity(opacity),
                                         ),
                                         Text(
-                                          "Lancer",
+                                          "Info",
                                           style: TextStyle(
                                               color: Colors.white
                                                   .withOpacity(opacity),

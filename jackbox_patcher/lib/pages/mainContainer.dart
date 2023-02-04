@@ -1,8 +1,8 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:jackbox_patcher/components/menu.dart';
-import 'package:jackbox_patcher/components/parameters/parameters.dart';
-import 'package:jackbox_patcher/components/patcher/pack.dart';
+import 'package:jackbox_patcher/pages/parameters/parameters.dart';
+import 'package:jackbox_patcher/pages/patcher/pack.dart';
 import 'package:jackbox_patcher/model/jackboxpack.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';

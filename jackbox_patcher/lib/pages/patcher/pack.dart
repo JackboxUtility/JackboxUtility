@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:jackbox_patcher/components/patcher/game.dart';
 import 'package:jackbox_patcher/model/jackboxgame.dart';
 import 'package:jackbox_patcher/model/jackboxpack.dart';
 import 'package:jackbox_patcher/model/jackboxpatch.dart';
@@ -12,6 +11,8 @@ import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpatch.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/launcher/launcher.dart';
+
+import 'game.dart';
 
 class PatcherPackWidget extends StatefulWidget {
   PatcherPackWidget({Key? key, required this.userPack}) : super(key: key);

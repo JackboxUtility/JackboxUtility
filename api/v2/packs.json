@@ -19,10 +19,12 @@
                     },
                     "length":"",
                     "type":"COOP",
-                    "small_description":"Désamorcez des bombes à 4",
+                    "small_description":"Bienvenue à Bomb Corp ! En tant que stagiaire, vous allez devoir désamorcer les bombes qui se trouvent dans l'entreprise. Arriverez-vous à atteindre le dernier jour ?",
                     "description":"Désamorcez des bombes à 4",
                     "images":[
-
+                        "game_backgrounds/BombCorp.webp",
+                        "game_backgrounds/BombCorp.webp",
+                        "game_backgrounds/BombCorp.webp"
                     ],
                     "tags":[
                         "talking"
@@ -666,7 +668,7 @@
                     },
                     "length":"",
                     "type":"COOP",
-                    "small_description":"Désamorcez des bombes à 4",
+                    "small_description":"Bienvenue à Bomb Corp ! En tant que stagiaire, vous allez devoir désamorcer les bombes qui se trouvent dans l'entreprise. Arriverez-vous à atteindre le dernier jour ?",
                     "description":"Désamorcez des bombes à 4",
                     "images":[
 

@@ -32,7 +32,7 @@ class JackboxGame {
       patches: (json['patchs'] as List<dynamic>)
           .map((e) => JackboxPatch.fromJson(e))
           .toList(),
-      info: JackboxGameInfo.fromJson(json['info']),
+      info: JackboxGameInfo.fromJson(json['game_info']),
     );
   }
 }
