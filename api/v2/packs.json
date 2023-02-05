@@ -615,26 +615,27 @@
             {
                 "id":"jobjob",
                 "name":"Job Job",
-                "small_description":"Devenez le meilleur employé",
-                "description":"Utilisez les mots des autres pour gagner des points",
                 "background":"game_backgrounds/JobJob.webp",
                 "path":"games/JobGame",
                 "game_info":{
                     "players":{
-                        "min":1,
-                        "max":4
+                        "min":3,
+                        "max":10
                     },
-                    "length":"",
-                    "type":"COOP",
+                    "length":"15 - 25 minutes",
+                    "type":"VERSUS",
                     "translation":"FRENCH_JBFR",
-                    "tagline":"Désamorcez des bombes à 4",
-                    "small_description":"Désamorcez des bombes à 4",
-                    "description":"Désamorcez des bombes à 4",
+                    "tagline":"Devenez le meilleur employé",
+                    "small_description":"C'est l'heure de l'interview. Parviendrez-vous à impressionner Mr Bubble, le patron, et décrocher le job ?",
+                    "description":"# L'interview approche...\n\n ... et vous êtes confrontés aux autres joueurs pour décrocher le job. Pour vous échauffer, vous allez devoir répondre à une question simple avec le plus de mots possible. Les mots dans votre réponse seront envoyés aux autres joueurs qui devront les utiliser pour répondre à leur seconde question ! C'est ensuite que les joueurs votent pour leur réponse préférée !",
                     "images":[
-
+			"game_images/JobJob/jobjob_1.webp",
+                        "game_images/JobJob/jobjob_2.webp",
+                        "game_images/JobJob/jobjob_3.webp",
+                        "game_images/JobJob/jobjob_4.webp"
                     ],
                     "tags":[
-                        "talking"
+                        "writing"
                     ]
 
                 },
