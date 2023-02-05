@@ -692,27 +692,28 @@
             },
             {
                 "id":"weaponsdrawn",
-                "name":"Weapon's Drawn",
-                "small_description":"Trouvez les tueurs",
-                "description":"Trouvez les tueurs",
+                "name":"Weapons Drawn",
                 "background":"game_backgrounds/WeaponsDrawn.webp",
                 "path":"games/MurderDetectives",
                 "game_info":{
                     "players":{
-                        "min":1,
-                        "max":4
+                        "min":4,
+                        "max":8
                     },
-                    "length":"",
-                    "type":"COOP",
+                    "length":"20 - 40 minutes",
+                    "type":"VERSUS",
                     "translation":"FRENCH_JBFR",
-                    "tagline":"Désamorcez des bombes à 4",
-                    "small_description":"Bienvenue à Bomb Corp ! En tant que stagiaire, vous allez devoir désamorcer les bombes qui se trouvent dans l'entreprise. Arriverez-vous à atteindre le dernier jour ?",
-                    "description":"Désamorcez des bombes à 4",
+                    "tagline":"Trouvez les tueurs",
+                    "small_description":"Effectuez des meurtres avec vos dessins et essayez d'en résoudre grâce à vos talents de détective dans ce jeu où se melle dessin et déduction",
+                    "description":"# Des meurtres à foison\n\nDans ce jeu, vous allez devoir dessiner vos propres armes pour pouvoir effectuer des meurtres sur vos cibles. Mais attention ! Ces armes contiennent une lettre que vous allez devoir cacher sous peine d'être repéré. Agissez vite pour tuer rapidement et observer bien pour trouver les meurtiers parmis vos camarades.",
                     "images":[
-
+			"game_images/WeaponsDrawn/weaponsdrawn_1.webp",
+                        "game_images/WeaponsDrawn/weaponsdrawn_2.webp",
+                        "game_images/WeaponsDrawn/weaponsdrawn_3.webp",
+                        "game_images/WeaponsDrawn/weaponsdrawn.webp"
                     ],
                     "tags":[
-                        "talking"
+                        "talking","drawing","writing"
                     ]
 
                 },
