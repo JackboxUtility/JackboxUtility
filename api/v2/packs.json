@@ -4,8 +4,20 @@
             "id":"talking",
             "name":"Discussion",
             "icon":"action_center",
-            "description":"Ce jeu nécessite de discuter entre joueurs pour avancer dans la partie."
-       } 
+            "description":"Jeux nécessitant de discuter entre joueurs pour avancer dans la partie."
+       },
+       {
+       	    "id":"drawing",
+            "name":"Dessin",
+            "icon":"edit",
+            "description":"Vous allez devoir dessiner dans ces jeux."
+       },
+       {
+       	    "id":"writing",
+            "name":"Ecrit",
+            "icon":"text_align_top",
+            "description":"Vous allez devoir écrire dans ces jeux."
+       }
     ],
     "packs":[
     {
