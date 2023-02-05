@@ -39,6 +39,7 @@ class JackboxGame {
 }
 
 class JackboxGameInfo {
+  final String tagline;
   final String description;
   final String smallDescription;
   final String length;
@@ -49,6 +50,7 @@ class JackboxGameInfo {
   final JackboxGamePlayersInfo players;
 
   JackboxGameInfo({
+    required this.tagline,
     required this.smallDescription,
     required this.description,
     required this.length,
@@ -61,6 +63,7 @@ class JackboxGameInfo {
 
   factory JackboxGameInfo.fromJson(Map<String, dynamic> json) {
     return JackboxGameInfo(
+      tagline: json['tagline'],
       description: json['description'],
       smallDescription: json['small_description'],
       length: json['length'],
@@ -68,7 +71,9 @@ class JackboxGameInfo {
       translation: json['translation'],
       images:
           (json['images'] as List<dynamic>).map((e) => e.toString()).toList(),
-      tags: (json['tags'] as List<dynamic>).map((e) => GameTag.fromId(e)).toList(),
+      tags: (json['tags'] as List<dynamic>)
+          .map((e) => GameTag.fromId(e))
+          .toList(),
       players: JackboxGamePlayersInfo.fromJson(json['players']),
     );
   }

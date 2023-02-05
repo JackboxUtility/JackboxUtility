@@ -1,5 +1,6 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/pages/mainContainer.dart';
+import 'package:jackbox_patcher/pages/search_ui/searchGames.dart';
 
 import 'pages/game_ui/gameInfo.dart';
 
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => MainContainer(),
         // When navigating to the "/second" route, build the SecondScreen widget.
         '/game': (context) => GameInfoRoute(),
+        '/search': (context) => SearchGameRoute(),
       },
       themeMode: ThemeMode.dark,
       title: 'Flutter Demo',

@@ -20,8 +20,9 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
   Widget build(BuildContext context) {
     return ClipRRect(
         borderRadius: BorderRadius.circular(8.0),
-        child: IntrinsicWidth(
-            child: IntrinsicHeight(
+        child: SizedBox(width:double.maxFinite,
+            child: AspectRatio(
+              aspectRatio: 1.778,
                 child: GestureDetector(
                     child: MouseRegion(
                         onEnter: (a) => setState(() {

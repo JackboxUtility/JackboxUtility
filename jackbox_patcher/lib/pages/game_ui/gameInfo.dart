@@ -189,9 +189,8 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
   }
 
   Widget _buildGameTags() {
-    List<Widget> gameTagWidgets = _generateAllGameTags();
 
-    return ClipRRect(
+    return Column(children: [ClipRRect(
         borderRadius: BorderRadius.circular(8.0),
         child: Acrylic(
             shadowColor: backgroundColor,
@@ -204,19 +203,39 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                     padding: EdgeInsets.all(10),
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: gameTagWidgets)))));
+                        children: _generateClassicGameTags()))))),
+        SizedBox(height: 20),
+        ClipRRect(
+        borderRadius: BorderRadius.circular(8.0),
+        child: Acrylic(
+            shadowColor: backgroundColor,
+            blurAmount: 1,
+            tintAlpha: 1,
+            tint: Color.fromARGB(255, 48, 48, 48),
+            child: SizedBox(
+                width: 300,
+                child: Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: _generateCustomGameTags())))))
+      ]);
   }
 
-  List<Widget> _generateAllGameTags() {
+  List<Widget> _generateClassicGameTags() {
     JackboxGameInfo gameInfo = widget.game.game.info;
     List<Widget> gameTagWidgets = [];
     // Add tags available for all games
     gameTagWidgets.add(_buildGameTag(
+        FluentIcons.allIcons["package"]!,
+        widget.pack.pack.name,
+        isLink: true, 
+        filter: (pack,game)=>pack.pack.id == widget.pack.pack.id,
+        background: APIService().assetLink(widget.pack.pack.background), 
+        description: widget.pack.pack.description));
+    gameTagWidgets.add(_buildGameTag(
         FluentIcons.allIcons["people"]!,
-        widget.game.game.info.players.min.toString() +
-            " - " +
-            widget.game.game.info.players.max.toString() +
-            " joueurs"));
+        "${widget.game.game.info.players.min} - ${widget.game.game.info.players.max} joueurs"));
     gameTagWidgets
         .add(_buildGameTag(FluentIcons.allIcons["timer"]!, gameInfo.length));
     gameTagWidgets.add(_buildGameTag(
@@ -224,6 +243,12 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
     gameTagWidgets.add(_buildGameTag(FluentIcons.allIcons["translate"]!,
         _generateGameTranslation(gameInfo.translation)));
 
+    return gameTagWidgets;
+  }
+
+  List<Widget> _generateCustomGameTags() {
+    JackboxGameInfo gameInfo = widget.game.game.info;
+    List<Widget> gameTagWidgets = [];
     // Add custom tags
     for (var element in gameInfo.tags) {
       gameTagWidgets.add(
@@ -257,13 +282,29 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
     }
   }
 
-  Widget _buildGameTag(IconData icon, String text) {
-    return Padding(
+  Widget _buildGameTag(IconData icon, String text, {bool isLink=false, bool Function(UserJackboxPack, UserJackboxGame)? filter, String? background, String? description}) {
+    return GestureDetector(
+        onTap: () {
+          if (isLink) {
+            Navigator.pushNamed(
+                context,
+                "/search",
+                arguments: [
+                  filter,
+                  false,
+                  background, 
+                  text,
+                  description,
+                  null
+                ]);
+          }
+        },
+      child: Padding(
         padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
         child: Row(children: [
           Icon(icon),
           SizedBox(width: 10),
           Expanded(child: Text(text))
-        ]));
+        ])));
   }
 }
