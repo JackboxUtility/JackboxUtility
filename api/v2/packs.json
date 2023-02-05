@@ -666,20 +666,24 @@
                 "path":"games/SurveyBomb",
                 "game_info":{
                     "players":{
-                        "min":1,
-                        "max":4
+                        "min":2,
+                        "max":10
                     },
-                    "length":"",
-                    "type":"COOP",
+                    "length":"Environ 15 minutes",
+                    "type":"TEAM",
                     "translation":"FRENCH_JBFR",
-                    "tagline":"Désamorcez des bombes à 4",
-                    "small_description":"Désamorcez des bombes à 4",
-                    "description":"Désamorcez des bombes à 4",
+                    "tagline":"Echappez-vous de la grotte",
+                    "small_description":"Les sondages sont puissants vous savez ? C'est le seul moyen pour vous de sortir de cette grotte. Alors jouez en équipe et trouvez les réponses de ces sondages dans l'ordre !",
+                    "description":"Bienvenue jeunes voyageurs, vous avez tenté de piller cette grotte mais vous vous êtes fait enfermés. La seule manière de sortir vivant avec votre équipe est de répondre à des sondages. Vous allez ensuite devoir retrouver le classement de ces sondages dans un ordre précis. L'équipe avec le plus de torches (ou celle qui ne se fait pas éliminée) gagne !",
                     "images":[
-
+			"game_images/PollMine/pollmine_1.webp",
+                        "game_images/PollMine/pollmine_2.webp",
+                        "game_images/PollMine/pollmine_3.webp",
+                        "game_images/PollMine/pollmine_4.webp"
                     ],
                     "tags":[
-                        "talking"
+                        "talking",
+                        "writing"
                     ]
 
                 },
@@ -722,7 +726,7 @@
 			"game_images/WeaponsDrawn/weaponsdrawn_1.webp",
                         "game_images/WeaponsDrawn/weaponsdrawn_2.webp",
                         "game_images/WeaponsDrawn/weaponsdrawn_3.webp",
-                        "game_images/WeaponsDrawn/weaponsdrawn.webp"
+                        "game_images/WeaponsDrawn/weaponsdrawn_4.webp"
                     ],
                     "tags":[
                         "talking","drawing","writing"
