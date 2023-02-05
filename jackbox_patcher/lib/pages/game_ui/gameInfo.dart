@@ -1,11 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:jackbox_patcher/model/jackboxgame.dart';
 import 'package:palette_generator/palette_generator.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../model/usermodel/userjackboxgame.dart';
 import '../../model/usermodel/userjackboxpack.dart';
 import '../../services/api/api_service.dart';
+import '../../services/user/userdata.dart';
 
 class GameInfoRoute extends StatefulWidget {
   GameInfoRoute({Key? key}) : super(key: key);
@@ -126,7 +129,13 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                             .assetLink(widget.game.game.info.images[0]),
                         fit: BoxFit.fitWidth,
                       )))
-            ])
+            ]),
+            SizedBox(height: 300,child:Markdown(
+              data: widget.game.game.info.description,
+              onTapLink: (text, href, title) {
+                launchUrl(Uri.parse(href!));
+              },
+            ))
           ])),
           SizedBox(
             width: 40,
