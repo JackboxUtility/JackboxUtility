@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:jackbox_patcher/components/caroussel.dart';
 import 'package:jackbox_patcher/model/jackboxgame.dart';
 import 'package:palette_generator/palette_generator.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -122,15 +123,9 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
               child: Column(children: [
             Stack(children: [
               SizedBox(
-                  child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8.0),
-                      child: CachedNetworkImage(
-                        imageUrl: APIService()
-                            .assetLink(widget.game.game.info.images[0]),
-                        fit: BoxFit.fitWidth,
-                      )))
+                  child: AssetCarousselWidget(images: widget.game.game.info.images))
             ]),
-            SizedBox(height: 300,child:Markdown(
+            SizedBox(height: 500,child:Markdown(
               data: widget.game.game.info.description,
               onTapLink: (text, href, title) {
                 launchUrl(Uri.parse(href!));
