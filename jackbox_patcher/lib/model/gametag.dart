@@ -1,3 +1,5 @@
+import 'package:jackbox_patcher/services/api/api_service.dart';
+
 class GameTag {
   final String id;
   final String name;
@@ -18,5 +20,10 @@ class GameTag {
       description: json['description'],
       icon: json['icon'],
     );
+  }
+
+  static GameTag fromId(String id) {
+    List<GameTag> tags = APIService().getTags();
+    return tags.firstWhere((element) => element.id == id);
   }
 }

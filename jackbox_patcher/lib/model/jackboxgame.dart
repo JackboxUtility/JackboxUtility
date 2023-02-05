@@ -1,3 +1,4 @@
+import 'package:jackbox_patcher/model/gametag.dart';
 import 'package:jackbox_patcher/model/jackboxpack.dart';
 import 'package:jackbox_patcher/model/jackboxpatch.dart';
 
@@ -43,7 +44,7 @@ class JackboxGameInfo {
   final String length;
   final String type;
   final String translation;
-  final List<String> tags;
+  final List<GameTag> tags;
   final List<String> images;
   final JackboxGamePlayersInfo players;
 
@@ -67,7 +68,7 @@ class JackboxGameInfo {
       translation: json['translation'],
       images:
           (json['images'] as List<dynamic>).map((e) => e.toString()).toList(),
-      tags: (json['tags'] as List<dynamic>).map((e) => e.toString()).toList(),
+      tags: (json['tags'] as List<dynamic>).map((e) => GameTag.fromId(e)).toList(),
       players: JackboxGamePlayersInfo.fromJson(json['players']),
     );
   }

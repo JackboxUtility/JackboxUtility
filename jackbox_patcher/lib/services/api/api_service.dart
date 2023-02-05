@@ -17,7 +17,8 @@ class APIService {
   final String baseAssets =
       "https://alexisl61.github.io/JackboxPatcherFR/assets";
 
-  Map<String, dynamic> cache = {};
+  List<JackboxPack> cachedPacks = [];
+  List<GameTag> cachedTags = [];
   // Build factory
   factory APIService() {
     return _instance;
@@ -30,28 +31,23 @@ class APIService {
     final response =
         await get(Uri.parse('$baseEndpoint' + APIEndpoints.PACKS.path));
     if (response.statusCode == 200) {
-      final List<dynamic> data = jsonDecode(response.body);
-      cache["packs"] = data.map((pack) => JackboxPack.fromJson(pack)).toList();
-      cache["tags"] = data.map((tag) => GameTag.fromJson(tag)).toList();
+      final Map<String, dynamic> data = jsonDecode(response.body);
+      cachedTags = data["tags"].map<GameTag>((tag) => GameTag.fromJson(tag)).toList();
+      cachedPacks = 
+          data["packs"].map<JackboxPack>((pack) => JackboxPack.fromJson(pack)).toList();
     } else {
       throw Exception('Failed to load packs and tags');
     }
   }
 
   // Get packs
-  Future<List<JackboxPack>> getPacks() async {
-    if (!cache.containsKey("packs")) {
-      await recoverPacksAndTags();
-    }
-    return cache["packs"];
+  List<JackboxPack> getPacks() {
+    return cachedPacks;
   }
 
   // Get tags
-  Future<List<JackboxPack>> getTags() async {
-    if (!cache.containsKey("tags")) {
-      await recoverPacksAndTags();
-    }
-    return cache["tags"];
+  List<GameTag> getTags() {
+    return cachedTags;
   }
 
   Future<String> getWelcome() async {

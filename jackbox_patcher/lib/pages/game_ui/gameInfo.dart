@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:jackbox_patcher/model/jackboxgame.dart';
 import 'package:palette_generator/palette_generator.dart';
 
 import '../../model/usermodel/userjackboxgame.dart';
@@ -121,8 +122,8 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                   child: ClipRRect(
                       borderRadius: BorderRadius.circular(8.0),
                       child: CachedNetworkImage(
-                        imageUrl:
-                            APIService().assetLink(widget.game.game.info.images[0]),
+                        imageUrl: APIService()
+                            .assetLink(widget.game.game.info.images[0]),
                         fit: BoxFit.fitWidth,
                       )))
             ])
@@ -184,6 +185,8 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
   }
 
   Widget _buildGameTags() {
+    List<Widget> gameTagWidgets = _generateAllGameTags();
+
     return ClipRRect(
         borderRadius: BorderRadius.circular(8.0),
         child: Acrylic(
@@ -197,57 +200,64 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                     padding: EdgeInsets.all(10),
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _buildGameTag(
-                              Icon(FluentIcons.allIcons["people"]),
-                              widget.game.game.info.players.min.toString() +
-                                  " - " +
-                                  widget.game.game.info.players.max.toString() +
-                                  " joueurs"),
-                          _buildGameTag(Icon(FluentIcons.timer),
-                              widget.game.game.info.length.toString()),
-                          _buildGameTag(
-                            Icon(FluentIcons.group),
-                            _generateGameType(widget.game.game.info.type),
-                          ),
-                          _buildGameTag(
-                            Icon(FluentIcons.translate),
-                            _generateGameTranslation(
-                                widget.game.game.info.translation),
-                          ),
-                          
-                        ])))));
+                        children: gameTagWidgets)))));
   }
 
-  String _generateGameType(String v) { 
+  List<Widget> _generateAllGameTags() {
+    JackboxGameInfo gameInfo = widget.game.game.info;
+    List<Widget> gameTagWidgets = [];
+    // Add tags available for all games
+    gameTagWidgets.add(_buildGameTag(
+        FluentIcons.allIcons["people"]!,
+        widget.game.game.info.players.min.toString() +
+            " - " +
+            widget.game.game.info.players.max.toString() +
+            " joueurs"));
+    gameTagWidgets
+        .add(_buildGameTag(FluentIcons.allIcons["timer"]!, gameInfo.length));
+    gameTagWidgets.add(_buildGameTag(
+        FluentIcons.allIcons["group"]!, _generateGameType(gameInfo.type)));
+    gameTagWidgets.add(_buildGameTag(FluentIcons.allIcons["translate"]!,
+        _generateGameTranslation(gameInfo.translation)));
+
+    // Add custom tags
+    for (var element in gameInfo.tags) {
+      gameTagWidgets.add(
+          _buildGameTag(FluentIcons.allIcons[element.icon]!, element.name));
+    }
+
+    return gameTagWidgets;
+  }
+
+  String _generateGameType(String v) {
     if (v == "COOP") {
       return "Jeu en coopération";
-    }else{
-      if (v == "VERSUS"){
+    } else {
+      if (v == "VERSUS") {
         return "Chacun pour soi";
-      }else{
+      } else {
         return "Jeu en équipe";
       }
     }
   }
 
-  String _generateGameTranslation(String v) { 
+  String _generateGameTranslation(String v) {
     if (v == "FRENCH") {
       return "Traduit en français";
-    }else{
-      if (v == "FRENCH_JBFR"){
+    } else {
+      if (v == "FRENCH_JBFR") {
         return "Traduit par la communauté";
-      }else{
+      } else {
         return "Non traduit";
       }
     }
   }
 
-  Widget _buildGameTag(Widget icon, String text) {
+  Widget _buildGameTag(IconData icon, String text) {
     return Padding(
         padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
         child: Row(children: [
-          icon,
+          Icon(icon),
           SizedBox(width: 10),
           Expanded(child: Text(text))
         ]));

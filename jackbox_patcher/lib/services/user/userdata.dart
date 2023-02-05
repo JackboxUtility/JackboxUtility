@@ -27,7 +27,8 @@ class UserData {
   ///
   /// Every pack available will be added to the list of packs (UserData().packs).
   Future<void> syncPacks() async {
-    List<JackboxPack> networkPacks = await APIService().getPacks();
+    await APIService().recoverPacksAndTags();
+    List<JackboxPack> networkPacks = APIService().getPacks();
     for (var pack in networkPacks) {
       // Load the pack loader
       UserJackboxLoader? loader = null;
@@ -40,8 +41,8 @@ class UserData {
 
       final String? packPath = preferences.getString("${pack.id}_path");
       final bool packOwned = preferences.getBool("${pack.id}_owned") ?? false;
-      UserJackboxPack userPack =
-          UserJackboxPack(pack: pack, loader: loader, path: packPath, owned: packOwned);
+      UserJackboxPack userPack = UserJackboxPack(
+          pack: pack, loader: loader, path: packPath, owned: packOwned);
       packs.add(userPack);
       for (var game in pack.games) {
         UserJackboxLoader? gameLoader = null;
