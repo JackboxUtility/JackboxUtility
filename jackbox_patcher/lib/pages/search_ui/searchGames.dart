@@ -73,7 +73,7 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
               child: Row(children: [
                 Expanded(
                     child: Image.network(
-                  widget.background!,
+                  widget.background!=null ? widget.background! : APIService().getDefaultBackground(),
                   fit: BoxFit.fitWidth,
                 ))
               ])),
@@ -99,7 +99,7 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
               child: Container(
                   height: 100,
                   child: Row(children: [
-                    SizedBox(width: calculatePadding() ),
+                    SizedBox(width: calculatePadding()),
                     Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -166,65 +166,128 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
   bool smallInfoVisible = false;
   @override
   Widget build(BuildContext context) {
+    var gameInfo = widget.game.game.info;
     return ClipRRect(
         borderRadius: BorderRadius.circular(8.0),
-        child: IntrinsicHeight(child:  GestureDetector(
-            onSecondaryTap: () => Launcher.launchGame(widget.pack, widget.game),
-            onTap: () => Navigator.pushNamed(context, "/game",
-                arguments: [widget.pack, widget.game]),
-            child: MouseRegion(
-                onEnter: (a) => setState(() {
-                      smallInfoVisible = true;
-                    }),
-                onExit: (a) => setState(() {
-                      smallInfoVisible = false;
-                    }),
-                child: Column(children: [
-                  TweenAnimationBuilder<double>(
-                      tween: Tween<double>(
-                        begin: smallInfoVisible ? 0 : 1,
-                        end: smallInfoVisible ? 1 : 0,
-                      ),
-                      duration: Duration(milliseconds: 200),
-                      builder: (BuildContext context, double opacity,
-                          Widget? child) {
-                        return Stack(children: [
+        child: TweenAnimationBuilder<double>(
+            tween: Tween<double>(
+              begin: smallInfoVisible ? 0 : 1,
+              end: smallInfoVisible ? 1 : 0,
+            ),
+            duration: Duration(milliseconds: 200),
+            builder: (BuildContext context, double opacity, Widget? child) {
+              return IntrinsicHeight(
+                  child: GestureDetector(
+                      onSecondaryTap: () =>
+                          Launcher.launchGame(widget.pack, widget.game),
+                      onTap: () => Navigator.pushNamed(context, "/game",
+                          arguments: [widget.pack, widget.game]),
+                      child: MouseRegion(
+                        onEnter: (a) => setState(() {
+                          smallInfoVisible = true;
+                        }),
+                        onExit: (a) => setState(() {
+                          smallInfoVisible = false;
+                        }),
+                        child: Stack(children: [
                           Image.network(
                             APIService().assetLink(widget.game.game.background),
                             fit: BoxFit.fitWidth,
                           ),
-                          Positioned(
-                              right:0,
-                              left:0,
-                              bottom: 0,
-                              child: Container(
-                                  height:100,
-                                  decoration: BoxDecoration(
-                                      gradient: LinearGradient(
-                                          begin: Alignment.topCenter,
-                                          end: Alignment.bottomCenter,
-                                          colors: [
-                                        Colors.transparent,
-                                        Colors.black.withOpacity(opacity)
-                                      ])))),
-                          Positioned(
-                              bottom: 0,
-                              left: 0,
-                              right: 0,
-                              child: Container(
-                                  height: 100,
-                                  child: Column(mainAxisAlignment: MainAxisAlignment.end, crossAxisAlignment: CrossAxisAlignment.start, children: [
+                          Container(
+                              decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                      colors: [
+                                Colors.black.withOpacity(opacity / 2),
+                                Colors.black.withOpacity(opacity)
+                              ]))),
+                          Padding(
+                              padding: EdgeInsets.all(8),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
                                     Text(widget.game.game.name,
                                         style: TextStyle(
-                                          fontSize: 16,
+                                            fontSize: 20,
                                             color: Colors.white
                                                 .withOpacity(opacity))),
-                                    Text(widget.game.game.info.smallDescription.substring(0,20),style: TextStyle(
+                                    Text(gameInfo.tagline,
+                                        style: TextStyle(
                                             color: Colors.white
-                                                .withOpacity(opacity)))
-                                  ])))
-                        ]);
-                      }),
-                ])))));
+                                                .withOpacity(opacity))),
+                                    SizedBox(height: 10),
+                                    Row(children: [
+                                      Icon(
+                                        FluentIcons.people,
+                                        color:
+                                            Colors.white.withOpacity(opacity),
+                                      ),
+                                      SizedBox(width: 10),
+                                      Text(
+                                          gameInfo.players.min.toString() +
+                                              " - " +
+                                              gameInfo.players.max.toString() +
+                                              " joueurs",
+                                          style: TextStyle(
+                                              color: Colors.white
+                                                  .withOpacity(opacity)))
+                                    ]),
+                                    Row(children: [
+                                      Icon(
+                                        FluentIcons.group,
+                                        color:
+                                            Colors.white.withOpacity(opacity),
+                                      ),
+                                      SizedBox(width: 10),
+                                      Text(_generateGameType(gameInfo.type),
+                                          style: TextStyle(
+                                            overflow: TextOverflow.ellipsis,
+                                              color: Colors.white
+                                                  .withOpacity(opacity)))
+                                    ]),
+                                    Row(children: [
+                                      Icon(
+                                        FluentIcons.translate,
+                                        color:
+                                            Colors.white.withOpacity(opacity),
+                                      ),
+                                      SizedBox(width: 10),
+                                      Text(_generateGameTranslation(gameInfo.translation),
+                                          style: TextStyle(
+                                            overflow: TextOverflow.ellipsis,
+                                              color: Colors.white
+                                                  .withOpacity(opacity)))
+                                    ]),
+                                  ]))
+                        ]),
+                      )));
+            }));
+  }
+
+  String _generateGameType(String v) {
+    if (v == "COOP") {
+      return "Jeu en coopération";
+    } else {
+      if (v == "VERSUS") {
+        return "Chacun pour soi";
+      } else {
+        return "Jeu en équipe";
+      }
+    }
+  }
+
+  String _generateGameTranslation(String v) {
+    if (v == "FRENCH") {
+      return "Traduit en français";
+    } else {
+      if (v == "FRENCH_JBFR") {
+        return "Traduit par la communauté";
+      } else {
+        return "Non traduit";
+      }
+    }
   }
 }

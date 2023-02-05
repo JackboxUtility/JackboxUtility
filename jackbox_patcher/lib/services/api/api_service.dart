@@ -113,4 +113,8 @@ class APIService {
   String assetLink(String asset) {
     return '$baseAssets/$asset';
   }
+
+  String getDefaultBackground(){
+    return '$baseAssets/backgrounds/default_background.png';
+  }
 }

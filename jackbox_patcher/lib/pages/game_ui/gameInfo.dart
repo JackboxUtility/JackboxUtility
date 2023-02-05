@@ -123,14 +123,17 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
               child: Column(children: [
             Stack(children: [
               SizedBox(
-                  child: AssetCarousselWidget(images: widget.game.game.info.images))
+                  child: AssetCarousselWidget(
+                      images: widget.game.game.info.images))
             ]),
-            SizedBox(height: 500,child:Markdown(
-              data: widget.game.game.info.description,
-              onTapLink: (text, href, title) {
-                launchUrl(Uri.parse(href!));
-              },
-            ))
+            SizedBox(
+                height: 500,
+                child: Markdown(
+                  data: widget.game.game.info.description,
+                  onTapLink: (text, href, title) {
+                    launchUrl(Uri.parse(href!));
+                  },
+                ))
           ])),
           SizedBox(
             width: 40,
@@ -189,37 +192,37 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
   }
 
   Widget _buildGameTags() {
-
-    return Column(children: [ClipRRect(
-        borderRadius: BorderRadius.circular(8.0),
-        child: Acrylic(
-            shadowColor: backgroundColor,
-            blurAmount: 1,
-            tintAlpha: 1,
-            tint: Color.fromARGB(255, 48, 48, 48),
-            child: SizedBox(
-                width: 300,
-                child: Padding(
-                    padding: EdgeInsets.all(10),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: _generateClassicGameTags()))))),
-        SizedBox(height: 20),
-        ClipRRect(
-        borderRadius: BorderRadius.circular(8.0),
-        child: Acrylic(
-            shadowColor: backgroundColor,
-            blurAmount: 1,
-            tintAlpha: 1,
-            tint: Color.fromARGB(255, 48, 48, 48),
-            child: SizedBox(
-                width: 300,
-                child: Padding(
-                    padding: EdgeInsets.all(10),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: _generateCustomGameTags())))))
-      ]);
+    return Column(children: [
+      ClipRRect(
+          borderRadius: BorderRadius.circular(8.0),
+          child: Acrylic(
+              shadowColor: backgroundColor,
+              blurAmount: 1,
+              tintAlpha: 1,
+              tint: Color.fromARGB(255, 48, 48, 48),
+              child: SizedBox(
+                  width: 300,
+                  child: Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: _generateClassicGameTags()))))),
+      SizedBox(height: 20),
+      ClipRRect(
+          borderRadius: BorderRadius.circular(8.0),
+          child: Acrylic(
+              shadowColor: backgroundColor,
+              blurAmount: 1,
+              tintAlpha: 1,
+              tint: Color.fromARGB(255, 48, 48, 48),
+              child: SizedBox(
+                  width: 300,
+                  child: Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: _generateCustomGameTags())))))
+    ]);
   }
 
   List<Widget> _generateClassicGameTags() {
@@ -227,19 +230,21 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
     List<Widget> gameTagWidgets = [];
     // Add tags available for all games
     gameTagWidgets.add(_buildGameTag(
-        FluentIcons.allIcons["package"]!,
-        widget.pack.pack.name,
-        isLink: true, 
-        filter: (pack,game)=>pack.pack.id == widget.pack.pack.id,
-        background: APIService().assetLink(widget.pack.pack.background), 
+        FluentIcons.allIcons["package"]!, widget.pack.pack.name,
+        isLink: true,
+        filter: (pack, game) => pack.pack.id == widget.pack.pack.id,
+        background: APIService().assetLink(widget.pack.pack.background),
         description: widget.pack.pack.description));
-    gameTagWidgets.add(_buildGameTag(
-        FluentIcons.allIcons["people"]!,
+    gameTagWidgets.add(_buildGameTag(FluentIcons.allIcons["people"]!,
         "${widget.game.game.info.players.min} - ${widget.game.game.info.players.max} joueurs"));
     gameTagWidgets
         .add(_buildGameTag(FluentIcons.allIcons["timer"]!, gameInfo.length));
     gameTagWidgets.add(_buildGameTag(
-        FluentIcons.allIcons["group"]!, _generateGameType(gameInfo.type)));
+        FluentIcons.allIcons["group"]!, _generateGameType(gameInfo.type),
+        isLink: true,
+        filter: (pack, game) => game.game.info.type == gameInfo.type,
+        background: null,
+        description: "Tous les jeux de type : ${_generateGameType(gameInfo.type)}"));
     gameTagWidgets.add(_buildGameTag(FluentIcons.allIcons["translate"]!,
         _generateGameTranslation(gameInfo.translation)));
 
@@ -282,29 +287,30 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
     }
   }
 
-  Widget _buildGameTag(IconData icon, String text, {bool isLink=false, bool Function(UserJackboxPack, UserJackboxGame)? filter, String? background, String? description}) {
+  Widget _buildGameTag(IconData icon, String text,
+      {bool isLink = false,
+      bool Function(UserJackboxPack, UserJackboxGame)? filter,
+      String? background,
+      String? description}) {
     return GestureDetector(
         onTap: () {
           if (isLink) {
-            Navigator.pushNamed(
-                context,
-                "/search",
-                arguments: [
-                  filter,
-                  false,
-                  background, 
-                  text,
-                  description,
-                  null
-                ]);
+            Navigator.pushNamed(context, "/search", arguments: [
+              filter,
+              false,
+              background,
+              text,
+              description,
+              null
+            ]);
           }
         },
-      child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-        child: Row(children: [
-          Icon(icon),
-          SizedBox(width: 10),
-          Expanded(child: Text(text))
-        ])));
+        child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+            child: Row(children: [
+              Icon(icon),
+              SizedBox(width: 10),
+              Expanded(child: Text(text))
+            ])));
   }
 }
