@@ -1,4 +1,13 @@
-[
+{
+    "tags":[
+       {
+            "id":"talking",
+            "name":"Discussion",
+            "icon":"action_center",
+            "description":"Ce jeu nécessite de discuter entre joueurs pour avancer dans la partie."
+       } 
+    ],
+    "packs":[
     {
         "id":"jpp2",
         "name":"Jackbox Party Pack 2",
@@ -716,3 +725,4 @@
         "background":"backgrounds/jpp8.jpg"
     }
 ]
+}
