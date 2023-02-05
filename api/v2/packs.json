@@ -503,26 +503,28 @@
             {
                 "id":"champdup",
                 "name":"Champ'd Up",
-                "small_description":"Faites combattre vos dessins",
-                "description":"Dessinez et envoyez vos combattants au combat",
                 "background":"game_backgrounds/Champdup.webp",
                 "path":"games/WorldChampions",
                 "game_info":{
                     "players":{
-                        "min":1,
-                        "max":4
+                        "min":3,
+                        "max":8
                     },
-                    "length":"",
+                    "length":"Environ 20 minutes",
                     "translation":"FRENCH_JBFR",
-                    "type":"COOP",
-                    "tagline":"Désamorcez des bombes à 4",
-                    "small_description":"Désamorcez des bombes à 4",
-                    "description":"Désamorcez des bombes à 4",
+                    "type":"VERSUS",
+                    "tagline":"Faites combattre vos dessins",
+                    "small_description":"Le combat approche. Il est l'heure de créer vos meilleurs combattants pour qu'ils puissent se battre sur le ring. Arriverez-vous à sortir vainqueur ?",
+                    "description":"# A vos crayons, prêt... combattez !\n\nIl est l'heure de dessiner ! Vous allez recevoir un thème sur votre appareil. Il vous faudra créer un personnage qui répond au mieux au critère en le dessinant et en le nommant !\n\nLors du second tour, vous allez recevoir le dessin d'un autre joueur et allez devoir dessiner son rival, celui qui pourrait le battre à son propre thème.\n\nSerez-vous le vainqueur de ce tournoi, ou resterez-vous sur la touche ? Bienvenue sur **Champ'd Up** !",
                     "images":[
-
+			"game_images/ChampdUp/champdup_1.webp",
+                        "game_images/ChampdUp/champdup_2.webp",
+                        "game_images/ChampdUp/champdup_3.webp",
+                        "game_images/ChampdUp/champdup_4.webp"
                     ],
                     "tags":[
-                        "talking"
+                        "drawing",
+                        "writing"
                     ]
 
                 },
@@ -552,26 +554,28 @@
             {
                 "id":"talkingpoints",
                 "name":"Talking Points",
-                "small_description":"Présentez votre pire sujet",
-                "description":"Parlez et présentez votre pire sujet",
                 "background":"game_backgrounds/TalkingPoints.webp",
                 "path":"games/JackboxTalks",
                 "game_info":{
                     "players":{
-                        "min":1,
-                        "max":4
+                        "min":3,
+                        "max":8
                     },
-                    "length":"",
-                    "type":"COOP",
+                    "length":"20 - 40 minutes",
+                    "type":"VERSUS",
                     "translation":"FRENCH_JBFR",
-                    "tagline":"Désamorcez des bombes à 4",
-                    "small_description":"Désamorcez des bombes à 4",
-                    "description":"Désamorcez des bombes à 4",
+                    "tagline":"Présentez votre pire sujet",
+                    "small_description":"L'impro ça vous connait ? Vous allez devoir passer à l'oral sur un thème que vous ne connaissez pas et avec des diapositives choisies par d'autres joueurs. Parlez bien pour gagner !",
+                    "description":"# Retour à l'école !\n\nVous allez devoir passer à l'oral sur un thème choisit par un autre joueur. Dites n'importe quoi et essayez d'être le plus raccord avec les diapositives choisies par votre suppléant : un autre joueur.\n\nEn plus de noter les autres pendant la présentation, vous pouvez aussi donner un award à votre présentation préférée pour lui faire gagner pleins de points !",
                     "images":[
-
+			"game_images/TalkingPoints/talkingpoints_1.webp",
+                        "game_images/TalkingPoints/talkingpoints_2.webp",
+                        "game_images/TalkingPoints/talkingpoints_3.webp",
+                        "game_images/TalkingPoints/talkingpoints_4.webp"
                     ],
                     "tags":[
-                        "talking"
+                        "talking",
+                        "writing"
                     ]
 
                 },
