@@ -73,7 +73,9 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
               child: Row(children: [
                 Expanded(
                     child: Image.network(
-                  widget.background!=null ? widget.background! : APIService().getDefaultBackground(),
+                  widget.background != null
+                      ? widget.background!
+                      : APIService().getDefaultBackground(),
                   fit: BoxFit.fitWidth,
                 ))
               ])),
@@ -119,15 +121,31 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
     );
   }
 
+  List<Map<String, Object>> getFilteredGames() {
+    List<Map<String, Object>> games = [];
+    for (var element in UserData().packs) {
+      if (element.games.any((game) => widget.filter(element, game))) {
+        for (var game in element.games) {
+          if (widget.filter(element, game)) {
+            games.add({"game":game,"pack":element});
+          }
+        }
+      }
+    }
+    return games;
+  }
+
   Widget _buildBottom() {
-    return Column(
-        children: UserData()
-            .packs
-            .where((pack) => pack.games
-                .where((game) => widget.filter(pack, game))
-                .isNotEmpty)
-            .map((pack) => _buildPack(pack))
-            .toList());
+    List<Map<String, Object>> games = getFilteredGames();
+    return Padding(
+        padding: EdgeInsets.symmetric(horizontal: calculatePadding()),
+        child: StaggeredGrid.count(
+            mainAxisSpacing: 20,
+            crossAxisSpacing: 20,
+            crossAxisCount: 3,
+            children: games
+                .map((game) => SearchGameGameWidget(pack: game["pack"] as UserJackboxPack, game: game["game"] as UserJackboxGame))
+                .toList()));
   }
 
   double calculatePadding() {
@@ -206,7 +224,7 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                           Padding(
                               padding: EdgeInsets.all(8),
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.end,
+                                  mainAxisAlignment: MainAxisAlignment.end,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(widget.game.game.name,
@@ -244,7 +262,7 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                                       SizedBox(width: 10),
                                       Text(_generateGameType(gameInfo.type),
                                           style: TextStyle(
-                                            overflow: TextOverflow.ellipsis,
+                                              overflow: TextOverflow.ellipsis,
                                               color: Colors.white
                                                   .withOpacity(opacity)))
                                     ]),
@@ -255,9 +273,11 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                                             Colors.white.withOpacity(opacity),
                                       ),
                                       SizedBox(width: 10),
-                                      Text(_generateGameTranslation(gameInfo.translation),
+                                      Text(
+                                          _generateGameTranslation(
+                                              gameInfo.translation),
                                           style: TextStyle(
-                                            overflow: TextOverflow.ellipsis,
+                                              overflow: TextOverflow.ellipsis,
                                               color: Colors.white
                                                   .withOpacity(opacity)))
                                     ]),
