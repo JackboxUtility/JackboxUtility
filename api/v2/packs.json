@@ -17,6 +17,12 @@
             "name":"Ecrit",
             "icon":"text_align_top",
             "description":"Vous allez devoir écrire dans ces jeux."
+       },
+       {
+       	    "id":"deduction",
+            "name":"Déduction",
+            "icon":"comment_urgent",
+            "description":"Ces jeux sont des jeux de déduction."
        }
     ],
     "packs":[
@@ -100,20 +106,23 @@
                 "path":"games/SurviveTheInternet",
                 "game_info":{
                     "players":{
-                        "min":1,
-                        "max":4
+                        "min":3,
+                        "max":8
                     },
-                    "length":"",
-                    "type":"COOP",
+                    "length":"Environ 20 minutes",
+                    "type":"VERSUS",
                     "translation":"FRENCH_JBFR",
-                    "tagline":"Désamorcez des bombes à 4",
-                    "small_description":"Désamorcez des bombes à 4",
-                    "description":"Désamorcez des bombes à 4",
+                    "tagline":"Survivrez-vous à Internet",
+                    "small_description":"Internet. Le monde des chats, des trolls et des memes. Mais le plus important dans ce monde c'est les personnes sortant vos mots en dehors de son contexte. Saurez-vous masteriser cet art et gagner des points ?",
+                    "description":"# Le doux monde d'internet\n\nDans ce jeu vous allez devoir répondre à une question simple qui sera ensuite envoyé à un autre joueur. Son but ? Sortir votre phrase hors de son contexte pour que ce soit le plus improbable / drôle possible. Peut-être votre phrase sera présentée en tant que commentaire d'une vidéo, d'une recommandation d'une personne connue ou encore un commentaire d'un produit ménager ? ",
                     "images":[
-
+			"game_images/SurviveTheInternet/survivetheinternet_1.webp",
+                        "game_images/SurviveTheInternet/survivetheinternet_2.webp",
+                        "game_images/SurviveTheInternet/survivetheinternet_3.webp",
+                        "game_images/SurviveTheInternet/survivetheinternet_4.webp"
                     ],
                     "tags":[
-                        "talking"
+                        "writing"
                     ]
 
                 },
@@ -146,20 +155,23 @@
                 "path":"games/MonsterMingle",
                 "game_info":{
                     "players":{
-                        "min":1,
-                        "max":4
+                        "min":3,
+                        "max":7
                     },
-                    "length":"",
-                    "type":"COOP",
+                    "length":"15 - 20 minutes",
+                    "type":"VERSUS",
                     "translation":"FRENCH_JBFR",
-                    "tagline":"Désamorcez des bombes à 4",
-                    "small_description":"Désamorcez des bombes à 4",
-                    "description":"Désamorcez des bombes à 4",
+                    "tagline":"Même les monstres ont le droit à l'amour",
+                    "small_description":"Vous êtes désespérément à la recherche de l'amour. Je sais c'est compliqué en tant que monstre. Monster seeking monster peut vous aider à remédier à ça en vous laissant participer à une séance de rendez-vous amoureux avec tous les monstres aux alentours !",
+                    "description":"# Même les monstres ont le droit à l'amour\n\nVous êtes invité à Monster Seeking Monster ! C'est votre chance ultime pour trouver l'amour pour une nuit ! \n\nVous avez 6 nuits",
                     "images":[
-
+			"game_images/MonsterSeekingMonster/monsterseekingmonster_1.webp",
+                        "game_images/MonsterSeekingMonster/monsterseekingmonster_2.webp",
+                        "game_images/MonsterSeekingMonster/monsterseekingmonster_3.webp",
+                        "game_images/MonsterSeekingMonster/monsterseekingmonster_4.webp"
                     ],
                     "tags":[
-                        "talking"
+                        "writing"
                     ]
 
                 },
@@ -192,20 +204,23 @@
                 "path":"games/Bracketeering",
                 "game_info":{
                     "players":{
-                        "min":1,
-                        "max":4
+                        "min":3,
+                        "max":16
                     },
-                    "length":"",
-                    "type":"COOP",
+                    "length":"15 - 20 minutes",
+                    "type":"VERSUS",
                     "translation":"FRENCH_JBFR",
-                    "tagline":"Désamorcez des bombes à 4",
-                    "small_description":"Désamorcez des bombes à 4",
-                    "description":"Désamorcez des bombes à 4",
+                    "tagline":"Participez au tournoi interstellaire",
+                    "small_description":"Vous êtes invité à un tournoi ravagé ou vous allez devoir répondre aux questions les plus importantes de la vie ! Arriverez-vous à terminer premier de ce tournoi intergalactique ?",
+                    "description":"# C'est l'heure du tournoi !\n\nVous allez recevoir une question, et allez devoir y répondre. Votre réponse sera ensuite face aux autres et c'est seulement ensuite que nous saurons qui sera le grand vainqueur.\n\nVous êtes pas très bon ? Alors faites des prédictions et recevez de l'argent en fonction de votre performance !",
                     "images":[
-
+			"game_images/Bracketeering/bracketeering_1.webp",
+                        "game_images/Bracketeering/bracketeering_2.webp",
+                        "game_images/Bracketeering/bracketeering_3.webp",
+                        "game_images/Bracketeering/bracketeering_4.webp"
                     ],
                     "tags":[
-                        "talking"
+                        "writing"
                     ]
 
                 },
@@ -245,26 +260,27 @@
             {
                 "id":"splittheroom",
                 "name":"Split The Room",
-                "small_description":"Arriverez-vous à splitter la salle ?",
-                "description":"Arriverez-vous à splitter la salle ?",
                 "background":"game_backgrounds/SplitTheRoom.webp",
                 "path":"games/SplitTheRoom",
                 "game_info":{
                     "players":{
-                        "min":1,
-                        "max":4
+                        "min":3,
+                        "max":8
                     },
-                    "length":"",
-                    "type":"COOP",
+                    "length":"15 minutes",
+                    "type":"VERSUS",
                     "translation":"FRENCH_JBFR",
-                    "tagline":"Désamorcez des bombes à 4",
-                    "small_description":"Désamorcez des bombes à 4",
-                    "description":"Désamorcez des bombes à 4",
+                    "tagline":"Créez vos meilleurs dilemmes",
+                    "small_description":"Vous allez devoir créer les meilleurs dillemmes possible. Le but du jeu ? Splitez vos amis le plus possible sur une question simple (et délirante)",
+                    "description":"# Bienvenue dans un monde où les dimensions s'entremêlent\n\nMayonnaise vous attend. Vous allez devoir créer des dilemmes pour séparer le plus de personnes. Plus le split est grand, plus vous gagnez des points ! Soyez stratégiques, connaissez vos adversaires et créez les plus grands dilemmes que le monde n'aient jamais connus.",
                     "images":[
-
+			"game_images/SplitTheRoom/splittheroom_1.webp",
+                        "game_images/SplitTheRoom/splittheroom_2.webp",
+                        "game_images/SplitTheRoom/splittheroom_3.webp",
+                        "game_images/SplitTheRoom/splittheroom_4.webp"
                     ],
                     "tags":[
-                        "talking"
+                        "writing"
                     ]
 
                 },
@@ -296,20 +312,24 @@
                 "path":"games/PatentlyStupid",
                 "game_info":{
                     "players":{
-                        "min":1,
-                        "max":4
+                        "min":3,
+                        "max":8
                     },
-                    "length":"",
-                    "type":"COOP",
+                    "length":"20 minutes",
+                    "type":"VERSUS",
                     "translation":"FRENCH_JBFR",
-                    "tagline":"Désamorcez des bombes à 4",
-                    "small_description":"Désamorcez des bombes à 4",
-                    "description":"Désamorcez des bombes à 4",
+                    "tagline":"Crééz vos propres inventions !",
+                    "small_description":"Le monde va mal et les problèmes pleuvent. Arriverez-vous à créer l'invention qui résoudra tout. Et surtout, arriverez-vous à la vendre au plus de personnes dans la salle ?",
+                    "description":"# C'est l'heure du meeting\n\nVous êtes invité au plus grand meeting d'ingénieur que le monde ait connu. Le monde a des problèmes et vous allez devoir les résoudre avec une invention que vous allez dessiner, nommer et présenter. Si vous êtes bon, vous gagnerez de l'argent.\n\nVous n'avez pas géré lors du premier tour ? Alors rattrapez vous avec le second en créant un objet répondant aux mêmes problèmes que vos compères !",
                     "images":[
-
+			"game_images/PatentlyStupid/patentlystupid_1.webp",
+                        "game_images/PatentlyStupid/patentlystupid_2.webp",
+                        "game_images/PatentlyStupid/patentlystupid_3.webp",
+                        "game_images/PatentlyStupid/patentlystupid_4.webp"
                     ],
                     "tags":[
-                        "talking"
+                        "talking",
+                        "writing"
                     ]
 
                 },
@@ -349,26 +369,27 @@
             {
                 "id":"jokeboat",
                 "name":"Joke Boat",
-                "small_description":"Faites rigoler le public",
-                "description":"Faites rigoler le public",
                 "background":"game_backgrounds/JokeBoat.webp",
                 "path":"games/JokeBoat",
                 "game_info":{
                     "players":{
-                        "min":1,
-                        "max":4
+                        "min":3,
+                        "max":8
                     },
-                    "length":"",
-                    "type":"COOP",
+                    "length":"15 - 25 minutes",
+                    "type":"VERSUS",
                     "translation":"FRENCH_JBFR",
-                    "tagline":"Désamorcez des bombes à 4",
-                    "small_description":"Désamorcez des bombes à 4",
-                    "description":"Désamorcez des bombes à 4",
+                    "tagline":"Venez faire rire vos amis",
+                    "small_description":"Vous êtes les comédiens ? Génial, vous allez pouvoi faire rire tous nos convives dans Joke Boat",
+                    "description":"# Bienvenue à bord !\n\nVous êtes accepté en tant que comédien dans le Joke Boat, un bateau connu pour... ses blagues ? En tout cas, votrre but est de recevoir le plus d'argent des passagers en vous démarquant de votre adversaire. Comment faire ? En créant vos meilleures blagues bien sûr !",
                     "images":[
-
+			"game_images/JokeBoat/jokeboat_1.webp",
+                        "game_images/JokeBoat/jokeboat_2.webp",
+                        "game_images/JokeBoat/jokeboat_3.webp",
+                        "game_images/JokeBoat/jokeboat_4.webp"
                     ],
                     "tags":[
-                        "talking"
+                        "writing"
                     ]
 
                 },
@@ -394,26 +415,27 @@
             {
                 "id":"dictionarium",
                 "name":"Dictionarium",
-                "small_description":"Inventez des mots",
-                "description":"Inventez des mots",
                 "background":"game_backgrounds/Dictionarium.webp",
                 "path":"games/Ridictionary",
                 "game_info":{
                     "players":{
-                        "min":1,
-                        "max":4
+                        "min":3,
+                        "max":8
                     },
-                    "length":"",
-                    "type":"COOP",
+                    "length":"10 minutes",
+                    "type":"VERSUS",
                     "translation":"FRENCH_JBFR",
-                    "tagline":"Désamorcez des bombes à 4",
-                    "small_description":"Désamorcez des bombes à 4",
-                    "description":"Désamorcez des bombes à 4",
+                    "tagline":"Inventez des mots",
+                    "small_description":"Le dictionnaire est vaste mais pourquoi pas en rajouter ? A vous de créer de nouveaux mots, donner leur définition et choisir votre préféré !",
+                    "description":"# Imaginez des mots\n\nBienvenue au dictionarium, un endroit magique où vous allez devoir créer de nouveaux mots en plus de leur définition. Un concept assez simple mais qui est très ontéressant si vous avez une âme littéraire",
                     "images":[
-
+			"game_images/Dictionarium/dictionarium_1.webp",
+                        "game_images/Dictionarium/dictionarium_2.webp",
+                        "game_images/Dictionarium/dictionarium_3.webp",
+                        "game_images/Dictionarium/dictionarium_4.webp"
                     ],
                     "tags":[
-                        "talking"
+                        "writing"
                     ]
 
                 },
@@ -439,26 +461,30 @@
             {
                 "id":"pushthebutton",
                 "name":"Push The Button",
-                "small_description":"Trouvez les aliens",
-                "description":"Trouvez les aliens",
                 "background":"game_backgrounds/PushTheButton.webp",
                 "path":"games/PushTheButton",
                 "game_info":{
                     "players":{
-                        "min":1,
-                        "max":4
+                        "min":4,
+                        "max":10
                     },
-                    "length":"",
-                    "type":"COOP",
+                    "length":"Dépendant du nombre de joueurs",
+                    "type":"TEAM",
                     "translation":"FRENCH_JBFR",
-                    "tagline":"Désamorcez des bombes à 4",
-                    "small_description":"Désamorcez des bombes à 4",
-                    "description":"Désamorcez des bombes à 4",
+                    "tagline":"Trouvez les aliens",
+                    "small_description":"Des aliens sont arrivés dans votre vaisseau et se cachent dans votre équipage. Trouvez les à temps avant que l'IA du vaisseau soit effacée pour survivre.",
+                    "description":"# Une intrusion a été détectée\n\nDODE, l'IA de votre vaisseau spatial, vous avertis que des perturbations anormales ont eu lieu à l'intérieur de celui-ci. Après analyse, vous découvrez que certains de vos coéquipiers sont des aliens. Mais vous ne savez pas qui !\n\nPour les découvir vous allez devoir faire des tests d'humanité à chaque joueurs dans la partie. Que ce soit avec des opinions, des dessins ou encore des mots, il y a des tonnes de manière de trouver les aliens. Mais faites vite ! Le temps tourne et si vous ne trouvez pas tous les aliens avant la fin, c'est perdu !",
                     "images":[
-
+			"game_images/PushTheButton/pushthebutton_1.webp",
+                        "game_images/PushTheButton/pushthebutton_2.webp",
+                        "game_images/PushTheButton/pushthebutton_3.webp",
+                        "game_images/PushTheButton/pushthebutton_4.webp"
                     ],
                     "tags":[
-                        "talking"
+                        "talking",
+                        "writing",
+                        "drawing",
+                        "deduction"
                     ]
 
                 },
