@@ -3,6 +3,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:jackbox_patcher/components/caroussel.dart';
 import 'package:jackbox_patcher/model/jackboxgame.dart';
+import 'package:jackbox_patcher/services/launcher/launcher.dart';
 import 'package:palette_generator/palette_generator.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -176,7 +177,9 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                               style: ButtonStyle(
                                   backgroundColor:
                                       ButtonState.all(Colors.green)),
-                              onPressed: () {},
+                              onPressed: () {
+                                Launcher.launchGame(widget.pack,widget.game);
+                              },
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
