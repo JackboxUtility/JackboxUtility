@@ -606,7 +606,7 @@
 
                 },
                 "loader":{
-                    "path":"loaders/tjpp7/default.zip",
+                    "path":"loaders/tjpp7/talkingpoints.zip",
                     "version":"1.0.0"
                 },
                 "patchs":[
@@ -626,6 +626,109 @@
                             "audios":false
                         }
                     }
+                ]
+            },
+            {
+                "id":"thedevilsandthedetails",
+                "name":"The Devils And The Details",
+                "background":"game_backgrounds/TheDevilsAndTheDetails.webp",
+                "path":"games/Everyday",
+                "game_info":{
+                    "players":{
+                        "min":3,
+                        "max":8
+                    },
+                    "length":"Environ 15 minutes",
+                    "type":"COOP",
+                    "translation":"ENGLISH",
+                    "tagline":"Faites vos tâches !",
+                    "small_description":"Hey, les démons ! C'est à vous de travailler ensemble pour faire ce que les humains font le moins bien : des tâches ménagères. Travaillez en équipe et soyez vif pour réussir le challenge de la semaine !",
+                    "description":"# Au travail démons !\n\nVous avez été accepté pour le programme de relation entre démons et humains. Vos tâches seront simples : faire des tâches ménagères. Vous allez devoir travailler en équipe pour en faire le plus possible et ainsi gagner le challenge de la semaine.\n\nMais faites attention, certains démons vont essayer de jouer dans leur coin pour empocher un max de points et ne plus rien vous laisser. Soyez rapide et efficace pour les arreter !",
+                    "images":[
+			"game_images/TheDevilsAndTheDetails/thedevilsandthedetails_1.webp",
+                        "game_images/TheDevilsAndTheDetails/thedevilsandthedetails_2.webp",
+                        "game_images/TheDevilsAndTheDetails/thedevilsandthedetails_3.webp",
+                        "game_images/TheDevilsAndTheDetails/thedevilsandthedetails_4.webp"
+                    ],
+                    "tags":[
+                        "talking",
+                        "writing"
+                    ]
+
+                },
+                "loader":{
+                    "path":"loaders/tjpp7/thedevilsandthedetails.zip",
+                    "version":"1.0.0"
+                },
+                "patchs":[
+                ]
+            },
+            {
+                "id":"quiplash3",
+                "name":"Quiplash 3",
+                "background":"game_backgrounds/Quiplash3.webp",
+                "path":"games/Quiplash3",
+                "game_info":{
+                    "players":{
+                        "min":3,
+                        "max":8
+                    },
+                    "length":"Environ 15 minutes",
+                    "type":"VERSUS",
+                    "translation":"ENGLISH",
+                    "tagline":"Soyez le plus drôle",
+                    "small_description":"C'est l'heure d'être drôle ! Epatez tous vos amis en répondant de la manière la plus marrante aux phrases farfelus de Quiplash 3.",
+                    "description":"# C'est l'heure de faire rire\n\n Vous allez recevoir une phrase. Essayez d'y répondre de la manière la plus drôle possible. Votre phrase sera face à celle d'un joueur et les autres votent pour leur préférée. Un jeu simple et efficace qui pourra vous faire rire pendant beaucoup de temps.",
+                    "images":[
+			"game_images/Quiplash3/quiplash3_1.webp",
+                        "game_images/Quiplash3/quiplash3_2.webp",
+                        "game_images/Quiplash3/quiplash3_3.webp",
+                        "game_images/Quiplash3/quiplash3_4.webp"
+                    ],
+                    "tags":[
+                        "writing"
+                    ]
+
+                },
+                "loader":{
+                    "path":"loaders/tjpp7/quiplash3.zip",
+                    "version":"1.0.0"
+                },
+                "patchs":[
+                ]
+            },
+            {
+                "id":"blatherround",
+                "name":"Blather Round",
+                "background":"game_backgrounds/BlatherRound.webp",
+                "path":"games/BlankyBlank",
+                "game_info":{
+                    "players":{
+                        "min":2,
+                        "max":6
+                    },
+                    "length":"15 - 30 minutes",
+                    "type":"VERSUS",
+                    "translation":"ENGLISH",
+                    "tagline":"Faites deviner votre mot",
+                    "small_description":"Vous avez un mot. Il est simple à faire deviner mais vous êtes limité. Vous allez devoir vous aider des mots des autres joueurs pour leur faire deviner le votre",
+                    "description":"# C'est l'heure des devinettes\n\nVous allez devoir choisir un mot. Votre but : Le faire deviner aux autres joueurs. Mais vous avez accès à un vocabulaire limité pour pouvoir le faire deviner. Vous allez donc devoir vous aiderr de ce que disent les autres joueurs pour faire deviner votre propre mot",
+                    "images":[
+			"game_images/BlatherRound/blatherround_1.webp",
+                        "game_images/BlatherRound/blatherround_2.webp",
+                        "game_images/BlatherRound/blatherround_3.webp",
+                        "game_images/BlatherRound/blatherround_4.webp"
+                    ],
+                    "tags":[
+                        "writing"
+                    ]
+
+                },
+                "loader":{
+                    "path":"loaders/tjpp7/blatherround.zip",
+                    "version":"1.0.0"
+                },
+                "patchs":[
                 ]
             }
         ],
