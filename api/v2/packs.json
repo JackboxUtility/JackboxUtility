@@ -923,7 +923,10 @@
                     "small_description":"Bienvenue dans Fibbage 4, le jeu où vous allez devoir mentir et faire tomber des personnes dans le panneau pour gagner des points.",
                     "description":"# Fibbage quatre...\n\n Dans fibbage 4, vous allez devoir compléter des anecdotes. Chaque réponse à une anecdote et montré aux joueurs ainsi que la vraie réponse. Le but est de trouver la vérité sans tomber sur les réponses adverses.\n\nEn plus des anecdotes classiques, vous trouverez aussi des anecdotes sous format vidéo et le Fibbage final ou vous devrez remplir 2 anecdotes en même temps.\n\nQui sera le meilleur menteur ?",
                     "images":[
-			"game_backgrounds/Fibbage4.webp"
+			"game_images/Fibbage4/fibbage4_1.jpg",
+                        "game_images/Fibbage4/fibbage4_2.jpg",
+                        "game_images/Fibbage4/fibbage4_3.jpg",
+                        "game_images/Fibbage4/fibbage4_4.jpg"
                     ],
                     "tags":[
                         "writing"
@@ -950,7 +953,10 @@
                     "small_description":"C'est le moment de vous faire connaitre ! Rejoignez la télé-réalité Roomerang et éliminé vos adversaires un à un jusqu'à ce qu'une seule personne soit vainqueur.",
                     "description":"Bienvenue dans Roomerang\n\nIci, vous devez vous batailler pour la victoire. Vous avez chacun un petit détail sur vous. Que ce soit livreur de pizza, jardinier en herbe ou pro de l'escalade, vous avez les talents pour gagner la partie et éliminer tout le monde sur votre passage.",
                     "images":[
-			"game_backgrounds/Roomerang.webp"
+			"game_images/Roomerang/roomerang_1.jpg",
+                        "game_images/Roomerang/roomerang_2.jpg",
+                        "game_images/Roomerang/roomerang_3.jpg",
+                        "game_images/Roomerang/roomerang_4.jpg"
                     ],
                     "tags":[
                         "writing"
@@ -978,7 +984,10 @@
                     "small_description":"<TBR>",
                     "description":"<TBR>",
                     "images":[
-			"game_backgrounds/Junktopia.webp"
+			"game_images/Junktopia/junktopia_1.jpg",
+                        "game_images/Junktopia/junktopia_2.jpg",
+                        "game_images/Junktopia/junktopia_3.jpg",
+                        "game_images/Junktopia/junktopia_4.jpg"
                     ],
                     "tags":[
                         "writing"
@@ -1006,7 +1015,10 @@
                     "small_description":"<TBR>",
                     "description":"<TBR>",
                     "images":[
-			"game_backgrounds/Nonsensory.webp"
+			"game_images/Nonsensory/nonsensory_1.jpg",
+                        "game_images/Nonsensory/nonsensory_2.jpg",
+                        "game_images/Nonsensory/nonsensory_3.jpg",
+                        "game_images/Nonsensory/nonsensory_4.jpg"
                     ],
                     "tags":[
                         "writing", "drawing"
@@ -1034,7 +1046,10 @@
                     "small_description":"<TBR>",
                     "description":"<TBR>",
                     "images":[
-			"game_backgrounds/Quixort.webp"
+			"game_images/Quixort/quixort_1.jpg",
+                        "game_images/Quixort/quixort_2.jpg",
+                        "game_images/Quixort/quixort_3.jpg",
+                        "game_images/Quixort/quixort_4.jpg"
                     ],
                     "tags":[
                         "talking", "knowledge"
