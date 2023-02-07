@@ -246,7 +246,11 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
         background: null,
         description: "Tous les jeux de type : ${_generateGameType(gameInfo.type)}"));
     gameTagWidgets.add(_buildGameTag(FluentIcons.allIcons["translate"]!,
-        _generateGameTranslation(gameInfo.translation)));
+        _generateGameTranslation(gameInfo.translation), 
+        isLink: true,
+        filter: (pack, game) => game.game.info.translation == gameInfo.translation,
+        background: null,
+        description: "Tous les jeux de type : ${_generateGameType(gameInfo.type)}"));
 
     return gameTagWidgets;
   }
@@ -257,7 +261,12 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
     // Add custom tags
     for (var element in gameInfo.tags) {
       gameTagWidgets.add(
-          _buildGameTag(FluentIcons.allIcons[element.icon]!, element.name));
+          _buildGameTag(FluentIcons.allIcons[element.icon]!, element.name, 
+          isLink: true,
+        filter: (pack, game) => game.game.info.tags.where((e)=>e.id == element.id).length>0,
+        background: null,
+        description: element.description));
+
     }
 
     return gameTagWidgets;
@@ -310,7 +319,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
             child: Row(children: [
               Icon(icon),
               SizedBox(width: 10),
-              Expanded(child: Text(text))
+              Expanded(child: Text(text, style:isLink? TextStyle(decoration: TextDecoration.underline):null))
             ])));
   }
 }
