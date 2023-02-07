@@ -4,8 +4,26 @@
             "id":"talking",
             "name":"Discussion",
             "icon":"action_center",
-            "description":"Ce jeu nécessite de discuter entre joueurs pour avancer dans la partie."
-       } 
+            "description":"Jeux nécessitant de discuter entre joueurs pour avancer dans la partie."
+       },
+       {
+       	    "id":"drawing",
+            "name":"Dessin",
+            "icon":"edit",
+            "description":"Vous allez devoir dessiner dans ces jeux."
+       },
+       {
+       	    "id":"writing",
+            "name":"Ecrit",
+            "icon":"text_align_top",
+            "description":"Vous allez devoir écrire dans ces jeux."
+       },
+       {
+       	    "id":"deduction",
+            "name":"Déduction",
+            "icon":"comment_urgent",
+            "description":"Ces jeux sont des jeux de déduction."
+       }
     ],
     "packs":[
     {
@@ -88,20 +106,23 @@
                 "path":"games/SurviveTheInternet",
                 "game_info":{
                     "players":{
-                        "min":1,
-                        "max":4
+                        "min":3,
+                        "max":8
                     },
-                    "length":"",
-                    "type":"COOP",
+                    "length":"Environ 20 minutes",
+                    "type":"VERSUS",
                     "translation":"FRENCH_JBFR",
-                    "tagline":"Désamorcez des bombes à 4",
-                    "small_description":"Désamorcez des bombes à 4",
-                    "description":"Désamorcez des bombes à 4",
+                    "tagline":"Survivrez-vous à Internet",
+                    "small_description":"Internet. Le monde des chats, des trolls et des memes. Mais le plus important dans ce monde c'est les personnes sortant vos mots en dehors de son contexte. Saurez-vous masteriser cet art et gagner des points ?",
+                    "description":"# Le doux monde d'internet\n\nDans ce jeu vous allez devoir répondre à une question simple qui sera ensuite envoyé à un autre joueur. Son but ? Sortir votre phrase hors de son contexte pour que ce soit le plus improbable / drôle possible. Peut-être votre phrase sera présentée en tant que commentaire d'une vidéo, d'une recommandation d'une personne connue ou encore un commentaire d'un produit ménager ? ",
                     "images":[
-
+			"game_images/SurviveTheInternet/survivetheinternet_1.webp",
+                        "game_images/SurviveTheInternet/survivetheinternet_2.webp",
+                        "game_images/SurviveTheInternet/survivetheinternet_3.webp",
+                        "game_images/SurviveTheInternet/survivetheinternet_4.webp"
                     ],
                     "tags":[
-                        "talking"
+                        "writing"
                     ]
 
                 },
@@ -134,20 +155,23 @@
                 "path":"games/MonsterMingle",
                 "game_info":{
                     "players":{
-                        "min":1,
-                        "max":4
+                        "min":3,
+                        "max":7
                     },
-                    "length":"",
-                    "type":"COOP",
+                    "length":"15 - 20 minutes",
+                    "type":"VERSUS",
                     "translation":"FRENCH_JBFR",
-                    "tagline":"Désamorcez des bombes à 4",
-                    "small_description":"Désamorcez des bombes à 4",
-                    "description":"Désamorcez des bombes à 4",
+                    "tagline":"Même les monstres ont le droit à l'amour",
+                    "small_description":"Vous êtes désespérément à la recherche de l'amour. Je sais c'est compliqué en tant que monstre. Monster seeking monster peut vous aider à remédier à ça en vous laissant participer à une séance de rendez-vous amoureux avec tous les monstres aux alentours !",
+                    "description":"# Même les monstres ont le droit à l'amour\n\nVous êtes invité à Monster Seeking Monster ! C'est votre chance ultime pour trouver l'amour pour une nuit ! \n\nVous avez 6 nuits",
                     "images":[
-
+			"game_images/MonsterSeekingMonster/monsterseekingmonster_1.webp",
+                        "game_images/MonsterSeekingMonster/monsterseekingmonster_2.webp",
+                        "game_images/MonsterSeekingMonster/monsterseekingmonster_3.webp",
+                        "game_images/MonsterSeekingMonster/monsterseekingmonster_4.webp"
                     ],
                     "tags":[
-                        "talking"
+                        "writing"
                     ]
 
                 },
@@ -180,20 +204,23 @@
                 "path":"games/Bracketeering",
                 "game_info":{
                     "players":{
-                        "min":1,
-                        "max":4
+                        "min":3,
+                        "max":16
                     },
-                    "length":"",
-                    "type":"COOP",
+                    "length":"15 - 20 minutes",
+                    "type":"VERSUS",
                     "translation":"FRENCH_JBFR",
-                    "tagline":"Désamorcez des bombes à 4",
-                    "small_description":"Désamorcez des bombes à 4",
-                    "description":"Désamorcez des bombes à 4",
+                    "tagline":"Participez au tournoi interstellaire",
+                    "small_description":"Vous êtes invité à un tournoi ravagé ou vous allez devoir répondre aux questions les plus importantes de la vie ! Arriverez-vous à terminer premier de ce tournoi intergalactique ?",
+                    "description":"# C'est l'heure du tournoi !\n\nVous allez recevoir une question, et allez devoir y répondre. Votre réponse sera ensuite face aux autres et c'est seulement ensuite que nous saurons qui sera le grand vainqueur.\n\nVous êtes pas très bon ? Alors faites des prédictions et recevez de l'argent en fonction de votre performance !",
                     "images":[
-
+			"game_images/Bracketeering/bracketeering_1.webp",
+                        "game_images/Bracketeering/bracketeering_2.webp",
+                        "game_images/Bracketeering/bracketeering_3.webp",
+                        "game_images/Bracketeering/bracketeering_4.webp"
                     ],
                     "tags":[
-                        "talking"
+                        "writing"
                     ]
 
                 },
@@ -233,26 +260,27 @@
             {
                 "id":"splittheroom",
                 "name":"Split The Room",
-                "small_description":"Arriverez-vous à splitter la salle ?",
-                "description":"Arriverez-vous à splitter la salle ?",
                 "background":"game_backgrounds/SplitTheRoom.webp",
                 "path":"games/SplitTheRoom",
                 "game_info":{
                     "players":{
-                        "min":1,
-                        "max":4
+                        "min":3,
+                        "max":8
                     },
-                    "length":"",
-                    "type":"COOP",
+                    "length":"15 minutes",
+                    "type":"VERSUS",
                     "translation":"FRENCH_JBFR",
-                    "tagline":"Désamorcez des bombes à 4",
-                    "small_description":"Désamorcez des bombes à 4",
-                    "description":"Désamorcez des bombes à 4",
+                    "tagline":"Créez vos meilleurs dilemmes",
+                    "small_description":"Vous allez devoir créer les meilleurs dillemmes possible. Le but du jeu ? Splitez vos amis le plus possible sur une question simple (et délirante)",
+                    "description":"# Bienvenue dans un monde où les dimensions s'entremêlent\n\nMayonnaise vous attend. Vous allez devoir créer des dilemmes pour séparer le plus de personnes. Plus le split est grand, plus vous gagnez des points ! Soyez stratégiques, connaissez vos adversaires et créez les plus grands dilemmes que le monde n'aient jamais connus.",
                     "images":[
-
+			"game_images/SplitTheRoom/splittheroom_1.webp",
+                        "game_images/SplitTheRoom/splittheroom_2.webp",
+                        "game_images/SplitTheRoom/splittheroom_3.webp",
+                        "game_images/SplitTheRoom/splittheroom_4.webp"
                     ],
                     "tags":[
-                        "talking"
+                        "writing"
                     ]
 
                 },
@@ -284,20 +312,24 @@
                 "path":"games/PatentlyStupid",
                 "game_info":{
                     "players":{
-                        "min":1,
-                        "max":4
+                        "min":3,
+                        "max":8
                     },
-                    "length":"",
-                    "type":"COOP",
+                    "length":"20 minutes",
+                    "type":"VERSUS",
                     "translation":"FRENCH_JBFR",
-                    "tagline":"Désamorcez des bombes à 4",
-                    "small_description":"Désamorcez des bombes à 4",
-                    "description":"Désamorcez des bombes à 4",
+                    "tagline":"Crééz vos propres inventions !",
+                    "small_description":"Le monde va mal et les problèmes pleuvent. Arriverez-vous à créer l'invention qui résoudra tout. Et surtout, arriverez-vous à la vendre au plus de personnes dans la salle ?",
+                    "description":"# C'est l'heure du meeting\n\nVous êtes invité au plus grand meeting d'ingénieur que le monde ait connu. Le monde a des problèmes et vous allez devoir les résoudre avec une invention que vous allez dessiner, nommer et présenter. Si vous êtes bon, vous gagnerez de l'argent.\n\nVous n'avez pas géré lors du premier tour ? Alors rattrapez vous avec le second en créant un objet répondant aux mêmes problèmes que vos compères !",
                     "images":[
-
+			"game_images/PatentlyStupid/patentlystupid_1.webp",
+                        "game_images/PatentlyStupid/patentlystupid_2.webp",
+                        "game_images/PatentlyStupid/patentlystupid_3.webp",
+                        "game_images/PatentlyStupid/patentlystupid_4.webp"
                     ],
                     "tags":[
-                        "talking"
+                        "talking",
+                        "writing"
                     ]
 
                 },
@@ -337,26 +369,27 @@
             {
                 "id":"jokeboat",
                 "name":"Joke Boat",
-                "small_description":"Faites rigoler le public",
-                "description":"Faites rigoler le public",
                 "background":"game_backgrounds/JokeBoat.webp",
                 "path":"games/JokeBoat",
                 "game_info":{
                     "players":{
-                        "min":1,
-                        "max":4
+                        "min":3,
+                        "max":8
                     },
-                    "length":"",
-                    "type":"COOP",
+                    "length":"15 - 25 minutes",
+                    "type":"VERSUS",
                     "translation":"FRENCH_JBFR",
-                    "tagline":"Désamorcez des bombes à 4",
-                    "small_description":"Désamorcez des bombes à 4",
-                    "description":"Désamorcez des bombes à 4",
+                    "tagline":"Venez faire rire vos amis",
+                    "small_description":"Vous êtes les comédiens ? Génial, vous allez pouvoi faire rire tous nos convives dans Joke Boat",
+                    "description":"# Bienvenue à bord !\n\nVous êtes accepté en tant que comédien dans le Joke Boat, un bateau connu pour... ses blagues ? En tout cas, votrre but est de recevoir le plus d'argent des passagers en vous démarquant de votre adversaire. Comment faire ? En créant vos meilleures blagues bien sûr !",
                     "images":[
-
+			"game_images/JokeBoat/jokeboat_1.webp",
+                        "game_images/JokeBoat/jokeboat_2.webp",
+                        "game_images/JokeBoat/jokeboat_3.webp",
+                        "game_images/JokeBoat/jokeboat_4.webp"
                     ],
                     "tags":[
-                        "talking"
+                        "writing"
                     ]
 
                 },
@@ -382,26 +415,27 @@
             {
                 "id":"dictionarium",
                 "name":"Dictionarium",
-                "small_description":"Inventez des mots",
-                "description":"Inventez des mots",
                 "background":"game_backgrounds/Dictionarium.webp",
                 "path":"games/Ridictionary",
                 "game_info":{
                     "players":{
-                        "min":1,
-                        "max":4
+                        "min":3,
+                        "max":8
                     },
-                    "length":"",
-                    "type":"COOP",
+                    "length":"10 minutes",
+                    "type":"VERSUS",
                     "translation":"FRENCH_JBFR",
-                    "tagline":"Désamorcez des bombes à 4",
-                    "small_description":"Désamorcez des bombes à 4",
-                    "description":"Désamorcez des bombes à 4",
+                    "tagline":"Inventez des mots",
+                    "small_description":"Le dictionnaire est vaste mais pourquoi pas en rajouter ? A vous de créer de nouveaux mots, donner leur définition et choisir votre préféré !",
+                    "description":"# Imaginez des mots\n\nBienvenue au dictionarium, un endroit magique où vous allez devoir créer de nouveaux mots en plus de leur définition. Un concept assez simple mais qui est très ontéressant si vous avez une âme littéraire",
                     "images":[
-
+			"game_images/Dictionarium/dictionarium_1.webp",
+                        "game_images/Dictionarium/dictionarium_2.webp",
+                        "game_images/Dictionarium/dictionarium_3.webp",
+                        "game_images/Dictionarium/dictionarium_4.webp"
                     ],
                     "tags":[
-                        "talking"
+                        "writing"
                     ]
 
                 },
@@ -427,26 +461,30 @@
             {
                 "id":"pushthebutton",
                 "name":"Push The Button",
-                "small_description":"Trouvez les aliens",
-                "description":"Trouvez les aliens",
                 "background":"game_backgrounds/PushTheButton.webp",
                 "path":"games/PushTheButton",
                 "game_info":{
                     "players":{
-                        "min":1,
-                        "max":4
+                        "min":4,
+                        "max":10
                     },
-                    "length":"",
-                    "type":"COOP",
+                    "length":"Dépendant du nombre de joueurs",
+                    "type":"TEAM",
                     "translation":"FRENCH_JBFR",
-                    "tagline":"Désamorcez des bombes à 4",
-                    "small_description":"Désamorcez des bombes à 4",
-                    "description":"Désamorcez des bombes à 4",
+                    "tagline":"Trouvez les aliens",
+                    "small_description":"Des aliens sont arrivés dans votre vaisseau et se cachent dans votre équipage. Trouvez les à temps avant que l'IA du vaisseau soit effacée pour survivre.",
+                    "description":"# Une intrusion a été détectée\n\nDODE, l'IA de votre vaisseau spatial, vous avertis que des perturbations anormales ont eu lieu à l'intérieur de celui-ci. Après analyse, vous découvrez que certains de vos coéquipiers sont des aliens. Mais vous ne savez pas qui !\n\nPour les découvir vous allez devoir faire des tests d'humanité à chaque joueurs dans la partie. Que ce soit avec des opinions, des dessins ou encore des mots, il y a des tonnes de manière de trouver les aliens. Mais faites vite ! Le temps tourne et si vous ne trouvez pas tous les aliens avant la fin, c'est perdu !",
                     "images":[
-
+			"game_images/PushTheButton/pushthebutton_1.webp",
+                        "game_images/PushTheButton/pushthebutton_2.webp",
+                        "game_images/PushTheButton/pushthebutton_3.webp",
+                        "game_images/PushTheButton/pushthebutton_4.webp"
                     ],
                     "tags":[
-                        "talking"
+                        "talking",
+                        "writing",
+                        "drawing",
+                        "deduction"
                     ]
 
                 },
@@ -491,26 +529,28 @@
             {
                 "id":"champdup",
                 "name":"Champ'd Up",
-                "small_description":"Faites combattre vos dessins",
-                "description":"Dessinez et envoyez vos combattants au combat",
                 "background":"game_backgrounds/Champdup.webp",
                 "path":"games/WorldChampions",
                 "game_info":{
                     "players":{
-                        "min":1,
-                        "max":4
+                        "min":3,
+                        "max":8
                     },
-                    "length":"",
+                    "length":"Environ 20 minutes",
                     "translation":"FRENCH_JBFR",
-                    "type":"COOP",
-                    "tagline":"Désamorcez des bombes à 4",
-                    "small_description":"Désamorcez des bombes à 4",
-                    "description":"Désamorcez des bombes à 4",
+                    "type":"VERSUS",
+                    "tagline":"Faites combattre vos dessins",
+                    "small_description":"Le combat approche. Il est l'heure de créer vos meilleurs combattants pour qu'ils puissent se battre sur le ring. Arriverez-vous à sortir vainqueur ?",
+                    "description":"# A vos crayons, prêt... combattez !\n\nIl est l'heure de dessiner ! Vous allez recevoir un thème sur votre appareil. Il vous faudra créer un personnage qui répond au mieux au critère en le dessinant et en le nommant !\n\nLors du second tour, vous allez recevoir le dessin d'un autre joueur et allez devoir dessiner son rival, celui qui pourrait le battre à son propre thème.\n\nSerez-vous le vainqueur de ce tournoi, ou resterez-vous sur la touche ? Bienvenue sur **Champ'd Up** !",
                     "images":[
-
+			"game_images/ChampdUp/champdup_1.webp",
+                        "game_images/ChampdUp/champdup_2.webp",
+                        "game_images/ChampdUp/champdup_3.webp",
+                        "game_images/ChampdUp/champdup_4.webp"
                     ],
                     "tags":[
-                        "talking"
+                        "drawing",
+                        "writing"
                     ]
 
                 },
@@ -540,31 +580,33 @@
             {
                 "id":"talkingpoints",
                 "name":"Talking Points",
-                "small_description":"Présentez votre pire sujet",
-                "description":"Parlez et présentez votre pire sujet",
                 "background":"game_backgrounds/TalkingPoints.webp",
                 "path":"games/JackboxTalks",
                 "game_info":{
                     "players":{
-                        "min":1,
-                        "max":4
+                        "min":3,
+                        "max":8
                     },
-                    "length":"",
-                    "type":"COOP",
+                    "length":"20 - 40 minutes",
+                    "type":"VERSUS",
                     "translation":"FRENCH_JBFR",
-                    "tagline":"Désamorcez des bombes à 4",
-                    "small_description":"Désamorcez des bombes à 4",
-                    "description":"Désamorcez des bombes à 4",
+                    "tagline":"Présentez votre pire sujet",
+                    "small_description":"L'impro ça vous connait ? Vous allez devoir passer à l'oral sur un thème que vous ne connaissez pas et avec des diapositives choisies par d'autres joueurs. Parlez bien pour gagner !",
+                    "description":"# Retour à l'école !\n\nVous allez devoir passer à l'oral sur un thème choisit par un autre joueur. Dites n'importe quoi et essayez d'être le plus raccord avec les diapositives choisies par votre suppléant : un autre joueur.\n\nEn plus de noter les autres pendant la présentation, vous pouvez aussi donner un award à votre présentation préférée pour lui faire gagner pleins de points !",
                     "images":[
-
+			"game_images/TalkingPoints/talkingpoints_1.webp",
+                        "game_images/TalkingPoints/talkingpoints_2.webp",
+                        "game_images/TalkingPoints/talkingpoints_3.webp",
+                        "game_images/TalkingPoints/talkingpoints_4.webp"
                     ],
                     "tags":[
-                        "talking"
+                        "talking",
+                        "writing"
                     ]
 
                 },
                 "loader":{
-                    "path":"loaders/tjpp7/default.zip",
+                    "path":"loaders/tjpp7/talkingpoints.zip",
                     "version":"1.0.0"
                 },
                 "patchs":[
@@ -585,6 +627,109 @@
                         }
                     }
                 ]
+            },
+            {
+                "id":"thedevilsandthedetails",
+                "name":"The Devils And The Details",
+                "background":"game_backgrounds/TheDevilsAndTheDetails.webp",
+                "path":"games/Everyday",
+                "game_info":{
+                    "players":{
+                        "min":3,
+                        "max":8
+                    },
+                    "length":"Environ 15 minutes",
+                    "type":"COOP",
+                    "translation":"ENGLISH",
+                    "tagline":"Faites vos tâches !",
+                    "small_description":"Hey, les démons ! C'est à vous de travailler ensemble pour faire ce que les humains font le moins bien : des tâches ménagères. Travaillez en équipe et soyez vif pour réussir le challenge de la semaine !",
+                    "description":"# Au travail démons !\n\nVous avez été accepté pour le programme de relation entre démons et humains. Vos tâches seront simples : faire des tâches ménagères. Vous allez devoir travailler en équipe pour en faire le plus possible et ainsi gagner le challenge de la semaine.\n\nMais faites attention, certains démons vont essayer de jouer dans leur coin pour empocher un max de points et ne plus rien vous laisser. Soyez rapide et efficace pour les arreter !",
+                    "images":[
+			"game_images/TheDevilsAndTheDetails/thedevilsandthedetails_1.webp",
+                        "game_images/TheDevilsAndTheDetails/thedevilsandthedetails_2.webp",
+                        "game_images/TheDevilsAndTheDetails/thedevilsandthedetails_3.webp",
+                        "game_images/TheDevilsAndTheDetails/thedevilsandthedetails_4.webp"
+                    ],
+                    "tags":[
+                        "talking",
+                        "writing"
+                    ]
+
+                },
+                "loader":{
+                    "path":"loaders/tjpp7/thedevilsandthedetails.zip",
+                    "version":"1.0.0"
+                },
+                "patchs":[
+                ]
+            },
+            {
+                "id":"quiplash3",
+                "name":"Quiplash 3",
+                "background":"game_backgrounds/Quiplash3.webp",
+                "path":"games/Quiplash3",
+                "game_info":{
+                    "players":{
+                        "min":3,
+                        "max":8
+                    },
+                    "length":"Environ 15 minutes",
+                    "type":"VERSUS",
+                    "translation":"ENGLISH",
+                    "tagline":"Soyez le plus drôle",
+                    "small_description":"C'est l'heure d'être drôle ! Epatez tous vos amis en répondant de la manière la plus marrante aux phrases farfelus de Quiplash 3.",
+                    "description":"# C'est l'heure de faire rire\n\n Vous allez recevoir une phrase. Essayez d'y répondre de la manière la plus drôle possible. Votre phrase sera face à celle d'un joueur et les autres votent pour leur préférée. Un jeu simple et efficace qui pourra vous faire rire pendant beaucoup de temps.",
+                    "images":[
+			"game_images/Quiplash3/quiplash3_1.webp",
+                        "game_images/Quiplash3/quiplash3_2.webp",
+                        "game_images/Quiplash3/quiplash3_3.webp",
+                        "game_images/Quiplash3/quiplash3_4.webp"
+                    ],
+                    "tags":[
+                        "writing"
+                    ]
+
+                },
+                "loader":{
+                    "path":"loaders/tjpp7/quiplash3.zip",
+                    "version":"1.0.0"
+                },
+                "patchs":[
+                ]
+            },
+            {
+                "id":"blatherround",
+                "name":"Blather Round",
+                "background":"game_backgrounds/BlatherRound.webp",
+                "path":"games/BlankyBlank",
+                "game_info":{
+                    "players":{
+                        "min":2,
+                        "max":6
+                    },
+                    "length":"15 - 30 minutes",
+                    "type":"VERSUS",
+                    "translation":"ENGLISH",
+                    "tagline":"Faites deviner votre mot",
+                    "small_description":"Vous avez un mot. Il est simple à faire deviner mais vous êtes limité. Vous allez devoir vous aider des mots des autres joueurs pour leur faire deviner le votre",
+                    "description":"# C'est l'heure des devinettes\n\nVous allez devoir choisir un mot. Votre but : Le faire deviner aux autres joueurs. Mais vous avez accès à un vocabulaire limité pour pouvoir le faire deviner. Vous allez donc devoir vous aiderr de ce que disent les autres joueurs pour faire deviner votre propre mot",
+                    "images":[
+			"game_images/BlatherRound/blatherround_1.webp",
+                        "game_images/BlatherRound/blatherround_2.webp",
+                        "game_images/BlatherRound/blatherround_3.webp",
+                        "game_images/BlatherRound/blatherround_4.webp"
+                    ],
+                    "tags":[
+                        "writing"
+                    ]
+
+                },
+                "loader":{
+                    "path":"loaders/tjpp7/blatherround.zip",
+                    "version":"1.0.0"
+                },
+                "patchs":[
+                ]
             }
         ],
         "icon":"jpp7.ico",
@@ -603,26 +748,27 @@
             {
                 "id":"jobjob",
                 "name":"Job Job",
-                "small_description":"Devenez le meilleur employé",
-                "description":"Utilisez les mots des autres pour gagner des points",
                 "background":"game_backgrounds/JobJob.webp",
                 "path":"games/JobGame",
                 "game_info":{
                     "players":{
-                        "min":1,
-                        "max":4
+                        "min":3,
+                        "max":10
                     },
-                    "length":"",
-                    "type":"COOP",
+                    "length":"15 - 25 minutes",
+                    "type":"VERSUS",
                     "translation":"FRENCH_JBFR",
-                    "tagline":"Désamorcez des bombes à 4",
-                    "small_description":"Désamorcez des bombes à 4",
-                    "description":"Désamorcez des bombes à 4",
+                    "tagline":"Devenez le meilleur employé",
+                    "small_description":"C'est l'heure de l'interview. Parviendrez-vous à impressionner Mr Bubble, le patron, et décrocher le job ?",
+                    "description":"# L'interview approche...\n\n ... et vous êtes confrontés aux autres joueurs pour décrocher le job. Pour vous échauffer, vous allez devoir répondre à une question simple avec le plus de mots possible. Les mots dans votre réponse seront envoyés aux autres joueurs qui devront les utiliser pour répondre à leur seconde question ! C'est ensuite que les joueurs votent pour leur réponse préférée !",
                     "images":[
-
+			"game_images/JobJob/jobjob_1.webp",
+                        "game_images/JobJob/jobjob_2.webp",
+                        "game_images/JobJob/jobjob_3.webp",
+                        "game_images/JobJob/jobjob_4.webp"
                     ],
                     "tags":[
-                        "talking"
+                        "writing"
                     ]
 
                 },
@@ -654,20 +800,24 @@
                 "path":"games/SurveyBomb",
                 "game_info":{
                     "players":{
-                        "min":1,
-                        "max":4
+                        "min":2,
+                        "max":10
                     },
-                    "length":"",
-                    "type":"COOP",
+                    "length":"Environ 15 minutes",
+                    "type":"TEAM",
                     "translation":"FRENCH_JBFR",
-                    "tagline":"Désamorcez des bombes à 4",
-                    "small_description":"Désamorcez des bombes à 4",
-                    "description":"Désamorcez des bombes à 4",
+                    "tagline":"Echappez-vous de la grotte",
+                    "small_description":"Les sondages sont puissants vous savez ? C'est le seul moyen pour vous de sortir de cette grotte. Alors jouez en équipe et trouvez les réponses de ces sondages dans l'ordre !",
+                    "description":"Bienvenue jeunes voyageurs, vous avez tenté de piller cette grotte mais vous vous êtes fait enfermés. La seule manière de sortir vivant avec votre équipe est de répondre à des sondages. Vous allez ensuite devoir retrouver le classement de ces sondages dans un ordre précis. L'équipe avec le plus de torches (ou celle qui ne se fait pas éliminée) gagne !",
                     "images":[
-
+			"game_images/PollMine/pollmine_1.webp",
+                        "game_images/PollMine/pollmine_2.webp",
+                        "game_images/PollMine/pollmine_3.webp",
+                        "game_images/PollMine/pollmine_4.webp"
                     ],
                     "tags":[
-                        "talking"
+                        "talking",
+                        "writing"
                     ]
 
                 },
@@ -692,27 +842,28 @@
             },
             {
                 "id":"weaponsdrawn",
-                "name":"Weapon's Drawn",
-                "small_description":"Trouvez les tueurs",
-                "description":"Trouvez les tueurs",
+                "name":"Weapons Drawn",
                 "background":"game_backgrounds/WeaponsDrawn.webp",
                 "path":"games/MurderDetectives",
                 "game_info":{
                     "players":{
-                        "min":1,
-                        "max":4
+                        "min":4,
+                        "max":8
                     },
-                    "length":"",
-                    "type":"COOP",
+                    "length":"20 - 40 minutes",
+                    "type":"VERSUS",
                     "translation":"FRENCH_JBFR",
-                    "tagline":"Désamorcez des bombes à 4",
-                    "small_description":"Bienvenue à Bomb Corp ! En tant que stagiaire, vous allez devoir désamorcer les bombes qui se trouvent dans l'entreprise. Arriverez-vous à atteindre le dernier jour ?",
-                    "description":"Désamorcez des bombes à 4",
+                    "tagline":"Trouvez les tueurs",
+                    "small_description":"Effectuez des meurtres avec vos dessins et essayez d'en résoudre grâce à vos talents de détective dans ce jeu où se melle dessin et déduction",
+                    "description":"# Des meurtres à foison\n\nDans ce jeu, vous allez devoir dessiner vos propres armes pour pouvoir effectuer des meurtres sur vos cibles. Mais attention ! Ces armes contiennent une lettre que vous allez devoir cacher sous peine d'être repéré. Agissez vite pour tuer rapidement et observer bien pour trouver les meurtiers parmis vos camarades.",
                     "images":[
-
+			"game_images/WeaponsDrawn/weaponsdrawn_1.webp",
+                        "game_images/WeaponsDrawn/weaponsdrawn_2.webp",
+                        "game_images/WeaponsDrawn/weaponsdrawn_3.webp",
+                        "game_images/WeaponsDrawn/weaponsdrawn_4.webp"
                     ],
                     "tags":[
-                        "talking"
+                        "talking","drawing","writing"
                     ]
 
                 },
