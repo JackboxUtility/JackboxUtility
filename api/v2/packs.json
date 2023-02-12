@@ -951,7 +951,7 @@
         "executables":{
             "windows":"The Jackbox Party Pack 8.exe",
             "mac":"The Jackbox Party Pack 8.app/Contents/MacOS/The Jackbox Party Pack 8",
-            "linux":"TJPP8"
+            "linux":"TJPP8_OpenGL"
         },
         "loader":{
             "path":"loaders/tjpp8/default.zip",
