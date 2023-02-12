@@ -1304,6 +1304,129 @@
         ],
         "icon":"jpp9.ico",
         "background":"backgrounds/jpp9.jpg"
+    },
+    {
+        "id":"jpstarter",
+        "name":"Jackbox Party Starter",
+        "description":"La compilation de 3 jeux en français",
+        "executables":{
+            "windows":"The Jackbox Party Starter.exe",
+            "mac":"The Jackbox Party Starter.app/Contents/MacOS/The Jackbox Party Pack Starter",
+            "linux":"TJPS"
+        },
+        "loader":{
+            "path":"loaders/tjpstarter/default.zip",
+            "version":"1.0.0"
+        },
+        "games":[
+            {
+                "id":"quiplash3_starter",
+                "name":"Quiplash 3",
+                "background":"game_backgrounds/Quiplash3.webp",
+                "path":"games/Quiplash3",
+                "game_info":{
+                    "players":{
+                        "min":3,
+                        "max":8
+                    },
+                    "length":"Environ 15 minutes",
+                    "type":"VERSUS",
+                    "translation":"FRENCH",
+                    "tagline":"Soyez le plus drôle",
+                    "small_description":"C'est l'heure d'être drôle ! Epatez tous vos amis en répondant de la manière la plus marrante aux phrases farfelus de Quiplash 3.",
+                    "description":"# C'est l'heure de faire rire\n\n Vous allez recevoir une phrase. Essayez d'y répondre de la manière la plus drôle possible. Votre phrase sera face à celle d'un joueur et les autres votent pour leur préférée. Un jeu simple et efficace qui pourra vous faire rire pendant beaucoup de temps.",
+                    "images":[
+			"game_images/Quiplash3/quiplash3_1.webp",
+                        "game_images/Quiplash3/quiplash3_2.webp",
+                        "game_images/Quiplash3/quiplash3_3.webp",
+                        "game_images/Quiplash3/quiplash3_4.webp"
+                    ],
+                    "tags":[
+                        "writing"
+                    ]
+
+                },
+                "loader":{
+                    "path":"loaders/tjpstarter/quiplash3.zip",
+                    "version":"1.0.0"
+                },
+                "patchs":[
+                ]
+            },
+            {
+                "id":"teeko_starter",
+                "name":"Tee KO",
+                "background":"game_backgrounds/TeeKO.webp",
+                "path":"games/AwShirt",
+                "game_info":{
+                    "players":{
+                        "min":3,
+                        "max":8
+                    },
+                    "length":"Environ 30 minutes",
+                    "type":"VERSUS",
+                    "translation":"FRENCH",
+                    "tagline":"Combattez vos tee-shirts",
+                    "small_description":"C'est l'heure d'être drôle ! Epatez tous vos amis en répondant de la manière la plus marrante aux phrases farfelus de Quiplash 3.",
+                    "description":"# C'est l'heure de faire rire\n\n Vous allez recevoir une phrase. Essayez d'y répondre de la manière la plus drôle possible. Votre phrase sera face à celle d'un joueur et les autres votent pour leur préférée. Un jeu simple et efficace qui pourra vous faire rire pendant beaucoup de temps.",
+                    "images":[
+			"game_images/TeeKO/teeko_1.webp",
+                        "game_images/TeeKO/teeko_2.webp",
+                        "game_images/TeeKO/teeko_3.webp",
+                        "game_images/TeeKO/teeko_4.webp"
+                    ],
+                    "tags":[
+                        "writing",
+                        "drawing"
+                    ]
+
+                },
+                "loader":{
+                    "path":"loaders/tjpstarter/teeko.zip",
+                    "version":"1.0.0"
+                },
+                "patchs":[
+                ]
+            },
+            {
+                "id":"trivia_murder_party_2_starter",
+                "name":"Trivia Murder Party 2",
+                "background":"game_backgrounds/TriviaMurderParty2.webp",
+                "path":"games/triviadeath2",
+                "game_info":{
+                    "players":{
+                        "min":1,
+                        "max":8
+                    },
+                    "length":"15 - 25 minutes",
+                    "type":"VERSUS",
+                    "translation":"FRENCH",
+                    "tagline":"Survivrez-vous à ce quiz ?",
+                    "small_description":"<TBR>",
+                    "description":"<TBR>",
+                    "images":[
+						"game_images/TriviaMurderParty2/triviamurderparty2_1.webp",
+                        "game_images/TriviaMurderParty2/triviamurderparty2_2.webp",
+                        "game_images/TriviaMurderParty2/triviamurderparty2_3.webp",
+                        "game_images/TriviaMurderParty2/triviamurderparty2_4.webp"
+                    ],
+                    "tags":[
+                        "knowledge", "writing","drawing"
+                    ]
+
+                },
+                "loader":{
+                    "path":"loaders/tjpstarter/triviamurderparty2.zip",
+                    "version":"1.0.0"
+                },
+                "patchs":[
+                    
+                ]
+            }
+        ],
+        "icon":"jpstarter.ico",
+        "background":"backgrounds/jpstarter.jpg"
     }
+
 ]
 }
