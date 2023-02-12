@@ -464,6 +464,10 @@
             "mac":"The Jackbox Party Pack 6.app/Contents/MacOS/The Jackbox Party Pack 6",
             "linux":"TJPP6"
         },
+        "loader":{
+            "path":"loaders/tjpp6/default.zip",
+            "version":"1.0.0"
+        },
         "games":[
         	{
                 "id":"trivia_murder_party_2",
@@ -491,6 +495,10 @@
                         "knowledge", "writing","drawing"
                     ]
 
+                },
+                "loader":{
+                    "path":"loaders/tjpp6/triviamurderparty2.zip",
+                    "version":"1.0.0"
                 },
                 "patchs":[
                     
@@ -523,6 +531,10 @@
                     ]
 
                 },
+                "loader":{
+                    "path":"loaders/tjpp6/rolemodels.zip",
+                    "version":"1.0.0"
+                },
                 "patchs":[
                     
                 ]
@@ -553,6 +565,10 @@
                         "writing"
                     ]
 
+                },
+                "loader":{
+                    "path":"loaders/tjpp6/jokeboat.zip",
+                    "version":"1.0.0"
                 },
                 "patchs":[
                     {
@@ -599,6 +615,10 @@
                         "writing"
                     ]
 
+                },
+                "loader":{
+                    "path":"loaders/tjpp6/dictionarium.zip",
+                    "version":"1.0.0"
                 },
                 "patchs":[
                     {
@@ -648,6 +668,10 @@
                         "deduction"
                     ]
 
+                },
+                "loader":{
+                    "path":"loaders/tjpp6/pushthebutton.zip",
+                    "version":"1.0.0"
                 },
                 "patchs":[
                     {
