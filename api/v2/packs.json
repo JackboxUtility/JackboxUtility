@@ -262,6 +262,10 @@
             "mac":"The Jackbox Party Pack 5.app/Contents/MacOS/The Jackbox Party Pack 5",
             "linux":"TJPP5"
         },
+        "loader":{
+            "path":"loaders/tjpp5/default.zip",
+            "version":"1.0.0"
+        },
         "games":[
         	{
                 "id":"ydkj_fullstream",
@@ -289,6 +293,10 @@
                         "knowledge"
                     ]
 
+                },
+                "loader":{
+                    "path":"loaders/tjpp5/ydkjfullstream.zip",
+                    "version":"1.0.0"
                 },
                 "patchs":[
                     
@@ -321,6 +329,10 @@
                     ]
 
                 },
+                "loader":{
+                    "path":"loaders/tjpp5/madversecity.zip",
+                    "version":"1.0.0"
+                },
                 "patchs":[
                     
                 ]
@@ -352,6 +364,10 @@
                     ]
 
                 },
+                "loader":{
+                    "path":"loaders/tjpp5/zeepledome.zip",
+                    "version":"1.0.0"
+                },
                 "patchs":[
                     
                 ]
@@ -382,6 +398,10 @@
                         "writing"
                     ]
 
+                },
+                "loader":{
+                    "path":"loaders/tjpp5/splittheroom.zip",
+                    "version":"1.0.0"
                 },
                 "patchs":[
                     {
@@ -431,6 +451,10 @@
                         "writing"
                     ]
 
+                },
+                "loader":{
+                    "path":"loaders/tjpp5/patentlystupid.zip",
+                    "version":"1.0.0"
                 },
                 "patchs":[
                     {
