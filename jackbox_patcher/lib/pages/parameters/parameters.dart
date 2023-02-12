@@ -1,6 +1,39 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 
+class ParametersRoute extends StatefulWidget {
+  ParametersRoute({Key? key}) : super(key: key);
+
+  @override
+  State<ParametersRoute> createState() => _ParametersRouteState();
+}
+
+class _ParametersRouteState extends State<ParametersRoute> {
+  @override
+  Widget build(BuildContext context) {
+    Typography typography = FluentTheme.of(context).typography;
+    var packs =
+        ModalRoute.of(context)!.settings.arguments as List<UserJackboxPack>;
+    return NavigationView(
+        content: Column(children: [
+      Padding(
+          padding: EdgeInsets.all(16),
+          child: Row(children: [
+            GestureDetector(onTap: ()=>Navigator.pop(context), child: Icon(
+              FluentIcons.chevron_left,
+              size: 30,
+            )),
+            SizedBox(width: 16),
+            Text("Paramètres", style: typography.display)
+          ])),
+      Expanded(
+          child: ParametersWidget(
+        packs: packs,
+      ))
+    ]));
+  }
+}
+
 class ParametersWidget extends StatefulWidget {
   ParametersWidget({Key? key, required this.packs}) : super(key: key);
 
@@ -17,6 +50,14 @@ class _ParametersWidgetState extends State<ParametersWidget> {
     super.initState();
   }
 
+  double calculatePadding() {
+    if (MediaQuery.of(context).size.width > 1000) {
+      return (MediaQuery.of(context).size.width - 880) / 2;
+    } else {
+      return 60;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Typography typography = FluentTheme.of(context).typography;
@@ -24,11 +65,22 @@ class _ParametersWidgetState extends State<ParametersWidget> {
     return ListView(
       children: [
         Padding(
-            padding: const EdgeInsets.all(12),
+            padding: EdgeInsets.symmetric(
+              horizontal: calculatePadding(),
+            ),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              SizedBox(
+                height: 30,
+              ),
               Text("Packs possédés", style: typography.titleLarge),
+              SizedBox(
+                height: 10,
+              ),
               _showOwnedPack(),
+              SizedBox(
+                height: 10,
+              ),
               FilledButton(
                   child: const Text('Ajouter un pack'),
                   onPressed: () {
@@ -88,14 +140,19 @@ class _ParametersWidgetState extends State<ParametersWidget> {
   }
 
   Widget _buildOwnedPack(UserJackboxPack pack) {
-    return PackInParametersWidget(pack: pack, reloadallPacks: (){
-      setState(() {});
-    },);
+    return PackInParametersWidget(
+      pack: pack,
+      reloadallPacks: () {
+        setState(() {});
+      },
+    );
   }
 }
 
 class PackInParametersWidget extends StatefulWidget {
-  PackInParametersWidget({Key? key, required this.pack, required this.reloadallPacks}) : super(key: key);
+  PackInParametersWidget(
+      {Key? key, required this.pack, required this.reloadallPacks})
+      : super(key: key);
 
   final UserJackboxPack pack;
   final Function reloadallPacks;
@@ -109,7 +166,7 @@ class _PackInParametersWidgetState extends State<PackInParametersWidget> {
 
   @override
   void initState() {
-    pathController.text = widget.pack.path!;
+    if (widget.pack.path != null) pathController.text = widget.pack.path!;
     _loadPackPathStatus();
     super.initState();
   }
@@ -129,7 +186,18 @@ class _PackInParametersWidgetState extends State<PackInParametersWidget> {
               ? Icon(FluentIcons.warning, color: Colors.yellow)
               : Icon(FluentIcons.check_mark, color: Colors.green),
       title: Text(widget.pack.pack.name),
-      subtitle: Text(packStatus=="NOT_FOUND"?"Le chemin vers le pack n'a pas été trouvé !": (widget.pack.path!=null && widget.pack.path !="" ? widget.pack.path!: "Aucun chemin renseigné"),style:TextStyle(color: packStatus=="NOT_FOUND"?Colors.red:widget.pack.path!=null && widget.pack.path !=""?Colors.white:Colors.yellow)),
+      subtitle: Text(
+          packStatus == "NOT_FOUND"
+              ? "Le chemin vers le pack n'a pas été trouvé !"
+              : (widget.pack.path != null && widget.pack.path != ""
+                  ? widget.pack.path!
+                  : "Aucun chemin renseigné"),
+          style: TextStyle(
+              color: packStatus == "NOT_FOUND"
+                  ? Colors.red
+                  : widget.pack.path != null && widget.pack.path != ""
+                      ? Colors.white
+                      : Colors.yellow)),
       trailing: Row(children: [
         IconButton(
           icon: const Icon(FluentIcons.edit),

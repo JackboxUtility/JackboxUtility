@@ -49,6 +49,8 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
   }
 
   Widget _buildHeader() {
+    
+    Typography typography = FluentTheme.of(context).typography;
     return Column(
       children: [
         Stack(children: [
@@ -79,16 +81,15 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
           ),
           Positioned(
               top: 140,
-              left: calculatePadding(),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+              left: calculatePadding()-30,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    GestureDetector(child: Icon(FluentIcons.chevron_left), onTap: ()=>Navigator.pop(context),),
+                    SizedBox(width: 10),
                     Text(
                       widget.game.game.name,
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold),
+                      style: typography.titleLarge,
                     ),
                   ]))
         ])
@@ -243,17 +244,17 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
     gameTagWidgets
         .add(_buildGameTag(FluentIcons.allIcons["timer"]!, gameInfo.length));
     gameTagWidgets.add(_buildGameTag(
-        FluentIcons.allIcons["group"]!, _generateGameType(gameInfo.type),
+        FluentIcons.allIcons["group"]!, gameInfo.type.name,
         isLink: true,
         filter: (pack, game) => game.game.info.type == gameInfo.type,
         background: null,
-        description: "Tous les jeux de type : ${_generateGameType(gameInfo.type)}"));
+        description: gameInfo.type.description));
     gameTagWidgets.add(_buildGameTag(FluentIcons.allIcons["translate"]!,
-        _generateGameTranslation(gameInfo.translation), 
+        gameInfo.translation.name, 
         isLink: true,
         filter: (pack, game) => game.game.info.translation == gameInfo.translation,
         background: null,
-        description: "Tous les jeux de type : ${_generateGameType(gameInfo.type)}"));
+        description: "${gameInfo.translation}"));
 
     return gameTagWidgets;
   }
@@ -287,18 +288,6 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
     }
   }
 
-  String _generateGameTranslation(String v) {
-    if (v == "FRENCH") {
-      return "Traduit en français";
-    } else {
-      if (v == "FRENCH_JBFR") {
-        return "Traduit par la communauté";
-      } else {
-        return "Non traduit";
-      }
-    }
-  }
-
   Widget _buildGameTag(IconData icon, String text,
       {bool isLink = false,
       bool Function(UserJackboxPack, UserJackboxGame)? filter,
@@ -309,7 +298,6 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
           if (isLink) {
             Navigator.pushNamed(context, "/search", arguments: [
               filter,
-              false,
               background,
               text,
               description,

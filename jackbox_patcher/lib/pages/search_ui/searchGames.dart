@@ -20,14 +20,13 @@ class _SearchGameRouteState extends State<SearchGameRoute> {
   Widget build(BuildContext context) {
     List<dynamic> data = ModalRoute.of(context)!.settings.arguments as List;
     bool Function(UserJackboxPack, UserJackboxGame) filter = data[0];
-    bool showResearch = data[1];
-    String? background = data[2];
-    String? name = data[3];
-    String? description = data[4];
-    String? icon = data[5];
+    String? background = data[1];
+    String? name = data[2];
+    String? description = data[3];
+    String? icon = data[4];
     return SearchGameWidget(
         filter: filter,
-        showResearch: showResearch,
+        comeFromGame: true,
         background: background,
         name: name,
         description: description,
@@ -39,7 +38,7 @@ class SearchGameWidget extends StatefulWidget {
   SearchGameWidget(
       {Key? key,
       required this.filter,
-      this.showResearch = false,
+      this.comeFromGame = false,
       this.background,
       this.name,
       this.description,
@@ -47,7 +46,7 @@ class SearchGameWidget extends StatefulWidget {
       : super(key: key);
 
   final bool Function(UserJackboxPack, UserJackboxGame) filter;
-  final bool showResearch;
+  final bool comeFromGame;
   final String? background;
   final String? name;
   final String? description;
@@ -65,6 +64,8 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
   }
 
   Widget _buildHeader() {
+    
+    Typography typography = FluentTheme.of(context).typography;
     return Column(
       children: [
         Stack(children: [
@@ -101,18 +102,24 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
               child: Container(
                   height: 100,
                   child: Row(children: [
-                    SizedBox(width: calculatePadding()),
+                    SizedBox(width: calculatePadding()-(widget.comeFromGame? 40:0)),
+                    widget.comeFromGame?GestureDetector(child: Icon(FluentIcons.chevron_left), onTap: () => Navigator.pop(context)):Container(),
+                    widget.comeFromGame?SizedBox(width: 20):Container(),
                     Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(widget.name!,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold)),
-                          Text(widget.description!,
-                              style: TextStyle(color: Colors.white))
+                          Text(
+                    widget.name!,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    widget.description!,
+                    style: TextStyle(color: Colors.white, fontSize: 15),
+                  )
                         ])
                   ])))
         ]),
@@ -149,7 +156,7 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
   }
 
   double calculatePadding() {
-    if (MediaQuery.of(context).size.width > 1000) {
+    if (widget.comeFromGame && MediaQuery.of(context).size.width > 1000) {
       return (MediaQuery.of(context).size.width - 880) / 2;
     } else {
       return 60;
@@ -260,7 +267,7 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                                             Colors.white.withOpacity(opacity),
                                       ),
                                       SizedBox(width: 10),
-                                      Text(_generateGameType(gameInfo.type),
+                                      Text(gameInfo.type.name,
                                           style: TextStyle(
                                               overflow: TextOverflow.ellipsis,
                                               color: Colors.white
@@ -274,8 +281,7 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                                       ),
                                       SizedBox(width: 10),
                                       Text(
-                                          _generateGameTranslation(
-                                              gameInfo.translation),
+                                              gameInfo.translation.name,
                                           style: TextStyle(
                                               overflow: TextOverflow.ellipsis,
                                               color: Colors.white

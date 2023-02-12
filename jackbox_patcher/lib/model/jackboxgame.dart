@@ -43,8 +43,8 @@ class JackboxGameInfo {
   final String description;
   final String smallDescription;
   final String length;
-  final String type;
-  final String translation;
+  final JackboxGameType type;
+  final JackboxGameTranslation translation;
   final List<GameTag> tags;
   final List<String> images;
   final JackboxGamePlayersInfo players;
@@ -67,8 +67,8 @@ class JackboxGameInfo {
       description: json['description'],
       smallDescription: json['small_description'],
       length: json['length'],
-      type: json['type'],
-      translation: json['translation'],
+      type: JackboxGameType.fromString(json['type']),
+      translation: JackboxGameTranslation.fromString(json['translation']),
       images:
           (json['images'] as List<dynamic>).map((e) => e.toString()).toList(),
       tags: (json['tags'] as List<dynamic>)
@@ -93,5 +93,88 @@ class JackboxGamePlayersInfo {
       min: json['min'],
       max: json['max'],
     );
+  }
+}
+
+enum JackboxGameType {
+  VERSUS,
+  COOP,
+  TEAM;
+
+  static JackboxGameType fromString(String type) {
+    switch (type) {
+      case 'VERSUS':
+        return JackboxGameType.VERSUS;
+      case 'COOP':
+        return JackboxGameType.COOP;
+      case 'TEAM':
+        return JackboxGameType.TEAM;
+      default:
+        return JackboxGameType.VERSUS;
+    }
+  }
+
+ String get name {
+    switch (this) {
+      case JackboxGameType.VERSUS:
+        return 'Chacun pour soi';
+      case JackboxGameType.COOP:
+        return 'Coopération';
+      case JackboxGameType.TEAM:
+        return 'En équipe';
+    }
+  }
+
+  String get description {
+    switch (this) {
+      case JackboxGameType.VERSUS:
+        return 'Dans ces jeux, chaque joueur joue pour lui-même et doit battre les autres joueurs.';
+      case JackboxGameType.COOP:
+        return 'Dans ces jeux, les joueurs doivent travailler ensemble pour gagner.';
+      case JackboxGameType.TEAM:
+        return 'Dans ces jeux, les joueurs sont divisés en équipes et doivent travailler ensemble pour gagner.';
+    }
+  }
+}
+
+
+enum JackboxGameTranslation {
+  FRENCH,
+  FRENCH_JBFR,
+  ENGLISH;
+
+  static JackboxGameTranslation fromString(String translation) {
+    switch (translation) {
+      case 'FRENCH':
+        return JackboxGameTranslation.FRENCH;
+      case 'FRENCH_JBFR':
+        return JackboxGameTranslation.FRENCH_JBFR;
+      case 'ENGLISH':
+        return JackboxGameTranslation.ENGLISH;
+      default:
+        return JackboxGameTranslation.ENGLISH;
+    }
+  }
+
+  String get name {
+    switch (this) {
+      case JackboxGameTranslation.FRENCH:
+        return 'Traduit en français';
+      case JackboxGameTranslation.FRENCH_JBFR:
+        return 'Traduit par la communauté';
+      case JackboxGameTranslation.ENGLISH:
+        return 'En Anglais';
+    }
+  }
+
+  String get description {
+    switch (this) {
+      case JackboxGameTranslation.FRENCH:
+        return 'Ces jeux sont traduits nativement en français.';
+      case JackboxGameTranslation.FRENCH_JBFR:
+        return 'Ces jeux sont traduits par la communauté française Jackbox France et Jackbox International';
+      case JackboxGameTranslation.ENGLISH:
+        return 'Ces jeux sont en Anglais.';
+    }
   }
 }

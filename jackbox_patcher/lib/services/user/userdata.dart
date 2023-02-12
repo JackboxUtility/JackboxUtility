@@ -74,7 +74,11 @@ class UserData {
 
   /// Save pack (mostly used when the path parameter is changed)
   Future<void> savePack(UserJackboxPack pack) async {
-    await preferences.setString("${pack.pack.id}_path", pack.path!);
+    if (pack.path != null){
+      await preferences.setString("${pack.pack.id}_path", pack.path!);
+    } else {
+      await preferences.remove("${pack.pack.id}_path");
+    }
     await preferences.setBool("${pack.pack.id}_owned", pack.owned);
     for (var game in pack.games) {
       await saveGame(game);
