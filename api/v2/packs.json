@@ -1122,6 +1122,10 @@
             "mac":"The Jackbox Party Pack 9.app/Contents/MacOS/The Jackbox Party Pack 9",
             "linux":"TJPP9"
         },
+        "loader":{
+            "path":"loaders/tjpp9/default.zip",
+            "version":"1.0.0"
+        },
         "games":[
             {
                 "id":"fibbage4",
@@ -1149,6 +1153,10 @@
                         "writing"
                     ]
 
+                },
+                "loader":{
+                    "path":"loaders/tjpp9/fibbage4.zip",
+                    "version":"1.0.0"
                 },
                 "patchs":[
                 ]
@@ -1179,6 +1187,10 @@
                         "writing"
                     ]
 
+                },
+                "loader":{
+                    "path":"loaders/tjpp9/roomerang.zip",
+                    "version":"1.0.0"
                 },
                 "patchs":[
                     
@@ -1211,6 +1223,10 @@
                     ]
 
                 },
+                "loader":{
+                    "path":"loaders/tjpp9/junktopia.zip",
+                    "version":"1.0.0"
+                },
                 "patchs":[
                     
                 ]
@@ -1242,6 +1258,10 @@
                     ]
 
                 },
+                "loader":{
+                    "path":"loaders/tjpp9/nonsensory.zip",
+                    "version":"1.0.0"
+                },
                 "patchs":[
                     
                 ]
@@ -1272,6 +1292,10 @@
                         "talking", "knowledge"
                     ]
 
+                },
+                "loader":{
+                    "path":"loaders/tjpp9/quixort.zip",
+                    "version":"1.0.0"
                 },
                 "patchs":[
                     

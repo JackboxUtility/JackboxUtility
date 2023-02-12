@@ -229,18 +229,20 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                                 Colors.black.withOpacity(opacity)
                               ]))),
                           Padding(
-                              padding: EdgeInsets.all(8),
+                              padding: EdgeInsets.only(bottom:8,left:8),
                               child: Column(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(widget.game.game.name,
                                         style: TextStyle(
+                                          overflow: TextOverflow.ellipsis,
                                             fontSize: 20,
                                             color: Colors.white
                                                 .withOpacity(opacity))),
                                     Text(gameInfo.tagline,
                                         style: TextStyle(
+                                          overflow: TextOverflow.ellipsis,
                                             color: Colors.white
                                                 .withOpacity(opacity))),
                                     SizedBox(height: 10),
@@ -291,29 +293,5 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                         ]),
                       )));
             }));
-  }
-
-  String _generateGameType(String v) {
-    if (v == "COOP") {
-      return "Jeu en coopération";
-    } else {
-      if (v == "VERSUS") {
-        return "Chacun pour soi";
-      } else {
-        return "Jeu en équipe";
-      }
-    }
-  }
-
-  String _generateGameTranslation(String v) {
-    if (v == "FRENCH") {
-      return "Traduit en français";
-    } else {
-      if (v == "FRENCH_JBFR") {
-        return "Traduit par la communauté";
-      } else {
-        return "Non traduit";
-      }
-    }
   }
 }

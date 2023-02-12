@@ -49,7 +49,6 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
   }
 
   Widget _buildHeader() {
-    
     Typography typography = FluentTheme.of(context).typography;
     return Column(
       children: [
@@ -81,17 +80,19 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
           ),
           Positioned(
               top: 140,
-              left: calculatePadding()-30,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    GestureDetector(child: Icon(FluentIcons.chevron_left), onTap: ()=>Navigator.pop(context),),
-                    SizedBox(width: 10),
-                    Text(
-                      widget.game.game.name,
-                      style: typography.titleLarge,
-                    ),
-                  ]))
+              left: calculatePadding() - 30,
+              child:
+                  Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                GestureDetector(
+                  child: Icon(FluentIcons.chevron_left),
+                  onTap: () => Navigator.pop(context),
+                ),
+                SizedBox(width: 10),
+                Text(
+                  widget.game.game.name,
+                  style: typography.titleLarge,
+                ),
+              ]))
         ])
       ],
     );
@@ -174,25 +175,45 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                         child: Column(children: [
                           Text(widget.game.game.info.smallDescription),
                           SizedBox(height: 10),
-                          FilledButton(
-                              style: ButtonStyle(
-                                  backgroundColor:
-                                      ButtonState.all(Colors.green)),
-                              onPressed: () {
-                                Launcher.launchGame(widget.pack,widget.game);
-                              },
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(FluentIcons.play, color: Colors.white),
-                                  SizedBox(width: 10),
-                                  Text("Jouer",
-                                      style: TextStyle(color: Colors.white)),
-                                ],
-                              ))
+                          _buildPlayButton(),
                         ]))
                   ],
                 ))));
+  }
+
+  Widget _buildPlayButton() {
+    return !widget.pack.owned
+        ? GestureDetector(
+            onTap: ()async {
+              await Navigator.pushNamed(context, "/settings");
+              setState(() {});
+            },
+            child: Text(
+                "Vous ne possédez pas ce pack. Ajoutez le dans les paramètres",
+                style: TextStyle(color: Colors.red, decoration: TextDecoration.underline)))
+        : ((widget.pack.path == null || widget.pack.path == "")
+            ? GestureDetector(
+            onTap: () async{
+              await Navigator.pushNamed(context, "/settings");
+              setState(() {});
+            },
+            child:Text(
+                "Vous n'avez pas configuré le chemin vers le pack, ajoutez le dans les paramètres",
+                style: TextStyle(color: Colors.red, decoration: TextDecoration.underline)))
+            : FilledButton(
+                style:
+                    ButtonStyle(backgroundColor: ButtonState.all(Colors.green)),
+                onPressed: () {
+                  Launcher.launchGame(widget.pack, widget.game);
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(FluentIcons.play, color: Colors.white),
+                    SizedBox(width: 10),
+                    Text("Jouer", style: TextStyle(color: Colors.white)),
+                  ],
+                )));
   }
 
   Widget _buildGameTags() {
@@ -249,12 +270,13 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
         filter: (pack, game) => game.game.info.type == gameInfo.type,
         background: null,
         description: gameInfo.type.description));
-    gameTagWidgets.add(_buildGameTag(FluentIcons.allIcons["translate"]!,
-        gameInfo.translation.name, 
+    gameTagWidgets.add(_buildGameTag(
+        FluentIcons.allIcons["translate"]!, gameInfo.translation.name,
         isLink: true,
-        filter: (pack, game) => game.game.info.translation == gameInfo.translation,
+        filter: (pack, game) =>
+            game.game.info.translation == gameInfo.translation,
         background: null,
-        description: "${gameInfo.translation}"));
+        description: gameInfo.translation.description));
 
     return gameTagWidgets;
   }
@@ -264,13 +286,13 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
     List<Widget> gameTagWidgets = [];
     // Add custom tags
     for (var element in gameInfo.tags) {
-      gameTagWidgets.add(
-          _buildGameTag(FluentIcons.allIcons[element.icon]!, element.name, 
+      gameTagWidgets.add(_buildGameTag(
+          FluentIcons.allIcons[element.icon]!, element.name,
           isLink: true,
-        filter: (pack, game) => game.game.info.tags.where((e)=>e.id == element.id).length>0,
-        background: null,
-        description: element.description));
-
+          filter: (pack, game) =>
+              game.game.info.tags.where((e) => e.id == element.id).length > 0,
+          background: null,
+          description: element.description));
     }
 
     return gameTagWidgets;
@@ -296,13 +318,8 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
     return GestureDetector(
         onTap: () {
           if (isLink) {
-            Navigator.pushNamed(context, "/search", arguments: [
-              filter,
-              background,
-              text,
-              description,
-              null
-            ]);
+            Navigator.pushNamed(context, "/search",
+                arguments: [filter, background, text, description, null]);
           }
         },
         child: Padding(
@@ -310,7 +327,11 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
             child: Row(children: [
               Icon(icon),
               SizedBox(width: 10),
-              Expanded(child: Text(text, style:isLink? TextStyle(decoration: TextDecoration.underline):null))
+              Expanded(
+                  child: Text(text,
+                      style: isLink
+                          ? TextStyle(decoration: TextDecoration.underline)
+                          : null))
             ])));
   }
 }

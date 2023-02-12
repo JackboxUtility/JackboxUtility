@@ -1,5 +1,6 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
+import 'package:jackbox_patcher/services/user/userdata.dart';
 
 class ParametersRoute extends StatefulWidget {
   ParametersRoute({Key? key}) : super(key: key);
@@ -12,8 +13,7 @@ class _ParametersRouteState extends State<ParametersRoute> {
   @override
   Widget build(BuildContext context) {
     Typography typography = FluentTheme.of(context).typography;
-    var packs =
-        ModalRoute.of(context)!.settings.arguments as List<UserJackboxPack>;
+    var packs = UserData().packs;
     return NavigationView(
         content: Column(children: [
       Padding(
