@@ -1192,7 +1192,7 @@
         "executables":{
             "windows":"The Jackbox Party Pack 9.exe",
             "mac":"The Jackbox Party Pack 9.app/Contents/MacOS/The Jackbox Party Pack 9",
-            "linux":"TJPP9_Vulkan"
+            "linux":"TJPP9_OpenGl"
         },
         "loader":{
             "path":"loaders/tjpp9/default.zip",
