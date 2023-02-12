@@ -905,6 +905,10 @@
             "mac":"The Jackbox Party Pack 8.app/Contents/MacOS/The Jackbox Party Pack 8",
             "linux":"TJPP8"
         },
+        "loader":{
+            "path":"loaders/tjpp8/default.zip",
+            "version":"1.0.0"
+        },
         "games":[
             {
                 "id":"drawful_animate",
@@ -933,6 +937,10 @@
                     ]
 
                 },
+                "loader":{
+                    "path":"loaders/tjpp8/drawfulanimate.zip",
+                    "version":"1.0.0"
+                },
                 "patchs":[
                     
                 ]
@@ -941,7 +949,7 @@
                 "id":"the_wheel_of_enormous_proportions",
                 "name":"The Wheel Of Enormous Proportions",
                 "background":"game_backgrounds/TheWheelOfEnormousProportions.webp",
-                "path":"games/TheWheelOfEnormousProportions",
+                "path":"games/TheWheel",
                 "game_info":{
                     "players":{
                         "min":3,
@@ -963,6 +971,10 @@
                         "drawing"
                     ]
 
+                },
+                "loader":{
+                    "path":"loaders/tjpp8/thewheelofenormousproportions.zip",
+                    "version":"1.0.0"
                 },
                 "patchs":[
                     
@@ -994,6 +1006,10 @@
                         "writing"
                     ]
 
+                },
+                "loader":{
+                    "path":"loaders/tjpp8/jobjob.zip",
+                    "version":"1.0.0"
                 },
                 "patchs":[
                     {
@@ -1044,6 +1060,10 @@
                     ]
 
                 },
+                "loader":{
+                    "path":"loaders/tjpp8/thepollmine.zip",
+                    "version":"1.0.0"
+                },
                 "patchs":[
                     {
                         "id":"thepollmine",
@@ -1089,6 +1109,10 @@
                         "talking","drawing","writing"
                     ]
 
+                },
+                "loader":{
+                    "path":"loaders/tjpp8/weaponsdrawn.zip",
+                    "version":"1.0.0"
                 },
                 "patchs":[
                     {
