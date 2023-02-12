@@ -263,6 +263,99 @@
             "linux":"TJPP5"
         },
         "games":[
+        	{
+                "id":"ydkj_fullstream",
+                "name":"YDKJ : full stream",
+                "background":"game_backgrounds/YDKJFullStream.webp",
+                "path":"games/YDKJ2018",
+                "game_info":{
+                    "players":{
+                        "min":1,
+                        "max":8
+                    },
+                    "length":"15 - 20 minutes",
+                    "type":"VERSUS",
+                    "translation":"ENGLISH",
+                    "tagline":"Le quiz revient une nouvelle fois",
+                    "small_description":"<TBR>",
+                    "description":"<TBR>",
+                    "images":[
+						"game_images/YDKJFullStream/ydkjfullstream_1.webp",
+                        "game_images/YDKJFullStream/ydkjfullstream_2.webp",
+                        "game_images/YDKJFullStream/ydkjfullstream_3.webp",
+                        "game_images/YDKJFullStream/ydkjfullstream_4.webp"
+                    ],
+                    "tags":[
+                        "knowledge"
+                    ]
+
+                },
+                "patchs":[
+                    
+                ]
+            },
+            {
+                "id":"mad_verse_city",
+                "name":"Mad Verse City",
+                "background":"game_backgrounds/MadVerseCity.webp",
+                "path":"games/RapBattle",
+                "game_info":{
+                    "players":{
+                        "min":3,
+                        "max":8
+                    },
+                    "length":"15 - 20 minutes",
+                    "type":"VERSUS",
+                    "translation":"ENGLISH",
+                    "tagline":"C'est l'heure du rap",
+                    "small_description":"<TBR>",
+                    "description":"<TBR>",
+                    "images":[
+						"game_images/MadVerseCity/madversecity_1.webp",
+                        "game_images/MadVerseCity/madversecity_2.webp",
+                        "game_images/MadVerseCity/madversecity_3.webp",
+                        "game_images/MadVerseCity/madversecity_4.webp"
+                    ],
+                    "tags":[
+                        "writing"
+                    ]
+
+                },
+                "patchs":[
+                    
+                ]
+            },
+            {
+                "id":"zeeple_dome",
+                "name":"Zeeple Dome",
+                "background":"game_backgrounds/ZeepleDome.webp",
+                "path":"games/ZeepleDome",
+                "game_info":{
+                    "players":{
+                        "min":1,
+                        "max":6
+                    },
+                    "length":"10 minutes ou plus",
+                    "type":"COOP",
+                    "translation":"ENGLISH",
+                    "tagline":"Envolez vous pour vous battre",
+                    "small_description":"<TBR>",
+                    "description":"<TBR>",
+                    "images":[
+						"game_images/ZeepleDome/zeepledome_1.webp",
+                        "game_images/ZeepleDome/zeepledome_2.webp",
+                        "game_images/ZeepleDome/zeepledome_3.webp",
+                        "game_images/ZeepleDome/zeepledome_4.webp"
+                    ],
+                    "tags":[
+                        "writing"
+                    ]
+
+                },
+                "patchs":[
+                    
+                ]
+            },
             {
                 "id":"splittheroom",
                 "name":"Split The Room",
@@ -372,6 +465,68 @@
             "linux":"TJPP6"
         },
         "games":[
+        	{
+                "id":"trivia_murder_party_2",
+                "name":"Trivia Murder Party 2",
+                "background":"game_backgrounds/TriviaMurderParty2.webp",
+                "path":"games/TriviaMurderParty2",
+                "game_info":{
+                    "players":{
+                        "min":1,
+                        "max":8
+                    },
+                    "length":"15 - 25 minutes",
+                    "type":"VERSUS",
+                    "translation":"ENGLISH",
+                    "tagline":"Survivrez-vous à ce quiz ?",
+                    "small_description":"<TBR>",
+                    "description":"<TBR>",
+                    "images":[
+						"game_images/TriviaMurderParty2/triviamurderparty2_1.webp",
+                        "game_images/TriviaMurderParty2/triviamurderparty2_2.webp",
+                        "game_images/TriviaMurderParty2/triviamurderparty2_3.webp",
+                        "game_images/TriviaMurderParty2/triviamurderparty2_4.webp"
+                    ],
+                    "tags":[
+                        "knowledge", "writing","drawing"
+                    ]
+
+                },
+                "patchs":[
+                    
+                ]
+            },
+            {
+                "id":"role_models",
+                "name":"Role Models",
+                "background":"game_backgrounds/RoleModels.webp",
+                "path":"games/RoleModels",
+                "game_info":{
+                    "players":{
+                        "min":3,
+                        "max":6
+                    },
+                    "length":"15 minutes",
+                    "type":"VERSUS",
+                    "translation":"ENGLISH",
+                    "tagline":"Qui est qui ?",
+                    "small_description":"<TBR>",
+                    "description":"<TBR>",
+                    "images":[
+						"game_images/RoleModels/rolemodels_1.webp",
+                        "game_images/RoleModels/rolemodels_2.webp",
+                        "game_images/RoleModels/rolemodels_3.webp",
+                        "game_images/RoleModels/rolemodels_4.webp"
+                    ],
+                    "tags":[
+                        "talking"
+                    ]
+
+                },
+                "patchs":[
+                    
+                ]
+            },
             {
                 "id":"jokeboat",
                 "name":"Joke Boat",
@@ -752,6 +907,68 @@
         },
         "games":[
             {
+                "id":"drawful_animate",
+                "name":"DrawfulAnimate",
+                "background":"game_backgrounds/DrawfulAnimate.webp",
+                "path":"games/DrawfulAnimate",
+                "game_info":{
+                    "players":{
+                        "min":3,
+                        "max":10
+                    },
+                    "length":"15 - 30 minutes",
+                    "type":"VERSUS",
+                    "translation":"ENGLISH",
+                    "tagline":"Animez tout ça !",
+                    "small_description":"<TBR>",
+                    "description":"<TBR>",
+                    "images":[
+						"game_images/DrawfulAnimate/drawfulanimate_1.webp",
+                        "game_images/DrawfulAnimate/drawfulanimate_2.webp",
+                        "game_images/DrawfulAnimate/drawfulanimate_3.webp",
+                        "game_images/DrawfulAnimate/drawfulanimate_4.webp"
+                    ],
+                    "tags":[
+                        "drawing"
+                    ]
+
+                },
+                "patchs":[
+                    
+                ]
+            },
+            {
+                "id":"the_wheel_of_enormous_proportions",
+                "name":"The Wheel Of Enormous Proportions",
+                "background":"game_backgrounds/TheWheelOfEnormousProportions.webp",
+                "path":"games/TheWheelOfEnormousProportions",
+                "game_info":{
+                    "players":{
+                        "min":3,
+                        "max":8
+                    },
+                    "length":"15 - 25 minutes",
+                    "type":"VERSUS",
+                    "translation":"ENGLISH",
+                    "tagline":"Tourner tout ça !",
+                    "small_description":"<TBR>",
+                    "description":"<TBR>",
+                    "images":[
+						"game_images/TheWheelOfEnormousProportions/thewheelofenormousproportions_1.webp",
+                        "game_images/TheWheelOfEnormousProportions/thewheelofenormousproportions_2.webp",
+                        "game_images/TheWheelOfEnormousProportions/thewheelofenormousproportions_3.webp",
+                        "game_images/TheWheelOfEnormousProportions/thewheelofenormousproportions_4.webp"
+                    ],
+                    "tags":[
+                        "drawing"
+                    ]
+
+                },
+                "patchs":[
+                    
+                ]
+            },
+            {
                 "id":"jobjob",
                 "name":"Job Job",
                 "background":"game_backgrounds/JobJob.webp",
@@ -923,7 +1140,10 @@
                     "small_description":"Bienvenue dans Fibbage 4, le jeu où vous allez devoir mentir et faire tomber des personnes dans le panneau pour gagner des points.",
                     "description":"# Fibbage quatre...\n\n Dans fibbage 4, vous allez devoir compléter des anecdotes. Chaque réponse à une anecdote et montré aux joueurs ainsi que la vraie réponse. Le but est de trouver la vérité sans tomber sur les réponses adverses.\n\nEn plus des anecdotes classiques, vous trouverez aussi des anecdotes sous format vidéo et le Fibbage final ou vous devrez remplir 2 anecdotes en même temps.\n\nQui sera le meilleur menteur ?",
                     "images":[
-			"game_backgrounds/Fibbage4.webp"
+			"game_images/Fibbage4/fibbage4_1.jpg",
+                        "game_images/Fibbage4/fibbage4_2.jpg",
+                        "game_images/Fibbage4/fibbage4_3.jpg",
+                        "game_images/Fibbage4/fibbage4_4.jpg"
                     ],
                     "tags":[
                         "writing"
@@ -950,7 +1170,10 @@
                     "small_description":"C'est le moment de vous faire connaitre ! Rejoignez la télé-réalité Roomerang et éliminé vos adversaires un à un jusqu'à ce qu'une seule personne soit vainqueur.",
                     "description":"Bienvenue dans Roomerang\n\nIci, vous devez vous batailler pour la victoire. Vous avez chacun un petit détail sur vous. Que ce soit livreur de pizza, jardinier en herbe ou pro de l'escalade, vous avez les talents pour gagner la partie et éliminer tout le monde sur votre passage.",
                     "images":[
-			"game_backgrounds/Roomerang.webp"
+			"game_images/Roomerang/roomerang_1.jpg",
+                        "game_images/Roomerang/roomerang_2.jpg",
+                        "game_images/Roomerang/roomerang_3.jpg",
+                        "game_images/Roomerang/roomerang_4.jpg"
                     ],
                     "tags":[
                         "writing"
@@ -978,7 +1201,10 @@
                     "small_description":"<TBR>",
                     "description":"<TBR>",
                     "images":[
-			"game_backgrounds/Junktopia.webp"
+			"game_images/Junktopia/junktopia_1.jpg",
+                        "game_images/Junktopia/junktopia_2.jpg",
+                        "game_images/Junktopia/junktopia_3.jpg",
+                        "game_images/Junktopia/junktopia_4.jpg"
                     ],
                     "tags":[
                         "writing"
@@ -1006,7 +1232,10 @@
                     "small_description":"<TBR>",
                     "description":"<TBR>",
                     "images":[
-			"game_backgrounds/Nonsensory.webp"
+			"game_images/Nonsensory/nonsensory_1.jpg",
+                        "game_images/Nonsensory/nonsensory_2.jpg",
+                        "game_images/Nonsensory/nonsensory_3.jpg",
+                        "game_images/Nonsensory/nonsensory_4.jpg"
                     ],
                     "tags":[
                         "writing", "drawing"
@@ -1034,7 +1263,10 @@
                     "small_description":"<TBR>",
                     "description":"<TBR>",
                     "images":[
-			"game_backgrounds/Quixort.webp"
+			"game_images/Quixort/quixort_1.jpg",
+                        "game_images/Quixort/quixort_2.jpg",
+                        "game_images/Quixort/quixort_3.jpg",
+                        "game_images/Quixort/quixort_4.jpg"
                     ],
                     "tags":[
                         "talking", "knowledge"
@@ -1046,8 +1278,8 @@
                 ]
             }
         ],
-        "icon":"jpp8.ico",
-        "background":"backgrounds/jpp8.jpg"
+        "icon":"jpp9.ico",
+        "background":"backgrounds/jpp9.jpg"
     }
 ]
 }
