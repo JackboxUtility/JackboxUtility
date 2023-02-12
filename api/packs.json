@@ -115,10 +115,10 @@
                 "small_description":"[PREVIEW] Traduction du jeu en Français",
                 "description":"Le patch complet arrive bientôt. Vous pouvez toujours télécharger la preview mais gardez à l'esprit que la traduction n'est pas terminée. Avec cette preview, le jeu est traduit en français, mais il peut y avoir des fautes. N'hésitez pas à prévenir MisterShaokahn#0765 si il y a des problèmes de traduction",
                 "background":"game_backgrounds/SplitTheRoom.webp",
-                "version":"0.1.0",
+                "version":"0.1.1",
                 "authors":"MisterShaokahn#0765",
                 "path":"games/SplitTheRoom",
-                "patch_path":"patchs/splittheroom_0.1.0.zip",
+                "patch_path":"patchs/splittheroom_0.1.1.zip",
                 "patch_type":{
                     "game_text":true,
                     "game_assets":false,
