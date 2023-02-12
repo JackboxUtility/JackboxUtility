@@ -262,6 +262,10 @@
             "mac":"The Jackbox Party Pack 5.app/Contents/MacOS/The Jackbox Party Pack 5",
             "linux":"TJPP5"
         },
+        "loader":{
+            "path":"loaders/tjpp5/default.zip",
+            "version":"1.0.0"
+        },
         "games":[
         	{
                 "id":"ydkj_fullstream",
@@ -289,6 +293,10 @@
                         "knowledge"
                     ]
 
+                },
+                "loader":{
+                    "path":"loaders/tjpp5/ydkjfullstream.zip",
+                    "version":"1.0.0"
                 },
                 "patchs":[
                     
@@ -321,6 +329,10 @@
                     ]
 
                 },
+                "loader":{
+                    "path":"loaders/tjpp5/madversecity.zip",
+                    "version":"1.0.0"
+                },
                 "patchs":[
                     
                 ]
@@ -351,6 +363,10 @@
                         "writing"
                     ]
 
+                },
+                "loader":{
+                    "path":"loaders/tjpp5/zeepledome.zip",
+                    "version":"1.0.0"
                 },
                 "patchs":[
                     
@@ -383,15 +399,19 @@
                     ]
 
                 },
+                "loader":{
+                    "path":"loaders/tjpp5/splittheroom.zip",
+                    "version":"1.0.0"
+                },
                 "patchs":[
                     {
                         "id":"splittheroom_fr",
                         "name":"[PREVIEW] Split The Room",
                         "small_description":"[PREVIEW] Traduction du jeu en Français",
                         "description":"Le patch complet arrive bientôt. Vous pouvez toujours télécharger la preview mais gardez à l'esprit que la traduction n'est pas terminée. Avec cette preview, le jeu est traduit en français, mais il peut y avoir des fautes. N'hésitez pas à prévenir MisterShaokahn#0765 si il y a des problèmes de traduction",
-                        "version":"0.1.0",
+                        "version":"0.1.1",
                         "authors":"MisterShaokahn#0765",
-                        "patch_path":"patchs/splittheroom_0.1.0.zip",
+                        "patch_path":"patchs/splittheroom_0.1.1.zip",
                         "patch_type":{
                             "game_text":true,
                             "game_assets":false,
@@ -432,6 +452,10 @@
                     ]
 
                 },
+                "loader":{
+                    "path":"loaders/tjpp5/patentlystupid.zip",
+                    "version":"1.0.0"
+                },
                 "patchs":[
                     {
                         "id":"patentlystupid_fr",
@@ -464,6 +488,10 @@
             "mac":"The Jackbox Party Pack 6.app/Contents/MacOS/The Jackbox Party Pack 6",
             "linux":"TJPP6"
         },
+        "loader":{
+            "path":"loaders/tjpp6/default.zip",
+            "version":"1.0.0"
+        },
         "games":[
         	{
                 "id":"trivia_murder_party_2",
@@ -491,6 +519,10 @@
                         "knowledge", "writing","drawing"
                     ]
 
+                },
+                "loader":{
+                    "path":"loaders/tjpp6/triviamurderparty2.zip",
+                    "version":"1.0.0"
                 },
                 "patchs":[
                     
@@ -523,6 +555,10 @@
                     ]
 
                 },
+                "loader":{
+                    "path":"loaders/tjpp6/rolemodels.zip",
+                    "version":"1.0.0"
+                },
                 "patchs":[
                     
                 ]
@@ -553,6 +589,10 @@
                         "writing"
                     ]
 
+                },
+                "loader":{
+                    "path":"loaders/tjpp6/jokeboat.zip",
+                    "version":"1.0.0"
                 },
                 "patchs":[
                     {
@@ -599,6 +639,10 @@
                         "writing"
                     ]
 
+                },
+                "loader":{
+                    "path":"loaders/tjpp6/dictionarium.zip",
+                    "version":"1.0.0"
                 },
                 "patchs":[
                     {
@@ -648,6 +692,10 @@
                         "deduction"
                     ]
 
+                },
+                "loader":{
+                    "path":"loaders/tjpp6/pushthebutton.zip",
+                    "version":"1.0.0"
                 },
                 "patchs":[
                     {
@@ -905,6 +953,10 @@
             "mac":"The Jackbox Party Pack 8.app/Contents/MacOS/The Jackbox Party Pack 8",
             "linux":"TJPP8"
         },
+        "loader":{
+            "path":"loaders/tjpp8/default.zip",
+            "version":"1.0.0"
+        },
         "games":[
             {
                 "id":"drawful_animate",
@@ -933,6 +985,10 @@
                     ]
 
                 },
+                "loader":{
+                    "path":"loaders/tjpp8/drawfulanimate.zip",
+                    "version":"1.0.0"
+                },
                 "patchs":[
                     
                 ]
@@ -941,7 +997,7 @@
                 "id":"the_wheel_of_enormous_proportions",
                 "name":"The Wheel Of Enormous Proportions",
                 "background":"game_backgrounds/TheWheelOfEnormousProportions.webp",
-                "path":"games/TheWheelOfEnormousProportions",
+                "path":"games/TheWheel",
                 "game_info":{
                     "players":{
                         "min":3,
@@ -963,6 +1019,10 @@
                         "drawing"
                     ]
 
+                },
+                "loader":{
+                    "path":"loaders/tjpp8/thewheelofenormousproportions.zip",
+                    "version":"1.0.0"
                 },
                 "patchs":[
                     
@@ -994,6 +1054,10 @@
                         "writing"
                     ]
 
+                },
+                "loader":{
+                    "path":"loaders/tjpp8/jobjob.zip",
+                    "version":"1.0.0"
                 },
                 "patchs":[
                     {
@@ -1044,6 +1108,10 @@
                     ]
 
                 },
+                "loader":{
+                    "path":"loaders/tjpp8/thepollmine.zip",
+                    "version":"1.0.0"
+                },
                 "patchs":[
                     {
                         "id":"thepollmine",
@@ -1090,6 +1158,10 @@
                     ]
 
                 },
+                "loader":{
+                    "path":"loaders/tjpp8/weaponsdrawn.zip",
+                    "version":"1.0.0"
+                },
                 "patchs":[
                     {
                         "id":"weaponsdrawn_fr",
@@ -1122,6 +1194,10 @@
             "mac":"The Jackbox Party Pack 9.app/Contents/MacOS/The Jackbox Party Pack 9",
             "linux":"TJPP9"
         },
+        "loader":{
+            "path":"loaders/tjpp9/default.zip",
+            "version":"1.0.0"
+        },
         "games":[
             {
                 "id":"fibbage4",
@@ -1149,6 +1225,10 @@
                         "writing"
                     ]
 
+                },
+                "loader":{
+                    "path":"loaders/tjpp9/fibbage4.zip",
+                    "version":"1.0.0"
                 },
                 "patchs":[
                 ]
@@ -1179,6 +1259,10 @@
                         "writing"
                     ]
 
+                },
+                "loader":{
+                    "path":"loaders/tjpp9/roomerang.zip",
+                    "version":"1.0.0"
                 },
                 "patchs":[
                     
@@ -1211,6 +1295,10 @@
                     ]
 
                 },
+                "loader":{
+                    "path":"loaders/tjpp9/junktopia.zip",
+                    "version":"1.0.0"
+                },
                 "patchs":[
                     
                 ]
@@ -1241,6 +1329,10 @@
                         "writing", "drawing"
                     ]
 
+                },
+                "loader":{
+                    "path":"loaders/tjpp9/nonsensory.zip",
+                    "version":"1.0.0"
                 },
                 "patchs":[
                     
@@ -1273,6 +1365,10 @@
                     ]
 
                 },
+                "loader":{
+                    "path":"loaders/tjpp9/quixort.zip",
+                    "version":"1.0.0"
+                },
                 "patchs":[
                     
                 ]
@@ -1280,6 +1376,129 @@
         ],
         "icon":"jpp9.ico",
         "background":"backgrounds/jpp9.jpg"
+    },
+    {
+        "id":"jpstarter",
+        "name":"Jackbox Party Starter",
+        "description":"La compilation de 3 jeux en français",
+        "executables":{
+            "windows":"The Jackbox Party Starter.exe",
+            "mac":"The Jackbox Party Starter.app/Contents/MacOS/The Jackbox Party Pack Starter",
+            "linux":"TJPS"
+        },
+        "loader":{
+            "path":"loaders/tjpstarter/default.zip",
+            "version":"1.0.0"
+        },
+        "games":[
+            {
+                "id":"quiplash3_starter",
+                "name":"Quiplash 3",
+                "background":"game_backgrounds/Quiplash3.webp",
+                "path":"games/Quiplash3",
+                "game_info":{
+                    "players":{
+                        "min":3,
+                        "max":8
+                    },
+                    "length":"Environ 15 minutes",
+                    "type":"VERSUS",
+                    "translation":"FRENCH",
+                    "tagline":"Soyez le plus drôle",
+                    "small_description":"C'est l'heure d'être drôle ! Epatez tous vos amis en répondant de la manière la plus marrante aux phrases farfelus de Quiplash 3.",
+                    "description":"# C'est l'heure de faire rire\n\n Vous allez recevoir une phrase. Essayez d'y répondre de la manière la plus drôle possible. Votre phrase sera face à celle d'un joueur et les autres votent pour leur préférée. Un jeu simple et efficace qui pourra vous faire rire pendant beaucoup de temps.",
+                    "images":[
+			"game_images/Quiplash3/quiplash3_1.webp",
+                        "game_images/Quiplash3/quiplash3_2.webp",
+                        "game_images/Quiplash3/quiplash3_3.webp",
+                        "game_images/Quiplash3/quiplash3_4.webp"
+                    ],
+                    "tags":[
+                        "writing"
+                    ]
+
+                },
+                "loader":{
+                    "path":"loaders/tjpstarter/quiplash3.zip",
+                    "version":"1.0.0"
+                },
+                "patchs":[
+                ]
+            },
+            {
+                "id":"teeko_starter",
+                "name":"Tee KO",
+                "background":"game_backgrounds/TeeKO.webp",
+                "path":"games/AwShirt",
+                "game_info":{
+                    "players":{
+                        "min":3,
+                        "max":8
+                    },
+                    "length":"Environ 30 minutes",
+                    "type":"VERSUS",
+                    "translation":"FRENCH",
+                    "tagline":"Combattez vos tee-shirts",
+                    "small_description":"C'est l'heure d'être drôle ! Epatez tous vos amis en répondant de la manière la plus marrante aux phrases farfelus de Quiplash 3.",
+                    "description":"# C'est l'heure de faire rire\n\n Vous allez recevoir une phrase. Essayez d'y répondre de la manière la plus drôle possible. Votre phrase sera face à celle d'un joueur et les autres votent pour leur préférée. Un jeu simple et efficace qui pourra vous faire rire pendant beaucoup de temps.",
+                    "images":[
+			"game_images/TeeKO/teeko_1.webp",
+                        "game_images/TeeKO/teeko_2.webp",
+                        "game_images/TeeKO/teeko_3.webp",
+                        "game_images/TeeKO/teeko_4.webp"
+                    ],
+                    "tags":[
+                        "writing",
+                        "drawing"
+                    ]
+
+                },
+                "loader":{
+                    "path":"loaders/tjpstarter/teeko.zip",
+                    "version":"1.0.0"
+                },
+                "patchs":[
+                ]
+            },
+            {
+                "id":"trivia_murder_party_2_starter",
+                "name":"Trivia Murder Party 2",
+                "background":"game_backgrounds/TriviaMurderParty2.webp",
+                "path":"games/triviadeath2",
+                "game_info":{
+                    "players":{
+                        "min":1,
+                        "max":8
+                    },
+                    "length":"15 - 25 minutes",
+                    "type":"VERSUS",
+                    "translation":"FRENCH",
+                    "tagline":"Survivrez-vous à ce quiz ?",
+                    "small_description":"<TBR>",
+                    "description":"<TBR>",
+                    "images":[
+						"game_images/TriviaMurderParty2/triviamurderparty2_1.webp",
+                        "game_images/TriviaMurderParty2/triviamurderparty2_2.webp",
+                        "game_images/TriviaMurderParty2/triviamurderparty2_3.webp",
+                        "game_images/TriviaMurderParty2/triviamurderparty2_4.webp"
+                    ],
+                    "tags":[
+                        "knowledge", "writing","drawing"
+                    ]
+
+                },
+                "loader":{
+                    "path":"loaders/tjpstarter/triviamurderparty2.zip",
+                    "version":"1.0.0"
+                },
+                "patchs":[
+                    
+                ]
+            }
+        ],
+        "icon":"jpstarter.ico",
+        "background":"backgrounds/jpstarter.jpg"
     }
+
 ]
 }

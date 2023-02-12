@@ -4,18 +4,21 @@ import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class MenuWidget extends StatefulWidget {
-  MenuWidget({Key? key}) : super(key: key);
+class WelcomeWidget extends StatefulWidget {
+  WelcomeWidget({Key? key}) : super(key: key);
 
   @override
-  State<MenuWidget> createState() => _MenuWidgetState();
+  State<WelcomeWidget> createState() => _WelcomeWidgetState();
 }
 
-class _MenuWidgetState extends State<MenuWidget> {
+class _WelcomeWidgetState extends State<WelcomeWidget> {
   @override
   Widget build(BuildContext context) {
-    return Markdown(data: UserData().welcomeMessage, onTapLink: (text, href, title) {
-      launchUrl(Uri.parse(href!));
-    },);
+    return Markdown(
+      data: UserData().welcomeMessage,
+      onTapLink: (text, href, title) {
+        launchUrl(Uri.parse(href!));
+      },
+    );
   }
 }
