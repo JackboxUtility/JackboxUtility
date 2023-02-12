@@ -39,7 +39,7 @@
         "executables":{
             "windows":"The Jackbox Party Pack 2.exe",
             "mac":"The Jackbox Party Pack 2.app/Contents/MacOS/The Jackbox Party Pack 2",
-            "linux":"TJPP2"
+            "linux":"Launcher.sh"
         },
         "games":[
             {
@@ -100,7 +100,7 @@
         "executables":{
             "windows":"The Jackbox Party Pack 4.exe",
             "mac":"The Jackbox Party Pack 4.app/Contents/MacOS/The Jackbox Party Pack 4",
-            "linux":"TJPP4"
+            "linux":"Launcher.sh"
         },
         "games":[
             {
@@ -260,7 +260,7 @@
         "executables":{
             "windows":"The Jackbox Party Pack 5.exe",
             "mac":"The Jackbox Party Pack 5.app/Contents/MacOS/The Jackbox Party Pack 5",
-            "linux":"TJPP5"
+            "linux":"Launcher.sh"
         },
         "loader":{
             "path":"loaders/tjpp5/default.zip",
@@ -486,7 +486,7 @@
         "executables":{
             "windows":"The Jackbox Party Pack 6.exe",
             "mac":"The Jackbox Party Pack 6.app/Contents/MacOS/The Jackbox Party Pack 6",
-            "linux":"TJPP6"
+            "linux":"Launcher.sh"
         },
         "loader":{
             "path":"loaders/tjpp6/default.zip",
@@ -728,7 +728,7 @@
         "executables":{
             "windows":"The Jackbox Party Pack 7.exe",
             "mac":"The Jackbox Party Pack 7.app/Contents/MacOS/The Jackbox Party Pack 7",
-            "linux":"TJPP7"
+            "linux":"Launcher.sh"
         },
         "loader":{
             "path":"loaders/tjpp7/default.zip",
@@ -1192,7 +1192,7 @@
         "executables":{
             "windows":"The Jackbox Party Pack 9.exe",
             "mac":"The Jackbox Party Pack 9.app/Contents/MacOS/The Jackbox Party Pack 9",
-            "linux":"TJPP9_OpenGL"
+            "linux":"Launcher.sh"
         },
         "loader":{
             "path":"loaders/tjpp9/default.zip",
@@ -1384,7 +1384,7 @@
         "executables":{
             "windows":"The Jackbox Party Starter.exe",
             "mac":"The Jackbox Party Starter.app/Contents/MacOS/The Jackbox Party Pack Starter",
-            "linux":"TJPS"
+            "linux":"Launcher.sh"
         },
         "loader":{
             "path":"loaders/tjpstarter/default.zip",
