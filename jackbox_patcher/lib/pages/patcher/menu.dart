@@ -19,7 +19,7 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
     Typography typography = FluentTheme.of(context).typography;
     return NavigationView(
       appBar: NavigationAppBar(
-          automaticallyImplyLeading: false,leading:GestureDetector(child: Icon(FluentIcons.chevron_left), onTap: () => Navigator.pop(context),), title: Text("Jackbox patcher", style: typography.title,)),
+          automaticallyImplyLeading: false,leading:GestureDetector(child: Icon(FluentIcons.chevron_left), onTap: () => Navigator.pop(context),), title: Text("Jackbox utility", style: typography.title,)),
       pane: NavigationPane(
         onChanged: (int nSelected) {
           setState(() {

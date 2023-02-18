@@ -15,7 +15,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget> {
   @override
   Widget build(BuildContext context) {
     return Markdown(
-      data: UserData().welcomeMessage,
+      data: "",
       onTapLink: (text, href, title) {
         launchUrl(Uri.parse(href!));
       },

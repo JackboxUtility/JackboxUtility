@@ -13,18 +13,20 @@ class Launcher {
       throw Exception("Pack path is null");
     } else {
       // If the loader is not already installed or need update, download it
-      if (pack.loader!.path == null ||
-          pack.loader!.version != pack.pack.loader!.version ||
-          !File(pack.loader!.path!).existsSync()) {
-        pack.loader!.path =
-            await APIService().downloadPackLoader(pack.pack, (p0, p1) {});
-        pack.loader!.version = pack.pack.loader!.version;
-        await UserData().savePack(pack);
+      if (pack.loader != null) {
+        if (pack.loader!.path == null ||
+            pack.loader!.version != pack.pack.loader!.version ||
+            !File(pack.loader!.path!).existsSync()) {
+          pack.loader!.path =
+              await APIService().downloadPackLoader(pack.pack, (p0, p1) {});
+          pack.loader!.version = pack.pack.loader!.version;
+          await UserData().savePack(pack);
+        }
+        String packFolder = pack.path!;
+        await extractFileToDisk(pack.loader!.path!, packFolder);
       }
 
       // Extracting into game file
-      String packFolder = pack.path!;
-      await extractFileToDisk(pack.loader!.path!, packFolder);
       await Process.run("${pack.path}/${pack.pack.executable}", []);
     }
   }
@@ -34,13 +36,15 @@ class Launcher {
     if (pack.path == null) {
       throw Exception("Pack path is null");
     } else {
-      print(game);
+      if (game.loader == null){
+        return await launchPack(pack);
+      }
       // If the loader is not already installed or need update, download it
       if (game.loader!.path == null ||
           game.loader!.version != game.game.loader!.version ||
           !File(game.loader!.path!).existsSync()) {
-        game.loader!.path =
-            await APIService().downloadGameLoader(pack.pack, game.game, (p0, p1) {});
+        game.loader!.path = await APIService()
+            .downloadGameLoader(pack.pack, game.game, (p0, p1) {});
         game.loader!.version = pack.pack.loader!.version;
         await UserData().savePack(pack);
       }

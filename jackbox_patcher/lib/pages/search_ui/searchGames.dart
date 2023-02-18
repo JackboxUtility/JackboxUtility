@@ -192,7 +192,7 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
   @override
   Widget build(BuildContext context) {
     var gameInfo = widget.game.game.info;
-    return ClipRRect(
+    return MouseRegion(cursor: SystemMouseCursors.click, child: ClipRRect(
         borderRadius: BorderRadius.circular(8.0),
         child: TweenAnimationBuilder<double>(
             tween: Tween<double>(
@@ -292,6 +292,6 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                                   ]))
                         ]),
                       )));
-            }));
+            })));
   }
 }

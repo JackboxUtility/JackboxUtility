@@ -5,6 +5,9 @@ import 'package:jackbox_patcher/pages/patcher/pack.dart';
 import 'package:jackbox_patcher/model/jackboxpack.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
+import 'package:lottie/lottie.dart';
+
+import '../model/news.dart';
 
 class MainContainer extends StatefulWidget {
   MainContainer({Key? key}) : super(key: key);
@@ -33,12 +36,49 @@ class _MainContainerState extends State<MainContainer> {
 
   Widget build(BuildContext context) {
     return NavigationView(
-        content: Column(children: [
+        content: Stack(children: [ 
+          Positioned(child: GestureDetector(
+            onTap: () {
+              _openNotificationsWindow();
+            },
+            child: Icon(FluentIcons.ringer, color: Colors.white, size:30)), top: 10, right: 10),
+         Column(children: [
       Expanded(
         child: _buildUpper(),
       ),
       _buildLower(),
-    ]));
+    ])]));
+  }
+
+  void _openNotificationsWindow(){
+    showDialog(context: context, builder: (context) => ContentDialog(
+      title: Text("Notifications"),
+      content: ListView(children: List.generate(APIService().cachedNews.length, (index) => _buildNotificationWidget(APIService().cachedNews[index]))),
+      actions: [TextButton(onPressed: () => Navigator.pop(context), child: Text("Fermer"))]
+    )
+    );
+  }
+
+  Widget _buildNotificationWidget(News news){
+    return Container(
+      width: 300,
+      height: 100,
+      child: Row(children: [
+        Container(
+          width: 100,
+          height: 100,
+          child: Image.network(APIService().assetLink(news.image)),
+        ),
+        Container(
+          width: 200,
+          height: 100,
+          child: Column(children: [
+            Text(news.title),
+            Text(news.smallDescription)
+          ],),
+        )
+      ],),
+    );
   }
 
   Widget _buildUpper() {
@@ -47,7 +87,10 @@ class _MainContainerState extends State<MainContainer> {
       SizedBox(
         height: 30,
       ),
-      _buildMenu(),
+      _loaded
+          ? _buildMenu()
+          : LottieBuilder.asset("assets/lotties/QuiplashOutput.json",
+              width: 200, height: 200),
     ]);
   }
 
@@ -55,66 +98,72 @@ class _MainContainerState extends State<MainContainer> {
     return Padding(
         padding: EdgeInsets.symmetric(horizontal: calculatePadding()),
         child: Column(children: [
-          FilledButton(
-              style: ButtonStyle(
-                  backgroundColor: ButtonState.all(Colors.green),
-                  shape: ButtonState.all(RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0)))),
-              onPressed: () {
-                Navigator.pushNamed(context, "/searchMenu");
-              },
-              child: Container(
-                  width: 300,
-                  height: 20,
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(FluentIcons.play, color: Colors.white),
-                        SizedBox(width: 10),
-                        Text("Lancer / Rechercher un jeu",
-                            style: TextStyle(color: Colors.white))
-                      ]))),
+          MouseRegion(
+              cursor: SystemMouseCursors.click,
+              child: FilledButton(
+                  style: ButtonStyle(
+                      backgroundColor: ButtonState.all(Colors.green),
+                      shape: ButtonState.all(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0)))),
+                  onPressed: () {
+                    Navigator.pushNamed(context, "/searchMenu");
+                  },
+                  child: Container(
+                      width: 300,
+                      height: 20,
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(FluentIcons.play, color: Colors.white),
+                            SizedBox(width: 10),
+                            Text("Lancer / Rechercher un jeu",
+                                style: TextStyle(color: Colors.white))
+                          ])))),
           SizedBox(height: 10),
-          FilledButton(
-              style: ButtonStyle(
-                  backgroundColor: ButtonState.all(Colors.blue),
-                  shape: ButtonState.all(RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0)))),
-              onPressed: () {
-                Navigator.pushNamed(context, "/patch");
-              },
-              child: Container(
-                  width: 300,
-                  height: 20,
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(FluentIcons.download, color: Colors.white),
-                        SizedBox(width: 10),
-                        Text("Patcher un jeu",
-                            style: TextStyle(color: Colors.white))
-                      ]))),
+          MouseRegion(
+              cursor: SystemMouseCursors.click,
+              child: FilledButton(
+                  style: ButtonStyle(
+                      backgroundColor: ButtonState.all(Colors.blue),
+                      shape: ButtonState.all(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0)))),
+                  onPressed: () {
+                    Navigator.pushNamed(context, "/patch");
+                  },
+                  child: Container(
+                      width: 300,
+                      height: 20,
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(FluentIcons.download, color: Colors.white),
+                            SizedBox(width: 10),
+                            Text("Patcher un jeu",
+                                style: TextStyle(color: Colors.white))
+                          ])))),
           SizedBox(height: 30),
-          FilledButton(
-              style: ButtonStyle(
-                  backgroundColor: ButtonState.all(Colors.grey),
-                  shape: ButtonState.all(RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0)))),
-              onPressed: () {
-                Navigator.pushNamed(context, "/settings",
-                    arguments: UserData().packs);
-              },
-              child: Container(
-                  width: 300,
-                  height: 20,
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(FluentIcons.settings, color: Colors.white),
-                        SizedBox(width: 10),
-                        Text("Paramètres",
-                            style: TextStyle(color: Colors.white))
-                      ])))
+          MouseRegion(
+              cursor: SystemMouseCursors.click,
+              child: FilledButton(
+                  style: ButtonStyle(
+                      backgroundColor: ButtonState.all(Colors.grey),
+                      shape: ButtonState.all(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0)))),
+                  onPressed: () {
+                    Navigator.pushNamed(context, "/settings",
+                        arguments: UserData().packs);
+                  },
+                  child: Container(
+                      width: 300,
+                      height: 20,
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(FluentIcons.settings, color: Colors.white),
+                            SizedBox(width: 10),
+                            Text("Paramètres",
+                                style: TextStyle(color: Colors.white))
+                          ]))))
         ]));
   }
 
@@ -126,78 +175,21 @@ class _MainContainerState extends State<MainContainer> {
             "assets/logo.png",
             height: 100,
           )),
-      Text("Jackbox Patcher",
+      Text("Jackbox Utility",
           style: FluentTheme.of(context).typography.titleLarge)
     ]);
   }
 
   Widget _buildLower() {
-    return Column(children: []);
+    return Column(children: [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset("assets/logos/discord-mark-white.png", height: 30),
+        ],
+      )
+    ]);
   }
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return NavigationView(
-  //     appBar: NavigationAppBar(
-  //         automaticallyImplyLeading: false, title: Text("Jackbox Patcher")),
-  //     pane: NavigationPane(
-  //       onChanged: (int nSelected) {
-  //         setState(() {
-  //           _selectedView = nSelected;
-  //         });
-  //       },
-  //       selected: _selectedView,
-  //       items: _buildPaneItems(),
-  //     ),
-  //   );
-  // }
-
-  // _buildPaneItems() {
-  //   List<NavigationPaneItem> items = [
-  //     PaneItem(
-  //         icon: Icon(FluentIcons.home),
-  //         title: Text("Menu"),
-  //         body: Center(
-  //           child: _loaded ? MenuWidget() : Text("Chargement..."),
-  //         )),
-  //   ];
-
-  //   items.add(PaneItem(
-  //     icon: Icon(FluentIcons.play),
-  //     body: Container(),
-  //     title: Text("Lancement rapide"),
-  //   ));
-  //   List<NavigationPaneItem> patchingItems = [];
-  //   for (var userPack in UserData().packs) {
-  //     int countPatchs = 0;
-  //     for (var games in userPack.games) {
-  //       for (var patch in games.patches) {
-  //         countPatchs = 1;
-  //         break;
-  //       }
-  //     }
-  //     if (countPatchs == 1) {
-  //       patchingItems.add(PaneItem(
-  //           icon: Image.network(APIService().assetLink(userPack.pack.icon)),
-  //           title: Text(userPack.pack.name),
-  //           body: PatcherPackWidget(userPack: userPack)));
-  //     }
-  //   }
-  //   if (UserData().packs.isNotEmpty) {
-  //     items.add(PaneItemExpander(
-  //       icon: Icon(FluentIcons.list),
-  //       body: Container(),
-  //       title: Text("Liste des patchs français"),
-  //       items: patchingItems,
-  //     ));
-  //   }
-
-  //   items.add(PaneItem(
-  //           icon: Icon(FluentIcons.settings),
-  //           title: Text("Paramètres"),
-  //           body: ParametersWidget(packs:UserData().packs)));
-  //   return items;
-  // }
 
   void _load() async {
     await _loadWelcome();

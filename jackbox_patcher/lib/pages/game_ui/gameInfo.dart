@@ -3,6 +3,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:jackbox_patcher/components/caroussel.dart';
 import 'package:jackbox_patcher/model/jackboxgame.dart';
+import 'package:jackbox_patcher/services/error/error.dart';
 import 'package:jackbox_patcher/services/launcher/launcher.dart';
 import 'package:palette_generator/palette_generator.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -42,6 +43,7 @@ class GameInfoWidget extends StatefulWidget {
 
 class _GameInfoWidgetState extends State<GameInfoWidget> {
   Color? backgroundColor;
+  String launchingStatus = "WAITING";
   @override
   Widget build(BuildContext context) {
     return NavigationView(
@@ -184,36 +186,140 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
   Widget _buildPlayButton() {
     return !widget.pack.owned
         ? GestureDetector(
-            onTap: ()async {
+            onTap: () async {
               await Navigator.pushNamed(context, "/settings");
               setState(() {});
             },
             child: Text(
                 "Vous ne possédez pas ce pack. Ajoutez le dans les paramètres",
-                style: TextStyle(color: Colors.red, decoration: TextDecoration.underline)))
+                style: TextStyle(
+                    color: Colors.red, decoration: TextDecoration.underline)))
         : ((widget.pack.path == null || widget.pack.path == "")
             ? GestureDetector(
-            onTap: () async{
-              await Navigator.pushNamed(context, "/settings");
-              setState(() {});
-            },
-            child:Text(
-                "Vous n'avez pas configuré le chemin vers le pack, ajoutez le dans les paramètres",
-                style: TextStyle(color: Colors.red, decoration: TextDecoration.underline)))
-            : FilledButton(
-                style:
-                    ButtonStyle(backgroundColor: ButtonState.all(Colors.green)),
-                onPressed: () {
-                  Launcher.launchGame(widget.pack, widget.game);
+                onTap: () async {
+                  await Navigator.pushNamed(context, "/settings");
+                  setState(() {});
                 },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(FluentIcons.play, color: Colors.white),
-                    SizedBox(width: 10),
-                    Text("Jouer", style: TextStyle(color: Colors.white)),
-                  ],
-                )));
+                child: Text(
+                    "Vous n'avez pas configuré le chemin vers le pack, ajoutez le dans les paramètres",
+                    style: TextStyle(
+                        color: Colors.red,
+                        decoration: TextDecoration.underline)))
+            : _buildLauncherButton());
+  }
+
+  Widget _buildLauncherButton() {
+    if (widget.game.loader != null) {
+      return SplitButtonBar(
+          style: SplitButtonThemeData.standard(FluentTheme.of(context)).merge(
+              SplitButtonThemeData(
+                  primaryButtonStyle: ButtonStyle(
+                      backgroundColor: ButtonState.all(Colors.green)),
+                  actionButtonStyle: ButtonStyle(
+                      backgroundColor: ButtonState.all(Colors.green)))),
+          buttons: [
+            Expanded(
+                child: FilledButton(
+                    style: ButtonStyle(
+                        backgroundColor: ButtonState.all(Colors.green)),
+                    onPressed: launchingStatus == "WAITING"
+                        ? launchGameFunction
+                        : null,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(FluentIcons.play, color: Colors.white),
+                        SizedBox(width: 10),
+                        Text(
+                            launchingStatus == "WAITING"
+                                ? "Lancer le jeu"
+                                : (launchingStatus == "LAUNCHING"
+                                    ? "Lancement en cours"
+                                    : "Lancé !"),
+                            style: TextStyle(color: Colors.white)),
+                      ],
+                    ))),
+            DropDownButton(leading: SizedBox(height: 19), items: [
+              MenuFlyoutItem(
+                  leading: Icon(FluentIcons.play),
+                  text: const Text('Lancer le jeu'), onPressed: launchGameFunction),
+              MenuFlyoutItem(
+                  leading: Icon(FluentIcons.play),
+                  text: const Text('Lancer le pack'), onPressed: launchPackFunction),
+              MenuFlyoutItem(
+                leading: Icon(FluentIcons.info),
+                text: const Text("Plus d'infos"), onPressed: showLaunchInfo),
+            ])
+          ]);
+    } else {
+      return FilledButton(
+          style: ButtonStyle(backgroundColor: ButtonState.all(Colors.green)),
+          onPressed: launchingStatus == "WAITING" ? launchPackFunction : null,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(FluentIcons.play, color: Colors.white),
+              SizedBox(width: 10),
+              Text(
+                  launchingStatus == "WAITING"
+                      ? "Lancer le pack"
+                      : (launchingStatus == "LAUNCHING"
+                          ? "Lancement en cours"
+                          : "Lancé !"),
+                  style: TextStyle(color: Colors.white)),
+            ],
+          ));
+    }
+  }
+
+  void launchGameFunction() {
+    launchingStatus = "LAUNCHING";
+    setState(() {});
+    Launcher.launchGame(widget.pack, widget.game).then((value) {
+      launchingStatus = "LAUNCHED";
+      setState(() {});
+    }).catchError((error){
+      ErrorService.showError(context, error.toString());
+    });
+  }
+
+  void launchPackFunction() {
+    launchingStatus = "LAUNCHING";
+    setState(() {});
+    Launcher.launchPack(widget.pack).then((value) {
+      launchingStatus = "LAUNCHED";
+      setState(() {});
+    }).catchError((error){
+      ErrorService.showError(context, error.toString());
+    });
+  }
+
+  void showLaunchInfo(){
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return ContentDialog(
+          title: Text("Informations de lancement"),
+          content:SizedBox(
+            height: 200,
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text("Lancer le jeu (Fast Launcher)", style: FluentTheme.of(context).typography.subtitle,),
+            Text("Lance le jeu en mode fast launcher ce qui permet de passer outre la vidéo d'intro du pack et le choix du jeu. Seulement disponible pour certains jeux."),
+            SizedBox(height: 10),
+            Text("Lancer le pack", style: FluentTheme.of(context).typography.subtitle,),
+            Text("Lance le pack avec le launcher normal. Cela lance le pack normalement."),
+          ])),
+          actions: [
+            TextButton(
+              child: Text("Fermer"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Widget _buildGameTags() {

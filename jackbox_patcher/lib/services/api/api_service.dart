@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:http/http.dart';
 import 'package:jackbox_patcher/model/jackboxgame.dart';
 import 'package:jackbox_patcher/model/jackboxpatch.dart';
+import 'package:jackbox_patcher/model/news.dart';
 
 import '../../model/gametag.dart';
 import '../../model/jackboxpack.dart';
@@ -19,6 +20,7 @@ class APIService {
 
   List<JackboxPack> cachedPacks = [];
   List<GameTag> cachedTags = [];
+  List<News> cachedNews = [];
   // Build factory
   factory APIService() {
     return _instance;
@@ -40,6 +42,17 @@ class APIService {
     }
   }
 
+  Future<void> recoverNewsAndLinks()async{
+    final response =
+        await get(Uri.parse('$baseEndpoint' + APIEndpoints.WELCOME.path));
+    if (response.statusCode == 200) {
+      final Map<dynamic, dynamic> welcome = jsonDecode(response.body);
+      cachedNews = welcome["news"].map<News>((news) => News.fromJson(news)).toList();
+    } else {
+      throw Exception('Failed to load welcome');
+    }
+  }
+
   // Get packs
   List<JackboxPack> getPacks() {
     return cachedPacks;
@@ -48,17 +61,6 @@ class APIService {
   // Get tags
   List<GameTag> getTags() {
     return cachedTags;
-  }
-
-  Future<String> getWelcome() async {
-    final response =
-        await get(Uri.parse('$baseEndpoint' + APIEndpoints.WELCOME.path));
-    if (response.statusCode == 200) {
-      final Map<dynamic, dynamic> welcome = jsonDecode(response.body);
-      return welcome["data"];
-    } else {
-      throw Exception('Failed to load welcome');
-    }
   }
 
   // Download patch

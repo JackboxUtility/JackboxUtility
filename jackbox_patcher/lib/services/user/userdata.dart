@@ -21,7 +21,6 @@ class UserData {
   }
 
   List<UserJackboxPack> packs = [];
-  String welcomeMessage = "";
 
   /// Sync every pack on the server.
   ///
@@ -69,7 +68,7 @@ class UserData {
 
   /// Sync the welcome message from the server
   Future<void> syncWelcomeMessage() async {
-    welcomeMessage = await APIService().getWelcome();
+    await APIService().recoverNewsAndLinks();
   }
 
   /// Save pack (mostly used when the path parameter is changed)

@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpatch.dart';
+import 'package:jackbox_patcher/services/error/error.dart';
 import 'package:jackbox_patcher/services/launcher/launcher.dart';
 import 'package:palette_generator/palette_generator.dart';
 
@@ -139,16 +140,23 @@ class _PatchCardState extends State<PatchCard> {
                       onPressed: () async {
                         downloadingProgress = 1;
                         setState(() {});
-                        await widget.patch.downloadPatch(
+                        widget.patch.downloadPatch(
                             widget.pack.path!, widget.game.game.path!,
                             (String stat, String substat, double progress) {
                           status = stat;
                           substatus = substat;
                           progression = progress;
                           setState(() {});
-                        });
-                        downloadingProgress = 2;
-                        setState(() {});
+                        })
+                        .then((_) {
+                            downloadingProgress = 2;
+                            setState(() {});
+                          })
+                          .catchError((error){
+                            ErrorService.showError(context, error);
+                            Navigator.pop(context);
+                          });
+                        
                       },
                       child: Text("Continuer"),
                     ),
@@ -377,7 +385,11 @@ class _GameImageWithOpenerState extends State<GameImageWithOpener> {
                   borderRadius: BorderRadius.circular(8.0),
                   child: IntrinsicWidth(
                       child: GestureDetector(
-                        onSecondaryTap:()=>Launcher.launchGame(widget.pack, widget.game),
+                        onSecondaryTap:()async{
+                          Launcher.launchGame(widget.pack, widget.game)
+                              .then((value) => setState(() {}))
+                              .catchError((e) => ErrorService.showError(context, e.toString()));
+                        },
                         onTap:()=>Navigator.pushNamed(context, "/game", arguments: [widget.pack,widget.game]),
                         child: MouseRegion(
                           onEnter: (a) => setState(() {
