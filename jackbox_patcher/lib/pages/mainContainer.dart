@@ -1,4 +1,5 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:jackbox_patcher/components/menu.dart';
 import 'package:jackbox_patcher/pages/parameters/parameters.dart';
 import 'package:jackbox_patcher/pages/patcher/pack.dart';
@@ -6,6 +7,7 @@ import 'package:jackbox_patcher/model/jackboxpack.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 import 'package:lottie/lottie.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../model/news.dart';
 
@@ -60,7 +62,19 @@ class _MainContainerState extends State<MainContainer> {
   }
 
   Widget _buildNotificationWidget(News news){
-    return Container(
+    return ClipRRect(
+      borderRadius: BorderRadius.all(Radius.circular(8)),
+      child: GestureDetector(
+        onTap:(){
+          showDialog(context: context, builder: (context) => ContentDialog(
+            title: Text(news.title),
+            content: Markdown(data:news.content, onTapLink: (text, href, title) => launchUrl(Uri.dataFromString(href!))),
+            actions: [TextButton(onPressed: () => Navigator.pop(context), child: Text("Fermer"))]
+          ));
+        },
+        child: 
+        Container(
+      color: FluentTheme.of(context).cardColor,
       width: 300,
       height: 100,
       child: Row(children: [
@@ -68,16 +82,17 @@ class _MainContainerState extends State<MainContainer> {
           width: 100,
           height: 100,
           child: Image.network(APIService().assetLink(news.image)),
-        ),
+        ), 
         Container(
+          padding: EdgeInsets.all(10),
           width: 200,
           height: 100,
-          child: Column(children: [
-            Text(news.title),
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text(news.title, style: FluentTheme.of(context).typography.subtitle),
             Text(news.smallDescription)
           ],),
         )
-      ],),
+      ])))
     );
   }
 
