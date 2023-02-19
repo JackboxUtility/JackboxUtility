@@ -120,4 +120,12 @@ class UserData {
     File logFile = File("./logs.txt");
     await logFile.writeAsString(logs);
   }
+
+  String? getLastNewsReaden(){
+    return preferences.getString("last_news_readen");
+  }
+
+  void setLastNewsReaden(String lastNewsReadenId){
+    preferences.setString("last_news_readen",lastNewsReadenId);
+  }
 }

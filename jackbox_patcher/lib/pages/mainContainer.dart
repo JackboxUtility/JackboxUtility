@@ -38,62 +38,91 @@ class _MainContainerState extends State<MainContainer> {
 
   Widget build(BuildContext context) {
     return NavigationView(
-        content: Stack(children: [ 
-          Positioned(child: GestureDetector(
-            onTap: () {
-              _openNotificationsWindow();
-            },
-            child: Icon(FluentIcons.ringer, color: Colors.white, size:30)), top: 10, right: 10),
-         Column(children: [
-      Expanded(
-        child: _buildUpper(),
-      ),
-      _buildLower(),
-    ])]));
+        content: Stack(children: [
+      Positioned(
+          top: 10,
+          right: 10,
+          child: GestureDetector(
+              onTap: () {
+                _openNotificationsWindow();
+              },
+              child: Icon(
+                  APIService().cachedNews[0].id ==
+                          UserData().getLastNewsReaden()
+                      ? FluentIcons.ringer
+                      : FluentIcons.ringer_active,
+                  color: Colors.white,
+                  size: 30))),
+      Column(children: [
+        Expanded(
+          child: _buildUpper(),
+        ),
+        _buildLower(),
+      ])
+    ]));
   }
 
-  void _openNotificationsWindow(){
-    showDialog(context: context, builder: (context) => ContentDialog(
-      title: Text("Notifications"),
-      content: ListView(children: List.generate(APIService().cachedNews.length, (index) => _buildNotificationWidget(APIService().cachedNews[index]))),
-      actions: [TextButton(onPressed: () => Navigator.pop(context), child: Text("Fermer"))]
-    )
-    );
+  void _openNotificationsWindow() {
+    UserData().setLastNewsReaden(APIService().cachedNews[0].id);
+    showDialog(
+        context: context,
+        builder: (context) => ContentDialog(
+                title: Text("Notifications"),
+                content: ListView(
+                    children: List.generate(
+                        APIService().cachedNews.length,
+                        (index) => _buildNotificationWidget(
+                            APIService().cachedNews[index]))),
+                actions: [
+                  TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: Text("Fermer"))
+                ])).then((value) => setState(() {}));
   }
 
-  Widget _buildNotificationWidget(News news){
+  Widget _buildNotificationWidget(News news) {
     return ClipRRect(
-      borderRadius: BorderRadius.all(Radius.circular(8)),
-      child: GestureDetector(
-        onTap:(){
-          showDialog(context: context, builder: (context) => ContentDialog(
-            title: Text(news.title),
-            content: Markdown(data:news.content, onTapLink: (text, href, title) => launchUrl(Uri.dataFromString(href!))),
-            actions: [TextButton(onPressed: () => Navigator.pop(context), child: Text("Fermer"))]
-          ));
-        },
-        child: 
-        Container(
-      color: FluentTheme.of(context).cardColor,
-      width: 300,
-      height: 100,
-      child: Row(children: [
-        Container(
-          width: 100,
-          height: 100,
-          child: Image.network(APIService().assetLink(news.image)),
-        ), 
-        Container(
-          padding: EdgeInsets.all(10),
-          width: 200,
-          height: 100,
-          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text(news.title, style: FluentTheme.of(context).typography.subtitle),
-            Text(news.smallDescription)
-          ],),
-        )
-      ])))
-    );
+        borderRadius: BorderRadius.all(Radius.circular(8)),
+        child: GestureDetector(
+            onTap: () {
+              showDialog(
+                  context: context,
+                  builder: (context) => ContentDialog(
+                          title: Text(news.title),
+                          content: Markdown(
+                              data: news.content,
+                              onTapLink: (text, href, title) =>
+                                  launchUrl(Uri.dataFromString(href!))),
+                          actions: [
+                            TextButton(
+                                onPressed: () => Navigator.pop(context),
+                                child: Text("Fermer"))
+                          ]));
+            },
+            child: Container(
+                color: FluentTheme.of(context).cardColor,
+                width: 300,
+                height: 100,
+                child: Row(children: [
+                  Container(
+                    width: 100,
+                    height: 100,
+                    child: Image.network(APIService().assetLink(news.image)),
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(10),
+                    width: 200,
+                    height: 100,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(news.title,
+                            style: FluentTheme.of(context).typography.subtitle),
+                        Text(news.smallDescription)
+                      ],
+                    ),
+                  )
+                ]))));
   }
 
   Widget _buildUpper() {
@@ -196,14 +225,7 @@ class _MainContainerState extends State<MainContainer> {
   }
 
   Widget _buildLower() {
-    return Column(children: [
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset("assets/logos/discord-mark-white.png", height: 30),
-        ],
-      )
-    ]);
+    return Container();
   }
 
   void _load() async {

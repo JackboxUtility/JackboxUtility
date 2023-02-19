@@ -246,6 +246,24 @@
                 }
             },
             {
+                "id":"thedevilsandthedetails",
+                "name":"The devils and the details",
+                "small_description":"Traduisez votre jeu en Français !",
+                "description":"Traduisez votre jeu en français avec du texte et des voix !\n\nCe patch est une preview, il peut y avoir certains textes qui sont encore en Anglais mais nous travaillons dessus ! ",
+                "authors":"Alexis, MisterShao et PachatFR",
+                "background":"game_backgrounds/Champdup.webp",
+                "version":"0.1.0",
+                "path":"games/Everyday",
+                "patch_path":"patchs/thedevilsandthedetails_0.1.0.zip",
+                "patch_type":{
+                    "game_text":true,
+                    "game_assets":true,
+                    "game_subtitles":false,
+                    "website":true,
+                    "audios":true
+                }
+            },
+            {
                 "id":"talkingpoints",
                 "name":"Talking Points",
                 "small_description":"Traduisez votre jeu en Français !",
