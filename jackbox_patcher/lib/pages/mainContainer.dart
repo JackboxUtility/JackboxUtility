@@ -39,7 +39,7 @@ class _MainContainerState extends State<MainContainer> {
   Widget build(BuildContext context) {
     return NavigationView(
         content: Stack(children: [
-      Positioned(
+      _loaded?Positioned(
           top: 10,
           right: 10,
           child: GestureDetector(
@@ -52,7 +52,7 @@ class _MainContainerState extends State<MainContainer> {
                       ? FluentIcons.ringer
                       : FluentIcons.ringer_active,
                   color: Colors.white,
-                  size: 30))),
+                  size: 30))):Container(),
       Column(children: [
         Expanded(
           child: _buildUpper(),
