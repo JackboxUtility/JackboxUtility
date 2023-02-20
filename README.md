@@ -1,12 +1,19 @@
-# Jackbox Patcher
-
-![image](https://user-images.githubusercontent.com/30233189/206864842-a1282984-8214-4387-bd41-d51d6bbfd982.png)
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/30233189/220177345-b408e0da-9369-42fc-a841-d7232ef7e36b.png" />
+</p>
 
 ## Description 
 
-**Application de patch FR pour les jeux Jackbox**
+**Application de téléchargement de patch français et lanceur de jeux jackbox**
 
-Avec cette application, vous allez pouvoir télécharger les patchs français créés par la communauté Jackbox France et Jackbox International.
+Avec cette application, vous allez pouvoir télécharger les patchs français créés par la communauté.
+Vous allez aussi pouvoir lancer vos jeux jackbox directement depuis l'application.
+
+## Fonctionnalités
+
+- Téléchargez les patchs français
+- Retrouvez tous les jeux Jackbox en un seul et même endroit
+- Lancez vos jeux rapidement tout en évitant l'écran d'intro du pack et l'écran de choix du jeu
 
 ## Installation
 
