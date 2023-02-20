@@ -88,6 +88,132 @@
                     }
                 ]
                 
+            },
+            {
+                "id":"quiplashxl",
+                "name":"Quiplash XL",
+                "background":"game_backgrounds/QuiplashXL.webp",
+                "path":"games/QuiplashXL",
+                "game_info":{
+                    "players":{
+                        "min":3,
+                        "max":8
+                    },
+                    "length":"15 - 20 minutes",
+                    "type":"VERSUS",
+                    "translation":"ENGLISH",
+                    "tagline":"Soyez le plus drôle",
+                    "small_description":"<TBR>",
+                    "description":"<TBR>",
+                    "images":[
+						"game_images/QuiplashXL/quiplashxl_1.webp",
+                        "game_images/QuiplashXL/quiplashxl_2.webp",
+                        "game_images/QuiplashXL/quiplashxl_3.webp",
+                        "game_images/QuiplashXL/quiplashxl_4.webp"
+                    ],
+                    "tags":[
+                    	"writing"
+                    ]
+
+                },
+                "patchs":[
+                    
+                ]
+            },
+            {
+                "id":"fibbage2",
+                "name":"Fibbage2",
+                "background":"game_backgrounds/Fibbage2.webp",
+                "path":"games/Fibbage2",
+                "game_info":{
+                    "players":{
+                        "min":2,
+                        "max":8
+                    },
+                    "length":"15 - 20 minutes",
+                    "type":"VERSUS",
+                    "translation":"ENGLISH",
+                    "tagline":"Soyez le meilleur menteur",
+                    "small_description":"<TBR>",
+                    "description":"<TBR>",
+                    "images":[
+						"game_images/Fibbage2/fibbage2_1.webp",
+                        "game_images/Fibbage2/fibbage2_2.webp",
+                        "game_images/Fibbage2/fibbage2_3.webp",
+                        "game_images/Fibbage2/fibbage2_4.webp"
+                    ],
+                    "tags":[
+                    	"writing",
+                    	"knowledge"
+                    ]
+
+                },
+                "patchs":[
+                    
+                ]
+            },
+            {
+                "id":"earwax",
+                "name":"Earwax",
+                "background":"game_backgrounds/Earwax.webp",
+                "path":"games/Earwax",
+                "game_info":{
+                    "players":{
+                        "min":3,
+                        "max":8
+                    },
+                    "length":"15 - 20 minutes",
+                    "type":"VERSUS",
+                    "translation":"ENGLISH",
+                    "tagline":"Répondez avec beaucoup de bruit",
+                    "small_description":"<TBR>",
+                    "description":"<TBR>",
+                    "images":[
+						"game_images/Earwax/earwax_1.webp",
+                        "game_images/Earwax/earwax_2.webp",
+                        "game_images/Earwax/earwax_3.webp",
+                        "game_images/Earwax/earwax_4.webp"
+                    ],
+                    "tags":[
+                    
+                    ]
+
+                },
+                "patchs":[
+                    
+                ]
+            },
+            {
+                "id":"bidiots",
+                "name":"Bidiots",
+                "background":"game_backgrounds/Bidiots.webp",
+                "path":"games/Bidiots",
+                "game_info":{
+                    "players":{
+                        "min":3,
+                        "max":6
+                    },
+                    "length":"15 - 20 minutes",
+                    "type":"VERSUS",
+                    "translation":"ENGLISH",
+                    "tagline":"C'est l'heure des enchères",
+                    "small_description":"<TBR>",
+                    "description":"<TBR>",
+                    "images":[
+						"game_images/Bidiots/bidiots_1.webp",
+                        "game_images/Bidiots/bidiots_2.webp",
+                        "game_images/Bidiots/bidiots_3.webp",
+                        "game_images/Bidiots/bidiots_4.webp"
+                    ],
+                    "tags":[
+                    	"drawing",
+                    	"deduction"
+                    ]
+
+                },
+                "patchs":[
+                    
+                ]
             }
         ],
         "icon":"jpp2.ico",
