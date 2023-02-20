@@ -48,7 +48,7 @@
                 "description":"Ce patch transforme votre jeu en français !",
                 "authors":"CubicOtter",
                 "background":"game_backgrounds/SurviveTheInternet.webp",
-                "version":"1.0.0",
+                "version":"",
                 "path":"games/SurviveTheInternet",
                 "patch_path":"patchs/survivetheinternet_1.0.0.zip",
                 "patch_type":{
