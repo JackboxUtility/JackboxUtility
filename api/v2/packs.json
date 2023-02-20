@@ -33,6 +33,169 @@
     ],
     "packs":[
     {
+        "id":"jpp1",
+        "name":"Jackbox Party Pack 1",
+        "description":"Le premier party pack de Jackbox",
+        "executables":{
+            "windows":"The Jackbox Party Pack 1.exe",
+            "mac":"The Jackbox Party Pack 1.app/Contents/MacOS/The Jackbox Party Pack 1",
+            "linux":"Launcher.sh"
+        },
+        "games":[
+            {
+                "id":"ydkj2015",
+                "name":"You Don't Know Jack : 2015",
+                "background":"game_backgrounds/YDKJ2015.webp",
+                "path":"games/YDKJ2015",
+                "game_info":{
+                    "players":{
+                        "min":1,
+                        "max":8
+                    },
+                    "length":"15 - 20 minutes",
+                    "type":"VERSUS",
+                    "translation":"ENGLISH",
+                    "tagline":"Participez au plus grand quiz",
+                    "small_description":"<TBR>",
+                    "description":"<TBR>",
+                    "images":[
+						"game_images/YDKJ2015/ydkj2015_1.webp",
+                        "game_images/YDKJ2015/ydkj2015_2.webp",
+                        "game_images/YDKJ2015/ydkj2015_3.webp",
+                        "game_images/YDKJ2015/ydkj2015_4.webp"
+                    ],
+                    "tags":[
+                    	"knowledge"
+                    ]
+
+                },
+                "patchs":[
+                    
+                ]
+            },
+            {
+                "id":"fibbagexl",
+                "name":"Fibbage XL",
+                "background":"game_backgrounds/FibbageXL.webp",
+                "path":"games/FibbageXL",
+                "game_info":{
+                    "players":{
+                        "min":2,
+                        "max":8
+                    },
+                    "length":"15 - 20 minutes",
+                    "type":"VERSUS",
+                    "translation":"ENGLISH",
+                    "tagline":"Que le meilleur menteur gagne !",
+                    "small_description":"<TBR>",
+                    "description":"<TBR>",
+                    "images":[
+						"game_images/FibbageXL/fibbagexl_1.webp",
+                        "game_images/FibbageXL/fibbagexl_2.webp",
+                        "game_images/FibbageXL/fibbagexl_3.webp"
+                    ],
+                    "tags":[
+                    	"writing",
+                    	"knowledge"
+                    ]
+
+                },
+                "patchs":[
+                    
+                ]
+            },
+            {
+                "id":"drawful",
+                "name":"Drawful",
+                "background":"game_backgrounds/Drawful.webp",
+                "path":"games/Drawful",
+                "game_info":{
+                    "players":{
+                        "min":3,
+                        "max":8
+                    },
+                    "length":"15 - 20 minutes",
+                    "type":"VERSUS",
+                    "translation":"ENGLISH",
+                    "tagline":"Vous avez dessiné quoi là ?",
+                    "small_description":"<TBR>",
+                    "description":"<TBR>",
+                    "images":[
+						"game_images/Drawful/drawful_1.webp",
+                        "game_images/Drawful/drawful_2.webp"
+                    ],
+                    "tags":[
+                    	"drawing"
+                    ]
+
+                },
+                "patchs":[
+                    
+                ]
+            },
+            {
+                "id":"wordspud",
+                "name":"Word Spud",
+                "background":"game_backgrounds/WordSpud.webp",
+                "path":"games/WordSpud",
+                "game_info":{
+                    "players":{
+                        "min":2,
+                        "max":8
+                    },
+                    "length":"INFINIIIIIIIIIII",
+                    "type":"VERSUS",
+                    "translation":"ENGLISH",
+                    "tagline":"PASSEZ LA PATATE !",
+                    "small_description":"Passez cette patate",
+                    "description":"# Vous êtes arrivé là ?\n\nBien joué, vous êtes maintenant un joueur hardcore de jackbox, car vous avez réussi à trouver le **meilleur** jeu de Jackbox. Êtes-vous prêt ? Alors lancez le jeu, vous n'allez pas en croire vos yeux.",
+                    "images":[
+						"game_images/WordSpud/wordspud_1.webp",
+                        "game_images/WordSpud/wordspud_2.webp"
+                    ],
+                    "tags":[
+                    	"writing"
+                    ]
+
+                },
+                "patchs":[
+                    
+                ]
+            },
+            {
+                "id":"lieswatter",
+                "name":"Lie Swatter",
+                "background":"game_backgrounds/LieSwatter.webp",
+                "path":"games/LieSwatter",
+                "game_info":{
+                    "players":{
+                        "min":1,
+                        "max":100
+                    },
+                    "length":"INFINIIIIIIIIIIIIIII",
+                    "type":"VERSUS",
+                    "translation":"ENGLISH",
+                    "tagline":"C'est vrai ou c'est faux ?",
+                    "small_description":"<TBR>",
+                    "description":"<TBR>",
+                    "images":[
+						"game_images/LieSwatter/lieswatter_1.webp",
+                        "game_images/LieSwatter/lieswatter_2.webp"
+                    ],
+                    "tags":[
+                    	"knowledge"
+                    ]
+
+                },
+                "patchs":[
+                    
+                ]
+            }
+        ],
+        "icon":"jpp1.ico",
+        "background":"backgrounds/jpp1.jpg"
+    },
+    {
         "id":"jpp2",
         "name":"Jackbox Party Pack 2",
         "description":"Le deuxième party pack de Jackbox",
