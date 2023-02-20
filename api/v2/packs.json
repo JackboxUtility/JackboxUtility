@@ -248,6 +248,69 @@
                         }
                     }
                 ]
+            },
+            {
+                "id":"fibbage3",
+                "name":"Fibbage 3",
+                "background":"game_backgrounds/Fibbage3.webp",
+                "path":"games/Fibbage3",
+                "game_info":{
+                    "players":{
+                        "min":2,
+                        "max":8
+                    },
+                    "length":"15 - 20 minutes",
+                    "type":"VERSUS",
+                    "translation":"ENGLISH",
+                    "tagline":"Soyez le meilleur menteur",
+                    "small_description":"<TBR>",
+                    "description":"<TBR>",
+                    "images":[
+			"game_images/Fibbage3/fibbage3_1.webp",
+                        "game_images/Fibbage3/fibbage3_2.webp",
+                        "game_images/Fibbage3/fibbage3_3.webp",
+                        "game_images/Fibbage3/fibbage3_4.webp"
+                    ],
+                    "tags":[
+                    	"writing",
+                        "knowledge"
+                    ]
+
+                },
+                "patchs":[
+                    
+                ]
+            },
+            {
+                "id":"civicdoodle",
+                "name":"Civic Doodle",
+                "background":"game_backgrounds/CivicDoodle.webp",
+                "path":"games/CivicDoodle",
+                "game_info":{
+                    "players":{
+                        "min":3,
+                        "max":8
+                    },
+                    "length":"Environ 20 minutes",
+                    "type":"VERSUS",
+                    "translation":"ENGLISH",
+                    "tagline":"Combinez vos dessins",
+                    "small_description":"<TBR>",
+                    "description":"<TBR>",
+                    "images":[
+			"game_images/CivicDoodle/civicdoodle_1.webp",
+                        "game_images/CivicDoodle/civicdoodle_2.webp",
+                        "game_images/CivicDoodle/civicdoodle_3.webp",
+                        "game_images/CivicDoodle/civicdoodle_4.webp"
+                    ],
+                    "tags":[
+                    	"drawing"
+                    ]
+
+                },
+                "patchs":[
+                    
+                ]
             }
         ],
         "icon":"jpp4.ico",
