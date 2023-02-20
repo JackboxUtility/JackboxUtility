@@ -94,6 +94,177 @@
         "background":"backgrounds/jpp2.jpg"
     },
     {
+        "id":"jpp3",
+        "name":"Jackbox Party Pack 3",
+        "description":"Le troisième party pack de Jackbox",
+        "executables":{
+            "windows":"The Jackbox Party Pack 3.exe",
+            "mac":"The Jackbox Party Pack 3.app/Contents/MacOS/The Jackbox Party Pack 3",
+            "linux":"Launcher.sh"
+        },
+        "games":[
+            {
+                "id":"fakinit",
+                "name":"Fakin' It",
+                "background":"game_backgrounds/FakinIt.webp",
+                "path":"games/FakinIt",
+                "game_info":{
+                    "players":{
+                        "min":3,
+                        "max":6
+                    },
+                    "length":"15 - 20 minutes",
+                    "type":"VERSUS",
+                    "translation":"ENGLISH",
+                    "tagline":"Trouvez le faker",
+                    "small_description":"<TBR>",
+                    "description":"<TBR>",
+                    "images":[
+						"game_images/FakinIt/fakinit_1.webp",
+                        "game_images/FakinIt/fakinit_2.webp",
+                        "game_images/FakinIt/fakinit_3.webp",
+                        "game_images/FakinIt/fakinit_4.webp"
+                    ],
+                    "tags":[
+                    	"deduction",
+                    	"talking
+                    ]
+
+                },
+                "patchs":[
+                    
+                ]
+            },
+            {
+                "id":"quiplash2",
+                "name":"Quiplash 2",
+                "background":"game_backgrounds/Quiplash2.webp",
+                "path":"games/Quiplash2",
+                "game_info":{
+                    "players":{
+                        "min":3,
+                        "max":8
+                    },
+                    "length":"15 minutes",
+                    "type":"VERSUS",
+                    "translation":"ENGLISH",
+                    "tagline":"Soyez le plus drôle",
+                    "small_description":"<TBR>",
+                    "description":"<TBR>",
+                    "images":[
+						"game_images/Quiplash2/quiplash2_1.webp",
+                        "game_images/Quiplash2/quiplash2_2.webp",
+                        "game_images/Quiplash2/quiplash2_3.webp",
+                        "game_images/Quiplash2/quiplash2_4.webp"
+                    ],
+                    "tags":[
+                    	"writing"
+                    ]
+
+                },
+                "patchs":[
+                    
+                ]
+            },
+            {
+                "id":"triviamurderparty",
+                "name":"Trivia Murder Party",
+                "background":"game_backgrounds/TriviaMurderParty.webp",
+                "path":"games/TriviaMurderParty",
+                "game_info":{
+                    "players":{
+                        "min":1,
+                        "max":8
+                    },
+                    "length":"15 - 20 minutes",
+                    "type":"VERSUS",
+                    "translation":"ENGLISH",
+                    "tagline":"Survivrez-vous à ce quiz ?",
+                    "small_description":"<TBR>",
+                    "description":"<TBR>",
+                    "images":[
+						"game_images/TriviaMurderParty/triviamurderparty_1.webp",
+                        "game_images/TriviaMurderParty/triviamurderparty_2.webp",
+                        "game_images/TriviaMurderParty/triviamurderparty_3.webp",
+                        "game_images/TriviaMurderParty/triviamurderparty_4.webp"
+                    ],
+                    "tags":[
+                    	"knowledge"
+                    ]
+
+                },
+                "patchs":[
+                    
+                ]
+            },
+            {
+                "id":"teeko",
+                "name":"TEE K.O.",
+                "background":"game_backgrounds/TeeKO.webp",
+                "path":"games/TeeKO",
+                "game_info":{
+                    "players":{
+                        "min":3,
+                        "max":8
+                    },
+                    "length":"15 - 20 minutes",
+                    "type":"VERSUS",
+                    "translation":"ENGLISH",
+                    "tagline":"Créez vos meilleurs tee-shirts !",
+                    "small_description":"<TBR>",
+                    "description":"<TBR>",
+                    "images":[
+						"game_images/TeeKO/teeko_1.webp",
+                        "game_images/TeeKO/teeko_2.webp",
+                        "game_images/TeeKO/teeko_3.webp",
+                        "game_images/TeeKO/teeko_4.webp"
+                    ],
+                    "tags":[
+                    	"drawing",
+                    	"writing"
+                    ]
+
+                },
+                "patchs":[
+                    
+                ]
+            },
+            {
+                "id":"guesspionage",
+                "name":"Guesspionage",
+                "background":"game_backgrounds/Guesspionage.webp",
+                "path":"games/Guesspionage",
+                "game_info":{
+                    "players":{
+                        "min":2,
+                        "max":8
+                    },
+                    "length":"10 - 15 minutes",
+                    "type":"VERSUS",
+                    "translation":"ENGLISH",
+                    "tagline":"Trouvez le pourcentage parfait !",
+                    "small_description":"<TBR>",
+                    "description":"<TBR>",
+                    "images":[
+						"game_images/Guesspionage/guesspionage_1.webp",
+                        "game_images/Guesspionage/guesspionage_2.webp",
+                        "game_images/Guesspionage/guesspionage_3.webp",
+                        "game_images/Guesspionage/guesspionage_4.webp"
+                    ],
+                    "tags":[
+                    	"deduction"
+                    ]
+
+                },
+                "patchs":[
+                    
+                ]
+            }
+        ],
+        "icon":"jpp3.ico",
+        "background":"backgrounds/jpp3.jpg"
+    },
+    {
         "id":"jpp4",
         "name":"Jackbox Party Pack 4",
         "description":"Le quatrième party pack de Jackbox",
