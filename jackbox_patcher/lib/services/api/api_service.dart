@@ -14,9 +14,9 @@ import 'api_endpoints.dart';
 class APIService {
   static final APIService _instance = APIService._internal();
   final String baseEndpoint =
-      "https://alexisl61.github.io/JackboxPatcherFR/api/v2";
+      "https://alexisl61.github.io/JackboxUtility/api/v2";
   final String baseAssets =
-      "https://alexisl61.github.io/JackboxPatcherFR/assets";
+      "https://alexisl61.github.io/JackboxUtility/assets";
 
   List<JackboxPack> cachedPacks = [];
   List<GameTag> cachedTags = [];
@@ -49,7 +49,7 @@ class APIService {
       final Map<dynamic, dynamic> welcome = jsonDecode(response.body);
       cachedNews = welcome["news"].map<News>((news) => News.fromJson(news)).toList();
     } else {
-      throw Exception('Failed to load welcome');
+      //throw Exception('Failed to load welcome');
     }
   }
 
