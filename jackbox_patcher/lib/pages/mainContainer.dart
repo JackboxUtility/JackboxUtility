@@ -72,7 +72,7 @@ class _MainContainerState extends State<MainContainer> {
                     children: List.generate(
                         APIService().cachedNews.length,
                         (index) => _buildNotificationWidget(
-                            APIService().cachedNews[index]))),
+                            APIService().cachedNews[index])).expand((w)=>[w,SizedBox(height:10)]).toList()),
                 actions: [
                   TextButton(
                       onPressed: () => Navigator.pop(context),
