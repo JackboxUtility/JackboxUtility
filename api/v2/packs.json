@@ -1753,7 +1753,7 @@
                     "translation":"FRENCH",
                     "tagline":"Bluffez vos amis",
                     "small_description":"Bienvenue dans Fibbage 4, le jeu où vous allez devoir mentir et faire tomber des personnes dans le panneau pour gagner des points.",
-                    "description":"# Fibbage quatre...\n\n Dans fibbage 4, vous allez devoir compléter des anecdotes. Chaque réponse à une anecdote et montré aux joueurs ainsi que la vraie réponse. Le but est de trouver la vérité sans tomber sur les réponses adverses.\n\nEn plus des anecdotes classiques, vous trouverez aussi des anecdotes sous format vidéo et le Fibbage final ou vous devrez remplir 2 anecdotes en même temps.\n\nQui sera le meilleur menteur ?",
+                    "description":"# Fibbage quatre...\n\n Dans fibbage 4, vous allez devoir compléter des anecdotes. Chaque joueur va devoir imaginer une réponse à l'anecdote. En seconde partie, les réponses de chaque joueur est montré ainsi que la **vraie** réponse ! Le but est de trouver la vérité sans tomber sur les réponses adverses.\n\nEn plus des anecdotes classiques, vous trouverez aussi des anecdotes sous format vidéo et le Fibbage final ou vous devrez remplir 2 anecdotes en même temps.\n\nQui sera le meilleur menteur ?",
                     "images":[
 			"game_images/Fibbage4/fibbage4_1.jpg",
                         "game_images/Fibbage4/fibbage4_2.jpg",
