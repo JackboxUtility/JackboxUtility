@@ -39,20 +39,22 @@ class _MainContainerState extends State<MainContainer> {
   Widget build(BuildContext context) {
     return NavigationView(
         content: Stack(children: [
-      _loaded?Positioned(
-          top: 10,
-          right: 10,
-          child: GestureDetector(
-              onTap: () {
-                _openNotificationsWindow();
-              },
-              child: Icon(
-                  APIService().cachedNews[0].id ==
-                          UserData().getLastNewsReaden()
-                      ? FluentIcons.ringer
-                      : FluentIcons.ringer_active,
-                  color: Colors.white,
-                  size: 30))):Container(),
+      _loaded
+          ? Positioned(
+              top: 10,
+              right: 10,
+              child: GestureDetector(
+                  onTap: () {
+                    _openNotificationsWindow();
+                  },
+                  child: Icon(
+                      APIService().cachedNews[0].id ==
+                              UserData().getLastNewsReaden()
+                          ? FluentIcons.ringer
+                          : FluentIcons.ringer_active,
+                      color: Colors.white,
+                      size: 30)))
+          : Container(),
       Column(children: [
         Expanded(
           child: _buildUpper(),
@@ -70,9 +72,11 @@ class _MainContainerState extends State<MainContainer> {
                 title: Text("Notifications"),
                 content: ListView(
                     children: List.generate(
-                        APIService().cachedNews.length,
-                        (index) => _buildNotificationWidget(
-                            APIService().cachedNews[index])).expand((w)=>[w,SizedBox(height:10)]).toList()),
+                            APIService().cachedNews.length,
+                            (index) => _buildNotificationWidget(
+                                APIService().cachedNews[index]))
+                        .expand((w) => [w, SizedBox(height: 10)])
+                        .toList()),
                 actions: [
                   TextButton(
                       onPressed: () => Navigator.pop(context),
@@ -92,7 +96,7 @@ class _MainContainerState extends State<MainContainer> {
                           content: Markdown(
                               data: news.content,
                               onTapLink: (text, href, title) =>
-                                  launchUrl(Uri.dataFromString(href!))),
+                                  launchUrl(Uri.parse(href!))),
                           actions: [
                             TextButton(
                                 onPressed: () => Navigator.pop(context),
