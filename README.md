@@ -12,8 +12,8 @@ Vous allez aussi pouvoir lancer vos jeux jackbox directement depuis l'applicatio
 ## Fonctionnalités
 
 - Téléchargez les patchs français
-- Retrouvez tous les jeux Jackbox en un seul et même endroit (bientôt)
-- Lancez vos jeux rapidement tout en évitant l'écran d'intro du pack et l'écran de choix du jeu (bientôt)
+- Retrouvez tous les jeux Jackbox en un seul et même endroit
+- Lancez vos jeux rapidement tout en évitant l'écran d'intro du pack et l'écran de choix du jeu
 
 ## Installation
 
