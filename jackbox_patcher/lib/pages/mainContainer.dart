@@ -6,6 +6,7 @@ import 'package:jackbox_patcher/pages/parameters/parameters.dart';
 import 'package:jackbox_patcher/pages/patcher/pack.dart';
 import 'package:jackbox_patcher/model/jackboxpack.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
+import 'package:jackbox_patcher/services/device/device.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 import 'package:lottie/lottie.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -169,50 +170,54 @@ class _MainContainerState extends State<MainContainer> {
                                 style: TextStyle(color: Colors.white))
                           ])))),
           SizedBox(height: 10),
-          !kIsWeb? MouseRegion(
-              cursor: SystemMouseCursors.click,
-              child: FilledButton(
-                  style: ButtonStyle(
-                      backgroundColor: ButtonState.all(Colors.blue),
-                      shape: ButtonState.all(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0)))),
-                  onPressed: () {
-                    Navigator.pushNamed(context, "/patch");
-                  },
-                  child: Container(
-                      width: 300,
-                      height: 20,
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(FluentIcons.download, color: Colors.white),
-                            SizedBox(width: 10),
-                            Text("Patcher un jeu",
-                                style: TextStyle(color: Colors.white))
-                          ])))):SizedBox(height: 0),
+          !DeviceService.isWeb()
+              ? MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child: FilledButton(
+                      style: ButtonStyle(
+                          backgroundColor: ButtonState.all(Colors.blue),
+                          shape: ButtonState.all(RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.0)))),
+                      onPressed: () {
+                        Navigator.pushNamed(context, "/patch");
+                      },
+                      child: Container(
+                          width: 300,
+                          height: 20,
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(FluentIcons.download, color: Colors.white),
+                                SizedBox(width: 10),
+                                Text("Patcher un jeu",
+                                    style: TextStyle(color: Colors.white))
+                              ]))))
+              : SizedBox(height: 0),
           SizedBox(height: 30),
-          !kIsWeb? MouseRegion(
-              cursor: SystemMouseCursors.click,
-              child: FilledButton(
-                  style: ButtonStyle(
-                      backgroundColor: ButtonState.all(Colors.grey),
-                      shape: ButtonState.all(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0)))),
-                  onPressed: () {
-                    Navigator.pushNamed(context, "/settings",
-                        arguments: UserData().packs);
-                  },
-                  child: Container(
-                      width: 300,
-                      height: 20,
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(FluentIcons.settings, color: Colors.white),
-                            SizedBox(width: 10),
-                            Text("Paramètres",
-                                style: TextStyle(color: Colors.white))
-                          ])))):SizedBox(height: 0)
+          !DeviceService.isWeb()
+              ? MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child: FilledButton(
+                      style: ButtonStyle(
+                          backgroundColor: ButtonState.all(Colors.grey),
+                          shape: ButtonState.all(RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.0)))),
+                      onPressed: () {
+                        Navigator.pushNamed(context, "/settings",
+                            arguments: UserData().packs);
+                      },
+                      child: Container(
+                          width: 300,
+                          height: 20,
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(FluentIcons.settings, color: Colors.white),
+                                SizedBox(width: 10),
+                                Text("Paramètres",
+                                    style: TextStyle(color: Colors.white))
+                              ]))))
+              : SizedBox(height: 0)
         ]));
   }
 
