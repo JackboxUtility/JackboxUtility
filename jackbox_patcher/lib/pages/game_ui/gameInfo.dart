@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:jackbox_patcher/components/caroussel.dart';
 import 'package:jackbox_patcher/model/jackboxgame.dart';
@@ -177,7 +178,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                         child: Column(children: [
                           Text(widget.game.game.info.smallDescription),
                           SizedBox(height: 10),
-                          _buildPlayButton(),
+                          !kIsWeb?_buildPlayButton():SizedBox(height:0),
                         ]))
                   ],
                 ))));

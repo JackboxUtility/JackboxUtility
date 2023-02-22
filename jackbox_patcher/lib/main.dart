@@ -2,6 +2,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/pages/mainContainer.dart';
 import 'package:jackbox_patcher/pages/search_ui/searchGames.dart';
 import 'package:jackbox_patcher/pages/search_ui/searchGamesMenu.dart';
+import 'package:jackbox_patcher/services/api/api_service.dart';
 
 import 'pages/game_ui/gameInfo.dart';
 import 'pages/parameters/parameters.dart';
@@ -31,15 +32,19 @@ class MyApp extends StatelessWidget {
         // When navigating to the "/" route, build the FirstScreen widget.
         '/': (context) => MainContainer(),
         // When navigating to the "/second" route, build the SecondScreen widget.
-        '/settings':(context) => ParametersRoute(),
-        '/game': (context) => GameInfoRoute(),
-        '/search': (context) => SearchGameRoute(),
-        '/searchMenu':(context) => SearchGameMenuWidget(),
-        '/patch':(context) => PatcherMenuWidget()
+        '/settings':(context) => showMainContainerIfNotLoaded(ParametersRoute()),
+        '/game': (context) => showMainContainerIfNotLoaded(GameInfoRoute()),
+        '/search': (context) => showMainContainerIfNotLoaded(SearchGameRoute()),
+        '/searchMenu':(context) => showMainContainerIfNotLoaded(SearchGameMenuWidget()),
+        '/patch':(context) => showMainContainerIfNotLoaded(PatcherMenuWidget())
       },
       themeMode: ThemeMode.dark,
       title: 'Flutter Demo',
     );
+  }
+
+  Widget showMainContainerIfNotLoaded(Widget widgetIfLoaded){
+    return APIService().cachedPacks.isNotEmpty ? widgetIfLoaded : MainContainer();
   }
 }
 
