@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:jackbox_patcher/services/launcher/launcher.dart';
 
 import 'jackboxgame.dart';
@@ -48,10 +49,10 @@ class JackboxPack {
     if (json == null) {
       return null;
     } else {
-      if (Platform.isWindows) {
+      if (defaultTargetPlatform == TargetPlatform.windows) {
         return json['windows'];
       } else {
-        if (Platform.isMacOS) {
+        if (defaultTargetPlatform == TargetPlatform.macOS) {
           return json['mac'];
         } else {
           return json['linux'];
