@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
         '/patch':(context) => showMainContainerIfNotLoaded(PatcherMenuWidget())
       },
       themeMode: ThemeMode.dark,
-      title: 'Flutter Demo',
+      title: 'Jackbox Utility',
     );
   }
 
