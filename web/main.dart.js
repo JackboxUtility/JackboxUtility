@@ -84934,7 +84934,7 @@ s.e=B.e.c2(s.e+1,s.a.c.length)},
 $S:0}
 A.Q4.prototype={
 K(a){var s=this,r=null,q=$.a2l(),p=$.co()
-return new A.zR(A.aIs(q,B.a8,new A.pW(r,r,r,r,p.giZ().a>=11520?2:0,r),B.GB),B.Gp,A.aM(["/",new A.aeW(),"/settings",new A.aeX(s),"/game",new A.aeY(s),"/search",new A.aeZ(s),"/searchMenu",new A.af_(s),"/patch",new A.af0(s)],t.N,t.Ab),"/","Flutter Demo",r)}}
+return new A.zR(A.aIs(q,B.a8,new A.pW(r,r,r,r,p.giZ().a>=11520?2:0,r),B.GB),B.Gp,A.aM(["/",new A.aeW(),"/settings",new A.aeX(s),"/game",new A.aeY(s),"/search",new A.aeZ(s),"/searchMenu",new A.af_(s),"/patch",new A.af0(s)],t.N,t.Ab),"/","Jackbox Utility",r)}}
 A.aeW.prototype={
 $1(a){return new A.is(null)},
 $S:528}
