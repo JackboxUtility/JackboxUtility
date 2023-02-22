@@ -1,4 +1,5 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:jackbox_patcher/components/menu.dart';
 import 'package:jackbox_patcher/pages/parameters/parameters.dart';
@@ -168,7 +169,7 @@ class _MainContainerState extends State<MainContainer> {
                                 style: TextStyle(color: Colors.white))
                           ])))),
           SizedBox(height: 10),
-          MouseRegion(
+          !kIsWeb? MouseRegion(
               cursor: SystemMouseCursors.click,
               child: FilledButton(
                   style: ButtonStyle(
@@ -188,9 +189,9 @@ class _MainContainerState extends State<MainContainer> {
                             SizedBox(width: 10),
                             Text("Patcher un jeu",
                                 style: TextStyle(color: Colors.white))
-                          ])))),
+                          ])))):SizedBox(height: 0),
           SizedBox(height: 30),
-          MouseRegion(
+          !kIsWeb? MouseRegion(
               cursor: SystemMouseCursors.click,
               child: FilledButton(
                   style: ButtonStyle(
@@ -211,7 +212,7 @@ class _MainContainerState extends State<MainContainer> {
                             SizedBox(width: 10),
                             Text("Paramètres",
                                 style: TextStyle(color: Colors.white))
-                          ]))))
+                          ])))):SizedBox(height: 0)
         ]));
   }
 
