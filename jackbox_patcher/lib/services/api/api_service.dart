@@ -14,9 +14,9 @@ import 'api_endpoints.dart';
 class APIService {
   static final APIService _instance = APIService._internal();
   final String baseEndpoint =
-      "https://alexisl61.github.io/JackboxUtility/api/v2";
+      "https://games.jbfr.fr/api/v2";
   final String baseAssets =
-      "https://alexisl61.github.io/JackboxUtility/assets";
+      "https://games.jbfr.fr/assets";
 
   List<JackboxPack> cachedPacks = [];
   List<GameTag> cachedTags = [];
