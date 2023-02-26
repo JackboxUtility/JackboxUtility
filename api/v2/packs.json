@@ -239,7 +239,7 @@
                         "small_description":"[PREVIEW] Traduisez votre jeu en français",
                         "description":"Le patch complet arrive bientôt. Vous pouvez toujours télécharger la preview mais gardez à l'esprit que la traduction n'est pas terminée. Avec cette preview, vous pouvez aller jusqu'au jour 8 sans soucis de traduction (sauf pour la bombe de tutoriel).",
                         "authors":"Alexis",
-                        "version":"0.1.0",
+                        "version":"0.1.0_credits",
                         "patch_path":"patchs/bombcorp_0.1.0.zip",
                         "patch_type":{
                             "game_text":true,
@@ -599,7 +599,7 @@
                         "small_description":"Traduisez votre jeu en Français !",
                         "description":"Ce patch transforme votre jeu en français !",
                         "authors":"CubicOtter",
-                        "version":"1.0.0",
+                        "version":"",
                         "path":"games/SurviveTheInternet",
                         "patch_path":"patchs/survivetheinternet_1.0.0.zip",
                         "patch_type":{
@@ -648,7 +648,7 @@
                         "small_description":"Traduisez votre jeu en Français !",
                         "description":"Ce patch traduit votre jeu en français !",
                         "authors":"Fizzrocks et Alexis",
-                        "version":"1.0.0",
+                        "version":"1.0.0_credits",
                         "path":"games/MonsterMingle",
                         "patch_path":"patchs/monsterseekingmonster_1.0.0.zip",
                         "patch_type":{
@@ -697,7 +697,7 @@
                         "small_description":"Traduisez votre jeu en Français !",
                         "description":"Ce patch traduit votre jeu en français !",
                         "authors":"FishingGuppy",
-                        "version":"1.0.1",
+                        "version":"1.0.1_credits",
                         "patch_path":"patchs/bracketeering_1.0.1.zip",
                         "patch_type":{
                             "game_text":true,
@@ -932,7 +932,7 @@
                         "name":"[PREVIEW] Split The Room",
                         "small_description":"[PREVIEW] Traduction du jeu en Français",
                         "description":"Le patch complet arrive bientôt. Vous pouvez toujours télécharger la preview mais gardez à l'esprit que la traduction n'est pas terminée. Avec cette preview, le jeu est traduit en français, mais il peut y avoir des fautes. N'hésitez pas à prévenir MisterShaokahn#0765 si il y a des problèmes de traduction",
-                        "version":"0.1.1",
+                        "version":"0.1.1_credits",
                         "authors":"MisterShaokahn#0765",
                         "patch_path":"patchs/splittheroom_0.1.1.zip",
                         "patch_type":{
@@ -985,7 +985,7 @@
                         "name":"Patently Stupid FR",
                         "small_description":"Traduction du jeu en Français",
                         "description":"Ce patch traduit votre jeu en français !",
-                        "version":"1.0.0",
+                        "version":"1.0.0_credits",
                         "authors":"Alexis",
                         "patch_path":"patchs/patentlystupid_1.0.0.zip",
                         "patch_type":{
@@ -1124,7 +1124,7 @@
                         "small_description":"Traduisez votre jeu en Français !",
                         "description":"Ce patch traduit votre jeu en français !",
                         "authors":"CubicOtter",
-                        "version":"1.0.0",
+                        "version":"1.0.0_credits",
                         "patch_path":"patchs/jokeboat_1.0.0.zip",
                         "patch_type":{
                             "game_text":true,
@@ -1174,7 +1174,7 @@
                         "small_description":"Traduisez votre jeu en Français !",
                         "description":"Ce patch traduit votre jeu en français !",
                         "authors":"CubicOtter",
-                        "version":"1.0.0",
+                        "version":"1.0.0_credits",
                         "patch_path":"patchs/dictionarium_1.0.0.zip",
                         "patch_type":{
                             "game_text":true,
@@ -1227,7 +1227,7 @@
                         "small_description":"Traduisez votre jeu en Français !",
                         "description":"Ce patch traduit votre jeu en français !",
                         "authors":"Alexis et Fizzrocks",
-                        "version":"1.0.0",
+                        "version":"1.0.0_credits",
                         "path":"games/PushTheButton",
                         "patch_path":"patchs/pushthebutton_1.0.0.zip",
                         "patch_type":{
@@ -1297,7 +1297,7 @@
                         "small_description":"Traduisez votre jeu en Français !",
                         "description":"Dessinez et envoyez vos combattants au combat",
                         "authors":"CubicOtter",
-                        "version":"1.0.0",
+                        "version":"1.0.0_credits",
                         "patch_path":"patchs/champdup_1.0.0.zip",
                         "patch_type":{
                             "game_text":true,
@@ -1348,7 +1348,7 @@
                         "small_description":"Traduisez votre jeu en Français !",
                         "description":"Parlez et présentez votre pire sujet",
                         "authors":"Alexis",
-                        "version":"1.0.0",
+                        "version":"1.0.0_credits",
                         "patch_path":"patchs/talkingpoints_1.0.0.zip",
                         "patch_type":{
                             "game_text":true,
@@ -1399,7 +1399,7 @@
                         "small_description":"[Preview] Traduisez votre jeu en Français !",
                         "description":"Traduisez votre jeu en français avec du texte et des voix !\n\nCe patch est une preview, il peut y avoir certains textes qui sont encore en Anglais mais nous travaillons dessus !",
                         "authors":"Alexis, MisterShao et PachatFR",
-                        "version":"0.1.0",
+                        "version":"0.1.0_credits",
                         "patch_path":"patchs/thedevilsandthedetails_0.1.0.zip",
                         "patch_type":{
                             "game_text":true,
@@ -1605,7 +1605,7 @@
                         "small_description":"Traduisez votre jeu en Français !",
                         "description":"Utilisez les mots des autres pour gagner des points",
                         "authors":"Alexis",
-                        "version":"1.0.0",
+                        "version":"1.0.0_credits",
                         "patch_path":"patchs/jobjob_1.0.0.zip",
                         "patch_type":{
                             "game_text":true,
@@ -1658,7 +1658,7 @@
                         "small_description":"[PREVIEW] Traduisez votre jeu en Français !",
                         "description":"Le patch complet arrive bientôt. Vous pouvez toujours télécharger la preview mais gardez à l'esprit que la traduction n'est pas terminée. Avec cette preview, vous avez accès à 70 questions en français.",
                         "authors":"Pachat, Alexis et fizzrocks",
-                        "version":"0.1.0",
+                        "version":"0.1.0_credits",
                         "patch_path":"patchs/thepollmine_0.1.0.zip",
                         "patch_type":{
                             "game_text":true,
@@ -1708,7 +1708,7 @@
                         "small_description":"Traduisez votre jeu en Français !",
                         "description":"Traduisez votre jeu en français avec ce patch !",
                         "authors":"MisterShaokahn#0765",
-                        "version":"1.0.1",
+                        "version":"1.0.1_credits",
                         "patch_path":"patchs/weaponsdrawn_1.0.1.zip",
                         "patch_type":{
                             "game_text":true,
