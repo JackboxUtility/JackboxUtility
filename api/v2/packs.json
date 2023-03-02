@@ -239,8 +239,8 @@
                         "small_description":"[PREVIEW] Traduisez votre jeu en français",
                         "description":"Le patch complet arrive bientôt. Vous pouvez toujours télécharger la preview mais gardez à l'esprit que la traduction n'est pas terminée. Avec cette preview, vous pouvez aller jusqu'au jour 8 sans soucis de traduction (sauf pour la bombe de tutoriel).",
                         "authors":"Alexis",
-                        "version":"0.1.0_credits",
-                        "patch_path":"patchs/bombcorp_0.1.0.zip",
+                        "version":"0.1.2",
+                        "patch_path":"patchs/bombcorp_0.1.2.zip",
                         "patch_type":{
                             "game_text":true,
                             "game_assets":true,
