@@ -696,7 +696,7 @@
                         "name":"Bracketeering",
                         "small_description":"Traduisez votre jeu en Français !",
                         "description":"Ce patch traduit votre jeu en français !",
-                        "authors":"FishingGuppy",
+                        "authors":"the_sign_painter",
                         "version":"1.0.1_credits",
                         "patch_path":"patchs/bracketeering_1.0.1.zip",
                         "patch_type":{
