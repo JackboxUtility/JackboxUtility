@@ -375,7 +375,22 @@
 
                 },
                 "patchs":[
-                    
+                    {
+                        "id":"bidiots_fr",
+                        "name":"[PREVIEW] Bidiots",
+                        "small_description":"[PREVIEW] Traduisez votre jeu en français",
+                        "description":"Le patch complet arrive bientôt. Vous pouvez toujours télécharger la preview mais gardez à l'esprit que la traduction n'est pas terminée. Avec cette preview, vous pouvez traduire les éléments textuels du jeu.",
+                        "authors":"the_sign_painter#7458 et MisterShaokahn#0765",
+                        "version":"0.1.0",
+                        "patch_path":"patchs/bidiots_0.1.0.zip",
+                        "patch_type":{
+                            "game_text":true,
+                            "game_assets":false,
+                            "game_subtitles":false,
+                            "website":false,
+                            "audios":false
+                        }
+                    }
                 ]
             }
         ],
