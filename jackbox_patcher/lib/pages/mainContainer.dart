@@ -10,6 +10,7 @@ import 'package:jackbox_patcher/services/device/device.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 import 'package:lottie/lottie.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../model/news.dart';
 
@@ -71,7 +72,7 @@ class _MainContainerState extends State<MainContainer> {
     showDialog(
         context: context,
         builder: (context) => ContentDialog(
-                title: Text("Notifications"),
+                title: Text(AppLocalizations.of(context)!.notifications),
                 content: ListView(
                     children: List.generate(
                             APIService().cachedNews.length,
@@ -82,7 +83,7 @@ class _MainContainerState extends State<MainContainer> {
                 actions: [
                   TextButton(
                       onPressed: () => Navigator.pop(context),
-                      child: Text("Fermer"))
+                      child: Text(AppLocalizations.of(context)!.close))
                 ])).then((value) => setState(() {}));
   }
 
@@ -102,7 +103,8 @@ class _MainContainerState extends State<MainContainer> {
                           actions: [
                             TextButton(
                                 onPressed: () => Navigator.pop(context),
-                                child: Text("Fermer"))
+                                child:
+                                    Text(AppLocalizations.of(context)!.close))
                           ]));
             },
             child: Container(
@@ -166,7 +168,9 @@ class _MainContainerState extends State<MainContainer> {
                           children: [
                             Icon(FluentIcons.play, color: Colors.white),
                             SizedBox(width: 10),
-                            Text("Lancer / Rechercher un jeu",
+                            Text(
+                                AppLocalizations.of(context)!
+                                    .launch_search_game,
                                 style: TextStyle(color: Colors.white))
                           ])))),
           SizedBox(height: 10),
@@ -189,7 +193,7 @@ class _MainContainerState extends State<MainContainer> {
                               children: [
                                 Icon(FluentIcons.download, color: Colors.white),
                                 SizedBox(width: 10),
-                                Text("Patcher un jeu",
+                                Text(AppLocalizations.of(context)!.patch_a_game,
                                     style: TextStyle(color: Colors.white))
                               ]))))
               : SizedBox(height: 0),
@@ -214,7 +218,7 @@ class _MainContainerState extends State<MainContainer> {
                               children: [
                                 Icon(FluentIcons.settings, color: Colors.white),
                                 SizedBox(width: 10),
-                                Text("Paramètres",
+                                Text(AppLocalizations.of(context)!.settings,
                                     style: TextStyle(color: Colors.white))
                               ]))))
               : SizedBox(height: 0)
@@ -229,7 +233,7 @@ class _MainContainerState extends State<MainContainer> {
             "assets/logo.png",
             height: 100,
           )),
-      Text("Jackbox Utility",
+      Text(AppLocalizations.of(context)!.jackbox_utility,
           style: FluentTheme.of(context).typography.titleLarge)
     ]);
   }

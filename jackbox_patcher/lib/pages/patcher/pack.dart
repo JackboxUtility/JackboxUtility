@@ -11,6 +11,7 @@ import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpatch.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/launcher/launcher.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'game.dart';
 
@@ -180,16 +181,16 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
     if (pathFoundStatus == "NOT_FOUND") {
       return InfoBar(
         severity: InfoBarSeverity.error,
-        title: Text("Chemin introuvable"),
+        title: Text(AppLocalizations.of(context)!.path_not_found),
         content: Text(
-            "Le chemin pour ce pack n'a pas été trouvé sur votre ordinateur. Vous devez de nouveau ajouter le chemin pour ce pack dans ses paramètres"),
+            AppLocalizations.of(context)!.path_not_found_description),
       );
     }
     return InfoBar(
       severity: InfoBarSeverity.warning,
-      title: Text("Chemin inexistant"),
+      title: Text(AppLocalizations.of(context)!.path_inexistant),
       content: Text(
-          "Vous n'avez pas ajouté le chemin vers le pack. Vous pouvez le faire dans les paramètres"),
+          AppLocalizations.of(context)!.path_inexistant_description),
     );
   }
 
@@ -229,13 +230,13 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
     await showDialog(
         context: context,
         builder: (context) => ContentDialog(
-              title: Text("Paramètres"),
+              title: Text(AppLocalizations.of(context)!.settings),
               content: SizedBox(
                   height: 100,
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text("Chemin du pack"),
+                        Text(AppLocalizations.of(context)!.pack_path),
                         SizedBox(
                           height: 6,
                         ),
@@ -250,7 +251,7 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
                       ])),
               actions: [
                 TextButton(
-                    child: Text("Valider"),
+                    child: Text(AppLocalizations.of(context)!.confirm),
                     onPressed: () {
                       Navigator.pop(context);
                     })

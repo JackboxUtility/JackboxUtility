@@ -1,6 +1,7 @@
 import 'package:jackbox_patcher/model/gametag.dart';
 import 'package:jackbox_patcher/model/jackboxpack.dart';
 import 'package:jackbox_patcher/model/jackboxpatch.dart';
+import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
 
 class JackboxGame {
   final String id;
@@ -114,29 +115,28 @@ enum JackboxGameType {
     }
   }
 
- String get name {
+  String get name {
     switch (this) {
       case JackboxGameType.VERSUS:
-        return 'Chacun pour soi';
+        return TranslationsHelper().appLocalizations!.game_type_versus;
       case JackboxGameType.COOP:
-        return 'Coopération';
+        return TranslationsHelper().appLocalizations!.game_type_coop;
       case JackboxGameType.TEAM:
-        return 'En équipe';
+        return TranslationsHelper().appLocalizations!.game_type_team;
     }
   }
 
   String get description {
     switch (this) {
       case JackboxGameType.VERSUS:
-        return 'Dans ces jeux, chaque joueur joue pour lui-même et doit battre les autres joueurs.';
+        return TranslationsHelper().appLocalizations!.game_type_versus_description;
       case JackboxGameType.COOP:
-        return 'Dans ces jeux, les joueurs doivent travailler ensemble pour gagner.';
+        return TranslationsHelper().appLocalizations!.game_type_coop_description;
       case JackboxGameType.TEAM:
-        return 'Dans ces jeux, les joueurs sont divisés en équipes et doivent travailler ensemble pour gagner.';
+        return TranslationsHelper().appLocalizations!.game_type_team_description;
     }
   }
 }
-
 
 enum JackboxGameTranslation {
   FRENCH,
@@ -159,22 +159,22 @@ enum JackboxGameTranslation {
   String get name {
     switch (this) {
       case JackboxGameTranslation.FRENCH:
-        return 'Traduit en français';
+        return TranslationsHelper().appLocalizations!.game_translation_translated;
       case JackboxGameTranslation.FRENCH_JBFR:
-        return 'Traduit par la communauté';
+        return TranslationsHelper().appLocalizations!.game_translation_community_translated;
       case JackboxGameTranslation.ENGLISH:
-        return 'En Anglais';
+        return TranslationsHelper().appLocalizations!.game_translation_not_available;
     }
   }
 
   String get description {
     switch (this) {
       case JackboxGameTranslation.FRENCH:
-        return 'Ces jeux sont traduits nativement en français.';
+        return TranslationsHelper().appLocalizations!.game_translation_translated_description;
       case JackboxGameTranslation.FRENCH_JBFR:
-        return 'Ces jeux sont traduits par la communauté française Jackbox France et Jackbox International';
+        return TranslationsHelper().appLocalizations!.game_translation_community_translated_description;
       case JackboxGameTranslation.ENGLISH:
-        return 'Ces jeux sont en Anglais.';
+        return TranslationsHelper().appLocalizations!.game_translation_not_available_description;
     }
   }
 }

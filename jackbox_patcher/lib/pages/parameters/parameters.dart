@@ -1,6 +1,7 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ParametersRoute extends StatefulWidget {
   ParametersRoute({Key? key}) : super(key: key);
@@ -19,12 +20,14 @@ class _ParametersRouteState extends State<ParametersRoute> {
       Padding(
           padding: EdgeInsets.all(16),
           child: Row(children: [
-            GestureDetector(onTap: ()=>Navigator.pop(context), child: Icon(
-              FluentIcons.chevron_left,
-              size: 30,
-            )),
+            GestureDetector(
+                onTap: () => Navigator.pop(context),
+                child: Icon(
+                  FluentIcons.chevron_left,
+                  size: 30,
+                )),
             SizedBox(width: 16),
-            Text("Paramètres", style: typography.display)
+            Text(AppLocalizations.of(context)!.settings, style: typography.display)
           ])),
       Expanded(
           child: ParametersWidget(
@@ -73,7 +76,7 @@ class _ParametersWidgetState extends State<ParametersWidget> {
               SizedBox(
                 height: 30,
               ),
-              Text("Packs possédés", style: typography.titleLarge),
+              Text(AppLocalizations.of(context)!.owned_packs, style: typography.titleLarge),
               SizedBox(
                 height: 10,
               ),
@@ -82,7 +85,7 @@ class _ParametersWidgetState extends State<ParametersWidget> {
                 height: 10,
               ),
               FilledButton(
-                  child: const Text('Ajouter un pack'),
+                  child: Text(AppLocalizations.of(context)!.add_pack),
                   onPressed: () {
                     _showAddPackDialog();
                   }),
@@ -95,7 +98,7 @@ class _ParametersWidgetState extends State<ParametersWidget> {
     bool? packSelected = await showDialog<bool>(
         context: context,
         builder: (context) => ContentDialog(
-              title: const Text("Ajouter un pack"),
+              title: Text(AppLocalizations.of(context)!.add_pack),
               content: SizedBox(
                   child: Row(children: [
                 Expanded(
@@ -112,13 +115,13 @@ class _ParametersWidgetState extends State<ParametersWidget> {
                       await pack!.setOwned(true);
                       Navigator.pop(context, true);
                     },
-                    placeholder: const Text("Choisissez un pack"),
+                    placeholder: Text(AppLocalizations.of(context)!.choose_pack),
                   ),
                 )
               ])),
               actions: [
                 TextButton(
-                    child: const Text("Annuler"),
+                    child: Text(AppLocalizations.of(context)!.cancel),
                     onPressed: () {
                       Navigator.pop(context, false);
                     })
@@ -188,10 +191,10 @@ class _PackInParametersWidgetState extends State<PackInParametersWidget> {
       title: Text(widget.pack.pack.name),
       subtitle: Text(
           packStatus == "NOT_FOUND"
-              ? "Le chemin vers le pack n'a pas été trouvé !"
+              ? AppLocalizations.of(context)!.path_not_found_small_description
               : (widget.pack.path != null && widget.pack.path != ""
                   ? widget.pack.path!
-                  : "Aucun chemin renseigné"),
+                  : AppLocalizations.of(context)!.path_inexistant_small_description),
           style: TextStyle(
               color: packStatus == "NOT_FOUND"
                   ? Colors.red
@@ -221,13 +224,13 @@ class _PackInParametersWidgetState extends State<PackInParametersWidget> {
     bool? pathChanged = await showDialog<bool>(
         context: context,
         builder: (context) => ContentDialog(
-              title: const Text("Ajouter un pack"),
+              title: Text(AppLocalizations.of(context)!.add_pack),
               content: SizedBox(
                   height: 100,
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text("Chemin du pack"),
+                        Text(AppLocalizations.of(context)!.pack_path),
                         SizedBox(
                           height: 6,
                         ),
@@ -240,12 +243,12 @@ class _PackInParametersWidgetState extends State<PackInParametersWidget> {
                       ])),
               actions: [
                 TextButton(
-                    child: const Text("Annuler"),
+                    child: Text(AppLocalizations.of(context)!.cancel),
                     onPressed: () {
                       Navigator.pop(context, false);
                     }),
                 TextButton(
-                    child: const Text("Valider"),
+                    child: Text(AppLocalizations.of(context)!.confirm),
                     onPressed: () {
                       Navigator.pop(context, true);
                     })
