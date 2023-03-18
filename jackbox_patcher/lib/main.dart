@@ -19,13 +19,13 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
- 
+
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     TranslationsHelper().appLocalizations = AppLocalizations.of(context);
-  
+
     return FluentApp(
       darkTheme: ThemeData(
             brightness: Brightness.dark,
@@ -63,4 +63,3 @@ class MyApp extends StatelessWidget {
     return APIService().cachedPacks.isNotEmpty ? widgetIfLoaded : MainContainer();
   }
 }
-

@@ -65,7 +65,7 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
   }
 
   Widget _buildHeader() {
-    
+
     Typography typography = FluentTheme.of(context).typography;
     return Column(
       children: [
