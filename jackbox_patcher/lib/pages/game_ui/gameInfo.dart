@@ -8,6 +8,7 @@ import 'package:jackbox_patcher/services/error/error.dart';
 import 'package:jackbox_patcher/services/launcher/launcher.dart';
 import 'package:palette_generator/palette_generator.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../model/usermodel/userjackboxgame.dart';
 import '../../model/usermodel/userjackboxpack.dart';
@@ -178,7 +179,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                         child: Column(children: [
                           Text(widget.game.game.info.smallDescription),
                           SizedBox(height: 10),
-                          !kIsWeb?_buildPlayButton():SizedBox(height:0),
+                          !kIsWeb ? _buildPlayButton() : SizedBox(height: 0),
                         ]))
                   ],
                 ))));
@@ -192,7 +193,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
               setState(() {});
             },
             child: Text(
-                "Vous ne possédez pas ce pack. Ajoutez le dans les paramètres",
+                AppLocalizations.of(context)!.path_not_found_description,
                 style: TextStyle(
                     color: Colors.red, decoration: TextDecoration.underline)))
         : ((widget.pack.path == null || widget.pack.path == "")
@@ -202,7 +203,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                   setState(() {});
                 },
                 child: Text(
-                    "Vous n'avez pas configuré le chemin vers le pack, ajoutez le dans les paramètres",
+                    AppLocalizations.of(context)!.path_inexistant_description,
                     style: TextStyle(
                         color: Colors.red,
                         decoration: TextDecoration.underline)))
@@ -233,23 +234,28 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                         SizedBox(width: 10),
                         Text(
                             launchingStatus == "WAITING"
-                                ? "Lancer le jeu"
+                                ? AppLocalizations.of(context)!.launch_game
                                 : (launchingStatus == "LAUNCHING"
-                                    ? "Lancement en cours"
-                                    : "Lancé !"),
+                                    ? AppLocalizations.of(context)!
+                                        .launching
+                                    : AppLocalizations.of(context)!
+                                        .launched),
                             style: TextStyle(color: Colors.white)),
                       ],
                     ))),
             DropDownButton(leading: SizedBox(height: 19), items: [
               MenuFlyoutItem(
                   leading: Icon(FluentIcons.play),
-                  text: const Text('Lancer le jeu'), onPressed: launchGameFunction),
+                  text: Text(AppLocalizations.of(context)!.launch_game),
+                  onPressed: launchGameFunction),
               MenuFlyoutItem(
                   leading: Icon(FluentIcons.play),
-                  text: const Text('Lancer le pack'), onPressed: launchPackFunction),
+                  text: Text(AppLocalizations.of(context)!.launch_pack),
+                  onPressed: launchPackFunction),
               MenuFlyoutItem(
-                leading: Icon(FluentIcons.info),
-                text: const Text("Plus d'infos"), onPressed: showLaunchInfo),
+                  leading: Icon(FluentIcons.info),
+                  text: Text(AppLocalizations.of(context)!.more_informations),
+                  onPressed: showLaunchInfo),
             ])
           ]);
     } else {
@@ -263,10 +269,10 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
               SizedBox(width: 10),
               Text(
                   launchingStatus == "WAITING"
-                      ? "Lancer le pack"
+                      ? AppLocalizations.of(context)!.launch_pack
                       : (launchingStatus == "LAUNCHING"
-                          ? "Lancement en cours"
-                          : "Lancé !"),
+                          ? AppLocalizations.of(context)!.launching
+                          : AppLocalizations.of(context)!.launched),
                   style: TextStyle(color: Colors.white)),
             ],
           ));
@@ -279,7 +285,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
     Launcher.launchGame(widget.pack, widget.game).then((value) {
       launchingStatus = "LAUNCHED";
       setState(() {});
-    }).catchError((error){
+    }).catchError((error) {
       ErrorService.showError(context, error.toString());
     });
   }
@@ -290,29 +296,41 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
     Launcher.launchPack(widget.pack).then((value) {
       launchingStatus = "LAUNCHED";
       setState(() {});
-    }).catchError((error){
+    }).catchError((error) {
       ErrorService.showError(context, error.toString());
     });
   }
 
-  void showLaunchInfo(){
+  void showLaunchInfo() {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return ContentDialog(
-          title: Text("Informations de lancement"),
-          content:SizedBox(
-            height: 200,
-            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text("Lancer le jeu (Fast Launcher)", style: FluentTheme.of(context).typography.subtitle,),
-            Text("Lance le jeu en mode fast launcher ce qui permet de passer outre la vidéo d'intro du pack et le choix du jeu. Seulement disponible pour certains jeux."),
-            SizedBox(height: 10),
-            Text("Lancer le pack", style: FluentTheme.of(context).typography.subtitle,),
-            Text("Lance le pack avec le launcher normal. Cela lance le pack normalement."),
-          ])),
+          title: Text(AppLocalizations.of(context)!.more_informations),
+          content: SizedBox(
+              height: 200,
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      AppLocalizations.of(context)!.launch_game_fast_launcher,
+                      style: FluentTheme.of(context).typography.subtitle,
+                    ),
+                    Text(
+                        AppLocalizations.of(context)!
+                            .launch_game_fast_launcher_description),
+                    SizedBox(height: 10),
+                    Text(
+                      AppLocalizations.of(context)!.launch_game,
+                      style: FluentTheme.of(context).typography.subtitle,
+                    ),
+                    Text(
+                       AppLocalizations.of(context)!
+                            .launch_pack_description),
+                  ])),
           actions: [
             TextButton(
-              child: Text("Fermer"),
+              child: Text(AppLocalizations.of(context)!.close),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -407,12 +425,12 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
 
   String _generateGameType(String v) {
     if (v == "COOP") {
-      return "Jeu en coopération";
+      return AppLocalizations.of(context)!.game_type_coop;
     } else {
       if (v == "VERSUS") {
-        return "Chacun pour soi";
+        return AppLocalizations.of(context)!.game_type_versus;
       } else {
-        return "Jeu en équipe";
+        return  AppLocalizations.of(context)!.game_type_team;
       }
     }
   }

@@ -4,6 +4,7 @@ import 'package:jackbox_patcher/model/usermodel/userjackboxpatch.dart';
 import 'package:jackbox_patcher/services/error/error.dart';
 import 'package:jackbox_patcher/services/launcher/launcher.dart';
 import 'package:palette_generator/palette_generator.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../model/usermodel/userjackboxgame.dart';
 import '../../model/usermodel/userjackboxpack.dart';
@@ -102,7 +103,7 @@ class _PatchCardState extends State<PatchCard> {
                                 ))
                               ])),
                     ])))),
-        GameImageWithOpener(pack:widget.pack,game: widget.game),
+        GameImageWithOpener(pack: widget.pack, game: widget.game),
         Container(
             margin: EdgeInsets.only(top: 35, left: 10),
             child: Tooltip(
@@ -128,13 +129,13 @@ class _PatchCardState extends State<PatchCard> {
         return StatefulBuilder(builder: (context, StateSetter setState) {
           return downloadingProgress == 0
               ? ContentDialog(
-                  title: Text("Installation du patch"),
+                  title: Text(AppLocalizations.of(context)!.installing_a_patch),
                   content: Text(
-                      "Vous allez installer le patch. Cette action est irréversible."),
+                      AppLocalizations.of(context)!.installing_a_patch_description),
                   actions: [
                     TextButton(
                       onPressed: () => Navigator.pop(context),
-                      child: Text("Annuler"),
+                      child: Text(AppLocalizations.of(context)!.cancel),
                     ),
                     TextButton(
                       onPressed: () async {
@@ -147,18 +148,15 @@ class _PatchCardState extends State<PatchCard> {
                           substatus = substat;
                           progression = progress;
                           setState(() {});
-                        })
-                        .then((_) {
-                            downloadingProgress = 2;
-                            setState(() {});
-                          })
-                          .catchError((error){
-                            ErrorService.showError(context, error);
-                            Navigator.pop(context);
-                          });
-                        
+                        }).then((_) {
+                          downloadingProgress = 2;
+                          setState(() {});
+                        }).catchError((error) {
+                          ErrorService.showError(context, error);
+                          Navigator.pop(context);
+                        });
                       },
-                      child: Text("Continuer"),
+                      child: Text(AppLocalizations.of(context)!.page_continue),
                     ),
                   ],
                 )
@@ -173,7 +171,7 @@ class _PatchCardState extends State<PatchCard> {
   ContentDialog buildDownloadingPatchDialog(
       String status, String substatus, double progression) {
     return ContentDialog(
-      title: Text("Installation du patch"),
+      title: Text(AppLocalizations.of(context)!.installing_a_patch),
       content: SizedBox(
           height: 200,
           child: Center(
@@ -198,10 +196,10 @@ class _PatchCardState extends State<PatchCard> {
             downloadingProgress = 0;
             setState(() {});
           },
-          child: Text("Fermer"),
+          child: Text(AppLocalizations.of(context)!.close),
         ),
       ],
-      title: Text("Installation du patch"),
+      title: Text(AppLocalizations.of(context)!.installing_a_patch),
       content: SizedBox(
           height: 200,
           child: Center(
@@ -211,8 +209,8 @@ class _PatchCardState extends State<PatchCard> {
                   children: [
                 Icon(FluentIcons.check_mark),
                 SizedBox(height: 10),
-                Text("Installation terminée", style: TextStyle(fontSize: 20)),
-                Text("Vous pouvez fermer cette pop-up",
+                Text(AppLocalizations.of(context)!.installing_a_patch_end, style: TextStyle(fontSize: 20)),
+                Text(AppLocalizations.of(context)!.can_close_popup,
                     style: TextStyle(fontSize: 16)),
               ]))),
     );
@@ -256,18 +254,18 @@ class _PatchCardState extends State<PatchCard> {
 
     switch (status) {
       case UserInstalledPatchStatus.INEXISTANT:
-        buttonText = "Patch non disponible";
+        buttonText = AppLocalizations.of(context)!.patch_unavailable;
         break;
       case UserInstalledPatchStatus.INSTALLED:
-        buttonText = "Patch installé";
+        buttonText = AppLocalizations.of(context)!.patch_installed;
         removePatchButtonVisible = true;
         break;
       case UserInstalledPatchStatus.INSTALLED_OUTDATED:
-        buttonText = "Mettre à jour le patch";
+        buttonText = AppLocalizations.of(context)!.patch_outdated;
         removePatchButtonVisible = true;
         break;
       case UserInstalledPatchStatus.NOT_INSTALLED:
-        buttonText = "Installer le patch";
+        buttonText = AppLocalizations.of(context)!.patch_not_installed;
         break;
       default:
     }
@@ -291,13 +289,13 @@ class _PatchCardState extends State<PatchCard> {
         context: context,
         builder: (context) {
           return ContentDialog(
-            title: Text("Suppression de la version"),
+            title: Text(AppLocalizations.of(context)!.delete_version),
             content: Text(
-                "Si vous avez réinitialisé votre jeu, vous pouvez supprimer la version installée de cette application. Cela vous permettra de réinstaller les patchs."),
+                AppLocalizations.of(context)!.delete_version_description),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: Text("Annuler"),
+                child: Text(AppLocalizations.of(context)!.cancel),
               ),
               TextButton(
                 onPressed: () async {
@@ -305,7 +303,7 @@ class _PatchCardState extends State<PatchCard> {
                   Navigator.pop(context);
                   setState(() {});
                 },
-                child: Text("Valider"),
+                child: Text(AppLocalizations.of(context)!.confirm),
               ),
             ],
           );
@@ -320,43 +318,43 @@ class _PatchCardState extends State<PatchCard> {
             title: Text(widget.patch.patch.name),
             content:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text("Description", style: TextStyle(fontSize: 20)),
+              Text(AppLocalizations.of(context)!.description , style: TextStyle(fontSize: 20)),
               Text(widget.patch.patch.description),
               SizedBox(height: 20),
-              Text("Modification du patch", style: TextStyle(fontSize: 20)),
-              Text("Ce patch modifie le jeu de la manière suivante :"),
+              Text(AppLocalizations.of(context)!.patch_modification, style: TextStyle(fontSize: 20)),
+              Text(AppLocalizations.of(context)!.patch_modification_description),
               widget.patch.patch.patchType!.gameText
-                  ? Text("- Modification du contenu textuel du jeu")
+                  ? Text("- "+AppLocalizations.of(context)!.patch_modification_content_text)
                   : SizedBox(),
               widget.patch.patch.patchType!.gameAssets
                   ? Text(
-                      "- Modification des fichiers internes du jeu (images, textes...)")
+                      "- "+AppLocalizations.of(context)!.patch_modification_content_internal)
                   : SizedBox(),
               widget.patch.patch.patchType!.gameSubtitles
-                  ? Text("- Modification des sous-titres du jeu")
+                  ? Text("- "+AppLocalizations.of(context)!.patch_modification_content_subtitles)
                   : SizedBox(),
               widget.patch.patch.patchType!.website
                   ? Text(
-                      "- Modification du contenu textuel du client jackbox (seulement disponible sur laboxdejack.fr)")
+                      "- "+AppLocalizations.of(context)!.patch_modification_content_website("laboxdejack.fr"))
                   : SizedBox(),
               widget.patch.patch.patchType!.audios
-                  ? Text("- Modification des fichiers audio du jeu")
+                  ? Text("- "+AppLocalizations.of(context)!.patch_modification_content_audios)
                   : SizedBox(),
               SizedBox(
                 height: 20,
               ),
-              Text("Version", style: TextStyle(fontSize: 20)),
+              Text(AppLocalizations.of(context)!.version, style: TextStyle(fontSize: 20)),
               Text("${widget.patch.patch.latestVersion}"),
               SizedBox(
                 height: 20,
               ),
-              Text("Auteurs", style: TextStyle(fontSize: 20)),
+              Text(AppLocalizations.of(context)!.authors, style: TextStyle(fontSize: 20)),
               Text(widget.patch.patch.authors!),
             ]),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: Text("Fermer"),
+                child: Text(AppLocalizations.of(context)!.close),
               ),
             ],
           );
@@ -365,7 +363,8 @@ class _PatchCardState extends State<PatchCard> {
 }
 
 class GameImageWithOpener extends StatefulWidget {
-  GameImageWithOpener({Key? key,required this.pack, required this.game}) : super(key: key);
+  GameImageWithOpener({Key? key, required this.pack, required this.game})
+      : super(key: key);
   UserJackboxPack pack;
   UserJackboxGame game;
   @override
@@ -385,63 +384,66 @@ class _GameImageWithOpenerState extends State<GameImageWithOpener> {
                   borderRadius: BorderRadius.circular(8.0),
                   child: IntrinsicWidth(
                       child: GestureDetector(
-                        onSecondaryTap:()async{
-                          Launcher.launchGame(widget.pack, widget.game)
-                              .then((value) => setState(() {}))
-                              .catchError((e) => ErrorService.showError(context, e.toString()));
-                        },
-                        onTap:()=>Navigator.pushNamed(context, "/game", arguments: [widget.pack,widget.game]),
-                        child: MouseRegion(
-                          onEnter: (a) => setState(() {
-                                playButtonVisible = true;
-                              }),
-                          onExit: (a) => setState(() {
-                                playButtonVisible = false;
-                              }),
-                          child: Stack(children: [
-                            CachedNetworkImage(
-                              imageUrl: APIService()
-                                  .assetLink(widget.game.game.background),
-                              fit: BoxFit.contain,
-                            ),
-                            AnimatedContainer(
-                              duration: Duration(milliseconds: 200),
-                              height: 100,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                color: Colors.blue
-                                    .withOpacity(playButtonVisible ? 0.9 : 0),
-                              ),
-                              child: TweenAnimationBuilder<double>(
-                                  tween: Tween<double>(
-                                    begin: playButtonVisible ? 0 : 1,
-                                    end: playButtonVisible ? 1 : 0,
-                                  ),
+                          onSecondaryTap: () async {
+                            Launcher.launchGame(widget.pack, widget.game)
+                                .then((value) => setState(() {}))
+                                .catchError((e) => ErrorService.showError(
+                                    context, e.toString()));
+                          },
+                          onTap: () => Navigator.pushNamed(context, "/game",
+                              arguments: [widget.pack, widget.game]),
+                          child: MouseRegion(
+                              onEnter: (a) => setState(() {
+                                    playButtonVisible = true;
+                                  }),
+                              onExit: (a) => setState(() {
+                                    playButtonVisible = false;
+                                  }),
+                              child: Stack(children: [
+                                CachedNetworkImage(
+                                  imageUrl: APIService()
+                                      .assetLink(widget.game.game.background),
+                                  fit: BoxFit.contain,
+                                ),
+                                AnimatedContainer(
                                   duration: Duration(milliseconds: 200),
-                                  builder: (BuildContext context,
-                                      double opacity, Widget? child) {
-                                    return Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          FluentIcons.info,
-                                          color:
-                                              Colors.white.withOpacity(opacity),
-                                        ),
-                                        Text(
-                                          "Info",
-                                          style: TextStyle(
+                                  height: 100,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: Colors.blue.withOpacity(
+                                        playButtonVisible ? 0.9 : 0),
+                                  ),
+                                  child: TweenAnimationBuilder<double>(
+                                      tween: Tween<double>(
+                                        begin: playButtonVisible ? 0 : 1,
+                                        end: playButtonVisible ? 1 : 0,
+                                      ),
+                                      duration: Duration(milliseconds: 200),
+                                      builder: (BuildContext context,
+                                          double opacity, Widget? child) {
+                                        return Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              FluentIcons.info,
                                               color: Colors.white
                                                   .withOpacity(opacity),
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold),
-                                        )
-                                      ],
-                                    );
-                                  }),
-                            )
-                          ])))))
+                                            ),
+                                            Text(
+                                              AppLocalizations.of(context)!
+                                                  .small_information,
+                                              style: TextStyle(
+                                                  color: Colors.white
+                                                      .withOpacity(opacity),
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold),
+                                            )
+                                          ],
+                                        );
+                                      }),
+                                )
+                              ])))))
             ])));
   }
 }

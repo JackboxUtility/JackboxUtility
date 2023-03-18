@@ -1,5 +1,6 @@
 import 'package:archive/archive_io.dart';
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
 
 import '../../services/api/api_service.dart';
 import '../../services/user/userdata.dart';
@@ -33,26 +34,23 @@ class UserJackboxPatch {
   Future<void> downloadPatch(String patchUri, String gameUri,
       void Function(String, String, double) callback) async {
     try {
-      callback("Téléchargement (1/3)", "Démarrage", 0);
+      callback("${TranslationsHelper().appLocalizations!.downloading} (1/3)", TranslationsHelper().appLocalizations!.starting, 0);
       String filePath = await APIService().downloadPatch(patch,
           (double progress, double max) {
         callback(
-            "Téléchargement (1/3)",
-            (progress / 1000000).toString() +
-                " MB /" +
-                (max / 1000000).toString() +
-                " MB",
+            "${TranslationsHelper().appLocalizations!.downloading} (1/3)",
+            "${progress / 1000000} MB /${max / 1000000} MB",
             (progress / max) * 100);
       });
-      callback("Extraction (2/3)", "", 100);
-      await extractFileToDisk(filePath, patchUri + "/" + gameUri,
+      callback("${TranslationsHelper().appLocalizations!.extracting} (2/3)", "", 100);
+      await extractFileToDisk(filePath, "$patchUri/$gameUri",
           asyncWrite: false);
-      callback("Finalisation (3/3)", "", 100);
+      callback(TranslationsHelper().appLocalizations!.finalizing +" (3/3)", "", 100);
       installedVersion = patch.latestVersion;
       await UserData().savePatch(this);
       //File(filePath).deleteSync(recursive: true);
     } on Exception catch (e) {
-      callback("Erreur iconnue", "Contactez Alexis#1588 sur Discord", 0);
+      callback(TranslationsHelper().appLocalizations!.unknown_error, TranslationsHelper().appLocalizations!.contact_error, 0);
       UserData().writeLogs(e.toString());
     }
   }
@@ -87,13 +85,13 @@ extension UserInstalledPatchStatusExtension on UserInstalledPatchStatus {
   String get info {
     switch (this) {
       case UserInstalledPatchStatus.INEXISTANT:
-        return "Aucune traduction disponible";
+        return TranslationsHelper().appLocalizations!.game_patch_unavailable;
       case UserInstalledPatchStatus.NOT_INSTALLED:
-        return "Un patch est disponible";
+        return TranslationsHelper().appLocalizations!.game_patch_available;
       case UserInstalledPatchStatus.INSTALLED:
-        return "Ce jeu est à jour";
+        return TranslationsHelper().appLocalizations!.game_patch_installed;
       case UserInstalledPatchStatus.INSTALLED_OUTDATED:
-        return "Une mise à jour du patch est disponible";
+        return TranslationsHelper().appLocalizations!.game_patch_outdated;
     }
   }
 }

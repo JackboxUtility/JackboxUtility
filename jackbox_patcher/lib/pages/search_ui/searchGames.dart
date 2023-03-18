@@ -5,6 +5,7 @@ import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../services/launcher/launcher.dart';
 
@@ -257,7 +258,7 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                                           gameInfo.players.min.toString() +
                                               " - " +
                                               gameInfo.players.max.toString() +
-                                              " joueurs",
+                                              " "+AppLocalizations.of(context)!.players,
                                           style: TextStyle(
                                               color: Colors.white
                                                   .withOpacity(opacity)))

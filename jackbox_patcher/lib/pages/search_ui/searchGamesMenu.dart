@@ -6,6 +6,7 @@ import 'package:jackbox_patcher/pages/search_ui/searchGames.dart';
 import '../../model/usermodel/userjackboxpack.dart';
 import '../../services/api/api_service.dart';
 import '../../services/user/userdata.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SearchGameMenuWidget extends StatefulWidget {
   SearchGameMenuWidget({Key? key}) : super(key: key);
@@ -35,7 +36,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
             onTap: () => Navigator.pop(context),
           ),
           title: Text(
-            "Rechercher un jeu",
+            AppLocalizations.of(context)!.search_game,
             style: typography.title,
           )),
       pane: NavigationPane(
@@ -125,7 +126,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
       items.add(PaneItemSeparator());
       items.add(PaneItemHeader(
           header: TextBox(
-        placeholder: "Rechercher",
+        placeholder: AppLocalizations.of(context)!.search,
         suffix: Icon(FluentIcons.search),
         controller: _searchController,
         onEditingComplete: () {
@@ -135,21 +136,21 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
       items.add(PaneItemSeparator());
       items.add(PaneItem(
           icon: Icon(FluentIcons.game),
-          title: Text("Tous les jeux"),
+          title: Text(AppLocalizations.of(context)!.all_games),
           body: SearchGameWidget(
             filter: (UserJackboxPack pack, UserJackboxGame game) =>
                 game.game.name.toLowerCase().contains(_searchController.text.toLowerCase()),
             comeFromGame: false,
             background: APIService().getDefaultBackground(),
-            name: "Tous les jeux",
+            name: AppLocalizations.of(context)!.all_games,
             description:
-                "Retrouvez tous les jeux Jackbox à un seul et même endroit !",
+                AppLocalizations.of(context)!.all_games_description,
             icon: null,
           )));
       items.add(PaneItemExpander(
         icon: Icon(FluentIcons.gift_box_solid),
         body: Container(),
-        title: Text("Recherche par pack"),
+        title: Text(AppLocalizations.of(context)!.search_by_pack),
         items: packItems,
         onTap: () {
           setState(() {
@@ -161,7 +162,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
       items.add(PaneItemExpander(
         icon: Icon(FluentIcons.people),
         body: Container(),
-        title: Text("Recherche par type"),
+        title: Text(AppLocalizations.of(context)!.search_by_type),
         items: typeItem,
         onTap: () {
           setState(() {
@@ -173,7 +174,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
       items.add(PaneItemExpander(
         icon: Icon(FluentIcons.translate),
         body: Container(),
-        title: Text("Recherche par traduction"),
+        title: Text(AppLocalizations.of(context)!.search_by_translation),
         items: translationItem,
         onTap: () {
           setState(() {
@@ -185,7 +186,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
       items.add(PaneItemExpander(
         icon: Icon(FluentIcons.tag),
         body: Container(),
-        title: Text("Recherche par tags"),
+        title: Text(AppLocalizations.of(context)!.search_by_tags),
         items: tagItem,
         onTap: () {
           setState(() {
