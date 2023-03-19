@@ -95,5 +95,20 @@
     "search_by_pack":"Recherche par pack",
     "search_by_type":"Recherche par type",
     "search_by_translation":"Recherche par traduction",
-    "search_by_tags":"Recherche par tags"
+    "search_by_tags":"Recherche par tags",
+
+    "select_server_title":"Bienvenue sur Jackbox Utility",
+    "select_server_subtitle":"Choisissez une langue pour commencer",
+    "select_server_button":"Sélectionner",
+
+    "connected_to_server":"Connecté au serveur {server}",
+    "@connected_to_server":{
+        "placeholders":{
+            "server":{
+                "type":"String",
+                "example":"Jackbox France"
+            }
+        }
+    },
+    "connected_to_server_change":"Changer"
 }

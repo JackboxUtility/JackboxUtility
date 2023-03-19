@@ -33,7 +33,7 @@ dependencies:
   fluent_ui: 4.3.0
   http:
   shared_preferences: 2.0.17
-  flutter_staggered_grid_view: 0.6.0
+  flutter_staggered_grid_view: 0.6.2
   palette_generator:
   cached_network_image:
   dio:
@@ -41,6 +41,7 @@ dependencies:
   flutter_markdown:
   url_launcher: 
   lottie:
+  package_info_plus:
 
 
   # The following adds the Cupertino Icons font to your application.

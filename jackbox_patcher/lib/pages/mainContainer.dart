@@ -135,6 +135,8 @@ class _MainContainerState extends State<MainContainer> {
 
   Widget _buildUpper() {
     return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+      _loaded?_buildConnectedServer():Container(),
+      Expanded(child: Container()),
       _buildTitle(),
       SizedBox(
         height: 30,
@@ -143,6 +145,7 @@ class _MainContainerState extends State<MainContainer> {
           ? _buildMenu()
           : LottieBuilder.asset("assets/lotties/QuiplashOutput.json",
               width: 200, height: 200),
+      Expanded(child: Container()),
     ]);
   }
 
@@ -225,6 +228,14 @@ class _MainContainerState extends State<MainContainer> {
         ]));
   }
 
+  Widget _buildConnectedServer(){
+    return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+      Text(AppLocalizations.of(context)!.connected_to_server(APIService().cachedSelectedServer!.name)),
+      SizedBox(width: 10),
+      Text(AppLocalizations.of(context)!.connected_to_server_change, style: TextStyle(decoration: TextDecoration.underline),)
+    ]);
+  }
+
   Widget _buildTitle() {
     return Column(children: [
       ClipRRect(
@@ -243,11 +254,20 @@ class _MainContainerState extends State<MainContainer> {
   }
 
   void _load() async {
+    await UserData().init();
+    if (UserData().getSelectedServer() == null) {
+      await Navigator.pushNamed(context, "/serverSelect");
+    }
+    await _loadInfo();
     await _loadWelcome();
     await _loadPacks();
     setState(() {
       _loaded = true;
     });
+  }
+
+  Future<void> _loadInfo() async {
+    await UserData().syncInfo();
   }
 
   Future<void> _loadWelcome() async {

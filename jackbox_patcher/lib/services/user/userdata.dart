@@ -17,10 +17,17 @@ class UserData {
   }
 
   UserData._internal() {
-    SharedPreferences.getInstance().then((value) => preferences = value);
   }
 
   List<UserJackboxPack> packs = [];
+
+  Future<void> init() async {
+    preferences = await SharedPreferences.getInstance();
+  }
+
+  Future<void> syncInfo() async {
+    await APIService().recoverServerInfo(getSelectedServer()!);
+  }
 
   /// Sync every pack on the server.
   ///
@@ -73,7 +80,7 @@ class UserData {
 
   /// Save pack (mostly used when the path parameter is changed)
   Future<void> savePack(UserJackboxPack pack) async {
-    if (pack.path != null){
+    if (pack.path != null) {
       await preferences.setString("${pack.pack.id}_path", pack.path!);
     } else {
       await preferences.remove("${pack.pack.id}_path");
@@ -121,11 +128,19 @@ class UserData {
     await logFile.writeAsString(logs);
   }
 
-  String? getLastNewsReaden(){
+  String? getLastNewsReaden() {
     return preferences.getString("last_news_readen");
   }
 
-  void setLastNewsReaden(String lastNewsReadenId){
-    preferences.setString("last_news_readen",lastNewsReadenId);
+  void setLastNewsReaden(String lastNewsReadenId) {
+    preferences.setString("last_news_readen", lastNewsReadenId);
+  }
+
+  String? getSelectedServer() {
+    return preferences.getString("selected_server");
+  }
+
+  Future<void> setSelectedServer(String server) async {
+    await preferences.setString("selected_server", server);
   }
 }
