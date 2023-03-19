@@ -1,3 +1,4 @@
 [
-    "https://alexisl61.github.io/JackboxUtility-Server-fr/info.json"
+    "https://alexisl61.github.io/JackboxUtility-Server-fr/info.json",
+    "http://localhost:4500/info.json"
 ]
