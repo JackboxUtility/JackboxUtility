@@ -7,6 +7,7 @@ import 'package:jackbox_patcher/pages/patcher/pack.dart';
 import 'package:jackbox_patcher/model/jackboxpack.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/device/device.dart';
+import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 import 'package:lottie/lottie.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -40,6 +41,8 @@ class _MainContainerState extends State<MainContainer> {
   }
 
   Widget build(BuildContext context) {
+    TranslationsHelper().appLocalizations = AppLocalizations.of(context);
+    print(TranslationsHelper().appLocalizations);
     return NavigationView(
         content: Stack(children: [
       _loaded
@@ -135,7 +138,7 @@ class _MainContainerState extends State<MainContainer> {
 
   Widget _buildUpper() {
     return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-      _loaded?_buildConnectedServer():Container(),
+      _loaded ? _buildConnectedServer() : Container(),
       Expanded(child: Container()),
       _buildTitle(),
       SizedBox(
@@ -228,11 +231,24 @@ class _MainContainerState extends State<MainContainer> {
         ]));
   }
 
-  Widget _buildConnectedServer(){
+  Widget _buildConnectedServer() {
     return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-      Text(AppLocalizations.of(context)!.connected_to_server(APIService().cachedSelectedServer!.name)),
+      Text(AppLocalizations.of(context)!
+          .connected_to_server(APIService().cachedSelectedServer!.name)),
       SizedBox(width: 10),
-      Text(AppLocalizations.of(context)!.connected_to_server_change, style: TextStyle(decoration: TextDecoration.underline),)
+      GestureDetector(
+        child: Text(AppLocalizations.of(context)!.connected_to_server_change,
+            style: TextStyle(decoration: TextDecoration.underline)),
+        onTap: () async {
+          await Navigator.pushNamed(context, "/serverSelect");
+          print("Resetting cache");
+          UserData().packs = [];
+          APIService().resetCache();
+          _loaded = false;
+          setState(() {});
+          _load();
+        },
+      )
     ]);
   }
 

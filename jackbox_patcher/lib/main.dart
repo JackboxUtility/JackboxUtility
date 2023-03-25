@@ -1,4 +1,3 @@
-
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/pages/mainContainer.dart';
 import 'package:jackbox_patcher/pages/search_ui/searchGames.dart';
@@ -19,49 +18,45 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
- 
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    TranslationsHelper().appLocalizations = AppLocalizations.of(context);
-  
     return FluentApp(
       darkTheme: ThemeData(
-            brightness: Brightness.dark,
-            accentColor: Colors.blue,
-            visualDensity: VisualDensity.standard,
-            focusTheme: FocusThemeData(
-              glowFactor: is10footScreen() ? 2.0 : 0.0,
-            ),
-          ),
-          localizationsDelegates: [
-            FluentLocalizations.delegate,
-            AppLocalizations.delegate,
-          ],
-          supportedLocales: [
-            Locale("en"),
-            Locale("fr")
-          ],
+        brightness: Brightness.dark,
+        accentColor: Colors.blue,
+        visualDensity: VisualDensity.standard,
+        focusTheme: FocusThemeData(
+          glowFactor: is10footScreen() ? 2.0 : 0.0,
+        ),
+      ),
+      localizationsDelegates: [
+        FluentLocalizations.delegate,
+        AppLocalizations.delegate,
+      ],
+      supportedLocales: [Locale("en"), Locale("fr")],
       initialRoute: '/',
       routes: {
         // When navigating to the "/" route, build the FirstScreen widget.
         '/': (context) => MainContainer(),
-        '/serverSelect':(context) => SelectServerPage(),
+        '/serverSelect': (context) => SelectServerPage(),
         // When navigating to the "/second" route, build the SecondScreen widget.
-        '/settings':(context) => showMainContainerIfNotLoaded(ParametersRoute()),
+        '/settings': (context) =>
+            showMainContainerIfNotLoaded(ParametersRoute()),
         '/game': (context) => showMainContainerIfNotLoaded(GameInfoRoute()),
         '/search': (context) => showMainContainerIfNotLoaded(SearchGameRoute()),
-        '/searchMenu':(context) => showMainContainerIfNotLoaded(SearchGameMenuWidget()),
-        '/patch':(context) => showMainContainerIfNotLoaded(PatcherMenuWidget())
+        '/searchMenu': (context) =>
+            showMainContainerIfNotLoaded(SearchGameMenuWidget()),
+        '/patch': (context) => showMainContainerIfNotLoaded(PatcherMenuWidget())
       },
       themeMode: ThemeMode.dark,
       title: 'Jackbox Utility',
     );
   }
 
-  Widget showMainContainerIfNotLoaded(Widget widgetIfLoaded){
-    return APIService().cachedPacks.isNotEmpty ? widgetIfLoaded : MainContainer();
+  Widget showMainContainerIfNotLoaded(Widget widgetIfLoaded) {
+    return APIService().cachedPacks.isNotEmpty
+        ? widgetIfLoaded
+        : MainContainer();
   }
 }
-

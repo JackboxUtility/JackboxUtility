@@ -32,6 +32,13 @@ class APIService {
   // Build internal
   APIService._internal();
 
+  void resetCache(){
+    cachedServers = [];
+    cachedPacks = [];
+    cachedTags = [];
+    cachedNews = [];
+  }
+
   Future<void> recoverAvailableServers() async {
     final response = await get(Uri.parse(masterServer));
     if (response.statusCode == 200) {
@@ -74,6 +81,7 @@ class APIService {
           .map<JackboxPack>((pack) => JackboxPack.fromJson(pack))
           .toList();
     } else {
+      print('$baseEndpoint' + APIEndpoints.PACKS.path);
       throw Exception('Failed to load packs and tags');
     }
   }
