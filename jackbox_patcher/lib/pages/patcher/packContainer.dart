@@ -13,7 +13,7 @@ import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/launcher/launcher.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'game.dart';
+import 'gamePatch.dart';
 
 class PatcherPackWidget extends StatefulWidget {
   PatcherPackWidget({Key? key, required this.userPack}) : super(key: key);
@@ -196,7 +196,7 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
     List<Widget> children = [];
     for (UserJackboxGame g in widget.userPack.games) {
       for (UserJackboxGamePatch p in g.patches) {
-        children.add(PatchCard(
+        children.add(GamePatchCard(
           pack: widget.userPack,
           game: g,
           patch: p,

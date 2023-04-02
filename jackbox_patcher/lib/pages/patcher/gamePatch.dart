@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:jackbox_patcher/model/jackboxpackpatch.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgamepatch.dart';
+import 'package:jackbox_patcher/model/usermodel/userjackboxpackpatch.dart';
 import 'package:jackbox_patcher/services/error/error.dart';
 import 'package:jackbox_patcher/services/launcher/launcher.dart';
 import 'package:palette_generator/palette_generator.dart';
@@ -10,19 +12,83 @@ import '../../model/usermodel/userjackboxgame.dart';
 import '../../model/usermodel/userjackboxpack.dart';
 import '../../services/api/api_service.dart';
 
-class PatchCard extends StatefulWidget {
-  PatchCard(
-      {Key? key, required this.pack, required this.game, required this.patch})
+void _openPatchInfo(context, dynamic data) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return ContentDialog(
+            title: Text(data.name),
+            content:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text(AppLocalizations.of(context)!.description,
+                  style: TextStyle(fontSize: 20)),
+              Text(data.description),
+              SizedBox(height: 20),
+              Text(AppLocalizations.of(context)!.patch_modification,
+                  style: TextStyle(fontSize: 20)),
+              Text(
+                  AppLocalizations.of(context)!.patch_modification_description),
+              data.patchType!.gameText
+                  ? Text("- " +
+                      AppLocalizations.of(context)!
+                          .patch_modification_content_text)
+                  : SizedBox(),
+             data.patchType!.gameAssets
+                  ? Text("- " +
+                      AppLocalizations.of(context)!
+                          .patch_modification_content_internal)
+                  : SizedBox(),
+              data.patchType!.gameSubtitles
+                  ? Text("- " +
+                      AppLocalizations.of(context)!
+                          .patch_modification_content_subtitles)
+                  : SizedBox(),
+              data.patchType!.website
+                  ? Text("- " +
+                      AppLocalizations.of(context)!
+                          .patch_modification_content_website("laboxdejack.fr"))
+                  : SizedBox(),
+              data.patchType!.audios
+                  ? Text("- " +
+                      AppLocalizations.of(context)!
+                          .patch_modification_content_audios)
+                  : SizedBox(),
+              SizedBox(
+                height: 20,
+              ),
+              Text(AppLocalizations.of(context)!.version,
+                  style: TextStyle(fontSize: 20)),
+              Text("${data.latestVersion}"),
+              SizedBox(
+                height: 20,
+              ),
+              Text(AppLocalizations.of(context)!.authors,
+                  style: TextStyle(fontSize: 20)),
+              Text(data.authors!),
+            ]),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text(AppLocalizations.of(context)!.close),
+              ),
+            ],
+          );
+        });
+  }
+
+class GameInPatchCard extends StatefulWidget {
+  GameInPatchCard({Key? key, required this.pack, required this.patch, required this.game, required this.gamePatchIncluded})
       : super(key: key);
 
   final UserJackboxPack pack;
+  final UserJackboxPackPatch patch;
   final UserJackboxGame game;
-  final UserJackboxGamePatch patch;
+  final JackboxPackPatchGameIncluded gamePatchIncluded;
   @override
-  State<PatchCard> createState() => _PatchCardState();
+  State<GameInPatchCard> createState() => _GameInPatchCardState();
 }
 
-class _PatchCardState extends State<PatchCard> {
+class _GameInPatchCardState extends State<GameInPatchCard> {
   Color? backgroundColor;
   int downloadingProgress = 0;
   String status = "";
@@ -77,7 +143,118 @@ class _PatchCardState extends State<PatchCard> {
                         IconButton(
                             icon: Icon(FluentIcons.info),
                             onPressed: () {
-                              _openPatchInfo();
+                              _openPatchInfo(context, widget.gamePatchIncluded);
+                            })
+                      ]),
+                      Container(
+                          padding: EdgeInsets.only(bottom: 12),
+                          margin: EdgeInsets.only(top: 50),
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                    child: Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 12),
+                                  child: Column(children: [
+                                    Text(widget.patch.patch.name,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(fontSize: 25)),
+                                    SizedBox(height: 10),
+                                    Text(
+                                      widget.patch.patch.smallDescription!,
+                                    ),
+                                  ]),
+                                ))
+                              ])),
+                    ])))),
+        GameImageWithOpener(pack: widget.pack, game: widget.game),
+        Container(
+            margin: EdgeInsets.only(top: 35, left: 10),
+            child: Tooltip(
+                child: Container(
+                    width: 10,
+                    height: 10,
+                    decoration: new BoxDecoration(
+                      color: widget.patch
+                          .getInstalledStatus(widget.pack.path)
+                          .color,
+                      shape: BoxShape.circle,
+                    )),
+                message:
+                    widget.patch.getInstalledStatus(widget.pack.path).info)),
+      ],
+    ));
+  }
+}
+
+class GamePatchCard extends StatefulWidget {
+  GamePatchCard(
+      {Key? key, required this.pack, required this.game, required this.patch})
+      : super(key: key);
+
+  final UserJackboxPack pack;
+  final UserJackboxGame game;
+  final UserJackboxGamePatch patch;
+  @override
+  State<GamePatchCard> createState() => _GamePatchCardState();
+}
+
+class _GamePatchCardState extends State<GamePatchCard> {
+  Color? backgroundColor;
+  int downloadingProgress = 0;
+  String status = "";
+  double progression = 0;
+  String substatus = "";
+  FlyoutController controller = FlyoutController();
+
+  @override
+  void initState() {
+    _loadBackgroundColor();
+    super.initState();
+  }
+
+  void _loadBackgroundColor() {
+    PaletteGenerator.fromImageProvider(CachedNetworkImageProvider(
+            APIService().assetLink(widget.pack.pack.background)))
+        .then((value) {
+      setState(() {
+        backgroundColor = value.dominantColor?.color;
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        child: Stack(
+      clipBehavior: Clip.none,
+      children: [
+        Container(
+            margin: EdgeInsets.only(top: 30, left: 5),
+            child: Container(
+                width: 20,
+                height: 20,
+                decoration: new BoxDecoration(
+                  color:
+                      widget.patch.getInstalledStatus(widget.pack.path).color,
+                  shape: BoxShape.circle,
+                ))),
+        Container(
+            height: 200,
+            margin: EdgeInsets.only(top: 25),
+            child: ClipRRect(
+                borderRadius: BorderRadius.circular(8.0),
+                child: Acrylic(
+                    shadowColor: backgroundColor,
+                    blurAmount: 1,
+                    tintAlpha: 1,
+                    tint: Color.fromARGB(255, 48, 48, 48),
+                    child: Stack(children: [
+                      Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                        IconButton(
+                            icon: Icon(FluentIcons.info),
+                            onPressed: () {
+                              _openPatchInfo(context,widget.patch.patch);
                             })
                       ]),
                       Container(
@@ -311,69 +488,7 @@ class _PatchCardState extends State<PatchCard> {
         });
   }
 
-  void _openPatchInfo() {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return ContentDialog(
-            title: Text(widget.patch.patch.name),
-            content:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(AppLocalizations.of(context)!.description,
-                  style: TextStyle(fontSize: 20)),
-              Text(widget.patch.patch.description),
-              SizedBox(height: 20),
-              Text(AppLocalizations.of(context)!.patch_modification,
-                  style: TextStyle(fontSize: 20)),
-              Text(
-                  AppLocalizations.of(context)!.patch_modification_description),
-              widget.patch.patch.patchType!.gameText
-                  ? Text("- " +
-                      AppLocalizations.of(context)!
-                          .patch_modification_content_text)
-                  : SizedBox(),
-              widget.patch.patch.patchType!.gameAssets
-                  ? Text("- " +
-                      AppLocalizations.of(context)!
-                          .patch_modification_content_internal)
-                  : SizedBox(),
-              widget.patch.patch.patchType!.gameSubtitles
-                  ? Text("- " +
-                      AppLocalizations.of(context)!
-                          .patch_modification_content_subtitles)
-                  : SizedBox(),
-              widget.patch.patch.patchType!.website
-                  ? Text("- " +
-                      AppLocalizations.of(context)!
-                          .patch_modification_content_website("laboxdejack.fr"))
-                  : SizedBox(),
-              widget.patch.patch.patchType!.audios
-                  ? Text("- " +
-                      AppLocalizations.of(context)!
-                          .patch_modification_content_audios)
-                  : SizedBox(),
-              SizedBox(
-                height: 20,
-              ),
-              Text(AppLocalizations.of(context)!.version,
-                  style: TextStyle(fontSize: 20)),
-              Text("${widget.patch.patch.latestVersion}"),
-              SizedBox(
-                height: 20,
-              ),
-              Text(AppLocalizations.of(context)!.authors,
-                  style: TextStyle(fontSize: 20)),
-              Text(widget.patch.patch.authors!),
-            ]),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: Text(AppLocalizations.of(context)!.close),
-              ),
-            ],
-          );
-        });
-  }
+  
 }
 
 class GameImageWithOpener extends StatefulWidget {

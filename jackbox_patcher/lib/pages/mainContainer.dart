@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:jackbox_patcher/components/menu.dart';
 import 'package:jackbox_patcher/pages/parameters/parameters.dart';
-import 'package:jackbox_patcher/pages/patcher/pack.dart';
+import 'package:jackbox_patcher/pages/patcher/packContainer.dart';
 import 'package:jackbox_patcher/model/jackboxpack.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/device/device.dart';
