@@ -1,4 +1,4 @@
-class JackboxPatch {
+class JackboxGamePatch {
   final String id;
   final String name;
   final String? authors;
@@ -8,7 +8,7 @@ class JackboxPatch {
   final String description;
   final String? smallDescription;
 
-  JackboxPatch({
+  JackboxGamePatch({
     required this.id,
     required this.name,
     required this.description,
@@ -19,8 +19,8 @@ class JackboxPatch {
     required this.smallDescription,
   });
 
-  factory JackboxPatch.fromJson(Map<String, dynamic> json) {
-    return JackboxPatch(
+  factory JackboxGamePatch.fromJson(Map<String, dynamic> json) {
+    return JackboxGamePatch(
       id: json['id'],
       name: json['name'],
       description: json['description'],

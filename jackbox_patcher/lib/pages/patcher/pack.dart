@@ -5,10 +5,10 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:jackbox_patcher/model/jackboxgame.dart';
 import 'package:jackbox_patcher/model/jackboxpack.dart';
-import 'package:jackbox_patcher/model/jackboxpatch.dart';
+import 'package:jackbox_patcher/model/jackboxgamepatch.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
-import 'package:jackbox_patcher/model/usermodel/userjackboxpatch.dart';
+import 'package:jackbox_patcher/model/usermodel/userjackboxgamepatch.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/launcher/launcher.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -182,22 +182,20 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
       return InfoBar(
         severity: InfoBarSeverity.error,
         title: Text(AppLocalizations.of(context)!.path_not_found),
-        content: Text(
-            AppLocalizations.of(context)!.path_not_found_description),
+        content: Text(AppLocalizations.of(context)!.path_not_found_description),
       );
     }
     return InfoBar(
       severity: InfoBarSeverity.warning,
       title: Text(AppLocalizations.of(context)!.path_inexistant),
-      content: Text(
-          AppLocalizations.of(context)!.path_inexistant_description),
+      content: Text(AppLocalizations.of(context)!.path_inexistant_description),
     );
   }
 
   Widget _buildGames() {
     List<Widget> children = [];
     for (UserJackboxGame g in widget.userPack.games) {
-      for (UserJackboxPatch p in g.patches) {
+      for (UserJackboxGamePatch p in g.patches) {
         children.add(PatchCard(
           pack: widget.userPack,
           game: g,

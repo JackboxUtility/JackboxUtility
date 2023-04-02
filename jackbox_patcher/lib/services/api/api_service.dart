@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:http/http.dart';
 import 'package:jackbox_patcher/model/jackboxgame.dart';
-import 'package:jackbox_patcher/model/jackboxpatch.dart';
+import 'package:jackbox_patcher/model/jackboxgamepatch.dart';
 import 'package:jackbox_patcher/model/news.dart';
 import 'package:jackbox_patcher/model/patchserver.dart';
 
@@ -32,7 +32,7 @@ class APIService {
   // Build internal
   APIService._internal();
 
-  void resetCache(){
+  void resetCache() {
     cachedServers = [];
     cachedPacks = [];
     cachedTags = [];
@@ -47,7 +47,7 @@ class APIService {
         final response = await get(Uri.parse(server));
         if (response.statusCode == 200) {
           final Map<String, dynamic> data = jsonDecode(response.body);
-          cachedServers.add(PatchServer.fromJson(server,data));
+          cachedServers.add(PatchServer.fromJson(server, data));
         } else {
           throw Exception('Failed to load servers');
         }
@@ -61,7 +61,7 @@ class APIService {
     final response = await get(Uri.parse(serverLink));
     if (response.statusCode == 200) {
       final Map<String, dynamic> data = jsonDecode(response.body);
-      cachedSelectedServer = PatchServer.fromJson(serverLink,data);
+      cachedSelectedServer = PatchServer.fromJson(serverLink, data);
       final endpoints = await cachedSelectedServer!.getVersionUrl();
       baseEndpoint = endpoints.apiEndpoint;
       baseAssets = endpoints.assetsEndpoint;
@@ -109,7 +109,7 @@ class APIService {
   }
 
   // Download patch
-  Future<String> downloadPatch(JackboxPatch patch,
+  Future<String> downloadPatch(JackboxGamePatch patch,
       void Function(double, double) progressCallback) async {
     Dio dio = Dio();
     print('$baseAssets/${patch.patchPath}');

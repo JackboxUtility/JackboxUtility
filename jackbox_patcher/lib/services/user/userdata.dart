@@ -1,12 +1,14 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:jackbox_patcher/model/jackboxpack.dart';
-import 'package:jackbox_patcher/model/usermodel/userjackboxpatch.dart';
+import 'package:jackbox_patcher/model/usermodel/userjackboxgamepatch.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../model/usermodel/userjackboxgame.dart';
 import '../../model/usermodel/userjackboxpack.dart';
+import '../../model/usermodel/userjackboxpackpatch.dart';
 
 class UserData {
   static final UserData _instance = UserData._internal();
@@ -16,8 +18,7 @@ class UserData {
     return _instance;
   }
 
-  UserData._internal() {
-  }
+  UserData._internal() {}
 
   List<UserJackboxPack> packs = [];
 
@@ -50,10 +51,11 @@ class UserData {
       UserJackboxPack userPack = UserJackboxPack(
           pack: pack, loader: loader, path: packPath, owned: packOwned);
       packs.add(userPack);
+
+      // Load every games in the pack
       for (var game in pack.games) {
         UserJackboxLoader? gameLoader = null;
         if (game.loader != null) {
-          print("LOADER FOUND");
           gameLoader = UserJackboxLoader(
               loader: game.loader!,
               path: preferences.getString("${game.id}_loader_path"),
@@ -66,9 +68,28 @@ class UserData {
         for (var patch in game.patches) {
           final String? patchVersionInstalled =
               preferences.getString("${patch.id}_version");
-          currentGame.patches.add(UserJackboxPatch(
+          currentGame.patches.add(UserJackboxGamePatch(
               patch: patch, installedVersion: patchVersionInstalled));
         }
+      }
+
+      // Load every patches in the pack
+      for (var patch in pack.patches) {
+        final String? patchVersionInstalled;
+        if (pack.configuration != null) {
+          File configurationFile = File(pack.configuration!.file);
+          if (configurationFile.existsSync()) {
+            patchVersionInstalled =
+                jsonDecode(configurationFile.readAsStringSync())[
+                    pack.configuration!.versionProperty];
+          } else {
+            patchVersionInstalled = null;
+          }
+        } else {
+          patchVersionInstalled = null;
+        }
+        userPack.patches.add(UserJackboxPackPatch(
+            patch: patch, installedVersion: patchVersionInstalled));
       }
     }
   }
@@ -105,7 +126,7 @@ class UserData {
   }
 
   /// Save a patch (mostly used when a patch is downloaded)
-  Future<void> savePatch(UserJackboxPatch patch) async {
+  Future<void> savePatch(UserJackboxGamePatch patch) async {
     if (patch.installedVersion != null) {
       await preferences.setString(
           "${patch.patch.id}_version", patch.installedVersion!);

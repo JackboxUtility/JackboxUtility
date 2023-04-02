@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:jackbox_patcher/model/usermodel/userjackboxpatch.dart';
+import 'package:jackbox_patcher/model/usermodel/userjackboxgamepatch.dart';
 import 'package:jackbox_patcher/services/error/error.dart';
 import 'package:jackbox_patcher/services/launcher/launcher.dart';
 import 'package:palette_generator/palette_generator.dart';
@@ -17,7 +17,7 @@ class PatchCard extends StatefulWidget {
 
   final UserJackboxPack pack;
   final UserJackboxGame game;
-  final UserJackboxPatch patch;
+  final UserJackboxGamePatch patch;
   @override
   State<PatchCard> createState() => _PatchCardState();
 }
@@ -130,8 +130,8 @@ class _PatchCardState extends State<PatchCard> {
           return downloadingProgress == 0
               ? ContentDialog(
                   title: Text(AppLocalizations.of(context)!.installing_a_patch),
-                  content: Text(
-                      AppLocalizations.of(context)!.installing_a_patch_description),
+                  content: Text(AppLocalizations.of(context)!
+                      .installing_a_patch_description),
                   actions: [
                     TextButton(
                       onPressed: () => Navigator.pop(context),
@@ -209,7 +209,8 @@ class _PatchCardState extends State<PatchCard> {
                   children: [
                 Icon(FluentIcons.check_mark),
                 SizedBox(height: 10),
-                Text(AppLocalizations.of(context)!.installing_a_patch_end, style: TextStyle(fontSize: 20)),
+                Text(AppLocalizations.of(context)!.installing_a_patch_end,
+                    style: TextStyle(fontSize: 20)),
                 Text(AppLocalizations.of(context)!.can_close_popup,
                     style: TextStyle(fontSize: 16)),
               ]))),
@@ -290,8 +291,8 @@ class _PatchCardState extends State<PatchCard> {
         builder: (context) {
           return ContentDialog(
             title: Text(AppLocalizations.of(context)!.delete_version),
-            content: Text(
-                AppLocalizations.of(context)!.delete_version_description),
+            content:
+                Text(AppLocalizations.of(context)!.delete_version_description),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
@@ -318,37 +319,50 @@ class _PatchCardState extends State<PatchCard> {
             title: Text(widget.patch.patch.name),
             content:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(AppLocalizations.of(context)!.description , style: TextStyle(fontSize: 20)),
+              Text(AppLocalizations.of(context)!.description,
+                  style: TextStyle(fontSize: 20)),
               Text(widget.patch.patch.description),
               SizedBox(height: 20),
-              Text(AppLocalizations.of(context)!.patch_modification, style: TextStyle(fontSize: 20)),
-              Text(AppLocalizations.of(context)!.patch_modification_description),
+              Text(AppLocalizations.of(context)!.patch_modification,
+                  style: TextStyle(fontSize: 20)),
+              Text(
+                  AppLocalizations.of(context)!.patch_modification_description),
               widget.patch.patch.patchType!.gameText
-                  ? Text("- "+AppLocalizations.of(context)!.patch_modification_content_text)
+                  ? Text("- " +
+                      AppLocalizations.of(context)!
+                          .patch_modification_content_text)
                   : SizedBox(),
               widget.patch.patch.patchType!.gameAssets
-                  ? Text(
-                      "- "+AppLocalizations.of(context)!.patch_modification_content_internal)
+                  ? Text("- " +
+                      AppLocalizations.of(context)!
+                          .patch_modification_content_internal)
                   : SizedBox(),
               widget.patch.patch.patchType!.gameSubtitles
-                  ? Text("- "+AppLocalizations.of(context)!.patch_modification_content_subtitles)
+                  ? Text("- " +
+                      AppLocalizations.of(context)!
+                          .patch_modification_content_subtitles)
                   : SizedBox(),
               widget.patch.patch.patchType!.website
-                  ? Text(
-                      "- "+AppLocalizations.of(context)!.patch_modification_content_website("laboxdejack.fr"))
+                  ? Text("- " +
+                      AppLocalizations.of(context)!
+                          .patch_modification_content_website("laboxdejack.fr"))
                   : SizedBox(),
               widget.patch.patch.patchType!.audios
-                  ? Text("- "+AppLocalizations.of(context)!.patch_modification_content_audios)
+                  ? Text("- " +
+                      AppLocalizations.of(context)!
+                          .patch_modification_content_audios)
                   : SizedBox(),
               SizedBox(
                 height: 20,
               ),
-              Text(AppLocalizations.of(context)!.version, style: TextStyle(fontSize: 20)),
+              Text(AppLocalizations.of(context)!.version,
+                  style: TextStyle(fontSize: 20)),
               Text("${widget.patch.patch.latestVersion}"),
               SizedBox(
                 height: 20,
               ),
-              Text(AppLocalizations.of(context)!.authors, style: TextStyle(fontSize: 20)),
+              Text(AppLocalizations.of(context)!.authors,
+                  style: TextStyle(fontSize: 20)),
               Text(widget.patch.patch.authors!),
             ]),
             actions: [
