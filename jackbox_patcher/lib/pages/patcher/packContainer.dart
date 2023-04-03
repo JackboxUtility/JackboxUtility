@@ -9,6 +9,8 @@ import 'package:jackbox_patcher/model/jackboxgamepatch.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgamepatch.dart';
+import 'package:jackbox_patcher/model/usermodel/userjackboxpackpatch.dart';
+import 'package:jackbox_patcher/pages/patcher/packPatch.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/launcher/launcher.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -193,23 +195,32 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
   }
 
   Widget _buildGames() {
-    List<Widget> children = [];
+    List<Widget> gamesChildren = [];
     for (UserJackboxGame g in widget.userPack.games) {
       for (UserJackboxGamePatch p in g.patches) {
-        children.add(GamePatchCard(
+        gamesChildren.add(GamePatchCard(
           pack: widget.userPack,
           game: g,
           patch: p,
         ));
       }
     }
+
+    List<Widget> packPatchChildren = [];
+    for (UserJackboxPackPatch p in widget.userPack.patches) {
+      packPatchChildren.add(PackPatch(
+        pack: widget.userPack,
+        patch: p,
+      ));
+    }
     return Padding(
         padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
-        child: StaggeredGrid.count(
+        child: gamesChildren.length>=1? StaggeredGrid.count(
             mainAxisSpacing: 20,
             crossAxisSpacing: 20,
             crossAxisCount: 3,
-            children: children));
+            children: gamesChildren):Column(
+            children: packPatchChildren));
   }
 
   void openPack() async {

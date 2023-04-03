@@ -12,14 +12,21 @@ class PatcherMenuWidget extends StatefulWidget {
 }
 
 class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
-  
-   int _selectedView = 0;
+  int _selectedView = 0;
   @override
   Widget build(BuildContext context) {
     Typography typography = FluentTheme.of(context).typography;
     return NavigationView(
       appBar: NavigationAppBar(
-          automaticallyImplyLeading: false,leading:GestureDetector(child: Icon(FluentIcons.chevron_left), onTap: () => Navigator.pop(context),), title: Text("Jackbox utility", style: typography.title,)),
+          automaticallyImplyLeading: false,
+          leading: GestureDetector(
+            child: Icon(FluentIcons.chevron_left),
+            onTap: () => Navigator.pop(context),
+          ),
+          title: Text(
+            "Jackbox utility",
+            style: typography.title,
+          )),
       pane: NavigationPane(
         onChanged: (int nSelected) {
           setState(() {
@@ -33,16 +40,19 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
   }
 
   _buildPaneItems() {
-    List<NavigationPaneItem> items = [
-    ];
+    List<NavigationPaneItem> items = [];
     List<NavigationPaneItem> patchingItems = [];
     for (var userPack in UserData().packs) {
       int countPatchs = 0;
-      for (var games in userPack.games) {
-        for (var patch in games.patches) {
+      for (var game in userPack.games) {
+        if (game.patches.length >= 1) {
           countPatchs = 1;
           break;
         }
+      }
+      print(userPack.patches.length);
+      if (userPack.patches.length >= 1) {
+        countPatchs = 1;
       }
       if (countPatchs == 1) {
         items.add(PaneItem(

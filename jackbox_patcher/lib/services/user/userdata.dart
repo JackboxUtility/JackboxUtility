@@ -75,6 +75,7 @@ class UserData {
 
       // Load every patches in the pack
       for (var patch in pack.patches) {
+        print("Patch found in pack !");
         final String? patchVersionInstalled;
         if (pack.configuration != null) {
           File configurationFile = File(pack.configuration!.file);

@@ -31,6 +31,7 @@ class JackboxPack {
       required this.executable});
 
   factory JackboxPack.fromJson(Map<String, dynamic> json) {
+    print(json);
     return JackboxPack(
         id: json['id'],
         name: json['name'],
@@ -43,7 +44,7 @@ class JackboxPack {
         games: (json['games'] as List<dynamic>)
             .map((e) => JackboxGame.fromJson(e))
             .toList(),
-        patches: json['patchs']!=null
+        patches: json['patchs'] != null
             ? (json['patchs'] as List<dynamic>)
                 .map((e) => JackboxPackPatch.fromJson(e))
                 .toList()
