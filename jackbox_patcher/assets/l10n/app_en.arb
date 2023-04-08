@@ -110,5 +110,7 @@
             }
         }
     },
-    "connected_to_server_change":"Change"
+    "connected_to_server_change":"Change",
+    "connection_to_server_failed":"Connection to the server failed",
+    "connection_to_main_server_failed":"Error while retrieving available servers"
 }

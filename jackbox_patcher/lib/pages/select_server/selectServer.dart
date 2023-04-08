@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:jackbox_patcher/model/patchserver.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
+import 'package:jackbox_patcher/services/error/error.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 
 class SelectServerPage extends StatefulWidget {
@@ -23,7 +24,13 @@ class _SelectServerPageState extends State<SelectServerPage> {
   }
 
   void _load() async {
-    await APIService().recoverAvailableServers();
+    try {
+      await APIService().recoverAvailableServers();
+    } catch (e) {
+      ErrorService.showError(context,
+          AppLocalizations.of(context)!.connection_to_main_server_failed);
+      rethrow;
+    }
     servers = APIService().cachedServers;
     setState(() {});
   }
@@ -86,7 +93,7 @@ class _SelectServerPageState extends State<SelectServerPage> {
                                     Text(
                                       server.description,
                                     ),
-                                    Expanded(child:Container()),
+                                    Expanded(child: Container()),
                                     _buildRowButtons(server)
                                   ]),
                                 ))
@@ -114,13 +121,18 @@ class _SelectServerPageState extends State<SelectServerPage> {
   }
 
   Widget _buildRowButtons(PatchServer server) {
-    return Row( children:[Expanded(child: Button(onPressed: ()async {
-      await chooseServer(server);
-      Navigator.pop(context);
-    }, child: Text(AppLocalizations.of(context)!.select_server_button)))]);
+    return Row(children: [
+      Expanded(
+          child: Button(
+              onPressed: () async {
+                await chooseServer(server);
+                Navigator.pop(context);
+              },
+              child: Text(AppLocalizations.of(context)!.select_server_button)))
+    ]);
   }
 
-  Future<void> chooseServer(PatchServer server) async{
+  Future<void> chooseServer(PatchServer server) async {
     await UserData().setSelectedServer(server.infoUrl);
   }
 }

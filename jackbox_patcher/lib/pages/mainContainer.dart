@@ -7,6 +7,7 @@ import 'package:jackbox_patcher/pages/patcher/packContainer.dart';
 import 'package:jackbox_patcher/model/jackboxpack.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/device/device.dart';
+import 'package:jackbox_patcher/services/error/error.dart';
 import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 import 'package:lottie/lottie.dart';
@@ -42,7 +43,6 @@ class _MainContainerState extends State<MainContainer> {
 
   Widget build(BuildContext context) {
     TranslationsHelper().appLocalizations = AppLocalizations.of(context);
-    print(TranslationsHelper().appLocalizations);
     return NavigationView(
         content: Stack(children: [
       _loaded
@@ -270,13 +270,21 @@ class _MainContainerState extends State<MainContainer> {
   }
 
   void _load() async {
+    print("Load");
     await UserData().init();
     if (UserData().getSelectedServer() == null) {
       await Navigator.pushNamed(context, "/serverSelect");
     }
-    await _loadInfo();
-    await _loadWelcome();
-    await _loadPacks();
+    try {
+      await _loadInfo();
+      await _loadWelcome();
+      await _loadPacks();
+    } catch (e) {
+      ErrorService.showError(
+          context, AppLocalizations.of(context)!.connection_to_server_failed,
+          duration: Duration(minutes: 5));
+      rethrow;
+    }
     setState(() {
       _loaded = true;
     });

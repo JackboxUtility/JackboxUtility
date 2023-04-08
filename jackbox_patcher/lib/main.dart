@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
         FluentLocalizations.delegate,
         AppLocalizations.delegate,
       ],
-      supportedLocales: [Locale("en"), Locale("fr")],
+      supportedLocales: [Locale("en"), Locale("fr"), Locale("de"), Locale("es")],
       initialRoute: '/',
       routes: {
         // When navigating to the "/" route, build the FirstScreen widget.

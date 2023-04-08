@@ -110,5 +110,7 @@
             }
         }
     },
-    "connected_to_server_change":"Changer"
+    "connected_to_server_change":"Changer",
+    "connection_to_server_failed":"Connexion au serveur échoué",
+    "connection_to_main_server_failed":"Impossible de récupérer la liste des serveurs. Vérifiez votre connexion internet"
 }

@@ -41,6 +41,7 @@ class APIService {
   }
 
   Future<void> recoverAvailableServers() async {
+    resetCache();
     final response = await get(Uri.parse(masterServer));
     if (response.statusCode == 200) {
       final List<dynamic> availableServers = jsonDecode(response.body);
@@ -49,9 +50,7 @@ class APIService {
         if (response.statusCode == 200) {
           final Map<String, dynamic> data = jsonDecode(response.body);
           cachedServers.add(PatchServer.fromJson(server, data));
-        } else {
-          throw Exception('Failed to load servers');
-        }
+        } else {}
       }
     } else {
       throw Exception('Failed to load servers');
@@ -110,8 +109,8 @@ class APIService {
   }
 
   // Download game patch
-  Future<String> downloadPatch(String patchUri,
-      void Function(double, double) progressCallback) async {
+  Future<String> downloadPatch(
+      String patchUri, void Function(double, double) progressCallback) async {
     Dio dio = Dio();
     final response = await dio.downloadUri(
         Uri.parse(APIService().assetLink('${patchUri}')), "./downloads/tmp.zip",
@@ -158,7 +157,7 @@ class APIService {
   }
 
   String assetLink(String asset) {
-    return asset.startsWith("http")?asset: '$baseAssets/$asset';
+    return asset.startsWith("http") ? asset : '$baseAssets/$asset';
   }
 
   String getDefaultBackground() {
