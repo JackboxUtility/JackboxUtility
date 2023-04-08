@@ -437,6 +437,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.3.0"
+  sentry:
+    dependency: transitive
+    description:
+      name: sentry
+      sha256: dda9b82b4a8a7d778786453ac6d57fb566fb9d12425d79628d295e7c6793c89f
+      url: "https://pub.dev"
+    source: hosted
+    version: "7.4.1"
+  sentry_flutter:
+    dependency: "direct main"
+    description:
+      name: sentry_flutter
+      sha256: "9082c7c13e07c43c0ecb91558549166191e4dd513a6ec6810b1ae3bc072683fc"
+      url: "https://pub.dev"
+    source: hosted
+    version: "7.4.1"
   shared_preferences:
     dependency: "direct main"
     description:

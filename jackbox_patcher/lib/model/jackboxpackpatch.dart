@@ -9,6 +9,7 @@ class JackboxPackPatch {
   final String smallDescription;
   final String description;
   final String latestVersion;
+  final String patchPath;
   final List<JackboxPackPatchComponent> components;
 
   JackboxPackPatch({
@@ -17,6 +18,7 @@ class JackboxPackPatch {
     required this.smallDescription,
     required this.description,
     required this.latestVersion,
+    required this.patchPath,
     required this.components,
   });
 
@@ -27,6 +29,7 @@ class JackboxPackPatch {
       smallDescription: json['small_description'],
       description: json['description'],
       latestVersion: json['version'],
+      patchPath: json['patch_path'],
       components: json['components'] == null
           ? []
           : List<JackboxPackPatchComponent>.from(json['components']
@@ -40,7 +43,7 @@ class JackboxPackPatchComponent {
   final String? linkedGame;
   final String name;
   final String? authors;
-  final String description;
+  final String? description;
   final String? smallDescription;
   final PatchType? patchType;
 

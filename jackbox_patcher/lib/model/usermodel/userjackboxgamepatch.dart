@@ -1,5 +1,6 @@
 import 'package:archive/archive_io.dart';
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:jackbox_patcher/services/downloader/downloader_service.dart';
 import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
 
 import '../../services/api/api_service.dart';
@@ -31,32 +32,11 @@ class UserJackboxGamePatch {
     }
   }
 
-  Future<void> downloadPatch(String patchUri, String gameUri,
+  Future<void> downloadPatch(String patchUri,
       void Function(String, String, double) callback) async {
-    try {
-      callback("${TranslationsHelper().appLocalizations!.downloading} (1/3)",
-          TranslationsHelper().appLocalizations!.starting, 0);
-      String filePath = await APIService().downloadPatch(patch,
-          (double progress, double max) {
-        callback(
-            "${TranslationsHelper().appLocalizations!.downloading} (1/3)",
-            "${progress / 1000000} MB /${max / 1000000} MB",
-            (progress / max) * 100);
-      });
-      callback("${TranslationsHelper().appLocalizations!.extracting} (2/3)", "",
-          100);
-      await extractFileToDisk(filePath, "$patchUri/$gameUri",
-          asyncWrite: false);
-      callback(TranslationsHelper().appLocalizations!.finalizing + " (3/3)", "",
-          100);
-      installedVersion = patch.latestVersion;
+    await DownloaderService.downloadPatch(patchUri, patch.patchPath!, callback);
+    installedVersion = patch.latestVersion;
       await UserData().savePatch(this);
-      //File(filePath).deleteSync(recursive: true);
-    } on Exception catch (e) {
-      callback(TranslationsHelper().appLocalizations!.unknown_error,
-          TranslationsHelper().appLocalizations!.contact_error, 0);
-      UserData().writeLogs(e.toString());
-    }
   }
 
   Future<void> removePatch() async {

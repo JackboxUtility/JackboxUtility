@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:jackbox_patcher/components/downloadPatchDialog.dart';
 import 'package:jackbox_patcher/model/jackboxgame.dart';
 import 'package:jackbox_patcher/model/jackboxgamepatch.dart';
 import 'package:jackbox_patcher/model/jackboxpackpatch.dart';
@@ -19,18 +20,25 @@ void _openPatchInfo(context, dynamic data, JackboxGame? relatedGame) {
       context: context,
       builder: (context) {
         return ContentDialog(
-          style: ContentDialogThemeData(bodyPadding: EdgeInsets.all(12), padding:EdgeInsets.all(0)),
+          style: ContentDialogThemeData(
+              bodyPadding: EdgeInsets.all(12), padding: EdgeInsets.all(0)),
           title: Column(children: [
-             relatedGame!=null? Row(children: [
-                  Expanded(
-                      child:ClipRRect(
-        borderRadius: BorderRadius.only(topLeft:Radius.circular(8), topRight: Radius.circular(8)),
-        child:SizedBox(height: 100,child: CachedNetworkImage(
-                    imageUrl:
-                        APIService().assetLink(relatedGame.background),
-                    fit: BoxFit.fitWidth,
-                  ))))
-                ]):Container(),
+            relatedGame != null
+                ? Row(children: [
+                    Expanded(
+                        child: ClipRRect(
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(8),
+                                topRight: Radius.circular(8)),
+                            child: SizedBox(
+                                height: 100,
+                                child: CachedNetworkImage(
+                                  imageUrl: APIService()
+                                      .assetLink(relatedGame.background),
+                                  fit: BoxFit.fitWidth,
+                                ))))
+                  ])
+                : Container(),
             Text(data.name),
             /*
             Column(children: [
@@ -103,9 +111,13 @@ void _openPatchInfo(context, dynamic data, JackboxGame? relatedGame) {
             SizedBox(
               height: 20,
             ),
-            data is JackboxGamePatch ? Text(AppLocalizations.of(context)!.version,
-                style: TextStyle(fontSize: 20)):Container(),
-            data is JackboxGamePatch ? Text("${data.latestVersion}"):Container(),
+            data is JackboxGamePatch
+                ? Text(AppLocalizations.of(context)!.version,
+                    style: TextStyle(fontSize: 20))
+                : Container(),
+            data is JackboxGamePatch
+                ? Text("${data.latestVersion}")
+                : Container(),
             SizedBox(
               height: 20,
             ),
@@ -180,7 +192,12 @@ class _GameInPatchCardState extends State<GameInPatchCard> {
                         IconButton(
                             icon: Icon(FluentIcons.info),
                             onPressed: () {
-                              _openPatchInfo(context, widget.gamePatchIncluded, widget.game!=null?widget.game!.game:null);
+                              _openPatchInfo(
+                                  context,
+                                  widget.gamePatchIncluded,
+                                  widget.game != null
+                                      ? widget.game!.game
+                                      : null);
                             })
                       ]),
                       Container(
@@ -198,13 +215,16 @@ class _GameInPatchCardState extends State<GameInPatchCard> {
                                         style: TextStyle(fontSize: 25)),
                                     SizedBox(height: 10),
                                     Text(
-                                      widget.gamePatchIncluded.smallDescription!,
+                                      widget
+                                          .gamePatchIncluded.smallDescription!,
                                     ),
                                   ]),
                                 ))
                               ])),
                     ])))),
-        widget.game!=null? GameImageWithOpener(pack: widget.pack, game: widget.game!):Container()
+        widget.game != null
+            ? GameImageWithOpener(pack: widget.pack, game: widget.game!)
+            : Container()
       ],
     ));
   }
@@ -277,7 +297,8 @@ class _GamePatchCardState extends State<GamePatchCard> {
                         IconButton(
                             icon: Icon(FluentIcons.info),
                             onPressed: () {
-                              _openPatchInfo(context, widget.patch.patch, widget.game.game);
+                              _openPatchInfo(context, widget.patch.patch,
+                                  widget.game.game);
                             })
                       ]),
                       Container(
@@ -322,101 +343,6 @@ class _GamePatchCardState extends State<GamePatchCard> {
     ));
   }
 
-  void _installPatchDialog() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return StatefulBuilder(builder: (context, StateSetter setState) {
-          return downloadingProgress == 0
-              ? ContentDialog(
-                  title: Text(AppLocalizations.of(context)!.installing_a_patch),
-                  content: Text(AppLocalizations.of(context)!
-                      .installing_a_patch_description),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(context),
-                      child: Text(AppLocalizations.of(context)!.cancel),
-                    ),
-                    TextButton(
-                      onPressed: () async {
-                        downloadingProgress = 1;
-                        setState(() {});
-                        widget.patch.downloadPatch(
-                            widget.pack.path!, widget.game.game.path!,
-                            (String stat, String substat, double progress) {
-                          status = stat;
-                          substatus = substat;
-                          progression = progress;
-                          setState(() {});
-                        }).then((_) {
-                          downloadingProgress = 2;
-                          setState(() {});
-                        }).catchError((error) {
-                          ErrorService.showError(context, error);
-                          Navigator.pop(context);
-                        });
-                      },
-                      child: Text(AppLocalizations.of(context)!.page_continue),
-                    ),
-                  ],
-                )
-              : (downloadingProgress == 1
-                  ? buildDownloadingPatchDialog(status, substatus, progression)
-                  : buildFinishDialog());
-        });
-      },
-    );
-  }
-
-  ContentDialog buildDownloadingPatchDialog(
-      String status, String substatus, double progression) {
-    return ContentDialog(
-      title: Text(AppLocalizations.of(context)!.installing_a_patch),
-      content: SizedBox(
-          height: 200,
-          child: Center(
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                ProgressRing(value: progression),
-                SizedBox(height: 10),
-                Text(status, style: TextStyle(fontSize: 20)),
-                Text(substatus, style: TextStyle(fontSize: 16)),
-              ]))),
-    );
-  }
-
-  ContentDialog buildFinishDialog() {
-    return ContentDialog(
-      actions: [
-        TextButton(
-          onPressed: () {
-            Navigator.pop(context);
-            downloadingProgress = 0;
-            setState(() {});
-          },
-          child: Text(AppLocalizations.of(context)!.close),
-        ),
-      ],
-      title: Text(AppLocalizations.of(context)!.installing_a_patch),
-      content: SizedBox(
-          height: 200,
-          child: Center(
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                Icon(FluentIcons.check_mark),
-                SizedBox(height: 10),
-                Text(AppLocalizations.of(context)!.installing_a_patch_end,
-                    style: TextStyle(fontSize: 20)),
-                Text(AppLocalizations.of(context)!.can_close_popup,
-                    style: TextStyle(fontSize: 16)),
-              ]))),
-    );
-  }
-
   // Widget _buildPatchTypeIcons() {
   //   List<Widget> patchType = [];
   //   if (widget.game.game.patchType!.gameText) {
@@ -444,16 +370,23 @@ class _GamePatchCardState extends State<GamePatchCard> {
     void Function()? onPressFunction;
     String buttonText = "";
     bool removePatchButtonVisible = false;
-    UserInstalledPatchStatus status =
+    UserInstalledPatchStatus patchStatus =
         widget.patch.getInstalledStatus(widget.pack.path);
-    if (status == UserInstalledPatchStatus.INEXISTANT ||
-        status == UserInstalledPatchStatus.INSTALLED) {
+    if (patchStatus == UserInstalledPatchStatus.INEXISTANT ||
+        patchStatus == UserInstalledPatchStatus.INSTALLED) {
       onPressFunction = null;
     } else {
-      onPressFunction = () => _installPatchDialog();
+      onPressFunction = () => showDialog(
+          context: context,
+          builder: (context) {
+            return DownloadPatchDialogComponent(
+                localPath: widget.pack.path!+"/"+widget.game.game.path!, patch: widget.patch);
+          }).then((value) => setState(() {
+            
+          },));
     }
 
-    switch (status) {
+    switch (patchStatus) {
       case UserInstalledPatchStatus.INEXISTANT:
         buttonText = AppLocalizations.of(context)!.patch_unavailable;
         break;

@@ -77,12 +77,14 @@ class UserData {
       for (var patch in pack.patches) {
         print("Patch found in pack !");
         final String? patchVersionInstalled;
-        if (pack.configuration != null) {
-          File configurationFile = File(pack.configuration!.file);
+        if (pack.configuration != null && userPack.path != null) {
+          File configurationFile = File(userPack.path!+"/"+ pack.configuration!.file);
+          print("HERE");
           if (configurationFile.existsSync()) {
             patchVersionInstalled =
                 jsonDecode(configurationFile.readAsStringSync())[
                     pack.configuration!.versionProperty];
+            print(patchVersionInstalled);
           } else {
             patchVersionInstalled = null;
           }

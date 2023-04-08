@@ -5,6 +5,7 @@ import 'package:jackbox_patcher/model/usermodel/userjackboxgamepatch.dart';
 import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
 
 import '../../services/api/api_service.dart';
+import '../../services/downloader/downloader_service.dart';
 import '../../services/user/userdata.dart';
 import '../jackboxgamepatch.dart';
 
@@ -33,15 +34,9 @@ class UserJackboxPackPatch {
     }
   }
 
-  Future<void> downloadPatch(String patchUri, String gameUri,
+  Future<void> downloadPatch(String patchUri,
       void Function(String, String, double) callback) async {
-    try {
-      
-      //File(filePath).deleteSync(recursive: true);
-    } on Exception catch (e) {
-      callback(TranslationsHelper().appLocalizations!.unknown_error,
-          TranslationsHelper().appLocalizations!.contact_error, 0);
-      UserData().writeLogs(e.toString());
-    }
+    await DownloaderService.downloadPatch(patchUri, patch.patchPath, callback);
+    installedVersion = patch.latestVersion;
   }
 }

@@ -44,11 +44,12 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
         pathFoundStatus = "INEXISTANT";
       });
     } else {
-      if (await folder.exists()) {
+      if (await folder.exists() && mounted) {
         setState(() {
           pathFoundStatus = "FOUND";
         });
       } else {
+        if (mounted)
         setState(() {
           pathFoundStatus = "NOT_FOUND";
         });
@@ -139,7 +140,7 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
                                     Icon(FluentIcons.play),
                                     SizedBox(width: 10),
                                     Text(
-                                      "Lancement...",
+                                      AppLocalizations.of(context)!.launching,
                                       style: TextStyle(fontSize: 11),
                                     )
                                   ])
@@ -147,7 +148,7 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
                                     Icon(FluentIcons.check_mark),
                                     SizedBox(width: 10),
                                     Text(
-                                      "Lancé !",
+                                      AppLocalizations.of(context)!.launched,
                                       style: TextStyle(fontSize: 11),
                                     )
                                   ]))))

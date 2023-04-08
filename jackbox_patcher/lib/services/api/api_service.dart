@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:http/http.dart';
 import 'package:jackbox_patcher/model/jackboxgame.dart';
 import 'package:jackbox_patcher/model/jackboxgamepatch.dart';
+import 'package:jackbox_patcher/model/jackboxpackpatch.dart';
 import 'package:jackbox_patcher/model/news.dart';
 import 'package:jackbox_patcher/model/patchserver.dart';
 
@@ -108,15 +109,14 @@ class APIService {
     return cachedTags;
   }
 
-  // Download patch
-  Future<String> downloadPatch(JackboxGamePatch patch,
+  // Download game patch
+  Future<String> downloadPatch(String patchUri,
       void Function(double, double) progressCallback) async {
     Dio dio = Dio();
-    print('$baseAssets/${patch.patchPath}');
     final response = await dio.downloadUri(
-        Uri.parse('$baseAssets/${patch.patchPath}'), "./downloads/tmp.zip",
+        Uri.parse(APIService().assetLink('${patchUri}')), "./downloads/tmp.zip",
         onReceiveProgress: (received, total) {
-      progressCallback(received.toDouble(), total.toDouble());
+      progressCallback(received.toInt().toDouble(), total.toInt().toDouble());
     });
     if (response.statusCode == 200) {
       return "./downloads/tmp.zip";
@@ -158,7 +158,7 @@ class APIService {
   }
 
   String assetLink(String asset) {
-    return '$baseAssets/$asset';
+    return asset.startsWith("http")?asset: '$baseAssets/$asset';
   }
 
   String getDefaultBackground() {

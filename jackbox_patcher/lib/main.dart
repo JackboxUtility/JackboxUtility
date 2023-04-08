@@ -6,13 +6,21 @@ import 'package:jackbox_patcher/pages/select_server/selectServer.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 import 'pages/game_ui/gameInfo.dart';
 import 'pages/parameters/parameters.dart';
 import 'pages/patcher/menu.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  await SentryFlutter.init(
+    (options) {
+      options.dsn = 'https://bc7660c906ba4f24ad2e37530bfa4c39@o518501.ingest.sentry.io/4504978536988672';
+      // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
+      // We recommend adjusting this value in production.
+      options.tracesSampleRate = 1.0;
+    },
+    appRunner: () =>runApp(const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
