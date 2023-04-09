@@ -7,7 +7,6 @@ class JackboxPackPatch {
   final String id;
   final String name;
   final String smallDescription;
-  final String description;
   final String latestVersion;
   final String patchPath;
   final List<JackboxPackPatchComponent> components;
@@ -16,7 +15,6 @@ class JackboxPackPatch {
     required this.id,
     required this.name,
     required this.smallDescription,
-    required this.description,
     required this.latestVersion,
     required this.patchPath,
     required this.components,
@@ -27,7 +25,6 @@ class JackboxPackPatch {
       id: json['id'],
       name: json['name'],
       smallDescription: json['small_description'],
-      description: json['description'],
       latestVersion: json['version'],
       patchPath: json['patch_path'],
       components: json['components'] == null
