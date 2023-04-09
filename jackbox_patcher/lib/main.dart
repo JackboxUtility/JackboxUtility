@@ -1,4 +1,5 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter/foundation.dart';
 import 'package:jackbox_patcher/pages/mainContainer.dart';
 import 'package:jackbox_patcher/pages/search_ui/searchGames.dart';
 import 'package:jackbox_patcher/pages/search_ui/searchGamesMenu.dart';
@@ -15,6 +16,7 @@ import 'pages/patcher/menu.dart';
 void main() async {
   await SentryFlutter.init(
     (options) {
+      options.environment = kDebugMode? 'development' : 'production';
       options.dsn = 'https://bc7660c906ba4f24ad2e37530bfa4c39@o518501.ingest.sentry.io/4504978536988672';
       // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
       // We recommend adjusting this value in production.
