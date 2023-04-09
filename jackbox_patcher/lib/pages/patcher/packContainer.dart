@@ -107,7 +107,7 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
                   Text(
                     widget.userPack.pack.description,
                     style: TextStyle(color: Colors.white, fontSize: 15),
-                  )
+                  ) 
                 ],
               ),
             ),
