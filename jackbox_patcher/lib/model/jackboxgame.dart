@@ -145,16 +145,16 @@ enum JackboxGameType {
 }
 
 enum JackboxGameTranslation {
-  FRENCH,
-  FRENCH_JBFR,
+  NATIVELY_TRANSLATED,
+  COMMUNITY_TRANSLATED,
   ENGLISH;
 
   static JackboxGameTranslation fromString(String translation) {
     switch (translation) {
-      case 'FRENCH':
-        return JackboxGameTranslation.FRENCH;
-      case 'FRENCH_JBFR':
-        return JackboxGameTranslation.FRENCH_JBFR;
+      case 'NATIVELY_TRANSLATED':
+        return JackboxGameTranslation.NATIVELY_TRANSLATED;
+      case 'COMMUNITY_TRANSLATED':
+        return JackboxGameTranslation.COMMUNITY_TRANSLATED;
       case 'ENGLISH':
         return JackboxGameTranslation.ENGLISH;
       default:
@@ -164,11 +164,11 @@ enum JackboxGameTranslation {
 
   String get name {
     switch (this) {
-      case JackboxGameTranslation.FRENCH:
+      case JackboxGameTranslation.NATIVELY_TRANSLATED:
         return TranslationsHelper()
             .appLocalizations!
             .game_translation_translated;
-      case JackboxGameTranslation.FRENCH_JBFR:
+      case JackboxGameTranslation.COMMUNITY_TRANSLATED:
         return TranslationsHelper()
             .appLocalizations!
             .game_translation_community_translated;
@@ -181,11 +181,11 @@ enum JackboxGameTranslation {
 
   String get description {
     switch (this) {
-      case JackboxGameTranslation.FRENCH:
+      case JackboxGameTranslation.NATIVELY_TRANSLATED:
         return TranslationsHelper()
             .appLocalizations!
             .game_translation_translated_description;
-      case JackboxGameTranslation.FRENCH_JBFR:
+      case JackboxGameTranslation.COMMUNITY_TRANSLATED:
         return TranslationsHelper()
             .appLocalizations!
             .game_translation_community_translated_description;
