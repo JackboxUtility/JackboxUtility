@@ -9,6 +9,7 @@ class PatchServer {
   String image;
   List<PatchServerUrls> urls;
   String infoUrl;
+  String? controllerUrl;
 
   PatchServer(
       {required this.id,
@@ -16,7 +17,9 @@ class PatchServer {
       required this.description,
       required this.image,
       required this.urls,
-      required this.infoUrl});
+      required this.infoUrl,
+      required this.controllerUrl
+      });
 
   factory PatchServer.fromJson(String url, Map<String, dynamic> json) {
     return PatchServer(
@@ -28,6 +31,7 @@ class PatchServer {
           .map((e) => PatchServerUrls.fromJson(e))
           .toList(),
       infoUrl: url,
+      controllerUrl: json['controller'],
     );
   }
 

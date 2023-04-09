@@ -84,29 +84,24 @@ void _openPatchInfo(context, dynamic data, JackboxGame? relatedGame) {
                 style: TextStyle(fontSize: 20)),
             Text(AppLocalizations.of(context)!.patch_modification_description),
             data.patchType!.gameText
-                ? Text("- " +
-                    AppLocalizations.of(context)!
-                        .patch_modification_content_text)
+                ? Text("- ${AppLocalizations.of(context)!
+                        .patch_modification_content_text}")
                 : SizedBox(),
             data.patchType!.gameAssets
-                ? Text("- " +
-                    AppLocalizations.of(context)!
-                        .patch_modification_content_internal)
+                ? Text("- ${AppLocalizations.of(context)!
+                        .patch_modification_content_internal}")
                 : SizedBox(),
             data.patchType!.gameSubtitles
-                ? Text("- " +
-                    AppLocalizations.of(context)!
-                        .patch_modification_content_subtitles)
+                ? Text("- ${AppLocalizations.of(context)!
+                        .patch_modification_content_subtitles}")
                 : SizedBox(),
             data.patchType!.website
-                ? Text("- " +
-                    AppLocalizations.of(context)!
-                        .patch_modification_content_website("laboxdejack.fr"))
+                ? Text("- ${AppLocalizations.of(context)!
+                        .patch_modification_content_website(APIService().cachedSelectedServer!.controllerUrl!=null?APIService().cachedSelectedServer!.controllerUrl!:"jackbox.tv")}")
                 : SizedBox(),
             data.patchType!.audios
-                ? Text("- " +
-                    AppLocalizations.of(context)!
-                        .patch_modification_content_audios)
+                ? Text("- ${AppLocalizations.of(context)!
+                        .patch_modification_content_audios}")
                 : SizedBox(),
             SizedBox(
               height: 20,
@@ -380,7 +375,7 @@ class _GamePatchCardState extends State<GamePatchCard> {
           context: context,
           builder: (context) {
             return DownloadPatchDialogComponent(
-                localPath: widget.pack.path!+"/"+widget.game.game.path!, patch: widget.patch);
+                localPath: "${widget.pack.path!}/${widget.game.game.path!}", patch: widget.patch);
           }).then((value) => setState(() {
             
           },));
