@@ -17,3 +17,7 @@ jobs:
      - name: Build windows
        working-directory: ./jackbox_patcher
        run: flutter build windows
+     - uses: actions/upload-artifact@v3
+       with:
+          name: build_windows
+          path: ./jackbox_patcher/build/windows/runner/Release
