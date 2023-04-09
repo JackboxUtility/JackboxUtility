@@ -76,10 +76,10 @@ void _openPatchInfo(context, dynamic data, JackboxGame? relatedGame) {
           ]),
           content:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text(AppLocalizations.of(context)!.description,
-                style: TextStyle(fontSize: 20)),
-            Text(data.description),
-            SizedBox(height: 10),
+            data.description!=null && data.description!=""? Text(AppLocalizations.of(context)!.description,
+                style: TextStyle(fontSize: 20)):Container(),
+            data.description!=null && data.description!=""? Text(data.description):Container(),
+            data.description!=null && data.description!=""? SizedBox(height: 10):Container(),
             Text(AppLocalizations.of(context)!.patch_modification,
                 style: TextStyle(fontSize: 20)),
             Text(AppLocalizations.of(context)!.patch_modification_description),
@@ -121,9 +121,9 @@ void _openPatchInfo(context, dynamic data, JackboxGame? relatedGame) {
             SizedBox(
               height: 20,
             ),
-            Text(AppLocalizations.of(context)!.authors,
-                style: TextStyle(fontSize: 20)),
-            Text(data.authors!),
+            data.authors!=null && data.authors!=""? Text(AppLocalizations.of(context)!.authors,
+                style: TextStyle(fontSize: 20)):Container(),
+            data.authors!=null && data.authors!=""?Text(data.authors!):Container(),
           ]),
           actions: [
             TextButton(
