@@ -14,5 +14,6 @@ jobs:
    steps:
      - uses: actions/checkout@v3
      - uses: subosito/flutter-action@v2
-     - run: cd jackbox_patcher
-     - run: flutter build windows
+     - name: Build windows
+       working-directory: ./jackbox_patcher
+       run: flutter build windows
