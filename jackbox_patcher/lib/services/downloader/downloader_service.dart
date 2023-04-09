@@ -8,6 +8,7 @@ class DownloaderService {
   /// Downloads a patch from [patchUrl] and extracts it to [uri]
   static Future<void> downloadPatch(String uri, String patchUrl,
       void Function(String, String, double) callback) async {
+    print("Starting download : " + patchUrl);
     try {
       callback("${TranslationsHelper().appLocalizations!.downloading} (1/3)",
           TranslationsHelper().appLocalizations!.starting, 0);
@@ -20,8 +21,7 @@ class DownloaderService {
       });
       callback("${TranslationsHelper().appLocalizations!.extracting} (2/3)", "",
           100);
-      await extractFileToDisk(filePath, uri,
-          asyncWrite: false);
+      await extractFileToDisk(filePath, uri, asyncWrite: false);
       callback(TranslationsHelper().appLocalizations!.finalizing + " (3/3)", "",
           100);
       //File(filePath).deleteSync(recursive: true);
@@ -29,6 +29,7 @@ class DownloaderService {
       callback(TranslationsHelper().appLocalizations!.unknown_error,
           TranslationsHelper().appLocalizations!.contact_error, 0);
       UserData().writeLogs(e.toString());
+      rethrow;
     }
   }
 }

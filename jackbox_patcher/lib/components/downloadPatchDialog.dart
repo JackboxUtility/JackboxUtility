@@ -1,5 +1,6 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:windows_taskbar/windows_taskbar.dart';
 
 import '../services/error/error.dart';
 
@@ -38,14 +39,20 @@ class _DownloadPatchDialogComponentState
                     downloadingProgress = 1;
                     setState(() {});
                     widget.patch.downloadPatch(widget.localPath,
-                        (stat, substat, progress) {
+                        (stat, substat, progress) async {
                       status = stat;
                       substatus = substat;
+                      if (progression.toInt()!=progress.toInt()){
+                        WindowsTaskbar.setProgress(
+                           progress.toInt(), 100);
+                      }
                       progression = progress;
                       setState(() {});
                     }).then((_) {
                       downloadingProgress = 2;
                       setState(() {});
+                        WindowsTaskbar.setProgressMode(
+                           TaskbarProgressMode.normal);
                     }).catchError((error) {
                       ErrorService.showError(context, error);
                       Navigator.pop(context);
