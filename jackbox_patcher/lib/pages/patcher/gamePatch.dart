@@ -39,7 +39,7 @@ void _openPatchInfo(context, dynamic data, JackboxGame? relatedGame) {
                                 ))))
                   ])
                 : Container(),
-            Text(data.name),
+            Text(data.name, textAlign: TextAlign.center,),
             /*
             Column(children: [
              relatedGame!=null? Row(children: [
@@ -75,7 +75,7 @@ void _openPatchInfo(context, dynamic data, JackboxGame? relatedGame) {
           ])*/
           ]),
           content:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              ListView(children: [
             data.description!=null && data.description!=""? Text(AppLocalizations.of(context)!.description,
                 style: TextStyle(fontSize: 20)):Container(),
             data.description!=null && data.description!=""? Text(data.description):Container(),
