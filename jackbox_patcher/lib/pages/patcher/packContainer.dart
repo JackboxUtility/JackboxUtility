@@ -94,10 +94,7 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
                         1.0
                       ])),
             ),
-            Positioned(
-              top: 140,
-              left: 20,
-              child: Column(
+            Container(margin:EdgeInsets.only(top:140,left:20,right:20),child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
@@ -167,7 +164,7 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
           ],
         ),
         SizedBox(
-          height: 30,
+          height: 20,
         ),
         _buildPathMessage()
       ],
