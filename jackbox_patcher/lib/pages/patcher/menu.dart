@@ -24,7 +24,7 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
             onTap: () => Navigator.pop(context),
           ),
           title: Text(
-            "Jackbox utility",
+            APIService().cachedSelectedServer!.name,
             style: typography.title,
           )),
       pane: NavigationPane(

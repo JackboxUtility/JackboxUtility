@@ -256,11 +256,11 @@ class _MainContainerState extends State<MainContainer> {
     return Column(children: [
       ClipRRect(
           borderRadius: BorderRadius.circular(8.0),
-          child: Image.asset(
-            "assets/logo.png",
+          child: _loaded? Image.network(APIService().assetLink(APIService().cachedSelectedServer!.image), height: 100): Image.asset(
+             "assets/logo.png",
             height: 100,
           )),
-      Text(AppLocalizations.of(context)!.jackbox_utility,
+      Text(_loaded? APIService().cachedSelectedServer!.name: AppLocalizations.of(context)!.jackbox_utility,
           style: FluentTheme.of(context).typography.titleLarge)
     ]);
   }
