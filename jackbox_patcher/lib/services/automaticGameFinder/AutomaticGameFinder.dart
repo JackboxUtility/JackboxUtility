@@ -34,8 +34,7 @@ class AutomaticGameFinderService {
     if (Platform.isWindows) {
       final epicLocation = _getEpicLocation();
       if (epicLocation != null) {
-        List<dynamic> epicApps =
-            await _getEpicInstalledApps(epicLocation);
+        List<dynamic> epicApps = await _getEpicInstalledApps(epicLocation);
         print("Installed apps");
         numberGamesFound = await _linkEpicAppsWithPacks(epicApps, packs);
       }
@@ -44,10 +43,14 @@ class AutomaticGameFinderService {
   }
 
   static String? _getSteamLocation() {
-    final key = Registry.openPath(RegistryHive.localMachine,
-        path: 'SOFTWARE\\WOW6432Node\\Valve\\Steam');
-    final steamLocation = key.getValueAsString("InstallPath");
-    return steamLocation;
+    try {
+      final key = Registry.openPath(RegistryHive.localMachine,
+          path: 'SOFTWARE\\WOW6432Node\\Valve\\Steam');
+      final steamLocation = key.getValueAsString("InstallPath");
+      return steamLocation;
+    } catch (e) {
+      return null;
+    }
   }
 
   static Map<String, List<String>> _getSteamFoldersWithAppId(
@@ -106,10 +109,14 @@ class AutomaticGameFinderService {
 
   static String? _getEpicLocation() {
     print("Epic games location");
-    final key = Registry.openPath(RegistryHive.localMachine,
-        path: 'SOFTWARE\\WOW6432Node\\Epic Games\\EpicGamesLauncher');
-    final epicLocation = key.getValueAsString("AppDataPath");
-    return epicLocation;
+    try {
+      final key = Registry.openPath(RegistryHive.localMachine,
+          path: 'SOFTWARE\\WOW6432Node\\Epic Games\\EpicGamesLauncher');
+      final epicLocation = key.getValueAsString("AppDataPath");
+      return epicLocation;
+    } catch (e) {
+      return null;
+    }
   }
 
   static Future<List<dynamic>> _getEpicInstalledApps(
@@ -121,7 +128,8 @@ class AutomaticGameFinderService {
     print("File found");
     String fileData = await file.readAsString();
     print(fileData);
-    List<dynamic> installationList = jsonDecode(fileData)["InstallationList"] as List<dynamic>;
+    List<dynamic> installationList =
+        jsonDecode(fileData)["InstallationList"] as List<dynamic>;
     print(installationList);
     return installationList;
   }
