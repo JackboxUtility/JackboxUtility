@@ -18,6 +18,7 @@ import 'pages/patcher/menu.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
+  kDebugMode ? runApp(const MyApp()):
   await SentryFlutter.init((options) {
     options.environment = kDebugMode ? 'development' : 'production';
     options.dsn =

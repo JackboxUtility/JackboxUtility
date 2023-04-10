@@ -112,12 +112,13 @@ class APIService {
       String patchUri, void Function(double, double) progressCallback) async {
     Dio dio = Dio();
     final response = await dio.downloadUri(
-        Uri.parse(APIService().assetLink('${patchUri}')), "./downloads/tmp.zip",
+        Uri.parse(APIService().assetLink('${patchUri}')), "./downloads/tmp."+patchUri.split(".").last,
+        options: Options(),
         onReceiveProgress: (received, total) {
       progressCallback(received.toInt().toDouble(), total.toInt().toDouble());
     });
     if (response.statusCode == 200) {
-      return "./downloads/tmp.zip";
+      return  "./downloads/tmp."+patchUri.split(".").last;
     } else {
       throw Exception('Failed to download patch');
     }

@@ -37,7 +37,7 @@ dependencies:
   palette_generator: 0.3.3+2
   cached_network_image: 3.2.3
   dio: 4.0.6
-  archive: 3.3.6
+  archive: 3.3.5
   flutter_markdown: 0.6.13+1
   url_launcher: 6.1.9
   lottie: 2.2.0
