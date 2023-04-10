@@ -5,7 +5,9 @@ import 'package:windows_taskbar/windows_taskbar.dart';
 import '../../services/error/error.dart';
 
 class DownloadPatchDialogComponent extends StatefulWidget {
-  DownloadPatchDialogComponent({Key? key, required this.localPath, required this.patch}) : super(key: key);
+  DownloadPatchDialogComponent(
+      {Key? key, required this.localPath, required this.patch})
+      : super(key: key);
 
   final String localPath;
   final dynamic patch;
@@ -24,47 +26,45 @@ class _DownloadPatchDialogComponentState
   int downloadingProgress = 0;
   @override
   Widget build(BuildContext context) {
-      return downloadingProgress == 0
-          ? ContentDialog(
-              title: Text(AppLocalizations.of(context)!.installing_a_patch),
-              content: Text(
-                  AppLocalizations.of(context)!.installing_a_patch_description),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: Text(AppLocalizations.of(context)!.cancel),
-                ),
-                TextButton(
-                  onPressed: () async {
-                    downloadingProgress = 1;
+    return downloadingProgress == 0
+        ? ContentDialog(
+            title: Text(AppLocalizations.of(context)!.installing_a_patch),
+            content: Text(
+                AppLocalizations.of(context)!.installing_a_patch_description),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text(AppLocalizations.of(context)!.cancel),
+              ),
+              TextButton(
+                onPressed: () async {
+                  downloadingProgress = 1;
+                  setState(() {});
+                  widget.patch.downloadPatch(widget.localPath,
+                      (stat, substat, progress) async {
+                    status = stat;
+                    substatus = substat;
+                    if (progression.toInt() != progress.toInt()) {
+                      WindowsTaskbar.setProgress(progress.toInt(), 100);
+                    }
+                    progression = progress;
                     setState(() {});
-                    widget.patch.downloadPatch(widget.localPath,
-                        (stat, substat, progress) async {
-                      status = stat;
-                      substatus = substat;
-                      if (progression.toInt()!=progress.toInt()){
-                        WindowsTaskbar.setProgress(
-                           progress.toInt(), 100);
-                      }
-                      progression = progress;
-                      setState(() {});
-                    }).then((_) {
-                      downloadingProgress = 2;
-                      setState(() {});
-                        WindowsTaskbar.setProgressMode(
-                           TaskbarProgressMode.normal);
-                    }).catchError((error) {
-                      ErrorService.showError(context, error);
-                      Navigator.pop(context);
-                    });
-                  },
-                  child: Text(AppLocalizations.of(context)!.page_continue),
-                ),
-              ],
-            )
-          : (downloadingProgress == 1
-              ? buildDownloadingPatchDialog(status, substatus, progression)
-              : buildFinishDialog());
+                  }).then((_) {
+                    downloadingProgress = 2;
+                    setState(() {});
+                    WindowsTaskbar.setProgressMode(TaskbarProgressMode.normal);
+                  }).catchError((error) {
+                    InfoBarService.showError(context, error);
+                    Navigator.pop(context);
+                  });
+                },
+                child: Text(AppLocalizations.of(context)!.page_continue),
+              ),
+            ],
+          )
+        : (downloadingProgress == 1
+            ? buildDownloadingPatchDialog(status, substatus, progression)
+            : buildFinishDialog());
   }
 
   ContentDialog buildDownloadingPatchDialog(

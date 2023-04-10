@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:jackbox_patcher/components/dialogs/leaveApplicationDialog.dart';
 import 'package:jackbox_patcher/components/menu.dart';
+import 'package:jackbox_patcher/model/patchserver.dart';
 import 'package:jackbox_patcher/pages/parameters/parameters.dart';
 import 'package:jackbox_patcher/pages/patcher/packContainer.dart';
 import 'package:jackbox_patcher/model/jackboxpack.dart';
@@ -43,7 +46,7 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
   @override
   void initState() {
     windowManager.addListener(this);
-    _load();
+    _load(true);
     super.initState();
   }
 
@@ -251,7 +254,7 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
           APIService().resetCache();
           _loaded = false;
           setState(() {});
-          _load();
+          _load(false);
         },
       )
     ]);
@@ -282,13 +285,19 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
     return Container();
   }
 
-  void _load() async {
+  void _load(bool automaticallyChooseBestServer) async {
     print("Loading");
     bool changedServer = false;
+    bool automaticGameFindNotificationAvailable = false;
     await windowManager.setPreventClose(true);
     await UserData().init();
     if (UserData().getSelectedServer() == null) {
-      await Navigator.pushNamed(context, "/serverSelect");
+      if (automaticallyChooseBestServer) {
+        await findBestServer();
+      } else {
+        await Navigator.pushNamed(context, "/serverSelect");
+        automaticGameFindNotificationAvailable = true;
+      }
       changedServer = true;
       print("ChangedServer");
     }
@@ -296,9 +305,9 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
       await _loadInfo();
       await _loadWelcome();
       await _loadPacks();
-      if (changedServer) await _showAutomaticGameFinderDialog();
+      if (changedServer) await _launchAutomaticGameFinder(automaticGameFindNotificationAvailable);
     } catch (e) {
-      ErrorService.showError(
+      InfoBarService.showError(
           context, AppLocalizations.of(context)!.connection_to_server_failed,
           duration: Duration(minutes: 5));
       rethrow;
@@ -306,6 +315,25 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
     setState(() {
       _loaded = true;
     });
+  }
+
+  Future<void> findBestServer() async {
+    String locale = Platform.localeName;
+    print(locale);
+    await APIService().recoverAvailableServers();
+    List<PatchServer> servers = APIService().cachedServers;
+    print(servers);
+    for (var server in servers) {
+      print(server.languages);
+      if (server.languages.where((e) => locale.startsWith(e)).length > 0) {
+        print("Found server");
+        await UserData().setSelectedServer(server.infoUrl);
+        InfoBarService.showInfo(context, "Serveur trouvé",
+            "Le serveur ${server.name} a été choisit automatiquement depuis votre langue");
+        return;
+      }
+    }
+    await Navigator.pushNamed(context, "/serverSelect");
   }
 
   Future<void> _loadInfo() async {
@@ -326,6 +354,18 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
         builder: (context) {
           return AutomaticGameFinderDialog();
         });
+  }
+
+  Future<void> _launchAutomaticGameFinder(bool showNotification) async {
+    int gamesFound =
+        await AutomaticGameFinderService.findGames(UserData().packs);
+    if (showNotification) {
+      InfoBarService.showInfo(
+          context,
+          AppLocalizations.of(context)!.automatic_game_finder_title,
+          AppLocalizations.of(context)!
+              .automatic_game_finder_finish(gamesFound));
+    }
   }
 
   @override

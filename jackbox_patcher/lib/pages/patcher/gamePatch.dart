@@ -39,7 +39,10 @@ void _openPatchInfo(context, dynamic data, JackboxGame? relatedGame) {
                                 ))))
                   ])
                 : Container(),
-            Text(data.name, textAlign: TextAlign.center,),
+            Text(
+              data.name,
+              textAlign: TextAlign.center,
+            ),
             /*
             Column(children: [
              relatedGame!=null? Row(children: [
@@ -74,34 +77,39 @@ void _openPatchInfo(context, dynamic data, JackboxGame? relatedGame) {
                 ]):Container(),
           ])*/
           ]),
-          content:
-              ListView(children: [
-            data.description!=null && data.description!=""? Text(AppLocalizations.of(context)!.description,
-                style: TextStyle(fontSize: 20)):Container(),
-            data.description!=null && data.description!=""? Text(data.description):Container(),
-            data.description!=null && data.description!=""? SizedBox(height: 10):Container(),
+          content: ListView(children: [
+            data.description != null && data.description != ""
+                ? Text(AppLocalizations.of(context)!.description,
+                    style: TextStyle(fontSize: 20))
+                : Container(),
+            data.description != null && data.description != ""
+                ? Text(data.description)
+                : Container(),
+            data.description != null && data.description != ""
+                ? SizedBox(height: 10)
+                : Container(),
             Text(AppLocalizations.of(context)!.patch_modification,
                 style: TextStyle(fontSize: 20)),
             Text(AppLocalizations.of(context)!.patch_modification_description),
             data.patchType!.gameText
-                ? Text("- ${AppLocalizations.of(context)!
-                        .patch_modification_content_text}")
+                ? Text(
+                    "- ${AppLocalizations.of(context)!.patch_modification_content_text}")
                 : SizedBox(),
             data.patchType!.gameAssets
-                ? Text("- ${AppLocalizations.of(context)!
-                        .patch_modification_content_internal}")
+                ? Text(
+                    "- ${AppLocalizations.of(context)!.patch_modification_content_internal}")
                 : SizedBox(),
             data.patchType!.gameSubtitles
-                ? Text("- ${AppLocalizations.of(context)!
-                        .patch_modification_content_subtitles}")
+                ? Text(
+                    "- ${AppLocalizations.of(context)!.patch_modification_content_subtitles}")
                 : SizedBox(),
             data.patchType!.website
-                ? Text("- ${AppLocalizations.of(context)!
-                        .patch_modification_content_website(APIService().cachedSelectedServer!.controllerUrl!=null?APIService().cachedSelectedServer!.controllerUrl!:"jackbox.tv")}")
+                ? Text(
+                    "- ${AppLocalizations.of(context)!.patch_modification_content_website(APIService().cachedSelectedServer!.controllerUrl != null ? APIService().cachedSelectedServer!.controllerUrl! : "jackbox.tv")}")
                 : SizedBox(),
             data.patchType!.audios
-                ? Text("- ${AppLocalizations.of(context)!
-                        .patch_modification_content_audios}")
+                ? Text(
+                    "- ${AppLocalizations.of(context)!.patch_modification_content_audios}")
                 : SizedBox(),
             SizedBox(
               height: 20,
@@ -116,9 +124,13 @@ void _openPatchInfo(context, dynamic data, JackboxGame? relatedGame) {
             SizedBox(
               height: 20,
             ),
-            data.authors!=null && data.authors!=""? Text(AppLocalizations.of(context)!.authors,
-                style: TextStyle(fontSize: 20)):Container(),
-            data.authors!=null && data.authors!=""?Text(data.authors!):Container(),
+            data.authors != null && data.authors != ""
+                ? Text(AppLocalizations.of(context)!.authors,
+                    style: TextStyle(fontSize: 20))
+                : Container(),
+            data.authors != null && data.authors != ""
+                ? Text(data.authors!)
+                : Container(),
           ]),
           actions: [
             TextButton(
@@ -375,10 +387,11 @@ class _GamePatchCardState extends State<GamePatchCard> {
           context: context,
           builder: (context) {
             return DownloadPatchDialogComponent(
-                localPath: "${widget.pack.path!}/${widget.game.game.path!}", patch: widget.patch);
-          }).then((value) => setState(() {
-            
-          },));
+                localPath: "${widget.pack.path!}/${widget.game.game.path!}",
+                patch: widget.patch);
+          }).then((value) => setState(
+            () {},
+          ));
     }
 
     switch (patchStatus) {
@@ -465,7 +478,7 @@ class _GameImageWithOpenerState extends State<GameImageWithOpener> {
                           onSecondaryTap: () async {
                             Launcher.launchGame(widget.pack, widget.game)
                                 .then((value) => setState(() {}))
-                                .catchError((e) => ErrorService.showError(
+                                .catchError((e) => InfoBarService.showError(
                                     context, e.toString()));
                           },
                           onTap: () => Navigator.pushNamed(context, "/game",

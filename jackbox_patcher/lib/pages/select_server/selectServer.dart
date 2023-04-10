@@ -27,7 +27,7 @@ class _SelectServerPageState extends State<SelectServerPage> {
     try {
       await APIService().recoverAvailableServers();
     } catch (e) {
-      ErrorService.showError(context,
+      InfoBarService.showError(context,
           AppLocalizations.of(context)!.connection_to_main_server_failed);
       rethrow;
     }

@@ -10,6 +10,7 @@ class PatchServer {
   List<PatchServerUrls> urls;
   String infoUrl;
   String? controllerUrl;
+  List<String> languages = [];
 
   PatchServer(
       {required this.id,
@@ -18,10 +19,11 @@ class PatchServer {
       required this.image,
       required this.urls,
       required this.infoUrl,
-      required this.controllerUrl
-      });
+      required this.controllerUrl,
+      required this.languages});
 
   factory PatchServer.fromJson(String url, Map<String, dynamic> json) {
+    print(json["languages"]);
     return PatchServer(
       id: json['id'],
       name: json['name'],
@@ -32,6 +34,9 @@ class PatchServer {
           .toList(),
       infoUrl: url,
       controllerUrl: json['controller'],
+      languages: json['languages']!=null? (json['languages'] as List<dynamic>)
+          .map((e) => e.toString())
+          .toList():[],
     );
   }
 
