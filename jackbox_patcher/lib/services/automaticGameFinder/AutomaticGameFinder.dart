@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:jackbox_patcher/model/jackboxpack.dart';
@@ -8,7 +9,10 @@ import '../../model/usermodel/userjackboxgame.dart';
 
 class AutomaticGameFinderService {
   static Future<int> findGames(List<UserJackboxPack> packs) async {
-    return await _findSteamGames(packs);
+    int gameFound = 0;
+    gameFound += await _findSteamGames(packs);
+    gameFound += await _findEpicGamesGames(packs);
+    return gameFound;
   }
 
   static Future<int> _findSteamGames(List<UserJackboxPack> packs) async {
@@ -18,7 +22,22 @@ class AutomaticGameFinderService {
       if (steamLocation != null) {
         Map<String, List<String>> steamFolderWithAppId =
             _getSteamFoldersWithAppId(steamLocation);
-        numberGamesFound = await linkFolderWithPack(steamFolderWithAppId, packs);
+        numberGamesFound =
+            await _linkSteamFolderWithPack(steamFolderWithAppId, packs);
+      }
+    }
+    return numberGamesFound;
+  }
+
+  static Future<int> _findEpicGamesGames(List<UserJackboxPack> packs) async {
+    int numberGamesFound = 0;
+    if (Platform.isWindows) {
+      final epicLocation = _getEpicLocation();
+      if (epicLocation != null) {
+        List<dynamic> epicApps =
+            await _getEpicInstalledApps(epicLocation);
+        print("Installed apps");
+        numberGamesFound = await _linkEpicAppsWithPacks(epicApps, packs);
       }
     }
     return numberGamesFound;
@@ -64,15 +83,13 @@ class AutomaticGameFinderService {
     return folder + "\\steamapps\\common\\" + pathLines.first.split('"')[3];
   }
 
-  static Future<int> linkFolderWithPack(
+  static Future<int> _linkSteamFolderWithPack(
       Map<String, List<String>> steamFoldersWithAppId,
       List<UserJackboxPack> userPacks) async {
     int numberGamesFound = 0;
     for (UserJackboxPack userPack in userPacks) {
-      print("userpack");
       if (userPack.pack.launchersId != null &&
           userPack.pack.launchersId!.steam != null) {
-        print("Find one pack available on steam");
         for (var folder in steamFoldersWithAppId.keys) {
           if (steamFoldersWithAppId[folder]!
               .contains(userPack.pack.launchersId!.steam)) {
@@ -80,6 +97,47 @@ class AutomaticGameFinderService {
             await userPack.setOwned(true);
             await userPack.setPath(_getSteamGamePathFromFolderAndAppId(
                 folder, userPack.pack.launchersId!.steam!));
+          }
+        }
+      }
+    }
+    return numberGamesFound;
+  }
+
+  static String? _getEpicLocation() {
+    print("Epic games location");
+    final key = Registry.openPath(RegistryHive.localMachine,
+        path: 'SOFTWARE\\WOW6432Node\\Epic Games\\EpicGamesLauncher');
+    final epicLocation = key.getValueAsString("AppDataPath");
+    return epicLocation;
+  }
+
+  static Future<List<dynamic>> _getEpicInstalledApps(
+      String epicLocation) async {
+    print("Epic games apps");
+    Map<String, List<String>> folderWithApps = {};
+    final file = File(
+        epicLocation + "\\..\\..\\UnrealEngineLauncher\\LauncherInstalled.dat");
+    print("File found");
+    String fileData = await file.readAsString();
+    print(fileData);
+    List<dynamic> installationList = jsonDecode(fileData)["InstallationList"] as List<dynamic>;
+    print(installationList);
+    return installationList;
+  }
+
+  static Future<int> _linkEpicAppsWithPacks(
+      List<dynamic> apps, List<UserJackboxPack> packs) async {
+    int numberGamesFound = 0;
+    print("Linking");
+    for (UserJackboxPack userPack in packs) {
+      if (userPack.pack.launchersId != null &&
+          userPack.pack.launchersId!.epic != null) {
+        for (var app in apps) {
+          if (app["AppName"] == userPack.pack.launchersId!.epic) {
+            numberGamesFound++;
+            await userPack.setOwned(true);
+            await userPack.setPath(app["InstallLocation"]!);
           }
         }
       }
