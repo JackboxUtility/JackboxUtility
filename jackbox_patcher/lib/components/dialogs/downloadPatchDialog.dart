@@ -52,9 +52,10 @@ class _DownloadPatchDialogComponentState
                   }).then((_) {
                     downloadingProgress = 2;
                     setState(() {});
-                  }).catchError((error) {
-                    InfoBarService.showError(context, error);
+                  }).catchError((Exception error) {
+                    InfoBarService.showError(context, error.toString());
                     Navigator.pop(context);
+                    
                   });
                 },
                 child: Text(AppLocalizations.of(context)!.page_continue),
