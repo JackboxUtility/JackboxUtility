@@ -52,7 +52,6 @@ class _DownloadPatchDialogComponentState
                   }).then((_) {
                     downloadingProgress = 2;
                     setState(() {});
-                    WindowsTaskbar.setProgressMode(TaskbarProgressMode.normal);
                   }).catchError((error) {
                     InfoBarService.showError(context, error);
                     Navigator.pop(context);
@@ -91,6 +90,7 @@ class _DownloadPatchDialogComponentState
       actions: [
         TextButton(
           onPressed: () {
+            WindowsTaskbar.setProgressMode(TaskbarProgressMode.noProgress);
             Navigator.pop(context);
             downloadingProgress = 0;
             setState(() {});
