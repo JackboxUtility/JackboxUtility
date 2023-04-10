@@ -386,7 +386,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
         background: APIService().assetLink(widget.pack.pack.background),
         description: widget.pack.pack.description));
     gameTagWidgets.add(_buildGameTag(FluentIcons.allIcons["people"]!,
-        "${widget.game.game.info.players.min} - ${widget.game.game.info.players.max} joueurs"));
+        "${widget.game.game.info.players.min} - ${widget.game.game.info.players.max} ${AppLocalizations.of(context)!.players}"));
     gameTagWidgets
         .add(_buildGameTag(FluentIcons.allIcons["timer"]!, gameInfo.length));
     gameTagWidgets.add(_buildGameTag(
