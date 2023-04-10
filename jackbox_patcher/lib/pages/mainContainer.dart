@@ -1,18 +1,21 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:jackbox_patcher/components/dialogs/leaveApplicationDialog.dart';
 import 'package:jackbox_patcher/components/menu.dart';
 import 'package:jackbox_patcher/pages/parameters/parameters.dart';
 import 'package:jackbox_patcher/pages/patcher/packContainer.dart';
 import 'package:jackbox_patcher/model/jackboxpack.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/device/device.dart';
+import 'package:jackbox_patcher/services/downloader/downloader_service.dart';
 import 'package:jackbox_patcher/services/error/error.dart';
 import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 import 'package:lottie/lottie.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:window_manager/window_manager.dart';
 
 import '../model/news.dart';
 
@@ -23,7 +26,7 @@ class MainContainer extends StatefulWidget {
   State<MainContainer> createState() => _MainContainerState();
 }
 
-class _MainContainerState extends State<MainContainer> {
+class _MainContainerState extends State<MainContainer> with WindowListener {
   int _selectedView = 0;
   bool _loaded = false;
 
@@ -37,6 +40,7 @@ class _MainContainerState extends State<MainContainer> {
 
   @override
   void initState() {
+    windowManager.addListener(this);
     _load();
     super.initState();
   }
@@ -256,11 +260,19 @@ class _MainContainerState extends State<MainContainer> {
     return Column(children: [
       ClipRRect(
           borderRadius: BorderRadius.circular(8.0),
-          child: _loaded? Image.network(APIService().assetLink(APIService().cachedSelectedServer!.image), height: 100): Image.asset(
-             "assets/logo.png",
-            height: 100,
-          )),
-      Text(_loaded? APIService().cachedSelectedServer!.name: AppLocalizations.of(context)!.jackbox_utility,
+          child: _loaded
+              ? Image.network(
+                  APIService()
+                      .assetLink(APIService().cachedSelectedServer!.image),
+                  height: 100)
+              : Image.asset(
+                  "assets/logo.png",
+                  height: 100,
+                )),
+      Text(
+          _loaded
+              ? APIService().cachedSelectedServer!.name
+              : AppLocalizations.of(context)!.jackbox_utility,
           style: FluentTheme.of(context).typography.titleLarge)
     ]);
   }
@@ -270,7 +282,7 @@ class _MainContainerState extends State<MainContainer> {
   }
 
   void _load() async {
-    print("Load");
+    await windowManager.setPreventClose(true);
     await UserData().init();
     if (UserData().getSelectedServer() == null) {
       await Navigator.pushNamed(context, "/serverSelect");
@@ -300,5 +312,24 @@ class _MainContainerState extends State<MainContainer> {
 
   Future<void> _loadPacks() async {
     await UserData().syncPacks();
+  }
+
+  @override
+  void onWindowClose() async {
+    bool _isPreventClose = await windowManager.isPreventClose();
+    if (_isPreventClose) {
+      bool shouldClose = DownloaderService.isDownloading
+          ? await (showDialog<bool>(
+              context: context,
+              builder: (context) {
+                return LeaveApplicationDialog();
+              })) == true
+          : true;
+      print("Should I close ?");
+      print(shouldClose);
+      if (shouldClose) {
+        windowManager.destroy();
+      }
+    }
   }
 }

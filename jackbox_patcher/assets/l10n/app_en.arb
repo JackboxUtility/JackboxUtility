@@ -3,6 +3,7 @@
     "cancel":"Cancel",
     "page_continue":"Continue",
     "confirm":"Confirm",
+    "quit":"quit",
 
     "jackbox_utility":"Jackbox Utility",
     "launch_search_game":"Launch / Search games",
@@ -112,5 +113,8 @@
     },
     "connected_to_server_change":"Change",
     "connection_to_server_failed":"Connection to the server failed",
-    "connection_to_main_server_failed":"Error while retrieving available servers"
+    "connection_to_main_server_failed":"Error while retrieving available servers",
+
+    "quit_while_downloading_title":"Download in progress",
+    "quit_while_downloading_description":"A download is in progress, are you sure you want to quit now ?"
 }

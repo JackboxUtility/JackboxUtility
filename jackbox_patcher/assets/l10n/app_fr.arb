@@ -3,6 +3,7 @@
     "cancel":"Annuler",
     "page_continue":"Continuer",
     "confirm":"Valider",
+    "quit":"Quitter",
 
     "jackbox_utility":"Jackbox Utility",
     "launch_search_game":"Lancer / Rechercher un jeu",
@@ -112,5 +113,9 @@
     },
     "connected_to_server_change":"Changer",
     "connection_to_server_failed":"Connexion au serveur échoué",
-    "connection_to_main_server_failed":"Impossible de récupérer la liste des serveurs. Vérifiez votre connexion internet"
+    "connection_to_main_server_failed":"Impossible de récupérer la liste des serveurs. Vérifiez votre connexion internet",
+
+    "quit_while_downloading_title":"Téléchargement en cours",
+    "quit_while_downloading_description":"Un téléchargement est en cours, êtes vous sûr de vouloir quitter maintenant ?"
+
 }

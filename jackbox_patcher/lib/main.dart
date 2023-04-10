@@ -8,12 +8,15 @@ import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:window_manager/window_manager.dart';
 
 import 'pages/game_ui/gameInfo.dart';
 import 'pages/parameters/parameters.dart';
 import 'pages/patcher/menu.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await windowManager.ensureInitialized();
   await SentryFlutter.init(
     (options) {
       options.environment = kDebugMode? 'development' : 'production';

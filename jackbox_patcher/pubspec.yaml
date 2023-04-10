@@ -44,6 +44,7 @@ dependencies:
   package_info_plus: 3.0.3
   sentry_flutter: ^7.4.1
   windows_taskbar: ^1.1.1
+  window_manager : 0.3.2
 
 
   # The following adds the Cupertino Icons font to your application.
