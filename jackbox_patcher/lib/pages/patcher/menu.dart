@@ -50,7 +50,6 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
           break;
         }
       }
-      print(userPack.patches.length);
       if (userPack.patches.length >= 1) {
         countPatchs = 1;
       }

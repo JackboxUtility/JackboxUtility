@@ -81,7 +81,6 @@ class APIService {
           .map<JackboxPack>((pack) => JackboxPack.fromJson(pack))
           .toList();
     } else {
-      print('$baseEndpoint' + APIEndpoints.PACKS.path);
       throw Exception('Failed to load packs and tags');
     }
   }

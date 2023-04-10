@@ -12,6 +12,7 @@ class JackboxPack {
   final String description;
   final String icon;
   final JackboxLoader? loader;
+  final LaunchersId? launchersId;
   final List<JackboxGame> games;
   final List<JackboxPackPatch> patches;
   final PackConfiguration? configuration;
@@ -24,6 +25,7 @@ class JackboxPack {
       required this.description,
       required this.icon,
       required this.loader,
+      required this.launchersId,
       required this.background,
       required this.games,
       required this.patches,
@@ -31,7 +33,6 @@ class JackboxPack {
       required this.executable});
 
   factory JackboxPack.fromJson(Map<String, dynamic> json) {
-    print(json);
     return JackboxPack(
         id: json['id'],
         name: json['name'],
@@ -39,6 +40,9 @@ class JackboxPack {
         icon: json['icon'],
         loader: json['loader'] != null
             ? JackboxLoader.fromJson(json['loader'])
+            : null,
+        launchersId: json["launchers_id"] != null
+            ? LaunchersId.fromJson(json['launchers_id'])
             : null,
         background: json['background'],
         games: (json['games'] as List<dynamic>)
@@ -61,7 +65,6 @@ class JackboxPack {
   }
 
   static String? generateExecutableFromJson(json) {
-    print(json);
     if (json == null) {
       return null;
     } else {
@@ -86,6 +89,18 @@ class JackboxLoader {
 
   factory JackboxLoader.fromJson(Map<String, dynamic> json) {
     return JackboxLoader(path: json['path'], version: json['version']);
+  }
+}
+
+class LaunchersId {
+  final String? steam;
+  final String? epic;
+
+  LaunchersId({required this.steam, required this.epic});
+
+  factory LaunchersId.fromJson(Map<String, dynamic> json) {
+    print("launcherId");
+    return LaunchersId(steam: json['steam'], epic: json['epic']);
   }
 }
 

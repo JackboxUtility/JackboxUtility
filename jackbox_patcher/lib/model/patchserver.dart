@@ -55,7 +55,6 @@ class PatchServerUrls {
       required this.assetsEndpoint});
 
   factory PatchServerUrls.fromJson(Map<String, dynamic> json) {
-    print(json['versions']);
     return PatchServerUrls(
       versions: json['versions'],
       apiEndpoint: json['api'],

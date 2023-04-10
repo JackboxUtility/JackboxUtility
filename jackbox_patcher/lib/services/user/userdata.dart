@@ -75,16 +75,13 @@ class UserData {
 
       // Load every patches in the pack
       for (var patch in pack.patches) {
-        print("Patch found in pack !");
         final String? patchVersionInstalled;
         if (pack.configuration != null && userPack.path != null) {
           File configurationFile = File(userPack.path!+"/"+ pack.configuration!.file);
-          print("HERE");
           if (configurationFile.existsSync()) {
             patchVersionInstalled =
                 jsonDecode(configurationFile.readAsStringSync())[
                     pack.configuration!.versionProperty];
-            print(patchVersionInstalled);
           } else {
             patchVersionInstalled = null;
           }
@@ -164,7 +161,11 @@ class UserData {
     return preferences.getString("selected_server");
   }
 
-  Future<void> setSelectedServer(String server) async {
-    await preferences.setString("selected_server", server);
+  Future<void> setSelectedServer(String? server) async {
+    if (server == null) {
+      await preferences.remove("selected_server");
+    } else {
+      await preferences.setString("selected_server", server);
+    }
   }
 }

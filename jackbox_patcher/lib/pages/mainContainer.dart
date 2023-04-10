@@ -17,7 +17,9 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:window_manager/window_manager.dart';
 
+import '../components/dialogs/automaticGameFinderDialog.dart';
 import '../model/news.dart';
+import '../services/automaticGameFinder/AutomaticGameFinder.dart';
 
 class MainContainer extends StatefulWidget {
   MainContainer({Key? key}) : super(key: key);
@@ -244,8 +246,7 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
         child: Text(AppLocalizations.of(context)!.connected_to_server_change,
             style: TextStyle(decoration: TextDecoration.underline)),
         onTap: () async {
-          await Navigator.pushNamed(context, "/serverSelect");
-          print("Resetting cache");
+          UserData().setSelectedServer(null);
           UserData().packs = [];
           APIService().resetCache();
           _loaded = false;
@@ -282,15 +283,20 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
   }
 
   void _load() async {
+    print("Loading");
+    bool changedServer = false;
     await windowManager.setPreventClose(true);
     await UserData().init();
     if (UserData().getSelectedServer() == null) {
       await Navigator.pushNamed(context, "/serverSelect");
+      changedServer = true;
+      print("ChangedServer");
     }
     try {
       await _loadInfo();
       await _loadWelcome();
       await _loadPacks();
+      if (changedServer) await _showAutomaticGameFinderDialog();
     } catch (e) {
       ErrorService.showError(
           context, AppLocalizations.of(context)!.connection_to_server_failed,
@@ -314,19 +320,26 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
     await UserData().syncPacks();
   }
 
+  Future<void> _showAutomaticGameFinderDialog() async {
+    await showDialog(
+        context: context,
+        builder: (context) {
+          return AutomaticGameFinderDialog();
+        });
+  }
+
   @override
   void onWindowClose() async {
     bool _isPreventClose = await windowManager.isPreventClose();
     if (_isPreventClose) {
       bool shouldClose = DownloaderService.isDownloading
           ? await (showDialog<bool>(
-              context: context,
-              builder: (context) {
-                return LeaveApplicationDialog();
-              })) == true
+                  context: context,
+                  builder: (context) {
+                    return LeaveApplicationDialog();
+                  })) ==
+              true
           : true;
-      print("Should I close ?");
-      print(shouldClose);
       if (shouldClose) {
         windowManager.destroy();
       }

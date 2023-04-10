@@ -116,5 +116,18 @@
     "connection_to_main_server_failed":"Error while retrieving available servers",
 
     "quit_while_downloading_title":"Download in progress",
-    "quit_while_downloading_description":"A download is in progress, are you sure you want to quit now ?"
+    "quit_while_downloading_description":"A download is in progress, are you sure you want to quit now ?",
+
+    "automatic_game_finder_title":"Automatic game finder",
+    "automatic_game_finder_description":"Jackbox Utility can detect installed game on this computer using Steam and Epic Games.\nDo you want to use this feature?",
+    "automatic_game_finder_in_progress":"Retrieving games, please wait",
+    "automatic_game_finder_finish": "{count, plural, =0 {No game found} one {1 game found} other {{count} games found}}",
+    "@automatic_game_finder_finish":{
+        "placeholders":{
+            "count":{
+                "type":"num",
+                "example":"1"
+            }
+        }
+    }
 }
