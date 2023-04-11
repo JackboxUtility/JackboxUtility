@@ -73,11 +73,16 @@ class UserData {
         }
       }
 
+      APIService().cachedCategories.forEach((element) {
+        element.addPatchs(packs);
+      });
+
       // Load every patches in the pack
       for (var patch in pack.patches) {
         final String? patchVersionInstalled;
         if (pack.configuration != null && userPack.path != null) {
-          File configurationFile = File(userPack.path!+"/"+ pack.configuration!.file);
+          File configurationFile =
+              File(userPack.path! + "/" + pack.configuration!.file);
           if (configurationFile.existsSync()) {
             patchVersionInstalled =
                 jsonDecode(configurationFile.readAsStringSync())[

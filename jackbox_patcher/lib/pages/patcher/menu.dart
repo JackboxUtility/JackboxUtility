@@ -1,4 +1,5 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:jackbox_patcher/pages/patcher/categoryPackPatch.dart';
 
 import '../../services/api/api_service.dart';
 import '../../services/user/userdata.dart';
@@ -41,7 +42,15 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
 
   _buildPaneItems() {
     List<NavigationPaneItem> items = [];
-    List<NavigationPaneItem> patchingItems = [];
+    print(APIService().cachedCategories.length);
+    items.add(PaneItem(
+        icon: Icon(FluentIcons.home),
+        title: Text("All patches"),
+        body: ListView(
+            children: List.generate(
+                APIService().cachedCategories.length,
+                (i) => CategoryPackPatch(
+                    category: APIService().cachedCategories[i])))));
     for (var userPack in UserData().packs) {
       int countPatchs = 0;
       for (var game in userPack.games) {

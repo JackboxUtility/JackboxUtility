@@ -28,62 +28,55 @@ class _CategoryPackPatchState extends State<CategoryPackPatch> {
   Widget build(BuildContext context) {
     _getPatchStatus();
     return Container(
-        child: Stack(
-      clipBehavior: Clip.none,
-      children: [
-        Container(
-            child: ClipRRect(
-                borderRadius: BorderRadius.circular(8.0),
-                child: Acrylic(
-                    shadowColor: Colors.black,
-                    blurAmount: 1,
-                    tintAlpha: 1,
-                    tint: Color.fromARGB(255, 48, 48, 48),
-                    child: Stack(children: [
-                      FilledButton(
-                          child: Text(buttonText),
-                          onPressed: !installButtonDisabled
-                              ? null
-                              // ? () {
-                              //     showDialog(
-                              //         context: context,
-                              //         builder: (context) {
-                              //           return DownloadPatchDialogComponent(
-                              //               localPath: widget.pack.path!,
-                              //               patch: widget.patch);
-                              //         });
-                              //   }
-                              : null),
-                      Container(
-                          padding: EdgeInsets.only(bottom: 12, top: 12),
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                    child: Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 12),
-                                  child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(widget.category.name,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(fontSize: 25)),
-                                        Text(
-                                          widget.category.smallDescription,
-                                        ),
-                                        SizedBox(height: 10),
-                                        StaggeredGrid.count(
-                                            mainAxisSpacing: 20,
-                                            crossAxisSpacing: 20,
-                                            crossAxisCount: 3,
-                                            children: [])
-                                      ]),
-                                )),
-                              ])),
-                    ])))),
-      ],
-    ));
+        child: ClipRRect(
+            borderRadius: BorderRadius.circular(8.0),
+            child: Acrylic(
+                shadowColor: Colors.black,
+                blurAmount: 1,
+                tintAlpha: 1,
+                tint: Color.fromARGB(255, 48, 48, 48),
+                child: Stack(children: [
+                  FilledButton(
+                      child: Text(buttonText),
+                      onPressed: !installButtonDisabled
+                          ? null
+                          // ? () {
+                          //     showDialog(
+                          //         context: context,
+                          //         builder: (context) {
+                          //           return DownloadPatchDialogComponent(
+                          //               localPath: widget.pack.path!,
+                          //               patch: widget.patch);
+                          //         });
+                          //   }
+                          : null),
+                  Container(
+                      padding: EdgeInsets.only(bottom: 12, top: 12),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Expanded(
+                                child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 12),
+                              child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(widget.category.name,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(fontSize: 25)),
+                                    Text(
+                                      widget.category.smallDescription,
+                                    ),
+                                    SizedBox(height: 10),
+                                    StaggeredGrid.count(
+                                        mainAxisSpacing: 20,
+                                        crossAxisSpacing: 20,
+                                        crossAxisCount: 3,
+                                        children: List.generate(widget.category.getAvailablePatchs().length, (index) => PackInCategoryCard(data: widget.category.getAvailablePatchs()[index])))
+                                  ]),
+                            )),
+                          ])),
+                ]))));
   }
 
   void _getPatchStatus() {
@@ -109,10 +102,7 @@ class _CategoryPackPatchState extends State<CategoryPackPatch> {
 }
 
 class PackInCategoryCard extends StatefulWidget {
-  PackInCategoryCard(
-      {Key? key,
-      required this.data})
-      : super(key: key);
+  PackInCategoryCard({Key? key, required this.data}) : super(key: key);
 
   final PackAvailablePatchs data;
 
@@ -201,10 +191,17 @@ class _PackInCategoryCardState extends State<PackInCategoryCard> {
                                     child: Padding(
                                   padding: EdgeInsets.symmetric(horizontal: 12),
                                   child: Column(children: [
+                                    Image.network(
+                                        APIService()
+                                            .assetLink(widget.data.pack.pack
+                                                .icon),
+                                        height: 50,
+                                        width: 50,
+                                        fit: BoxFit.cover),
+                                    SizedBox(height: 10),
                                     Text(widget.data.pack.pack.name,
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(fontSize: 25)),
-                                    SizedBox(height: 10),
                                     Expanded(child: SizedBox()),
                                   ]),
                                 ))

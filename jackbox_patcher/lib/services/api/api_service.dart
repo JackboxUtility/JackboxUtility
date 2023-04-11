@@ -8,9 +8,11 @@ import 'package:jackbox_patcher/model/jackboxgamepatch.dart';
 import 'package:jackbox_patcher/model/jackboxpackpatch.dart';
 import 'package:jackbox_patcher/model/news.dart';
 import 'package:jackbox_patcher/model/patchserver.dart';
+import 'package:jackbox_patcher/pages/patcher/categoryPackPatch.dart';
 
 import '../../model/gametag.dart';
 import '../../model/jackboxpack.dart';
+import '../../model/patchsCategory.dart';
 import 'api_endpoints.dart';
 
 class APIService {
@@ -24,6 +26,7 @@ class APIService {
   PatchServer? cachedSelectedServer;
   List<JackboxPack> cachedPacks = [];
   List<GameTag> cachedTags = [];
+  List<PatchCategory> cachedCategories = [];
   List<News> cachedNews = [];
   // Build factory
   factory APIService() {
@@ -80,6 +83,10 @@ class APIService {
       cachedPacks = data["packs"]
           .map<JackboxPack>((pack) => JackboxPack.fromJson(pack))
           .toList();
+      cachedCategories =data["patchsCategories"]!=null? data["patchsCategories"]
+          .map<PatchCategory>(
+              (category) => PatchCategory.fromJson(category))
+          .toList():[];
     } else {
       throw Exception('Failed to load packs and tags');
     }
