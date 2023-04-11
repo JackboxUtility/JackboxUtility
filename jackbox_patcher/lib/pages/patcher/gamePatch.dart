@@ -286,7 +286,7 @@ class _GamePatchCardState extends State<GamePatchCard> {
                 height: 20,
                 decoration: new BoxDecoration(
                   color:
-                      widget.patch.getInstalledStatus(widget.pack.path).color,
+                      widget.patch.getInstalledStatus().color,
                   shape: BoxShape.circle,
                 ))),
         Container(
@@ -340,12 +340,12 @@ class _GamePatchCardState extends State<GamePatchCard> {
                     height: 10,
                     decoration: new BoxDecoration(
                       color: widget.patch
-                          .getInstalledStatus(widget.pack.path)
+                          .getInstalledStatus()
                           .color,
                       shape: BoxShape.circle,
                     )),
                 message:
-                    widget.patch.getInstalledStatus(widget.pack.path).info)),
+                    widget.patch.getInstalledStatus().info)),
       ],
     ));
   }
@@ -378,7 +378,7 @@ class _GamePatchCardState extends State<GamePatchCard> {
     String buttonText = "";
     bool removePatchButtonVisible = false;
     UserInstalledPatchStatus patchStatus =
-        widget.patch.getInstalledStatus(widget.pack.path);
+        widget.patch.getInstalledStatus();
     if (patchStatus == UserInstalledPatchStatus.INEXISTANT ||
         patchStatus == UserInstalledPatchStatus.INSTALLED) {
       onPressFunction = null;

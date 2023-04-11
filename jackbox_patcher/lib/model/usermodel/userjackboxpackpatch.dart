@@ -2,6 +2,7 @@ import 'package:archive/archive_io.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/model/jackboxpackpatch.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgamepatch.dart';
+import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
 
 import '../../services/api/api_service.dart';
@@ -18,7 +19,8 @@ class UserJackboxPackPatch {
     required this.installedVersion,
   });
 
-  UserInstalledPatchStatus getInstalledStatus(String? packPath) {
+  UserInstalledPatchStatus getInstalledStatus() {
+    String? packPath = getPack().path;
     if (patch.latestVersion != "" && packPath != null && packPath != "") {
       if (installedVersion != null && installedVersion != "") {
         if (installedVersion == patch.latestVersion) {
@@ -38,5 +40,9 @@ class UserJackboxPackPatch {
       void Function(String, String, double) callback) async {
     await DownloaderService.downloadPatch(patchUri, patch.patchPath, callback);
     installedVersion = patch.latestVersion;
+  }
+
+  UserJackboxPack getPack() {
+    return UserData().packs.firstWhere((pack) => pack.patches.where((element) => element.patch.id == patch.id).isNotEmpty);
   }
 }

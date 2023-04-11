@@ -116,7 +116,7 @@ class _PackPatchState extends State<PackPatch> {
   }
 
   _getPatchStatus() {
-    switch (widget.patch.getInstalledStatus(widget.pack.path)) {
+    switch (widget.patch.getInstalledStatus()) {
       case UserInstalledPatchStatus.INEXISTANT:
         buttonText = AppLocalizations.of(context)!.patch_unavailable;
         installButtonDisabled = true;
