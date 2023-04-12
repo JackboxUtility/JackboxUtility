@@ -2,6 +2,9 @@ import 'package:jackbox_patcher/model/jackboxgame.dart';
 import 'package:jackbox_patcher/model/jackboxgamepatch.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
+import 'package:jackbox_patcher/services/api/api_service.dart';
+
+import 'jackboxpack.dart';
 
 class JackboxPackPatch {
   final String id;
@@ -66,5 +69,13 @@ class JackboxPackPatchComponent {
           ? null
           : PatchType.fromJson(json['patch_type']),
     );
+  }
+
+  JackboxGame? getLinkedGame() {
+    if (linkedGame == null) return null;
+    for (JackboxPack pack in APIService().cachedPacks){
+        var gamesFound = pack.games.where((game) => game.id == linkedGame);
+        if (gamesFound.length > 0) return gamesFound.first;
+    }
   }
 }

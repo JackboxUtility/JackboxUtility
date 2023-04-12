@@ -1,5 +1,10 @@
+import 'dart:async';
+import 'dart:math';
+import 'dart:ui' as ui;
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:jackbox_patcher/model/patchsCategory.dart';
 import 'package:palette_generator/palette_generator.dart';
@@ -28,6 +33,7 @@ class _CategoryPackPatchState extends State<CategoryPackPatch> {
   Widget build(BuildContext context) {
     _getPatchStatus();
     return Container(
+        margin: EdgeInsets.all(12),
         child: ClipRRect(
             borderRadius: BorderRadius.circular(8.0),
             child: Acrylic(
@@ -36,20 +42,23 @@ class _CategoryPackPatchState extends State<CategoryPackPatch> {
                 tintAlpha: 1,
                 tint: Color.fromARGB(255, 48, 48, 48),
                 child: Stack(children: [
-                  FilledButton(
-                      child: Text(buttonText),
-                      onPressed: !installButtonDisabled
-                          ? null
-                          // ? () {
-                          //     showDialog(
-                          //         context: context,
-                          //         builder: (context) {
-                          //           return DownloadPatchDialogComponent(
-                          //               localPath: widget.pack.path!,
-                          //               patch: widget.patch);
-                          //         });
-                          //   }
-                          : null),
+                  Positioned(
+                      top: 10,
+                      right: 10,
+                      child: FilledButton(
+                          child: Text(buttonText),
+                          onPressed: !installButtonDisabled
+                              ? null
+                              // ? () {
+                              //     showDialog(
+                              //         context: context,
+                              //         builder: (context) {
+                              //           return DownloadPatchDialogComponent(
+                              //               localPath: widget.pack.path!,
+                              //               patch: widget.patch);
+                              //         });
+                              //   }
+                              : null)),
                   Container(
                       padding: EdgeInsets.only(bottom: 12, top: 12),
                       child: Row(
@@ -72,7 +81,14 @@ class _CategoryPackPatchState extends State<CategoryPackPatch> {
                                         mainAxisSpacing: 20,
                                         crossAxisSpacing: 20,
                                         crossAxisCount: 3,
-                                        children: List.generate(widget.category.getAvailablePatchs().length, (index) => PackInCategoryCard(data: widget.category.getAvailablePatchs()[index])))
+                                        children: List.generate(
+                                            widget.category
+                                                .getAvailablePatchs()
+                                                .length,
+                                            (index) => PackInCategoryCard(
+                                                data: widget.category
+                                                        .getAvailablePatchs()[
+                                                    index])))
                                   ]),
                             )),
                           ])),
@@ -112,9 +128,12 @@ class PackInCategoryCard extends StatefulWidget {
 
 class _PackInCategoryCardState extends State<PackInCategoryCard> {
   Color? backgroundColor;
+  ui.PictureRecorder recorder = ui.PictureRecorder();
 
   @override
   void initState() {
+    print(widget.data.pack.pack.name);
+    print(widget.data.packPatchs.length);
     _loadBackgroundColor();
     super.initState();
   }
@@ -170,17 +189,18 @@ class _PackInCategoryCardState extends State<PackInCategoryCard> {
                   color: _installedStatus().color,
                   shape: BoxShape.circle,
                 ))),
-        Container(
+         ClipRRect(
+                borderRadius: BorderRadius.circular(8.0),
+                child:Container(
             height: 200,
             margin: EdgeInsets.only(top: 25),
-            child: ClipRRect(
-                borderRadius: BorderRadius.circular(8.0),
-                child: Acrylic(
+            child:  Acrylic(
                     shadowColor: backgroundColor,
                     blurAmount: 1,
                     tintAlpha: 1,
-                    tint: Color.fromARGB(255, 48, 48, 48),
+                    tint: Color.fromARGB(255, 45, 45, 45),
                     child: Stack(children: [
+                      _buildPackBackground(),
                       Container(
                           padding: EdgeInsets.only(bottom: 12),
                           margin: EdgeInsets.only(top: 50),
@@ -192,9 +212,8 @@ class _PackInCategoryCardState extends State<PackInCategoryCard> {
                                   padding: EdgeInsets.symmetric(horizontal: 12),
                                   child: Column(children: [
                                     Image.network(
-                                        APIService()
-                                            .assetLink(widget.data.pack.pack
-                                                .icon),
+                                        APIService().assetLink(
+                                            widget.data.pack.pack.icon),
                                         height: 50,
                                         width: 50,
                                         fit: BoxFit.cover),
@@ -220,5 +239,49 @@ class _PackInCategoryCardState extends State<PackInCategoryCard> {
                 message: _installedStatus().info)),
       ],
     ));
+  }
+
+  Widget _buildPackBackground() {
+    List<Widget> columnChildren = [];
+    int totalGames = 0;
+    for (var patch in widget.data.packPatchs) {
+      totalGames += patch.patch.components.length;
+    }
+    totalGames += widget.data.gamePatchs.length;
+    int lineNumber = sqrt(totalGames).ceil();
+
+    List<List<String>> gamesImages = [];
+
+    for (var line = 0; line < lineNumber; line++) {
+      gamesImages.add([]);
+    }
+
+    int currentLine = 0;
+    for (var patch in widget.data.packPatchs) {
+      for (var game in patch.patch.components) {
+        gamesImages[currentLine].add(game.getLinkedGame()!.background);
+        currentLine++;
+        if (currentLine >= lineNumber) {
+          currentLine = 0;
+        }
+      }
+    }
+
+    double height = 180 / lineNumber - 20;
+
+    gamesImages.forEach((element) {
+      columnChildren.add(Expanded(child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: element
+              .map((e) => Expanded(child: Opacity(opacity: 0.1,child:Container(
+                  margin: EdgeInsets.all(6),
+                  child: ClipRRect(
+            borderRadius: BorderRadius.circular(8.0),
+            child:CachedNetworkImage(
+                      imageUrl: APIService().assetLink(e), fit: BoxFit.contain)))))
+      ).toList())));
+    });
+    return ClipRect(child:SizedBox(height: 200,child: Column(
+        mainAxisAlignment: MainAxisAlignment.center, children: columnChildren)));
   }
 }

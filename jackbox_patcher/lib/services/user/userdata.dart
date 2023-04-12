@@ -73,10 +73,6 @@ class UserData {
         }
       }
 
-      APIService().cachedCategories.forEach((element) {
-        element.addPatchs(packs);
-      });
-
       // Load every patches in the pack
       for (var patch in pack.patches) {
         final String? patchVersionInstalled;
@@ -97,6 +93,11 @@ class UserData {
             patch: patch, installedVersion: patchVersionInstalled));
       }
     }
+    
+
+      APIService().cachedCategories.forEach((element) {
+        element.addPatchs(packs);
+      });
   }
 
   /// Sync the welcome message from the server
