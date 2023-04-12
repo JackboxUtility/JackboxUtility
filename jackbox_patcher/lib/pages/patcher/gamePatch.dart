@@ -387,8 +387,8 @@ class _GamePatchCardState extends State<GamePatchCard> {
           context: context,
           builder: (context) {
             return DownloadPatchDialogComponent(
-                localPath: "${widget.pack.path!}/${widget.game.game.path!}",
-                patch: widget.patch);
+                localPaths: ["${widget.pack.path!}/${widget.game.game.path!}"],
+                patchs: [widget.patch]);
           }).then((value) => setState(
             () {},
           ));

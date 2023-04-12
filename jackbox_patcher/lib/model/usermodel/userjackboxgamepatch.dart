@@ -1,5 +1,6 @@
 import 'package:archive/archive_io.dart';
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/services/downloader/downloader_service.dart';
 import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
@@ -36,6 +37,10 @@ class UserJackboxGamePatch {
 
   UserJackboxPack getPack() {
     return UserData().packs.firstWhere((pack) => pack.games.where((game) => game.patches.where((p) => p.patch.id == patch.id).isNotEmpty).isNotEmpty);
+  }
+
+  UserJackboxGame getGame(){
+    return getPack().games.firstWhere((game) => game.patches.where((p) => p.patch.id == patch.id).isNotEmpty);
   }
 
   Future<void> downloadPatch(String patchUri,

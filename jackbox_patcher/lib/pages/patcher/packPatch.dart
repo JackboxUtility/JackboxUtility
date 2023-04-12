@@ -53,7 +53,7 @@ class _PackPatchState extends State<PackPatch> {
                 context: context,
                 builder: (context) {
                   return DownloadPatchDialogComponent(
-                      localPath: widget.pack.path!, patch: widget.patch);
+                      localPaths: [widget.pack.path!], patchs: [widget.patch]);
                 });
           }:null),
       SizedBox(height: 20),

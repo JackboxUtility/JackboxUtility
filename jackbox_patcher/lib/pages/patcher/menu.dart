@@ -14,10 +14,25 @@ class PatcherMenuWidget extends StatefulWidget {
 
 class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
   int _selectedView = 0;
+  bool showAllPacks = false;
+  List<NavigationPaneItem> items = [];
+
+  @override
+  void initState() {
+    _buildPaneItems();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     Typography typography = FluentTheme.of(context).typography;
     return NavigationView(
+      transitionBuilder: (child, animation) {
+        return FadeTransition(
+          opacity: animation,
+          child: child,
+        );
+      },
       appBar: NavigationAppBar(
           automaticallyImplyLeading: false,
           leading: GestureDetector(
@@ -29,20 +44,45 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
             style: typography.title,
           )),
       pane: NavigationPane(
-        onChanged: (int nSelected) {
-          setState(() {
-            _selectedView = nSelected;
-          });
-        },
-        selected: _selectedView,
-        items: _buildPaneItems(),
-      ),
+          onChanged: (int nSelected) {
+            setState(() {
+              _selectedView = nSelected;
+            });
+          },
+          selected: _selectedView,
+          items: items,
+          footerItems: [
+            PaneItem(
+              icon: Icon(FluentIcons.package),
+              title: 
+                Text(showAllPacks==false? "Show all packs": "Show owned packs only"),
+              body: Container(),
+              onTap: () {
+                setState(() {
+                        showAllPacks = !showAllPacks;
+                      });
+                      _buildPaneItems();
+              },
+            )
+          ]),
     );
   }
 
+  _changeMenuView(String packId) {
+    for (var i = 0; i < items.length; i++) {
+      if (items[i].key == ValueKey(packId)) {
+        setState(() {
+          _selectedView = i;
+        });
+        break;
+      }
+    }
+  }
+
   _buildPaneItems() {
-    List<NavigationPaneItem> items = [];
     print(APIService().cachedCategories.length);
+    items = [];
+    _selectedView = 0;
     items.add(PaneItem(
         icon: Icon(FluentIcons.home),
         title: Text("All patches"),
@@ -50,8 +90,10 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
             children: List.generate(
                 APIService().cachedCategories.length,
                 (i) => CategoryPackPatch(
-                    category: APIService().cachedCategories[i])))));
-    for (var userPack in UserData().packs) {
+                    category: APIService().cachedCategories[i],
+                    showAllPacks: showAllPacks,
+                    changeMenuView: _changeMenuView)))));
+    for (var userPack in showAllPacks? UserData().packs: UserData().packs.where((element) => element.owned).toList()) {
       int countPatchs = 0;
       for (var game in userPack.games) {
         if (game.patches.length >= 1) {
@@ -64,12 +106,11 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
       }
       if (countPatchs == 1) {
         items.add(PaneItem(
+            key: ValueKey(userPack.pack.id),
             icon: Image.network(APIService().assetLink(userPack.pack.icon)),
             title: Text(userPack.pack.name),
             body: PatcherPackWidget(userPack: userPack)));
       }
     }
-
-    return items;
   }
 }

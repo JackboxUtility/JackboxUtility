@@ -18,9 +18,16 @@ import '../../model/usermodel/userjackboxpackpatch.dart';
 import '../../services/api/api_service.dart';
 
 class CategoryPackPatch extends StatefulWidget {
-  CategoryPackPatch({Key? key, required this.category}) : super(key: key);
+  CategoryPackPatch(
+      {Key? key,
+      required this.category,
+      required this.showAllPacks,
+      required this.changeMenuView})
+      : super(key: key);
 
   final PatchCategory category;
+  final bool showAllPacks;
+  final Function(String) changeMenuView;
   @override
   State<CategoryPackPatch> createState() => _CategoryPackPatchState();
 }
@@ -28,6 +35,14 @@ class CategoryPackPatch extends StatefulWidget {
 class _CategoryPackPatchState extends State<CategoryPackPatch> {
   String buttonText = "";
   bool installButtonDisabled = false;
+  List<dynamic> installablePatchs = [];
+  List<String> installablePatchPaths = [];
+
+  @override
+  void initState() {
+    _buildInstallableList();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,16 +63,15 @@ class _CategoryPackPatchState extends State<CategoryPackPatch> {
                       child: FilledButton(
                           child: Text(buttonText),
                           onPressed: !installButtonDisabled
-                              ? null
-                              // ? () {
-                              //     showDialog(
-                              //         context: context,
-                              //         builder: (context) {
-                              //           return DownloadPatchDialogComponent(
-                              //               localPath: widget.pack.path!,
-                              //               patch: widget.patch);
-                              //         });
-                              //   }
+                              ? () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return DownloadPatchDialogComponent(
+                                            localPaths: installablePatchPaths,
+                                            patchs: installablePatchs);
+                                      });
+                                }
                               : null)),
                   Container(
                       padding: EdgeInsets.only(bottom: 12, top: 12),
@@ -82,17 +96,52 @@ class _CategoryPackPatchState extends State<CategoryPackPatch> {
                                         crossAxisSpacing: 20,
                                         crossAxisCount: 3,
                                         children: List.generate(
-                                            widget.category
-                                                .getAvailablePatchs()
-                                                .length,
+                                            widget.showAllPacks
+                                                ? widget.category
+                                                    .getAvailablePatchs()
+                                                    .length
+                                                : widget.category
+                                                    .getAvailablePatchs()
+                                                    .where((element) =>
+                                                        element.pack.owned)
+                                                    .length,
                                             (index) => PackInCategoryCard(
-                                                data: widget.category
-                                                        .getAvailablePatchs()[
-                                                    index])))
+                                                data: widget.showAllPacks
+                                                    ? widget.category
+                                                            .getAvailablePatchs()[
+                                                        index]
+                                                    : widget.category
+                                                        .getAvailablePatchs()
+                                                        .where((element) =>
+                                                            element.pack.owned)
+                                                        .toList()[index],
+                                                changeMenuView:
+                                                    widget.changeMenuView)))
                                   ]),
                             )),
                           ])),
                 ]))));
+  }
+
+  void _buildInstallableList() {
+    installablePatchs = [];
+    installablePatchPaths = [];
+    widget.category.gamePatches.forEach((element) {
+      if (element.getPack().owned &&
+          element.getPack().path != null &&
+          element.getInstalledStatus() != UserInstalledPatchStatus.INSTALLED) {
+        installablePatchs.add(element);
+        installablePatchPaths.add(element.getPack().path!);
+      }
+    });
+    widget.category.packPatches.forEach((element) {
+      if (element.getPack().owned &&
+          element.getPack().path != null &&
+          element.getInstalledStatus() != UserInstalledPatchStatus.INSTALLED) {
+        installablePatchs.add(element);
+        installablePatchPaths.add(element.getPack().path!);
+      }
+    });
   }
 
   void _getPatchStatus() {
@@ -118,9 +167,12 @@ class _CategoryPackPatchState extends State<CategoryPackPatch> {
 }
 
 class PackInCategoryCard extends StatefulWidget {
-  PackInCategoryCard({Key? key, required this.data}) : super(key: key);
+  PackInCategoryCard(
+      {Key? key, required this.data, required this.changeMenuView})
+      : super(key: key);
 
   final PackAvailablePatchs data;
+  final Function(String) changeMenuView;
 
   @override
   State<PackInCategoryCard> createState() => _PackInCategoryCardState();
@@ -128,7 +180,6 @@ class PackInCategoryCard extends StatefulWidget {
 
 class _PackInCategoryCardState extends State<PackInCategoryCard> {
   Color? backgroundColor;
-  ui.PictureRecorder recorder = ui.PictureRecorder();
 
   @override
   void initState() {
@@ -140,7 +191,7 @@ class _PackInCategoryCardState extends State<PackInCategoryCard> {
 
   void _loadBackgroundColor() {
     PaletteGenerator.fromImageProvider(CachedNetworkImageProvider(
-            APIService().assetLink(widget.data.pack.pack.background)))
+            APIService().assetLink(widget.data.pack.pack.icon)))
         .then((value) {
       setState(() {
         backgroundColor = value.dominantColor?.color;
@@ -176,69 +227,83 @@ class _PackInCategoryCardState extends State<PackInCategoryCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Stack(
-      clipBehavior: Clip.none,
-      children: [
-        Container(
-            margin: EdgeInsets.only(top: 30, left: 5),
+    return MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: GestureDetector(
+            onTap: () {
+              widget.changeMenuView(widget.data.pack.pack.id);
+            },
             child: Container(
-                width: 20,
-                height: 20,
-                decoration: new BoxDecoration(
-                  color: _installedStatus().color,
-                  shape: BoxShape.circle,
-                ))),
-         ClipRRect(
-                borderRadius: BorderRadius.circular(8.0),
-                child:Container(
-            height: 200,
-            margin: EdgeInsets.only(top: 25),
-            child:  Acrylic(
-                    shadowColor: backgroundColor,
-                    blurAmount: 1,
-                    tintAlpha: 1,
-                    tint: Color.fromARGB(255, 45, 45, 45),
-                    child: Stack(children: [
-                      _buildPackBackground(),
-                      Container(
-                          padding: EdgeInsets.only(bottom: 12),
-                          margin: EdgeInsets.only(top: 50),
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Expanded(
-                                    child: Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 12),
-                                  child: Column(children: [
-                                    Image.network(
-                                        APIService().assetLink(
-                                            widget.data.pack.pack.icon),
-                                        height: 50,
-                                        width: 50,
-                                        fit: BoxFit.cover),
-                                    SizedBox(height: 10),
-                                    Text(widget.data.pack.pack.name,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(fontSize: 25)),
-                                    Expanded(child: SizedBox()),
-                                  ]),
-                                ))
-                              ])),
-                    ])))),
-        Container(
-            margin: EdgeInsets.only(top: 35, left: 10),
-            child: Tooltip(
-                child: Container(
-                    width: 10,
-                    height: 10,
-                    decoration: new BoxDecoration(
-                      color: _installedStatus().color,
-                      shape: BoxShape.circle,
-                    )),
-                message: _installedStatus().info)),
-      ],
-    ));
+                child: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Container(
+                    margin: EdgeInsets.only(top: 10, left: 5),
+                    child: Container(
+                        width: 20,
+                        height: 20,
+                        decoration: new BoxDecoration(
+                          color: _installedStatus().color,
+                          shape: BoxShape.circle,
+                        ))),
+                ClipRRect(
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: Container(
+                        //decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(8)), border: Border.all(color: backgroundColor!=null?backgroundColor!.withOpacity(0.2): Colors.transparent, width: 1)),
+                        height: 200,
+                        child: Acrylic(
+                            shadowColor: Color.fromARGB(255, 181, 181, 181),
+                            blurAmount: 1,
+                            tintAlpha: 1,
+                            tint: Color.fromARGB(255, 45, 45, 45),
+                            child: Stack(children: [
+                              //_buildPackBackground(),
+                              Container(
+                                  padding: EdgeInsets.only(bottom: 12, top: 20),
+                                  child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Expanded(
+                                            child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 12),
+                                          child: Column(children: [
+                                            Image.network(
+                                                APIService().assetLink(
+                                                    widget.data.pack.pack.icon),
+                                                height: 60,
+                                                width: 60,
+                                                fit: BoxFit.cover),
+                                            SizedBox(height: 10),
+                                            Expanded(
+                                              child: SizedBox(),
+                                            ),
+                                            Text(
+                                              widget.data.packPatchs[0].patch
+                                                  .smallDescription,
+                                              textAlign: TextAlign.center,
+                                            ),
+                                            Expanded(
+                                              child: SizedBox(),
+                                            ),
+                                          ]),
+                                        ))
+                                      ])),
+                            ])))),
+                Container(
+                    margin: EdgeInsets.only(top: 15, left: 10),
+                    child: Tooltip(
+                        child: Container(
+                            width: 10,
+                            height: 10,
+                            decoration: new BoxDecoration(
+                              color: _installedStatus().color,
+                              shape: BoxShape.circle,
+                            )),
+                        message: _installedStatus().info)),
+              ],
+            ))));
   }
 
   Widget _buildPackBackground() {
@@ -270,18 +335,27 @@ class _PackInCategoryCardState extends State<PackInCategoryCard> {
     double height = 180 / lineNumber - 20;
 
     gamesImages.forEach((element) {
-      columnChildren.add(Expanded(child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: element
-              .map((e) => Expanded(child: Opacity(opacity: 0.1,child:Container(
-                  margin: EdgeInsets.all(6),
-                  child: ClipRRect(
-            borderRadius: BorderRadius.circular(8.0),
-            child:CachedNetworkImage(
-                      imageUrl: APIService().assetLink(e), fit: BoxFit.contain)))))
-      ).toList())));
+      columnChildren.add(Expanded(
+          child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: element
+                  .map((e) => Expanded(
+                      child: Opacity(
+                          opacity: 0.1,
+                          child: Container(
+                              margin: EdgeInsets.all(6),
+                              child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  child: CachedNetworkImage(
+                                      imageUrl: APIService().assetLink(e),
+                                      fit: BoxFit.contain))))))
+                  .toList())));
     });
-    return ClipRect(child:SizedBox(height: 200,child: Column(
-        mainAxisAlignment: MainAxisAlignment.center, children: columnChildren)));
+    return ClipRect(
+        child: SizedBox(
+            height: 200,
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: columnChildren)));
   }
 }

@@ -1,16 +1,17 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:jackbox_patcher/model/usermodel/userjackboxpackpatch.dart';
 import 'package:windows_taskbar/windows_taskbar.dart';
 
 import '../../services/error/error.dart';
 
 class DownloadPatchDialogComponent extends StatefulWidget {
   DownloadPatchDialogComponent(
-      {Key? key, required this.localPath, required this.patch})
+      {Key? key, required this.localPaths, required this.patchs})
       : super(key: key);
 
-  final String localPath;
-  final dynamic patch;
+  final List<String> localPaths;
+  final List<dynamic> patchs;
 
   @override
   State<DownloadPatchDialogComponent> createState() =>
@@ -24,6 +25,7 @@ class _DownloadPatchDialogComponentState
   double progression = 0;
 
   int downloadingProgress = 0;
+  int currentPatchDownloading = 0;
   @override
   Widget build(BuildContext context) {
     return downloadingProgress == 0
@@ -40,23 +42,21 @@ class _DownloadPatchDialogComponentState
                 onPressed: () async {
                   downloadingProgress = 1;
                   setState(() {});
-                  widget.patch.downloadPatch(widget.localPath,
-                      (stat, substat, progress) async {
-                    status = stat;
-                    substatus = substat;
-                    if (progression.toInt() != progress.toInt()) {
-                      WindowsTaskbar.setProgress(progress.toInt(), 100);
-                    }
-                    progression = progress;
-                    setState(() {});
-                  }).then((_) {
-                    downloadingProgress = 2;
-                    setState(() {});
-                  }).catchError((Exception error) {
-                    InfoBarService.showError(context, error.toString());
-                    Navigator.pop(context);
-                    
-                  });
+                  for (var patch in widget.patchs) {
+                    await patch.downloadPatch(widget.localPaths[currentPatchDownloading],
+                        (stat, substat, progress) async {
+                      status = stat;
+                      substatus = substat;
+                      if (progression.toInt() != progress.toInt()) {
+                        WindowsTaskbar.setProgress(progress.toInt()+(currentPatchDownloading)*100, 100*widget.patchs.length);
+                      }
+                      progression = progress;
+                      setState(() {});
+                    });
+                    currentPatchDownloading++;
+                  }
+                  downloadingProgress = 2;
+                  setState(() {});
                 },
                 child: Text(AppLocalizations.of(context)!.page_continue),
               ),
@@ -80,6 +80,7 @@ class _DownloadPatchDialogComponentState
                   children: [
                 ProgressRing(value: progression),
                 SizedBox(height: 10),
+                Text("["+(currentPatchDownloading+1).toString()+"/"+widget.patchs.length.toString()+"] "+(widget.patchs[currentPatchDownloading] is UserJackboxPackPatch? widget.patchs[currentPatchDownloading].getPack().pack.name: widget.patchs[currentPatchDownloading].getGame().game.name),style: TextStyle(fontSize: 20)),
                 Text(status, style: TextStyle(fontSize: 20)),
                 Text(substatus, style: TextStyle(fontSize: 16)),
               ]))),
