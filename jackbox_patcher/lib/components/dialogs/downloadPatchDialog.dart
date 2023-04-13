@@ -26,21 +26,15 @@ class _DownloadPatchDialogComponentState
 
   int downloadingProgress = 0;
   int currentPatchDownloading = 0;
+
   @override
-  Widget build(BuildContext context) {
-    return downloadingProgress == 0
-        ? ContentDialog(
-            title: Text(AppLocalizations.of(context)!.installing_a_patch),
-            content: Text(
-                AppLocalizations.of(context)!.installing_a_patch_description),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: Text(AppLocalizations.of(context)!.cancel),
-              ),
-              TextButton(
-                onPressed: () async {
-                  downloadingProgress = 1;
+  void initState() {
+    _startDownload();
+    super.initState();
+  }
+
+  void _startDownload() async{
+    downloadingProgress = 1;
                   setState(() {});
                   for (var patch in widget.patchs) {
                     await patch.downloadPatch(widget.localPaths[currentPatchDownloading],
@@ -57,7 +51,22 @@ class _DownloadPatchDialogComponentState
                   }
                   downloadingProgress = 2;
                   setState(() {});
-                },
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return downloadingProgress == 0
+        ? ContentDialog(
+            title: Text(AppLocalizations.of(context)!.installing_a_patch),
+            content: Text(
+                AppLocalizations.of(context)!.installing_a_patch_description),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text(AppLocalizations.of(context)!.cancel),
+              ),
+              TextButton(
+                onPressed: () async {},
                 child: Text(AppLocalizations.of(context)!.page_continue),
               ),
             ],
@@ -80,7 +89,23 @@ class _DownloadPatchDialogComponentState
                   children: [
                 ProgressRing(value: progression),
                 SizedBox(height: 10),
-                Text("["+(currentPatchDownloading+1).toString()+"/"+widget.patchs.length.toString()+"] "+(widget.patchs[currentPatchDownloading] is UserJackboxPackPatch? widget.patchs[currentPatchDownloading].getPack().pack.name: widget.patchs[currentPatchDownloading].getGame().game.name),style: TextStyle(fontSize: 20)),
+                Text(
+                    "[" +
+                        (currentPatchDownloading + 1).toString() +
+                        "/" +
+                        widget.patchs.length.toString() +
+                        "] " +
+                        (widget.patchs[currentPatchDownloading]
+                                is UserJackboxPackPatch
+                            ? widget.patchs[currentPatchDownloading]
+                                .getPack()
+                                .pack
+                                .name
+                            : widget.patchs[currentPatchDownloading]
+                                .getGame()
+                                .game
+                                .name),
+                    style: TextStyle(fontSize: 20)),
                 Text(status, style: TextStyle(fontSize: 20)),
                 Text(substatus, style: TextStyle(fontSize: 16)),
               ]))),

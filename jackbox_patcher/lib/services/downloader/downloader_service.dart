@@ -18,11 +18,11 @@ class DownloaderService {
           (double progress, double max) {
         callback(
             "${TranslationsHelper().appLocalizations!.downloading} (1/3)",
-            "${(progress / 1000000).toInt()} MB /${(max / 1000000).toInt()} MB",
-            (progress / max) * 100);
+            "${(progress / 1000000).toInt()} MB / ${(max / 1000000).toInt()} MB",
+            (progress / max) * 90);
       });
       callback("${TranslationsHelper().appLocalizations!.extracting} (2/3)", "",
-          100);
+          95);
       await extractFileToDisk(filePath, uri, asyncWrite: false);
       callback(TranslationsHelper().appLocalizations!.finalizing + " (3/3)", "",
           100);

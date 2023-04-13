@@ -205,6 +205,12 @@ class _PackInCategoryCardState extends State<PackInCategoryCard> {
     } 
     UserInstalledPatchStatus status = UserInstalledPatchStatus.NOT_INSTALLED;
     for (var patch in widget.data.packPatchs) {
+      if (patch.getInstalledStatus() == UserInstalledPatchStatus.NOT_INSTALLED) {
+        return UserInstalledPatchStatus.NOT_INSTALLED;
+      }
+      if (patch.getInstalledStatus() == UserInstalledPatchStatus.INEXISTANT) {
+        return UserInstalledPatchStatus.INEXISTANT;
+      }
       if (patch.getInstalledStatus() ==
           UserInstalledPatchStatus.INSTALLED_OUTDATED) {
         status = UserInstalledPatchStatus.INSTALLED_OUTDATED;

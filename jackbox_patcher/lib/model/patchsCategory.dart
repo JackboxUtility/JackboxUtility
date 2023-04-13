@@ -54,12 +54,18 @@ class PatchCategory {
   UserInstalledPatchStatus getInstalledStatus() {
     UserInstalledPatchStatus status = UserInstalledPatchStatus.INSTALLED;
     for (UserJackboxPackPatch packPatch in packPatches) {
+      if (packPatch.getInstalledStatus() == UserInstalledPatchStatus.NOT_INSTALLED) {
+        return UserInstalledPatchStatus.NOT_INSTALLED;
+      }
       if (packPatch.getInstalledStatus() ==
           UserInstalledPatchStatus.INSTALLED_OUTDATED) {
         status = UserInstalledPatchStatus.INSTALLED_OUTDATED;
       }
     }
     for (UserJackboxGamePatch gamePatch in gamePatches) {
+      if (gamePatch.getInstalledStatus() == UserInstalledPatchStatus.NOT_INSTALLED) {
+        return UserInstalledPatchStatus.NOT_INSTALLED;
+      }
       if (gamePatch.getInstalledStatus() ==
           UserInstalledPatchStatus.INSTALLED_OUTDATED) {
         status = UserInstalledPatchStatus.INSTALLED_OUTDATED;
