@@ -51,12 +51,12 @@
     "path_not_found_description": "Der Pfad zum Spiel wurde nicht gefunden. Bitte vergewissere dich, dass das Spiel installiert ist und der Pfad korrekt ist.",
     "path_inexistant": "Pfad existiert nicht",
     "path_inexistant_small_description": "Du hast den Pfad noch nicht zum Pack hinzugefügt.",
-    "path_inexistant_description": "Du hast den Pfad noch nicht zum Pack hinzugefügt. Dies ist in den Einstellungen möglich.",
+    "path_inexistant_description": "Du hast den Pfad noch nicht zum Pack hinzugefügt. Dies ist in den Optionen möglich.",
     "pack_path": "Pack-Pfad",
     "owned_packs": "Packs im Besitz",
     "add_pack": "Pack hinzufügen",
     "choose_pack": "Wähle ein Pack",
-    "game_type_coop": "Absprechen",
+    "game_type_coop": "Co-Op",
     "game_type_coop_description": "Bei diesen Spielen müssen die Spieler zusammenarbeiten, um zu gewinnen.",
     "game_type_versus": "Gegeneinander",
     "game_type_versus_description": "In diesen Spielen treten die Spieler gegeneinander an und versuchen selber zu gewinnen.",
@@ -102,37 +102,32 @@
     "connected_to_server_change": "Ändern",
     "connection_to_server_failed": "Verbindung zum Server fehlgeschlagen",
     "connection_to_main_server_failed": "Aufgrund eines Fehlers konnten die verfügbaren Server nicht abgerufen werden.",
-
-    "quit_while_downloading_title":"Download in progress",
-    "quit_while_downloading_description":"A download is in progress, are you sure you want to quit now ?",
-
-    "automatic_game_finder_title":"Automatic game finder",
-    "automatic_game_finder_description":"Jackbox Utility can detect installed game on this computer using Steam and Epic Games.\nDo you want to use this feature?",
-    "automatic_game_finder_in_progress":"Retrieving games, please wait",
-    "automatic_game_finder_finish": "{count, plural, =0 {No game found} one {1 game found} other {{count} games found}}",
-    "@automatic_game_finder_finish":{
-        "placeholders":{
-            "count":{
-                "type":"num",
-                "example":"1"
+    "quit_while_downloading_title": "Ein Download ist aktiv",
+    "quit_while_downloading_description": "Ein Download ist aktiv, bist du sicher, dass du das Programm schließen möchtest?",
+    "automatic_game_finder_title": "Automatische Spiele-Erkennung",
+    "automatic_game_finder_description": "Jackbox Utility kann installierte Spiele über Steam und Epic Games automatisch erkennen.\nMöchtest du diese Funktion nutzen?",
+    "automatic_game_finder_in_progress": "Spiele werden abgerufen. Bitte warte kurz",
+    "automatic_game_finder_finish": "{count, plural, =0 {Kein Spiel gefunden} one {1 Spiel gefunden} other {{count} Spiele gefunden}}",
+    "@automatic_game_finder_finish": {
+        "placeholders": {
+            "count": {
+                "type": "num",
+                "example": "1"
             }
         }
     },
-
-    "automatic_server_finder_found":"Server found",
-    "automatic_server_finder_found_description":"The server {server} has been chosen based on your language",
-    "@automatic_server_finder_found_description":{
-        "placeholders":{
-            "server":{
-                "type":"String",
-                "example":"Jackbox France"
+    "automatic_server_finder_found": "Server gefunden",
+    "automatic_server_finder_found_description": "Der Server {server} wurde basierend auf deiner Sprache ausgewählt",
+    "@automatic_server_finder_found_description": {
+        "placeholders": {
+            "server": {
+                "type": "String",
+                "example": "Jackbox auf Deutsch"
             }
         }
     },
-    "show_all_packs":"Show all packs",
-    "show_owned_packs_only":"Show owned packs only",
-
-    "all_patches":"All patches",
-
-    "error_happened":"An error has occurred"
+    "show_all_packs": "Alle Packs anzeigen",
+    "show_owned_packs_only": "Nur Packs im Besitz anzeigen",
+    "all_patches": "Alle Patches",
+    "error_happened": "Ein Fehler ist aufgetreten"
 }
