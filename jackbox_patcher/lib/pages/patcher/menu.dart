@@ -5,6 +5,8 @@ import '../../services/api/api_service.dart';
 import '../../services/user/userdata.dart';
 import 'packContainer.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class PatcherMenuWidget extends StatefulWidget {
   PatcherMenuWidget({Key? key}) : super(key: key);
 
@@ -55,7 +57,7 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
             PaneItem(
               icon: Icon(FluentIcons.package),
               title: 
-                Text(showAllPacks==false? "Show all packs": "Show owned packs only"),
+                Text(showAllPacks==false? AppLocalizations.of(context)!.show_all_packs: AppLocalizations.of(context)!.show_owned_packs_only),
               body: Container(),
               onTap: () {
                 setState(() {
@@ -85,7 +87,7 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
     _selectedView = 0;
     items.add(PaneItem(
         icon: Icon(FluentIcons.home),
-        title: Text("All patches"),
+        title: Text(AppLocalizations.of(context)!.all_patches),
         body: ListView(
             children: List.generate(
                 APIService().cachedCategories.length,

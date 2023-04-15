@@ -50,10 +50,10 @@
             "path_not_found_small_description": "No se encontró la ruta del juego.",
             "path_not_found_description": "No se encontró la ruta al juego. Comprueba que el juego esté instalado y que la ruta sea correcta.",
             "path_inexistant": "Ruta inexistente",
-            "path_inexistant_small_description": "No agregaste la ruta del Pack.",
-            "path_inexistant_description": "No agregaste la ruta del Pack. Puedes hacerlo en los Ajustes.",
-            "pack_path": "Ruta del Pack",
-            "owned_packs": "Packs que posees",
+            "path_inexistant_small_description": "No agregaste la ruta del juego.",
+            "path_inexistant_description": "No agregaste la ruta del juego. Puedes hacerlo en los Ajustes.",
+            "pack_path": "Ruta del juego",
+            "owned_packs": "Juegos que posees",
             "add_pack": "Añadir un juego",
             "choose_pack": "Elegir un Pack",
             "game_type_coop": "Coop",
@@ -98,11 +98,44 @@
         "placeholders":{
             "server":{
                 "type":"String",
-                "example":"Jackbox France"
+                "example":"Jackbox en español"
             }
         }
     },
     "connected_to_server_change":"Cambiar",
     "connection_to_server_failed":"La conexión con el servidor falló",
-    "connection_to_main_server_failed":"Se produjo un error al recuperar los servidores disponibles"
+    "connection_to_main_server_failed":"Se produjo un error al recuperar los servidores disponibles",
+
+    "quit_while_downloading_title":"Descarga en progreso",
+    "quit_while_downloading_description":"Una descarga está en progreso. ¿Seguro que quieres salir ahora?",
+
+    "automatic_game_finder_title":"Buscador automático de juegos",
+    "automatic_game_finder_description":"Jackbox Utility puede detectar los juegos instalados en esta computadora de Steam y Epic Games.\n¿Quieres usar esta función?",
+    "automatic_game_finder_in_progress":"Recuperando juegos, por favor espera",
+    "automatic_game_finder_finish": "{count, plural, =0 {No se encontraron juegos} one {Se encontró 1 juego} other {Se encontraron {count} juegos}}",
+    "@automatic_game_finder_finish":{
+        "placeholders":{
+            "count":{
+                "type":"num",
+                "example":"1"
+            }
+        }
+    },
+
+    "automatic_server_finder_found":"Servidor encontrado",
+    "automatic_server_finder_found_description":"El servidor {server} se ha elegido en función de tu idioma",
+    "@automatic_server_finder_found_description":{
+        "placeholders":{
+            "server":{
+                "type":"String",
+                "example":"Jackbox en español"
+            }
+        }
+    },
+    "show_all_packs":"Mostrar todos los juegos",
+    "show_owned_packs_only":"Mostrar solo los juegos que posees",
+
+    "all_patches":"Todos los parches",
+
+    "error_happened":"Se ha producido un error"
 }

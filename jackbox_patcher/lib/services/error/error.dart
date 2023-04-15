@@ -1,4 +1,5 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class InfoBarService {
   static showError(BuildContext context, String errorMessage,
@@ -7,7 +8,7 @@ class InfoBarService {
       return InfoBar(
           isLong: true,
           severity: InfoBarSeverity.error,
-          title: Text("Une erreur est survenue"),
+          title: Text(AppLocalizations.of(context)!.error_happened),
           content: Text(errorMessage));
     }, duration: duration);
   }

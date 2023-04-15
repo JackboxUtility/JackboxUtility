@@ -332,8 +332,8 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
       if (server.languages.where((e) => locale.startsWith(e)).length > 0) {
         print("Found server");
         await UserData().setSelectedServer(server.infoUrl);
-        InfoBarService.showInfo(context, "Serveur trouvé",
-            "Le serveur ${server.name} a été choisit automatiquement depuis votre langue");
+        InfoBarService.showInfo(context, AppLocalizations.of(context)!.automatic_server_finder_found,
+            AppLocalizations.of(context)!.automatic_server_finder_found_description(server.name));
         return;
       }
     }

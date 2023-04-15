@@ -101,5 +101,38 @@
     },
     "connected_to_server_change": "Ändern",
     "connection_to_server_failed": "Verbindung zum Server fehlgeschlagen",
-    "connection_to_main_server_failed": "Aufgrund eines Fehlers konnten die verfügbaren Server nicht abgerufen werden."
+    "connection_to_main_server_failed": "Aufgrund eines Fehlers konnten die verfügbaren Server nicht abgerufen werden.",
+
+    "quit_while_downloading_title":"Download in progress",
+    "quit_while_downloading_description":"A download is in progress, are you sure you want to quit now ?",
+
+    "automatic_game_finder_title":"Automatic game finder",
+    "automatic_game_finder_description":"Jackbox Utility can detect installed game on this computer using Steam and Epic Games.\nDo you want to use this feature?",
+    "automatic_game_finder_in_progress":"Retrieving games, please wait",
+    "automatic_game_finder_finish": "{count, plural, =0 {No game found} one {1 game found} other {{count} games found}}",
+    "@automatic_game_finder_finish":{
+        "placeholders":{
+            "count":{
+                "type":"num",
+                "example":"1"
+            }
+        }
+    },
+
+    "automatic_server_finder_found":"Server found",
+    "automatic_server_finder_found_description":"The server {server} has been chosen based on your language",
+    "@automatic_server_finder_found_description":{
+        "placeholders":{
+            "server":{
+                "type":"String",
+                "example":"Jackbox France"
+            }
+        }
+    },
+    "show_all_packs":"Show all packs",
+    "show_owned_packs_only":"Show owned packs only",
+
+    "all_patches":"All patches",
+
+    "error_happened":"An error has occurred"
 }

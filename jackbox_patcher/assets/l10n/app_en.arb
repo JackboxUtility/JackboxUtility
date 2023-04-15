@@ -129,5 +129,22 @@
                 "example":"1"
             }
         }
-    }
+    },
+
+    "automatic_server_finder_found":"Server found",
+    "automatic_server_finder_found_description":"The server {server} has been chosen based on your language",
+    "@automatic_server_finder_found_description":{
+        "placeholders":{
+            "server":{
+                "type":"String",
+                "example":"Jackbox France"
+            }
+        }
+    },
+    "show_all_packs":"Show all packs",
+    "show_owned_packs_only":"Show owned packs only",
+
+    "all_patches":"All patches",
+
+    "error_happened":"An error has occurred"
 }

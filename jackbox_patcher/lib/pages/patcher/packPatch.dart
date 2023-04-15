@@ -75,7 +75,7 @@ class _PackPatchState extends State<PackPatch> {
                             child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  Text("Version " +
+                                  Text(AppLocalizations.of(context)!.version +
                                       widget.patch.patch.latestVersion)
                                 ])),
                         Container(
