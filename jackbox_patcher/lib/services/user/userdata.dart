@@ -82,7 +82,7 @@ class UserData {
           if (configurationFile.existsSync()) {
             patchVersionInstalled =
                 jsonDecode(configurationFile.readAsStringSync())[
-                    pack.configuration!.versionProperty];
+                    pack.configuration!.versionProperty].replaceAll("Build:", "").trim();
           } else {
             patchVersionInstalled = null;
           }

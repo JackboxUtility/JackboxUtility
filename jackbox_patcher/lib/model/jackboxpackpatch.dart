@@ -28,7 +28,7 @@ class JackboxPackPatch {
       id: json['id'],
       name: json['name'],
       smallDescription: json['small_description'],
-      latestVersion: json['version'],
+      latestVersion: json['version'].replaceAll("Build:","").trim(),
       patchPath: json['patch_path'],
       components: json['components'] == null
           ? []

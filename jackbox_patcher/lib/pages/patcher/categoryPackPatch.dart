@@ -300,6 +300,15 @@ class _PackInCategoryCardState extends State<PackInCategoryCard> {
                                         ))
                                       ])),
                             ])))),
+                if (widget.data.packPatchs.length > 0) 
+                Container(
+                    margin: EdgeInsets.only(top: 10, right: 5),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(widget.data.packPatchs[0].patch.latestVersion)
+                      ]
+                        )),
                 Container(
                     margin: EdgeInsets.only(top: 15, left: 10),
                     child: Tooltip(
