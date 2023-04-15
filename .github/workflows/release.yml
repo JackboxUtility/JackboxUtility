@@ -1,0 +1,31 @@
+name: Pre-release App
+  # You may pin to the exact commit or the version.
+  # uses: subosito/flutter-action@48cafc24713cca54bbe03cdc3a423187d413aafa
+    
+on:
+  workflow_dispatch:
+     
+jobs:
+ build:
+   runs-on: windows-latest
+   steps:
+     - uses: actions/checkout@v3
+     - uses: subosito/flutter-action@v2
+     - name: Build windows
+       working-directory: ./jackbox_patcher
+       run: flutter build windows
+     - uses: actions/upload-artifact@v3
+       with:
+          name: build_windows
+          path: ./jackbox_patcher/build/windows/runner/Release
+     - name: Retrieve Release Version
+       id: versionstep
+       run: |
+         VERSION=$(more pubspec.yaml | grep version: | cut -d ' ' -f2)
+         echo "::set-output name=VERSION::$VERSION"
+     - name: Upload the APK onto Github
+       uses: ncipollo/release-action@v1
+       with:
+         artifacts: 'build/app/outputs/flutter-apk/*.apk'
+         token: ${{ secrets.GITHUB_TOKEN }}
+         tag: ${{ steps.versionstep.outputs.VERSION }}
