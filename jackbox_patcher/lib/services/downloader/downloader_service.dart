@@ -12,19 +12,19 @@ class DownloaderService {
       void Function(String, String, double) callback) async {
     try {
       isDownloading = true;
-      callback("${TranslationsHelper().appLocalizations!.downloading} (1/3)",
+      callback("${TranslationsHelper().appLocalizations!.downloading}",
           TranslationsHelper().appLocalizations!.starting, 0);
       String filePath = await APIService().downloadPatch(patchUrl,
           (double progress, double max) {
         callback(
-            "${TranslationsHelper().appLocalizations!.downloading} (1/3)",
+            "${TranslationsHelper().appLocalizations!.downloading}",
             "${(progress / 1000000).toInt()} MB / ${(max / 1000000).toInt()} MB",
             (progress / max) * 90);
       });
-      callback("${TranslationsHelper().appLocalizations!.extracting} (2/3)", "",
+      callback("${TranslationsHelper().appLocalizations!.extracting}", "",
           95);
-      await extractFileToDisk(filePath, uri, asyncWrite: false);
-      callback(TranslationsHelper().appLocalizations!.finalizing + " (3/3)", "",
+      await extractFileToDisk(filePath, uri, asyncWrite: true);
+      callback(TranslationsHelper().appLocalizations!.finalizing + "", "",
           100);
       isDownloading = false;
       //File(filePath).deleteSync(recursive: true);
