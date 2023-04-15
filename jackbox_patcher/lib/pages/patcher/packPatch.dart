@@ -48,13 +48,16 @@ class _PackPatchState extends State<PackPatch> {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       FilledButton(
           child: Text(buttonText),
-          onPressed: !installButtonDisabled? () {
-            showDialog(
+          onPressed: !installButtonDisabled? ()async {
+            await showDialog(
                 context: context,
                 builder: (context) {
                   return DownloadPatchDialogComponent(
                       localPaths: [widget.pack.path!], patchs: [widget.patch]);
                 });
+            setState(() {
+              
+            });
           }:null),
       SizedBox(height: 20),
       Container(
@@ -75,7 +78,7 @@ class _PackPatchState extends State<PackPatch> {
                             child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  Text(AppLocalizations.of(context)!.version +
+                                  Text(AppLocalizations.of(context)!.version +" "+
                                       widget.patch.patch.latestVersion)
                                 ])),
                         Container(

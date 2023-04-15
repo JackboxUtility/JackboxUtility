@@ -21,13 +21,15 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
 
   @override
   void initState() {
-    _buildPaneItems();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     Typography typography = FluentTheme.of(context).typography;
+    if (items.length == 0) {
+      _buildPaneItems();
+    }
     return NavigationView(
       transitionBuilder: (child, animation) {
         return FadeTransition(

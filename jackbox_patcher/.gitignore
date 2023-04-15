@@ -44,3 +44,5 @@ app.*.map.json
 /android/app/release
 
 downloads
+
+jackbox_patcher.version
