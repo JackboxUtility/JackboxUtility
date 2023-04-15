@@ -3,12 +3,12 @@
             "cancel": "Cancelar",
             "page_continue": "Continuar",
             "confirm": "Confirmar",
-            "jackbox_utility": "Utilidad de Jackbox",
+            "jackbox_utility": "Jackbox Utility",
             "launch_search_game": "Ejecutar / Buscar juegos",
-            "patch_a_game": "Parchear un juego",
+            "patch_a_game": "Parchear juegos",
             "settings": "Ajustes",
             "notifications": "Notificaciones",
-            "installing_a_patch": "Instalar un parche",
+            "installing_a_patch": "Instalando parche",
             "installing_a_patch_description": "Instalarás el parche. Esta acción es irreversible.",
             "installing_a_patch_end": "Instalación completada",
             "can_close_popup": "Ya puedes cerrar esta ventana",
@@ -87,13 +87,13 @@
             "search_by_type": "Buscar por tipo",
             "search_by_translation": "Buscar por traducción",
             "search_by_tags": "Buscar por etiquetas",
-            "select_server_title":"Welcome to Jackbox Utility",
+            "select_server_title":"Te damos la bienvenida a Jackbox Utility",
 
             
-    "select_server_subtitle":"Select a language to start",
-    "select_server_button":"Select",
+    "select_server_subtitle":"Selecciona un idioma para empezar",
+    "select_server_button":"Seleccionar",
 
-    "connected_to_server":"Connected to the server {server}",
+    "connected_to_server":"Conectado al servidor de {server}",
     "@connected_to_server":{
         "placeholders":{
             "server":{
@@ -102,7 +102,7 @@
             }
         }
     },
-    "connected_to_server_change":"Change",
-    "connection_to_server_failed":"Connection to the server failed",
-    "connection_to_main_server_failed":"Error while retrieving available servers"
-        }
+    "connected_to_server_change":"Cambiar",
+    "connection_to_server_failed":"La conexión con el servidor falló",
+    "connection_to_main_server_failed":"Se produjo un error al recuperar los servidores disponibles"
+}

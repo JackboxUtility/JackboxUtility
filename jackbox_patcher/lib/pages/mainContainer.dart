@@ -16,6 +16,7 @@ import 'package:jackbox_patcher/services/error/error.dart';
 import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 import 'package:lottie/lottie.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:window_manager/window_manager.dart';
@@ -289,6 +290,7 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
     print("Loading");
     bool changedServer = false;
     bool automaticGameFindNotificationAvailable = false;
+    await createVersionFile();
     await windowManager.setPreventClose(true);
     await UserData().init();
     if (UserData().getSelectedServer() == null) {
@@ -305,7 +307,9 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
       await _loadInfo();
       await _loadWelcome();
       await _loadPacks();
-      if (changedServer) await _launchAutomaticGameFinder(automaticGameFindNotificationAvailable);
+      if (changedServer)
+        await _launchAutomaticGameFinder(
+            automaticGameFindNotificationAvailable);
     } catch (e) {
       InfoBarService.showError(
           context, AppLocalizations.of(context)!.connection_to_server_failed,
@@ -334,6 +338,14 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
       }
     }
     await Navigator.pushNamed(context, "/serverSelect");
+  }
+
+  Future<void> createVersionFile() async{
+    if (!File("jackbox_patcher.version").existsSync()) {
+      File("jackbox_patcher.version").createSync();
+    }
+    var packageInfo = (await PackageInfo.fromPlatform());
+    File("jackbox_patcher.version").writeAsString(packageInfo.version+"+"+packageInfo.buildNumber);
   }
 
   Future<void> _loadInfo() async {
