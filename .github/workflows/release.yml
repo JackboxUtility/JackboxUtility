@@ -26,6 +26,8 @@ jobs:
      - name: Upload the APK onto Github
        uses: ncipollo/release-action@v1
        with:
-         artifacts: 'build/app/outputs/flutter-apk/*.apk'
+         artifacts: './jackbox_patcher/build/windows/runner/Release'
          token: ${{ secrets.GITHUB_TOKEN }}
          tag: ${{ steps.versionstep.outputs.VERSION }}
+         prerelease: true
+         allowUpdates: true
