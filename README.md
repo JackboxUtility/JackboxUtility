@@ -4,41 +4,51 @@
 
 ## Description 
 
-**Application de téléchargement de patch français et lanceur de jeux jackbox**
+**An app to download patchs and launch Jackbox games**
 
-Avec cette application, vous allez pouvoir télécharger les patchs français créés par la communauté.
-Vous allez aussi pouvoir lancer vos jeux jackbox directement depuis l'application.
+This repository only contains the code for the app (not the auto-updater).
+
+With this app, you will be able to download translation patches for your Jackbox Games. You will also be able to find every jackbox games in one place to launch them.
+
+Languages includes :
+- French
+- Deutsch
+- Spanish
 
 ## Fonctionnalités
 
-- Téléchargez les patchs français
-- Retrouvez tous les jeux Jackbox en un seul et même endroit
-- Lancez vos jeux rapidement tout en évitant l'écran d'intro du pack et l'écran de choix du jeu
+- Download translation patchs for your games
+- Find every jackbox games in the same place
+- Launch your jackbox games without seeing the pack video and the menu
+- Detect automatically your installed games
 
 ## Installation
 
-https://github.com/AlexisL61/JackboxPatcherFR/releases/
+https://github.com/AlexisL61/JackboxPatcherFR/releases/latest
 
-## Tutoriel 
+## Tutorial 
 
-http://blog.laboxdejack.fr/application-jackbox-patcher/
+In French : http://blog.laboxdejack.fr/application-jackbox-patcher/
 
-## Contenu des dossiers
+## Folder content 
 
-api -> Les fichiers json de l'api utilisée par l'application
-
-assets -> Les fichiers images ou les fichiers zip qui seront utilisés par l'application
-
-jackbox_patcher -> Le code source du projet
+jackbox_patcher -> Project source code
 
 ## Contribution
 
+Clone the repo :
 ```
-git clone https://github.com/AlexisL61/JackboxPatcherFR.git
-cd JackboxPatcherFR
+git clone https://github.com/AlexisL61/JackboxUtility.git
 ```
 
-Pour build l'application :
+Launch the app :
+```
+flutter run
+```
+
+Build the app :
 ```
 flutter build windows
+OR
+flutter build linux
 ```

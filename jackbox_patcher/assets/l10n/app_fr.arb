@@ -3,6 +3,7 @@
     "cancel":"Annuler",
     "page_continue":"Continuer",
     "confirm":"Valider",
+    "quit":"Quitter",
 
     "jackbox_utility":"Jackbox Utility",
     "launch_search_game":"Lancer / Rechercher un jeu",
@@ -95,5 +96,26 @@
     "search_by_pack":"Recherche par pack",
     "search_by_type":"Recherche par type",
     "search_by_translation":"Recherche par traduction",
-    "search_by_tags":"Recherche par tags"
+    "search_by_tags":"Recherche par tags",
+
+    "select_server_title":"Bienvenue sur Jackbox Utility",
+    "select_server_subtitle":"Choisissez une langue pour commencer",
+    "select_server_button":"Sélectionner",
+
+    "connected_to_server":"Connecté au serveur {server}",
+    "@connected_to_server":{
+        "placeholders":{
+            "server":{
+                "type":"String",
+                "example":"Jackbox France"
+            }
+        }
+    },
+    "connected_to_server_change":"Changer",
+    "connection_to_server_failed":"Connexion au serveur échoué",
+    "connection_to_main_server_failed":"Impossible de récupérer la liste des serveurs. Vérifiez votre connexion internet",
+
+    "quit_while_downloading_title":"Téléchargement en cours",
+    "quit_while_downloading_description":"Un téléchargement est en cours, êtes vous sûr de vouloir quitter maintenant ?"
+
 }

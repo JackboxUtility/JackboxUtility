@@ -1,6 +1,6 @@
 import 'package:jackbox_patcher/model/gametag.dart';
 import 'package:jackbox_patcher/model/jackboxpack.dart';
-import 'package:jackbox_patcher/model/jackboxpatch.dart';
+import 'package:jackbox_patcher/model/jackboxgamepatch.dart';
 import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
 
 class JackboxGame {
@@ -9,7 +9,7 @@ class JackboxGame {
   final String background;
   final JackboxLoader? loader;
   final String? path;
-  final List<JackboxPatch> patches;
+  final List<JackboxGamePatch> patches;
   final JackboxGameInfo info;
 
   JackboxGame({
@@ -32,7 +32,7 @@ class JackboxGame {
           : null,
       path: json['path'],
       patches: (json['patchs'] as List<dynamic>)
-          .map((e) => JackboxPatch.fromJson(e))
+          .map((e) => JackboxGamePatch.fromJson(e))
           .toList(),
       info: JackboxGameInfo.fromJson(json['game_info']),
     );
@@ -129,26 +129,32 @@ enum JackboxGameType {
   String get description {
     switch (this) {
       case JackboxGameType.VERSUS:
-        return TranslationsHelper().appLocalizations!.game_type_versus_description;
+        return TranslationsHelper()
+            .appLocalizations!
+            .game_type_versus_description;
       case JackboxGameType.COOP:
-        return TranslationsHelper().appLocalizations!.game_type_coop_description;
+        return TranslationsHelper()
+            .appLocalizations!
+            .game_type_coop_description;
       case JackboxGameType.TEAM:
-        return TranslationsHelper().appLocalizations!.game_type_team_description;
+        return TranslationsHelper()
+            .appLocalizations!
+            .game_type_team_description;
     }
   }
 }
 
 enum JackboxGameTranslation {
-  FRENCH,
-  FRENCH_JBFR,
+  NATIVELY_TRANSLATED,
+  COMMUNITY_TRANSLATED,
   ENGLISH;
 
   static JackboxGameTranslation fromString(String translation) {
     switch (translation) {
-      case 'FRENCH':
-        return JackboxGameTranslation.FRENCH;
-      case 'FRENCH_JBFR':
-        return JackboxGameTranslation.FRENCH_JBFR;
+      case 'NATIVELY_TRANSLATED':
+        return JackboxGameTranslation.NATIVELY_TRANSLATED;
+      case 'COMMUNITY_TRANSLATED':
+        return JackboxGameTranslation.COMMUNITY_TRANSLATED;
       case 'ENGLISH':
         return JackboxGameTranslation.ENGLISH;
       default:
@@ -158,23 +164,35 @@ enum JackboxGameTranslation {
 
   String get name {
     switch (this) {
-      case JackboxGameTranslation.FRENCH:
-        return TranslationsHelper().appLocalizations!.game_translation_translated;
-      case JackboxGameTranslation.FRENCH_JBFR:
-        return TranslationsHelper().appLocalizations!.game_translation_community_translated;
+      case JackboxGameTranslation.NATIVELY_TRANSLATED:
+        return TranslationsHelper()
+            .appLocalizations!
+            .game_translation_translated;
+      case JackboxGameTranslation.COMMUNITY_TRANSLATED:
+        return TranslationsHelper()
+            .appLocalizations!
+            .game_translation_community_translated;
       case JackboxGameTranslation.ENGLISH:
-        return TranslationsHelper().appLocalizations!.game_translation_not_available;
+        return TranslationsHelper()
+            .appLocalizations!
+            .game_translation_not_available;
     }
   }
 
   String get description {
     switch (this) {
-      case JackboxGameTranslation.FRENCH:
-        return TranslationsHelper().appLocalizations!.game_translation_translated_description;
-      case JackboxGameTranslation.FRENCH_JBFR:
-        return TranslationsHelper().appLocalizations!.game_translation_community_translated_description;
+      case JackboxGameTranslation.NATIVELY_TRANSLATED:
+        return TranslationsHelper()
+            .appLocalizations!
+            .game_translation_translated_description;
+      case JackboxGameTranslation.COMMUNITY_TRANSLATED:
+        return TranslationsHelper()
+            .appLocalizations!
+            .game_translation_community_translated_description;
       case JackboxGameTranslation.ENGLISH:
-        return TranslationsHelper().appLocalizations!.game_translation_not_available_description;
+        return TranslationsHelper()
+            .appLocalizations!
+            .game_translation_not_available_description;
     }
   }
 }

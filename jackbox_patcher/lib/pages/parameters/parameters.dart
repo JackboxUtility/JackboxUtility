@@ -181,7 +181,6 @@ class _PackInParametersWidgetState extends State<PackInParametersWidget> {
 
   @override
   Widget build(BuildContext context) {
-    print(packStatus);
     return ListTile(
       leading: packStatus == "NOT_FOUND"
           ? Icon(FluentIcons.warning, color: Colors.red)

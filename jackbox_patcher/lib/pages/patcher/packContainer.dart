@@ -5,15 +5,17 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:jackbox_patcher/model/jackboxgame.dart';
 import 'package:jackbox_patcher/model/jackboxpack.dart';
-import 'package:jackbox_patcher/model/jackboxpatch.dart';
+import 'package:jackbox_patcher/model/jackboxgamepatch.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
-import 'package:jackbox_patcher/model/usermodel/userjackboxpatch.dart';
+import 'package:jackbox_patcher/model/usermodel/userjackboxgamepatch.dart';
+import 'package:jackbox_patcher/model/usermodel/userjackboxpackpatch.dart';
+import 'package:jackbox_patcher/pages/patcher/packPatch.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/launcher/launcher.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'game.dart';
+import 'gamePatch.dart';
 
 class PatcherPackWidget extends StatefulWidget {
   PatcherPackWidget({Key? key, required this.userPack}) : super(key: key);
@@ -42,11 +44,12 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
         pathFoundStatus = "INEXISTANT";
       });
     } else {
-      if (await folder.exists()) {
+      if (await folder.exists() && mounted) {
         setState(() {
           pathFoundStatus = "FOUND";
         });
       } else {
+        if (mounted)
         setState(() {
           pathFoundStatus = "NOT_FOUND";
         });
@@ -91,10 +94,7 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
                         1.0
                       ])),
             ),
-            Positioned(
-              top: 140,
-              left: 20,
-              child: Column(
+            Container(margin:EdgeInsets.only(top:140,left:20,right:20),child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
@@ -107,7 +107,7 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
                   Text(
                     widget.userPack.pack.description,
                     style: TextStyle(color: Colors.white, fontSize: 15),
-                  )
+                  ) 
                 ],
               ),
             ),
@@ -137,7 +137,7 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
                                     Icon(FluentIcons.play),
                                     SizedBox(width: 10),
                                     Text(
-                                      "Lancement...",
+                                      AppLocalizations.of(context)!.launching,
                                       style: TextStyle(fontSize: 11),
                                     )
                                   ])
@@ -145,7 +145,7 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
                                     Icon(FluentIcons.check_mark),
                                     SizedBox(width: 10),
                                     Text(
-                                      "Lancé !",
+                                      AppLocalizations.of(context)!.launched,
                                       style: TextStyle(fontSize: 11),
                                     )
                                   ]))))
@@ -164,7 +164,7 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
           ],
         ),
         SizedBox(
-          height: 30,
+          height: 20,
         ),
         _buildPathMessage()
       ],
@@ -182,36 +182,43 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
       return InfoBar(
         severity: InfoBarSeverity.error,
         title: Text(AppLocalizations.of(context)!.path_not_found),
-        content: Text(
-            AppLocalizations.of(context)!.path_not_found_description),
+        content: Text(AppLocalizations.of(context)!.path_not_found_description),
       );
     }
     return InfoBar(
       severity: InfoBarSeverity.warning,
       title: Text(AppLocalizations.of(context)!.path_inexistant),
-      content: Text(
-          AppLocalizations.of(context)!.path_inexistant_description),
+      content: Text(AppLocalizations.of(context)!.path_inexistant_description),
     );
   }
 
   Widget _buildGames() {
-    List<Widget> children = [];
+    List<Widget> gamesChildren = [];
     for (UserJackboxGame g in widget.userPack.games) {
-      for (UserJackboxPatch p in g.patches) {
-        children.add(PatchCard(
+      for (UserJackboxGamePatch p in g.patches) {
+        gamesChildren.add(GamePatchCard(
           pack: widget.userPack,
           game: g,
           patch: p,
         ));
       }
     }
+
+    List<Widget> packPatchChildren = [];
+    for (UserJackboxPackPatch p in widget.userPack.patches) {
+      packPatchChildren.add(PackPatch(
+        pack: widget.userPack,
+        patch: p,
+      ));
+    }
     return Padding(
         padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
-        child: StaggeredGrid.count(
+        child: gamesChildren.length>=1? StaggeredGrid.count(
             mainAxisSpacing: 20,
             crossAxisSpacing: 20,
             crossAxisCount: 3,
-            children: children));
+            children: gamesChildren):Column(
+            children: packPatchChildren));
   }
 
   void openPack() async {
@@ -243,7 +250,6 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
                         TextBox(
                           controller: pathController,
                           onChanged: (value) {
-                            print("Set owned");
                             widget.userPack.setOwned(true);
                             widget.userPack.setPath(value);
                           },

@@ -1,6 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:jackbox_patcher/model/usermodel/userjackboxpatch.dart';
+import 'package:jackbox_patcher/components/dialogs/downloadPatchDialog.dart';
+import 'package:jackbox_patcher/model/jackboxgame.dart';
+import 'package:jackbox_patcher/model/jackboxgamepatch.dart';
+import 'package:jackbox_patcher/model/jackboxpackpatch.dart';
+import 'package:jackbox_patcher/model/usermodel/userjackboxgamepatch.dart';
+import 'package:jackbox_patcher/model/usermodel/userjackboxpackpatch.dart';
 import 'package:jackbox_patcher/services/error/error.dart';
 import 'package:jackbox_patcher/services/launcher/launcher.dart';
 import 'package:palette_generator/palette_generator.dart';
@@ -10,19 +15,241 @@ import '../../model/usermodel/userjackboxgame.dart';
 import '../../model/usermodel/userjackboxpack.dart';
 import '../../services/api/api_service.dart';
 
-class PatchCard extends StatefulWidget {
-  PatchCard(
+void _openPatchInfo(context, dynamic data, JackboxGame? relatedGame) {
+  showDialog(
+      context: context,
+      builder: (context) {
+        return ContentDialog(
+          style: ContentDialogThemeData(
+              bodyPadding: EdgeInsets.all(12), padding: EdgeInsets.all(0)),
+          title: Column(children: [
+            relatedGame != null
+                ? Row(children: [
+                    Expanded(
+                        child: ClipRRect(
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(8),
+                                topRight: Radius.circular(8)),
+                            child: SizedBox(
+                                height: 100,
+                                child: CachedNetworkImage(
+                                  imageUrl: APIService()
+                                      .assetLink(relatedGame.background),
+                                  fit: BoxFit.fitWidth,
+                                ))))
+                  ])
+                : Container(),
+            Text(
+              data.name,
+              textAlign: TextAlign.center,
+            ),
+            /*
+            Column(children: [
+             relatedGame!=null? Row(children: [
+                  Expanded(
+                      child:ClipRRect(
+        borderRadius: BorderRadius.only(topLeft:Radius.circular(8), topRight: Radius.circular(8)),
+        child: Stack(children: [SizedBox(height: 150, width:double.maxFinite,child: CachedNetworkImage(
+                    imageUrl:
+                        APIService().assetLink(relatedGame.background),
+                    fit: BoxFit.fitWidth,
+                  )), 
+                  Container(
+                    width: double.maxFinite,
+              height: 150,
+              decoration: const BoxDecoration(
+                  color: Colors.white,
+                  gradient: LinearGradient(
+                      begin: FractionalOffset.topCenter,
+                      end: FractionalOffset.bottomCenter,
+                      colors: [
+                        Color.fromRGBO(39, 39, 39, 0),
+                        Color.fromRGBO(39, 39, 39, 1)
+                      ],
+                      stops: [
+                        0.0,
+                        1.0
+                      ])),
+                      child:
+            Column(mainAxisAlignment: MainAxisAlignment.end, children: [Text(data.name), SizedBox(height: 10,)]),
+            ),
+            ])))
+                ]):Container(),
+          ])*/
+          ]),
+          content: ListView(children: [
+            data.description != null && data.description != ""
+                ? Text(AppLocalizations.of(context)!.description,
+                    style: TextStyle(fontSize: 20))
+                : Container(),
+            data.description != null && data.description != ""
+                ? Text(data.description)
+                : Container(),
+            data.description != null && data.description != ""
+                ? SizedBox(height: 10)
+                : Container(),
+            Text(AppLocalizations.of(context)!.patch_modification,
+                style: TextStyle(fontSize: 20)),
+            Text(AppLocalizations.of(context)!.patch_modification_description),
+            data.patchType!.gameText
+                ? Text(
+                    "- ${AppLocalizations.of(context)!.patch_modification_content_text}")
+                : SizedBox(),
+            data.patchType!.gameAssets
+                ? Text(
+                    "- ${AppLocalizations.of(context)!.patch_modification_content_internal}")
+                : SizedBox(),
+            data.patchType!.gameSubtitles
+                ? Text(
+                    "- ${AppLocalizations.of(context)!.patch_modification_content_subtitles}")
+                : SizedBox(),
+            data.patchType!.website
+                ? Text(
+                    "- ${AppLocalizations.of(context)!.patch_modification_content_website(APIService().cachedSelectedServer!.controllerUrl != null ? APIService().cachedSelectedServer!.controllerUrl! : "jackbox.tv")}")
+                : SizedBox(),
+            data.patchType!.audios
+                ? Text(
+                    "- ${AppLocalizations.of(context)!.patch_modification_content_audios}")
+                : SizedBox(),
+            SizedBox(
+              height: 20,
+            ),
+            data is JackboxGamePatch
+                ? Text(AppLocalizations.of(context)!.version,
+                    style: TextStyle(fontSize: 20))
+                : Container(),
+            data is JackboxGamePatch
+                ? Text("${data.latestVersion}")
+                : Container(),
+            SizedBox(
+              height: 20,
+            ),
+            data.authors != null && data.authors != ""
+                ? Text(AppLocalizations.of(context)!.authors,
+                    style: TextStyle(fontSize: 20))
+                : Container(),
+            data.authors != null && data.authors != ""
+                ? Text(data.authors!)
+                : Container(),
+          ]),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text(AppLocalizations.of(context)!.close),
+            ),
+          ],
+        );
+      });
+}
+
+class GameInPatchCard extends StatefulWidget {
+  GameInPatchCard(
+      {Key? key,
+      required this.pack,
+      required this.patch,
+      required this.game,
+      required this.gamePatchIncluded})
+      : super(key: key);
+
+  final UserJackboxPack pack;
+  final UserJackboxPackPatch patch;
+  final UserJackboxGame? game;
+  final JackboxPackPatchComponent gamePatchIncluded;
+  @override
+  State<GameInPatchCard> createState() => _GameInPatchCardState();
+}
+
+class _GameInPatchCardState extends State<GameInPatchCard> {
+  Color? backgroundColor;
+
+  @override
+  void initState() {
+    _loadBackgroundColor();
+    super.initState();
+  }
+
+  void _loadBackgroundColor() {
+    PaletteGenerator.fromImageProvider(CachedNetworkImageProvider(
+            APIService().assetLink(widget.pack.pack.background)))
+        .then((value) {
+      setState(() {
+        backgroundColor = value.dominantColor?.color;
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        child: Stack(
+      clipBehavior: Clip.none,
+      children: [
+        Container(
+            height: 150,
+            margin: EdgeInsets.only(top: 25),
+            child: ClipRRect(
+                borderRadius: BorderRadius.circular(8.0),
+                child: Acrylic(
+                    shadowColor: backgroundColor,
+                    blurAmount: 1,
+                    tintAlpha: 1,
+                    tint: Color.fromARGB(255, 48, 48, 48),
+                    child: Stack(children: [
+                      Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                        IconButton(
+                            icon: Icon(FluentIcons.info),
+                            onPressed: () {
+                              _openPatchInfo(
+                                  context,
+                                  widget.gamePatchIncluded,
+                                  widget.game != null
+                                      ? widget.game!.game
+                                      : null);
+                            })
+                      ]),
+                      Container(
+                          padding: EdgeInsets.only(bottom: 12),
+                          margin: EdgeInsets.only(top: 50),
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                    child: Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 12),
+                                  child: Column(children: [
+                                    Text(widget.gamePatchIncluded.name,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(fontSize: 25)),
+                                    SizedBox(height: 10),
+                                    Text(
+                                      widget
+                                          .gamePatchIncluded.smallDescription!,
+                                    ),
+                                  ]),
+                                ))
+                              ])),
+                    ])))),
+        widget.game != null
+            ? GameImageWithOpener(pack: widget.pack, game: widget.game!)
+            : Container()
+      ],
+    ));
+  }
+}
+
+class GamePatchCard extends StatefulWidget {
+  GamePatchCard(
       {Key? key, required this.pack, required this.game, required this.patch})
       : super(key: key);
 
   final UserJackboxPack pack;
   final UserJackboxGame game;
-  final UserJackboxPatch patch;
+  final UserJackboxGamePatch patch;
   @override
-  State<PatchCard> createState() => _PatchCardState();
+  State<GamePatchCard> createState() => _GamePatchCardState();
 }
 
-class _PatchCardState extends State<PatchCard> {
+class _GamePatchCardState extends State<GamePatchCard> {
   Color? backgroundColor;
   int downloadingProgress = 0;
   String status = "";
@@ -59,7 +286,7 @@ class _PatchCardState extends State<PatchCard> {
                 height: 20,
                 decoration: new BoxDecoration(
                   color:
-                      widget.patch.getInstalledStatus(widget.pack.path).color,
+                      widget.patch.getInstalledStatus().color,
                   shape: BoxShape.circle,
                 ))),
         Container(
@@ -77,7 +304,8 @@ class _PatchCardState extends State<PatchCard> {
                         IconButton(
                             icon: Icon(FluentIcons.info),
                             onPressed: () {
-                              _openPatchInfo();
+                              _openPatchInfo(context, widget.patch.patch,
+                                  widget.game.game);
                             })
                       ]),
                       Container(
@@ -112,108 +340,14 @@ class _PatchCardState extends State<PatchCard> {
                     height: 10,
                     decoration: new BoxDecoration(
                       color: widget.patch
-                          .getInstalledStatus(widget.pack.path)
+                          .getInstalledStatus()
                           .color,
                       shape: BoxShape.circle,
                     )),
                 message:
-                    widget.patch.getInstalledStatus(widget.pack.path).info)),
+                    widget.patch.getInstalledStatus().info)),
       ],
     ));
-  }
-
-  void _installPatchDialog() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return StatefulBuilder(builder: (context, StateSetter setState) {
-          return downloadingProgress == 0
-              ? ContentDialog(
-                  title: Text(AppLocalizations.of(context)!.installing_a_patch),
-                  content: Text(
-                      AppLocalizations.of(context)!.installing_a_patch_description),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(context),
-                      child: Text(AppLocalizations.of(context)!.cancel),
-                    ),
-                    TextButton(
-                      onPressed: () async {
-                        downloadingProgress = 1;
-                        setState(() {});
-                        widget.patch.downloadPatch(
-                            widget.pack.path!, widget.game.game.path!,
-                            (String stat, String substat, double progress) {
-                          status = stat;
-                          substatus = substat;
-                          progression = progress;
-                          setState(() {});
-                        }).then((_) {
-                          downloadingProgress = 2;
-                          setState(() {});
-                        }).catchError((error) {
-                          ErrorService.showError(context, error);
-                          Navigator.pop(context);
-                        });
-                      },
-                      child: Text(AppLocalizations.of(context)!.page_continue),
-                    ),
-                  ],
-                )
-              : (downloadingProgress == 1
-                  ? buildDownloadingPatchDialog(status, substatus, progression)
-                  : buildFinishDialog());
-        });
-      },
-    );
-  }
-
-  ContentDialog buildDownloadingPatchDialog(
-      String status, String substatus, double progression) {
-    return ContentDialog(
-      title: Text(AppLocalizations.of(context)!.installing_a_patch),
-      content: SizedBox(
-          height: 200,
-          child: Center(
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                ProgressRing(value: progression),
-                SizedBox(height: 10),
-                Text(status, style: TextStyle(fontSize: 20)),
-                Text(substatus, style: TextStyle(fontSize: 16)),
-              ]))),
-    );
-  }
-
-  ContentDialog buildFinishDialog() {
-    return ContentDialog(
-      actions: [
-        TextButton(
-          onPressed: () {
-            Navigator.pop(context);
-            downloadingProgress = 0;
-            setState(() {});
-          },
-          child: Text(AppLocalizations.of(context)!.close),
-        ),
-      ],
-      title: Text(AppLocalizations.of(context)!.installing_a_patch),
-      content: SizedBox(
-          height: 200,
-          child: Center(
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                Icon(FluentIcons.check_mark),
-                SizedBox(height: 10),
-                Text(AppLocalizations.of(context)!.installing_a_patch_end, style: TextStyle(fontSize: 20)),
-                Text(AppLocalizations.of(context)!.can_close_popup,
-                    style: TextStyle(fontSize: 16)),
-              ]))),
-    );
   }
 
   // Widget _buildPatchTypeIcons() {
@@ -243,16 +377,24 @@ class _PatchCardState extends State<PatchCard> {
     void Function()? onPressFunction;
     String buttonText = "";
     bool removePatchButtonVisible = false;
-    UserInstalledPatchStatus status =
-        widget.patch.getInstalledStatus(widget.pack.path);
-    if (status == UserInstalledPatchStatus.INEXISTANT ||
-        status == UserInstalledPatchStatus.INSTALLED) {
+    UserInstalledPatchStatus patchStatus =
+        widget.patch.getInstalledStatus();
+    if (patchStatus == UserInstalledPatchStatus.INEXISTANT ||
+        patchStatus == UserInstalledPatchStatus.INSTALLED) {
       onPressFunction = null;
     } else {
-      onPressFunction = () => _installPatchDialog();
+      onPressFunction = () => showDialog(
+          context: context,
+          builder: (context) {
+            return DownloadPatchDialogComponent(
+                localPaths: ["${widget.pack.path!}/${widget.game.game.path!}"],
+                patchs: [widget.patch]);
+          }).then((value) => setState(
+            () {},
+          ));
     }
 
-    switch (status) {
+    switch (patchStatus) {
       case UserInstalledPatchStatus.INEXISTANT:
         buttonText = AppLocalizations.of(context)!.patch_unavailable;
         break;
@@ -290,8 +432,8 @@ class _PatchCardState extends State<PatchCard> {
         builder: (context) {
           return ContentDialog(
             title: Text(AppLocalizations.of(context)!.delete_version),
-            content: Text(
-                AppLocalizations.of(context)!.delete_version_description),
+            content:
+                Text(AppLocalizations.of(context)!.delete_version_description),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
@@ -304,57 +446,6 @@ class _PatchCardState extends State<PatchCard> {
                   setState(() {});
                 },
                 child: Text(AppLocalizations.of(context)!.confirm),
-              ),
-            ],
-          );
-        });
-  }
-
-  void _openPatchInfo() {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return ContentDialog(
-            title: Text(widget.patch.patch.name),
-            content:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(AppLocalizations.of(context)!.description , style: TextStyle(fontSize: 20)),
-              Text(widget.patch.patch.description),
-              SizedBox(height: 20),
-              Text(AppLocalizations.of(context)!.patch_modification, style: TextStyle(fontSize: 20)),
-              Text(AppLocalizations.of(context)!.patch_modification_description),
-              widget.patch.patch.patchType!.gameText
-                  ? Text("- "+AppLocalizations.of(context)!.patch_modification_content_text)
-                  : SizedBox(),
-              widget.patch.patch.patchType!.gameAssets
-                  ? Text(
-                      "- "+AppLocalizations.of(context)!.patch_modification_content_internal)
-                  : SizedBox(),
-              widget.patch.patch.patchType!.gameSubtitles
-                  ? Text("- "+AppLocalizations.of(context)!.patch_modification_content_subtitles)
-                  : SizedBox(),
-              widget.patch.patch.patchType!.website
-                  ? Text(
-                      "- "+AppLocalizations.of(context)!.patch_modification_content_website("laboxdejack.fr"))
-                  : SizedBox(),
-              widget.patch.patch.patchType!.audios
-                  ? Text("- "+AppLocalizations.of(context)!.patch_modification_content_audios)
-                  : SizedBox(),
-              SizedBox(
-                height: 20,
-              ),
-              Text(AppLocalizations.of(context)!.version, style: TextStyle(fontSize: 20)),
-              Text("${widget.patch.patch.latestVersion}"),
-              SizedBox(
-                height: 20,
-              ),
-              Text(AppLocalizations.of(context)!.authors, style: TextStyle(fontSize: 20)),
-              Text(widget.patch.patch.authors!),
-            ]),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: Text(AppLocalizations.of(context)!.close),
               ),
             ],
           );
@@ -387,7 +478,7 @@ class _GameImageWithOpenerState extends State<GameImageWithOpener> {
                           onSecondaryTap: () async {
                             Launcher.launchGame(widget.pack, widget.game)
                                 .then((value) => setState(() {}))
-                                .catchError((e) => ErrorService.showError(
+                                .catchError((e) => InfoBarService.showError(
                                     context, e.toString()));
                           },
                           onTap: () => Navigator.pushNamed(context, "/game",

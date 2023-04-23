@@ -72,21 +72,6 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
     }
 
     List<NavigationPaneItem> typeItem = [];
-    for (var type in JackboxGameType.values) {
-      typeItem.add(PaneItem(
-          icon: Container(),
-          title: Text(type.name),
-          body: SearchGameWidget(
-            filter: (UserJackboxPack pack, UserJackboxGame game) =>
-                game.game.info.type == type &&
-                game.game.name.toLowerCase().contains(_searchController.text.toLowerCase()),
-            comeFromGame: false,
-            background: APIService().getDefaultBackground(),
-            name: type.name,
-            description: type.description,
-            icon: null,
-          )));
-    }
 
     List<NavigationPaneItem> translationItem = [];
     for (var translation in JackboxGameTranslation.values) {
@@ -106,6 +91,23 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
     }
 
     List<NavigationPaneItem> tagItem = [];
+    
+    for (var type in JackboxGameType.values) {
+      tagItem.add(PaneItem(
+          icon: Container(),
+          title: Text(type.name),
+          body: SearchGameWidget(
+            filter: (UserJackboxPack pack, UserJackboxGame game) =>
+                game.game.info.type == type &&
+                game.game.name.toLowerCase().contains(_searchController.text.toLowerCase()),
+            comeFromGame: false,
+            background: APIService().getDefaultBackground(),
+            name: type.name,
+            description: type.description,
+            icon: null,
+          )));
+    }
+
     for (var tag in APIService().getTags()) {
       tagItem.add(PaneItem(
           icon: Container(),
@@ -121,6 +123,8 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
             icon: null,
           )));
     }
+
+    
 
     if (UserData().packs.isNotEmpty) {
       items.add(PaneItemSeparator());
@@ -159,17 +163,17 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
         },
       ));
 
-      items.add(PaneItemExpander(
-        icon: Icon(FluentIcons.people),
-        body: Container(),
-        title: Text(AppLocalizations.of(context)!.search_by_type),
-        items: typeItem,
-        onTap: () {
-          setState(() {
-            _selectedView = 3 + packItems.length;
-          });
-        },
-      ));
+      // items.add(PaneItemExpander(
+      //   icon: Icon(FluentIcons.people),
+      //   body: Container(),
+      //   title: Text(AppLocalizations.of(context)!.search_by_type),
+      //   items: typeItem,
+      //   onTap: () {
+      //     setState(() {
+      //       _selectedView = 3 + packItems.length;
+      //     });
+      //   },
+      // ));
 
       items.add(PaneItemExpander(
         icon: Icon(FluentIcons.translate),
@@ -178,7 +182,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
         items: translationItem,
         onTap: () {
           setState(() {
-            _selectedView = 4 + packItems.length + typeItem.length;
+            _selectedView = 3 + packItems.length + typeItem.length;
           });
         },
       ));
@@ -191,7 +195,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
         onTap: () {
           setState(() {
             _selectedView =
-                5 + packItems.length + typeItem.length + translationItem.length;
+                4 + packItems.length + typeItem.length + translationItem.length;
           });
         },
       ));

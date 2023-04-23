@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:jackbox_patcher/model/jackboxpack.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
+import 'package:jackbox_patcher/model/usermodel/userjackboxpackpatch.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 
@@ -10,6 +11,7 @@ import '../../services/launcher/launcher.dart';
 class UserJackboxPack {
   final JackboxPack pack;
   final List<UserJackboxGame> games = [];
+  final List<UserJackboxPackPatch> patches = [];
   UserJackboxLoader? loader;
   String? path;
   bool owned = false;
@@ -33,7 +35,7 @@ class UserJackboxPack {
     if (folder == null) {
       return "INEXISTANT";
     } else {
-      if (await folder.exists()) {
+      if (await folder.exists() && (pack.executable==null || await File(folder.path + "/"+pack.executable!).exists())) {
           return "FOUND";
       } else {
         return  "NOT_FOUND";

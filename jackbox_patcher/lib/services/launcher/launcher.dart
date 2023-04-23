@@ -26,8 +26,10 @@ class Launcher {
         await extractFileToDisk(pack.loader!.path!, packFolder);
       }
 
+       await Process.run(
+        "${pack.path!}/${pack.pack.executable}",[],workingDirectory: pack.path
+      );
       // Extracting into game file
-      await Process.run("${pack.path}/${pack.pack.executable}", []);
     }
   }
 
@@ -36,7 +38,7 @@ class Launcher {
     if (pack.path == null) {
       throw Exception("Pack path is null");
     } else {
-      if (game.loader == null){
+      if (game.loader == null) {
         return await launchPack(pack);
       }
       // If the loader is not already installed or need update, download it
@@ -52,7 +54,9 @@ class Launcher {
       // Extracting into game file
       String packFolder = pack.path!;
       await extractFileToDisk(game.loader!.path!, packFolder);
-      await Process.run("${pack.path}/${pack.pack.executable}", []);
+          await Process.run(
+        "${pack.path!}/${pack.pack.executable}",[],workingDirectory: pack.path
+      );
     }
   }
 }

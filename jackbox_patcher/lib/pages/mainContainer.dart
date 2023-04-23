@@ -1,18 +1,29 @@
+import 'dart:io';
+
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:jackbox_patcher/components/dialogs/leaveApplicationDialog.dart';
 import 'package:jackbox_patcher/components/menu.dart';
+import 'package:jackbox_patcher/model/patchserver.dart';
 import 'package:jackbox_patcher/pages/parameters/parameters.dart';
-import 'package:jackbox_patcher/pages/patcher/pack.dart';
+import 'package:jackbox_patcher/pages/patcher/packContainer.dart';
 import 'package:jackbox_patcher/model/jackboxpack.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/device/device.dart';
+import 'package:jackbox_patcher/services/downloader/downloader_service.dart';
+import 'package:jackbox_patcher/services/error/error.dart';
+import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 import 'package:lottie/lottie.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:window_manager/window_manager.dart';
 
+import '../components/dialogs/automaticGameFinderDialog.dart';
 import '../model/news.dart';
+import '../services/automaticGameFinder/AutomaticGameFinder.dart';
 
 class MainContainer extends StatefulWidget {
   MainContainer({Key? key}) : super(key: key);
@@ -21,7 +32,7 @@ class MainContainer extends StatefulWidget {
   State<MainContainer> createState() => _MainContainerState();
 }
 
-class _MainContainerState extends State<MainContainer> {
+class _MainContainerState extends State<MainContainer> with WindowListener {
   int _selectedView = 0;
   bool _loaded = false;
 
@@ -35,11 +46,13 @@ class _MainContainerState extends State<MainContainer> {
 
   @override
   void initState() {
-    _load();
+    windowManager.addListener(this);
+    _load(true);
     super.initState();
   }
 
   Widget build(BuildContext context) {
+    TranslationsHelper().appLocalizations = AppLocalizations.of(context);
     return NavigationView(
         content: Stack(children: [
       _loaded
@@ -135,6 +148,8 @@ class _MainContainerState extends State<MainContainer> {
 
   Widget _buildUpper() {
     return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+      _loaded ? _buildConnectedServer() : Container(),
+      Expanded(child: Container()),
       _buildTitle(),
       SizedBox(
         height: 30,
@@ -143,6 +158,7 @@ class _MainContainerState extends State<MainContainer> {
           ? _buildMenu()
           : LottieBuilder.asset("assets/lotties/QuiplashOutput.json",
               width: 200, height: 200),
+      Expanded(child: Container()),
     ]);
   }
 
@@ -225,15 +241,43 @@ class _MainContainerState extends State<MainContainer> {
         ]));
   }
 
+  Widget _buildConnectedServer() {
+    return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+      Text(AppLocalizations.of(context)!
+          .connected_to_server(APIService().cachedSelectedServer!.name)),
+      SizedBox(width: 10),
+      GestureDetector(
+        child: Text(AppLocalizations.of(context)!.connected_to_server_change,
+            style: TextStyle(decoration: TextDecoration.underline)),
+        onTap: () async {
+          UserData().setSelectedServer(null);
+          UserData().packs = [];
+          APIService().resetCache();
+          _loaded = false;
+          setState(() {});
+          _load(false);
+        },
+      )
+    ]);
+  }
+
   Widget _buildTitle() {
     return Column(children: [
       ClipRRect(
           borderRadius: BorderRadius.circular(8.0),
-          child: Image.asset(
-            "assets/logo.png",
-            height: 100,
-          )),
-      Text(AppLocalizations.of(context)!.jackbox_utility,
+          child: _loaded
+              ? Image.network(
+                  APIService()
+                      .assetLink(APIService().cachedSelectedServer!.image),
+                  height: 100)
+              : Image.asset(
+                  "assets/logo.png",
+                  height: 100,
+                )),
+      Text(
+          _loaded
+              ? APIService().cachedSelectedServer!.name
+              : AppLocalizations.of(context)!.jackbox_utility,
           style: FluentTheme.of(context).typography.titleLarge)
     ]);
   }
@@ -242,12 +286,69 @@ class _MainContainerState extends State<MainContainer> {
     return Container();
   }
 
-  void _load() async {
-    await _loadWelcome();
-    await _loadPacks();
+  void _load(bool automaticallyChooseBestServer) async {
+    print("Loading");
+    bool changedServer = false;
+    bool automaticGameFindNotificationAvailable = false;
+    await windowManager.setPreventClose(true);
+    await UserData().init();
+    if (UserData().getSelectedServer() == null) {
+      if (automaticallyChooseBestServer) {
+        await findBestServer();
+      } else {
+        await Navigator.pushNamed(context, "/serverSelect");
+        automaticGameFindNotificationAvailable = true;
+      }
+      changedServer = true;
+      print("ChangedServer");
+    }
+    try {
+      await _loadInfo();
+      await _loadWelcome();
+      await _loadPacks();
+      if (changedServer)
+        await _launchAutomaticGameFinder(
+            automaticGameFindNotificationAvailable);
+    } catch (e) {
+      InfoBarService.showError(
+          context, AppLocalizations.of(context)!.connection_to_server_failed,
+          duration: Duration(minutes: 5));
+      rethrow;
+    }
     setState(() {
       _loaded = true;
     });
+  }
+
+  Future<void> findBestServer() async {
+    String locale = Platform.localeName;
+    print(locale);
+    await APIService().recoverAvailableServers();
+    List<PatchServer> servers = APIService().cachedServers;
+    print(servers);
+    for (var server in servers) {
+      print(server.languages);
+      if (server.languages.where((e) => locale.startsWith(e)).length > 0) {
+        print("Found server");
+        await UserData().setSelectedServer(server.infoUrl);
+        InfoBarService.showInfo(context, AppLocalizations.of(context)!.automatic_server_finder_found,
+            AppLocalizations.of(context)!.automatic_server_finder_found_description(server.name));
+        return;
+      }
+    }
+    await Navigator.pushNamed(context, "/serverSelect");
+  }
+
+  Future<void> createVersionFile() async{
+    if (!File("jackbox_patcher.version").existsSync()) {
+      File("jackbox_patcher.version").createSync();
+    }
+    var packageInfo = (await PackageInfo.fromPlatform());
+    File("jackbox_patcher.version").writeAsString(packageInfo.version+"+"+packageInfo.buildNumber);
+  }
+
+  Future<void> _loadInfo() async {
+    await UserData().syncInfo();
   }
 
   Future<void> _loadWelcome() async {
@@ -256,5 +357,43 @@ class _MainContainerState extends State<MainContainer> {
 
   Future<void> _loadPacks() async {
     await UserData().syncPacks();
+  }
+
+  Future<void> _showAutomaticGameFinderDialog() async {
+    await showDialog(
+        context: context,
+        builder: (context) {
+          return AutomaticGameFinderDialog();
+        });
+  }
+
+  Future<void> _launchAutomaticGameFinder(bool showNotification) async {
+    int gamesFound =
+        await AutomaticGameFinderService.findGames(UserData().packs);
+    if (showNotification) {
+      InfoBarService.showInfo(
+          context,
+          AppLocalizations.of(context)!.automatic_game_finder_title,
+          AppLocalizations.of(context)!
+              .automatic_game_finder_finish(gamesFound));
+    }
+  }
+
+  @override
+  void onWindowClose() async {
+    bool _isPreventClose = await windowManager.isPreventClose();
+    if (_isPreventClose) {
+      bool shouldClose = DownloaderService.isDownloading
+          ? await (showDialog<bool>(
+                  context: context,
+                  builder: (context) {
+                    return LeaveApplicationDialog();
+                  })) ==
+              true
+          : true;
+      if (shouldClose) {
+        windowManager.destroy();
+      }
+    }
   }
 }

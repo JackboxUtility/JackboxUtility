@@ -236,10 +236,8 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                             launchingStatus == "WAITING"
                                 ? AppLocalizations.of(context)!.launch_game
                                 : (launchingStatus == "LAUNCHING"
-                                    ? AppLocalizations.of(context)!
-                                        .launching
-                                    : AppLocalizations.of(context)!
-                                        .launched),
+                                    ? AppLocalizations.of(context)!.launching
+                                    : AppLocalizations.of(context)!.launched),
                             style: TextStyle(color: Colors.white)),
                       ],
                     ))),
@@ -286,7 +284,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
       launchingStatus = "LAUNCHED";
       setState(() {});
     }).catchError((error) {
-      ErrorService.showError(context, error.toString());
+      InfoBarService.showError(context, error.toString());
     });
   }
 
@@ -297,7 +295,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
       launchingStatus = "LAUNCHED";
       setState(() {});
     }).catchError((error) {
-      ErrorService.showError(context, error.toString());
+      InfoBarService.showError(context, error.toString());
     });
   }
 
@@ -316,17 +314,14 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                       AppLocalizations.of(context)!.launch_game_fast_launcher,
                       style: FluentTheme.of(context).typography.subtitle,
                     ),
-                    Text(
-                        AppLocalizations.of(context)!
-                            .launch_game_fast_launcher_description),
+                    Text(AppLocalizations.of(context)!
+                        .launch_game_fast_launcher_description),
                     SizedBox(height: 10),
                     Text(
                       AppLocalizations.of(context)!.launch_game,
                       style: FluentTheme.of(context).typography.subtitle,
                     ),
-                    Text(
-                       AppLocalizations.of(context)!
-                            .launch_pack_description),
+                    Text(AppLocalizations.of(context)!.launch_pack_description),
                   ])),
           actions: [
             TextButton(
@@ -386,7 +381,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
         background: APIService().assetLink(widget.pack.pack.background),
         description: widget.pack.pack.description));
     gameTagWidgets.add(_buildGameTag(FluentIcons.allIcons["people"]!,
-        "${widget.game.game.info.players.min} - ${widget.game.game.info.players.max} joueurs"));
+        "${widget.game.game.info.players.min} - ${widget.game.game.info.players.max} ${AppLocalizations.of(context)!.players}"));
     gameTagWidgets
         .add(_buildGameTag(FluentIcons.allIcons["timer"]!, gameInfo.length));
     gameTagWidgets.add(_buildGameTag(
@@ -430,7 +425,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
       if (v == "VERSUS") {
         return AppLocalizations.of(context)!.game_type_versus;
       } else {
-        return  AppLocalizations.of(context)!.game_type_team;
+        return AppLocalizations.of(context)!.game_type_team;
       }
     }
   }
