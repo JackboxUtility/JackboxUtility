@@ -286,6 +286,8 @@ class _PackInCategoryCardState extends State<PackInCategoryCard> {
                                                     widget.data.pack.pack.icon),
                                                 height: 60,
                                                 width: 60,
+                                                cacheHeight: 160,
+                                                cacheWidth: 160,
                                                 fit: BoxFit.cover),
                                             SizedBox(height: 10),
                                             Expanded(

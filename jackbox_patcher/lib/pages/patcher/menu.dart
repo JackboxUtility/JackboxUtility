@@ -111,7 +111,7 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
       if (countPatchs == 1) {
         items.add(PaneItem(
             key: ValueKey(userPack.pack.id),
-            icon: Image.network(APIService().assetLink(userPack.pack.icon)),
+            icon: Image.network(APIService().assetLink(userPack.pack.icon), cacheWidth: 50, cacheHeight: 50,),
             title: Text(userPack.pack.name),
             body: PatcherPackWidget(userPack: userPack)));
       }
