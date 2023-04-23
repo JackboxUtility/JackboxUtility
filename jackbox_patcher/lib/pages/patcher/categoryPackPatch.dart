@@ -292,8 +292,8 @@ class _PackInCategoryCardState extends State<PackInCategoryCard> {
                                               child: SizedBox(),
                                             ),
                                             Text(
-                                              widget.data.packPatchs[0].patch
-                                                  .smallDescription,
+                                              widget.data.packPatchs.length >= 1?widget.data.packPatchs[0].patch
+                                                  .smallDescription: widget.data.pack.pack.description,
                                               textAlign: TextAlign.center,
                                             ),
                                             Expanded(
