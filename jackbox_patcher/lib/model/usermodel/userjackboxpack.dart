@@ -35,7 +35,7 @@ class UserJackboxPack {
     if (folder == null) {
       return "INEXISTANT";
     } else {
-      if (await folder.exists()) {
+      if (await folder.exists() && (pack.executable==null || await File(folder.path + "/"+pack.executable!).exists())) {
           return "FOUND";
       } else {
         return  "NOT_FOUND";
