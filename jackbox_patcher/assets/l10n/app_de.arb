@@ -29,7 +29,7 @@
         "placeholders": {
             "website": {
                 "type": "String",
-                "example": "jackbox.gg"
+                "example": "jackbox.de"
             }
         }
     },
@@ -50,12 +50,12 @@
     "path_not_found_small_description": "Der Pfad zum Spiel wurde nicht gefunden.",
     "path_not_found_description": "Der Pfad zum Spiel wurde nicht gefunden. Bitte vergewissere dich, dass das Spiel installiert ist und der Pfad korrekt ist.",
     "path_inexistant": "Pfad existiert nicht",
-    "path_inexistant_small_description": "Du hast den Pfad noch nicht zum Pack hinzugefügt.",
-    "path_inexistant_description": "Du hast den Pfad noch nicht zum Pack hinzugefügt. Dies ist in den Optionen möglich.",
-    "pack_path": "Pack-Pfad",
-    "owned_packs": "Packs im Besitz",
-    "add_pack": "Pack hinzufügen",
-    "choose_pack": "Wähle ein Pack",
+    "path_inexistant_small_description": "Du hast den Pfad noch nicht zum Spiel hinzugefügt.",
+    "path_inexistant_description": "Du hast den Pfad noch nicht zum Spiel hinzugefügt. Dies ist in den Optionen möglich.",
+    "pack_path": "Spiel-Pfad",
+    "owned_packs": "Spiele im Besitz",
+    "add_pack": "Spiel hinzufügen",
+    "choose_pack": "Wähle ein Spiel",
     "game_type_coop": "Co-Op",
     "game_type_coop_description": "Bei diesen Spielen müssen die Spieler zusammenarbeiten, um zu gewinnen.",
     "game_type_versus": "Gegeneinander",
@@ -68,10 +68,10 @@
     "game_translation_community_translated_description": "Diese Spiele wurden von der Community übersetzt",
     "game_translation_not_available": "Auf Englisch",
     "game_translation_not_available_description": "Diese Spiele wurden nicht ins Deutsche übersetzt",
-    "downloading": "Downloade",
-    "starting": "Starte",
-    "extracting": "Extrahiere",
-    "finalizing": "Fertigstellung",
+    "downloading": "Downloade...",
+    "starting": "Starte...",
+    "extracting": "Entpacke Patch...",
+    "finalizing": "Fast fertig...",
     "unknown_error": "Unbekannter Fehler",
     "contact_error": "Melde dich bitte bei Erizzle#0001 auf Discord",
     "game_patch_unavailable": "Patch nicht verfügbar",
@@ -126,8 +126,8 @@
             }
         }
     },
-    "show_all_packs": "Alle Packs anzeigen",
-    "show_owned_packs_only": "Nur Packs im Besitz anzeigen",
+    "show_all_packs": "Alle Spiele anzeigen",
+    "show_owned_packs_only": "Nur Spiele im Besitz anzeigen",
     "all_patches": "Alle Patches",
     "error_happened": "Ein Fehler ist aufgetreten"
 }
