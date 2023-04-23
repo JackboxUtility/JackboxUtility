@@ -63,14 +63,17 @@ class _CategoryPackPatchState extends State<CategoryPackPatch> {
                       child: FilledButton(
                           child: Text(buttonText),
                           onPressed: !installButtonDisabled
-                              ? () {
-                                  showDialog(
+                              ? () async {
+                                  await showDialog(
                                       context: context,
                                       builder: (context) {
                                         return DownloadPatchDialogComponent(
                                             localPaths: installablePatchPaths,
                                             patchs: installablePatchs);
                                       });
+                                  setState(() {
+                                    
+                                  });
                                 }
                               : null)),
                   Container(
