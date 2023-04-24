@@ -3,7 +3,10 @@ name: Pre-release App
   # uses: subosito/flutter-action@48cafc24713cca54bbe03cdc3a423187d413aafa
     
 on:
-  workflow_dispatch:
+  push:
+     branches: [ dev ]
+  pull_request:
+     branches: [ dev ]
      
 jobs:
  build:
@@ -22,7 +25,7 @@ jobs:
        id: versionstep
        run: |
          VERSION=$(more pubspec.yaml | grep version: | cut -d ' ' -f2)
-         echo "::set-output name=VERSION::$VERSION"
+         echo "::set-output name=VERSION::${VERSION}_beta"
      - name: Upload the APK onto Github
        uses: ncipollo/release-action@v1
        with:
