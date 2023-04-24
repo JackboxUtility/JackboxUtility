@@ -8,7 +8,7 @@ import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:jackbox_patcher/services/automaticGameFinder/AutomaticGameFinder.dart';
 import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:jackbox_patcher/services/user/userdata.dart';
 import 'package:window_manager/window_manager.dart';
 
 import 'pages/game_ui/gameInfo.dart';
@@ -18,15 +18,13 @@ import 'pages/patcher/menu.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
-  kDebugMode ? runApp(const MyApp()):
-  await SentryFlutter.init((options) {
-    options.environment = kDebugMode ? 'development' : 'production';
-    options.dsn =
-        'https://bc7660c906ba4f24ad2e37530bfa4c39@o518501.ingest.sentry.io/4504978536988672';
-    // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
-    // We recommend adjusting this value in production.
-    options.tracesSampleRate = 1.0;
-  }, appRunner: () => runApp(const MyApp()));
+  if (!kDebugMode) {
+    FlutterError.onError = (details) {
+      FlutterError.presentError(details);
+      UserData().writeLogs(details.toString());
+    };
+  }
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

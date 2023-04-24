@@ -94,8 +94,7 @@ class AutomaticGameFinderService {
       if (userPack.pack.launchersId != null &&
           userPack.pack.launchersId!.steam != null) {
         for (var folder in steamFoldersWithAppId.keys) {
-          if (steamFoldersWithAppId[folder]!
-              .contains(userPack.pack.launchersId!.steam)) {
+          if (await File("$folder\\steamapps\\appmanifest_${userPack.pack.launchersId!.steam!}.acf").exists()) {
             numberGamesFound++;
             await userPack.setOwned(true);
             await userPack.setPath(_getSteamGamePathFromFolderAndAppId(
