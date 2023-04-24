@@ -148,7 +148,7 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
 
   Widget _buildUpper() {
     return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-      _loaded ? _buildConnectedServer() : Container(),
+      Container(),
       Expanded(child: Container()),
       _buildTitle(),
       SizedBox(
