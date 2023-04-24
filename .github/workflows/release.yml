@@ -1,7 +1,7 @@
 name: Pre-release App
   # You may pin to the exact commit or the version.
   # uses: subosito/flutter-action@48cafc24713cca54bbe03cdc3a423187d413aafa
-    
+
 on:
   push:
      branches: [ dev ]
