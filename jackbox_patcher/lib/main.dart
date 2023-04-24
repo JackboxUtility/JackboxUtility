@@ -1,6 +1,7 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/foundation.dart';
 import 'package:jackbox_patcher/pages/mainContainer.dart';
+import 'package:jackbox_patcher/pages/parameters/menu.dart';
 import 'package:jackbox_patcher/pages/search_ui/searchGames.dart';
 import 'package:jackbox_patcher/pages/search_ui/searchGamesMenu.dart';
 import 'package:jackbox_patcher/pages/select_server/selectServer.dart';
@@ -12,7 +13,7 @@ import 'package:jackbox_patcher/services/user/userdata.dart';
 import 'package:window_manager/window_manager.dart';
 
 import 'pages/game_ui/gameInfo.dart';
-import 'pages/parameters/parameters.dart';
+import 'pages/parameters/packs.dart';
 import 'pages/patcher/menu.dart';
 
 void main() async {

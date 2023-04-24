@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:fluent_ui/fluent_ui.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 class PatchServer {
@@ -11,6 +12,7 @@ class PatchServer {
   String infoUrl;
   String? controllerUrl;
   List<String> languages = [];
+  List<PatchServerLink> links = [];
 
   PatchServer(
       {required this.id,
@@ -20,7 +22,8 @@ class PatchServer {
       required this.urls,
       required this.infoUrl,
       required this.controllerUrl,
-      required this.languages});
+      required this.languages,
+      required this.links });
 
   factory PatchServer.fromJson(String url, Map<String, dynamic> json) {
     print(json["languages"]);
@@ -34,9 +37,15 @@ class PatchServer {
           .toList(),
       infoUrl: url,
       controllerUrl: json['controller'],
-      languages: json['languages']!=null? (json['languages'] as List<dynamic>)
-          .map((e) => e.toString())
-          .toList():[],
+      languages: json['languages'] != null
+          ? (json['languages'] as List<dynamic>)
+              .map((e) => e.toString())
+              .toList()
+          : [],
+      links: json['links']!=null?(json['links'] as List<dynamic>)
+          .map((e) => PatchServerLink.fromJson(e))
+          .toList():[]
+          ..addAll(json['controller']!=null?[PatchServerLink(icon: "cellphone", text: json["controller"], url: "https://"+json["controller"])]:[]),
     );
   }
 
@@ -64,6 +73,22 @@ class PatchServerUrls {
       versions: json['versions'],
       apiEndpoint: json['api'],
       assetsEndpoint: json['assets'],
+    );
+  }
+}
+
+class PatchServerLink {
+  String icon;
+  String text;
+  String url;
+
+  PatchServerLink({required  this.icon, required this.text, required this.url});
+
+  factory PatchServerLink.fromJson(Map<String, dynamic> json) {
+    return PatchServerLink(
+      icon: json['icon'],
+      text: json['text'],
+      url: json['url'],
     );
   }
 }

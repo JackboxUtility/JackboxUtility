@@ -1,55 +1,27 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:jackbox_patcher/components/dialogs/automaticGameFinderDialog.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class ParametersRoute extends StatefulWidget {
-  ParametersRoute({Key? key}) : super(key: key);
-
-  @override
-  State<ParametersRoute> createState() => _ParametersRouteState();
-}
-
-class _ParametersRouteState extends State<ParametersRoute> {
-  @override
-  Widget build(BuildContext context) {
-    Typography typography = FluentTheme.of(context).typography;
-    var packs = UserData().packs;
-    return NavigationView(
-        content: Column(children: [
-      Padding(
-          padding: EdgeInsets.all(16),
-          child: Row(children: [
-            GestureDetector(
-                onTap: () => Navigator.pop(context),
-                child: Icon(
-                  FluentIcons.chevron_left,
-                  size: 30,
-                )),
-            SizedBox(width: 16),
-            Text(AppLocalizations.of(context)!.settings, style: typography.display)
-          ])),
-      Expanded(
-          child: ParametersWidget(
-        packs: packs,
-      ))
-    ]));
-  }
-}
+import '../../services/automaticGameFinder/AutomaticGameFinder.dart';
+import '../../services/error/error.dart';
 
 class ParametersWidget extends StatefulWidget {
-  ParametersWidget({Key? key, required this.packs}) : super(key: key);
+  ParametersWidget({Key? key, required this.originalPacks}) : super(key: key);
 
-  final List<UserJackboxPack> packs;
+  final List<UserJackboxPack> originalPacks;
   @override
   State<ParametersWidget> createState() => _ParametersWidgetState();
 }
 
 class _ParametersWidgetState extends State<ParametersWidget> {
   UserJackboxPack? selectedPack;
+  List<UserJackboxPack> packs = [];
 
   @override
   void initState() {
+    packs.addAll(widget.originalPacks);
     super.initState();
   }
 
@@ -76,22 +48,47 @@ class _ParametersWidgetState extends State<ParametersWidget> {
               SizedBox(
                 height: 30,
               ),
-              Text(AppLocalizations.of(context)!.owned_packs, style: typography.titleLarge),
+              Row(children: [
+                Text(AppLocalizations.of(context)!.owned_packs,
+                    style: typography.titleLarge),
+                Spacer(),
+                FilledButton(
+                    child: Text("Auto-detect installed games"),
+                    onPressed: () async {
+                      _launchAutomaticGameFinder(true);
+                      packs = UserData().packs;
+                      setState(() {});
+                    })
+              ]),
               SizedBox(
                 height: 10,
               ),
               _showOwnedPack(),
-              SizedBox(
-                height: 10,
+              ListTile(
+                title: Text(AppLocalizations.of(context)!.add_pack),
+                leading: Icon(FluentIcons.add),
+                onPressed: () {
+                  _showAddPackDialog();
+                },
               ),
-              FilledButton(
-                  child: Text(AppLocalizations.of(context)!.add_pack),
-                  onPressed: () {
-                    _showAddPackDialog();
-                  }),
+              SizedBox(
+                height: 30,
+              ),
             ]))
       ],
     );
+  }
+
+  Future<void> _launchAutomaticGameFinder(bool showNotification) async {
+    int gamesFound =
+        await AutomaticGameFinderService.findGames(UserData().packs);
+    if (showNotification) {
+      InfoBarService.showInfo(
+          context,
+          AppLocalizations.of(context)!.automatic_game_finder_title,
+          AppLocalizations.of(context)!
+              .automatic_game_finder_finish(gamesFound));
+    }
   }
 
   _showAddPackDialog() async {
@@ -105,17 +102,19 @@ class _ParametersWidgetState extends State<ParametersWidget> {
                   child: ComboBox<UserJackboxPack>(
                     value: selectedPack,
                     items: List.generate(
-                        widget.packs.length,
+                        widget.originalPacks.length,
                         (index) => ComboBoxItem(
-                              value: widget.packs[index],
+                              value: widget.originalPacks[index],
                               onTap: () {},
-                              child: Text(widget.packs[index].pack.name),
+                              child:
+                                  Text(widget.originalPacks[index].pack.name),
                             )),
                     onChanged: (pack) async {
                       await pack!.setOwned(true);
                       Navigator.pop(context, true);
                     },
-                    placeholder: Text(AppLocalizations.of(context)!.choose_pack),
+                    placeholder:
+                        Text(AppLocalizations.of(context)!.choose_pack),
                   ),
                 )
               ])),
@@ -135,10 +134,12 @@ class _ParametersWidgetState extends State<ParametersWidget> {
   Widget _showOwnedPack() {
     return ListView.builder(
         shrinkWrap: true,
-        itemCount: widget.packs.where((element) => element.owned).length,
+        itemCount:
+            widget.originalPacks.where((element) => element.owned).length,
         itemBuilder: (context, index) {
-          return _buildOwnedPack(
-              widget.packs.where((element) => element.owned).toList()[index]);
+          return _buildOwnedPack(widget.originalPacks
+              .where((element) => element.owned)
+              .toList()[index]);
         });
   }
 
@@ -193,7 +194,8 @@ class _PackInParametersWidgetState extends State<PackInParametersWidget> {
               ? AppLocalizations.of(context)!.path_not_found_small_description
               : (widget.pack.path != null && widget.pack.path != ""
                   ? widget.pack.path!
-                  : AppLocalizations.of(context)!.path_inexistant_small_description),
+                  : AppLocalizations.of(context)!
+                      .path_inexistant_small_description),
           style: TextStyle(
               color: packStatus == "NOT_FOUND"
                   ? Colors.red
