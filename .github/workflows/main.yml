@@ -4,9 +4,9 @@ name: Build App
     
 on:
   push:
-     branches: [ main, Internationalization ]
+     branches: [ main, dev ]
   pull_request:
-     branches: [ main, Internationalization ]
+     branches: [ main, dev ]
      
 jobs:
  build:
