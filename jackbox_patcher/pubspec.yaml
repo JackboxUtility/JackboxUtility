@@ -42,7 +42,6 @@ dependencies:
   url_launcher: 6.1.9
   lottie: 2.2.0
   package_info_plus: 3.0.3
-  sentry_flutter: ^7.4.1
   windows_taskbar: ^1.1.1
   window_manager : 0.3.2
   win32_registry: ^1.0.2
