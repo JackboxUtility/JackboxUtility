@@ -17,7 +17,7 @@ jobs:
     - name: Retrieve Release Version
       id: versionstep
       run: |
-         VERSION=$(more pubspec.yaml | grep version: | cut -d ' ' -f2)
+         VERSION=$(more jackbox_patcher/pubspec.yaml | grep version: | cut -d ' ' -f2)
          echo "version=${VERSION}_beta" >> $GITHUB_OUTPUT
  build:
    runs-on: windows-latest
