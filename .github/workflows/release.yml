@@ -11,14 +11,17 @@ on:
 jobs:
  retrievingVersion:
   runs-on: ubuntu-latest
+  outputs:
+      version: ${{ steps.versionstep.outputs.version }}
   steps:
     - name: Retrieve Release Version
       id: versionstep
       run: |
          VERSION=$(more pubspec.yaml | grep version: | cut -d ' ' -f2)
-         echo "::set-output name=VERSION::${VERSION}_beta"
+         echo "version=${VERSION}_beta" >> $GITHUB_OUTPUT
  build:
    runs-on: windows-latest
+   needs: retrievingVersion
    steps:
      - uses: actions/checkout@v3
      - uses: subosito/flutter-action@v2
@@ -34,6 +37,6 @@ jobs:
        with:
          artifacts: './jackbox_patcher/build/windows/runner/Release'
          token: ${{ secrets.GITHUB_TOKEN }}
-         tag: ${{ steps.versionstep.outputs.VERSION }}
+         tag: ${{ needs.retrievingVersion.outputs.version }}
          prerelease: true
          allowUpdates: true
