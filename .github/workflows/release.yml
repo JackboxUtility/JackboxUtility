@@ -21,7 +21,7 @@ jobs:
       run: |
          VERSION=$(more pubspec.yaml | grep version: | cut -d ' ' -f2)
          echo "version=${VERSION}_beta" >> $GITHUB_OUTPUT
- build:
+ build_windows:
    runs-on: windows-latest
    needs: retrievingVersion
    steps:
@@ -34,10 +34,24 @@ jobs:
        with:
           name: build_windows
           path: ./jackbox_patcher/build/windows/runner/Release
+ build_linux:
+   runs-on: ubuntu-latest
+   needs: retrievingVersion
+   steps:
+     - uses: actions/checkout@v3
+     - uses: subosito/flutter-action@v2
+     - name: Build linux
+       working-directory: ./jackbox_patcher
+       run: flutter build linux
+     - uses: actions/upload-artifact@v3
+       with:
+          name: build_linux
+          path: ./jackbox_patcher/build/linux/runner/Release/bundle
  upload:
     runs-on: ubuntu-latest
     needs: 
-      - build
+      - build_windows
+      - build_linux
       - retrievingVersion
     steps: 
       - run: mkdir -p dist
@@ -45,13 +59,22 @@ jobs:
         with:
           name: build_windows
           path: dist/JackboxUtility_Windows
-      - name: Zipping release
+      - uses: actions/download-artifact@master
+        with:
+          name: build_linux
+          path: dist/JackboxUtility_Linux
+      - name: Zipping windows release
+        working-directory: dist/JackboxUtility_Windows
         run: |
-          zip -r JackboxUtility_Windows.zip dist/JackboxUtility_Windows/*
+          zip -r ../../JackboxUtility_Windows.zip *
+      - name: Zipping linux release
+        working-directory: dist/JackboxUtility_Linux
+        run: |
+          zip -r ../../JackboxUtility_Linux.zip *
       - name: Upload release onto Github
         uses: ncipollo/release-action@v1
         with:
-         artifacts: 'JackboxUtility_Windows.zip'
+         artifacts: 'JackboxUtility_Windows.zip,JackboxUtility_Linux.zip'
          token: ${{ secrets.GITHUB_TOKEN }}
          tag: ${{ needs.retrievingVersion.outputs.version }}
          prerelease: true
