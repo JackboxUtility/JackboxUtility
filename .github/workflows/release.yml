@@ -21,7 +21,7 @@ jobs:
      - name: Retrieve Release Version
        id: versionstep
        run: |
-         VERSION=$(more pubspec.yaml | grep version: | cut -d ' ' -f2)
+         VERSION=$(more pubspec.yaml | grep version: | cut -d ' ' -f2)_beta
          echo "::set-output name=VERSION::$VERSION"
      - name: Upload the APK onto Github
        uses: ncipollo/release-action@v1
