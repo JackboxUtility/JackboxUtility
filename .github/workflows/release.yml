@@ -44,7 +44,10 @@ jobs:
       - uses: actions/download-artifact@master
         with:
           name: build_windows
-          path: dist/JackboxUtility_Windows.zip
+          path: dist/JackboxUtility_Windows
+      - name: Zipping release
+        run: |
+          zip -r dist/JackboxUtility_Windows.zip dist/JackboxUtility_Windows
       - name: Upload release onto Github
         uses: ncipollo/release-action@v1
         with:
