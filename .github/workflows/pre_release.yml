@@ -12,9 +12,9 @@ jobs:
   outputs:
       version: ${{ steps.versionstep.outputs.version }}
   steps:
+    - uses: actions/checkout@v3
     - name: Expose git commit data
       uses: rlespinasse/git-commit-data-action@v1
-    - uses: actions/checkout@v3
     - name: Retrieve Release Version
       id: versionstep
       working-directory: jackbox_patcher
