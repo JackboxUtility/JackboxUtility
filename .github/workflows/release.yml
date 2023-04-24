@@ -49,7 +49,7 @@ jobs:
      - uses: actions/upload-artifact@v3
        with:
           name: build_linux
-          path: ./jackbox_patcher/build/linux/runner/Release/bundle
+          path: ./jackbox_patcher/build/linux/x64/release/bundle
  upload:
     runs-on: ubuntu-latest
     needs: 
