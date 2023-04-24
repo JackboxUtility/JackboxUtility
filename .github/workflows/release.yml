@@ -36,7 +36,9 @@ jobs:
           path: ./jackbox_patcher/build/windows/runner/Release
  upload:
     runs-on: ubuntu-latest
-    needs: build
+    needs: 
+      - build
+      - retrievingVersion
     steps: 
       - run: mkdir -p dist
       - uses: actions/download-artifact@master
