@@ -1,7 +1,7 @@
 name: Pre-release App
   # You may pin to the exact commit or the version.
   # uses: subosito/flutter-action@48cafc24713cca54bbe03cdc3a423187d413aafa
- 
+    
 on:
   push:
      branches: [ dev ]
@@ -9,6 +9,14 @@ on:
      branches: [ dev ]
      
 jobs:
+ retrievingVersion:
+  runs-on: ubuntu-latest
+  steps:
+    - name: Retrieve Release Version
+      id: versionstep
+      run: |
+         VERSION=$(more pubspec.yaml | grep version: | cut -d ' ' -f2)
+         echo "::set-output name=VERSION::${VERSION}_beta"
  build:
    runs-on: windows-latest
    steps:
@@ -21,11 +29,6 @@ jobs:
        with:
           name: build_windows
           path: ./jackbox_patcher/build/windows/runner/Release
-     - name: Retrieve Release Version
-       id: versionstep
-       run: |
-         VERSION=$(more pubspec.yaml | grep version: | cut -d ' ' -f2)
-         echo "::set-output name=VERSION::${VERSION}_beta"
      - name: Upload the APK onto Github
        uses: ncipollo/release-action@v1
        with:
