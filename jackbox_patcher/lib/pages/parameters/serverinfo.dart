@@ -97,7 +97,7 @@ class _ServerInfoWidgetState extends State<ServerInfoWidget> {
       }
       links.last.children.add(TextButton(
           child: Container(
-              width: calculatePadding() / 2,
+            width:150,
               child:
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 Icon(_buildIcon(e.icon)),
