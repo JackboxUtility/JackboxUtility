@@ -1,4 +1,5 @@
-import 'package:archive/archive_io.dart';
+import 'dart:convert';
+import 'dart:io';
 
 import '../api/api_service.dart';
 import '../translations/translationsHelper.dart';
@@ -19,13 +20,12 @@ class DownloaderService {
         callback(
             "${TranslationsHelper().appLocalizations!.downloading}",
             "${(progress / 1000000).toInt()} MB / ${(max / 1000000).toInt()} MB",
-            (progress / max) * 90);
+            (progress / max) * 75);
       });
-      callback("${TranslationsHelper().appLocalizations!.extracting}", "",
-          95);
-      await extractFileToDisk(filePath, uri, asyncWrite: true);
-      callback(TranslationsHelper().appLocalizations!.finalizing + "", "",
-          100);
+      callback("${TranslationsHelper().appLocalizations!.extracting}", "", 75);
+
+      await extractFileToDisk(filePath, uri, callback);
+      callback(TranslationsHelper().appLocalizations!.finalizing + "", "", 100);
       isDownloading = false;
       //File(filePath).deleteSync(recursive: true);
     } on Exception catch (e) {
@@ -35,5 +35,24 @@ class DownloaderService {
       isDownloading = false;
       rethrow;
     }
+  }
+
+  static Future<void> extractFileToDisk(
+      filePath, uri, void Function(String, String, double) callback) async {
+    ProcessResult listProcess = await Process.run("tar", ["-tf", "$filePath"]);
+    int files = 0;
+    files = listProcess.stdout.split("\n").length;
+    await listProcess.exitCode;
+    Process process =
+        await Process.start("tar", ["-xf", '$filePath', "-C", '$uri', "-v"]);
+    int currentFiles = 0;
+    process.stdout.listen((data) {});
+    process.stderr.listen((data) {
+      currentFiles += utf8.decode(data).split("\n").length-1;
+      callback("${TranslationsHelper().appLocalizations!.extracting}",
+          "${currentFiles}/${files}", 75 + ((currentFiles / files) * 25));
+    });
+    await process.exitCode;
+    return;
   }
 }
