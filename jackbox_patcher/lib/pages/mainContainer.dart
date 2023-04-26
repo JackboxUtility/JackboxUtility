@@ -293,6 +293,8 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
     print("Loading");
     bool changedServer = false;
     bool automaticGameFindNotificationAvailable = false;
+    UserData().packs = [];
+    APIService().resetCache(); 
     await windowManager.setPreventClose(true);
     await UserData().init();
     if (UserData().getSelectedServer() == null) {
