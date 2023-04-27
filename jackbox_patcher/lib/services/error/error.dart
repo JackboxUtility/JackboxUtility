@@ -17,6 +17,12 @@ class InfoBarService {
       {Duration duration = const Duration(seconds: 10)}) {
     displayInfoBar(context, builder: (context, close) {
       return InfoBar(
+        style: InfoBarThemeData(decoration: (severity) {
+          return BoxDecoration(
+              color: FluentTheme.of(context).inactiveBackgroundColor.withOpacity(1),
+              borderRadius: BorderRadius.circular(4));
+        
+        },),
           isLong: true,
           severity: InfoBarSeverity.info,
           title: Text(title),

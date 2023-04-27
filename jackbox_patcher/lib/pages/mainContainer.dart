@@ -6,7 +6,7 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:jackbox_patcher/components/dialogs/leaveApplicationDialog.dart';
 import 'package:jackbox_patcher/components/menu.dart';
 import 'package:jackbox_patcher/model/patchserver.dart';
-import 'package:jackbox_patcher/pages/parameters/parameters.dart';
+import 'package:jackbox_patcher/pages/parameters/packs.dart';
 import 'package:jackbox_patcher/pages/patcher/packContainer.dart';
 import 'package:jackbox_patcher/model/jackboxpack.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
@@ -148,7 +148,7 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
 
   Widget _buildUpper() {
     return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-      _loaded ? _buildConnectedServer() : Container(),
+      Container(),
       Expanded(child: Container()),
       _buildTitle(),
       SizedBox(
@@ -222,9 +222,14 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
                           backgroundColor: ButtonState.all(Colors.grey),
                           shape: ButtonState.all(RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8.0)))),
-                      onPressed: () {
-                        Navigator.pushNamed(context, "/settings",
+                      onPressed: () async{
+                        await Navigator.pushNamed(context, "/settings",
                             arguments: UserData().packs);
+                        if (APIService().cachedSelectedServer!=null){
+                          _loaded = false;
+                          setState(() {});
+                          _load(false);
+                        }
                       },
                       child: Container(
                           width: 300,
@@ -253,9 +258,7 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
           UserData().setSelectedServer(null);
           UserData().packs = [];
           APIService().resetCache();
-          _loaded = false;
-          setState(() {});
-          _load(false);
+          
         },
       )
     ]);
@@ -290,6 +293,8 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
     print("Loading");
     bool changedServer = false;
     bool automaticGameFindNotificationAvailable = false;
+    UserData().packs = [];
+    APIService().resetCache(); 
     await windowManager.setPreventClose(true);
     await UserData().init();
     if (UserData().getSelectedServer() == null) {

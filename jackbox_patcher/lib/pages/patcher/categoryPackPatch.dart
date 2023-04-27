@@ -71,9 +71,7 @@ class _CategoryPackPatchState extends State<CategoryPackPatch> {
                                             localPaths: installablePatchPaths,
                                             patchs: installablePatchs);
                                       });
-                                  setState(() {
-                                    
-                                  });
+                                  setState(() {});
                                 }
                               : null)),
                   Container(
@@ -110,20 +108,30 @@ class _CategoryPackPatchState extends State<CategoryPackPatch> {
                                                     .length,
                                             (index) => PackInCategoryCard(
                                                 data: widget.showAllPacks
-                                                    ? widget.category
-                                                            .getAvailablePatchs()[
-                                                        index]
-                                                    : widget.category
-                                                        .getAvailablePatchs()
-                                                        .where((element) =>
-                                                            element.pack.owned)
-                                                        .toList()[index],
+                                                    ? _sortAvailablePatchs()
+                                                        [index]
+                                                    : _sortAvailablePatchs() .where((element) =>
+                                                        element.pack.owned).toList()[index],
                                                 changeMenuView:
                                                     widget.changeMenuView)))
                                   ]),
                             )),
                           ])),
                 ]))));
+  }
+
+  List<PackAvailablePatchs> _sortAvailablePatchs() {
+    List<PackAvailablePatchs> availablePatchs = widget.category.getAvailablePatchs();
+    availablePatchs.sort((a, b) {
+      if (a.installedStatus().index > b.installedStatus().index) {
+        return 1;
+      } else if (a.installedStatus().index < b.installedStatus().index) {
+        return -1;
+      } else {
+        return 0;
+      }
+    });
+    return availablePatchs;
   }
 
   void _buildInstallableList() {
@@ -202,40 +210,6 @@ class _PackInCategoryCardState extends State<PackInCategoryCard> {
     });
   }
 
-  UserInstalledPatchStatus _installedStatus() {
-    if (!widget.data.pack.owned){
-      return UserInstalledPatchStatus.INEXISTANT;
-    } 
-    UserInstalledPatchStatus status = UserInstalledPatchStatus.NOT_INSTALLED;
-    for (var patch in widget.data.packPatchs) {
-      if (patch.getInstalledStatus() == UserInstalledPatchStatus.NOT_INSTALLED) {
-        return UserInstalledPatchStatus.NOT_INSTALLED;
-      }
-      if (patch.getInstalledStatus() == UserInstalledPatchStatus.INEXISTANT) {
-        return UserInstalledPatchStatus.INEXISTANT;
-      }
-      if (patch.getInstalledStatus() ==
-          UserInstalledPatchStatus.INSTALLED_OUTDATED) {
-        status = UserInstalledPatchStatus.INSTALLED_OUTDATED;
-      }
-      if (patch.getInstalledStatus() == UserInstalledPatchStatus.INSTALLED &&
-          status != UserInstalledPatchStatus.INSTALLED_OUTDATED) {
-        status = UserInstalledPatchStatus.INSTALLED;
-      }
-    }
-
-    for (var patch in widget.data.gamePatchs) {
-      if (patch.getInstalledStatus() ==
-          UserInstalledPatchStatus.INSTALLED_OUTDATED) {
-        status = UserInstalledPatchStatus.INSTALLED_OUTDATED;
-      }
-      if (patch.getInstalledStatus() == UserInstalledPatchStatus.INSTALLED &&
-          status != UserInstalledPatchStatus.INSTALLED_OUTDATED) {
-        status = UserInstalledPatchStatus.INSTALLED;
-      }
-    }
-    return status;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -255,7 +229,7 @@ class _PackInCategoryCardState extends State<PackInCategoryCard> {
                         width: 20,
                         height: 20,
                         decoration: new BoxDecoration(
-                          color: _installedStatus().color,
+                          color: widget.data.installedStatus().color,
                           shape: BoxShape.circle,
                         ))),
                 ClipRRect(
@@ -294,8 +268,11 @@ class _PackInCategoryCardState extends State<PackInCategoryCard> {
                                               child: SizedBox(),
                                             ),
                                             Text(
-                                              widget.data.packPatchs.length >= 1?widget.data.packPatchs[0].patch
-                                                  .smallDescription: widget.data.pack.pack.description,
+                                              widget.data.packPatchs.length >= 1
+                                                  ? widget.data.packPatchs[0]
+                                                      .patch.smallDescription
+                                                  : widget.data.pack.pack
+                                                      .description,
                                               textAlign: TextAlign.center,
                                             ),
                                             Expanded(
@@ -305,15 +282,14 @@ class _PackInCategoryCardState extends State<PackInCategoryCard> {
                                         ))
                                       ])),
                             ])))),
-                if (widget.data.packPatchs.length > 0) 
-                Container(
-                    margin: EdgeInsets.only(top: 10, right: 5),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text(widget.data.packPatchs[0].patch.latestVersion)
-                      ]
-                        )),
+                if (widget.data.packPatchs.length > 0)
+                  Container(
+                      margin: EdgeInsets.only(top: 10, right: 5),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(widget.data.packPatchs[0].patch.latestVersion)
+                          ])),
                 Container(
                     margin: EdgeInsets.only(top: 15, left: 10),
                     child: Tooltip(
@@ -321,10 +297,10 @@ class _PackInCategoryCardState extends State<PackInCategoryCard> {
                             width: 10,
                             height: 10,
                             decoration: new BoxDecoration(
-                              color: _installedStatus().color,
+                              color: widget.data.installedStatus().color,
                               shape: BoxShape.circle,
                             )),
-                        message: _installedStatus().info)),
+                        message: widget.data.installedStatus().info)),
               ],
             ))));
   }

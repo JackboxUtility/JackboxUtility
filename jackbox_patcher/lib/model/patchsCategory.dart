@@ -114,4 +114,41 @@ class PackAvailablePatchs {
 
   PackAvailablePatchs(
       {required this.pack, required this.packPatchs, required this.gamePatchs});
+
+      
+  UserInstalledPatchStatus installedStatus() {
+    if (!pack.owned) {
+      return UserInstalledPatchStatus.INEXISTANT;
+    }
+    UserInstalledPatchStatus status = UserInstalledPatchStatus.NOT_INSTALLED;
+    for (var patch in packPatchs) {
+      if (patch.getInstalledStatus() ==
+          UserInstalledPatchStatus.NOT_INSTALLED) {
+        return UserInstalledPatchStatus.NOT_INSTALLED;
+      }
+      if (patch.getInstalledStatus() == UserInstalledPatchStatus.INEXISTANT) {
+        return UserInstalledPatchStatus.INEXISTANT;
+      }
+      if (patch.getInstalledStatus() ==
+          UserInstalledPatchStatus.INSTALLED_OUTDATED) {
+        status = UserInstalledPatchStatus.INSTALLED_OUTDATED;
+      }
+      if (patch.getInstalledStatus() == UserInstalledPatchStatus.INSTALLED &&
+          status != UserInstalledPatchStatus.INSTALLED_OUTDATED) {
+        status = UserInstalledPatchStatus.INSTALLED;
+      }
+    }
+
+    for (var patch in gamePatchs) {
+      if (patch.getInstalledStatus() ==
+          UserInstalledPatchStatus.INSTALLED_OUTDATED) {
+        status = UserInstalledPatchStatus.INSTALLED_OUTDATED;
+      }
+      if (patch.getInstalledStatus() == UserInstalledPatchStatus.INSTALLED &&
+          status != UserInstalledPatchStatus.INSTALLED_OUTDATED) {
+        status = UserInstalledPatchStatus.INSTALLED;
+      }
+    }
+    return status;
+  }
 }

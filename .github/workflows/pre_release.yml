@@ -1,10 +1,10 @@
-name: Release App
+name: Pre-release App
   # You may pin to the exact commit or the version.
   # uses: subosito/flutter-action@48cafc24713cca54bbe03cdc3a423187d413aafa
     
 on:
   push:
-     branches: [ main ]
+     branches: [ dev ]
      
 jobs:
  retrievingVersion:
@@ -13,12 +13,14 @@ jobs:
       version: ${{ steps.versionstep.outputs.version }}
   steps:
     - uses: actions/checkout@v3
+    - name: Expose git commit data
+      uses: rlespinasse/git-commit-data-action@v1
     - name: Retrieve Release Version
       id: versionstep
       working-directory: jackbox_patcher
       run: |
          VERSION=$(more pubspec.yaml | grep version: | cut -d ' ' -f2)
-         echo "version=${VERSION}" >> $GITHUB_OUTPUT
+         echo "version=${VERSION}+${{ env.GIT_COMMIT_SHORT_SHA }}_beta" >> $GITHUB_OUTPUT
  build_windows:
    runs-on: windows-latest
    needs: retrievingVersion
@@ -78,6 +80,6 @@ jobs:
          artifacts: 'JackboxUtility_Windows.zip,JackboxUtility_Linux.zip'
          token: ${{ secrets.GITHUB_TOKEN }}
          tag: ${{ needs.retrievingVersion.outputs.version }}
-         prerelease: false
+         prerelease: true
          allowUpdates: true
   
