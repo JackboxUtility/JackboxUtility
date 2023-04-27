@@ -188,7 +188,7 @@ class _PackInParametersWidgetState extends State<PackInParametersWidget> {
           ? Icon(FluentIcons.warning, color: Colors.red)
           : packStatus == "INEXISTANT"
               ? Icon(FluentIcons.warning, color: Colors.yellow)
-              : Icon(FluentIcons.check_mark, color: Colors.green),SizedBox(width:10), Image.network(APIService().assetLink(widget.pack.pack.icon), height:30)]),
+              : Icon(FluentIcons.check_mark, color: Colors.green),SizedBox(width:10), Image.network(APIService().assetLink(widget.pack.pack.icon), height:30, cacheHeight: 30,)]),
       title: Text(widget.pack.pack.name),
       subtitle: Text(
           packStatus == "NOT_FOUND"

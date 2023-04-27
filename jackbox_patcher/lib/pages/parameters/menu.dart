@@ -53,10 +53,13 @@ class _ParametersMenuWidgetState extends State<ParametersMenuWidget> {
             child: Icon(FluentIcons.chevron_left),
             onTap: () => Navigator.pop(context),
           ),
-          title: Text(
+          title: Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
+            Padding(padding: EdgeInsets.only(bottom: 4), child: Icon(FluentIcons.settings, size: 25)),
+            SizedBox(width: 10),
+            Text(
             AppLocalizations.of(context)!.settings,
             style: typography.title,
-          )),
+          )])),
       pane: NavigationPane(
           onChanged: (int nSelected) {
             setState(() {
