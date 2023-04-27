@@ -1,6 +1,7 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/components/dialogs/automaticGameFinderDialog.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
+import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -26,8 +27,8 @@ class _ParametersWidgetState extends State<ParametersWidget> {
   }
 
   double calculatePadding() {
-    if (MediaQuery.of(context).size.width > 1000) {
-      return (MediaQuery.of(context).size.width - 880) / 2;
+    if (MediaQuery.of(context).size.width > 1200) {
+      return (MediaQuery.of(context).size.width - 1080) / 2;
     } else {
       return 60;
     }
@@ -183,11 +184,11 @@ class _PackInParametersWidgetState extends State<PackInParametersWidget> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: packStatus == "NOT_FOUND"
+      leading: Row(children: [ packStatus == "NOT_FOUND"
           ? Icon(FluentIcons.warning, color: Colors.red)
           : packStatus == "INEXISTANT"
               ? Icon(FluentIcons.warning, color: Colors.yellow)
-              : Icon(FluentIcons.check_mark, color: Colors.green),
+              : Icon(FluentIcons.check_mark, color: Colors.green),SizedBox(width:10), Image.network(APIService().assetLink(widget.pack.pack.icon), height:30)]),
       title: Text(widget.pack.pack.name),
       subtitle: Text(
           packStatus == "NOT_FOUND"
