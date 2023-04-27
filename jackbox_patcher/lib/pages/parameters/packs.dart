@@ -104,9 +104,9 @@ class _ParametersWidgetState extends State<ParametersWidget> {
                   child: ComboBox<UserJackboxPack>(
                     value: selectedPack,
                     items: List.generate(
-                        widget.originalPacks.length,
+                        widget.originalPacks.where((element) => !element.owned).length,
                         (index) => ComboBoxItem(
-                              value: widget.originalPacks[index],
+                              value: widget.originalPacks.where((element)=>!element.owned).toList()[index],
                               onTap: () {},
                               child:
                                   Text(widget.originalPacks[index].pack.name),
