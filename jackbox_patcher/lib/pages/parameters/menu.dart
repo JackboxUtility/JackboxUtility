@@ -70,20 +70,20 @@ class _ParametersMenuWidgetState extends State<ParametersMenuWidget> {
           items: [
             PaneItem(
               icon: Icon(FluentIcons.package),
-              title: Text("Games"),
+              title: Text(AppLocalizations.of(context)!.owned_packs),
               body: ParametersWidget(
                 originalPacks: packs,
               ),
             ),
             PaneItem(
                 icon: Icon(FluentIcons.server),
-                title: Text("Server"),
+                title: Text(AppLocalizations.of(context)!.server_information),
                 body: ServerInfoWidget())
           ],
           footerItems: [
             PaneItem(
               icon: Icon(FluentIcons.info),
-              title: Text("Application info"),
+              title: Text(AppLocalizations.of(context)!.app_information),
               body: AppInfoWidget(),
             )
           ]),

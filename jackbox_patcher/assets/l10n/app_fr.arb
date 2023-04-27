@@ -116,6 +116,35 @@
     "connection_to_main_server_failed":"Impossible de récupérer la liste des serveurs. Vérifiez votre connexion internet",
 
     "quit_while_downloading_title":"Téléchargement en cours",
-    "quit_while_downloading_description":"Un téléchargement est en cours, êtes vous sûr de vouloir quitter maintenant ?"
+    "quit_while_downloading_description":"Un téléchargement est en cours, êtes vous sûr de vouloir quitter maintenant ?",
 
+    "automatic_game_finder_title":"Détecteur automatique de jeu",
+    "automatic_game_finder_description":"Jackbox Utility peut détecter les jeux provenant de Steam et Epic games.\nVoulez-vous utiliser cette fonctionnalité ?",
+    "automatic_game_finder_in_progress":"Récupération des jeux en cours...",
+    "automatic_game_finder_finish": "{count, plural, =0 {Aucun jeu trouvé} one {1 jeu trouvé} other {{count} jeux trouvés}}",
+    "@automatic_game_finder_finish":{
+        "placeholders":{
+            "count":{
+                "type":"num",
+                "example":"1"
+            }
+        }
+    },
+
+    "automatic_server_finder_found":"Serveur trouvé",
+    "automatic_server_finder_found_description":"Le serveur {server} a été choisi automatiquement à partir de votre langue",
+    "@automatic_server_finder_found_description":{
+        "placeholders":{
+            "server":{
+                "type":"String",
+                "example":"Jackbox France"
+            }
+        }
+    },
+    "show_all_packs":"Montrer tous les packs",
+    "show_owned_packs_only":"Montrer seulement les packs possédés",
+
+    "all_patches":"Tous les patchs",
+
+    "error_happened":"Une erreur est survenue"
 }

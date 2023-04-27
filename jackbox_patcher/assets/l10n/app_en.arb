@@ -146,5 +146,25 @@
 
     "all_patches":"All patches",
 
-    "error_happened":"An error has occurred"
+    "error_happened":"An error has occurred",
+
+    "jackbox_utility_description":"An open-source app to download patches and launch Jackbox games",
+
+    "server_information":"Server information",
+    "selected_server":"Selected server",
+    "change_server":"Change server",
+
+    "app_information":"App information",
+
+    "automatic_game_finder_button":"Auto-detect installed games",
+
+    "games_available": "{count, plural, =0 {No game available} one {1 game available} other {{count} games available}}",
+    "@games_available":{
+        "placeholders":{
+            "count":{
+                "type":"num",
+                "example":"1"
+            }
+        }
+    }
 }

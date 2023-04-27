@@ -54,9 +54,10 @@ class _ParametersWidgetState extends State<ParametersWidget> {
                     style: typography.titleLarge),
                 Spacer(),
                 FilledButton(
-                    child: Text("Auto-detect installed games"),
+                    child: Text(AppLocalizations.of(context)!
+                        .automatic_game_finder_button),
                     onPressed: () async {
-                      _launchAutomaticGameFinder(true);
+                      await _launchAutomaticGameFinder(true);
                       packs = UserData().packs;
                       setState(() {});
                     })
@@ -133,34 +134,38 @@ class _ParametersWidgetState extends State<ParametersWidget> {
   }
 
   Widget _showOwnedPack() {
-    return ListView.builder(
-        shrinkWrap: true,
-        itemCount:
-            widget.originalPacks.where((element) => element.owned).length,
-        itemBuilder: (context, index) {
-          return _buildOwnedPack(widget.originalPacks
-              .where((element) => element.owned)
-              .toList()[index]);
-        });
+    return Column(
+        children: List.generate(packs.where((element) => element.owned).length,
+            (index) {
+      return _buildOwnedPack(
+          packs.where((element) => element.owned).toList()[index]);
+    }));
   }
 
   Widget _buildOwnedPack(UserJackboxPack pack) {
     return PackInParametersWidget(
-      pack: pack,
-      reloadallPacks: () {
-        setState(() {});
-      },
-    );
+        pack: pack, reloadallPacks: _reloadAllPacks);
+  }
+
+  _reloadAllPacks() {
+    packs = [];
+    setState(() {});
+    packs.addAll(UserData().packs);
+    setState(() {});
   }
 }
 
 class PackInParametersWidget extends StatefulWidget {
   PackInParametersWidget(
-      {Key? key, required this.pack, required this.reloadallPacks})
+      {Key? key,
+      required this.pack,
+      required this.reloadallPacks,
+      })
       : super(key: key);
 
-  final UserJackboxPack pack;
+  UserJackboxPack pack;
   final Function reloadallPacks;
+  
   @override
   State<PackInParametersWidget> createState() => _PackInParametersWidgetState();
 }
@@ -177,18 +182,30 @@ class _PackInParametersWidgetState extends State<PackInParametersWidget> {
   }
 
   _loadPackPathStatus() async {
-    packStatus = await widget.pack.getPathStatus();
-    setState(() {});
+    String pathStatus = await widget.pack.getPathStatus();
+    if (packStatus != pathStatus) {
+      packStatus = pathStatus;
+      setState(() {});
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    _loadPackPathStatus();
     return ListTile(
-      leading: Row(children: [ packStatus == "NOT_FOUND"
-          ? Icon(FluentIcons.warning, color: Colors.red)
-          : packStatus == "INEXISTANT"
-              ? Icon(FluentIcons.warning, color: Colors.yellow)
-              : Icon(FluentIcons.check_mark, color: Colors.green),SizedBox(width:10), Image.network(APIService().assetLink(widget.pack.pack.icon), height:30, cacheHeight: 30,)]),
+      leading: Row(children: [
+        packStatus == "NOT_FOUND"
+            ? Icon(FluentIcons.warning, color: Colors.red)
+            : packStatus == "INEXISTANT"
+                ? Icon(FluentIcons.warning, color: Colors.yellow)
+                : Icon(FluentIcons.check_mark, color: Colors.green),
+        SizedBox(width: 10),
+        Image.network(
+          APIService().assetLink(widget.pack.pack.icon),
+          height: 30,
+          cacheHeight: 30,
+        )
+      ]),
       title: Text(widget.pack.pack.name),
       subtitle: Text(
           packStatus == "NOT_FOUND"

@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jackbox_patcher/model/patchserver.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../services/api/api_service.dart';
 
@@ -30,10 +31,10 @@ class _ServerInfoWidgetState extends State<ServerInfoWidget> {
             EdgeInsets.symmetric(vertical: 24, horizontal: calculatePadding()),
         child: Column(children: [
           Row(children: [
-            Text("Selected server", style: typography.titleLarge),
+            Text(AppLocalizations.of(context)!.selected_server, style: typography.titleLarge),
             Spacer(),
             FilledButton(
-                child: Text("Change server"),
+                child: Text(AppLocalizations.of(context)!.change_server),
                 onPressed: () async {
                   UserData().setSelectedServer(null);
                   UserData().packs = [];
@@ -63,7 +64,7 @@ class _ServerInfoWidgetState extends State<ServerInfoWidget> {
             SizedBox(
               width: 12,
             ),
-            Text(UserData().packs.length.toString() + " games available")
+            Text(AppLocalizations.of(context)!.games_available(UserData().packs.length))
           ]),
           SizedBox(
             height: 12,

@@ -44,7 +44,7 @@ class _AppInfoWidgetState extends State<AppInfoWidget> {
               style: FluentTheme.of(context).typography.titleLarge),
           SizedBox(height:12),
           Text(
-              "An open-source app to download patches and launch Jackbox games",
+              AppLocalizations.of(context)!.jackbox_utility_description,
               style: FluentTheme.of(context).typography.body),
           SizedBox(height:12),
           Text(AppLocalizations.of(context)!.version+" " + version,
