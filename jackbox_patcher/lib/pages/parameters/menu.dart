@@ -53,10 +53,13 @@ class _ParametersMenuWidgetState extends State<ParametersMenuWidget> {
             child: Icon(FluentIcons.chevron_left),
             onTap: () => Navigator.pop(context),
           ),
-          title: Text(
+          title: Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
+            Padding(padding: EdgeInsets.only(bottom: 4), child: Icon(FluentIcons.settings, size: 25)),
+            SizedBox(width: 10),
+            Text(
             AppLocalizations.of(context)!.settings,
             style: typography.title,
-          )),
+          )])),
       pane: NavigationPane(
           onChanged: (int nSelected) {
             setState(() {
@@ -67,20 +70,20 @@ class _ParametersMenuWidgetState extends State<ParametersMenuWidget> {
           items: [
             PaneItem(
               icon: Icon(FluentIcons.package),
-              title: Text("Games"),
+              title: Text(AppLocalizations.of(context)!.owned_packs),
               body: ParametersWidget(
                 originalPacks: packs,
               ),
             ),
             PaneItem(
                 icon: Icon(FluentIcons.server),
-                title: Text("Server"),
+                title: Text(AppLocalizations.of(context)!.server_information),
                 body: ServerInfoWidget())
           ],
           footerItems: [
             PaneItem(
               icon: Icon(FluentIcons.info),
-              title: Text("Application info"),
+              title: Text(AppLocalizations.of(context)!.app_information),
               body: AppInfoWidget(),
             )
           ]),

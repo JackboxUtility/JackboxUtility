@@ -55,7 +55,7 @@
             "pack_path": "Ruta del juego",
             "owned_packs": "Juegos que posees",
             "add_pack": "Añadir un juego",
-            "choose_pack": "Elegir un Pack",
+            "choose_pack": "Elige un juego",
             "game_type_coop": "Coop",
             "game_type_coop_description": "En estos juegos, los jugadores deben trabajar juntos para ganar.",
             "game_type_versus": "Todos contra todos",
@@ -73,7 +73,7 @@
             "extracting": "Extrayendo",
             "finalizing": "Finalizando",
             "unknown_error": "Error desconocido",
-            "contact_error": "Contacta a Alexis#1588 en Discord",
+            "contact_error": "Contacta a Akira896#2151 en Discord",
             "game_patch_unavailable": "Parche no disponible",
             "game_patch_available": "Un parche está disponible",
             "game_patch_installed": "Este parche está acutalizado",
@@ -108,6 +108,7 @@
 
     "quit_while_downloading_title":"Descarga en progreso",
     "quit_while_downloading_description":"Una descarga está en progreso. ¿Seguro que quieres salir ahora?",
+    "quit":"Salir",
 
     "automatic_game_finder_title":"Buscador automático de juegos",
     "automatic_game_finder_description":"Jackbox Utility puede detectar los juegos instalados en esta computadora de Steam y Epic Games.\n¿Quieres usar esta función?",
@@ -137,5 +138,25 @@
 
     "all_patches":"Todos los parches",
 
-    "error_happened":"Se ha producido un error"
+    "error_happened":"Se ha producido un error",
+
+     "jackbox_utility_description":"Una aplicación open-source para descargar parches y ejecutar los juegos de Jackbox",
+
+    "server_information":"Información del servidor",
+    "selected_server":"Servidor seleccionado",
+    "change_server":"Cambiar servidor",
+
+    "app_information":"Información de la aplicación",
+
+    "automatic_game_finder_button":"Detectar los juegos instalados",
+
+    "games_available": "{count, plural, =0 {No hay juegos disponibles} one {1 juego disponible} other {{count} juegos disponibles}}",
+    "@games_available":{
+        "placeholders":{
+            "count":{
+                "type":"num",
+                "example":"1"
+            }
+        }
+    }
 }
