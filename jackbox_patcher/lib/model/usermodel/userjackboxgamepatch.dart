@@ -58,9 +58,9 @@ class UserJackboxGamePatch {
 
 enum UserInstalledPatchStatus {
   INEXISTANT,
+  INSTALLED_OUTDATED,
   NOT_INSTALLED,
-  INSTALLED,
-  INSTALLED_OUTDATED
+  INSTALLED
 }
 
 extension UserInstalledPatchStatusExtension on UserInstalledPatchStatus {
