@@ -15,10 +15,39 @@
     "installing_a_patch_description":"You will install the patch. This action is irreversible.",
     "installing_a_patch_end":"Installation completed",
     "can_close_popup":"You can close this pop-up",
+
     "patch_unavailable":"Patch unavailable",
-    "patch_installed":"Patch installed",
-    "patch_outdated":"Update patch",
-    "patch_not_installed":"Install the patch",
+
+    "patch_installed": "{count, plural, one {Patch installed} other {Patches installed}}",
+    "@patch_installed":{
+        "placeholders":{
+            "count":{
+                "type":"num",
+                "example":"1"
+            }
+        }
+    },
+
+    "patch_outdated": "{count, plural, one {Update patch} other {Update patches}}",
+    "@patch_outdated":{
+        "placeholders":{
+            "count":{
+                "type":"num",
+                "example":"1"
+            }
+        }
+    },
+
+    "patch_not_installed": "{count, plural, one {Install the patch} other {Install patches}}",
+    "@patch_not_installed":{
+        "placeholders":{
+            "count":{
+                "type":"num",
+                "example":"1"
+            }
+        }
+    },
+
     "delete_version":"Version deletion",
     "delete_version_description":"If you have reset your game, you can delete the installed version of this game. This will allow you to reinstall the patches.",
     "description":"Description",
