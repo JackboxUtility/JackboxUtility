@@ -146,5 +146,28 @@
 
     "all_patches":"Tous les patchs",
 
-    "error_happened":"Une erreur est survenue"
+    "error_happened":"Une erreur est survenue", 
+
+    "jackbox_utility_description":"Une application open-source pour installer des patchs et lancer des jeux Jackbox",
+
+    "server_information":"Information du serveur",
+    "selected_server":"Serveur sélectionné",
+    "change_server":"Changer de serveur",
+
+    "app_information":"Information de l'application",
+
+    "automatic_game_finder_button":"Lancer la détection automatique",
+
+    "games_available": "{count, plural, =0 {Aucun jeu disponible} one {1 jeu disponible} other {{count} jeux disponible}}",
+    "@games_available":{
+        "placeholders":{
+            "count":{
+                "type":"num",
+                "example":"1"
+            }
+        }
+    },
+
+    "author":"Auteur",
+    "contributors":"Contributeurs"
 }
