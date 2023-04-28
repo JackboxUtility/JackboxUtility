@@ -18,11 +18,9 @@ class ParametersWidget extends StatefulWidget {
 
 class _ParametersWidgetState extends State<ParametersWidget> {
   UserJackboxPack? selectedPack;
-  List<UserJackboxPack> packs = [];
 
   @override
   void initState() {
-    packs.addAll(widget.originalPacks);
     super.initState();
   }
 
@@ -58,7 +56,6 @@ class _ParametersWidgetState extends State<ParametersWidget> {
                         .automatic_game_finder_button),
                     onPressed: () async {
                       await _launchAutomaticGameFinder(true);
-                      packs = UserData().packs;
                       setState(() {});
                     })
               ]),
@@ -66,13 +63,15 @@ class _ParametersWidgetState extends State<ParametersWidget> {
                 height: 10,
               ),
               _showOwnedPack(),
-              ListTile(
-                title: Text(AppLocalizations.of(context)!.add_pack),
-                leading: Icon(FluentIcons.add),
-                onPressed: () {
-                  _showAddPackDialog();
-                },
-              ),
+              if (UserData().packs.length !=
+                  UserData().packs.where((element) => element.owned).length)
+                ListTile(
+                  title: Text(AppLocalizations.of(context)!.add_pack),
+                  leading: Icon(FluentIcons.add),
+                  onPressed: () {
+                    _showAddPackDialog();
+                  },
+                ),
               SizedBox(
                 height: 30,
               ),
@@ -94,6 +93,8 @@ class _ParametersWidgetState extends State<ParametersWidget> {
   }
 
   _showAddPackDialog() async {
+    List<UserJackboxPack> notOwnedPacks =
+        UserData().packs.where((element) => !element.owned).toList();
     bool? packSelected = await showDialog<bool>(
         context: context,
         builder: (context) => ContentDialog(
@@ -104,12 +105,11 @@ class _ParametersWidgetState extends State<ParametersWidget> {
                   child: ComboBox<UserJackboxPack>(
                     value: selectedPack,
                     items: List.generate(
-                        widget.originalPacks.where((element) => !element.owned).length,
+                        notOwnedPacks.length,
                         (index) => ComboBoxItem(
-                              value: widget.originalPacks.where((element)=>!element.owned).toList()[index],
+                              value: notOwnedPacks[index],
                               onTap: () {},
-                              child:
-                                  Text(widget.originalPacks[index].pack.name),
+                              child: Text(notOwnedPacks[index].pack.name),
                             )),
                     onChanged: (pack) async {
                       await pack!.setOwned(true);
@@ -135,37 +135,32 @@ class _ParametersWidgetState extends State<ParametersWidget> {
 
   Widget _showOwnedPack() {
     return Column(
-        children: List.generate(packs.where((element) => element.owned).length,
-            (index) {
+        children: List.generate(
+            UserData().packs.where((element) => element.owned).length, (index) {
       return _buildOwnedPack(
-          packs.where((element) => element.owned).toList()[index]);
+          UserData().packs.where((element) => element.owned).toList()[index]);
     }));
   }
 
   Widget _buildOwnedPack(UserJackboxPack pack) {
-    return PackInParametersWidget(
-        pack: pack, reloadallPacks: _reloadAllPacks);
+    return PackInParametersWidget(pack: pack, reloadallPacks: _reloadAllPacks);
   }
 
   _reloadAllPacks() {
-    packs = [];
-    setState(() {});
-    packs.addAll(UserData().packs);
     setState(() {});
   }
 }
 
 class PackInParametersWidget extends StatefulWidget {
-  PackInParametersWidget(
-      {Key? key,
-      required this.pack,
-      required this.reloadallPacks,
-      })
-      : super(key: key);
+  PackInParametersWidget({
+    Key? key,
+    required this.pack,
+    required this.reloadallPacks,
+  }) : super(key: key);
 
   UserJackboxPack pack;
   final Function reloadallPacks;
-  
+
   @override
   State<PackInParametersWidget> createState() => _PackInParametersWidgetState();
 }

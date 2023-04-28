@@ -158,5 +158,8 @@
                 "example":"1"
             }
         }
-    }
+    },
+
+    "author":"Autor",
+    "contributors":"Contribuyentes"
 }

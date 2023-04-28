@@ -166,5 +166,8 @@
                 "example":"1"
             }
         }
-    }
+    },
+
+    "author":"Author",
+    "contributors":"Contributors"
 }
