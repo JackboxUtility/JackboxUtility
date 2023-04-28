@@ -37,7 +37,35 @@ class DownloaderService {
     }
   }
 
-  static Future<void> extractFileToDisk(
+  static Future<void> extractFileToDisk(filePath, uri, void Function(String, String, double) callback) async {
+    if (Platform.isWindows) {
+      await extractFileToDiskWindows(filePath, uri, callback);
+    } else {
+      await extractFileToDiskUnix(filePath, uri, callback);
+    }  
+  }
+
+
+  static Future<void> extractFileToDiskUnix(
+      filePath, uri, void Function(String, String, double) callback) async {
+    ProcessResult listProcess = await Process.run("unzip", ["-l", filePath]);
+    int files = 0;
+    files = listProcess.stdout.split("\n").length;
+    await listProcess.exitCode;
+    Process process =
+        await Process.start("unzip", ["-o",filePath, "-d", uri]);
+    int currentFiles = 0;
+    process.stdout.listen((data) {
+    	print(data);
+	    currentFiles += utf8.decode(data).split("\n").length-1;
+	      callback("${TranslationsHelper().appLocalizations!.extracting}",
+		  "${currentFiles}/${files}", 75 + ((currentFiles / files) * 25));
+    });
+    await process.exitCode;
+    return;
+  }
+
+  static Future<void> extractFileToDiskWindows(
       filePath, uri, void Function(String, String, double) callback) async {
     ProcessResult listProcess = await Process.run("tar", ["-tf", "$filePath"]);
     int files = 0;
