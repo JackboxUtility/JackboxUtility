@@ -48,18 +48,18 @@ class DownloaderService {
 
   static Future<void> extractFileToDiskUnix(
       filePath, uri, void Function(String, String, double) callback) async {
-    ProcessResult listProcess = await Process.run("unzip", ["-d", "$filePath"]);
+    ProcessResult listProcess = await Process.run("unzip", ["-l", filePath]);
     int files = 0;
     files = listProcess.stdout.split("\n").length;
     await listProcess.exitCode;
     Process process =
-        await Process.start("unzip", ['$filePath', "-d", '$uri']);
+        await Process.start("unzip", ["-o",filePath, "-d", uri]);
     int currentFiles = 0;
-    process.stdout.listen((data) {});
-    process.stderr.listen((data) {
-      currentFiles += utf8.decode(data).split("\n").length-1;
-      callback("${TranslationsHelper().appLocalizations!.extracting}",
-          "${currentFiles}/${files}", 75 + ((currentFiles / files) * 25));
+    process.stdout.listen((data) {
+    	print(data);
+	    currentFiles += utf8.decode(data).split("\n").length-1;
+	      callback("${TranslationsHelper().appLocalizations!.extracting}",
+		  "${currentFiles}/${files}", 75 + ((currentFiles / files) * 25));
     });
     await process.exitCode;
     return;
