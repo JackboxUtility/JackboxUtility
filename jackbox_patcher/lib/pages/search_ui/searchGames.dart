@@ -25,12 +25,14 @@ class _SearchGameRouteState extends State<SearchGameRoute> {
     String? name = data[2];
     String? description = data[3];
     String? icon = data[4];
+    bool? showAllPacks = data[5];
     return SearchGameWidget(
         filter: filter,
         comeFromGame: true,
         background: background,
         name: name,
         description: description,
+        showAllPacks: showAllPacks ?? false,
         icon: icon);
   }
 }
@@ -43,6 +45,7 @@ class SearchGameWidget extends StatefulWidget {
       this.background,
       this.name,
       this.description,
+      required this.showAllPacks,
       this.icon})
       : super(key: key);
 
@@ -51,6 +54,7 @@ class SearchGameWidget extends StatefulWidget {
   final String? background;
   final String? name;
   final String? description;
+  final bool showAllPacks;
   final String? icon;
 
   @override
@@ -132,7 +136,7 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
   List<Map<String, Object>> getFilteredGames() {
     List<Map<String, Object>> games = [];
     for (var element in UserData().packs) {
-      if (element.games.any((game) => widget.filter(element, game))) {
+      if (element.games.any((game) => widget.filter(element, game)) && (widget.showAllPacks || element.owned)) {
         for (var game in element.games) {
           if (widget.filter(element, game)) {
             games.add({"game":game,"pack":element});
@@ -152,7 +156,7 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
             crossAxisSpacing: 20,
             crossAxisCount: 3,
             children: games
-                .map((game) => SearchGameGameWidget(pack: game["pack"] as UserJackboxPack, game: game["game"] as UserJackboxGame))
+                .map((game) => SearchGameGameWidget(pack: game["pack"] as UserJackboxPack, game: game["game"] as UserJackboxGame, showAllPacks: widget.showAllPacks,))
                 .toList()));
   }
 
@@ -173,17 +177,18 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
             crossAxisCount: 3,
             children: pack.games
                 .where((game) => widget.filter(pack, game))
-                .map((game) => SearchGameGameWidget(pack: pack, game: game))
+                .map((game) => SearchGameGameWidget(pack: pack, game: game,showAllPacks: widget.showAllPacks))
                 .toList()));
   }
 }
 
 class SearchGameGameWidget extends StatefulWidget {
-  SearchGameGameWidget({Key? key, required this.pack, required this.game})
+  SearchGameGameWidget({Key? key, required this.pack, required this.game, required this.showAllPacks})
       : super(key: key);
 
   final UserJackboxPack pack;
   final UserJackboxGame game;
+  final bool showAllPacks;
   @override
   State<SearchGameGameWidget> createState() => _SearchGameGameWidgetState();
 }
@@ -207,7 +212,7 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                       onSecondaryTap: () =>
                           Launcher.launchGame(widget.pack, widget.game),
                       onTap: () => Navigator.pushNamed(context, "/game",
-                          arguments: [widget.pack, widget.game]),
+                          arguments: [widget.pack, widget.game, widget.showAllPacks ]),
                       child: MouseRegion(
                         onEnter: (a) => setState(() {
                           smallInfoVisible = true;
