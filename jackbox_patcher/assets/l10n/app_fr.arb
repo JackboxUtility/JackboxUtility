@@ -16,9 +16,35 @@
     "installing_a_patch_end":"Installation terminée",
     "can_close_popup":"Vous pouvez fermer cette pop-up",
     "patch_unavailable":"Patch non disponible",
-    "patch_installed":"Patch installé",
-    "patch_outdated":"Mettre à jour le patch",
-    "patch_not_installed":"Installer le patch",
+    "patch_installed": "{count, plural, one {Patch installé} other {Patchs installés}}",
+    "@patch_installed":{
+        "placeholders":{
+            "count":{
+                "type":"num",
+                "example":"1"
+            }
+        }
+    },
+
+    "patch_outdated": "{count, plural, one {Mettre à jour} other {Mettre à jour}}",
+    "@patch_outdated":{
+        "placeholders":{
+            "count":{
+                "type":"num",
+                "example":"1"
+            }
+        }
+    },
+
+    "patch_not_installed": "{count, plural, one {Installer le patch} other {Installer les patchs}}",
+    "@patch_not_installed":{
+        "placeholders":{
+            "count":{
+                "type":"num",
+                "example":"1"
+            }
+        }
+    },
     "delete_version":"Suppression de la version",
     "delete_version_description":"Si vous avez réinitialisé votre jeu, vous pouvez supprimer la version installée de ce jeu. Cela vous permettra de réinstaller les patchs.",
     "description":"Description",
