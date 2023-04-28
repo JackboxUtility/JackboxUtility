@@ -29,16 +29,18 @@ class _GameInfoRouteState extends State<GameInfoRoute> {
         ModalRoute.of(context)!.settings.arguments as List;
     final UserJackboxPack pack = data[0] as UserJackboxPack;
     final UserJackboxGame game = data[1] as UserJackboxGame;
-    return GameInfoWidget(pack: pack, game: game);
+    final bool showAllPacks = data[2] as bool;
+    return GameInfoWidget(pack: pack, game: game, showAllPacks: showAllPacks);
   }
 }
 
 class GameInfoWidget extends StatefulWidget {
-  GameInfoWidget({Key? key, required this.pack, required this.game})
+  GameInfoWidget({Key? key, required this.pack, required this.game, required this.showAllPacks})
       : super(key: key);
 
   final UserJackboxPack pack;
   final UserJackboxGame game;
+  final bool showAllPacks;
   @override
   State<GameInfoWidget> createState() => _GameInfoWidgetState();
 }
@@ -439,7 +441,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
         onTap: () {
           if (isLink) {
             Navigator.pushNamed(context, "/search",
-                arguments: [filter, background, text, description, null]);
+                arguments: [filter, background, text, description, null, widget.showAllPacks]);
           }
         },
         child: Padding(

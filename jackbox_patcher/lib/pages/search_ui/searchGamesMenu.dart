@@ -18,6 +18,7 @@ class SearchGameMenuWidget extends StatefulWidget {
 class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
   int _selectedView = 0;
   late TextEditingController _searchController;
+  bool showAllPacks = false;
 
   @override
   void initState() {
@@ -40,30 +41,53 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
             style: typography.title,
           )),
       pane: NavigationPane(
-        onChanged: (int nSelected) {
-          setState(() {
-            _searchController.text = "";
-            _selectedView = nSelected;
-          });
-        },
-        selected: _selectedView,
-        items: _buildPaneItems(),
-      ),
+          onChanged: (int nSelected) {
+            setState(() {
+              _searchController.text = "";
+              _selectedView = nSelected;
+            });
+          },
+          selected: _selectedView,
+          items: _buildPaneItems(),
+          footerItems: [
+            PaneItem(
+              icon: Icon(FluentIcons.package),
+              title: Text(showAllPacks == false
+                  ? AppLocalizations.of(context)!.show_all_packs
+                  : AppLocalizations.of(context)!.show_owned_packs_only),
+              body: Container(),
+              onTap: () {
+                setState(() {
+                  showAllPacks = !showAllPacks;
+                  _selectedView = 0;
+                });
+              },
+            )
+          ]),
     );
   }
 
   _buildPaneItems() {
     List<NavigationPaneItem> items = [];
     List<NavigationPaneItem> packItems = [];
-    for (var userPack in UserData().packs) {
+    List<UserJackboxPack> wantedPacks = [];
+    if (showAllPacks) {
+      wantedPacks = UserData().packs;
+    } else {
+      wantedPacks = UserData().packs.where((element) => element.owned).toList();
+    }
+    for (var userPack in wantedPacks) {
       packItems.add(PaneItem(
           icon: Image.network(APIService().assetLink(userPack.pack.icon)),
           title: Text(userPack.pack.name),
           body: SearchGameWidget(
             filter: (UserJackboxPack pack, UserJackboxGame game) =>
                 pack.pack.id == userPack.pack.id &&
-                game.game.name.toLowerCase().contains(_searchController.text.toLowerCase()),
+                game.game.name
+                    .toLowerCase()
+                    .contains(_searchController.text.toLowerCase()),
             comeFromGame: false,
+            showAllPacks:showAllPacks,
             background: APIService().assetLink(userPack.pack.background),
             name: userPack.pack.name,
             description: userPack.pack.description,
@@ -81,7 +105,11 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
           body: SearchGameWidget(
             filter: (UserJackboxPack pack, UserJackboxGame game) =>
                 game.game.info.translation == translation &&
-                game.game.name.toLowerCase().contains(_searchController.text.toLowerCase()),
+                game.game.name
+                    .toLowerCase()
+                    .contains(_searchController.text.toLowerCase()
+                    ) && (showAllPacks || pack.owned),
+                showAllPacks: showAllPacks,
             comeFromGame: false,
             background: APIService().getDefaultBackground(),
             name: translation.name,
@@ -91,7 +119,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
     }
 
     List<NavigationPaneItem> tagItem = [];
-    
+
     for (var type in JackboxGameType.values) {
       tagItem.add(PaneItem(
           icon: Container(),
@@ -99,11 +127,14 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
           body: SearchGameWidget(
             filter: (UserJackboxPack pack, UserJackboxGame game) =>
                 game.game.info.type == type &&
-                game.game.name.toLowerCase().contains(_searchController.text.toLowerCase()),
+                game.game.name
+                    .toLowerCase()
+                    .contains(_searchController.text.toLowerCase()) && (showAllPacks || pack.owned),
             comeFromGame: false,
             background: APIService().getDefaultBackground(),
             name: type.name,
             description: type.description,
+            showAllPacks: showAllPacks,
             icon: null,
           )));
     }
@@ -115,16 +146,17 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
           body: SearchGameWidget(
             filter: (UserJackboxPack pack, UserJackboxGame game) =>
                 game.game.info.tags.where((t) => t.id == tag.id).isNotEmpty &&
-                game.game.name.toLowerCase().contains(_searchController.text.toLowerCase()),
+                game.game.name
+                    .toLowerCase()
+                    .contains(_searchController.text.toLowerCase()) && (showAllPacks || pack.owned),
             comeFromGame: false,
             background: APIService().getDefaultBackground(),
             name: tag.name,
             description: tag.description,
+            showAllPacks: showAllPacks,
             icon: null,
           )));
     }
-
-    
 
     if (UserData().packs.isNotEmpty) {
       items.add(PaneItemSeparator());
@@ -142,13 +174,15 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
           icon: Icon(FluentIcons.game),
           title: Text(AppLocalizations.of(context)!.all_games),
           body: SearchGameWidget(
-            filter: (UserJackboxPack pack, UserJackboxGame game) =>
-                game.game.name.toLowerCase().contains(_searchController.text.toLowerCase()),
+            filter: (UserJackboxPack pack, UserJackboxGame game) => game
+                .game.name
+                .toLowerCase()
+                .contains(_searchController.text.toLowerCase())  && (showAllPacks || pack.owned),
             comeFromGame: false,
             background: APIService().getDefaultBackground(),
             name: AppLocalizations.of(context)!.all_games,
-            description:
-                AppLocalizations.of(context)!.all_games_description,
+            description: AppLocalizations.of(context)!.all_games_description,
+            showAllPacks: showAllPacks,
             icon: null,
           )));
       items.add(PaneItemExpander(

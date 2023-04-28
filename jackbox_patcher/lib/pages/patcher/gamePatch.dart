@@ -482,7 +482,7 @@ class _GameImageWithOpenerState extends State<GameImageWithOpener> {
                                     context, e.toString()));
                           },
                           onTap: () => Navigator.pushNamed(context, "/game",
-                              arguments: [widget.pack, widget.game]),
+                              arguments: [widget.pack, widget.game, true]),
                           child: MouseRegion(
                               onEnter: (a) => setState(() {
                                     playButtonVisible = true;
