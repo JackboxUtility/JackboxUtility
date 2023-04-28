@@ -63,13 +63,15 @@ class _ParametersWidgetState extends State<ParametersWidget> {
                 height: 10,
               ),
               _showOwnedPack(),
-              ListTile(
-                title: Text(AppLocalizations.of(context)!.add_pack),
-                leading: Icon(FluentIcons.add),
-                onPressed: () {
-                  _showAddPackDialog();
-                },
-              ),
+              if (UserData().packs.length !=
+                  UserData().packs.where((element) => element.owned).length)
+                ListTile(
+                  title: Text(AppLocalizations.of(context)!.add_pack),
+                  leading: Icon(FluentIcons.add),
+                  onPressed: () {
+                    _showAddPackDialog();
+                  },
+                ),
               SizedBox(
                 height: 30,
               ),
@@ -91,7 +93,8 @@ class _ParametersWidgetState extends State<ParametersWidget> {
   }
 
   _showAddPackDialog() async {
-    List<UserJackboxPack> notOwnedPacks = UserData().packs.where((element) => !element.owned).toList();
+    List<UserJackboxPack> notOwnedPacks =
+        UserData().packs.where((element) => !element.owned).toList();
     bool? packSelected = await showDialog<bool>(
         context: context,
         builder: (context) => ContentDialog(
@@ -106,8 +109,7 @@ class _ParametersWidgetState extends State<ParametersWidget> {
                         (index) => ComboBoxItem(
                               value: notOwnedPacks[index],
                               onTap: () {},
-                              child:
-                                  Text(notOwnedPacks[index].pack.name),
+                              child: Text(notOwnedPacks[index].pack.name),
                             )),
                     onChanged: (pack) async {
                       await pack!.setOwned(true);
@@ -133,16 +135,15 @@ class _ParametersWidgetState extends State<ParametersWidget> {
 
   Widget _showOwnedPack() {
     return Column(
-        children: List.generate(UserData().packs.where((element) => element.owned).length,
-            (index) {
+        children: List.generate(
+            UserData().packs.where((element) => element.owned).length, (index) {
       return _buildOwnedPack(
           UserData().packs.where((element) => element.owned).toList()[index]);
     }));
   }
 
   Widget _buildOwnedPack(UserJackboxPack pack) {
-    return PackInParametersWidget(
-        pack: pack, reloadallPacks: _reloadAllPacks);
+    return PackInParametersWidget(pack: pack, reloadallPacks: _reloadAllPacks);
   }
 
   _reloadAllPacks() {
@@ -151,16 +152,15 @@ class _ParametersWidgetState extends State<ParametersWidget> {
 }
 
 class PackInParametersWidget extends StatefulWidget {
-  PackInParametersWidget(
-      {Key? key,
-      required this.pack,
-      required this.reloadallPacks,
-      })
-      : super(key: key);
+  PackInParametersWidget({
+    Key? key,
+    required this.pack,
+    required this.reloadallPacks,
+  }) : super(key: key);
 
   UserJackboxPack pack;
   final Function reloadallPacks;
-  
+
   @override
   State<PackInParametersWidget> createState() => _PackInParametersWidgetState();
 }
