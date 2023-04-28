@@ -275,7 +275,7 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                                             Colors.white.withOpacity(opacity),
                                       ),
                                       SizedBox(width: 10),
-                                      Text(gameInfo.type.name,
+                                      Text(gameInfo.length,
                                           style: TextStyle(
                                               overflow: TextOverflow.ellipsis,
                                               color: Colors.white
