@@ -13,9 +13,33 @@
     "installing_a_patch_end": "Installation abgeschlossen",
     "can_close_popup": "Du kannst dieses Fenster nun schließen",
     "patch_unavailable": "Kein Patch verfügbar",
-    "patch_installed": "Patch installiert",
-    "patch_outdated": "Patch aktualisieren",
-    "patch_not_installed": "Installiere den Patch",
+    "patch_installed": "{count, plural, one {Patch installiert} other {Patches installiert}}",
+    "@patch_installed": {
+        "placeholders": {
+            "count": {
+                "type": "num",
+                "example": "1"
+            }
+        }
+    },
+    "patch_outdated": "{count, plural, one {Patch aktualisieren} other {Patches aktualisieren}}",
+    "@patch_outdated": {
+        "placeholders": {
+            "count": {
+                "type": "num",
+                "example": "1"
+            }
+        }
+    },
+    "patch_not_installed": "{count, plural, one {Den Patch installieren} other {Die Patches installieren}}",
+    "@patch_not_installed": {
+        "placeholders": {
+            "count": {
+                "type": "num",
+                "example": "1"
+            }
+        }
+    },
     "delete_version": "Version entfernen",
     "delete_version_description": "Wenn du dein Spiel zurückgesetzt hast, kannst du die installierte Version dieses Spiels löschen. So kannst du die Patches neu installieren.",
     "description": "Beschreibung",
@@ -131,26 +155,21 @@
     "show_owned_packs_only": "Nur Spiele im Besitz anzeigen",
     "all_patches": "Alle Patches",
     "error_happened": "Ein Fehler ist aufgetreten",
-     "jackbox_utility_description":"Eine Open-Source-App zum Herunterladen von Patches und Starten von Jackbox-Spielen",
-
-    "server_information":"Server-Informationen",
-    "selected_server":"Ausgewählter Server",
-    "change_server":"Server ändern",
-
-    "app_information":"App-Informationen",
-
-    "automatic_game_finder_button":"Installierte Spiele automatisch erkennen",
-
+    "jackbox_utility_description": "Eine Open-Source-App zum Herunterladen von Patches und Starten von Jackbox-Spielen",
+    "server_information": "Server-Informationen",
+    "selected_server": "Ausgewählter Server",
+    "change_server": "Server ändern",
+    "app_information": "App-Informationen",
+    "automatic_game_finder_button": "Installierte Spiele automatisch erkennen",
     "games_available": "{count, plural, =0 {Kein Spiel erkannt} one {1 Spiel erkannt} other {{count} Spiele erkannt}}",
-    "@games_available":{
-        "placeholders":{
-            "count":{
-                "type":"num",
-                "example":"1"
+    "@games_available": {
+        "placeholders": {
+            "count": {
+                "type": "num",
+                "example": "1"
             }
         }
     },
-
-    "authors":"Autor",
-    "contributors":"Mitwirkende"
+    "author": "Autor",
+    "contributors": "Mitwirkende"
 }

@@ -399,15 +399,15 @@ class _GamePatchCardState extends State<GamePatchCard> {
         buttonText = AppLocalizations.of(context)!.patch_unavailable;
         break;
       case UserInstalledPatchStatus.INSTALLED:
-        buttonText = AppLocalizations.of(context)!.patch_installed;
+        buttonText = AppLocalizations.of(context)!.patch_installed(1);
         removePatchButtonVisible = true;
         break;
       case UserInstalledPatchStatus.INSTALLED_OUTDATED:
-        buttonText = AppLocalizations.of(context)!.patch_outdated;
+        buttonText = AppLocalizations.of(context)!.patch_outdated(1);
         removePatchButtonVisible = true;
         break;
       case UserInstalledPatchStatus.NOT_INSTALLED:
-        buttonText = AppLocalizations.of(context)!.patch_not_installed;
+        buttonText = AppLocalizations.of(context)!.patch_not_installed(1);
         break;
       default:
     }

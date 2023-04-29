@@ -125,14 +125,14 @@ class _PackPatchState extends State<PackPatch> {
         installButtonDisabled = true;
         break;
       case UserInstalledPatchStatus.INSTALLED:
-        buttonText = AppLocalizations.of(context)!.patch_installed;
+        buttonText = AppLocalizations.of(context)!.patch_installed(1);
         installButtonDisabled = true;
         break;
       case UserInstalledPatchStatus.INSTALLED_OUTDATED:
-        buttonText = AppLocalizations.of(context)!.patch_outdated;
+        buttonText = AppLocalizations.of(context)!.patch_outdated(1);
         break;
       case UserInstalledPatchStatus.NOT_INSTALLED:
-        buttonText = AppLocalizations.of(context)!.patch_not_installed;
+        buttonText = AppLocalizations.of(context)!.patch_not_installed(1);
         break;
       default:
     }

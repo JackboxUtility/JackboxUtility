@@ -162,14 +162,14 @@ class _CategoryPackPatchState extends State<CategoryPackPatch> {
         installButtonDisabled = true;
         break;
       case UserInstalledPatchStatus.INSTALLED:
-        buttonText = AppLocalizations.of(context)!.patch_installed;
+        buttonText = AppLocalizations.of(context)!.patch_installed(widget.category.packPatches.length);
         installButtonDisabled = true;
         break;
       case UserInstalledPatchStatus.INSTALLED_OUTDATED:
-        buttonText = AppLocalizations.of(context)!.patch_outdated;
+        buttonText = AppLocalizations.of(context)!.patch_outdated(widget.category.packPatches.where((element) => element.getInstalledStatus() == UserInstalledPatchStatus.INSTALLED_OUTDATED).length);
         break;
       case UserInstalledPatchStatus.NOT_INSTALLED:
-        buttonText = AppLocalizations.of(context)!.patch_not_installed;
+        buttonText = AppLocalizations.of(context)!.patch_not_installed(widget.category.packPatches.where((element) => element.getInstalledStatus() == UserInstalledPatchStatus.INSTALLED_OUTDATED || element.getInstalledStatus() == UserInstalledPatchStatus.NOT_INSTALLED ).length);
         break;
       default:
     }
