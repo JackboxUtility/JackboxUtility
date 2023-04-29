@@ -270,7 +270,7 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                                     ]),
                                     Row(children: [
                                       Icon(
-                                        FluentIcons.group,
+                                        FluentIcons.clock,
                                         color:
                                             Colors.white.withOpacity(opacity),
                                       ),
