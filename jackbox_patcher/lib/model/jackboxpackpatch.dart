@@ -28,7 +28,7 @@ class JackboxPackPatch {
       id: json['id'],
       name: json['name'],
       smallDescription: json['small_description'],
-      latestVersion: json['version'].replaceAll("Build:","").trim(),
+      latestVersion: json['version'].replaceAll("Build:", "").trim(),
       patchPath: json['patch_path'],
       components: json['components'] == null
           ? []
@@ -73,9 +73,9 @@ class JackboxPackPatchComponent {
 
   JackboxGame? getLinkedGame() {
     if (linkedGame == null) return null;
-    for (JackboxPack pack in APIService().cachedPacks){
-        var gamesFound = pack.games.where((game) => game.id == linkedGame);
-        if (gamesFound.length > 0) return gamesFound.first;
+    for (JackboxPack pack in APIService().cachedPacks) {
+      var gamesFound = pack.games.where((game) => game.id == linkedGame);
+      if (gamesFound.length > 0) return gamesFound.first;
     }
   }
 }

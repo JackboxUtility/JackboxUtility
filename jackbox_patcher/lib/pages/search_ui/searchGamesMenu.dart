@@ -1,4 +1,5 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:jackbox_patcher/components/blurhashimage.dart';
 import 'package:jackbox_patcher/model/jackboxgame.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
 import 'package:jackbox_patcher/pages/search_ui/searchGames.dart';
@@ -78,7 +79,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
     }
     for (var userPack in wantedPacks) {
       packItems.add(PaneItem(
-          icon: Image.network(APIService().assetLink(userPack.pack.icon)),
+          icon: BlurHashImage(url: userPack.pack.icon, fit: BoxFit.fitHeight, height:50),
           title: Text(userPack.pack.name),
           body: SearchGameWidget(
             filter: (UserJackboxPack pack, UserJackboxGame game) =>
@@ -87,8 +88,8 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                     .toLowerCase()
                     .contains(_searchController.text.toLowerCase()),
             comeFromGame: false,
-            showAllPacks:showAllPacks,
-            background: APIService().assetLink(userPack.pack.background),
+            showAllPacks: showAllPacks,
+            background: userPack.pack.background,
             name: userPack.pack.name,
             description: userPack.pack.description,
             icon: userPack.pack.icon,
@@ -107,9 +108,9 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                 game.game.info.translation == translation &&
                 game.game.name
                     .toLowerCase()
-                    .contains(_searchController.text.toLowerCase()
-                    ) && (showAllPacks || pack.owned),
-                showAllPacks: showAllPacks,
+                    .contains(_searchController.text.toLowerCase()) &&
+                (showAllPacks || pack.owned),
+            showAllPacks: showAllPacks,
             comeFromGame: false,
             background: APIService().getDefaultBackground(),
             name: translation.name,
@@ -129,7 +130,8 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                 game.game.info.type == type &&
                 game.game.name
                     .toLowerCase()
-                    .contains(_searchController.text.toLowerCase()) && (showAllPacks || pack.owned),
+                    .contains(_searchController.text.toLowerCase()) &&
+                (showAllPacks || pack.owned),
             comeFromGame: false,
             background: APIService().getDefaultBackground(),
             name: type.name,
@@ -148,7 +150,8 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                 game.game.info.tags.where((t) => t.id == tag.id).isNotEmpty &&
                 game.game.name
                     .toLowerCase()
-                    .contains(_searchController.text.toLowerCase()) && (showAllPacks || pack.owned),
+                    .contains(_searchController.text.toLowerCase()) &&
+                (showAllPacks || pack.owned),
             comeFromGame: false,
             background: APIService().getDefaultBackground(),
             name: tag.name,
@@ -174,10 +177,11 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
           icon: Icon(FluentIcons.game),
           title: Text(AppLocalizations.of(context)!.all_games),
           body: SearchGameWidget(
-            filter: (UserJackboxPack pack, UserJackboxGame game) => game
-                .game.name
-                .toLowerCase()
-                .contains(_searchController.text.toLowerCase())  && (showAllPacks || pack.owned),
+            filter: (UserJackboxPack pack, UserJackboxGame game) =>
+                game.game.name
+                    .toLowerCase()
+                    .contains(_searchController.text.toLowerCase()) &&
+                (showAllPacks || pack.owned),
             comeFromGame: false,
             background: APIService().getDefaultBackground(),
             name: AppLocalizations.of(context)!.all_games,
