@@ -21,6 +21,7 @@ class BlurHashImage extends StatefulWidget {
 class _BlurHashImageState extends State<BlurHashImage> {
   UrlBlurHash? blurHash;
   bool blurHashRetrieved = false;
+  String usedUrl = "";
 
   @override
   void initState() {
@@ -29,6 +30,7 @@ class _BlurHashImageState extends State<BlurHashImage> {
   }
 
   Future<void> _retrieveBlurHash() async {
+    blurHash = APIService().getBlurHash(widget.url);
     blurHashRetrieved = true;
     setState(() {});
   }
@@ -51,8 +53,13 @@ class _BlurHashImageState extends State<BlurHashImage> {
 
   @override
   Widget build(BuildContext context) {
-    blurHash = APIService().getBlurHash(widget.url);
+    if (widget.url != usedUrl) {
+      blurHashRetrieved = false;
+      usedUrl = widget.url;
+      _retrieveBlurHash();
+    }
     return CachedNetworkImage(
+      placeholderFadeInDuration: Duration.zero,
       fadeInDuration: Duration(milliseconds: 400),
         imageUrl: APIService().assetLink(widget.url),
         width: widget.width,
