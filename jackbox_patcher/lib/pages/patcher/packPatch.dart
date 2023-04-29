@@ -72,15 +72,7 @@ class _PackPatchState extends State<PackPatch> {
                       blurAmount: 1,
                       tintAlpha: 1,
                       tint: Color.fromARGB(255, 48, 48, 48),
-                      child: Stack(children: [
-                        Container(
-                            padding: EdgeInsets.all(12),
-                            child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Text(AppLocalizations.of(context)!.version +" "+
-                                      widget.patch.patch.latestVersion)
-                                ])),
+                      child: 
                         Container(
                             padding: EdgeInsets.only(bottom: 12, top: 12),
                             child: Row(
@@ -94,9 +86,16 @@ class _PackPatchState extends State<PackPatch> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Text(widget.patch.patch.name,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: TextStyle(fontSize: 25)),
+                                          Row(
+                                            children: [
+                                              Text(widget.patch.patch.name,
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: TextStyle(fontSize: 25)),
+                                              SizedBox(width: 20),
+                                              Text(AppLocalizations.of(context)!.version +" "+
+                                      widget.patch.patch.latestVersion, style:TextStyle(color: Colors.white.withOpacity(0.7)))
+                                            ],
+                                          ),
                                           Text(
                                             widget
                                                 .patch.patch.smallDescription,
@@ -111,8 +110,9 @@ class _PackPatchState extends State<PackPatch> {
                                               : Container(),
                                         ]),
                                   )),
+                                
                                 ])),
-                      ])))),
+                      ))),
         ],
       ))
     ]);
