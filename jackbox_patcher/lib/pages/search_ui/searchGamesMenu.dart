@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/components/blurhashimage.dart';
 import 'package:jackbox_patcher/model/jackboxgame.dart';
@@ -79,7 +80,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
     }
     for (var userPack in wantedPacks) {
       packItems.add(PaneItem(
-          icon: BlurHashImage(url: userPack.pack.icon, fit: BoxFit.fitHeight, height:50),
+          icon: CachedNetworkImage(imageUrl: APIService().assetLink(userPack.pack.icon), fit: BoxFit.fitHeight, height:50, memCacheHeight: 50),
           title: Text(userPack.pack.name),
           body: SearchGameWidget(
             filter: (UserJackboxPack pack, UserJackboxGame game) =>

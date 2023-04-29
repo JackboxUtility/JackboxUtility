@@ -114,8 +114,8 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
             Positioned(
               top: 20,
               left: 20,
-              child: BlurHashImage(
-                url: widget.userPack.pack.icon,
+              child: CachedNetworkImage(
+                imageUrl: APIService().assetLink(widget.userPack.pack.icon),
                 height: 100,
               ),
             ),

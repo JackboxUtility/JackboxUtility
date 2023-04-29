@@ -271,8 +271,8 @@ class _PackInCategoryCardState extends State<PackInCategoryCard> {
                                           padding: EdgeInsets.symmetric(
                                               horizontal: 12),
                                           child: Column(children: [
-                                            BlurHashImage(
-                                                url: widget.data.pack.pack.icon,
+                                            CachedNetworkImage(
+                                                imageUrl: APIService().assetLink(widget.data.pack.pack.icon),
                                                 height: 60,
                                                 width: 60,
                                                 fit: BoxFit.cover),

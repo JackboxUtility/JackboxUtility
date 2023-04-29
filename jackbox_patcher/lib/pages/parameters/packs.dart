@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/components/blurhashimage.dart';
 import 'package:jackbox_patcher/components/dialogs/automaticGameFinderDialog.dart';
@@ -196,9 +197,10 @@ class _PackInParametersWidgetState extends State<PackInParametersWidget> {
                 ? Icon(FluentIcons.warning, color: Colors.yellow)
                 : Icon(FluentIcons.check_mark, color: Colors.green),
         SizedBox(width: 10),
-        BlurHashImage(
-          url:widget.pack.pack.icon,
+        CachedNetworkImage(
+          imageUrl:APIService().assetLink(widget.pack.pack.icon), 
           height: 30,
+          memCacheHeight: 30,
           fit:BoxFit.fitHeight
         )
       ]),

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/components/blurhashimage.dart';
 import 'package:jackbox_patcher/pages/patcher/categoryPackPatch.dart';
@@ -115,9 +116,9 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
       if (countPatchs == 1) {
         items.add(PaneItem(
             key: ValueKey(userPack.pack.id),
-            icon: BlurHashImage(
+            icon: CachedNetworkImage(
               fit:BoxFit.fitHeight,
-              url:userPack.pack.icon,
+              imageUrl:APIService().assetLink(userPack.pack.icon),
               width: 50,
               height: 50,
             ),
