@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:jackbox_patcher/components/blurhashimage.dart';
 import 'package:jackbox_patcher/components/dialogs/downloadPatchDialog.dart';
 import 'package:jackbox_patcher/model/jackboxgame.dart';
 import 'package:jackbox_patcher/model/jackboxgamepatch.dart';
@@ -32,9 +33,8 @@ void _openPatchInfo(context, dynamic data, JackboxGame? relatedGame) {
                                 topRight: Radius.circular(8)),
                             child: SizedBox(
                                 height: 100,
-                                child: CachedNetworkImage(
-                                  imageUrl: APIService()
-                                      .assetLink(relatedGame.background),
+                                child: BlurHashImage(
+                                  url: relatedGame.background,
                                   fit: BoxFit.fitWidth,
                                 ))))
                   ])
@@ -169,13 +169,13 @@ class _GameInPatchCardState extends State<GameInPatchCard> {
   }
 
   void _loadBackgroundColor() {
-    PaletteGenerator.fromImageProvider(CachedNetworkImageProvider(
-            APIService().assetLink(widget.pack.pack.background)))
-        .then((value) {
-      setState(() {
-        backgroundColor = value.dominantColor?.color;
-      });
-    });
+    // PaletteGenerator.fromImageProvider(CachedNetworkImageProvider(
+    //         APIService().assetLink(widget.pack.pack.background)))
+    //     .then((value) {
+    //   setState(() {
+    //     backgroundColor = value.dominantColor?.color;
+    //   });
+    // });
   }
 
   @override
@@ -259,7 +259,7 @@ class _GamePatchCardState extends State<GamePatchCard> {
 
   @override
   void initState() {
-    _loadBackgroundColor();
+    //_loadBackgroundColor();
     super.initState();
   }
 
@@ -285,8 +285,7 @@ class _GamePatchCardState extends State<GamePatchCard> {
                 width: 20,
                 height: 20,
                 decoration: new BoxDecoration(
-                  color:
-                      widget.patch.getInstalledStatus().color,
+                  color: widget.patch.getInstalledStatus().color,
                   shape: BoxShape.circle,
                 ))),
         Container(
@@ -339,13 +338,10 @@ class _GamePatchCardState extends State<GamePatchCard> {
                     width: 10,
                     height: 10,
                     decoration: new BoxDecoration(
-                      color: widget.patch
-                          .getInstalledStatus()
-                          .color,
+                      color: widget.patch.getInstalledStatus().color,
                       shape: BoxShape.circle,
                     )),
-                message:
-                    widget.patch.getInstalledStatus().info)),
+                message: widget.patch.getInstalledStatus().info)),
       ],
     ));
   }
@@ -377,8 +373,7 @@ class _GamePatchCardState extends State<GamePatchCard> {
     void Function()? onPressFunction;
     String buttonText = "";
     bool removePatchButtonVisible = false;
-    UserInstalledPatchStatus patchStatus =
-        widget.patch.getInstalledStatus();
+    UserInstalledPatchStatus patchStatus = widget.patch.getInstalledStatus();
     if (patchStatus == UserInstalledPatchStatus.INEXISTANT ||
         patchStatus == UserInstalledPatchStatus.INSTALLED) {
       onPressFunction = null;
@@ -491,10 +486,10 @@ class _GameImageWithOpenerState extends State<GameImageWithOpener> {
                                     playButtonVisible = false;
                                   }),
                               child: Stack(children: [
-                                CachedNetworkImage(
-                                  imageUrl: APIService()
-                                      .assetLink(widget.game.game.background),
+                                BlurHashImage(
+                                  url: widget.game.game.background,
                                   fit: BoxFit.contain,
+                                  height:100
                                 ),
                                 AnimatedContainer(
                                   duration: Duration(milliseconds: 200),

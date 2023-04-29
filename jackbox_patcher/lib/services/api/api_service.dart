@@ -6,6 +6,7 @@ import 'package:http/http.dart';
 import 'package:jackbox_patcher/model/jackboxgame.dart';
 import 'package:jackbox_patcher/model/jackboxgamepatch.dart';
 import 'package:jackbox_patcher/model/jackboxpackpatch.dart';
+import 'package:jackbox_patcher/model/misc/urlblurhash.dart';
 import 'package:jackbox_patcher/model/news.dart';
 import 'package:jackbox_patcher/model/patchserver.dart';
 import 'package:jackbox_patcher/pages/patcher/categoryPackPatch.dart';
@@ -28,7 +29,8 @@ class APIService {
   List<GameTag> cachedTags = [];
   List<PatchCategory> cachedCategories = [];
   List<News> cachedNews = [];
-  // Build factory
+  List<UrlBlurHash> cachedBlurHashes = [];
+
   factory APIService() {
     return _instance;
   }
@@ -83,10 +85,12 @@ class APIService {
       cachedPacks = data["packs"]
           .map<JackboxPack>((pack) => JackboxPack.fromJson(pack))
           .toList();
-      cachedCategories =data["patchsCategories"]!=null? data["patchsCategories"]
-          .map<PatchCategory>(
-              (category) => PatchCategory.fromJson(category))
-          .toList():[];
+      cachedCategories = data["patchsCategories"] != null
+          ? data["patchsCategories"]
+              .map<PatchCategory>(
+                  (category) => PatchCategory.fromJson(category))
+              .toList()
+          : [];
     } else {
       throw Exception('Failed to load packs and tags');
     }
@@ -101,6 +105,16 @@ class APIService {
           welcome["news"].map<News>((news) => News.fromJson(news)).toList();
     } else {
       //throw Exception('Failed to load welcome');
+    }
+  }
+
+  Future<void> recoverBlurHashes() async {
+    final response =
+        await get(Uri.parse('$baseEndpoint' + APIEndpoints.BLUR_HASHES.path));
+    if (response.statusCode == 200) {
+      final List<dynamic> data = jsonDecode(response.body);
+      cachedBlurHashes =
+          data.map<UrlBlurHash>((tag) => UrlBlurHash.fromJson(tag)).toList();
     }
   }
 
@@ -119,13 +133,13 @@ class APIService {
       String patchUri, void Function(double, double) progressCallback) async {
     Dio dio = Dio();
     final response = await dio.downloadUri(
-        Uri.parse(APIService().assetLink('${patchUri}')), "./downloads/tmp."+patchUri.split(".").last,
-        options: Options(),
-        onReceiveProgress: (received, total) {
+        Uri.parse(APIService().assetLink('${patchUri}')),
+        "./downloads/tmp." + patchUri.split(".").last,
+        options: Options(), onReceiveProgress: (received, total) {
       progressCallback(received.toInt().toDouble(), total.toInt().toDouble());
     });
     if (response.statusCode == 200) {
-      return  "./downloads/tmp."+patchUri.split(".").last;
+      return "./downloads/tmp." + patchUri.split(".").last;
     } else {
       throw Exception('Failed to download patch');
     }
@@ -169,5 +183,15 @@ class APIService {
 
   String getDefaultBackground() {
     return '$baseAssets/backgrounds/default_background.png';
+  }
+
+  UrlBlurHash? getBlurHash(String url) {
+    final blurHashes = cachedBlurHashes.where(
+        (element) => element.url == url || element.url == assetLink(url));
+    if (blurHashes.length >= 1) {
+      return blurHashes.first;
+    } else {
+      return null;
+    }
   }
 }

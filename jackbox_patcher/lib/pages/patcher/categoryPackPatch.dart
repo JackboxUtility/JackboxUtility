@@ -6,6 +6,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:jackbox_patcher/components/blurhashimage.dart';
 import 'package:jackbox_patcher/model/patchsCategory.dart';
 import 'package:palette_generator/palette_generator.dart';
 
@@ -108,10 +109,12 @@ class _CategoryPackPatchState extends State<CategoryPackPatch> {
                                                     .length,
                                             (index) => PackInCategoryCard(
                                                 data: widget.showAllPacks
-                                                    ? _sortAvailablePatchs()
-                                                        [index]
-                                                    : _sortAvailablePatchs() .where((element) =>
-                                                        element.pack.owned).toList()[index],
+                                                    ? _sortAvailablePatchs()[
+                                                        index]
+                                                    : _sortAvailablePatchs()
+                                                        .where((element) =>
+                                                            element.pack.owned)
+                                                        .toList()[index],
                                                 changeMenuView:
                                                     widget.changeMenuView)))
                                   ]),
@@ -121,7 +124,8 @@ class _CategoryPackPatchState extends State<CategoryPackPatch> {
   }
 
   List<PackAvailablePatchs> _sortAvailablePatchs() {
-    List<PackAvailablePatchs> availablePatchs = widget.category.getAvailablePatchs();
+    List<PackAvailablePatchs> availablePatchs =
+        widget.category.getAvailablePatchs();
     availablePatchs.sort((a, b) {
       if (a.installedStatus().index > b.installedStatus().index) {
         return 1;
@@ -162,14 +166,27 @@ class _CategoryPackPatchState extends State<CategoryPackPatch> {
         installButtonDisabled = true;
         break;
       case UserInstalledPatchStatus.INSTALLED:
-        buttonText = AppLocalizations.of(context)!.patch_installed(widget.category.packPatches.length);
+        buttonText = AppLocalizations.of(context)!
+            .patch_installed(widget.category.packPatches.length);
         installButtonDisabled = true;
         break;
       case UserInstalledPatchStatus.INSTALLED_OUTDATED:
-        buttonText = AppLocalizations.of(context)!.patch_outdated(widget.category.packPatches.where((element) => element.getInstalledStatus() == UserInstalledPatchStatus.INSTALLED_OUTDATED).length);
+        buttonText = AppLocalizations.of(context)!.patch_outdated(widget
+            .category.packPatches
+            .where((element) =>
+                element.getInstalledStatus() ==
+                UserInstalledPatchStatus.INSTALLED_OUTDATED)
+            .length);
         break;
       case UserInstalledPatchStatus.NOT_INSTALLED:
-        buttonText = AppLocalizations.of(context)!.patch_not_installed(widget.category.packPatches.where((element) => element.getInstalledStatus() == UserInstalledPatchStatus.INSTALLED_OUTDATED || element.getInstalledStatus() == UserInstalledPatchStatus.NOT_INSTALLED ).length);
+        buttonText = AppLocalizations.of(context)!.patch_not_installed(widget
+            .category.packPatches
+            .where((element) =>
+                element.getInstalledStatus() ==
+                    UserInstalledPatchStatus.INSTALLED_OUTDATED ||
+                element.getInstalledStatus() ==
+                    UserInstalledPatchStatus.NOT_INSTALLED)
+            .length);
         break;
       default:
     }
@@ -196,7 +213,7 @@ class _PackInCategoryCardState extends State<PackInCategoryCard> {
   void initState() {
     print(widget.data.pack.pack.name);
     print(widget.data.packPatchs.length);
-    _loadBackgroundColor();
+    //_loadBackgroundColor();
     super.initState();
   }
 
@@ -209,7 +226,6 @@ class _PackInCategoryCardState extends State<PackInCategoryCard> {
       });
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -255,13 +271,10 @@ class _PackInCategoryCardState extends State<PackInCategoryCard> {
                                           padding: EdgeInsets.symmetric(
                                               horizontal: 12),
                                           child: Column(children: [
-                                            Image.network(
-                                                APIService().assetLink(
-                                                    widget.data.pack.pack.icon),
+                                            BlurHashImage(
+                                                url: widget.data.pack.pack.icon,
                                                 height: 60,
                                                 width: 60,
-                                                cacheHeight: 160,
-                                                cacheWidth: 160,
                                                 fit: BoxFit.cover),
                                             SizedBox(height: 10),
                                             Expanded(

@@ -46,6 +46,7 @@ dependencies:
   window_manager : 0.3.2
   win32_registry: ^1.0.2
   font_awesome_flutter: 10.4.0
+  flutter_blurhash: 0.7.0
 
 
   # The following adds the Cupertino Icons font to your application.

@@ -82,7 +82,9 @@ class UserData {
           if (configurationFile.existsSync()) {
             patchVersionInstalled =
                 jsonDecode(configurationFile.readAsStringSync())[
-                    pack.configuration!.versionProperty].replaceAll("Build:", "").trim();
+                        pack.configuration!.versionProperty]
+                    .replaceAll("Build:", "")
+                    .trim();
           } else {
             patchVersionInstalled = null;
           }
@@ -93,11 +95,10 @@ class UserData {
             patch: patch, installedVersion: patchVersionInstalled));
       }
     }
-    
 
-      APIService().cachedCategories.forEach((element) {
-        element.addPatchs(packs);
-      });
+    APIService().cachedCategories.forEach((element) {
+      element.addPatchs(packs);
+    });
   }
 
   /// Sync the welcome message from the server
@@ -152,7 +153,8 @@ class UserData {
   /// Write logs (mostly used when a patch is not downloaded properly)
   Future<void> writeLogs(String logs) async {
     File logFile = File("./logs.txt");
-    await logFile.writeAsString("["+DateTime.now().toString()+"]\n"+ logs, mode: FileMode.append);
+    await logFile.writeAsString("[" + DateTime.now().toString() + "]\n" + logs,
+        mode: FileMode.append);
   }
 
   String? getLastNewsReaden() {

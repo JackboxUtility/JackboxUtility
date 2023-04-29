@@ -1,4 +1,5 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:jackbox_patcher/components/blurhashimage.dart';
 import 'package:jackbox_patcher/components/dialogs/automaticGameFinderDialog.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
@@ -195,10 +196,10 @@ class _PackInParametersWidgetState extends State<PackInParametersWidget> {
                 ? Icon(FluentIcons.warning, color: Colors.yellow)
                 : Icon(FluentIcons.check_mark, color: Colors.green),
         SizedBox(width: 10),
-        Image.network(
-          APIService().assetLink(widget.pack.pack.icon),
+        BlurHashImage(
+          url:widget.pack.pack.icon,
           height: 30,
-          cacheHeight: 30,
+          fit:BoxFit.fitHeight
         )
       ]),
       title: Text(widget.pack.pack.name),
