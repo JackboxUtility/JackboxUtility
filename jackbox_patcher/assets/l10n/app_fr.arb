@@ -195,5 +195,26 @@
     },
 
     "author":"Auteur",
-    "contributors":"Contributeurs"
+    "contributors":"Contributeurs", 
+
+    "in_language":"En {language}",
+    "@in_language":{
+        "placeholders":{
+            "language":{
+                "type":"String",
+                "example":"French"
+            }
+        }
+    },
+    "in_language_description":"Ces jeux snt disponibles en {language} (nativement ou traduit par la communauté)",
+    "@in_language_description":{
+        "placeholders":{
+            "language":{
+                "type":"String",
+                "example":"French"
+            }
+        }
+    },
+    "game_community_dubbed":"Doublé par la communauté",
+    "game_community_dubbed_description":"Ces jeux ont une version doublée par la communauté"
 }

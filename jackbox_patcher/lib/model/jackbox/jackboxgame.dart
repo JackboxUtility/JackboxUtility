@@ -1,6 +1,6 @@
 import 'package:jackbox_patcher/model/gametag.dart';
-import 'package:jackbox_patcher/model/jackboxpack.dart';
-import 'package:jackbox_patcher/model/jackboxgamepatch.dart';
+import 'package:jackbox_patcher/model/jackbox/jackboxpack.dart';
+import 'package:jackbox_patcher/model/jackbox/jackboxgamepatch.dart';
 import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
 
 class JackboxGame {

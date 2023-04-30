@@ -1,8 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:jackbox_patcher/model/jackboxgame.dart';
+import 'package:jackbox_patcher/model/jackbox/jackboxgame.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
 import 'package:jackbox_patcher/pages/search_ui/searchGames.dart';
+import 'package:jackbox_patcher/services/translations/language_service.dart';
 
 import '../../model/usermodel/userjackboxpack.dart';
 import '../../services/api/api_service.dart';
@@ -98,27 +99,6 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
 
     List<NavigationPaneItem> typeItem = [];
 
-    List<NavigationPaneItem> translationItem = [];
-    for (var translation in JackboxGameTranslation.values) {
-      translationItem.add(PaneItem(
-          icon: Container(),
-          title: Text(translation.name),
-          body: SearchGameWidget(
-            filter: (UserJackboxPack pack, UserJackboxGame game) =>
-                game.game.info.translation == translation &&
-                game.game.name
-                    .toLowerCase()
-                    .contains(_searchController.text.toLowerCase()) &&
-                (showAllPacks || pack.owned),
-            showAllPacks: showAllPacks,
-            comeFromGame: false,
-            background: APIService().getDefaultBackground(),
-            name: translation.name,
-            description: translation.description,
-            icon: null,
-          )));
-    }
-
     List<NavigationPaneItem> tagItem = [];
 
     for (var type in JackboxGameType.values) {
@@ -213,6 +193,8 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
       //   },
       // ));
 
+      List<NavigationPaneItem> translationItem = _buildTranlationPaneItem();
+
       items.add(PaneItemExpander(
         icon: Icon(FluentIcons.translate),
         body: Container(),
@@ -240,5 +222,73 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
     }
 
     return items;
+  }
+
+  List<NavigationPaneItem> _buildTranlationPaneItem(){
+    List<NavigationPaneItem> translationItem = [];
+
+    // Adding In [language] translations
+    translationItem.add(PaneItem(
+          icon: Container(),
+          title: Text(AppLocalizations.of(context)!.in_language(LanguageService().getLanguageName(APIService().cachedSelectedServer!.languages[0]))),
+          body: SearchGameWidget(
+            filter: (UserJackboxPack pack, UserJackboxGame game) =>
+                (game.game.info.translation == JackboxGameTranslation.COMMUNITY_TRANSLATED || game.game.info.translation == JackboxGameTranslation.NATIVELY_TRANSLATED) &&
+                game.game.name
+                    .toLowerCase()
+                    .contains(_searchController.text.toLowerCase()) &&
+                (showAllPacks || pack.owned),
+            showAllPacks: showAllPacks,
+            comeFromGame: false,
+            background: APIService().getDefaultBackground(),
+            name: AppLocalizations.of(context)!.in_language(LanguageService().getLanguageName(APIService().cachedSelectedServer!.languages[0])),
+            description: AppLocalizations.of(context)!.in_language_description(LanguageService().getLanguageName(APIService().cachedSelectedServer!.languages[0])),
+            icon: null,
+          )));
+
+
+    // Adding each translation values
+    for (var translation in JackboxGameTranslation.values) {
+      translationItem.add(PaneItem(
+          icon: Container(),
+          title: Text(translation.name),
+          body: SearchGameWidget(
+            filter: (UserJackboxPack pack, UserJackboxGame game) =>
+                game.game.info.translation == translation &&
+                game.game.name
+                    .toLowerCase()
+                    .contains(_searchController.text.toLowerCase()) &&
+                (showAllPacks || pack.owned),
+            showAllPacks: showAllPacks,
+            comeFromGame: false,
+            background: APIService().getDefaultBackground(),
+            name: translation.name,
+            description: translation.description,
+            icon: null,
+          )));
+    }
+
+    // Adding Dubbed translations
+    translationItem.insert(2,PaneItem(
+          icon: Container(),
+          title: Text(AppLocalizations.of(context)!.game_community_dubbed),
+          body: SearchGameWidget(
+            filter: (UserJackboxPack pack, UserJackboxGame game) =>
+                (game.getInstalledPatch() != null && game.getInstalledPatch()!.patchType!.audios ) &&
+                game.game.name
+                    .toLowerCase()
+                    .contains(_searchController.text.toLowerCase()) &&
+                (showAllPacks || pack.owned),
+            showAllPacks: showAllPacks,
+            comeFromGame: false,
+            background: APIService().getDefaultBackground(),
+            name: AppLocalizations.of(context)!.game_community_dubbed,
+            description: AppLocalizations.of(context)!.game_community_dubbed_description,
+            icon: null,
+          )));
+
+    return translationItem;
+
+    
   }
 }

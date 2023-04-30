@@ -7,7 +7,7 @@ import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
 
 import '../../services/api/api_service.dart';
 import '../../services/user/userdata.dart';
-import '../jackboxgamepatch.dart';
+import '../jackbox/jackboxgamepatch.dart';
 
 class UserJackboxGamePatch {
   final JackboxGamePatch patch;
