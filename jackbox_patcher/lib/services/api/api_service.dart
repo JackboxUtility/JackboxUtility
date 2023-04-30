@@ -3,16 +3,16 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:http/http.dart';
-import 'package:jackbox_patcher/model/jackboxgame.dart';
-import 'package:jackbox_patcher/model/jackboxgamepatch.dart';
-import 'package:jackbox_patcher/model/jackboxpackpatch.dart';
+import 'package:jackbox_patcher/model/jackbox/jackboxgame.dart';
+import 'package:jackbox_patcher/model/jackbox/jackboxgamepatch.dart';
+import 'package:jackbox_patcher/model/jackbox/jackboxpackpatch.dart';
 import 'package:jackbox_patcher/model/misc/urlblurhash.dart';
 import 'package:jackbox_patcher/model/news.dart';
 import 'package:jackbox_patcher/model/patchserver.dart';
 import 'package:jackbox_patcher/pages/patcher/categoryPackPatch.dart';
 
 import '../../model/gametag.dart';
-import '../../model/jackboxpack.dart';
+import '../../model/jackbox/jackboxpack.dart';
 import '../../model/patchsCategory.dart';
 import 'api_endpoints.dart';
 

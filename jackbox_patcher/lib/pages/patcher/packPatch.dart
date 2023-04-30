@@ -1,7 +1,7 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:jackbox_patcher/components/dialogs/downloadPatchDialog.dart';
-import 'package:jackbox_patcher/model/jackboxpackpatch.dart';
+import 'package:jackbox_patcher/model/jackbox/jackboxpackpatch.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgamepatch.dart';
 import 'package:jackbox_patcher/pages/patcher/gamePatch.dart';
 

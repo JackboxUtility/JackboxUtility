@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:jackbox_patcher/model/jackboxpack.dart';
+import 'package:jackbox_patcher/model/jackbox/jackboxpack.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
@@ -232,115 +232,118 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
     var gameInfo = widget.game.game.info;
     return MouseRegion(
         cursor: SystemMouseCursors.click,
-        child: ClipRRect(
-            borderRadius: BorderRadius.circular(8.0),
-            child: TweenAnimationBuilder<double>(
-                tween: Tween<double>(
-                  begin: smallInfoVisible ? 0 : 1,
-                  end: smallInfoVisible ? 1 : 0,
-                ),
-                duration: Duration(milliseconds: 200),
-                builder: (BuildContext context, double opacity, Widget? child) {
-                  return IntrinsicHeight(
-                      child: GestureDetector(
-                          onSecondaryTap: () =>
-                              Launcher.launchGame(widget.pack, widget.game),
-                          onTap: () => Navigator.pushNamed(context, "/game",
-                                  arguments: [
-                                    widget.pack,
-                                    widget.game,
-                                    widget.showAllPacks
-                                  ]),
-                          child: MouseRegion(
-                            onEnter: (a) => setState(() {
-                              smallInfoVisible = true;
-                            }),
-                            onExit: (a) => setState(() {
-                              smallInfoVisible = false;
-                            }),
-                            child: Stack(fit:StackFit.expand, children: [
-                              CachedNetworkImage(
-                                imageUrl: APIService().assetLink(widget.game.game.background),
-                                fit: BoxFit.cover,
-                              ),
-                              Container(
-                                  decoration: BoxDecoration(
-                                      gradient: LinearGradient(
-                                          begin: Alignment.topCenter,
-                                          end: Alignment.bottomCenter,
-                                          colors: [
-                                    Colors.black.withOpacity(opacity / 2),
-                                    Colors.black.withOpacity(opacity)
-                                  ]))),
-                              Padding(
-                                  padding: EdgeInsets.only(bottom: 8, left: 8),
-                                  child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(widget.game.game.name,
-                                            style: TextStyle(
-                                                overflow: TextOverflow.ellipsis,
-                                                fontSize: 20,
-                                                color: Colors.white
-                                                    .withOpacity(opacity))),
-                                        Text(gameInfo.tagline,
-                                            style: TextStyle(
-                                                overflow: TextOverflow.ellipsis,
-                                                color: Colors.white
-                                                    .withOpacity(opacity))),
-                                        SizedBox(height: 10),
-                                        Row(children: [
-                                          Icon(
-                                            FluentIcons.people,
-                                            color: Colors.white
-                                                .withOpacity(opacity),
-                                          ),
-                                          SizedBox(width: 10),
-                                          Text(
-                                              gameInfo.players.min.toString() +
-                                                  " - " +
-                                                  gameInfo.players.max
-                                                      .toString() +
-                                                  " " +
-                                                  AppLocalizations.of(context)!
-                                                      .players,
+        child: AspectRatio(
+          aspectRatio: 2.02,
+          child: ClipRRect(
+              borderRadius: BorderRadius.circular(8.0),
+              child: TweenAnimationBuilder<double>(
+                  tween: Tween<double>(
+                    begin: smallInfoVisible ? 0 : 1,
+                    end: smallInfoVisible ? 1 : 0,
+                  ),
+                  duration: Duration(milliseconds: 200),
+                  builder: (BuildContext context, double opacity, Widget? child) {
+                    return IntrinsicHeight(
+                        child: GestureDetector(
+                            onSecondaryTap: () =>
+                                Launcher.launchGame(widget.pack, widget.game),
+                            onTap: () => Navigator.pushNamed(context, "/game",
+                                    arguments: [
+                                      widget.pack,
+                                      widget.game,
+                                      widget.showAllPacks
+                                    ]),
+                            child: MouseRegion(
+                              onEnter: (a) => setState(() {
+                                smallInfoVisible = true;
+                              }),
+                              onExit: (a) => setState(() {
+                                smallInfoVisible = false;
+                              }),
+                              child: Stack(fit:StackFit.expand, children: [
+                                CachedNetworkImage(
+                                  imageUrl: APIService().assetLink(widget.game.game.background),
+                                  fit: BoxFit.cover,
+                                ),
+                                Container(
+                                    decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                            begin: Alignment.topCenter,
+                                            end: Alignment.bottomCenter,
+                                            colors: [
+                                      Colors.black.withOpacity(opacity / 2),
+                                      Colors.black.withOpacity(opacity)
+                                    ]))),
+                                Padding(
+                                    padding: EdgeInsets.only(bottom: 8, left: 8),
+                                    child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(widget.game.game.name,
                                               style: TextStyle(
+                                                  overflow: TextOverflow.ellipsis,
+                                                  fontSize: 20,
                                                   color: Colors.white
-                                                      .withOpacity(opacity)))
-                                        ]),
-                                        Row(children: [
-                                          Icon(
-                                            FluentIcons.clock,
-                                            color: Colors.white
-                                                .withOpacity(opacity),
-                                          ),
-                                          SizedBox(width: 10),
-                                          Text(gameInfo.length,
+                                                      .withOpacity(opacity))),
+                                          Text(gameInfo.tagline,
                                               style: TextStyle(
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
+                                                  overflow: TextOverflow.ellipsis,
                                                   color: Colors.white
-                                                      .withOpacity(opacity)))
-                                        ]),
-                                        Row(children: [
-                                          Icon(
-                                            FluentIcons.translate,
-                                            color: Colors.white
-                                                .withOpacity(opacity),
-                                          ),
-                                          SizedBox(width: 10),
-                                          Text(gameInfo.translation.name,
-                                              style: TextStyle(
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  color: Colors.white
-                                                      .withOpacity(opacity)))
-                                        ]),
-                                      ]))
-                            ]),
-                          )));
-                })));
+                                                      .withOpacity(opacity))),
+                                          SizedBox(height: 10),
+                                          Row(children: [
+                                            Icon(
+                                              FluentIcons.people,
+                                              color: Colors.white
+                                                  .withOpacity(opacity),
+                                            ),
+                                            SizedBox(width: 10),
+                                            Text(
+                                                gameInfo.players.min.toString() +
+                                                    " - " +
+                                                    gameInfo.players.max
+                                                        .toString() +
+                                                    " " +
+                                                    AppLocalizations.of(context)!
+                                                        .players,
+                                                style: TextStyle(
+                                                    color: Colors.white
+                                                        .withOpacity(opacity)))
+                                          ]),
+                                          Row(children: [
+                                            Icon(
+                                              FluentIcons.clock,
+                                              color: Colors.white
+                                                  .withOpacity(opacity),
+                                            ),
+                                            SizedBox(width: 10),
+                                            Text(gameInfo.length,
+                                                style: TextStyle(
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    color: Colors.white
+                                                        .withOpacity(opacity)))
+                                          ]),
+                                          Row(children: [
+                                            Icon(
+                                              FluentIcons.translate,
+                                              color: Colors.white
+                                                  .withOpacity(opacity),
+                                            ),
+                                            SizedBox(width: 10),
+                                            Text(gameInfo.translation.name,
+                                                style: TextStyle(
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    color: Colors.white
+                                                        .withOpacity(opacity)))
+                                          ]),
+                                        ]))
+                              ]),
+                            )));
+                  })),
+        ));
   }
 }

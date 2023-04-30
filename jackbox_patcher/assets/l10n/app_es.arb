@@ -106,7 +106,7 @@
   "search_game": "Buscar un juego",
   "search": "Buscar",
   "all_games": "Todos los juegos",
-  "all_games_description": "Encuentra todos los juegos de jackbox en un solo lugar",
+  "all_games_description": "Encuentra todos los juegos de Jackbox en un solo lugar",
   "search_by_pack": "Buscar por Pack",
   "search_by_type": "Buscar por tipo",
   "search_by_translation": "Buscar por traducción",
@@ -171,5 +171,26 @@
     }
   },
   "author": "Autor",
-  "contributors": "Contribuyentes"
+  "contributors": "Contribuyentes", 
+
+    "in_language":"En {language}",
+    "@in_language":{
+        "placeholders":{
+            "language":{
+                "type":"String",
+                "example":"Español"
+            }
+        }
+    },
+    "in_language_description":"Estos juegos están disponibles en {language} (nativamente o traducidos por la comunidad)",
+    "@in_language_description":{
+        "placeholders":{
+            "language":{
+                "type":"String",
+                "example":"Español"
+            }
+        }
+    },
+    "game_community_dubbed":"Doblado por la comunidad",
+    "game_community_dubbed_description":"Estos juegos se encuentran doblados por la comunidad"
 }

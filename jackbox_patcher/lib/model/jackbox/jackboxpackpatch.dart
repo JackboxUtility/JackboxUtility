@@ -1,9 +1,7 @@
-import 'package:jackbox_patcher/model/jackboxgame.dart';
-import 'package:jackbox_patcher/model/jackboxgamepatch.dart';
-import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
-import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
+import 'package:jackbox_patcher/model/jackbox/jackboxgame.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 
+import '../base/PatchInformation.dart';
 import 'jackboxpack.dart';
 
 class JackboxPackPatch {
@@ -38,23 +36,17 @@ class JackboxPackPatch {
   }
 }
 
-class JackboxPackPatchComponent {
-  final String id;
+class JackboxPackPatchComponent extends PatchInformation {
   final String? linkedGame;
-  final String name;
-  final String? authors;
-  final String? description;
-  final String? smallDescription;
-  final PatchType? patchType;
 
   JackboxPackPatchComponent({
-    required this.id,
+    required super.id,
     required this.linkedGame,
-    required this.name,
-    required this.description,
-    required this.authors,
-    required this.smallDescription,
-    required this.patchType,
+    required super.name,
+    required super.description,
+    required super.authors,
+    required super.smallDescription,
+    required super.patchType,
   });
 
   factory JackboxPackPatchComponent.fromJson(Map<String, dynamic> json) {

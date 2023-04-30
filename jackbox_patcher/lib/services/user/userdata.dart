@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:jackbox_patcher/model/jackboxpack.dart';
+import 'package:jackbox_patcher/model/jackbox/jackboxpack.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgamepatch.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';

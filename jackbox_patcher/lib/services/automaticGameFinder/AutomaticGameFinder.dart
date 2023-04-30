@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:jackbox_patcher/model/jackboxpack.dart';
+import 'package:jackbox_patcher/model/jackbox/jackboxpack.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:win32_registry/win32_registry.dart';
 

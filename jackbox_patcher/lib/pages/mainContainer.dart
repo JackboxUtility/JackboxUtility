@@ -8,7 +8,7 @@ import 'package:jackbox_patcher/components/menu.dart';
 import 'package:jackbox_patcher/model/patchserver.dart';
 import 'package:jackbox_patcher/pages/parameters/packs.dart';
 import 'package:jackbox_patcher/pages/patcher/packContainer.dart';
-import 'package:jackbox_patcher/model/jackboxpack.dart';
+import 'package:jackbox_patcher/model/jackbox/jackboxpack.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/device/device.dart';
 import 'package:jackbox_patcher/services/downloader/downloader_service.dart';

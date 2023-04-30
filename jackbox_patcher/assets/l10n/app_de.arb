@@ -171,5 +171,26 @@
         }
     },
     "author": "Autor",
-    "contributors": "Mitwirkende"
+    "contributors": "Mitwirkende", 
+
+    "in_language":"In {language}",
+    "@in_language":{
+        "placeholders":{
+            "language":{
+                "type":"String",
+                "example":"French"
+            }
+        }
+    },
+    "in_language_description":"These games are available in {language} (natively or translated by the community)",
+    "@in_language_description":{
+        "placeholders":{
+            "language":{
+                "type":"String",
+                "example":"French"
+            }
+        }
+    },
+    "game_community_dubbed":"Community dubbed",
+    "game_community_dubbed_description":"These games are dubbed by the community"
 }
