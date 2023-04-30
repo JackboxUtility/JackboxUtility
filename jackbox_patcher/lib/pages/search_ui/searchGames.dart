@@ -233,7 +233,7 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
     return MouseRegion(
         cursor: SystemMouseCursors.click,
         child: AspectRatio(
-          aspectRatio: 2.02,
+          aspectRatio: 2.17,
           child: ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
               child: TweenAnimationBuilder<double>(
