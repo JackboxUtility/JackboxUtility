@@ -19,7 +19,7 @@ class UserJackboxPackPatch {
     required this.patch,
     required this.installedVersion,
   });
-
+ 
   UserInstalledPatchStatus getInstalledStatus() {
     UserJackboxPack pack = getPack();
     String? packPath = pack.path;
