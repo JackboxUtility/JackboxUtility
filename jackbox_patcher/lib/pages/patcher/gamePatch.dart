@@ -33,8 +33,10 @@ void _openPatchInfo(context, dynamic data, JackboxGame? relatedGame) {
                                 topRight: Radius.circular(8)),
                             child: SizedBox(
                                 height: 100,
-                                child: BlurHashImage(
-                                  url: relatedGame.background,
+                                child: CachedNetworkImage(
+                                  imageUrl: APIService().assetLink(relatedGame.background),
+                                  height: 100,
+                                  memCacheHeight: 100,
                                   fit: BoxFit.fitWidth,
                                 ))))
                   ])
@@ -486,10 +488,11 @@ class _GameImageWithOpenerState extends State<GameImageWithOpener> {
                                     playButtonVisible = false;
                                   }),
                               child: Stack(children: [
-                                BlurHashImage(
-                                  url: widget.game.game.background,
+                                CachedNetworkImage(
+                                  imageUrl: APIService().assetLink(widget.game.game.background),
                                   fit: BoxFit.contain,
-                                  height:100
+                                  height:100, 
+                                  memCacheHeight: 100,
                                 ),
                                 AnimatedContainer(
                                   duration: Duration(milliseconds: 200),

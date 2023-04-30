@@ -12,6 +12,7 @@ import 'package:jackbox_patcher/model/jackboxpack.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/device/device.dart';
 import 'package:jackbox_patcher/services/downloader/downloader_service.dart';
+import 'package:jackbox_patcher/services/downloader/precache_service.dart';
 import 'package:jackbox_patcher/services/error/error.dart';
 import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
@@ -311,6 +312,7 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
       await _loadWelcome();
       await _loadPacks();
       await _loadBlurHashes();
+      _precacheImages();
       if (changedServer)
         await _launchAutomaticGameFinder(
             automaticGameFindNotificationAvailable);
@@ -354,6 +356,10 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
     var packageInfo = (await PackageInfo.fromPlatform());
     File("jackbox_patcher.version")
         .writeAsString(packageInfo.version + "+" + packageInfo.buildNumber);
+  }
+
+  Future<void> _precacheImages() async {
+    await PrecacheService().precacheAll(context);
   }
 
   Future<void> _loadInfo() async {

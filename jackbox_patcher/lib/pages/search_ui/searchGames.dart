@@ -1,6 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:jackbox_patcher/components/blurhashimage.dart';
 import 'package:jackbox_patcher/model/jackboxpack.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
@@ -78,9 +78,9 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
               height: 200,
               child: Row(children: [
                 Expanded(
-                    child: BlurHashImage(
-                  url:widget.background != null
-                      ? widget.background!
+                    child: CachedNetworkImage(
+                  imageUrl:widget.background != null
+                      ? APIService().assetLink(widget.background!)
                       : APIService().getDefaultBackground(),
                       height:200,
                   fit: BoxFit.fitWidth,
@@ -162,7 +162,7 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
         child: StaggeredGrid.count(
             mainAxisSpacing: 20,
             crossAxisSpacing: 20,
-            crossAxisCount: 3,
+            crossAxisCount: _getGamesByGrid(),
             children: games
                 .map((game) => SearchGameGameWidget(
                       pack: game["pack"] as UserJackboxPack,
@@ -170,6 +170,21 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
                       showAllPacks: widget.showAllPacks,
                     ))
                 .toList()));
+  }
+
+  int _getGamesByGrid(){
+    if(MediaQuery.of(context).size.width > 1800){
+      return 5;
+    }else 
+    if(MediaQuery.of(context).size.width > 1400){
+      return 4;
+    }else if(MediaQuery.of(context).size.width > 1000){
+      return 3;
+    }else if(MediaQuery.of(context).size.width > 600){
+      return 2;
+    }else{
+      return 1;
+    }
   }
 
   double calculatePadding() {
@@ -243,10 +258,10 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                             onExit: (a) => setState(() {
                               smallInfoVisible = false;
                             }),
-                            child: Stack(children: [
-                              BlurHashImage(
-                                url: widget.game.game.background,
-                                fit: BoxFit.fitWidth,
+                            child: Stack(fit:StackFit.expand, children: [
+                              CachedNetworkImage(
+                                imageUrl: APIService().assetLink(widget.game.game.background),
+                                fit: BoxFit.cover,
                               ),
                               Container(
                                   decoration: BoxDecoration(

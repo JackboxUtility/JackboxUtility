@@ -48,20 +48,12 @@ class _CategoryPackPatchState extends State<CategoryPackPatch> {
   @override
   Widget build(BuildContext context) {
     _getPatchStatus();
-    return Container(
-        margin: EdgeInsets.all(12),
-        child: ClipRRect(
-            borderRadius: BorderRadius.circular(8.0),
-            child: Acrylic(
-                shadowColor: Colors.black,
-                blurAmount: 1,
-                tintAlpha: 1,
-                tint: Color.fromARGB(255, 48, 48, 48),
-                child: Stack(children: [
-                  Positioned(
-                      top: 10,
-                      right: 10,
-                      child: FilledButton(
+    return Padding(padding: 
+            EdgeInsets.all(12), child:Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        
+                       FilledButton(
                           child: Text(buttonText),
                           onPressed: !installButtonDisabled
                               ? () async {
@@ -74,53 +66,66 @@ class _CategoryPackPatchState extends State<CategoryPackPatch> {
                                       });
                                   setState(() {});
                                 }
-                              : null)),
-                  Container(
-                      padding: EdgeInsets.only(bottom: 12, top: 12),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Expanded(
-                                child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 12),
-                              child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(widget.category.name,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(fontSize: 25)),
-                                    Text(
-                                      widget.category.smallDescription,
-                                    ),
-                                    SizedBox(height: 10),
-                                    StaggeredGrid.count(
-                                        mainAxisSpacing: 20,
-                                        crossAxisSpacing: 20,
-                                        crossAxisCount: 3,
-                                        children: List.generate(
-                                            widget.showAllPacks
-                                                ? widget.category
-                                                    .getAvailablePatchs()
-                                                    .length
-                                                : widget.category
-                                                    .getAvailablePatchs()
-                                                    .where((element) =>
-                                                        element.pack.owned)
-                                                    .length,
-                                            (index) => PackInCategoryCard(
-                                                data: widget.showAllPacks
-                                                    ? _sortAvailablePatchs()[
-                                                        index]
-                                                    : _sortAvailablePatchs()
+                              : null),
+      SizedBox(height: 20), 
+        Container(
+            child: ClipRRect(
+                borderRadius: BorderRadius.circular(8.0),
+                child: Acrylic(
+                    shadowColor: Colors.black,
+                    blurAmount: 1,
+                    tintAlpha: 1,
+                    tint: Color.fromARGB(255, 48, 48, 48),
+                    child: Stack(children: [
+                      Container(
+                          padding: EdgeInsets.only(bottom: 12, top: 12),
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                    child: Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 12),
+                                  child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(widget.category.name,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(fontSize: 25)),
+                                        Text(
+                                          widget.category.smallDescription,
+                                        ),
+                                        SizedBox(height: 10),
+                                        StaggeredGrid.count(
+                                            mainAxisSpacing: 20,
+                                            crossAxisSpacing: 20,
+                                            crossAxisCount: 3,
+                                            children: List.generate(
+                                                widget.showAllPacks
+                                                    ? widget.category
+                                                        .getAvailablePatchs()
+                                                        .length
+                                                    : widget.category
+                                                        .getAvailablePatchs()
                                                         .where((element) =>
                                                             element.pack.owned)
-                                                        .toList()[index],
-                                                changeMenuView:
-                                                    widget.changeMenuView)))
-                                  ]),
-                            )),
-                          ])),
-                ]))));
+                                                        .length,
+                                                (index) => PackInCategoryCard(
+                                                    data: widget.showAllPacks
+                                                        ? _sortAvailablePatchs()[
+                                                            index]
+                                                        : _sortAvailablePatchs()
+                                                            .where((element) =>
+                                                                element.pack.owned)
+                                                            .toList()[index],
+                                                    changeMenuView:
+                                                        widget.changeMenuView)))
+                                      ]),
+                                )),
+                              ])),
+                    ])))),
+        SizedBox(height: 20)
+      ],)
+    );
   }
 
   List<PackAvailablePatchs> _sortAvailablePatchs() {

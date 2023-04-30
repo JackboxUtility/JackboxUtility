@@ -121,6 +121,8 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
               imageUrl:APIService().assetLink(userPack.pack.icon),
               width: 50,
               height: 50,
+              memCacheHeight: 50,
+              memCacheWidth: 50,
             ),
             title: Text(userPack.pack.name),
             body: PatcherPackWidget(userPack: userPack)));

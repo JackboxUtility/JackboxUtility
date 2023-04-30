@@ -73,8 +73,8 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
                 height: 200,
                 child: Row(children: [
                   Expanded(
-                      child: BlurHashImage(
-                    url:widget.userPack.pack.background,
+                      child: CachedNetworkImage(
+                    imageUrl:APIService().assetLink(widget.userPack.pack.background),
                     fit: BoxFit.fitWidth,
                   ))
                 ])),

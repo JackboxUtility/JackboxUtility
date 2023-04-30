@@ -114,7 +114,8 @@ class _PackPatchState extends State<PackPatch> {
                                 ])),
                       ))),
         ],
-      ))
+      )),
+    SizedBox(height:40) 
     ]);
   }
 
