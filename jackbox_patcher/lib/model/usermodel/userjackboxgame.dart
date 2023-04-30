@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:archive/archive_io.dart';
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:jackbox_patcher/model/base/PatchInformation.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxgame.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgamepatch.dart';
@@ -10,6 +9,7 @@ import 'package:jackbox_patcher/model/usermodel/userjackboxpackpatch.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 
 import '../../services/api/api_service.dart';
+import '../base/patchinformation.dart';
 
 class UserJackboxGame {
   final JackboxGame game;

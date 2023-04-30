@@ -1,4 +1,4 @@
-import '../base/PatchInformation.dart';
+import '../base/patchinformation.dart';
 
 class JackboxGamePatch extends PatchInformation{
   final String latestVersion;
