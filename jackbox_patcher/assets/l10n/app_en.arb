@@ -15,10 +15,39 @@
     "installing_a_patch_description":"You will install the patch. This action is irreversible.",
     "installing_a_patch_end":"Installation completed",
     "can_close_popup":"You can close this pop-up",
+
     "patch_unavailable":"Patch unavailable",
-    "patch_installed":"Patch installed",
-    "patch_outdated":"Update patch",
-    "patch_not_installed":"Install the patch",
+
+    "patch_installed": "{count, plural, one {Patch installed} other {Patches installed}}",
+    "@patch_installed":{
+        "placeholders":{
+            "count":{
+                "type":"num",
+                "example":"1"
+            }
+        }
+    },
+
+    "patch_outdated": "{count, plural, one {Update patch} other {Update patches}}",
+    "@patch_outdated":{
+        "placeholders":{
+            "count":{
+                "type":"num",
+                "example":"1"
+            }
+        }
+    },
+
+    "patch_not_installed": "{count, plural, one {Install the patch} other {Install patches}}",
+    "@patch_not_installed":{
+        "placeholders":{
+            "count":{
+                "type":"num",
+                "example":"1"
+            }
+        }
+    },
+
     "delete_version":"Version deletion",
     "delete_version_description":"If you have reset your game, you can delete the installed version of this game. This will allow you to reinstall the patches.",
     "description":"Description",
@@ -68,7 +97,7 @@
     "game_type_team":"Team",
     "game_type_team_description":"In these games, players are divided into teams and must work together to win.",
 
-    "game_translation_translated":"Translated in *language*",
+    "game_translation_translated":"Officially translated in *language*",
     "game_translation_translated_description":"These games are translated natively into *language*",
     "game_translation_community_translated":"Translated by the community",
     "game_translation_community_translated_description":"These games are translated by the community",
@@ -146,5 +175,50 @@
 
     "all_patches":"All patches",
 
-    "error_happened":"An error has occurred"
+    "error_happened":"An error has occurred",
+
+    "jackbox_utility_description":"An open-source app to download patches and launch Jackbox games",
+
+    "server_information":"Server information",
+    "selected_server":"Selected server",
+    "change_server":"Change server",
+
+    "app_information":"App information",
+
+    "automatic_game_finder_button":"Auto-detect installed games",
+
+    "games_available": "{count, plural, =0 {No game available} one {1 game available} other {{count} games available}}",
+    "@games_available":{
+        "placeholders":{
+            "count":{
+                "type":"num",
+                "example":"1"
+            }
+        }
+    },
+
+    "author":"Author",
+    "contributors":"Contributors", 
+
+    "in_language":"In {language}",
+    "@in_language":{
+        "placeholders":{
+            "language":{
+                "type":"String",
+                "example":"French"
+            }
+        }
+    },
+    "in_language_description":"These games are available in {language} (natively or translated by the community)",
+    "@in_language_description":{
+        "placeholders":{
+            "language":{
+                "type":"String",
+                "example":"French"
+            }
+        }
+    },
+    "game_community_dubbed":"Community dubbed",
+    "game_community_dubbed_description":"These games are dubbed by the community"
+
 }

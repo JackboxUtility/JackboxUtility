@@ -2,8 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:jackbox_patcher/components/blurhashimage.dart';
 import 'package:jackbox_patcher/components/caroussel.dart';
-import 'package:jackbox_patcher/model/jackboxgame.dart';
+import 'package:jackbox_patcher/model/jackbox/jackboxgame.dart';
 import 'package:jackbox_patcher/services/error/error.dart';
 import 'package:jackbox_patcher/services/launcher/launcher.dart';
 import 'package:palette_generator/palette_generator.dart';
@@ -29,16 +30,22 @@ class _GameInfoRouteState extends State<GameInfoRoute> {
         ModalRoute.of(context)!.settings.arguments as List;
     final UserJackboxPack pack = data[0] as UserJackboxPack;
     final UserJackboxGame game = data[1] as UserJackboxGame;
-    return GameInfoWidget(pack: pack, game: game);
+    final bool showAllPacks = data[2] as bool;
+    return GameInfoWidget(pack: pack, game: game, showAllPacks: showAllPacks);
   }
 }
 
 class GameInfoWidget extends StatefulWidget {
-  GameInfoWidget({Key? key, required this.pack, required this.game})
+  GameInfoWidget(
+      {Key? key,
+      required this.pack,
+      required this.game,
+      required this.showAllPacks})
       : super(key: key);
 
   final UserJackboxPack pack;
   final UserJackboxGame game;
+  final bool showAllPacks;
   @override
   State<GameInfoWidget> createState() => _GameInfoWidgetState();
 }
@@ -61,8 +68,8 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
               height: 200,
               child: Row(children: [
                 Expanded(
-                    child: CachedNetworkImage(
-                  imageUrl: APIService().assetLink(widget.pack.pack.background),
+                    child: BlurHashImage(
+                  url: widget.pack.pack.background,
                   fit: BoxFit.fitWidth,
                 ))
               ])),
@@ -438,8 +445,14 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
     return GestureDetector(
         onTap: () {
           if (isLink) {
-            Navigator.pushNamed(context, "/search",
-                arguments: [filter, background, text, description, null]);
+            Navigator.pushNamed(context, "/search", arguments: [
+              filter,
+              background,
+              text,
+              description,
+              null,
+              widget.showAllPacks
+            ]);
           }
         },
         child: Padding(

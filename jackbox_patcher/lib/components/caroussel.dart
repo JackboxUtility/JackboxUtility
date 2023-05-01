@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/widgets.dart';
+import 'package:jackbox_patcher/components/blurhashimage.dart';
 
 import '../services/api/api_service.dart';
 
@@ -20,9 +21,10 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
   Widget build(BuildContext context) {
     return ClipRRect(
         borderRadius: BorderRadius.circular(8.0),
-        child: SizedBox(width:double.maxFinite,
+        child: SizedBox(
+            width: double.maxFinite,
             child: AspectRatio(
-              aspectRatio: 1.778,
+                aspectRatio: 1.778,
                 child: GestureDetector(
                     child: MouseRegion(
                         onEnter: (a) => setState(() {
@@ -32,9 +34,8 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
                               moveButtonVisible = false;
                             }),
                         child: Stack(children: [
-                          CachedNetworkImage(
-                            imageUrl: APIService()
-                                .assetLink(widget.images[imageIndex]),
+                          BlurHashImage(
+                            url: widget.images[imageIndex],
                             fit: BoxFit.fitWidth,
                           ),
                           moveButtonVisible
@@ -45,7 +46,7 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
                                       width: 10,
                                     ),
                                     GestureDetector(
-                                        onTap: () =>  setState(() {
+                                        onTap: () => setState(() {
                                               imageIndex = (imageIndex - 1) %
                                                   (widget.images.length);
                                             }),

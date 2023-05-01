@@ -26,9 +26,8 @@ class Launcher {
         await extractFileToDisk(pack.loader!.path!, packFolder);
       }
 
-       await Process.run(
-        "${pack.path!}/${pack.pack.executable}",[],workingDirectory: pack.path
-      );
+      await Process.run("${pack.path!}/${pack.pack.executable}", [],
+          workingDirectory: pack.path);
       // Extracting into game file
     }
   }
@@ -54,9 +53,8 @@ class Launcher {
       // Extracting into game file
       String packFolder = pack.path!;
       await extractFileToDisk(game.loader!.path!, packFolder);
-          await Process.run(
-        "${pack.path!}/${pack.pack.executable}",[],workingDirectory: pack.path
-      );
+      await Process.run("${pack.path!}/${pack.pack.executable}", [],
+          workingDirectory: pack.path);
     }
   }
 }

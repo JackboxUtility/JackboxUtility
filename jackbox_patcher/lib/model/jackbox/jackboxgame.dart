@@ -1,7 +1,13 @@
+import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/model/gametag.dart';
-import 'package:jackbox_patcher/model/jackboxpack.dart';
-import 'package:jackbox_patcher/model/jackboxgamepatch.dart';
+import 'package:jackbox_patcher/model/jackbox/jackboxpack.dart';
+import 'package:jackbox_patcher/model/jackbox/jackboxgamepatch.dart';
+import 'package:jackbox_patcher/services/api/api_service.dart';
+import 'package:jackbox_patcher/services/translations/language_service.dart';
 import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
+
+import '../usermodel/userjackboxgame.dart';
+import '../usermodel/userjackboxpack.dart';
 
 class JackboxGame {
   final String id;
@@ -193,6 +199,110 @@ enum JackboxGameTranslation {
         return TranslationsHelper()
             .appLocalizations!
             .game_translation_not_available_description;
+    }
+  }
+
+  Color get color {
+    switch (this) {
+      case JackboxGameTranslation.NATIVELY_TRANSLATED:
+        return Color.fromARGB(255, 13, 187, 196);
+      case JackboxGameTranslation.COMMUNITY_TRANSLATED:
+        return Color.fromARGB(255, 20, 140, 12);
+      case JackboxGameTranslation.ENGLISH:
+        return Color.fromARGB(255, 207, 0, 0);
+    }
+  }
+}
+
+enum JackboxGameTranslationCategory {
+  TRANSLATED,
+  NATIVELY_TRANSLATED,
+  COMMUNITY_DUBBED,
+  COMMUNITY_TRANSLATED,
+  ENGLISH;
+
+  String get id {
+    switch (this) {
+      case JackboxGameTranslationCategory.TRANSLATED:
+        return 'TRANSLATED';
+      case JackboxGameTranslationCategory.NATIVELY_TRANSLATED:
+        return 'NATIVELY_TRANSLATED';
+      case JackboxGameTranslationCategory.COMMUNITY_DUBBED:
+        return 'COMMUNITY_DUBBED';
+      case JackboxGameTranslationCategory.COMMUNITY_TRANSLATED:
+        return 'COMMUNITY_TRANSLATED';
+      case JackboxGameTranslationCategory.ENGLISH:
+        return 'ENGLISH';
+    }
+  }
+
+  Color get color {
+    switch (this) {
+      case JackboxGameTranslationCategory.TRANSLATED:
+        return Color.fromARGB(255, 0, 208, 0);
+      case JackboxGameTranslationCategory.COMMUNITY_DUBBED:
+        return Color.fromARGB(255, 12, 78, 140);
+      default:
+        return JackboxGameTranslation.fromString(this.id).color;
+    }
+  }
+
+  String get name {
+    switch (this) {
+      case JackboxGameTranslationCategory.TRANSLATED:
+        String languageKey = APIService().cachedSelectedServer!.languages[0];
+        return TranslationsHelper()
+            .appLocalizations!
+            .in_language(LanguageService().getLanguageName(languageKey));
+      case JackboxGameTranslationCategory.COMMUNITY_DUBBED: 
+        return TranslationsHelper()
+            .appLocalizations!
+            .game_community_dubbed;
+      default:
+        return JackboxGameTranslation.fromString(this.id).name;
+    }
+  }
+
+  String get description {
+    switch (this) {
+      case JackboxGameTranslationCategory.TRANSLATED:
+        String languageKey = APIService().cachedSelectedServer!.languages[0];
+        return TranslationsHelper()
+            .appLocalizations!
+            .in_language_description(LanguageService().getLanguageName(languageKey));
+      case JackboxGameTranslationCategory.COMMUNITY_DUBBED: 
+        return TranslationsHelper()
+            .appLocalizations!
+            .game_community_dubbed_description;
+      default:
+        return JackboxGameTranslation.fromString(this.id).description;
+    }
+  }
+
+  Function(UserJackboxPack pack, UserJackboxGame game) get filter{
+    switch (this) {
+      case JackboxGameTranslationCategory.TRANSLATED:
+        return (UserJackboxPack pack, UserJackboxGame game) {
+          return (game.game.info.translation == JackboxGameTranslation.COMMUNITY_TRANSLATED || game.game.info.translation == JackboxGameTranslation.NATIVELY_TRANSLATED);
+        };
+      case JackboxGameTranslationCategory.NATIVELY_TRANSLATED:
+        return (UserJackboxPack pack, UserJackboxGame game) {
+          return (game.game.info.translation == JackboxGameTranslation.NATIVELY_TRANSLATED);
+        };
+      case JackboxGameTranslationCategory.COMMUNITY_DUBBED:
+        return (UserJackboxPack pack, UserJackboxGame game) {
+          return (game.getInstalledPatch() != null && game.getInstalledPatch()!.patchType!.audios );
+        };
+      case JackboxGameTranslationCategory.COMMUNITY_TRANSLATED:
+        return (UserJackboxPack pack, UserJackboxGame game) {
+          return (game.game.info.translation == JackboxGameTranslation.COMMUNITY_TRANSLATED);
+        };
+
+      case JackboxGameTranslationCategory.ENGLISH:
+        return (UserJackboxPack pack, UserJackboxGame game) {
+          return (game.game.info.translation == JackboxGameTranslation.ENGLISH);
+        };
+      
     }
   }
 }

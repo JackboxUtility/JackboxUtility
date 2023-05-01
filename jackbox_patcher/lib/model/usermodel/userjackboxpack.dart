@@ -1,7 +1,8 @@
 import 'dart:io';
 
-import 'package:jackbox_patcher/model/jackboxpack.dart';
+import 'package:jackbox_patcher/model/jackbox/jackboxpack.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
+import 'package:jackbox_patcher/model/usermodel/userjackboxgamepatch.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpackpatch.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
@@ -35,10 +36,12 @@ class UserJackboxPack {
     if (folder == null) {
       return "INEXISTANT";
     } else {
-      if (await folder.exists() && (pack.executable==null || await File(folder.path + "/"+pack.executable!).exists())) {
-          return "FOUND";
+      if (await folder.exists() &&
+          (pack.executable == null ||
+              await File(folder.path + "/" + pack.executable!).exists())) {
+        return "FOUND";
       } else {
-        return  "NOT_FOUND";
+        return "NOT_FOUND";
       }
     }
   }
@@ -55,6 +58,16 @@ class UserJackboxPack {
 
   Future<void> launch() async {
     await Launcher.launchPack(this);
+  }
+
+  UserJackboxPackPatch? getInstalledPackPatch() {
+    Iterable<UserJackboxPackPatch> patchesInstalled = patches.where((patch) =>
+        patch.getInstalledStatus() == UserInstalledPatchStatus.INSTALLED || patch.getInstalledStatus() == UserInstalledPatchStatus.INSTALLED_OUTDATED);
+    if (patchesInstalled.isNotEmpty) {
+      return patchesInstalled.first;
+    }else{
+      return null;
+    }
   }
 }
 

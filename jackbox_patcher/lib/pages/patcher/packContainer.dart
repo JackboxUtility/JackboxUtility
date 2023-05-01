@@ -3,9 +3,10 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:jackbox_patcher/model/jackboxgame.dart';
-import 'package:jackbox_patcher/model/jackboxpack.dart';
-import 'package:jackbox_patcher/model/jackboxgamepatch.dart';
+import 'package:jackbox_patcher/components/blurhashimage.dart';
+import 'package:jackbox_patcher/model/jackbox/jackboxgame.dart';
+import 'package:jackbox_patcher/model/jackbox/jackboxpack.dart';
+import 'package:jackbox_patcher/model/jackbox/jackboxgamepatch.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgamepatch.dart';
@@ -73,8 +74,7 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
                 child: Row(children: [
                   Expanded(
                       child: CachedNetworkImage(
-                    imageUrl:
-                        APIService().assetLink(widget.userPack.pack.background),
+                    imageUrl:APIService().assetLink(widget.userPack.pack.background),
                     fit: BoxFit.fitWidth,
                   ))
                 ])),

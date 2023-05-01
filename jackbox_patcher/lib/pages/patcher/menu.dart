@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:jackbox_patcher/components/blurhashimage.dart';
 import 'package:jackbox_patcher/pages/patcher/categoryPackPatch.dart';
 
 import '../../services/api/api_service.dart';
@@ -58,14 +60,15 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
           footerItems: [
             PaneItem(
               icon: Icon(FluentIcons.package),
-              title: 
-                Text(showAllPacks==false? AppLocalizations.of(context)!.show_all_packs: AppLocalizations.of(context)!.show_owned_packs_only),
+              title: Text(showAllPacks == false
+                  ? AppLocalizations.of(context)!.show_all_packs
+                  : AppLocalizations.of(context)!.show_owned_packs_only),
               body: Container(),
               onTap: () {
                 setState(() {
-                        showAllPacks = !showAllPacks;
-                      });
-                      _buildPaneItems();
+                  showAllPacks = !showAllPacks;
+                });
+                _buildPaneItems();
               },
             )
           ]),
@@ -97,7 +100,9 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
                     category: APIService().cachedCategories[i],
                     showAllPacks: showAllPacks,
                     changeMenuView: _changeMenuView)))));
-    for (var userPack in showAllPacks? UserData().packs: UserData().packs.where((element) => element.owned).toList()) {
+    for (var userPack in showAllPacks
+        ? UserData().packs
+        : UserData().packs.where((element) => element.owned).toList()) {
       int countPatchs = 0;
       for (var game in userPack.games) {
         if (game.patches.length >= 1) {
@@ -111,7 +116,14 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
       if (countPatchs == 1) {
         items.add(PaneItem(
             key: ValueKey(userPack.pack.id),
-            icon: Image.network(APIService().assetLink(userPack.pack.icon), cacheWidth: 50, cacheHeight: 50,),
+            icon: CachedNetworkImage(
+              fit:BoxFit.fitHeight,
+              imageUrl:APIService().assetLink(userPack.pack.icon),
+              width: 50,
+              height: 50,
+              memCacheHeight: 50,
+              memCacheWidth: 50,
+            ),
             title: Text(userPack.pack.name),
             body: PatcherPackWidget(userPack: userPack)));
       }

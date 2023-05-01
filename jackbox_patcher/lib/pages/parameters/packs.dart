@@ -1,6 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:jackbox_patcher/components/blurhashimage.dart';
 import 'package:jackbox_patcher/components/dialogs/automaticGameFinderDialog.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
+import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -17,17 +20,15 @@ class ParametersWidget extends StatefulWidget {
 
 class _ParametersWidgetState extends State<ParametersWidget> {
   UserJackboxPack? selectedPack;
-  List<UserJackboxPack> packs = [];
 
   @override
   void initState() {
-    packs.addAll(widget.originalPacks);
     super.initState();
   }
 
   double calculatePadding() {
-    if (MediaQuery.of(context).size.width > 1000) {
-      return (MediaQuery.of(context).size.width - 880) / 2;
+    if (MediaQuery.of(context).size.width > 1200) {
+      return (MediaQuery.of(context).size.width - 1080) / 2;
     } else {
       return 60;
     }
@@ -53,10 +54,10 @@ class _ParametersWidgetState extends State<ParametersWidget> {
                     style: typography.titleLarge),
                 Spacer(),
                 FilledButton(
-                    child: Text("Auto-detect installed games"),
+                    child: Text(AppLocalizations.of(context)!
+                        .automatic_game_finder_button),
                     onPressed: () async {
-                      _launchAutomaticGameFinder(true);
-                      packs = UserData().packs;
+                      await _launchAutomaticGameFinder(true);
                       setState(() {});
                     })
               ]),
@@ -64,13 +65,15 @@ class _ParametersWidgetState extends State<ParametersWidget> {
                 height: 10,
               ),
               _showOwnedPack(),
-              ListTile(
-                title: Text(AppLocalizations.of(context)!.add_pack),
-                leading: Icon(FluentIcons.add),
-                onPressed: () {
-                  _showAddPackDialog();
-                },
-              ),
+              if (UserData().packs.length !=
+                  UserData().packs.where((element) => element.owned).length)
+                ListTile(
+                  title: Text(AppLocalizations.of(context)!.add_pack),
+                  leading: Icon(FluentIcons.add),
+                  onPressed: () {
+                    _showAddPackDialog();
+                  },
+                ),
               SizedBox(
                 height: 30,
               ),
@@ -92,6 +95,8 @@ class _ParametersWidgetState extends State<ParametersWidget> {
   }
 
   _showAddPackDialog() async {
+    List<UserJackboxPack> notOwnedPacks =
+        UserData().packs.where((element) => !element.owned).toList();
     bool? packSelected = await showDialog<bool>(
         context: context,
         builder: (context) => ContentDialog(
@@ -102,12 +107,11 @@ class _ParametersWidgetState extends State<ParametersWidget> {
                   child: ComboBox<UserJackboxPack>(
                     value: selectedPack,
                     items: List.generate(
-                        widget.originalPacks.length,
+                        notOwnedPacks.length,
                         (index) => ComboBoxItem(
-                              value: widget.originalPacks[index],
+                              value: notOwnedPacks[index],
                               onTap: () {},
-                              child:
-                                  Text(widget.originalPacks[index].pack.name),
+                              child: Text(notOwnedPacks[index].pack.name),
                             )),
                     onChanged: (pack) async {
                       await pack!.setOwned(true);
@@ -132,34 +136,33 @@ class _ParametersWidgetState extends State<ParametersWidget> {
   }
 
   Widget _showOwnedPack() {
-    return ListView.builder(
-        shrinkWrap: true,
-        itemCount:
-            widget.originalPacks.where((element) => element.owned).length,
-        itemBuilder: (context, index) {
-          return _buildOwnedPack(widget.originalPacks
-              .where((element) => element.owned)
-              .toList()[index]);
-        });
+    return Column(
+        children: List.generate(
+            UserData().packs.where((element) => element.owned).length, (index) {
+      return _buildOwnedPack(
+          UserData().packs.where((element) => element.owned).toList()[index]);
+    }));
   }
 
   Widget _buildOwnedPack(UserJackboxPack pack) {
-    return PackInParametersWidget(
-      pack: pack,
-      reloadallPacks: () {
-        setState(() {});
-      },
-    );
+    return PackInParametersWidget(pack: pack, reloadallPacks: _reloadAllPacks);
+  }
+
+  _reloadAllPacks() {
+    setState(() {});
   }
 }
 
 class PackInParametersWidget extends StatefulWidget {
-  PackInParametersWidget(
-      {Key? key, required this.pack, required this.reloadallPacks})
-      : super(key: key);
+  PackInParametersWidget({
+    Key? key,
+    required this.pack,
+    required this.reloadallPacks,
+  }) : super(key: key);
 
-  final UserJackboxPack pack;
+  UserJackboxPack pack;
   final Function reloadallPacks;
+
   @override
   State<PackInParametersWidget> createState() => _PackInParametersWidgetState();
 }
@@ -176,18 +179,31 @@ class _PackInParametersWidgetState extends State<PackInParametersWidget> {
   }
 
   _loadPackPathStatus() async {
-    packStatus = await widget.pack.getPathStatus();
-    setState(() {});
+    String pathStatus = await widget.pack.getPathStatus();
+    if (packStatus != pathStatus) {
+      packStatus = pathStatus;
+      setState(() {});
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    _loadPackPathStatus();
     return ListTile(
-      leading: packStatus == "NOT_FOUND"
-          ? Icon(FluentIcons.warning, color: Colors.red)
-          : packStatus == "INEXISTANT"
-              ? Icon(FluentIcons.warning, color: Colors.yellow)
-              : Icon(FluentIcons.check_mark, color: Colors.green),
+      leading: Row(children: [
+        packStatus == "NOT_FOUND"
+            ? Icon(FluentIcons.warning, color: Colors.red)
+            : packStatus == "INEXISTANT"
+                ? Icon(FluentIcons.warning, color: Colors.yellow)
+                : Icon(FluentIcons.check_mark, color: Colors.green),
+        SizedBox(width: 10),
+        CachedNetworkImage(
+          imageUrl:APIService().assetLink(widget.pack.pack.icon), 
+          height: 30,
+          memCacheHeight: 30,
+          fit:BoxFit.fitHeight
+        )
+      ]),
       title: Text(widget.pack.pack.name),
       subtitle: Text(
           packStatus == "NOT_FOUND"

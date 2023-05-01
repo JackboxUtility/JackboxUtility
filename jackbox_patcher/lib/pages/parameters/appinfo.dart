@@ -44,7 +44,7 @@ class _AppInfoWidgetState extends State<AppInfoWidget> {
               style: FluentTheme.of(context).typography.titleLarge),
           SizedBox(height:12),
           Text(
-              "An open-source app to download patches and launch Jackbox games",
+              AppLocalizations.of(context)!.jackbox_utility_description,
               style: FluentTheme.of(context).typography.body),
           SizedBox(height:12),
           Text(AppLocalizations.of(context)!.version+" " + version,
@@ -63,7 +63,7 @@ class _AppInfoWidgetState extends State<AppInfoWidget> {
               Spacer(),
               Column(children: [
 
-                Text("Authors"),
+                Text(AppLocalizations.of(context)!.author),
                 TextButton(
                   child: Row(children:[FaIcon(FontAwesomeIcons.github), SizedBox(width: 10,), Text("AlexisL61")]),
                   onPressed: () async {
@@ -72,7 +72,7 @@ class _AppInfoWidgetState extends State<AppInfoWidget> {
               ]),
               Spacer(),
               Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-                Text("Contributors"),
+                Text(AppLocalizations.of(context)!.contributors),
                 TextButton(
                   child: Row(children:[FaIcon(FontAwesomeIcons.github), SizedBox(width: 10,), Text("Akira896")]),
                   onPressed: () async {

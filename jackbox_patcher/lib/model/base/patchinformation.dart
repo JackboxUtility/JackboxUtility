@@ -1,38 +1,21 @@
-class JackboxGamePatch {
+import '../jackbox/jackboxgamepatch.dart';
+
+class PatchInformation {
   final String id;
   final String name;
   final String? authors;
-  final PatchType? patchType;
-  final String latestVersion;
-  final String? patchPath;
-  final String description;
+  final String? description;
   final String? smallDescription;
+  final PatchType? patchType;
 
-  JackboxGamePatch({
+  PatchInformation({
     required this.id,
     required this.name,
     required this.description,
-    required this.latestVersion,
-    required this.patchPath,
-    required this.patchType,
     required this.authors,
     required this.smallDescription,
+    required this.patchType,
   });
-
-  factory JackboxGamePatch.fromJson(Map<String, dynamic> json) {
-    return JackboxGamePatch(
-      id: json['id'],
-      name: json['name'],
-      description: json['description'],
-      latestVersion: json['version'],
-      patchPath: json['patch_path'],
-      patchType: json['patch_type'] == null
-          ? null
-          : PatchType.fromJson(json['patch_type']),
-      authors: json['authors'],
-      smallDescription: json['small_description'],
-    );
-  }
 }
 
 class PatchType {

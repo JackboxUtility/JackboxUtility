@@ -1,7 +1,7 @@
 import 'package:archive/archive_io.dart';
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:jackbox_patcher/model/jackboxpack.dart';
-import 'package:jackbox_patcher/model/jackboxpackpatch.dart';
+import 'package:jackbox_patcher/model/jackbox/jackboxpack.dart';
+import 'package:jackbox_patcher/model/jackbox/jackboxpackpatch.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgamepatch.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
@@ -9,7 +9,7 @@ import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
 import '../../services/api/api_service.dart';
 import '../../services/downloader/downloader_service.dart';
 import '../../services/user/userdata.dart';
-import '../jackboxgamepatch.dart';
+import '../jackbox/jackboxgamepatch.dart';
 
 class UserJackboxPackPatch {
   final JackboxPackPatch patch;
@@ -19,7 +19,7 @@ class UserJackboxPackPatch {
     required this.patch,
     required this.installedVersion,
   });
-
+ 
   UserInstalledPatchStatus getInstalledStatus() {
     UserJackboxPack pack = getPack();
     String? packPath = pack.path;

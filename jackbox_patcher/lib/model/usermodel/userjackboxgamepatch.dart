@@ -7,7 +7,7 @@ import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
 
 import '../../services/api/api_service.dart';
 import '../../services/user/userdata.dart';
-import '../jackboxgamepatch.dart';
+import '../jackbox/jackboxgamepatch.dart';
 
 class UserJackboxGamePatch {
   final JackboxGamePatch patch;
@@ -58,9 +58,9 @@ class UserJackboxGamePatch {
 
 enum UserInstalledPatchStatus {
   INEXISTANT,
+  INSTALLED_OUTDATED,
   NOT_INSTALLED,
-  INSTALLED,
-  INSTALLED_OUTDATED
+  INSTALLED
 }
 
 extension UserInstalledPatchStatusExtension on UserInstalledPatchStatus {

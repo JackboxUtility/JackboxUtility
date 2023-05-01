@@ -1,7 +1,7 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:jackbox_patcher/components/dialogs/downloadPatchDialog.dart';
-import 'package:jackbox_patcher/model/jackboxpackpatch.dart';
+import 'package:jackbox_patcher/model/jackbox/jackboxpackpatch.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgamepatch.dart';
 import 'package:jackbox_patcher/pages/patcher/gamePatch.dart';
 
@@ -72,15 +72,7 @@ class _PackPatchState extends State<PackPatch> {
                       blurAmount: 1,
                       tintAlpha: 1,
                       tint: Color.fromARGB(255, 48, 48, 48),
-                      child: Stack(children: [
-                        Container(
-                            padding: EdgeInsets.all(12),
-                            child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Text(AppLocalizations.of(context)!.version +" "+
-                                      widget.patch.patch.latestVersion)
-                                ])),
+                      child: 
                         Container(
                             padding: EdgeInsets.only(bottom: 12, top: 12),
                             child: Row(
@@ -94,9 +86,16 @@ class _PackPatchState extends State<PackPatch> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Text(widget.patch.patch.name,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: TextStyle(fontSize: 25)),
+                                          Row(
+                                            children: [
+                                              Text(widget.patch.patch.name,
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: TextStyle(fontSize: 25)),
+                                              SizedBox(width: 20),
+                                              Text(AppLocalizations.of(context)!.version +" "+
+                                      widget.patch.patch.latestVersion, style:TextStyle(color: Colors.white.withOpacity(0.7)))
+                                            ],
+                                          ),
                                           Text(
                                             widget
                                                 .patch.patch.smallDescription,
@@ -111,10 +110,12 @@ class _PackPatchState extends State<PackPatch> {
                                               : Container(),
                                         ]),
                                   )),
+                                
                                 ])),
-                      ])))),
+                      ))),
         ],
-      ))
+      )),
+    SizedBox(height:40) 
     ]);
   }
 
@@ -125,14 +126,14 @@ class _PackPatchState extends State<PackPatch> {
         installButtonDisabled = true;
         break;
       case UserInstalledPatchStatus.INSTALLED:
-        buttonText = AppLocalizations.of(context)!.patch_installed;
+        buttonText = AppLocalizations.of(context)!.patch_installed(1);
         installButtonDisabled = true;
         break;
       case UserInstalledPatchStatus.INSTALLED_OUTDATED:
-        buttonText = AppLocalizations.of(context)!.patch_outdated;
+        buttonText = AppLocalizations.of(context)!.patch_outdated(1);
         break;
       case UserInstalledPatchStatus.NOT_INSTALLED:
-        buttonText = AppLocalizations.of(context)!.patch_not_installed;
+        buttonText = AppLocalizations.of(context)!.patch_not_installed(1);
         break;
       default:
     }

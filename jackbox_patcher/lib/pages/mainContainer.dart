@@ -8,10 +8,11 @@ import 'package:jackbox_patcher/components/menu.dart';
 import 'package:jackbox_patcher/model/patchserver.dart';
 import 'package:jackbox_patcher/pages/parameters/packs.dart';
 import 'package:jackbox_patcher/pages/patcher/packContainer.dart';
-import 'package:jackbox_patcher/model/jackboxpack.dart';
+import 'package:jackbox_patcher/model/jackbox/jackboxpack.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/device/device.dart';
 import 'package:jackbox_patcher/services/downloader/downloader_service.dart';
+import 'package:jackbox_patcher/services/downloader/precache_service.dart';
 import 'package:jackbox_patcher/services/error/error.dart';
 import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
@@ -222,10 +223,10 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
                           backgroundColor: ButtonState.all(Colors.grey),
                           shape: ButtonState.all(RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8.0)))),
-                      onPressed: () async{
+                      onPressed: () async {
                         await Navigator.pushNamed(context, "/settings",
                             arguments: UserData().packs);
-                        if (APIService().cachedSelectedServer!=null){
+                        if (APIService().cachedSelectedServer != null) {
                           _loaded = false;
                           setState(() {});
                           _load(false);
@@ -258,7 +259,6 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
           UserData().setSelectedServer(null);
           UserData().packs = [];
           APIService().resetCache();
-          
         },
       )
     ]);
@@ -294,7 +294,7 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
     bool changedServer = false;
     bool automaticGameFindNotificationAvailable = false;
     UserData().packs = [];
-    APIService().resetCache(); 
+    APIService().resetCache();
     await windowManager.setPreventClose(true);
     await UserData().init();
     if (UserData().getSelectedServer() == null) {
@@ -311,6 +311,8 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
       await _loadInfo();
       await _loadWelcome();
       await _loadPacks();
+      await _loadBlurHashes();
+      _precacheImages();
       if (changedServer)
         await _launchAutomaticGameFinder(
             automaticGameFindNotificationAvailable);
@@ -336,20 +338,28 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
       if (server.languages.where((e) => locale.startsWith(e)).length > 0) {
         print("Found server");
         await UserData().setSelectedServer(server.infoUrl);
-        InfoBarService.showInfo(context, AppLocalizations.of(context)!.automatic_server_finder_found,
-            AppLocalizations.of(context)!.automatic_server_finder_found_description(server.name));
+        InfoBarService.showInfo(
+            context,
+            AppLocalizations.of(context)!.automatic_server_finder_found,
+            AppLocalizations.of(context)!
+                .automatic_server_finder_found_description(server.name));
         return;
       }
     }
     await Navigator.pushNamed(context, "/serverSelect");
   }
 
-  Future<void> createVersionFile() async{
+  Future<void> createVersionFile() async {
     if (!File("jackbox_patcher.version").existsSync()) {
       File("jackbox_patcher.version").createSync();
     }
     var packageInfo = (await PackageInfo.fromPlatform());
-    File("jackbox_patcher.version").writeAsString(packageInfo.version+"+"+packageInfo.buildNumber);
+    File("jackbox_patcher.version")
+        .writeAsString(packageInfo.version + "+" + packageInfo.buildNumber);
+  }
+
+  Future<void> _precacheImages() async {
+    await PrecacheService().precacheAll(context);
   }
 
   Future<void> _loadInfo() async {
@@ -362,6 +372,10 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
 
   Future<void> _loadPacks() async {
     await UserData().syncPacks();
+  }
+
+  Future<void> _loadBlurHashes() async {
+    await APIService().recoverBlurHashes();
   }
 
   Future<void> _showAutomaticGameFinderDialog() async {
