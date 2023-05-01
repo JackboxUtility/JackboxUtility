@@ -227,34 +227,14 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
   List<NavigationPaneItem> _buildTranlationPaneItem(){
     List<NavigationPaneItem> translationItem = [];
 
-    // Adding In [language] translations
-    translationItem.add(PaneItem(
-          icon: Container(),
-          title: Text(AppLocalizations.of(context)!.in_language(LanguageService().getLanguageName(APIService().cachedSelectedServer!.languages[0]))),
-          body: SearchGameWidget(
-            filter: (UserJackboxPack pack, UserJackboxGame game) =>
-                (game.game.info.translation == JackboxGameTranslation.COMMUNITY_TRANSLATED || game.game.info.translation == JackboxGameTranslation.NATIVELY_TRANSLATED) &&
-                game.game.name
-                    .toLowerCase()
-                    .contains(_searchController.text.toLowerCase()) &&
-                (showAllPacks || pack.owned),
-            showAllPacks: showAllPacks,
-            comeFromGame: false,
-            background: APIService().getDefaultBackground(),
-            name: AppLocalizations.of(context)!.in_language(LanguageService().getLanguageName(APIService().cachedSelectedServer!.languages[0])),
-            description: AppLocalizations.of(context)!.in_language_description(LanguageService().getLanguageName(APIService().cachedSelectedServer!.languages[0])),
-            icon: null,
-          )));
-
-
     // Adding each translation values
-    for (var translation in JackboxGameTranslation.values) {
+    for (var translation in JackboxGameTranslationCategory.values) {
       translationItem.add(PaneItem(
-          icon: Container(),
+          icon: Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: translation.color ),width:10, height:10),
           title: Text(translation.name),
           body: SearchGameWidget(
             filter: (UserJackboxPack pack, UserJackboxGame game) =>
-                game.game.info.translation == translation &&
+                translation.filter(pack,game) &&
                 game.game.name
                     .toLowerCase()
                     .contains(_searchController.text.toLowerCase()) &&
@@ -267,26 +247,6 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
             icon: null,
           )));
     }
-
-    // Adding Dubbed translations
-    translationItem.insert(2,PaneItem(
-          icon: Container(),
-          title: Text(AppLocalizations.of(context)!.game_community_dubbed),
-          body: SearchGameWidget(
-            filter: (UserJackboxPack pack, UserJackboxGame game) =>
-                (game.getInstalledPatch() != null && game.getInstalledPatch()!.patchType!.audios ) &&
-                game.game.name
-                    .toLowerCase()
-                    .contains(_searchController.text.toLowerCase()) &&
-                (showAllPacks || pack.owned),
-            showAllPacks: showAllPacks,
-            comeFromGame: false,
-            background: APIService().getDefaultBackground(),
-            name: AppLocalizations.of(context)!.game_community_dubbed,
-            description: AppLocalizations.of(context)!.game_community_dubbed_description,
-            icon: null,
-          )));
-
     return translationItem;
 
     
