@@ -213,12 +213,13 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
     }
     return Padding(
         padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
-        child: gamesChildren.length>=1? StaggeredGrid.count(
+        child: Column(children:[Column(
+            children: packPatchChildren), 
+            StaggeredGrid.count(
             mainAxisSpacing: 20,
             crossAxisSpacing: 20,
             crossAxisCount: 3,
-            children: gamesChildren):Column(
-            children: packPatchChildren));
+            children: gamesChildren)]));
   }
 
   void openPack() async {
