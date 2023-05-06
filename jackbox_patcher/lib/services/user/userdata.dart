@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:jackbox_patcher/model/jackbox/jackboxpack.dart';
+import 'package:jackbox_patcher/model/misc/windowInformation.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgamepatch.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -169,11 +170,30 @@ class UserData {
     return preferences.getString("selected_server");
   }
 
+  WindowInformation getLastWindowInformations(){
+    WindowInformation lastWindowInformations = WindowInformation(
+      maximized: preferences.getBool("last_window_maximize") ?? false,
+      width: preferences.getInt("last_window_width") ?? 1280,
+      height: preferences.getInt("last_window_height") ?? 720,
+      x: preferences.getInt("last_window_x") ?? 10,
+      y: preferences.getInt("last_window_y") ?? 10,
+    );
+    return lastWindowInformations;
+  }
+
   Future<void> setSelectedServer(String? server) async {
     if (server == null) {
       await preferences.remove("selected_server");
     } else {
       await preferences.setString("selected_server", server);
     }
+  }
+
+  Future<void> setLastWindowInformations(WindowInformation windowInformation) async {
+    await preferences.setBool("last_window_maximize", windowInformation.maximized);
+    await preferences.setInt("last_window_width", windowInformation.width);
+    await preferences.setInt("last_window_height", windowInformation.height);
+    await preferences.setInt("last_window_x", windowInformation.x);
+    await preferences.setInt("last_window_y", windowInformation.y);
   }
 }

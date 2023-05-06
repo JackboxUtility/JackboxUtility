@@ -16,6 +16,7 @@ import 'package:jackbox_patcher/services/downloader/precache_service.dart';
 import 'package:jackbox_patcher/services/error/error.dart';
 import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
+import 'package:jackbox_patcher/services/windowManager/windowsManagerService.dart';
 import 'package:lottie/lottie.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -35,6 +36,7 @@ class MainContainer extends StatefulWidget {
 }
 
 class _MainContainerState extends State<MainContainer> with WindowListener {
+  bool isFirstTimeOpening = true;
   int _selectedView = 0;
   bool _loaded = false;
 
@@ -57,13 +59,12 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
     TranslationsHelper().appLocalizations = AppLocalizations.of(context);
     return NavigationView(
         content: Stack(children: [
-      
       Column(children: [
         Expanded(
           child: _buildUpper(),
         ),
         _buildLower(),
-        SizedBox(height:50)
+        SizedBox(height: 50)
       ])
     ]));
   }
@@ -209,20 +210,27 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
   }
 
   Widget _buildLower() {
-     return _loaded? Padding(
-       padding: const EdgeInsets.all(8.0),
-       child: NotificationCaroussel(news: APIService().cachedNews,),
-     ):Container();
+    return _loaded
+        ? Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: NotificationCaroussel(
+              news: APIService().cachedNews,
+            ),
+          )
+        : Container();
   }
 
   void _load(bool automaticallyChooseBestServer) async {
-    print("Loading");
     bool changedServer = false;
     bool automaticGameFindNotificationAvailable = false;
+    if (isFirstTimeOpening){
+      isFirstTimeOpening = false;
+      await windowManager.setPreventClose(true);
+      await UserData().init();
+      WindowManagerService.updateScreenSizeFromLastOpening();
+    }
     UserData().packs = [];
     APIService().resetCache();
-    await windowManager.setPreventClose(true);
-    await UserData().init();
     if (UserData().getSelectedServer() == null) {
       if (automaticallyChooseBestServer) {
         await findBestServer();
@@ -231,7 +239,6 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
         automaticGameFindNotificationAvailable = true;
       }
       changedServer = true;
-      print("ChangedServer");
     }
     try {
       await _loadInfo();
@@ -239,9 +246,10 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
       await _loadPacks();
       await _loadBlurHashes();
       _precacheImages();
-      if (changedServer)
+      if (changedServer) {
         await _launchAutomaticGameFinder(
             automaticGameFindNotificationAvailable);
+      }
     } catch (e) {
       InfoBarService.showError(
           context, AppLocalizations.of(context)!.connection_to_server_failed,
@@ -326,8 +334,8 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
 
   @override
   void onWindowClose() async {
-    bool _isPreventClose = await windowManager.isPreventClose();
-    if (_isPreventClose) {
+    bool isPreventClose = await windowManager.isPreventClose();
+    if (isPreventClose) {
       bool shouldClose = DownloaderService.isDownloading
           ? await (showDialog<bool>(
                   context: context,
@@ -336,6 +344,8 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
                   })) ==
               true
           : true;
+      
+      await WindowManagerService.saveCurrentScreenSize();
       if (shouldClose) {
         windowManager.destroy();
       }
