@@ -381,6 +381,7 @@ class _GamePatchCardState extends State<GamePatchCard> {
       onPressFunction = null;
     } else {
       onPressFunction = () => showDialog(
+        dismissWithEsc: false,
           context: context,
           builder: (context) {
             return DownloadPatchDialogComponent(

@@ -58,6 +58,7 @@ class _CategoryPackPatchState extends State<CategoryPackPatch> {
                           onPressed: !installButtonDisabled
                               ? () async {
                                   await showDialog(
+                                    dismissWithEsc: false,
                                       context: context,
                                       builder: (context) {
                                         return DownloadPatchDialogComponent(

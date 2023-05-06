@@ -50,6 +50,7 @@ class _PackPatchState extends State<PackPatch> {
           child: Text(buttonText),
           onPressed: !installButtonDisabled? ()async {
             await showDialog(
+              dismissWithEsc: false,
                 context: context,
                 builder: (context) {
                   return DownloadPatchDialogComponent(
