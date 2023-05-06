@@ -124,8 +124,12 @@ class APIService {
     final response = await get(
         Uri.parse('$baseEndpoint' + APIEndpoints.CONFIGURATIONS.path));
     if (response.statusCode == 200) {
-      final Map<String, dynamic> data = jsonDecode(response.body);
-      cachedConfigurations = PatchServerConfigurations.fromJson(data);
+      try {
+        final Map<String, dynamic> data = jsonDecode(response.body);
+        cachedConfigurations = PatchServerConfigurations.fromJson(data);
+      }catch(e){
+        cachedConfigurations = PatchServerConfigurations.fromJson({});
+      }
     }else{
       cachedConfigurations = PatchServerConfigurations.fromJson({});
     }

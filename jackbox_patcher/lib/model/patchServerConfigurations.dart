@@ -12,9 +12,8 @@ class PatchServerConfigurations {
   }
 
   dynamic getConfiguration(String type, String key) {
-    if (configurations[type] == null) {
-      return null;
+    if (configurations[type] != null) {
+      return configurations[type][key];
     }
-    return configurations[type][key];
   }
 }
