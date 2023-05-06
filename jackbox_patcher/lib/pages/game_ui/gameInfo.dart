@@ -331,7 +331,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                     Text(AppLocalizations.of(context)!.launch_pack_description),
                   ])),
           actions: [
-            TextButton(
+            HyperlinkButton(
               child: Text(AppLocalizations.of(context)!.close),
               onPressed: () {
                 Navigator.of(context).pop();

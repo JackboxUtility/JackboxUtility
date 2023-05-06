@@ -34,7 +34,8 @@ void _openPatchInfo(context, dynamic data, JackboxGame? relatedGame) {
                             child: SizedBox(
                                 height: 100,
                                 child: CachedNetworkImage(
-                                  imageUrl: APIService().assetLink(relatedGame.background),
+                                  imageUrl: APIService()
+                                      .assetLink(relatedGame.background),
                                   height: 100,
                                   memCacheHeight: 100,
                                   fit: BoxFit.fitWidth,
@@ -135,7 +136,7 @@ void _openPatchInfo(context, dynamic data, JackboxGame? relatedGame) {
                 : Container(),
           ]),
           actions: [
-            TextButton(
+            HyperlinkButton(
               onPressed: () => Navigator.pop(context),
               child: Text(AppLocalizations.of(context)!.close),
             ),
@@ -381,7 +382,7 @@ class _GamePatchCardState extends State<GamePatchCard> {
       onPressFunction = null;
     } else {
       onPressFunction = () => showDialog(
-        dismissWithEsc: false,
+          dismissWithEsc: false,
           context: context,
           builder: (context) {
             return DownloadPatchDialogComponent(
@@ -433,11 +434,11 @@ class _GamePatchCardState extends State<GamePatchCard> {
             content:
                 Text(AppLocalizations.of(context)!.delete_version_description),
             actions: [
-              TextButton(
+              HyperlinkButton(
                 onPressed: () => Navigator.pop(context),
                 child: Text(AppLocalizations.of(context)!.cancel),
               ),
-              TextButton(
+              HyperlinkButton(
                 onPressed: () async {
                   await widget.patch.removePatch();
                   Navigator.pop(context);
@@ -490,9 +491,10 @@ class _GameImageWithOpenerState extends State<GameImageWithOpener> {
                                   }),
                               child: Stack(children: [
                                 CachedNetworkImage(
-                                  imageUrl: APIService().assetLink(widget.game.game.background),
+                                  imageUrl: APIService()
+                                      .assetLink(widget.game.game.background),
                                   fit: BoxFit.contain,
-                                  height:100, 
+                                  height: 100,
                                   memCacheHeight: 100,
                                 ),
                                 AnimatedContainer(

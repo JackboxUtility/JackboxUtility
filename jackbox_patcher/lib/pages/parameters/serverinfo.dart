@@ -72,7 +72,7 @@ class _ServerInfoWidgetState extends State<ServerInfoWidget> {
             height: 12,
           ),
           // if (APIService().cachedSelectedServer!.controllerUrl != null)
-          //   TextButton(
+          //   HyperlinkButton(
           //       child:
           //           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           //         Icon(FluentIcons.cell_phone),
@@ -101,7 +101,7 @@ class _ServerInfoWidgetState extends State<ServerInfoWidget> {
         links.add(
             Row(mainAxisAlignment: MainAxisAlignment.center, children: []));
       }
-      links.last.children.add(TextButton(
+      links.last.children.add(HyperlinkButton(
           child: Container(
               width: 150,
               child:

@@ -123,7 +123,7 @@ class _ParametersWidgetState extends State<ParametersWidget> {
                 )
               ])),
               actions: [
-                TextButton(
+                HyperlinkButton(
                     child: Text(AppLocalizations.of(context)!.cancel),
                     onPressed: () {
                       Navigator.pop(context, false);
@@ -198,11 +198,10 @@ class _PackInParametersWidgetState extends State<PackInParametersWidget> {
                 : Icon(FluentIcons.check_mark, color: Colors.green),
         SizedBox(width: 10),
         CachedNetworkImage(
-          imageUrl:APIService().assetLink(widget.pack.pack.icon), 
-          height: 30,
-          memCacheHeight: 30,
-          fit:BoxFit.fitHeight
-        )
+            imageUrl: APIService().assetLink(widget.pack.pack.icon),
+            height: 30,
+            memCacheHeight: 30,
+            fit: BoxFit.fitHeight)
       ]),
       title: Text(widget.pack.pack.name),
       subtitle: Text(
@@ -259,12 +258,12 @@ class _PackInParametersWidgetState extends State<PackInParametersWidget> {
                         )
                       ])),
               actions: [
-                TextButton(
+                HyperlinkButton(
                     child: Text(AppLocalizations.of(context)!.cancel),
                     onPressed: () {
                       Navigator.pop(context, false);
                     }),
-                TextButton(
+                HyperlinkButton(
                     child: Text(AppLocalizations.of(context)!.confirm),
                     onPressed: () {
                       Navigator.pop(context, true);

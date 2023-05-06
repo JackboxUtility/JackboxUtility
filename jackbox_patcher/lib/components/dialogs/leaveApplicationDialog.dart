@@ -13,14 +13,14 @@ class _LeaveApplicationDialogState extends State<LeaveApplicationDialog> {
   Widget build(BuildContext context) {
     return ContentDialog(
         title: Text(AppLocalizations.of(context)!.quit_while_downloading_title),
-        content:
-            Text(AppLocalizations.of(context)!.quit_while_downloading_description),
+        content: Text(
+            AppLocalizations.of(context)!.quit_while_downloading_description),
         actions: [
-          TextButton(
+          HyperlinkButton(
             onPressed: () => Navigator.pop(context, false),
             child: Text(AppLocalizations.of(context)!.cancel),
           ),
-          TextButton(
+          HyperlinkButton(
             onPressed: () => Navigator.pop(context, true),
             child: Text(AppLocalizations.of(context)!.quit),
           ),

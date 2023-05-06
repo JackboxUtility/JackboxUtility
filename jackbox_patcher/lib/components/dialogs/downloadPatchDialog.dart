@@ -33,24 +33,26 @@ class _DownloadPatchDialogComponentState
     super.initState();
   }
 
-  void _startDownload() async{
+  void _startDownload() async {
     downloadingProgress = 1;
-                  setState(() {});
-                  for (var patch in widget.patchs) {
-                    await patch.downloadPatch(widget.localPaths[currentPatchDownloading],
-                        (stat, substat, progress) async {
-                      status = stat;
-                      substatus = substat;
-                      if (progression.toInt() != progress.toInt()) {
-                        WindowsTaskbar.setProgress(progress.toInt()+(currentPatchDownloading)*100, 100*widget.patchs.length);
-                      }
-                      progression = progress;
-                      setState(() {});
-                    });
-                    currentPatchDownloading++;
-                  }
-                  downloadingProgress = 2;
-                  setState(() {});
+    setState(() {});
+    for (var patch in widget.patchs) {
+      await patch.downloadPatch(widget.localPaths[currentPatchDownloading],
+          (stat, substat, progress) async {
+        status = stat;
+        substatus = substat;
+        if (progression.toInt() != progress.toInt()) {
+          WindowsTaskbar.setProgress(
+              progress.toInt() + (currentPatchDownloading) * 100,
+              100 * widget.patchs.length);
+        }
+        progression = progress;
+        setState(() {});
+      });
+      currentPatchDownloading++;
+    }
+    downloadingProgress = 2;
+    setState(() {});
   }
 
   @override
@@ -61,11 +63,11 @@ class _DownloadPatchDialogComponentState
             content: Text(
                 AppLocalizations.of(context)!.installing_a_patch_description),
             actions: [
-              TextButton(
+              HyperlinkButton(
                 onPressed: () => Navigator.pop(context),
                 child: Text(AppLocalizations.of(context)!.cancel),
               ),
-              TextButton(
+              HyperlinkButton(
                 onPressed: () async {},
                 child: Text(AppLocalizations.of(context)!.page_continue),
               ),
@@ -115,7 +117,7 @@ class _DownloadPatchDialogComponentState
   ContentDialog buildFinishDialog() {
     return ContentDialog(
       actions: [
-        TextButton(
+        HyperlinkButton(
           onPressed: () {
             WindowsTaskbar.setProgressMode(TaskbarProgressMode.noProgress);
             Navigator.pop(context);

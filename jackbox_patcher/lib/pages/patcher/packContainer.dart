@@ -51,9 +51,9 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
         });
       } else {
         if (mounted)
-        setState(() {
-          pathFoundStatus = "NOT_FOUND";
-        });
+          setState(() {
+            pathFoundStatus = "NOT_FOUND";
+          });
       }
     }
   }
@@ -74,7 +74,8 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
                 child: Row(children: [
                   Expanded(
                       child: CachedNetworkImage(
-                    imageUrl:APIService().assetLink(widget.userPack.pack.background),
+                    imageUrl:
+                        APIService().assetLink(widget.userPack.pack.background),
                     fit: BoxFit.fitWidth,
                   ))
                 ])),
@@ -94,7 +95,9 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
                         1.0
                       ])),
             ),
-            Container(margin:EdgeInsets.only(top:140,left:20,right:20),child: Column(
+            Container(
+              margin: EdgeInsets.only(top: 140, left: 20, right: 20),
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
@@ -107,7 +110,7 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
                   Text(
                     widget.userPack.pack.description,
                     style: TextStyle(color: Colors.white, fontSize: 15),
-                  ) 
+                  )
                 ],
               ),
             ),
@@ -213,13 +216,14 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
     }
     return Padding(
         padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
-        child: Column(children:[Column(
-            children: packPatchChildren), 
-            StaggeredGrid.count(
-            mainAxisSpacing: 20,
-            crossAxisSpacing: 20,
-            crossAxisCount: 3,
-            children: gamesChildren)]));
+        child: Column(children: [
+          Column(children: packPatchChildren),
+          StaggeredGrid.count(
+              mainAxisSpacing: 20,
+              crossAxisSpacing: 20,
+              crossAxisCount: 3,
+              children: gamesChildren)
+        ]));
   }
 
   void openPack() async {
@@ -257,7 +261,7 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
                         )
                       ])),
               actions: [
-                TextButton(
+                HyperlinkButton(
                     child: Text(AppLocalizations.of(context)!.confirm),
                     onPressed: () {
                       Navigator.pop(context);
