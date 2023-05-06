@@ -119,10 +119,10 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
             icon: CachedNetworkImage(
               fit:BoxFit.fitHeight,
               imageUrl:APIService().assetLink(userPack.pack.icon),
-              width: 50,
-              height: 50,
-              memCacheHeight: 50,
-              memCacheWidth: 50,
+              width: 30,
+              height: 30,
+              memCacheHeight: 30,
+              memCacheWidth: 30,
             ),
             title: Text(userPack.pack.name),
             body: PatcherPackWidget(userPack: userPack)));

@@ -265,6 +265,8 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                               }),
                               child: Stack(fit: StackFit.expand, children: [
                                 CachedNetworkImage(
+                                  colorBlendMode: !widget.pack.owned?BlendMode.saturation:null,
+                                  color:!widget.pack.owned? Colors.black:null,
                                   imageUrl: APIService()
                                       .assetLink(widget.game.game.background),
                                   fit: BoxFit.cover,
