@@ -50,6 +50,7 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
             style: typography.title,
           )),
       pane: NavigationPane(
+        indicator: null,
           onChanged: (int nSelected) {
             setState(() {
               _selectedView = nSelected;
@@ -91,7 +92,7 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
     items = [];
     _selectedView = 0;
     items.add(PaneItem(
-        icon: Icon(FluentIcons.home),
+        icon: Center(child: Icon(FluentIcons.home)),
         title: Text(AppLocalizations.of(context)!.all_patches),
         body: ListView(
             children: List.generate(
@@ -119,10 +120,8 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
             icon: CachedNetworkImage(
               fit:BoxFit.fitHeight,
               imageUrl:APIService().assetLink(userPack.pack.icon),
-              width: 30,
-              height: 30,
-              memCacheHeight: 30,
-              memCacheWidth: 30,
+              memCacheHeight: 40,
+              memCacheWidth: 40,
             ),
             title: Text(userPack.pack.name),
             body: PatcherPackWidget(userPack: userPack)));

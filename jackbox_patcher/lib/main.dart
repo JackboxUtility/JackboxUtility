@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FluentApp(
-      darkTheme: ThemeData(
+      darkTheme: FluentThemeData(
         brightness: Brightness.dark,
         accentColor: Colors.blue,
         visualDensity: VisualDensity.standard,
