@@ -223,7 +223,7 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
   void _load(bool automaticallyChooseBestServer) async {
     bool changedServer = false;
     bool automaticGameFindNotificationAvailable = false;
-    if (isFirstTimeOpening){
+    if (isFirstTimeOpening) {
       isFirstTimeOpening = false;
       await windowManager.setPreventClose(true);
       await UserData().init();
@@ -245,6 +245,7 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
       await _loadWelcome();
       await _loadPacks();
       await _loadBlurHashes();
+      await _loadServerConfigurations();
       _precacheImages();
       if (changedServer) {
         await _launchAutomaticGameFinder(
@@ -312,6 +313,10 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
     await APIService().recoverBlurHashes();
   }
 
+  Future<void> _loadServerConfigurations() async {
+    await APIService().recoverConfigurations();
+  }
+
   Future<void> _showAutomaticGameFinderDialog() async {
     await showDialog(
         context: context,
@@ -344,7 +349,7 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
                   })) ==
               true
           : true;
-      
+
       await WindowManagerService.saveCurrentScreenSize();
       if (shouldClose) {
         windowManager.destroy();

@@ -80,7 +80,11 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
     }
     for (var userPack in wantedPacks) {
       packItems.add(PaneItem(
-          icon: CachedNetworkImage(imageUrl: APIService().assetLink(userPack.pack.icon), fit: BoxFit.fitHeight, height:30, memCacheHeight: 30),
+          icon: CachedNetworkImage(
+              imageUrl: APIService().assetLink(userPack.pack.icon),
+              fit: BoxFit.fitHeight,
+              height: 30,
+              memCacheHeight: 30),
           title: Text(userPack.pack.name),
           body: SearchGameWidget(
             filter: (UserJackboxPack pack, UserJackboxGame game) =>
@@ -145,7 +149,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
       items.add(PaneItemSeparator());
       items.add(PaneItemHeader(
           header: TextBox(
-            autofocus: true,
+        autofocus: true,
         placeholder: AppLocalizations.of(context)!.search,
         suffix: Icon(FluentIcons.search),
         controller: _searchController,
@@ -228,17 +232,26 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
     return items;
   }
 
-  List<NavigationPaneItem> _buildTranlationPaneItem(){
+  List<NavigationPaneItem> _buildTranlationPaneItem() {
     List<NavigationPaneItem> translationItem = [];
 
     // Adding each translation values
     for (var translation in JackboxGameTranslationCategory.values) {
+      if (translation == JackboxGameTranslationCategory.COMMUNITY_DUBBED &&
+          APIService()
+              .cachedConfigurations!
+              .getConfiguration("LAUNCHER", "HIDE_DUBBED_BY_COMMUNITY") == true) continue;
       translationItem.add(PaneItem(
-          icon: Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: translation.color ),width:10, height:10),
+          icon: Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: translation.color),
+              width: 10,
+              height: 10),
           title: Text(translation.name),
           body: SearchGameWidget(
             filter: (UserJackboxPack pack, UserJackboxGame game) =>
-                translation.filter(pack,game) &&
+                translation.filter(pack, game) &&
                 game.game.name
                     .toLowerCase()
                     .contains(_searchController.text.toLowerCase()) &&
@@ -252,7 +265,5 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
           )));
     }
     return translationItem;
-
-    
   }
 }

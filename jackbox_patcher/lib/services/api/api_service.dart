@@ -8,6 +8,7 @@ import 'package:jackbox_patcher/model/jackbox/jackboxgamepatch.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxpackpatch.dart';
 import 'package:jackbox_patcher/model/misc/urlblurhash.dart';
 import 'package:jackbox_patcher/model/news.dart';
+import 'package:jackbox_patcher/model/patchServerConfigurations.dart';
 import 'package:jackbox_patcher/model/patchserver.dart';
 import 'package:jackbox_patcher/pages/patcher/categoryPackPatch.dart';
 
@@ -30,6 +31,7 @@ class APIService {
   List<PatchCategory> cachedCategories = [];
   List<News> cachedNews = [];
   List<UrlBlurHash> cachedBlurHashes = [];
+  PatchServerConfigurations? cachedConfigurations;
 
   factory APIService() {
     return _instance;
@@ -115,6 +117,17 @@ class APIService {
       final List<dynamic> data = jsonDecode(response.body);
       cachedBlurHashes =
           data.map<UrlBlurHash>((tag) => UrlBlurHash.fromJson(tag)).toList();
+    }
+  }
+
+  Future<void> recoverConfigurations() async {
+    final response = await get(
+        Uri.parse('$baseEndpoint' + APIEndpoints.CONFIGURATIONS.path));
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = jsonDecode(response.body);
+      cachedConfigurations = PatchServerConfigurations.fromJson(data);
+    }else{
+      cachedConfigurations = PatchServerConfigurations.fromJson({});
     }
   }
 
