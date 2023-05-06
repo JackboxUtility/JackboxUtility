@@ -157,19 +157,34 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
 
   Widget _buildBottom() {
     List<Map<String, Object>> games = getFilteredGames();
-    return Padding(
-        padding: EdgeInsets.symmetric(horizontal: calculatePadding()),
-        child: StaggeredGrid.count(
-            mainAxisSpacing: 20,
-            crossAxisSpacing: 20,
-            crossAxisCount: _getGamesByGrid(),
-            children: games
-                .map((game) => SearchGameGameWidget(
-                      pack: game["pack"] as UserJackboxPack,
-                      game: game["game"] as UserJackboxGame,
-                      showAllPacks: widget.showAllPacks,
-                    ))
-                .toList()));
+    if (games.length > 0) {
+      return Padding(
+          padding: EdgeInsets.symmetric(horizontal: calculatePadding()),
+          child: StaggeredGrid.count(
+              mainAxisSpacing: 20,
+              crossAxisSpacing: 20,
+              crossAxisCount: _getGamesByGrid(),
+              children: games
+                  .map((game) => SearchGameGameWidget(
+                        pack: game["pack"] as UserJackboxPack,
+                        game: game["game"] as UserJackboxGame,
+                        showAllPacks: widget.showAllPacks,
+                      ))
+                  .toList()));
+    } else {
+      return Column(children: [
+        SizedBox(height: 50),
+        Image.asset("assets/images/Mayonnaise.webp", height:200, cacheHeight: 200,),
+        Text(
+          AppLocalizations.of(context)!.no_game_in_this_category_title,
+          style: TextStyle(fontSize: 20),
+        ),
+        Text(
+          AppLocalizations.of(context)!.no_game_in_this_category_description,
+          style: TextStyle(fontSize: 14, color: Colors.white.withOpacity(0.8)),
+        ),
+      ]);
+    }
   }
 
   int _getGamesByGrid() {
@@ -238,8 +253,8 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
               borderRadius: BorderRadius.circular(8.0),
               child: TweenAnimationBuilder<double>(
                   tween: Tween<double>(
-                    begin:isFirstTime?0:(smallInfoVisible ? 0 : 1),
-                    end: isFirstTime?0:(smallInfoVisible ? 1 : 0),
+                    begin: isFirstTime ? 0 : (smallInfoVisible ? 0 : 1),
+                    end: isFirstTime ? 0 : (smallInfoVisible ? 1 : 0),
                   ),
                   duration: Duration(milliseconds: 200),
                   builder:
@@ -265,8 +280,11 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                               }),
                               child: Stack(fit: StackFit.expand, children: [
                                 CachedNetworkImage(
-                                  colorBlendMode: !widget.pack.owned?BlendMode.saturation:null,
-                                  color:!widget.pack.owned? Colors.black:null,
+                                  colorBlendMode: !widget.pack.owned
+                                      ? BlendMode.saturation
+                                      : null,
+                                  color:
+                                      !widget.pack.owned ? Colors.black : null,
                                   imageUrl: APIService()
                                       .assetLink(widget.game.game.background),
                                   fit: BoxFit.cover,

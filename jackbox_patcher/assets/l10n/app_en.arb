@@ -219,6 +219,9 @@
         }
     },
     "game_community_dubbed":"Community dubbed",
-    "game_community_dubbed_description":"These games are dubbed by the community"
+    "game_community_dubbed_description":"These games are dubbed by the community",
+
+    "no_game_in_this_category_title":"No game in this category",
+    "no_game_in_this_category_description":"There is no game in this category. Try adding more in the settings section."
 
 }
