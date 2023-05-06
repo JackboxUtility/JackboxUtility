@@ -79,10 +79,10 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
               child: Row(children: [
                 Expanded(
                     child: CachedNetworkImage(
-                  imageUrl:widget.background != null
+                  imageUrl: widget.background != null
                       ? APIService().assetLink(widget.background!)
                       : APIService().getDefaultBackground(),
-                      height:200,
+                  height: 200,
                   fit: BoxFit.fitWidth,
                 ))
               ])),
@@ -172,17 +172,16 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
                 .toList()));
   }
 
-  int _getGamesByGrid(){
-    if(MediaQuery.of(context).size.width > 1800){
+  int _getGamesByGrid() {
+    if (MediaQuery.of(context).size.width > 1800) {
       return 5;
-    }else 
-    if(MediaQuery.of(context).size.width > 1400){
+    } else if (MediaQuery.of(context).size.width > 1400) {
       return 4;
-    }else if(MediaQuery.of(context).size.width > 1000){
+    } else if (MediaQuery.of(context).size.width > 1000) {
       return 3;
-    }else if(MediaQuery.of(context).size.width > 600){
+    } else if (MediaQuery.of(context).size.width > 600) {
       return 2;
-    }else{
+    } else {
       return 1;
     }
   }
@@ -226,6 +225,7 @@ class SearchGameGameWidget extends StatefulWidget {
 }
 
 class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
+  bool isFirstTime = true;
   bool smallInfoVisible = false;
   @override
   Widget build(BuildContext context) {
@@ -238,11 +238,12 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
               borderRadius: BorderRadius.circular(8.0),
               child: TweenAnimationBuilder<double>(
                   tween: Tween<double>(
-                    begin: smallInfoVisible ? 0 : 1,
-                    end: smallInfoVisible ? 1 : 0,
+                    begin:isFirstTime?0:(smallInfoVisible ? 0 : 1),
+                    end: isFirstTime?0:(smallInfoVisible ? 1 : 0),
                   ),
                   duration: Duration(milliseconds: 200),
-                  builder: (BuildContext context, double opacity, Widget? child) {
+                  builder:
+                      (BuildContext context, double opacity, Widget? child) {
                     return IntrinsicHeight(
                         child: GestureDetector(
                             onSecondaryTap: () =>
@@ -255,14 +256,17 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                                     ]),
                             child: MouseRegion(
                               onEnter: (a) => setState(() {
+                                isFirstTime = false;
                                 smallInfoVisible = true;
                               }),
                               onExit: (a) => setState(() {
+                                isFirstTime = false;
                                 smallInfoVisible = false;
                               }),
-                              child: Stack(fit:StackFit.expand, children: [
+                              child: Stack(fit: StackFit.expand, children: [
                                 CachedNetworkImage(
-                                  imageUrl: APIService().assetLink(widget.game.game.background),
+                                  imageUrl: APIService()
+                                      .assetLink(widget.game.game.background),
                                   fit: BoxFit.cover,
                                 ),
                                 Container(
@@ -275,21 +279,25 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                                       Colors.black.withOpacity(opacity)
                                     ]))),
                                 Padding(
-                                    padding: EdgeInsets.only(bottom: 8, left: 8),
+                                    padding:
+                                        EdgeInsets.only(bottom: 8, left: 8),
                                     child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(widget.game.game.name,
                                               style: TextStyle(
-                                                  overflow: TextOverflow.ellipsis,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
                                                   fontSize: 20,
                                                   color: Colors.white
                                                       .withOpacity(opacity))),
                                           Text(gameInfo.tagline,
                                               style: TextStyle(
-                                                  overflow: TextOverflow.ellipsis,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
                                                   color: Colors.white
                                                       .withOpacity(opacity))),
                                           SizedBox(height: 10),
@@ -301,12 +309,14 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                                             ),
                                             SizedBox(width: 10),
                                             Text(
-                                                gameInfo.players.min.toString() +
+                                                gameInfo.players.min
+                                                        .toString() +
                                                     " - " +
                                                     gameInfo.players.max
                                                         .toString() +
                                                     " " +
-                                                    AppLocalizations.of(context)!
+                                                    AppLocalizations.of(
+                                                            context)!
                                                         .players,
                                                 style: TextStyle(
                                                     color: Colors.white

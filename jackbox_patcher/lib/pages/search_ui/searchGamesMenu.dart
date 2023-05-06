@@ -145,9 +145,13 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
       items.add(PaneItemSeparator());
       items.add(PaneItemHeader(
           header: TextBox(
+            autofocus: true,
         placeholder: AppLocalizations.of(context)!.search,
         suffix: Icon(FluentIcons.search),
         controller: _searchController,
+        onChanged: (String value) {
+          setState(() {});
+        },
         onEditingComplete: () {
           setState(() {});
         },
