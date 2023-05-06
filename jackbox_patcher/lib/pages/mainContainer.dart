@@ -23,6 +23,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:window_manager/window_manager.dart';
 
 import '../components/dialogs/automaticGameFinderDialog.dart';
+import '../components/notificationsCaroussel.dart';
 import '../model/news.dart';
 import '../services/automaticGameFinder/AutomaticGameFinder.dart';
 
@@ -56,95 +57,15 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
     TranslationsHelper().appLocalizations = AppLocalizations.of(context);
     return NavigationView(
         content: Stack(children: [
-      _loaded
-          ? Positioned(
-              top: 10,
-              right: 10,
-              child: GestureDetector(
-                  onTap: () {
-                    _openNotificationsWindow();
-                  },
-                  child: Icon(
-                      APIService().cachedNews[0].id ==
-                              UserData().getLastNewsReaden()
-                          ? FluentIcons.ringer
-                          : FluentIcons.ringer_active,
-                      color: Colors.white,
-                      size: 30)))
-          : Container(),
+      
       Column(children: [
         Expanded(
           child: _buildUpper(),
         ),
         _buildLower(),
+        SizedBox(height:50)
       ])
     ]));
-  }
-
-  void _openNotificationsWindow() {
-    UserData().setLastNewsReaden(APIService().cachedNews[0].id);
-    showDialog(
-        context: context,
-        builder: (context) => ContentDialog(
-                title: Text(AppLocalizations.of(context)!.notifications),
-                content: ListView(
-                    children: List.generate(
-                            APIService().cachedNews.length,
-                            (index) => _buildNotificationWidget(
-                                APIService().cachedNews[index]))
-                        .expand((w) => [w, SizedBox(height: 10)])
-                        .toList()),
-                actions: [
-                  TextButton(
-                      onPressed: () => Navigator.pop(context),
-                      child: Text(AppLocalizations.of(context)!.close))
-                ])).then((value) => setState(() {}));
-  }
-
-  Widget _buildNotificationWidget(News news) {
-    return ClipRRect(
-        borderRadius: BorderRadius.all(Radius.circular(8)),
-        child: GestureDetector(
-            onTap: () {
-              showDialog(
-                  context: context,
-                  builder: (context) => ContentDialog(
-                          title: Text(news.title),
-                          content: Markdown(
-                              data: news.content,
-                              onTapLink: (text, href, title) =>
-                                  launchUrl(Uri.parse(href!))),
-                          actions: [
-                            TextButton(
-                                onPressed: () => Navigator.pop(context),
-                                child:
-                                    Text(AppLocalizations.of(context)!.close))
-                          ]));
-            },
-            child: Container(
-                color: FluentTheme.of(context).cardColor,
-                width: 300,
-                height: 100,
-                child: Row(children: [
-                  Container(
-                    width: 100,
-                    height: 100,
-                    child: Image.network(APIService().assetLink(news.image)),
-                  ),
-                  Container(
-                    padding: EdgeInsets.all(10),
-                    width: 200,
-                    height: 100,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(news.title,
-                            style: FluentTheme.of(context).typography.subtitle),
-                        Text(news.smallDescription)
-                      ],
-                    ),
-                  )
-                ]))));
   }
 
   Widget _buildUpper() {
@@ -159,7 +80,9 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
           ? _buildMenu()
           : LottieBuilder.asset("assets/lotties/QuiplashOutput.json",
               width: 200, height: 200),
-      Expanded(child: Container()),
+      SizedBox(
+        height: 30,
+      ),
     ]);
   }
 
@@ -286,7 +209,10 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
   }
 
   Widget _buildLower() {
-    return Container();
+     return _loaded? Padding(
+       padding: const EdgeInsets.all(8.0),
+       child: NotificationCaroussel(news: APIService().cachedNews,),
+     ):Container();
   }
 
   void _load(bool automaticallyChooseBestServer) async {
