@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/components/blurhashimage.dart';
 import 'package:jackbox_patcher/components/dialogs/automaticGameFinderDialog.dart';
@@ -250,12 +253,26 @@ class _PackInParametersWidgetState extends State<PackInParametersWidget> {
                         SizedBox(
                           height: 6,
                         ),
-                        TextBox(
+                        Row(children: [
+                          Expanded(child: TextBox(
                           controller: pathController,
                           onChanged: (value) {
                             widget.pack.setPath(value);
+                          },)
+                        ), 
+                        IconButton(
+                          icon: const Icon(FluentIcons.folder_open),
+                          onPressed: () async {
+                            String? path = await FilePicker.platform.getDirectoryPath(
+                                dialogTitle: AppLocalizations.of(context)!.select_game_location, lockParentWindow: true);
+                            if (path != null) {
+                              pathController.text = path;
+                              widget.pack.setPath(path);
+                            }
                           },
-                        )
+                        ),
+                        
+                        ])
                       ])),
               actions: [
                 HyperlinkButton(
