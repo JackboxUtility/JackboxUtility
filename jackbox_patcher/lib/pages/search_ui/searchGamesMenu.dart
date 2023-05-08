@@ -82,9 +82,9 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
       packItems.add(PaneItem(
           icon: CachedNetworkImage(
               imageUrl: APIService().assetLink(userPack.pack.icon),
+              filterQuality: FilterQuality.high,
               fit: BoxFit.fitHeight,
-              height: 30,
-              memCacheHeight: 30),
+              memCacheHeight: 40),
           title: Text(userPack.pack.name),
           body: SearchGameWidget(
             filter: (UserJackboxPack pack, UserJackboxGame game) =>
