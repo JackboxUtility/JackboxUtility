@@ -20,7 +20,7 @@ jobs:
       working-directory: jackbox_patcher
       run: |
          VERSION=$(more pubspec.yaml | grep version: | cut -d ' ' -f2)
-         echo "version=${VERSION}+${{ env.GIT_COMMIT_SHORT_SHA }}_beta" >> $GITHUB_OUTPUT
+         echo "version=${VERSION}_beta_${{ date +%s }}" >> $GITHUB_OUTPUT
  build_windows:
    runs-on: windows-latest
    needs: retrievingVersion
