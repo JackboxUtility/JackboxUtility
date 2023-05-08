@@ -309,9 +309,10 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                                         children: [
                                           Text(widget.game.game.name,
                                               style: TextStyle(
+                                                fontWeight: FontWeight.bold,
                                                   overflow:
                                                       TextOverflow.ellipsis,
-                                                  fontSize: 20,
+                                                  fontSize: 15,
                                                   color: Colors.white
                                                       .withOpacity(opacity))),
                                           Text(gameInfo.tagline,
