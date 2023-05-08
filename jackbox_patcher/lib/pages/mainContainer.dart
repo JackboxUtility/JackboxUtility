@@ -58,21 +58,17 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
   Widget build(BuildContext context) {
     TranslationsHelper().appLocalizations = AppLocalizations.of(context);
     return NavigationView(
-        content: Stack(children: [
+        content: 
       Column(children: [
-        Expanded(
-          child: _buildUpper(),
-        ),
+        Spacer(),
+        _buildUpper(),
         _buildLower(),
-        SizedBox(height: 50)
-      ])
+        Spacer(),
     ]));
   }
 
   Widget _buildUpper() {
     return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-      Container(),
-      Expanded(child: Container()),
       _buildTitle(),
       SizedBox(
         height: 30,

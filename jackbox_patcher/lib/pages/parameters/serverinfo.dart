@@ -29,72 +29,74 @@ class _ServerInfoWidgetState extends State<ServerInfoWidget> {
     return Padding(
         padding:
             EdgeInsets.symmetric(vertical: 24, horizontal: calculatePadding()),
-        child: ListView(children: [
-          Column(children: [
-            Row(children: [
-              Text(AppLocalizations.of(context)!.selected_server,
-                  style: typography.titleLarge),
-              Spacer(),
-              FilledButton(
-                  child: Text(AppLocalizations.of(context)!.change_server),
-                  onPressed: () async {
-                    UserData().setSelectedServer(null);
-                    UserData().packs = [];
-                    APIService().resetCache();
-                    Navigator.of(context).pop();
-                  })
-            ]),
-            SizedBox(height: 50),
-            ClipRRect(
-                borderRadius: BorderRadius.circular(8.0),
-                child: Image.network(
-                    APIService()
-                        .assetLink(APIService().cachedSelectedServer!.image),
-                    height: 100)),
-            Text(APIService().cachedSelectedServer!.name,
-                style: FluentTheme.of(context).typography.titleLarge),
-            SizedBox(
-              height: 8,
-            ),
-            Text(APIService().cachedSelectedServer!.description,
-                style: FluentTheme.of(context).typography.body),
-            SizedBox(
-              height: 36,
-            ),
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Icon(FluentIcons.package),
+        child: Center(
+          child: ListView(children: [
+            Column(children: [
+              Row(children: [
+                Text(AppLocalizations.of(context)!.selected_server,
+                    style: typography.titleLarge),
+                Spacer(),
+                FilledButton(
+                    child: Text(AppLocalizations.of(context)!.change_server),
+                    onPressed: () async {
+                      UserData().setSelectedServer(null);
+                      UserData().packs = [];
+                      APIService().resetCache();
+                      Navigator.of(context).pop();
+                    })
+              ]),
+              SizedBox(height: 50),
+              ClipRRect(
+                  borderRadius: BorderRadius.circular(8.0),
+                  child: Image.network(
+                      APIService()
+                          .assetLink(APIService().cachedSelectedServer!.image),
+                      height: 100)),
+              Text(APIService().cachedSelectedServer!.name,
+                  style: FluentTheme.of(context).typography.titleLarge),
               SizedBox(
-                width: 12,
+                height: 8,
               ),
-              Text(AppLocalizations.of(context)!
-                  .games_available(UserData().packs.length))
+              Text(APIService().cachedSelectedServer!.description,
+                  style: FluentTheme.of(context).typography.body),
+              SizedBox(
+                height: 36,
+              ),
+              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                Icon(FluentIcons.package),
+                SizedBox(
+                  width: 12,
+                ),
+                Text(AppLocalizations.of(context)!
+                    .games_available(UserData().packs.length))
+              ]),
+              SizedBox(
+                height: 12,
+              ),
+              // if (APIService().cachedSelectedServer!.controllerUrl != null)
+              //   HyperlinkButton(
+              //       child:
+              //           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              //         Icon(FluentIcons.cell_phone),
+              //         SizedBox(
+              //           width: 12,
+              //         ),
+              //         Text(APIService().cachedSelectedServer!.controllerUrl!)
+              //       ]),
+              //       onPressed: () {
+              //         launchUrl(Uri.http(
+              //             APIService().cachedSelectedServer!.controllerUrl!));
+              //       }),
+              Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: _buildLinks())
             ]),
-            SizedBox(
-              height: 12,
-            ),
-            // if (APIService().cachedSelectedServer!.controllerUrl != null)
-            //   HyperlinkButton(
-            //       child:
-            //           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            //         Icon(FluentIcons.cell_phone),
-            //         SizedBox(
-            //           width: 12,
-            //         ),
-            //         Text(APIService().cachedSelectedServer!.controllerUrl!)
-            //       ]),
-            //       onPressed: () {
-            //         launchUrl(Uri.http(
-            //             APIService().cachedSelectedServer!.controllerUrl!));
-            //       }),
-            Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: _buildLinks())
+            if (APIService().cachedConfigurations!.getConfiguration(
+                    "SERVER_INFORMATION", "SHOW_PATREONS_SUBSCRIBERS") ==
+                true)
+              _buildPatreonSubscribers()
           ]),
-          if (APIService().cachedConfigurations!.getConfiguration(
-                  "SERVER_INFORMATION", "SHOW_PATREONS_SUBSCRIBERS") ==
-              true)
-            _buildPatreonSubscribers()
-        ]));
+        ));
   }
 
   _buildLinks() {
