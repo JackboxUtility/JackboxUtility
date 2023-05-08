@@ -9,6 +9,7 @@ import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../services/automaticGameFinder/AutomaticGameFinder.dart';
 import '../../services/error/error.dart';
@@ -100,7 +101,7 @@ class _ParametersWidgetState extends State<ParametersWidget> {
   _showAddPackDialog() async {
     List<UserJackboxPack> notOwnedPacks =
         UserData().packs.where((element) => !element.owned).toList();
-    bool? packSelected = await showDialog<bool>(
+    UserJackboxPack? packSelected = await showDialog<UserJackboxPack?>(
         context: context,
         builder: (context) => ContentDialog(
               title: Text(AppLocalizations.of(context)!.add_pack),
@@ -118,7 +119,7 @@ class _ParametersWidgetState extends State<ParametersWidget> {
                             )),
                     onChanged: (pack) async {
                       await pack!.setOwned(true);
-                      Navigator.pop(context, true);
+                      Navigator.pop(context, pack);
                     },
                     placeholder:
                         Text(AppLocalizations.of(context)!.choose_pack),
@@ -129,12 +130,19 @@ class _ParametersWidgetState extends State<ParametersWidget> {
                 HyperlinkButton(
                     child: Text(AppLocalizations.of(context)!.cancel),
                     onPressed: () {
-                      Navigator.pop(context, false);
+                      Navigator.pop(context, null);
                     })
               ],
             ));
-    if (packSelected == true) {
+    if (packSelected != null) {
       setState(() {});
+      String? path = await FilePicker.platform.getDirectoryPath(
+          dialogTitle: AppLocalizations.of(context)!.select_game_location(packSelected.pack.name),
+          lockParentWindow: true);
+      if (path != null) {
+        packSelected.setPath(path);
+        setState(() {});
+      }
     }
   }
 
@@ -207,24 +215,44 @@ class _PackInParametersWidgetState extends State<PackInParametersWidget> {
             fit: BoxFit.fitHeight)
       ]),
       title: Text(widget.pack.pack.name),
-      subtitle: Text(
-          packStatus == "NOT_FOUND"
-              ? AppLocalizations.of(context)!.path_not_found_small_description
-              : (widget.pack.path != null && widget.pack.path != ""
-                  ? widget.pack.path!
-                  : AppLocalizations.of(context)!
-                      .path_inexistant_small_description),
-          style: TextStyle(
-              color: packStatus == "NOT_FOUND"
-                  ? Colors.red
-                  : widget.pack.path != null && widget.pack.path != ""
-                      ? Colors.white
-                      : Colors.yellow)),
+      subtitle: packStatus == "NOT_FOUND"
+          ? Text(AppLocalizations.of(context)!.path_not_found_small_description,
+              style: TextStyle(color: Colors.red))
+          : (widget.pack.path != null && widget.pack.path != "")
+              ? MouseRegion(
+                  child: HyperlinkButton(
+                    style: ButtonStyle(
+                        padding: ButtonState.resolveWith(
+                            (states) => EdgeInsets.all(0)),
+                        textStyle: ButtonState.resolveWith((states) =>
+                            TextStyle(fontWeight: FontWeight.normal))),
+                    child: Text(
+                      widget.pack.path!,
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    onPressed: () {
+                      launchUrlString(
+                          "file:///${widget.pack.path!.replaceAll("\\", "/")}");
+                    },
+                  ),
+                  cursor: SystemMouseCursors.click,
+                )
+              : Text(
+                  AppLocalizations.of(context)!
+                      .path_inexistant_small_description,
+                  style: TextStyle(color: Colors.yellow)),
       trailing: Row(children: [
         IconButton(
-          icon: const Icon(FluentIcons.edit),
+          icon: const Icon(FluentIcons.folder_open),
           onPressed: () async {
-            await _showModifyPackDialog();
+            String? path = await FilePicker.platform.getDirectoryPath(
+                dialogTitle: AppLocalizations.of(context)!.select_game_location(widget.pack.pack.name),
+                lockParentWindow: true);
+            if (path != null) {
+              pathController.text = path;
+              widget.pack.setPath(path);
+              setState(() {});
+            }
           },
         ),
         IconButton(
@@ -254,24 +282,27 @@ class _PackInParametersWidgetState extends State<PackInParametersWidget> {
                           height: 6,
                         ),
                         Row(children: [
-                          Expanded(child: TextBox(
-                          controller: pathController,
-                          onChanged: (value) {
-                            widget.pack.setPath(value);
-                          },)
-                        ), 
-                        IconButton(
-                          icon: const Icon(FluentIcons.folder_open),
-                          onPressed: () async {
-                            String? path = await FilePicker.platform.getDirectoryPath(
-                                dialogTitle: AppLocalizations.of(context)!.select_game_location, lockParentWindow: true);
-                            if (path != null) {
-                              pathController.text = path;
-                              widget.pack.setPath(path);
-                            }
-                          },
-                        ),
-                        
+                          Expanded(
+                              child: TextBox(
+                            controller: pathController,
+                            onChanged: (value) {
+                              widget.pack.setPath(value);
+                            },
+                          )),
+                          IconButton(
+                            icon: const Icon(FluentIcons.folder_open),
+                            onPressed: () async {
+                              String? path = await FilePicker.platform
+                                  .getDirectoryPath(
+                                      dialogTitle: AppLocalizations.of(context)!
+                                          .select_game_location(widget.pack.pack.name),
+                                      lockParentWindow: true);
+                              if (path != null) {
+                                pathController.text = path;
+                                widget.pack.setPath(path);
+                              }
+                            },
+                          ),
                         ])
                       ])),
               actions: [

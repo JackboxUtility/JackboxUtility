@@ -224,6 +224,14 @@
     "no_game_in_this_category_title":"No game in this category",
     "no_game_in_this_category_description":"There is no game in this category. Try adding more in the settings section.",
 
-    "select_game_location":"Select the location of the game"
+    "select_game_location":"Select the location of {game}",
+    "@select_game_location":{
+        "placeholders":{
+            "game":{
+                "type":"String",
+                "example":"The Jackbox Party Pack 1"
+            }
+        }
+    }
 
 }
