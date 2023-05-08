@@ -232,6 +232,12 @@
                 "example":"The Jackbox Party Pack 1"
             }
         }
-    }
+    },
+
+    "download_error":"Error while downloading",
+    "download_error_description":"An error occurred while downloading the game. Please verify your internet connection and try again.",
+
+    "extracting_error":"Error while extracting",
+    "extracting_error_description":"An error occurred while extracting the game. Check if you have enough storage free and try again."
 
 }

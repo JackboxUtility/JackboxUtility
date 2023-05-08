@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 import 'package:jackbox_patcher/model/jackbox/jackboxgame.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxgamepatch.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxpackpatch.dart';
@@ -11,6 +11,7 @@ import 'package:jackbox_patcher/model/news.dart';
 import 'package:jackbox_patcher/model/patchServerConfigurations.dart';
 import 'package:jackbox_patcher/model/patchserver.dart';
 import 'package:jackbox_patcher/pages/patcher/categoryPackPatch.dart';
+import 'package:jackbox_patcher/services/logger/logger.dart';
 
 import '../../model/gametag.dart';
 import '../../model/jackbox/jackboxpack.dart';
@@ -41,6 +42,7 @@ class APIService {
   APIService._internal();
 
   void resetCache() {
+    JULogger().i("Resetting cache");
     cachedServers = [];
     cachedPacks = [];
     cachedTags = [];
@@ -48,40 +50,31 @@ class APIService {
   }
 
   Future<void> recoverAvailableServers() async {
+    JULogger().i("Recovering available servers");
     resetCache();
-    final response = await get(Uri.parse(masterServer));
-    if (response.statusCode == 200) {
-      final List<dynamic> availableServers = jsonDecode(response.body);
+    final data = await getRequest(Uri.parse(masterServer));
+      final List<dynamic> availableServers = jsonDecode(data);
       for (var server in availableServers) {
-        final response = await get(Uri.parse(server));
-        if (response.statusCode == 200) {
-          final Map<String, dynamic> data = jsonDecode(response.body);
+        final serverInfo = await getRequest(Uri.parse(server));
+          final Map<String, dynamic> data = jsonDecode(serverInfo);
           cachedServers.add(PatchServer.fromJson(server, data));
-        } else {}
       }
-    } else {
-      throw Exception('Failed to load servers');
-    }
   }
 
   Future<void> recoverServerInfo(String serverLink) async {
-    final response = await get(Uri.parse(serverLink));
-    if (response.statusCode == 200) {
-      final Map<String, dynamic> data = jsonDecode(response.body);
+    JULogger().i("Recovering server info");
+    final rawData = await getRequest(Uri.parse(serverLink));
+      final Map<String, dynamic> data = jsonDecode(rawData);
       cachedSelectedServer = PatchServer.fromJson(serverLink, data);
       final endpoints = await cachedSelectedServer!.getVersionUrl();
       baseEndpoint = endpoints.apiEndpoint;
       baseAssets = endpoints.assetsEndpoint;
-    } else {
-      throw Exception('Failed to load servers');
-    }
   }
 
   Future<void> recoverPacksAndTags() async {
-    final response =
-        await get(Uri.parse('$baseEndpoint' + APIEndpoints.PACKS.path));
-    if (response.statusCode == 200) {
-      final Map<String, dynamic> data = jsonDecode(response.body);
+    final rawData =
+        await getRequest(Uri.parse('$baseEndpoint' + APIEndpoints.PACKS.path));
+      final Map<String, dynamic> data = jsonDecode(rawData);
       cachedTags =
           data["tags"].map<GameTag>((tag) => GameTag.fromJson(tag)).toList();
       cachedPacks = data["packs"]
@@ -93,44 +86,35 @@ class APIService {
                   (category) => PatchCategory.fromJson(category))
               .toList()
           : [];
-    } else {
-      throw Exception('Failed to load packs and tags');
-    }
   }
 
   Future<void> recoverNewsAndLinks() async {
-    final response =
-        await get(Uri.parse('$baseEndpoint' + APIEndpoints.WELCOME.path));
-    if (response.statusCode == 200) {
-      final Map<dynamic, dynamic> welcome = jsonDecode(response.body);
+    final rawData =
+        await getRequest(Uri.parse('$baseEndpoint' + APIEndpoints.WELCOME.path));
+      final Map<dynamic, dynamic> welcome = jsonDecode(rawData);
       cachedNews =
           welcome["news"].map<News>((news) => News.fromJson(news)).toList();
-    } else {
-      //throw Exception('Failed to load welcome');
-    }
   }
 
   Future<void> recoverBlurHashes() async {
-    final response =
-        await get(Uri.parse('$baseEndpoint' + APIEndpoints.BLUR_HASHES.path));
-    if (response.statusCode == 200) {
-      final List<dynamic> data = jsonDecode(response.body);
+    final rawData =
+        await getRequest(Uri.parse('$baseEndpoint' + APIEndpoints.BLUR_HASHES.path));
+      final List<dynamic> data = jsonDecode(rawData);
       cachedBlurHashes =
           data.map<UrlBlurHash>((tag) => UrlBlurHash.fromJson(tag)).toList();
-    }
   }
 
   Future<void> recoverConfigurations() async {
-    final response = await get(
+    try {
+    final rawData = await getRequest(
         Uri.parse('$baseEndpoint' + APIEndpoints.CONFIGURATIONS.path));
-    if (response.statusCode == 200) {
       try {
-        final Map<String, dynamic> data = jsonDecode(response.body);
+        final Map<String, dynamic> data = jsonDecode(rawData);
         cachedConfigurations = PatchServerConfigurations.fromJson(data);
-      }catch(e){
+      } catch (e) {
         cachedConfigurations = PatchServerConfigurations.fromJson({});
       }
-    }else{
+    } catch(e) {
       cachedConfigurations = PatchServerConfigurations.fromJson({});
     }
   }
@@ -143,6 +127,18 @@ class APIService {
   // Get tags
   List<GameTag> getTags() {
     return cachedTags;
+  }
+
+  // Send get request
+  Future<String> getRequest(Uri uri) async {
+    JULogger().i("Sending GET request to $uri");
+    http.Response response = await http.get(uri);
+    if (response.statusCode == 200) {
+      return response.body;
+    } else {
+      JULogger().e("Failed to send GET request to $uri");
+      throw Exception("Failed to send GET request to $uri");
+    }
   }
 
   // Download game patch

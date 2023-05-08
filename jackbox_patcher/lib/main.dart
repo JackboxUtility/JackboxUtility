@@ -19,12 +19,6 @@ import 'pages/patcher/menu.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
-  if (kReleaseMode) {
-    FlutterError.onError = (details) {
-      FlutterError.presentError(details);
-      UserData().writeLogs(details.toString());
-    };
-  }
   runApp(const MyApp());
 }
 

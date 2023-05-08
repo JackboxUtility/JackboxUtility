@@ -111,6 +111,18 @@ class _DownloadPatchDialogComponentState
                 Text(status, style: TextStyle(fontSize: 20)),
                 Text(substatus, style: TextStyle(fontSize: 16)),
               ]))),
+              actions: progression == 0 ? [
+                HyperlinkButton(
+                  onPressed: () {
+                    WindowsTaskbar.setProgressMode(TaskbarProgressMode.noProgress);
+                    Navigator.pop(context);
+                    downloadingProgress = 0;
+                    setState(() {});
+                  },
+                  child: Text(AppLocalizations.of(context)!.cancel),
+                ),
+              
+              ]:[],
     );
   }
 

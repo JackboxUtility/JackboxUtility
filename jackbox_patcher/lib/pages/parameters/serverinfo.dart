@@ -40,8 +40,6 @@ class _ServerInfoWidgetState extends State<ServerInfoWidget> {
                     child: Text(AppLocalizations.of(context)!.change_server),
                     onPressed: () async {
                       UserData().setSelectedServer(null);
-                      UserData().packs = [];
-                      APIService().resetCache();
                       Navigator.of(context).pop();
                     })
               ]),

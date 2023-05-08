@@ -49,6 +49,7 @@ dependencies:
   flutter_blurhash: 0.7.0
   carousel_slider: 4.2.1
   file_picker:
+  logger:
 
 
   # The following adds the Cupertino Icons font to your application.
