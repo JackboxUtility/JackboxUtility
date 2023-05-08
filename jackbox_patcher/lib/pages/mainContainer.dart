@@ -59,12 +59,24 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
     TranslationsHelper().appLocalizations = AppLocalizations.of(context);
     return NavigationView(
         content: 
-      Column(children: [
-        Spacer(),
-        _buildUpper(),
-        _buildLower(),
-        Spacer(),
-    ]));
+       Stack(
+         children: 
+          [
+            Image.asset("assets/images/background_pattern.png", scale: 1.5,  repeat: ImageRepeat.repeat, width: MediaQuery.of(context).size.width, height: MediaQuery.of(context).size.height),
+         Container(
+           width: MediaQuery.of(context).size.width,
+           height: MediaQuery.of(context).size.height,
+           color: Color.fromARGB(1,32,32,32).withOpacity(0.98),
+         ),
+         Column(children: [
+          Spacer(),
+          _buildUpper(),
+          _buildLower(),
+          Spacer(),
+           ]),
+           ],
+
+       ));
   }
 
   Widget _buildUpper() {
