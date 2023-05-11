@@ -31,7 +31,6 @@ class ParametersMenuWidget extends StatefulWidget {
 
 class _ParametersMenuWidgetState extends State<ParametersMenuWidget> {
   int _selectedView = 0;
-  List<UserJackboxPack> packs = UserData().packs;
   @override
   void initState() {
     super.initState();
@@ -72,7 +71,6 @@ class _ParametersMenuWidgetState extends State<ParametersMenuWidget> {
               icon: Icon(FluentIcons.package),
               title: Text(AppLocalizations.of(context)!.owned_packs),
               body: ParametersWidget(
-                originalPacks: packs,
               ),
             ),
             PaneItem(

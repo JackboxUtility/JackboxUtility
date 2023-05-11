@@ -239,35 +239,6 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
   }
 
   Future<void> _showParametersDialog() async {
-    await showDialog(
-        context: context,
-        builder: (context) => ContentDialog(
-              title: Text(AppLocalizations.of(context)!.settings),
-              content: SizedBox(
-                  height: 100,
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(AppLocalizations.of(context)!.pack_path),
-                        SizedBox(
-                          height: 6,
-                        ),
-                        TextBox(
-                          controller: pathController,
-                          onChanged: (value) {
-                            widget.userPack.setOwned(true);
-                            widget.userPack.setPath(value);
-                          },
-                        )
-                      ])),
-              actions: [
-                HyperlinkButton(
-                    child: Text(AppLocalizations.of(context)!.confirm),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    })
-              ],
-            ));
-    _loadPathFoundStatus();
+    await Navigator.pushNamed(context, "/settings/packs");
   }
 }

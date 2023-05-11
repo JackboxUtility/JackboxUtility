@@ -14,10 +14,39 @@ import 'package:url_launcher/url_launcher_string.dart';
 import '../../services/automaticGameFinder/AutomaticGameFinder.dart';
 import '../../services/error/error.dart';
 
-class ParametersWidget extends StatefulWidget {
-  ParametersWidget({Key? key, required this.originalPacks}) : super(key: key);
+class ParametersPackRoute extends StatefulWidget {
+  const ParametersPackRoute({Key? key}) : super(key: key);
 
-  final List<UserJackboxPack> originalPacks;
+  @override
+  _ParametersPackRouteState createState() => _ParametersPackRouteState();
+}
+
+class _ParametersPackRouteState extends State<ParametersPackRoute> {
+  @override
+  Widget build(BuildContext context) {
+    Typography typography = FluentTheme.of(context).typography;
+    return NavigationView(
+      appBar: NavigationAppBar(
+          automaticallyImplyLeading: false,
+          leading: GestureDetector(
+            child: Icon(FluentIcons.chevron_left),
+            onTap: () => Navigator.pop(context),
+          ),
+          title: Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
+            Padding(padding: EdgeInsets.only(bottom: 4), child: Icon(FluentIcons.settings, size: 25)),
+            SizedBox(width: 10),
+            Text(
+            AppLocalizations.of(context)!.settings,
+            style: typography.title,
+          )])),
+      content:ParametersWidget()
+    );
+  }
+}
+
+class ParametersWidget extends StatefulWidget {
+  ParametersWidget({Key? key}) : super(key: key);
+
   @override
   State<ParametersWidget> createState() => _ParametersWidgetState();
 }
@@ -137,7 +166,8 @@ class _ParametersWidgetState extends State<ParametersWidget> {
     if (packSelected != null) {
       setState(() {});
       String? path = await FilePicker.platform.getDirectoryPath(
-          dialogTitle: AppLocalizations.of(context)!.select_game_location(packSelected.pack.name),
+          dialogTitle: AppLocalizations.of(context)!
+              .select_game_location(packSelected.pack.name),
           lockParentWindow: true);
       if (path != null) {
         packSelected.setPath(path);
@@ -246,7 +276,8 @@ class _PackInParametersWidgetState extends State<PackInParametersWidget> {
           icon: const Icon(FluentIcons.folder_open),
           onPressed: () async {
             String? path = await FilePicker.platform.getDirectoryPath(
-                dialogTitle: AppLocalizations.of(context)!.select_game_location(widget.pack.pack.name),
+                dialogTitle: AppLocalizations.of(context)!
+                    .select_game_location(widget.pack.pack.name),
                 lockParentWindow: true);
             if (path != null) {
               pathController.text = path;
@@ -295,7 +326,8 @@ class _PackInParametersWidgetState extends State<PackInParametersWidget> {
                               String? path = await FilePicker.platform
                                   .getDirectoryPath(
                                       dialogTitle: AppLocalizations.of(context)!
-                                          .select_game_location(widget.pack.pack.name),
+                                          .select_game_location(
+                                              widget.pack.pack.name),
                                       lockParentWindow: true);
                               if (path != null) {
                                 pathController.text = path;

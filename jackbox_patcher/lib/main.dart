@@ -55,6 +55,9 @@ class MyApp extends StatelessWidget {
         // When navigating to the "/second" route, build the SecondScreen widget.
         '/settings': (context) =>
             showMainContainerIfNotLoaded(ParametersRoute()),
+        '/settings/packs': 
+          (context) =>
+              showMainContainerIfNotLoaded(ParametersPackRoute()),
         '/game': (context) => showMainContainerIfNotLoaded(GameInfoRoute()),
         '/search': (context) => showMainContainerIfNotLoaded(SearchGameRoute()),
         '/searchMenu': (context) =>
