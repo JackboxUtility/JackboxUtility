@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:jackbox_patcher/model/jackbox/jackboxpack.dart';
+import 'package:jackbox_patcher/model/misc/launchers.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:win32_registry/win32_registry.dart';
 
@@ -94,11 +95,14 @@ class AutomaticGameFinderService {
       if (userPack.pack.launchersId != null &&
           userPack.pack.launchersId!.steam != null) {
         for (var folder in steamFoldersWithAppId.keys) {
-          if (await File("$folder\\steamapps\\appmanifest_${userPack.pack.launchersId!.steam!}.acf").exists()) {
+          if (await File(
+                  "$folder\\steamapps\\appmanifest_${userPack.pack.launchersId!.steam!}.acf")
+              .exists()) {
             numberGamesFound++;
             await userPack.setOwned(true);
             await userPack.setPath(_getSteamGamePathFromFolderAndAppId(
                 folder, userPack.pack.launchersId!.steam!));
+            await userPack.setLauncher(LauncherType.STEAM);
           }
         }
       }

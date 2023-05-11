@@ -5,8 +5,10 @@ import 'package:jackbox_patcher/model/jackbox/jackboxpack.dart';
 import 'package:jackbox_patcher/model/misc/windowInformation.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgamepatch.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
+import 'package:jackbox_patcher/services/launcher/launcher.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../model/misc/launchers.dart';
 import '../../model/usermodel/userjackboxgame.dart';
 import '../../model/usermodel/userjackboxpack.dart';
 import '../../model/usermodel/userjackboxpackpatch.dart';
@@ -49,8 +51,14 @@ class UserData {
 
       final String? packPath = preferences.getString("${pack.id}_path");
       final bool packOwned = preferences.getBool("${pack.id}_owned") ?? false;
+      final LauncherType packOrigin =
+          LauncherType.fromName(preferences.getString("${pack.id}_origin")??"");
       UserJackboxPack userPack = UserJackboxPack(
-          pack: pack, loader: loader, path: packPath, owned: packOwned);
+          pack: pack,
+          loader: loader,
+          path: packPath,
+          owned: packOwned,
+          origin: packOrigin);
       packs.add(userPack);
 
       // Load every games in the pack
@@ -115,6 +123,7 @@ class UserData {
       await preferences.remove("${pack.pack.id}_path");
     }
     await preferences.setBool("${pack.pack.id}_owned", pack.owned);
+    await preferences.setString("${pack.pack.id}_origin", pack.origin!.toName());
     for (var game in pack.games) {
       await saveGame(game);
     }
@@ -170,7 +179,7 @@ class UserData {
     return preferences.getString("selected_server");
   }
 
-  WindowInformation getLastWindowInformations(){
+  WindowInformation getLastWindowInformations() {
     WindowInformation lastWindowInformations = WindowInformation(
       maximized: preferences.getBool("last_window_maximize") ?? false,
       width: preferences.getInt("last_window_width") ?? 1280,
@@ -189,8 +198,10 @@ class UserData {
     }
   }
 
-  Future<void> setLastWindowInformations(WindowInformation windowInformation) async {
-    await preferences.setBool("last_window_maximize", windowInformation.maximized);
+  Future<void> setLastWindowInformations(
+      WindowInformation windowInformation) async {
+    await preferences.setBool(
+        "last_window_maximize", windowInformation.maximized);
     await preferences.setInt("last_window_width", windowInformation.width);
     await preferences.setInt("last_window_height", windowInformation.height);
     await preferences.setInt("last_window_x", windowInformation.x);

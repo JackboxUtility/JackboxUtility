@@ -5,6 +5,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/components/blurhashimage.dart';
 import 'package:jackbox_patcher/components/dialogs/automaticGameFinderDialog.dart';
+import 'package:jackbox_patcher/model/misc/launchers.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
@@ -272,6 +273,13 @@ class _PackInParametersWidgetState extends State<PackInParametersWidget> {
                       .path_inexistant_small_description,
                   style: TextStyle(color: Colors.yellow)),
       trailing: Row(children: [
+        if (widget.pack.pack.launchersId != null && widget.pack.pack.launchersId!.steam != null && widget.pack.origin == LauncherType.STEAM)
+         IconButton(
+          icon: const Icon(FluentIcons.update_restore),
+          onPressed: () async {
+            launchUrlString("steam://validate/${widget.pack.pack.launchersId!.steam!}");
+          },
+        ),
         IconButton(
           icon: const Icon(FluentIcons.folder_open),
           onPressed: () async {
