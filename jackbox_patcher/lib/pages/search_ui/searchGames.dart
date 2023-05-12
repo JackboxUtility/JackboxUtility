@@ -114,7 +114,9 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
                             child: const Icon(FluentIcons.chevron_left),
                             onTap: () => Navigator.pop(context))
                         : Container(),
-                    widget.comeFromGame ? const SizedBox(width: 20) : Container(),
+                    widget.comeFromGame
+                        ? const SizedBox(width: 20)
+                        : Container(),
                     Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -128,7 +130,8 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
                           ),
                           Text(
                             widget.description!,
-                            style: const TextStyle(color: Colors.white, fontSize: 15),
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 15),
                           )
                         ])
                   ])))
@@ -172,7 +175,11 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
     } else {
       return Column(children: [
         const SizedBox(height: 50),
-        Image.asset("assets/images/Mayonnaise.webp", height:200, cacheHeight: 200,),
+        Image.asset(
+          "assets/images/Mayonnaise.webp",
+          height: 200,
+          cacheHeight: 200,
+        ),
         Text(
           AppLocalizations.of(context)!.no_game_in_this_category_title,
           style: const TextStyle(fontSize: 20),
@@ -200,6 +207,12 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
   }
 
   double calculatePadding() {
+     if (widget.comeFromGame && MediaQuery.of(context).size.width > 1800) {
+      return (MediaQuery.of(context).size.width - 1680) / 2;
+    }
+    if (widget.comeFromGame && MediaQuery.of(context).size.width > 1400) {
+      return (MediaQuery.of(context).size.width - 1280) / 2;
+    }
     if (widget.comeFromGame && MediaQuery.of(context).size.width > 1000) {
       return (MediaQuery.of(context).size.width - 880) / 2;
     } else {
@@ -297,8 +310,8 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                                       Colors.black.withOpacity(opacity)
                                     ]))),
                                 Padding(
-                                    padding:
-                                        const EdgeInsets.only(bottom: 8, left: 8),
+                                    padding: const EdgeInsets.only(
+                                        bottom: 8, left: 8),
                                     child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.end,
@@ -307,7 +320,7 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                                         children: [
                                           Text(widget.game.game.name,
                                               style: TextStyle(
-                                                fontWeight: FontWeight.bold,
+                                                  fontWeight: FontWeight.bold,
                                                   overflow:
                                                       TextOverflow.ellipsis,
                                                   fontSize: 15,
@@ -328,9 +341,7 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                                             ),
                                             const SizedBox(width: 10),
                                             Text(
-                                                "${gameInfo.players.min} - ${gameInfo.players.max} ${AppLocalizations.of(
-                                                            context)!
-                                                        .players}",
+                                                "${gameInfo.players.min} - ${gameInfo.players.max} ${AppLocalizations.of(context)!.players}",
                                                 style: TextStyle(
                                                     color: Colors.white
                                                         .withOpacity(opacity)))
