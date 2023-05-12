@@ -5,7 +5,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AppInfoWidget extends StatefulWidget {
-  AppInfoWidget({Key? key}) : super(key: key);
+  const AppInfoWidget({Key? key}) : super(key: key);
 
   @override
   State<AppInfoWidget> createState() => _AppInfoWidgetState();
@@ -32,27 +32,26 @@ class _AppInfoWidgetState extends State<AppInfoWidget> {
 
   @override
   Widget build(BuildContext context) {
-    Typography typography = FluentTheme.of(context).typography;
     return Padding(
         padding:
             EdgeInsets.symmetric(vertical: 24, horizontal: calculatePadding()),
         child: Column(children: [
-          Spacer(flex: 2),
+          const Spacer(flex: 2),
           ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
               child: Image.asset('assets/logo.png', height: 100)),
           Text(AppLocalizations.of(context)!.jackbox_utility,
               style: FluentTheme.of(context).typography.titleLarge),
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
           Text(AppLocalizations.of(context)!.jackbox_utility_description,
               style: FluentTheme.of(context).typography.body),
-          SizedBox(height: 12),
-          Text(AppLocalizations.of(context)!.version + " " + version,
+          const SizedBox(height: 12),
+          Text("${AppLocalizations.of(context)!.version} $version",
               style: FluentTheme.of(context).typography.body),
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             HyperlinkButton(
-                child: Row(children: [
+                child: const Row(children: [
                   FaIcon(FontAwesomeIcons.github),
                   SizedBox(
                     width: 10,
@@ -64,16 +63,16 @@ class _AppInfoWidgetState extends State<AppInfoWidget> {
                       Uri.parse("https://github.com/AlexisL61/JackboxUtility"));
                 })
           ]),
-          Spacer(),
+          const Spacer(),
           Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Spacer(),
+                const Spacer(),
                 Column(children: [
                   Text(AppLocalizations.of(context)!.author),
                   HyperlinkButton(
-                      child: Row(children: [
+                      child: const Row(children: [
                         FaIcon(FontAwesomeIcons.github),
                         SizedBox(
                           width: 10,
@@ -85,11 +84,11 @@ class _AppInfoWidgetState extends State<AppInfoWidget> {
                             Uri.parse("https://github.com/AlexisL61"));
                       }),
                 ]),
-                Spacer(),
+                const Spacer(),
                 Column(mainAxisAlignment: MainAxisAlignment.start, children: [
                   Text(AppLocalizations.of(context)!.contributors),
                   HyperlinkButton(
-                      child: Row(children: [
+                      child: const Row(children: [
                         FaIcon(FontAwesomeIcons.github),
                         SizedBox(
                           width: 10,
@@ -101,7 +100,7 @@ class _AppInfoWidgetState extends State<AppInfoWidget> {
                             Uri.parse("https://github.com/AkiraArtuhaxis"));
                       }),
                   HyperlinkButton(
-                      child: Row(children: [
+                      child: const Row(children: [
                         FaIcon(FontAwesomeIcons.github),
                         SizedBox(
                           width: 10,
@@ -113,9 +112,9 @@ class _AppInfoWidgetState extends State<AppInfoWidget> {
                             Uri.parse("https://github.com/DerErizzle"));
                       })
                 ]),
-                Spacer()
+                const Spacer()
               ]),
-          Spacer(flex: 2)
+          const Spacer(flex: 2)
         ]));
   }
 }

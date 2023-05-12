@@ -67,7 +67,8 @@ class JackboxPackPatchComponent extends PatchInformation {
     if (linkedGame == null) return null;
     for (JackboxPack pack in APIService().cachedPacks) {
       var gamesFound = pack.games.where((game) => game.id == linkedGame);
-      if (gamesFound.length > 0) return gamesFound.first;
+      if (gamesFound.isNotEmpty) return gamesFound.first;
     }
+    return null;
   }
 }

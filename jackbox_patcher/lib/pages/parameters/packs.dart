@@ -1,10 +1,7 @@
-import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:jackbox_patcher/components/blurhashimage.dart';
-import 'package:jackbox_patcher/components/dialogs/automaticGameFinderDialog.dart';
 import 'package:jackbox_patcher/model/misc/launchers.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
@@ -30,23 +27,23 @@ class _ParametersPackRouteState extends State<ParametersPackRoute> {
       appBar: NavigationAppBar(
           automaticallyImplyLeading: false,
           leading: GestureDetector(
-            child: Icon(FluentIcons.chevron_left),
+            child: const Icon(FluentIcons.chevron_left),
             onTap: () => Navigator.pop(context),
           ),
           title: Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
-            Padding(padding: EdgeInsets.only(bottom: 4), child: Icon(FluentIcons.settings, size: 25)),
-            SizedBox(width: 10),
+            const Padding(padding: EdgeInsets.only(bottom: 4), child: Icon(FluentIcons.settings, size: 25)),
+            const SizedBox(width: 10),
             Text(
             AppLocalizations.of(context)!.settings,
             style: typography.title,
           )])),
-      content:ParametersWidget()
+      content:const ParametersWidget()
     );
   }
 }
 
 class ParametersWidget extends StatefulWidget {
-  ParametersWidget({Key? key}) : super(key: key);
+  const ParametersWidget({Key? key}) : super(key: key);
 
   @override
   State<ParametersWidget> createState() => _ParametersWidgetState();
@@ -80,13 +77,13 @@ class _ParametersWidgetState extends State<ParametersWidget> {
             ),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Row(children: [
                 Text(AppLocalizations.of(context)!.owned_packs,
                     style: typography.titleLarge),
-                Spacer(),
+                const Spacer(),
                 FilledButton(
                     child: Text(AppLocalizations.of(context)!
                         .automatic_game_finder_button),
@@ -95,7 +92,7 @@ class _ParametersWidgetState extends State<ParametersWidget> {
                       setState(() {});
                     })
               ]),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               _showOwnedPack(),
@@ -103,12 +100,12 @@ class _ParametersWidgetState extends State<ParametersWidget> {
                   UserData().packs.where((element) => element.owned).length)
                 ListTile(
                   title: Text(AppLocalizations.of(context)!.add_pack),
-                  leading: Icon(FluentIcons.add),
+                  leading: const Icon(FluentIcons.add),
                   onPressed: () {
                     _showAddPackDialog();
                   },
                 ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
             ]))
@@ -202,7 +199,7 @@ class PackInParametersWidget extends StatefulWidget {
     required this.reloadallPacks,
   }) : super(key: key);
 
-  UserJackboxPack pack;
+  final UserJackboxPack pack;
   final Function reloadallPacks;
 
   @override
@@ -238,7 +235,7 @@ class _PackInParametersWidgetState extends State<PackInParametersWidget> {
             : packStatus == "INEXISTANT"
                 ? Icon(FluentIcons.warning, color: Colors.yellow)
                 : Icon(FluentIcons.check_mark, color: Colors.green),
-        SizedBox(width: 10),
+        const SizedBox(width: 10),
         CachedNetworkImage(
             imageUrl: APIService().assetLink(widget.pack.pack.icon),
             height: 30,
@@ -251,22 +248,22 @@ class _PackInParametersWidgetState extends State<PackInParametersWidget> {
               style: TextStyle(color: Colors.red))
           : (widget.pack.path != null && widget.pack.path != "")
               ? MouseRegion(
+                  cursor: SystemMouseCursors.click,
                   child: HyperlinkButton(
                     style: ButtonStyle(
                         padding: ButtonState.resolveWith(
-                            (states) => EdgeInsets.all(0)),
+                            (states) => const EdgeInsets.all(0)),
                         textStyle: ButtonState.resolveWith((states) =>
-                            TextStyle(fontWeight: FontWeight.normal))),
+                            const TextStyle(fontWeight: FontWeight.normal))),
                     child: Text(
                       widget.pack.path!,
-                      style: TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.white),
                     ),
                     onPressed: () {
                       launchUrlString(
                           "file:///${widget.pack.path!.replaceAll("\\", "/")}");
                     },
                   ),
-                  cursor: SystemMouseCursors.click,
                 )
               : Text(
                   AppLocalizations.of(context)!
@@ -317,7 +314,7 @@ class _PackInParametersWidgetState extends State<PackInParametersWidget> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(AppLocalizations.of(context)!.pack_path),
-                        SizedBox(
+                        const SizedBox(
                           height: 6,
                         ),
                         Row(children: [

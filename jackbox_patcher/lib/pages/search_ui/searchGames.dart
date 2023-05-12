@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:jackbox_patcher/model/jackbox/jackboxpack.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
@@ -11,7 +10,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../services/launcher/launcher.dart';
 
 class SearchGameRoute extends StatefulWidget {
-  SearchGameRoute({Key? key}) : super(key: key);
+  const SearchGameRoute({Key? key}) : super(key: key);
 
   @override
   State<SearchGameRoute> createState() => _SearchGameRouteState();
@@ -39,7 +38,7 @@ class _SearchGameRouteState extends State<SearchGameRoute> {
 }
 
 class SearchGameWidget extends StatefulWidget {
-  SearchGameWidget(
+  const SearchGameWidget(
       {Key? key,
       required this.filter,
       this.comeFromGame = false,
@@ -70,7 +69,6 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
   }
 
   Widget _buildHeader() {
-    Typography typography = FluentTheme.of(context).typography;
     return Column(
       children: [
         Stack(children: [
@@ -92,7 +90,7 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
               right: 0,
               child: Container(
                   height: 100,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
@@ -105,7 +103,7 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
               bottom: 0,
               left: 0,
               right: 0,
-              child: Container(
+              child: SizedBox(
                   height: 100,
                   child: Row(children: [
                     SizedBox(
@@ -113,29 +111,29 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
                             (widget.comeFromGame ? 40 : 0)),
                     widget.comeFromGame
                         ? GestureDetector(
-                            child: Icon(FluentIcons.chevron_left),
+                            child: const Icon(FluentIcons.chevron_left),
                             onTap: () => Navigator.pop(context))
                         : Container(),
-                    widget.comeFromGame ? SizedBox(width: 20) : Container(),
+                    widget.comeFromGame ? const SizedBox(width: 20) : Container(),
                     Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             widget.name!,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 30,
                                 fontWeight: FontWeight.bold),
                           ),
                           Text(
                             widget.description!,
-                            style: TextStyle(color: Colors.white, fontSize: 15),
+                            style: const TextStyle(color: Colors.white, fontSize: 15),
                           )
                         ])
                   ])))
         ]),
-        SizedBox(height: 20)
+        const SizedBox(height: 20)
       ],
     );
   }
@@ -157,7 +155,7 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
 
   Widget _buildBottom() {
     List<Map<String, Object>> games = getFilteredGames();
-    if (games.length > 0) {
+    if (games.isNotEmpty) {
       return Padding(
           padding: EdgeInsets.symmetric(horizontal: calculatePadding()),
           child: StaggeredGrid.count(
@@ -173,11 +171,11 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
                   .toList()));
     } else {
       return Column(children: [
-        SizedBox(height: 50),
+        const SizedBox(height: 50),
         Image.asset("assets/images/Mayonnaise.webp", height:200, cacheHeight: 200,),
         Text(
           AppLocalizations.of(context)!.no_game_in_this_category_title,
-          style: TextStyle(fontSize: 20),
+          style: const TextStyle(fontSize: 20),
         ),
         Text(
           AppLocalizations.of(context)!.no_game_in_this_category_description,
@@ -225,7 +223,7 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
 }
 
 class SearchGameGameWidget extends StatefulWidget {
-  SearchGameGameWidget(
+  const SearchGameGameWidget(
       {Key? key,
       required this.pack,
       required this.game,
@@ -256,7 +254,7 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                     begin: isFirstTime ? 0 : (smallInfoVisible ? 0 : 1),
                     end: isFirstTime ? 0 : (smallInfoVisible ? 1 : 0),
                   ),
-                  duration: Duration(milliseconds: 200),
+                  duration: const Duration(milliseconds: 200),
                   builder:
                       (BuildContext context, double opacity, Widget? child) {
                     return IntrinsicHeight(
@@ -300,7 +298,7 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                                     ]))),
                                 Padding(
                                     padding:
-                                        EdgeInsets.only(bottom: 8, left: 8),
+                                        const EdgeInsets.only(bottom: 8, left: 8),
                                     child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.end,
@@ -321,24 +319,18 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                                                       TextOverflow.ellipsis,
                                                   color: Colors.white
                                                       .withOpacity(opacity))),
-                                          SizedBox(height: 10),
+                                          const SizedBox(height: 10),
                                           Row(children: [
                                             Icon(
                                               FluentIcons.people,
                                               color: Colors.white
                                                   .withOpacity(opacity),
                                             ),
-                                            SizedBox(width: 10),
+                                            const SizedBox(width: 10),
                                             Text(
-                                                gameInfo.players.min
-                                                        .toString() +
-                                                    " - " +
-                                                    gameInfo.players.max
-                                                        .toString() +
-                                                    " " +
-                                                    AppLocalizations.of(
+                                                "${gameInfo.players.min} - ${gameInfo.players.max} ${AppLocalizations.of(
                                                             context)!
-                                                        .players,
+                                                        .players}",
                                                 style: TextStyle(
                                                     color: Colors.white
                                                         .withOpacity(opacity)))
@@ -349,7 +341,7 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                                               color: Colors.white
                                                   .withOpacity(opacity),
                                             ),
-                                            SizedBox(width: 10),
+                                            const SizedBox(width: 10),
                                             Text(gameInfo.length,
                                                 style: TextStyle(
                                                     overflow:
@@ -363,7 +355,7 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                                               color: Colors.white
                                                   .withOpacity(opacity),
                                             ),
-                                            SizedBox(width: 10),
+                                            const SizedBox(width: 10),
                                             Text(gameInfo.translation.name,
                                                 style: TextStyle(
                                                     overflow:

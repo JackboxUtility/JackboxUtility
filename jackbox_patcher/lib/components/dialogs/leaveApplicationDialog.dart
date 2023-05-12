@@ -2,7 +2,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LeaveApplicationDialog extends StatefulWidget {
-  LeaveApplicationDialog({Key? key}) : super(key: key);
+  const LeaveApplicationDialog({Key? key}) : super(key: key);
 
   @override
   State<LeaveApplicationDialog> createState() => _LeaveApplicationDialogState();

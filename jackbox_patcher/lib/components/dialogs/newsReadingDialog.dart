@@ -4,10 +4,9 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../model/news.dart';
-import '../../services/api/api_service.dart';
 
 class NewsReadingDialog extends StatefulWidget {
-  NewsReadingDialog({Key? key, required this.news}) : super(key: key);
+  const NewsReadingDialog({Key? key, required this.news}) : super(key: key);
 
   final News news;
 

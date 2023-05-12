@@ -1,16 +1,12 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 import 'package:jackbox_patcher/model/jackbox/jackboxgame.dart';
-import 'package:jackbox_patcher/model/jackbox/jackboxgamepatch.dart';
-import 'package:jackbox_patcher/model/jackbox/jackboxpackpatch.dart';
 import 'package:jackbox_patcher/model/misc/urlblurhash.dart';
 import 'package:jackbox_patcher/model/news.dart';
 import 'package:jackbox_patcher/model/patchServerConfigurations.dart';
 import 'package:jackbox_patcher/model/patchserver.dart';
-import 'package:jackbox_patcher/pages/patcher/categoryPackPatch.dart';
 import 'package:jackbox_patcher/services/logger/logger.dart';
 
 import '../../model/gametag.dart';
@@ -73,7 +69,7 @@ class APIService {
 
   Future<void> recoverPacksAndTags() async {
     final rawData =
-        await getRequest(Uri.parse('$baseEndpoint' + APIEndpoints.PACKS.path));
+        await getRequest(Uri.parse('$baseEndpoint${APIEndpoints.PACKS.path}'));
       final Map<String, dynamic> data = jsonDecode(rawData);
       cachedTags =
           data["tags"].map<GameTag>((tag) => GameTag.fromJson(tag)).toList();
@@ -90,7 +86,7 @@ class APIService {
 
   Future<void> recoverNewsAndLinks() async {
     final rawData =
-        await getRequest(Uri.parse('$baseEndpoint' + APIEndpoints.WELCOME.path));
+        await getRequest(Uri.parse('$baseEndpoint${APIEndpoints.WELCOME.path}'));
       final Map<dynamic, dynamic> welcome = jsonDecode(rawData);
       cachedNews =
           welcome["news"].map<News>((news) => News.fromJson(news)).toList();
@@ -98,7 +94,7 @@ class APIService {
 
   Future<void> recoverBlurHashes() async {
     final rawData =
-        await getRequest(Uri.parse('$baseEndpoint' + APIEndpoints.BLUR_HASHES.path));
+        await getRequest(Uri.parse('$baseEndpoint${APIEndpoints.BLUR_HASHES.path}'));
       final List<dynamic> data = jsonDecode(rawData);
       cachedBlurHashes =
           data.map<UrlBlurHash>((tag) => UrlBlurHash.fromJson(tag)).toList();
@@ -107,7 +103,7 @@ class APIService {
   Future<void> recoverConfigurations() async {
     try {
     final rawData = await getRequest(
-        Uri.parse('$baseEndpoint' + APIEndpoints.CONFIGURATIONS.path));
+        Uri.parse('$baseEndpoint${APIEndpoints.CONFIGURATIONS.path}'));
       try {
         final Map<String, dynamic> data = jsonDecode(rawData);
         cachedConfigurations = PatchServerConfigurations.fromJson(data);
@@ -146,13 +142,13 @@ class APIService {
       String patchUri, void Function(double, double) progressCallback) async {
     Dio dio = Dio();
     final response = await dio.downloadUri(
-        Uri.parse(APIService().assetLink('${patchUri}')),
-        "./downloads/tmp." + patchUri.split(".").last,
+        Uri.parse(APIService().assetLink(patchUri)),
+        "./downloads/tmp.${patchUri.split(".").last}",
         options: Options(), onReceiveProgress: (received, total) {
       progressCallback(received.toInt().toDouble(), total.toInt().toDouble());
     });
     if (response.statusCode == 200) {
-      return "./downloads/tmp." + patchUri.split(".").last;
+      return "./downloads/tmp.${patchUri.split(".").last}";
     } else {
       throw Exception('Failed to download patch');
     }
@@ -201,7 +197,7 @@ class APIService {
   UrlBlurHash? getBlurHash(String url) {
     final blurHashes = cachedBlurHashes.where(
         (element) => element.url == url || element.url == assetLink(url));
-    if (blurHashes.length >= 1) {
+    if (blurHashes.isNotEmpty) {
       return blurHashes.first;
     } else {
       return null;

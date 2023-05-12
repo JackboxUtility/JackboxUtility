@@ -1,11 +1,9 @@
-/**
- * Use to retrieve a language name from its iso code
- * 
- * For example, if you want to get the name of the language with the iso code "fr", you can do:
- * ```dart
- * LanguageService().getLanguageName("fr");
- * ```
- */
+/// Use to retrieve a language name from its iso code
+/// 
+/// For example, if you want to get the name of the language with the iso code "fr", you can do:
+/// ```dart
+/// LanguageService().getLanguageName("fr");
+/// ```
 class LanguageService {
   final isoLangs = {
     "ab": {"name": "Abkhaz", "nativeName": "аҧсуа"},

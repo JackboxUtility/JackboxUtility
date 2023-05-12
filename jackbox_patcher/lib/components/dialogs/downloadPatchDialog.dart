@@ -3,10 +3,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpackpatch.dart';
 import 'package:windows_taskbar/windows_taskbar.dart';
 
-import '../../services/error/error.dart';
 
 class DownloadPatchDialogComponent extends StatefulWidget {
-  DownloadPatchDialogComponent(
+  const DownloadPatchDialogComponent(
       {Key? key, required this.localPaths, required this.patchs})
       : super(key: key);
 
@@ -90,13 +89,9 @@ class _DownloadPatchDialogComponentState
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                 ProgressRing(value: progression),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Text(
-                    "[" +
-                        (currentPatchDownloading + 1).toString() +
-                        "/" +
-                        widget.patchs.length.toString() +
-                        "] " +
+                    "[${currentPatchDownloading + 1}/${widget.patchs.length}] " +
                         (widget.patchs[currentPatchDownloading]
                                 is UserJackboxPackPatch
                             ? widget.patchs[currentPatchDownloading]
@@ -107,9 +102,9 @@ class _DownloadPatchDialogComponentState
                                 .getGame()
                                 .game
                                 .name),
-                    style: TextStyle(fontSize: 20)),
-                Text(status, style: TextStyle(fontSize: 20)),
-                Text(substatus, style: TextStyle(fontSize: 16)),
+                    style: const TextStyle(fontSize: 20)),
+                Text(status, style: const TextStyle(fontSize: 20)),
+                Text(substatus, style: const TextStyle(fontSize: 16)),
               ]))),
               actions: progression == 0 ? [
                 HyperlinkButton(
@@ -147,12 +142,12 @@ class _DownloadPatchDialogComponentState
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                Icon(FluentIcons.check_mark),
-                SizedBox(height: 10),
+                const Icon(FluentIcons.check_mark),
+                const SizedBox(height: 10),
                 Text(AppLocalizations.of(context)!.installing_a_patch_end,
-                    style: TextStyle(fontSize: 20)),
+                    style: const TextStyle(fontSize: 20)),
                 Text(AppLocalizations.of(context)!.can_close_popup,
-                    style: TextStyle(fontSize: 16)),
+                    style: const TextStyle(fontSize: 16)),
               ]))),
     );
   }

@@ -4,7 +4,6 @@ import 'package:jackbox_patcher/model/jackbox/jackboxpack.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgamepatch.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpackpatch.dart';
-import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 
 import '../../services/launcher/launcher.dart';
@@ -41,7 +40,7 @@ class UserJackboxPack {
     } else {
       if (await folder.exists() &&
           (pack.executable == null ||
-              await File(folder.path + "/" + pack.executable!).exists())) {
+              await File("${folder.path}/${pack.executable!}").exists())) {
         return "FOUND";
       } else {
         return "NOT_FOUND";
@@ -50,12 +49,12 @@ class UserJackboxPack {
   }
 
   Future<void> setPath(String p) async {
-    this.path = p;
+    path = p;
     await UserData().savePack(this);
   }
 
   Future<void> setOwned(bool o) async {
-    this.owned = o;
+    owned = o;
     await UserData().savePack(this);
   }
 
@@ -76,7 +75,7 @@ class UserJackboxPack {
   }
 
   setLauncher(LauncherType launcher) {
-    this.origin = launcher;
+    origin = launcher;
     UserData().savePack(this);
   }
 }

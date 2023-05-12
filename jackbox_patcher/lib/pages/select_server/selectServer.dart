@@ -8,7 +8,7 @@ import 'package:jackbox_patcher/services/error/error.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 
 class SelectServerPage extends StatefulWidget {
-  SelectServerPage({Key? key}) : super(key: key);
+  const SelectServerPage({Key? key}) : super(key: key);
 
   @override
   State<SelectServerPage> createState() => _SelectServerPageState();
@@ -41,15 +41,15 @@ class _SelectServerPageState extends State<SelectServerPage> {
         content: ListView(
       children: [
         Column(children: [
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Text(AppLocalizations.of(context)!.select_server_title,
               style: FluentTheme.of(context).typography.title),
           Text(AppLocalizations.of(context)!.select_server_subtitle,
               style: FluentTheme.of(context).typography.subtitle),
         ]),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         Padding(
-            padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+            padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
             child: StaggeredGrid.count(
                 mainAxisSpacing: 20,
                 crossAxisSpacing: 20,
@@ -67,29 +67,29 @@ class _SelectServerPageState extends State<SelectServerPage> {
       children: [
         Container(
             height: 200,
-            margin: EdgeInsets.only(top: 25),
+            margin: const EdgeInsets.only(top: 25),
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(8.0),
                 child: Acrylic(
-                    shadowColor: Color.fromARGB(255, 48, 48, 48),
+                    shadowColor: const Color.fromARGB(255, 48, 48, 48),
                     blurAmount: 1,
                     tintAlpha: 1,
-                    tint: Color.fromARGB(255, 48, 48, 48),
+                    tint: const Color.fromARGB(255, 48, 48, 48),
                     child: Stack(children: [
                       Container(
-                          padding: EdgeInsets.only(bottom: 12),
-                          margin: EdgeInsets.only(top: 50),
+                          padding: const EdgeInsets.only(bottom: 12),
+                          margin: const EdgeInsets.only(top: 50),
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Expanded(
                                     child: Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 12),
+                                  padding: const EdgeInsets.symmetric(horizontal: 12),
                                   child: Column(children: [
                                     Text(server.name,
                                         overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(fontSize: 25)),
-                                    SizedBox(height: 10),
+                                        style: const TextStyle(fontSize: 25)),
+                                    const SizedBox(height: 10),
                                     Text(
                                       server.description,
                                     ),
@@ -108,7 +108,7 @@ class _SelectServerPageState extends State<SelectServerPage> {
     return SizedBox(
         height: 75,
         child: Padding(
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),

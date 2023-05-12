@@ -5,7 +5,7 @@ import 'package:lottie/lottie.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AutomaticGameFinderDialog extends StatefulWidget {
-  AutomaticGameFinderDialog({Key? key}) : super(key: key);
+  const AutomaticGameFinderDialog({Key? key}) : super(key: key);
 
   @override
   State<AutomaticGameFinderDialog> createState() =>
@@ -20,7 +20,7 @@ class _AutomaticGameFinderDialogState extends State<AutomaticGameFinderDialog> {
   Widget build(BuildContext context) {
     return visibleDialog == 0
         ? ContentDialog(
-            style: ContentDialogThemeData(
+            style: const ContentDialogThemeData(
                 titlePadding:
                     EdgeInsets.only(top: 0, left: 0, right: 0, bottom: 16),
                 padding:
@@ -74,7 +74,7 @@ class _AutomaticGameFinderDialogState extends State<AutomaticGameFinderDialog> {
               Text(AppLocalizations.of(context)!
                   .automatic_game_finder_in_progress),
             ])),
-        actions: []);
+        actions: const []);
   }
 
   ContentDialog finishDialog() {

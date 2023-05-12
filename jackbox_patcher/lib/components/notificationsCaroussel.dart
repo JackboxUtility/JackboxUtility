@@ -5,10 +5,9 @@ import 'package:jackbox_patcher/components/dialogs/newsReadingDialog.dart';
 import 'package:jackbox_patcher/model/news.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 
-import 'blurhashimage.dart';
 
 class NotificationCaroussel extends StatefulWidget {
-  NotificationCaroussel({Key? key, required this.news}) : super(key: key);
+  const NotificationCaroussel({Key? key, required this.news}) : super(key: key);
 
   final List<News> news;
 
@@ -32,9 +31,10 @@ class _NotificationCarousselState extends State<NotificationCaroussel> {
     super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
     return Column(children: [
-      Container(
+      SizedBox(
           height: 130,
           child: AspectRatio(
             aspectRatio: 1.778,
@@ -91,7 +91,7 @@ class _NotificationCarousselState extends State<NotificationCaroussel> {
                 child: Container(
                   width: 8.0,
                   height: 8.0,
-                  margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                  margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: (FluentTheme.of(context).brightness ==

@@ -5,7 +5,6 @@ import 'package:jackbox_patcher/services/logger/logger.dart';
 
 import '../api/api_service.dart';
 import '../translations/translationsHelper.dart';
-import '../user/userdata.dart';
 
 class DownloaderService {
   static bool isDownloading = false;

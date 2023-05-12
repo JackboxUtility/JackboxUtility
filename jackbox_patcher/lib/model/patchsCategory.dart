@@ -2,7 +2,6 @@ import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgamepatch.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpackpatch.dart';
-import 'package:jackbox_patcher/pages/patcher/packPatch.dart';
 
 class PatchCategory {
   String id;

@@ -1,12 +1,8 @@
-import 'dart:async';
 import 'dart:math';
-import 'dart:ui' as ui;
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:jackbox_patcher/components/blurhashimage.dart';
 import 'package:jackbox_patcher/model/patchsCategory.dart';
 import 'package:palette_generator/palette_generator.dart';
 
@@ -14,12 +10,10 @@ import '../../components/dialogs/downloadPatchDialog.dart';
 import '../../model/usermodel/userjackboxgamepatch.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../model/usermodel/userjackboxpack.dart';
-import '../../model/usermodel/userjackboxpackpatch.dart';
 import '../../services/api/api_service.dart';
 
 class CategoryPackPatch extends StatefulWidget {
-  CategoryPackPatch(
+  const CategoryPackPatch(
       {Key? key,
       required this.category,
       required this.showAllPacks,
@@ -49,12 +43,11 @@ class _CategoryPackPatchState extends State<CategoryPackPatch> {
   Widget build(BuildContext context) {
     _getPatchStatus();
     return Padding(padding: 
-            EdgeInsets.all(12), child:Column(
+            const EdgeInsets.all(12), child:Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         
                        FilledButton(
-                          child: Text(buttonText),
                           onPressed: !installButtonDisabled
                               ? () async {
                                   await showDialog(
@@ -67,8 +60,9 @@ class _CategoryPackPatchState extends State<CategoryPackPatch> {
                                       });
                                   setState(() {});
                                 }
-                              : null),
-      SizedBox(height: 20), 
+                              : null,
+                          child: Text(buttonText)),
+      const SizedBox(height: 20), 
         Container(
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(8.0),
@@ -76,26 +70,26 @@ class _CategoryPackPatchState extends State<CategoryPackPatch> {
                     shadowColor: Colors.black,
                     blurAmount: 1,
                     tintAlpha: 1,
-                    tint: Color.fromARGB(255, 48, 48, 48),
+                    tint: const Color.fromARGB(255, 48, 48, 48),
                     child: Stack(children: [
                       Container(
-                          padding: EdgeInsets.only(bottom: 12, top: 12),
+                          padding: const EdgeInsets.only(bottom: 12, top: 12),
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Expanded(
                                     child: Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 12),
+                                  padding: const EdgeInsets.symmetric(horizontal: 12),
                                   child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(widget.category.name,
                                             overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(fontSize: 25)),
+                                            style: const TextStyle(fontSize: 25)),
                                         Text(
                                           widget.category.smallDescription,
                                         ),
-                                        SizedBox(height: 10),
+                                        const SizedBox(height: 10),
                                         StaggeredGrid.count(
                                             mainAxisSpacing: 20,
                                             crossAxisSpacing: 20,
@@ -124,7 +118,7 @@ class _CategoryPackPatchState extends State<CategoryPackPatch> {
                                 )),
                               ])),
                     ])))),
-        SizedBox(height: 20)
+        const SizedBox(height: 20)
       ],)
     );
   }
@@ -147,22 +141,22 @@ class _CategoryPackPatchState extends State<CategoryPackPatch> {
   void _buildInstallableList() {
     installablePatchs = [];
     installablePatchPaths = [];
-    widget.category.gamePatches.forEach((element) {
+    for (var element in widget.category.gamePatches) {
       if (element.getPack().owned &&
           element.getPack().path != null &&
           element.getInstalledStatus() != UserInstalledPatchStatus.INSTALLED) {
         installablePatchs.add(element);
         installablePatchPaths.add(element.getPack().path!);
       }
-    });
-    widget.category.packPatches.forEach((element) {
+    }
+    for (var element in widget.category.packPatches) {
       if (element.getPack().owned &&
           element.getPack().path != null &&
           element.getInstalledStatus() != UserInstalledPatchStatus.INSTALLED) {
         installablePatchs.add(element);
         installablePatchPaths.add(element.getPack().path!);
       }
-    });
+    }
   }
 
   void _getPatchStatus() {
@@ -201,7 +195,7 @@ class _CategoryPackPatchState extends State<CategoryPackPatch> {
 }
 
 class PackInCategoryCard extends StatefulWidget {
-  PackInCategoryCard(
+  const PackInCategoryCard(
       {Key? key, required this.data, required this.changeMenuView})
       : super(key: key);
 
@@ -246,35 +240,35 @@ class _PackInCategoryCardState extends State<PackInCategoryCard> {
               clipBehavior: Clip.none,
               children: [
                 Container(
-                    margin: EdgeInsets.only(top: 10, left: 5),
+                    margin: const EdgeInsets.only(top: 10, left: 5),
                     child: Container(
                         width: 20,
                         height: 20,
-                        decoration: new BoxDecoration(
+                        decoration: BoxDecoration(
                           color: widget.data.installedStatus().color,
                           shape: BoxShape.circle,
                         ))),
                 ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
-                    child: Container(
+                    child: SizedBox(
                         //decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(8)), border: Border.all(color: backgroundColor!=null?backgroundColor!.withOpacity(0.2): Colors.transparent, width: 1)),
                         height: 200,
                         child: Acrylic(
-                            shadowColor: Color.fromARGB(255, 181, 181, 181),
+                            shadowColor: const Color.fromARGB(255, 181, 181, 181),
                             blurAmount: 1,
                             tintAlpha: 1,
-                            tint: Color.fromARGB(255, 45, 45, 45),
+                            tint: const Color.fromARGB(255, 45, 45, 45),
                             child: Stack(children: [
                               //_buildPackBackground(),
                               Container(
-                                  padding: EdgeInsets.only(bottom: 12, top: 20),
+                                  padding: const EdgeInsets.only(bottom: 12, top: 20),
                                   child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
                                         Expanded(
                                             child: Padding(
-                                          padding: EdgeInsets.symmetric(
+                                          padding: const EdgeInsets.symmetric(
                                               horizontal: 12),
                                           child: Column(children: [
                                             CachedNetworkImage(
@@ -282,44 +276,44 @@ class _PackInCategoryCardState extends State<PackInCategoryCard> {
                                                 height: 60,
                                                 width: 60,
                                                 fit: BoxFit.cover),
-                                            SizedBox(height: 10),
-                                            Expanded(
+                                            const SizedBox(height: 10),
+                                            const Expanded(
                                               child: SizedBox(),
                                             ),
                                             Text(
-                                              widget.data.packPatchs.length >= 1
+                                              widget.data.packPatchs.isNotEmpty
                                                   ? widget.data.packPatchs[0]
                                                       .patch.smallDescription
                                                   : widget.data.pack.pack
                                                       .description,
                                               textAlign: TextAlign.center,
                                             ),
-                                            Expanded(
+                                            const Expanded(
                                               child: SizedBox(),
                                             ),
                                           ]),
                                         ))
                                       ])),
                             ])))),
-                if (widget.data.packPatchs.length > 0)
+                if (widget.data.packPatchs.isNotEmpty)
                   Container(
-                      margin: EdgeInsets.only(top: 10, right: 5),
+                      margin: const EdgeInsets.only(top: 10, right: 5),
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Text(widget.data.packPatchs[0].patch.latestVersion)
                           ])),
                 Container(
-                    margin: EdgeInsets.only(top: 15, left: 10),
+                    margin: const EdgeInsets.only(top: 15, left: 10),
                     child: Tooltip(
+                        message: widget.data.installedStatus().info,
                         child: Container(
                             width: 10,
                             height: 10,
-                            decoration: new BoxDecoration(
+                            decoration: BoxDecoration(
                               color: widget.data.installedStatus().color,
                               shape: BoxShape.circle,
-                            )),
-                        message: widget.data.installedStatus().info)),
+                            )))),
               ],
             ))));
   }
@@ -350,9 +344,7 @@ class _PackInCategoryCardState extends State<PackInCategoryCard> {
       }
     }
 
-    double height = 180 / lineNumber - 20;
-
-    gamesImages.forEach((element) {
+    for (var element in gamesImages) {
       columnChildren.add(Expanded(
           child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -361,14 +353,14 @@ class _PackInCategoryCardState extends State<PackInCategoryCard> {
                       child: Opacity(
                           opacity: 0.1,
                           child: Container(
-                              margin: EdgeInsets.all(6),
+                              margin: const EdgeInsets.all(6),
                               child: ClipRRect(
                                   borderRadius: BorderRadius.circular(8.0),
                                   child: CachedNetworkImage(
                                       imageUrl: APIService().assetLink(e),
                                       fit: BoxFit.contain))))))
                   .toList())));
-    });
+    }
     return ClipRect(
         child: SizedBox(
             height: 200,

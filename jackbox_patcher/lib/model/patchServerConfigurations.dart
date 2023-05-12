@@ -6,9 +6,7 @@ class PatchServerConfigurations {
   factory PatchServerConfigurations.fromJson(Map<String, dynamic> json) {
     print(json);
     return PatchServerConfigurations(
-        configurations: json != null
-            ? (json as Map<String, dynamic>)
-            : {});
+        configurations: json);
   }
 
   dynamic getConfiguration(String type, String key) {

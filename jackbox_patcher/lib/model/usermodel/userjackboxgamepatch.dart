@@ -1,11 +1,9 @@
-import 'package:archive/archive_io.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/services/downloader/downloader_service.dart';
 import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
 
-import '../../services/api/api_service.dart';
 import '../../services/user/userdata.dart';
 import '../jackbox/jackboxgamepatch.dart';
 
