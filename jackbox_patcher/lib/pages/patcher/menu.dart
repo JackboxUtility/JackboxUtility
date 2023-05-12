@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:jackbox_patcher/components/blurhashimage.dart';
 import 'package:jackbox_patcher/pages/patcher/categoryPackPatch.dart';
 
 import '../../services/api/api_service.dart';
@@ -10,7 +9,7 @@ import 'packContainer.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PatcherMenuWidget extends StatefulWidget {
-  PatcherMenuWidget({Key? key}) : super(key: key);
+  const PatcherMenuWidget({Key? key}) : super(key: key);
 
   @override
   State<PatcherMenuWidget> createState() => _PatcherMenuWidgetState();
@@ -29,7 +28,7 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
   @override
   Widget build(BuildContext context) {
     Typography typography = FluentTheme.of(context).typography;
-    if (items.length == 0) {
+    if (items.isEmpty) {
       _buildPaneItems();
     }
     return NavigationView(
@@ -42,7 +41,7 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
       appBar: NavigationAppBar(
           automaticallyImplyLeading: false,
           leading: GestureDetector(
-            child: Icon(FluentIcons.chevron_left),
+            child: const Icon(FluentIcons.chevron_left),
             onTap: () => Navigator.pop(context),
           ),
           title: Text(
@@ -60,7 +59,7 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
           items: items,
           footerItems: [
             PaneItem(
-              icon: Icon(FluentIcons.package),
+              icon: const Icon(FluentIcons.package),
               title: Text(showAllPacks == false
                   ? AppLocalizations.of(context)!.show_all_packs
                   : AppLocalizations.of(context)!.show_owned_packs_only),
@@ -92,7 +91,7 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
     items = [];
     _selectedView = 0;
     items.add(PaneItem(
-        icon: Center(child: Icon(FluentIcons.home)),
+        icon: const Center(child: Icon(FluentIcons.home)),
         title: Text(AppLocalizations.of(context)!.all_patches),
         body: ListView(
             children: List.generate(
@@ -106,12 +105,12 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
         : UserData().packs.where((element) => element.owned).toList()) {
       int countPatchs = 0;
       for (var game in userPack.games) {
-        if (game.patches.length >= 1) {
+        if (game.patches.isNotEmpty) {
           countPatchs = 1;
           break;
         }
       }
-      if (userPack.patches.length >= 1) {
+      if (userPack.patches.isNotEmpty) {
         countPatchs = 1;
       }
       if (countPatchs == 1) {

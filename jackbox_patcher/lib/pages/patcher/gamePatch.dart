@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:jackbox_patcher/components/blurhashimage.dart';
 import 'package:jackbox_patcher/components/dialogs/downloadPatchDialog.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxgame.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxgamepatch.dart';
@@ -21,14 +20,14 @@ void _openPatchInfo(context, dynamic data, JackboxGame? relatedGame) {
       context: context,
       builder: (context) {
         return ContentDialog(
-          style: ContentDialogThemeData(
+          style: const ContentDialogThemeData(
               bodyPadding: EdgeInsets.all(12), padding: EdgeInsets.all(0)),
           title: Column(children: [
             relatedGame != null
                 ? Row(children: [
                     Expanded(
                         child: ClipRRect(
-                            borderRadius: BorderRadius.only(
+                            borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(8),
                                 topRight: Radius.circular(8)),
                             child: SizedBox(
@@ -83,53 +82,53 @@ void _openPatchInfo(context, dynamic data, JackboxGame? relatedGame) {
           content: ListView(children: [
             data.description != null && data.description != ""
                 ? Text(AppLocalizations.of(context)!.description,
-                    style: TextStyle(fontSize: 20))
+                    style: const TextStyle(fontSize: 20))
                 : Container(),
             data.description != null && data.description != ""
                 ? Text(data.description)
                 : Container(),
             data.description != null && data.description != ""
-                ? SizedBox(height: 10)
+                ? const SizedBox(height: 10)
                 : Container(),
             Text(AppLocalizations.of(context)!.patch_modification,
-                style: TextStyle(fontSize: 20)),
+                style: const TextStyle(fontSize: 20)),
             Text(AppLocalizations.of(context)!.patch_modification_description),
             data.patchType!.gameText
                 ? Text(
                     "- ${AppLocalizations.of(context)!.patch_modification_content_text}")
-                : SizedBox(),
+                : const SizedBox(),
             data.patchType!.gameAssets
                 ? Text(
                     "- ${AppLocalizations.of(context)!.patch_modification_content_internal}")
-                : SizedBox(),
+                : const SizedBox(),
             data.patchType!.gameSubtitles
                 ? Text(
                     "- ${AppLocalizations.of(context)!.patch_modification_content_subtitles}")
-                : SizedBox(),
+                : const SizedBox(),
             data.patchType!.website
                 ? Text(
                     "- ${AppLocalizations.of(context)!.patch_modification_content_website(APIService().cachedSelectedServer!.controllerUrl != null ? APIService().cachedSelectedServer!.controllerUrl! : "jackbox.tv")}")
-                : SizedBox(),
+                : const SizedBox(),
             data.patchType!.audios
                 ? Text(
                     "- ${AppLocalizations.of(context)!.patch_modification_content_audios}")
-                : SizedBox(),
-            SizedBox(
+                : const SizedBox(),
+            const SizedBox(
               height: 20,
             ),
             data is JackboxGamePatch
                 ? Text(AppLocalizations.of(context)!.version,
-                    style: TextStyle(fontSize: 20))
+                    style: const TextStyle(fontSize: 20))
                 : Container(),
             data is JackboxGamePatch
-                ? Text("${data.latestVersion}")
+                ? Text(data.latestVersion)
                 : Container(),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             data.authors != null && data.authors != ""
                 ? Text(AppLocalizations.of(context)!.authors,
-                    style: TextStyle(fontSize: 20))
+                    style: const TextStyle(fontSize: 20))
                 : Container(),
             data.authors != null && data.authors != ""
                 ? Text(data.authors!)
@@ -146,7 +145,7 @@ void _openPatchInfo(context, dynamic data, JackboxGame? relatedGame) {
 }
 
 class GameInPatchCard extends StatefulWidget {
-  GameInPatchCard(
+  const GameInPatchCard(
       {Key? key,
       required this.pack,
       required this.patch,
@@ -189,18 +188,18 @@ class _GameInPatchCardState extends State<GameInPatchCard> {
       children: [
         Container(
             height: 150,
-            margin: EdgeInsets.only(top: 25),
+            margin: const EdgeInsets.only(top: 25),
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(8.0),
                 child: Acrylic(
                     shadowColor: backgroundColor,
                     blurAmount: 1,
                     tintAlpha: 1,
-                    tint: Color.fromARGB(255, 48, 48, 48),
+                    tint: const Color.fromARGB(255, 48, 48, 48),
                     child: Stack(children: [
                       Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                         IconButton(
-                            icon: Icon(FluentIcons.info),
+                            icon: const Icon(FluentIcons.info),
                             onPressed: () {
                               _openPatchInfo(
                                   context,
@@ -211,19 +210,19 @@ class _GameInPatchCardState extends State<GameInPatchCard> {
                             })
                       ]),
                       Container(
-                          padding: EdgeInsets.only(bottom: 12),
-                          margin: EdgeInsets.only(top: 50),
+                          padding: const EdgeInsets.only(bottom: 12),
+                          margin: const EdgeInsets.only(top: 50),
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Expanded(
                                     child: Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 12),
+                                  padding: const EdgeInsets.symmetric(horizontal: 12),
                                   child: Column(children: [
                                     Text(widget.gamePatchIncluded.name,
                                         overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(fontSize: 25)),
-                                    SizedBox(height: 10),
+                                        style: const TextStyle(fontSize: 25)),
+                                    const SizedBox(height: 10),
                                     Text(
                                       widget
                                           .gamePatchIncluded.smallDescription!,
@@ -241,7 +240,7 @@ class _GameInPatchCardState extends State<GameInPatchCard> {
 }
 
 class GamePatchCard extends StatefulWidget {
-  GamePatchCard(
+  const GamePatchCard(
       {Key? key, required this.pack, required this.game, required this.patch})
       : super(key: key);
 
@@ -283,51 +282,51 @@ class _GamePatchCardState extends State<GamePatchCard> {
       clipBehavior: Clip.none,
       children: [
         Container(
-            margin: EdgeInsets.only(top: 30, left: 5),
+            margin: const EdgeInsets.only(top: 30, left: 5),
             child: Container(
                 width: 20,
                 height: 20,
-                decoration: new BoxDecoration(
+                decoration: BoxDecoration(
                   color: widget.patch.getInstalledStatus().color,
                   shape: BoxShape.circle,
                 ))),
         Container(
             height: 200,
-            margin: EdgeInsets.only(top: 25),
+            margin: const EdgeInsets.only(top: 25),
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(8.0),
                 child: Acrylic(
                     shadowColor: backgroundColor,
                     blurAmount: 1,
                     tintAlpha: 1,
-                    tint: Color.fromARGB(255, 48, 48, 48),
+                    tint: const Color.fromARGB(255, 48, 48, 48),
                     child: Stack(children: [
                       Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                         IconButton(
-                            icon: Icon(FluentIcons.info),
+                            icon: const Icon(FluentIcons.info),
                             onPressed: () {
                               _openPatchInfo(context, widget.patch.patch,
                                   widget.game.game);
                             })
                       ]),
                       Container(
-                          padding: EdgeInsets.only(bottom: 12),
-                          margin: EdgeInsets.only(top: 50),
+                          padding: const EdgeInsets.only(bottom: 12),
+                          margin: const EdgeInsets.only(top: 50),
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Expanded(
                                     child: Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 12),
+                                  padding: const EdgeInsets.symmetric(horizontal: 12),
                                   child: Column(children: [
                                     Text(widget.patch.patch.name,
                                         overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(fontSize: 25)),
-                                    SizedBox(height: 10),
+                                        style: const TextStyle(fontSize: 25)),
+                                    const SizedBox(height: 10),
                                     Text(
                                       widget.patch.patch.smallDescription!,
                                     ),
-                                    Expanded(child: SizedBox()),
+                                    const Expanded(child: SizedBox()),
                                     _buildRowButtons()
                                   ]),
                                 ))
@@ -335,16 +334,16 @@ class _GamePatchCardState extends State<GamePatchCard> {
                     ])))),
         GameImageWithOpener(pack: widget.pack, game: widget.game),
         Container(
-            margin: EdgeInsets.only(top: 35, left: 10),
+            margin: const EdgeInsets.only(top: 35, left: 10),
             child: Tooltip(
+                message: widget.patch.getInstalledStatus().info,
                 child: Container(
                     width: 10,
                     height: 10,
-                    decoration: new BoxDecoration(
+                    decoration: BoxDecoration(
                       color: widget.patch.getInstalledStatus().color,
                       shape: BoxShape.circle,
-                    )),
-                message: widget.patch.getInstalledStatus().info)),
+                    )))),
       ],
     ));
   }
@@ -414,14 +413,14 @@ class _GamePatchCardState extends State<GamePatchCard> {
     return Row(children: [
       Expanded(
           child: Button(onPressed: onPressFunction, child: Text(buttonText))),
-      removePatchButtonVisible ? SizedBox(width: 10) : SizedBox(),
+      removePatchButtonVisible ? const SizedBox(width: 10) : const SizedBox(),
       removePatchButtonVisible
           ? IconButton(
-              icon: Icon(FluentIcons.remove),
+              icon: const Icon(FluentIcons.remove),
               onPressed: () {
                 _removePatchDialog();
               })
-          : SizedBox(),
+          : const SizedBox(),
     ]);
   }
 
@@ -455,8 +454,8 @@ class _GamePatchCardState extends State<GamePatchCard> {
 class GameImageWithOpener extends StatefulWidget {
   GameImageWithOpener({Key? key, required this.pack, required this.game})
       : super(key: key);
-  UserJackboxPack pack;
-  UserJackboxGame game;
+  final UserJackboxPack pack;
+  final UserJackboxGame game;
   @override
   State<GameImageWithOpener> createState() => _GameImageWithOpenerState();
 }
@@ -468,7 +467,7 @@ class _GameImageWithOpenerState extends State<GameImageWithOpener> {
     return SizedBox(
         height: 75,
         child: Padding(
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
@@ -498,7 +497,7 @@ class _GameImageWithOpenerState extends State<GameImageWithOpener> {
                                   memCacheHeight: 100,
                                 ),
                                 AnimatedContainer(
-                                  duration: Duration(milliseconds: 200),
+                                  duration: const Duration(milliseconds: 200),
                                   height: 100,
                                   width: double.infinity,
                                   decoration: BoxDecoration(
@@ -510,7 +509,7 @@ class _GameImageWithOpenerState extends State<GameImageWithOpener> {
                                         begin: playButtonVisible ? 0 : 1,
                                         end: playButtonVisible ? 1 : 0,
                                       ),
-                                      duration: Duration(milliseconds: 200),
+                                      duration: const Duration(milliseconds: 200),
                                       builder: (BuildContext context,
                                           double opacity, Widget? child) {
                                         return Column(

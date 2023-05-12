@@ -1,14 +1,8 @@
 import 'dart:io';
 
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:jackbox_patcher/components/dialogs/leaveApplicationDialog.dart';
-import 'package:jackbox_patcher/components/menu.dart';
 import 'package:jackbox_patcher/model/patchserver.dart';
-import 'package:jackbox_patcher/pages/parameters/packs.dart';
-import 'package:jackbox_patcher/pages/patcher/packContainer.dart';
-import 'package:jackbox_patcher/model/jackbox/jackboxpack.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/device/device.dart';
 import 'package:jackbox_patcher/services/downloader/downloader_service.dart';
@@ -19,17 +13,15 @@ import 'package:jackbox_patcher/services/user/userdata.dart';
 import 'package:jackbox_patcher/services/windowManager/windowsManagerService.dart';
 import 'package:lottie/lottie.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:window_manager/window_manager.dart';
 
 import '../components/dialogs/automaticGameFinderDialog.dart';
 import '../components/notificationsCaroussel.dart';
-import '../model/news.dart';
 import '../services/automaticGameFinder/AutomaticGameFinder.dart';
 
 class MainContainer extends StatefulWidget {
-  MainContainer({Key? key}) : super(key: key);
+  const MainContainer({Key? key}) : super(key: key);
 
   @override
   State<MainContainer> createState() => _MainContainerState();
@@ -37,7 +29,6 @@ class MainContainer extends StatefulWidget {
 
 class _MainContainerState extends State<MainContainer> with WindowListener {
   bool isFirstTimeOpening = true;
-  int _selectedView = 0;
   bool _loaded = false;
 
   double calculatePadding() {
@@ -55,6 +46,7 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
     super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
     TranslationsHelper().appLocalizations = AppLocalizations.of(context);
     return NavigationView(
@@ -66,13 +58,13 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
          Container(
            width: MediaQuery.of(context).size.width,
            height: MediaQuery.of(context).size.height,
-           color: Color.fromARGB(1,32,32,32).withOpacity(0.98),
+           color: const Color.fromARGB(1,32,32,32).withOpacity(0.98),
          ),
          Column(children: [
-          Spacer(),
+          const Spacer(),
           _buildUpper(),
           _buildLower(),
-          Spacer(),
+          const Spacer(),
            ]),
            ],
 
@@ -82,14 +74,14 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
   Widget _buildUpper() {
     return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
       _buildTitle(),
-      SizedBox(
+      const SizedBox(
         height: 30,
       ),
       _loaded
           ? _buildMenu()
           : LottieBuilder.asset("assets/lotties/QuiplashOutput.json",
               width: 200, height: 200),
-      SizedBox(
+      const SizedBox(
         height: 30,
       ),
     ]);
@@ -109,20 +101,20 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
                   onPressed: () {
                     Navigator.pushNamed(context, "/searchMenu");
                   },
-                  child: Container(
+                  child: SizedBox(
                       width: 300,
                       height: 20,
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(FluentIcons.play, color: Colors.white),
-                            SizedBox(width: 10),
+                            const Icon(FluentIcons.play, color: Colors.white),
+                            const SizedBox(width: 10),
                             Text(
                                 AppLocalizations.of(context)!
                                     .launch_search_game,
-                                style: TextStyle(color: Colors.white))
+                                style: const TextStyle(color: Colors.white))
                           ])))),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           !DeviceService.isWeb()
               ? MouseRegion(
                   cursor: SystemMouseCursors.click,
@@ -134,19 +126,19 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
                       onPressed: () {
                         Navigator.pushNamed(context, "/patch");
                       },
-                      child: Container(
+                      child: SizedBox(
                           width: 300,
                           height: 20,
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(FluentIcons.download, color: Colors.white),
-                                SizedBox(width: 10),
+                                const Icon(FluentIcons.download, color: Colors.white),
+                                const SizedBox(width: 10),
                                 Text(AppLocalizations.of(context)!.patch_a_game,
-                                    style: TextStyle(color: Colors.white))
+                                    style: const TextStyle(color: Colors.white))
                               ]))))
-              : SizedBox(height: 0),
-          SizedBox(height: 30),
+              : const SizedBox(height: 0),
+          const SizedBox(height: 30),
           !DeviceService.isWeb()
               ? MouseRegion(
                   cursor: SystemMouseCursors.click,
@@ -164,18 +156,18 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
                           _load(false);
                         }
                       },
-                      child: Container(
+                      child: SizedBox(
                           width: 300,
                           height: 20,
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(FluentIcons.settings, color: Colors.white),
-                                SizedBox(width: 10),
+                                const Icon(FluentIcons.settings, color: Colors.white),
+                                const SizedBox(width: 10),
                                 Text(AppLocalizations.of(context)!.settings,
-                                    style: TextStyle(color: Colors.white))
+                                    style: const TextStyle(color: Colors.white))
                               ]))))
-              : SizedBox(height: 0)
+              : const SizedBox(height: 0)
         ]));
   }
 
@@ -183,10 +175,10 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
     return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
       Text(AppLocalizations.of(context)!
           .connected_to_server(APIService().cachedSelectedServer!.name)),
-      SizedBox(width: 10),
+      const SizedBox(width: 10),
       GestureDetector(
         child: Text(AppLocalizations.of(context)!.connected_to_server_change,
-            style: TextStyle(decoration: TextDecoration.underline)),
+            style: const TextStyle(decoration: TextDecoration.underline)),
         onTap: () async {
           UserData().setSelectedServer(null);
           UserData().packs = [];
@@ -262,7 +254,7 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
     } catch (e) {
       InfoBarService.showError(
           context, AppLocalizations.of(context)!.connection_to_server_failed,
-          duration: Duration(minutes: 5));
+          duration: const Duration(minutes: 5));
       rethrow;
     }
     setState(() {
@@ -278,7 +270,7 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
     print(servers);
     for (var server in servers) {
       print(server.languages);
-      if (server.languages.where((e) => locale.startsWith(e)).length > 0) {
+      if (server.languages.where((e) => locale.startsWith(e)).isNotEmpty) {
         print("Found server");
         await UserData().setSelectedServer(server.infoUrl);
         InfoBarService.showInfo(
@@ -298,7 +290,7 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
     }
     var packageInfo = (await PackageInfo.fromPlatform());
     File("jackbox_patcher.version")
-        .writeAsString(packageInfo.version + "+" + packageInfo.buildNumber);
+        .writeAsString("${packageInfo.version}+${packageInfo.buildNumber}");
   }
 
   Future<void> _precacheImages() async {
@@ -329,7 +321,7 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
     await showDialog(
         context: context,
         builder: (context) {
-          return AutomaticGameFinderDialog();
+          return const AutomaticGameFinderDialog();
         });
   }
 
@@ -353,7 +345,7 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
           ? await (showDialog<bool>(
                   context: context,
                   builder: (context) {
-                    return LeaveApplicationDialog();
+                    return const LeaveApplicationDialog();
                   })) ==
               true
           : true;

@@ -5,7 +5,6 @@ import 'package:jackbox_patcher/model/jackbox/jackboxpack.dart';
 import 'package:jackbox_patcher/model/misc/windowInformation.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgamepatch.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
-import 'package:jackbox_patcher/services/launcher/launcher.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../model/misc/launchers.dart';
@@ -21,7 +20,7 @@ class UserData {
     return _instance;
   }
 
-  UserData._internal() {}
+  UserData._internal();
 
   List<UserJackboxPack> packs = [];
 
@@ -41,7 +40,7 @@ class UserData {
     List<JackboxPack> networkPacks = APIService().getPacks();
     for (var pack in networkPacks) {
       // Load the pack loader
-      UserJackboxLoader? loader = null;
+      UserJackboxLoader? loader;
       if (pack.loader != null) {
         loader = UserJackboxLoader(
             loader: pack.loader!,
@@ -63,7 +62,7 @@ class UserData {
 
       // Load every games in the pack
       for (var game in pack.games) {
-        UserJackboxLoader? gameLoader = null;
+        UserJackboxLoader? gameLoader;
         if (game.loader != null) {
           gameLoader = UserJackboxLoader(
               loader: game.loader!,
@@ -87,7 +86,7 @@ class UserData {
         final String? patchVersionInstalled;
         if (pack.configuration != null && userPack.path != null) {
           File configurationFile =
-              File(userPack.path! + "/" + pack.configuration!.file);
+              File("${userPack.path!}/${pack.configuration!.file}");
           if (configurationFile.existsSync()) {
             patchVersionInstalled =
                 jsonDecode(configurationFile.readAsStringSync())[
@@ -105,9 +104,9 @@ class UserData {
       }
     }
 
-    APIService().cachedCategories.forEach((element) {
+    for (var element in APIService().cachedCategories) {
       element.addPatchs(packs);
-    });
+    }
   }
 
   /// Sync the welcome message from the server
@@ -163,7 +162,7 @@ class UserData {
   /// Write logs (mostly used when a patch is not downloaded properly)
   Future<void> writeLogs(String logs) async {
     File logFile = File("./logs.txt");
-    await logFile.writeAsString("[" + DateTime.now().toString() + "]\n" + logs,
+    await logFile.writeAsString("[${DateTime.now()}]\n$logs",
         mode: FileMode.append);
   }
 

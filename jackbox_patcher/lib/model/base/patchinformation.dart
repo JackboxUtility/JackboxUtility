@@ -1,4 +1,3 @@
-import '../jackbox/jackboxgamepatch.dart';
 
 class PatchInformation {
   final String id;

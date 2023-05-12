@@ -8,7 +8,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../services/api/api_service.dart';
 
 class ServerInfoWidget extends StatefulWidget {
-  ServerInfoWidget({Key? key}) : super(key: key);
+  const ServerInfoWidget({Key? key}) : super(key: key);
 
   @override
   State<ServerInfoWidget> createState() => _ServerInfoWidgetState();
@@ -34,7 +34,7 @@ class _ServerInfoWidgetState extends State<ServerInfoWidget> {
             Row(children: [
                     Text(AppLocalizations.of(context)!.selected_server,
                         style: typography.titleLarge),
-                    Spacer(),
+                    const Spacer(),
                     FilledButton(
                         child: Text(AppLocalizations.of(context)!.change_server),
                         onPressed: () async {
@@ -48,7 +48,7 @@ class _ServerInfoWidgetState extends State<ServerInfoWidget> {
                       mainAxisAlignment: MainAxisAlignment.center,
                        children: [
                       
-                      SizedBox(height: 50),
+                      const SizedBox(height: 50),
                       ClipRRect(
                           borderRadius: BorderRadius.circular(8.0),
                           child: Image.network(
@@ -57,23 +57,23 @@ class _ServerInfoWidgetState extends State<ServerInfoWidget> {
                               height: 100)),
                       Text(APIService().cachedSelectedServer!.name,
                           style: FluentTheme.of(context).typography.titleLarge),
-                      SizedBox(
+                      const SizedBox(
                         height: 8,
                       ),
                       Text(APIService().cachedSelectedServer!.description,
                           style: FluentTheme.of(context).typography.body),
-                      SizedBox(
+                      const SizedBox(
                         height: 36,
                       ),
                       Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                        Icon(FluentIcons.package),
-                        SizedBox(
+                        const Icon(FluentIcons.package),
+                        const SizedBox(
                           width: 12,
                         ),
                         Text(AppLocalizations.of(context)!
                             .games_available(UserData().packs.length))
                       ]),
-                      SizedBox(
+                      const SizedBox(
                         height: 12,
                       ),
                       // if (APIService().cachedSelectedServer!.controllerUrl != null)
@@ -112,15 +112,15 @@ class _ServerInfoWidgetState extends State<ServerInfoWidget> {
       PatchServerLink e = APIService().cachedSelectedServer!.links[i];
       if (i % 2 == 0) {
         links.add(
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: []));
+            const Row(mainAxisAlignment: MainAxisAlignment.center, children: []));
       }
       links.last.children.add(HyperlinkButton(
-          child: Container(
+          child: SizedBox(
               width: 150,
               child:
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 Icon(_buildIcon(e.icon)),
-                SizedBox(
+                const SizedBox(
                   width: 12,
                 ),
                 Text(e.text)
@@ -136,24 +136,24 @@ class _ServerInfoWidgetState extends State<ServerInfoWidget> {
     List<dynamic> patreonsSubscribers = APIService().cachedConfigurations!
         .getConfiguration("SERVER_INFORMATION", "PATREONS_SUBSCRIBERS") as List<dynamic>;
     return Container(
-      margin: EdgeInsets.only(top:24),
+      margin: const EdgeInsets.only(top:24),
         decoration: BoxDecoration(
           color: FluentTheme.of(context).menuColor,
           borderRadius: BorderRadius.circular(8.0),
         ),
         child: Padding(
-            padding: EdgeInsets.all(12),
+            padding: const EdgeInsets.all(12),
             child: Column(
               
               children: [
                 Row(
                   children: [
-                    Icon(FontAwesomeIcons.patreon),
-                    SizedBox(width: 12),
+                    const Icon(FontAwesomeIcons.patreon),
+                    const SizedBox(width: 12),
                     Text("Patreon subscribers", style: FluentTheme.of(context).typography.subtitle),
                   ],
                 ),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
                  Text(
                         patreonsSubscribers.join(", "),
                       )
