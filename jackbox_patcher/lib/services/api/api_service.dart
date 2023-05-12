@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 import 'package:jackbox_patcher/model/jackbox/jackboxgame.dart';
+import 'package:jackbox_patcher/model/jackbox/jackboxpackpatch.dart';
 import 'package:jackbox_patcher/model/misc/urlblurhash.dart';
 import 'package:jackbox_patcher/model/news.dart';
 import 'package:jackbox_patcher/model/patchServerConfigurations.dart';
@@ -49,68 +50,84 @@ class APIService {
     JULogger().i("Recovering available servers");
     resetCache();
     final data = await getRequest(Uri.parse(masterServer));
-      final List<dynamic> availableServers = jsonDecode(data);
-      for (var server in availableServers) {
-        final serverInfo = await getRequest(Uri.parse(server));
-          final Map<String, dynamic> data = jsonDecode(serverInfo);
-          cachedServers.add(PatchServer.fromJson(server, data));
-      }
+    final List<dynamic> availableServers = jsonDecode(data);
+    for (var server in availableServers) {
+      final serverInfo = await getRequest(Uri.parse(server));
+      final Map<String, dynamic> data = jsonDecode(serverInfo);
+      cachedServers.add(PatchServer.fromJson(server, data));
+    }
   }
 
   Future<void> recoverServerInfo(String serverLink) async {
     JULogger().i("Recovering server info");
     final rawData = await getRequest(Uri.parse(serverLink));
-      final Map<String, dynamic> data = jsonDecode(rawData);
-      cachedSelectedServer = PatchServer.fromJson(serverLink, data);
-      final endpoints = await cachedSelectedServer!.getVersionUrl();
-      baseEndpoint = endpoints.apiEndpoint;
-      baseAssets = endpoints.assetsEndpoint;
+    final Map<String, dynamic> data = jsonDecode(rawData);
+    cachedSelectedServer = PatchServer.fromJson(serverLink, data);
+    final endpoints = await cachedSelectedServer!.getVersionUrl();
+    baseEndpoint = endpoints.apiEndpoint;
+    baseAssets = endpoints.assetsEndpoint;
   }
 
   Future<void> recoverPacksAndTags() async {
     final rawData =
         await getRequest(Uri.parse('$baseEndpoint${APIEndpoints.PACKS.path}'));
-      final Map<String, dynamic> data = jsonDecode(rawData);
-      cachedTags =
-          data["tags"].map<GameTag>((tag) => GameTag.fromJson(tag)).toList();
-      cachedPacks = data["packs"]
-          .map<JackboxPack>((pack) => JackboxPack.fromJson(pack))
-          .toList();
-      cachedCategories = data["patchsCategories"] != null
-          ? data["patchsCategories"]
-              .map<PatchCategory>(
-                  (category) => PatchCategory.fromJson(category))
-              .toList()
-          : [];
+    final Map<String, dynamic> data = jsonDecode(rawData);
+    cachedTags =
+        data["tags"].map<GameTag>((tag) => GameTag.fromJson(tag)).toList();
+    cachedPacks = data["packs"]
+        .map<JackboxPack>((pack) => JackboxPack.fromJson(pack))
+        .toList();
+    cachedCategories = data["patchsCategories"] != null
+        ? data["patchsCategories"]
+            .map<PatchCategory>((category) => PatchCategory.fromJson(category))
+            .toList()
+        : [];
+    applyExternalConfiguration();
+  }
+
+  Future<void> applyExternalConfiguration() async {
+    for (JackboxPack pack in cachedPacks) {
+      for (JackboxPackPatch patch in pack.patches) {
+        if (patch.configuration != null) {
+          if (patch.configuration!.versionOrigin ==
+              OnlineVersionOrigin.REPO_FILE) {
+            final rawData =
+                await getRequest(Uri.parse(patch.configuration!.versionFile));
+            final Map<String, dynamic> data = jsonDecode(rawData);
+            patch.latestVersion = data[patch.configuration!.versionProperty].replaceAll("Build:", "").trim();
+          }
+        }
+      }
+    }
   }
 
   Future<void> recoverNewsAndLinks() async {
-    final rawData =
-        await getRequest(Uri.parse('$baseEndpoint${APIEndpoints.WELCOME.path}'));
-      final Map<dynamic, dynamic> welcome = jsonDecode(rawData);
-      cachedNews =
-          welcome["news"].map<News>((news) => News.fromJson(news)).toList();
+    final rawData = await getRequest(
+        Uri.parse('$baseEndpoint${APIEndpoints.WELCOME.path}'));
+    final Map<dynamic, dynamic> welcome = jsonDecode(rawData);
+    cachedNews =
+        welcome["news"].map<News>((news) => News.fromJson(news)).toList();
   }
 
   Future<void> recoverBlurHashes() async {
-    final rawData =
-        await getRequest(Uri.parse('$baseEndpoint${APIEndpoints.BLUR_HASHES.path}'));
-      final List<dynamic> data = jsonDecode(rawData);
-      cachedBlurHashes =
-          data.map<UrlBlurHash>((tag) => UrlBlurHash.fromJson(tag)).toList();
+    final rawData = await getRequest(
+        Uri.parse('$baseEndpoint${APIEndpoints.BLUR_HASHES.path}'));
+    final List<dynamic> data = jsonDecode(rawData);
+    cachedBlurHashes =
+        data.map<UrlBlurHash>((tag) => UrlBlurHash.fromJson(tag)).toList();
   }
 
   Future<void> recoverConfigurations() async {
     try {
-    final rawData = await getRequest(
-        Uri.parse('$baseEndpoint${APIEndpoints.CONFIGURATIONS.path}'));
+      final rawData = await getRequest(
+          Uri.parse('$baseEndpoint${APIEndpoints.CONFIGURATIONS.path}'));
       try {
         final Map<String, dynamic> data = jsonDecode(rawData);
         cachedConfigurations = PatchServerConfigurations.fromJson(data);
       } catch (e) {
         cachedConfigurations = PatchServerConfigurations.fromJson({});
       }
-    } catch(e) {
+    } catch (e) {
       cachedConfigurations = PatchServerConfigurations.fromJson({});
     }
   }

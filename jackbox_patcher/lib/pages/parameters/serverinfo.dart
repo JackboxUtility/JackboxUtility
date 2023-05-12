@@ -112,7 +112,7 @@ class _ServerInfoWidgetState extends State<ServerInfoWidget> {
       PatchServerLink e = APIService().cachedSelectedServer!.links[i];
       if (i % 2 == 0) {
         links.add(
-            const Row(mainAxisAlignment: MainAxisAlignment.center, children: []));
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: []));
       }
       links.last.children.add(HyperlinkButton(
           child: SizedBox(

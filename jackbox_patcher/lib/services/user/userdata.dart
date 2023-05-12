@@ -50,8 +50,8 @@ class UserData {
 
       final String? packPath = preferences.getString("${pack.id}_path");
       final bool packOwned = preferences.getBool("${pack.id}_owned") ?? false;
-      final LauncherType packOrigin =
-          LauncherType.fromName(preferences.getString("${pack.id}_origin")??"");
+      final LauncherType packOrigin = LauncherType.fromName(
+          preferences.getString("${pack.id}_origin") ?? "");
       UserJackboxPack userPack = UserJackboxPack(
           pack: pack,
           loader: loader,
@@ -86,7 +86,7 @@ class UserData {
         final String? patchVersionInstalled;
         if (pack.configuration != null && userPack.path != null) {
           File configurationFile =
-              File("${userPack.path!}/${pack.configuration!.file}");
+              File("${userPack.path!}/${pack.configuration!.versionFile}");
           if (configurationFile.existsSync()) {
             patchVersionInstalled =
                 jsonDecode(configurationFile.readAsStringSync())[
@@ -122,7 +122,8 @@ class UserData {
       await preferences.remove("${pack.pack.id}_path");
     }
     await preferences.setBool("${pack.pack.id}_owned", pack.owned);
-    await preferences.setString("${pack.pack.id}_origin", pack.origin!.toName());
+    await preferences.setString(
+        "${pack.pack.id}_origin", pack.origin!.toName());
     for (var game in pack.games) {
       await saveGame(game);
     }

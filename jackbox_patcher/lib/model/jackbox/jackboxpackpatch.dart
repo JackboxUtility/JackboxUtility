@@ -8,8 +8,9 @@ class JackboxPackPatch {
   final String id;
   final String name;
   final String smallDescription;
-  final String latestVersion;
+  String latestVersion;
   final String patchPath;
+  final PatchConfiguration? configuration;
   final List<JackboxPackPatchComponent> components;
 
   JackboxPackPatch({
@@ -18,6 +19,7 @@ class JackboxPackPatch {
     required this.smallDescription,
     required this.latestVersion,
     required this.patchPath,
+    required this.configuration,
     required this.components,
   });
 
@@ -26,8 +28,11 @@ class JackboxPackPatch {
       id: json['id'],
       name: json['name'],
       smallDescription: json['small_description'],
-      latestVersion: json['version'].replaceAll("Build:", "").trim(),
+      latestVersion: json['version']!=null? json['version'].replaceAll("Build:", "").trim():"",
       patchPath: json['patch_path'],
+      configuration: json['configuration'] == null
+          ? null
+          : PatchConfiguration.fromJson(json['configuration']),
       components: json['components'] == null
           ? []
           : List<JackboxPackPatchComponent>.from(json['components']
@@ -70,5 +75,42 @@ class JackboxPackPatchComponent extends PatchInformation {
       if (gamesFound.isNotEmpty) return gamesFound.first;
     }
     return null;
+  }
+}
+
+class PatchConfiguration {
+  final OnlineVersionOrigin versionOrigin;
+  final String versionFile;
+  final String versionProperty;
+
+  PatchConfiguration(
+      {required this.versionOrigin,
+      required this.versionFile,
+      required this.versionProperty});
+
+  factory PatchConfiguration.fromJson(Map<String, dynamic> json) {
+    return PatchConfiguration(
+        versionOrigin: OnlineVersionOrigin.fromString(json['version_origin']),
+        versionFile: json['version_file'],
+        versionProperty: json['version_property']);
+  }
+}
+
+enum OnlineVersionOrigin {
+  APP,
+  REPO_FILE, 
+  REPO_RELEASE;
+
+  static OnlineVersionOrigin fromString(String value) {
+    switch (value) {
+      case "app":
+        return OnlineVersionOrigin.APP;
+      case "repo_file":
+        return OnlineVersionOrigin.REPO_FILE;
+      case "repo_release":
+        return OnlineVersionOrigin.REPO_RELEASE;
+      default:
+        throw Exception("Invalid VersionOrigin");
+    }
   }
 }

@@ -73,7 +73,7 @@ class _ParametersMenuWidgetState extends State<ParametersMenuWidget> {
             PaneItem(
                 icon: const Icon(FluentIcons.server),
                 title: Text(AppLocalizations.of(context)!.server_information),
-                body: const ServerInfoWidget())
+                body: ServerInfoWidget())
           ],
           footerItems: [
             PaneItem(
