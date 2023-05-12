@@ -1,7 +1,7 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:jackbox_patcher/components/dialogs/resetPackDialog.dart';
 import 'package:jackbox_patcher/model/misc/launchers.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
@@ -24,21 +24,23 @@ class _ParametersPackRouteState extends State<ParametersPackRoute> {
   Widget build(BuildContext context) {
     Typography typography = FluentTheme.of(context).typography;
     return NavigationView(
-      appBar: NavigationAppBar(
-          automaticallyImplyLeading: false,
-          leading: GestureDetector(
-            child: const Icon(FluentIcons.chevron_left),
-            onTap: () => Navigator.pop(context),
-          ),
-          title: Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
-            const Padding(padding: EdgeInsets.only(bottom: 4), child: Icon(FluentIcons.settings, size: 25)),
-            const SizedBox(width: 10),
-            Text(
-            AppLocalizations.of(context)!.settings,
-            style: typography.title,
-          )])),
-      content:const ParametersWidget()
-    );
+        appBar: NavigationAppBar(
+            automaticallyImplyLeading: false,
+            leading: GestureDetector(
+              child: const Icon(FluentIcons.chevron_left),
+              onTap: () => Navigator.pop(context),
+            ),
+            title: Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
+              const Padding(
+                  padding: EdgeInsets.only(bottom: 4),
+                  child: Icon(FluentIcons.settings, size: 25)),
+              const SizedBox(width: 10),
+              Text(
+                AppLocalizations.of(context)!.settings,
+                style: typography.title,
+              )
+            ])),
+        content: const ParametersWidget());
   }
 }
 
@@ -270,13 +272,16 @@ class _PackInParametersWidgetState extends State<PackInParametersWidget> {
                       .path_inexistant_small_description,
                   style: TextStyle(color: Colors.yellow)),
       trailing: Row(children: [
-        if (widget.pack.pack.launchersId != null && widget.pack.pack.launchersId!.steam != null && widget.pack.origin == LauncherType.STEAM)
-         IconButton(
-          icon: const Icon(FluentIcons.update_restore),
-          onPressed: () async {
-            launchUrlString("steam://validate/${widget.pack.pack.launchersId!.steam!}");
-          },
-        ),
+        if (widget.pack.pack.launchersId != null &&
+            widget.pack.pack.launchersId!.steam != null &&
+            widget.pack.origin == LauncherType.STEAM)
+          IconButton(
+            icon: const Icon(FluentIcons.update_restore),
+            onPressed: () async {
+              await showDialog(
+                  context: context, builder: (context) => ResetPackDialog(appId:widget.pack.pack.launchersId!.steam!));
+            },
+          ),
         IconButton(
           icon: const Icon(FluentIcons.folder_open),
           onPressed: () async {
