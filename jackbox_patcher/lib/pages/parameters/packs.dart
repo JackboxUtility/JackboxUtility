@@ -145,7 +145,15 @@ class _ParametersWidgetState extends State<ParametersWidget> {
                         (index) => ComboBoxItem(
                               value: notOwnedPacks[index],
                               onTap: () {},
-                              child: Text(notOwnedPacks[index].pack.name),
+                              child: Row(children: [
+                                CachedNetworkImage(
+                                    imageUrl: APIService().assetLink(notOwnedPacks[index].pack.icon),
+                                    height: 30,
+                                    memCacheHeight: 30,
+                                    width: 30),
+                                const SizedBox(width: 10),
+                                Text(notOwnedPacks[index].pack.name),
+                              ])
                             )),
                     onChanged: (pack) async {
                       Navigator.pop(context, pack);
