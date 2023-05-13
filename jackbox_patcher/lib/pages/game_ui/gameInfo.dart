@@ -175,6 +175,11 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CachedNetworkImage(
+                       colorBlendMode: !widget.pack.owned
+                                      ? BlendMode.saturation
+                                      : null,
+                                  color:
+                                      !widget.pack.owned ? Colors.black : null,
                       imageUrl:
                           APIService().assetLink(widget.game.game.background),
                       fit: BoxFit.fitWidth,
@@ -195,7 +200,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
     return !widget.pack.owned
         ? GestureDetector(
             onTap: () async {
-              await Navigator.pushNamed(context, "/settings");
+              await Navigator.pushNamed(context, "/settings/packs");
               setState(() {});
             },
             child: Text(
@@ -205,7 +210,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
         : ((widget.pack.path == null || widget.pack.path == "")
             ? GestureDetector(
                 onTap: () async {
-                  await Navigator.pushNamed(context, "/settings");
+                  await Navigator.pushNamed(context, "/settings/packs");
                   setState(() {});
                 },
                 child: Text(
