@@ -241,5 +241,9 @@
     "extracting_error_description":"An error occurred while extracting the game. Check if you have enough storage free and try again.",
 
     "game_reset":"Reset game",
-    "game_reset_description":"This will validate all the files of this game. If you installed any patch, it will be deleted from your game. Are you sure you want to continue ?"
+    "game_reset_description":"This will validate all the files of this game. If you installed any patch, it will be deleted from your game. Are you sure you want to continue ?",
+
+    "small_description":"Description",
+
+    "patreon_subscribers":"Patreon subscribers"
 }

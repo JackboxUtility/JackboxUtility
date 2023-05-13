@@ -150,7 +150,7 @@ class _ServerInfoWidgetState extends State<ServerInfoWidget> {
                   children: [
                     const Icon(FontAwesomeIcons.patreon),
                     const SizedBox(width: 12),
-                    Text("Patreon subscribers", style: FluentTheme.of(context).typography.subtitle),
+                    Text(AppLocalizations.of(context)!.patreon_subscribers, style: FluentTheme.of(context).typography.subtitle),
                   ],
                 ),
                 const SizedBox(height: 12),

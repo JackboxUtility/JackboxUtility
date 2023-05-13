@@ -523,7 +523,7 @@ class _GameImageWithOpenerState extends State<GameImageWithOpener> {
                                             ),
                                             Text(
                                               AppLocalizations.of(context)!
-                                                  .small_information,
+                                                  .small_description,
                                               style: TextStyle(
                                                   color: Colors.white
                                                       .withOpacity(opacity),

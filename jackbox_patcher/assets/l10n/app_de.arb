@@ -208,5 +208,9 @@
     "extracting_error": "Fehler beim Entpacken",
     "extracting_error_description": "Beim Entpacken des Spiels ist ein Fehler aufgetreten. Bitte überprüfe, ob du ausreichend freien Speicherplatz zur Verfügung hast und versuche es erneut.",
     "game_reset": "Übersetzung entfernen",
-    "game_reset_description": "Dadurch wird dein Spiel vollständig zurückgesetzt. Wenn du einen Patch installiert haben solltest, wird dieser gelöscht. Bist du dir GANZ sicher, dass du fortfahren möchtest?"
+    "game_reset_description": "Dadurch wird dein Spiel vollständig zurückgesetzt. Wenn du einen Patch installiert haben solltest, wird dieser gelöscht. Bist du dir GANZ sicher, dass du fortfahren möchtest?",
+
+    "small_description":"Beschreibung",
+
+    "patreon_subscribers":"Patreon-Supporter"
 }

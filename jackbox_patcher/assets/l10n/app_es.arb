@@ -214,5 +214,9 @@
     "extracting_error_description":"Se produjo un error al extraer el juego. Comprueba si tienes suficiente espacio de almacenamiento libre e inténtalo de nuevo.",
 
     "game_reset":"Restaurar juego",
-    "game_reset_description":"Esto validará todos los archivos de este juego. Si instalaste algún parche, se eliminará del juego. ¿Seguro que quieres continuar?"
+    "game_reset_description":"Esto validará todos los archivos de este juego. Si instalaste algún parche, se eliminará del juego. ¿Seguro que quieres continuar?", 
+
+    "small_description":"Descripción",
+
+    "patreon_subscribers":"Suscriptores de Patreon"
 }
