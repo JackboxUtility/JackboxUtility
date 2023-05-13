@@ -2,10 +2,12 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:jackbox_patcher/model/jackbox/jackboxpack.dart';
+import 'package:jackbox_patcher/model/misc/windowInformation.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgamepatch.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../model/misc/launchers.dart';
 import '../../model/usermodel/userjackboxgame.dart';
 import '../../model/usermodel/userjackboxpack.dart';
 import '../../model/usermodel/userjackboxpackpatch.dart';
@@ -18,7 +20,7 @@ class UserData {
     return _instance;
   }
 
-  UserData._internal() {}
+  UserData._internal();
 
   List<UserJackboxPack> packs = [];
 
@@ -38,7 +40,7 @@ class UserData {
     List<JackboxPack> networkPacks = APIService().getPacks();
     for (var pack in networkPacks) {
       // Load the pack loader
-      UserJackboxLoader? loader = null;
+      UserJackboxLoader? loader;
       if (pack.loader != null) {
         loader = UserJackboxLoader(
             loader: pack.loader!,
@@ -48,13 +50,19 @@ class UserData {
 
       final String? packPath = preferences.getString("${pack.id}_path");
       final bool packOwned = preferences.getBool("${pack.id}_owned") ?? false;
+      final LauncherType packOrigin = LauncherType.fromName(
+          preferences.getString("${pack.id}_origin") ?? "");
       UserJackboxPack userPack = UserJackboxPack(
-          pack: pack, loader: loader, path: packPath, owned: packOwned);
+          pack: pack,
+          loader: loader,
+          path: packPath,
+          owned: packOwned,
+          origin: packOrigin);
       packs.add(userPack);
 
       // Load every games in the pack
       for (var game in pack.games) {
-        UserJackboxLoader? gameLoader = null;
+        UserJackboxLoader? gameLoader;
         if (game.loader != null) {
           gameLoader = UserJackboxLoader(
               loader: game.loader!,
@@ -78,7 +86,7 @@ class UserData {
         final String? patchVersionInstalled;
         if (pack.configuration != null && userPack.path != null) {
           File configurationFile =
-              File(userPack.path! + "/" + pack.configuration!.file);
+              File("${userPack.path!}/${pack.configuration!.versionFile}");
           if (configurationFile.existsSync()) {
             patchVersionInstalled =
                 jsonDecode(configurationFile.readAsStringSync())[
@@ -96,9 +104,9 @@ class UserData {
       }
     }
 
-    APIService().cachedCategories.forEach((element) {
+    for (var element in APIService().cachedCategories) {
       element.addPatchs(packs);
-    });
+    }
   }
 
   /// Sync the welcome message from the server
@@ -114,6 +122,8 @@ class UserData {
       await preferences.remove("${pack.pack.id}_path");
     }
     await preferences.setBool("${pack.pack.id}_owned", pack.owned);
+    await preferences.setString(
+        "${pack.pack.id}_origin", pack.origin!.toName());
     for (var game in pack.games) {
       await saveGame(game);
     }
@@ -153,7 +163,7 @@ class UserData {
   /// Write logs (mostly used when a patch is not downloaded properly)
   Future<void> writeLogs(String logs) async {
     File logFile = File("./logs.txt");
-    await logFile.writeAsString("[" + DateTime.now().toString() + "]\n" + logs,
+    await logFile.writeAsString("[${DateTime.now()}]\n$logs",
         mode: FileMode.append);
   }
 
@@ -169,11 +179,32 @@ class UserData {
     return preferences.getString("selected_server");
   }
 
+  WindowInformation getLastWindowInformations() {
+    WindowInformation lastWindowInformations = WindowInformation(
+      maximized: preferences.getBool("last_window_maximize") ?? false,
+      width: preferences.getInt("last_window_width") ?? 1280,
+      height: preferences.getInt("last_window_height") ?? 720,
+      x: preferences.getInt("last_window_x") ?? 10,
+      y: preferences.getInt("last_window_y") ?? 10,
+    );
+    return lastWindowInformations;
+  }
+
   Future<void> setSelectedServer(String? server) async {
     if (server == null) {
       await preferences.remove("selected_server");
     } else {
       await preferences.setString("selected_server", server);
     }
+  }
+
+  Future<void> setLastWindowInformations(
+      WindowInformation windowInformation) async {
+    await preferences.setBool(
+        "last_window_maximize", windowInformation.maximized);
+    await preferences.setInt("last_window_width", windowInformation.width);
+    await preferences.setInt("last_window_height", windowInformation.height);
+    await preferences.setInt("last_window_x", windowInformation.x);
+    await preferences.setInt("last_window_y", windowInformation.y);
   }
 }

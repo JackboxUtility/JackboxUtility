@@ -1,12 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:flutter/widgets.dart';
 import 'package:jackbox_patcher/components/blurhashimage.dart';
 
-import '../services/api/api_service.dart';
 
 class AssetCarousselWidget extends StatefulWidget {
-  AssetCarousselWidget({Key? key, required this.images}) : super(key: key);
+  const AssetCarousselWidget({Key? key, required this.images}) : super(key: key);
 
   final List<String> images;
   @override
@@ -42,7 +39,7 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
                               ? Center(
                                   child: Row(
                                   children: [
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 10,
                                     ),
                                     GestureDetector(
@@ -50,17 +47,17 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
                                               imageIndex = (imageIndex - 1) %
                                                   (widget.images.length);
                                             }),
-                                        child: Icon(
+                                        child: const Icon(
                                             FluentIcons.chevron_left_small)),
-                                    Expanded(child: SizedBox()),
+                                    const Expanded(child: SizedBox()),
                                     GestureDetector(
                                         onTap: () => setState(() {
                                               imageIndex = (imageIndex + 1) %
                                                   (widget.images.length);
                                             }),
-                                        child: Icon(
+                                        child: const Icon(
                                             FluentIcons.chevron_right_small)),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 10,
                                     ),
                                   ],

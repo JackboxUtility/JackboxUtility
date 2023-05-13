@@ -3,7 +3,6 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxgame.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
 import 'package:jackbox_patcher/pages/search_ui/searchGames.dart';
-import 'package:jackbox_patcher/services/translations/language_service.dart';
 
 import '../../model/usermodel/userjackboxpack.dart';
 import '../../services/api/api_service.dart';
@@ -11,7 +10,7 @@ import '../../services/user/userdata.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SearchGameMenuWidget extends StatefulWidget {
-  SearchGameMenuWidget({Key? key}) : super(key: key);
+  const SearchGameMenuWidget({Key? key}) : super(key: key);
 
   @override
   State<SearchGameMenuWidget> createState() => _SearchGameMenuWidgetState();
@@ -35,7 +34,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
       appBar: NavigationAppBar(
           automaticallyImplyLeading: false,
           leading: GestureDetector(
-            child: Icon(FluentIcons.chevron_left),
+            child: const Icon(FluentIcons.chevron_left),
             onTap: () => Navigator.pop(context),
           ),
           title: Text(
@@ -53,7 +52,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
           items: _buildPaneItems(),
           footerItems: [
             PaneItem(
-              icon: Icon(FluentIcons.package),
+              icon: const Icon(FluentIcons.package),
               title: Text(showAllPacks == false
                   ? AppLocalizations.of(context)!.show_all_packs
                   : AppLocalizations.of(context)!.show_owned_packs_only),
@@ -80,7 +79,11 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
     }
     for (var userPack in wantedPacks) {
       packItems.add(PaneItem(
-          icon: CachedNetworkImage(imageUrl: APIService().assetLink(userPack.pack.icon), fit: BoxFit.fitHeight, height:50, memCacheHeight: 50),
+          icon: CachedNetworkImage(
+              imageUrl: APIService().assetLink(userPack.pack.icon),
+              filterQuality: FilterQuality.high,
+              fit: BoxFit.fitHeight,
+              memCacheHeight: 40),
           title: Text(userPack.pack.name),
           body: SearchGameWidget(
             filter: (UserJackboxPack pack, UserJackboxGame game) =>
@@ -145,16 +148,20 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
       items.add(PaneItemSeparator());
       items.add(PaneItemHeader(
           header: TextBox(
+        autofocus: true,
         placeholder: AppLocalizations.of(context)!.search,
-        suffix: Icon(FluentIcons.search),
+        suffix: const Icon(FluentIcons.search),
         controller: _searchController,
+        onChanged: (String value) {
+          setState(() {});
+        },
         onEditingComplete: () {
           setState(() {});
         },
       )));
       items.add(PaneItemSeparator());
       items.add(PaneItem(
-          icon: Icon(FluentIcons.game),
+          icon: const Icon(FluentIcons.game),
           title: Text(AppLocalizations.of(context)!.all_games),
           body: SearchGameWidget(
             filter: (UserJackboxPack pack, UserJackboxGame game) =>
@@ -170,7 +177,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
             icon: null,
           )));
       items.add(PaneItemExpander(
-        icon: Icon(FluentIcons.gift_box_solid),
+        icon: const Icon(FluentIcons.gift_box_solid),
         body: Container(),
         title: Text(AppLocalizations.of(context)!.search_by_pack),
         items: packItems,
@@ -196,7 +203,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
       List<NavigationPaneItem> translationItem = _buildTranlationPaneItem();
 
       items.add(PaneItemExpander(
-        icon: Icon(FluentIcons.translate),
+        icon: const Icon(FluentIcons.translate),
         body: Container(),
         title: Text(AppLocalizations.of(context)!.search_by_translation),
         items: translationItem,
@@ -208,7 +215,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
       ));
 
       items.add(PaneItemExpander(
-        icon: Icon(FluentIcons.tag),
+        icon: const Icon(FluentIcons.tag),
         body: Container(),
         title: Text(AppLocalizations.of(context)!.search_by_tags),
         items: tagItem,
@@ -224,17 +231,26 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
     return items;
   }
 
-  List<NavigationPaneItem> _buildTranlationPaneItem(){
+  List<NavigationPaneItem> _buildTranlationPaneItem() {
     List<NavigationPaneItem> translationItem = [];
 
     // Adding each translation values
     for (var translation in JackboxGameTranslationCategory.values) {
+      if (translation == JackboxGameTranslationCategory.COMMUNITY_DUBBED &&
+          APIService()
+              .cachedConfigurations!
+              .getConfiguration("LAUNCHER", "HIDE_DUBBED_BY_COMMUNITY") == true) continue;
       translationItem.add(PaneItem(
-          icon: Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: translation.color ),width:10, height:10),
+          icon: Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: translation.color),
+              width: 10,
+              height: 10),
           title: Text(translation.name),
           body: SearchGameWidget(
             filter: (UserJackboxPack pack, UserJackboxGame game) =>
-                translation.filter(pack,game) &&
+                translation.filter(pack, game) &&
                 game.game.name
                     .toLowerCase()
                     .contains(_searchController.text.toLowerCase()) &&
@@ -248,7 +264,5 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
           )));
     }
     return translationItem;
-
-    
   }
 }

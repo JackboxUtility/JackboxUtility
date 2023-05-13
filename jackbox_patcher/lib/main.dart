@@ -1,5 +1,4 @@
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:flutter/foundation.dart';
 import 'package:jackbox_patcher/pages/mainContainer.dart';
 import 'package:jackbox_patcher/pages/parameters/menu.dart';
 import 'package:jackbox_patcher/pages/search_ui/searchGames.dart';
@@ -7,9 +6,6 @@ import 'package:jackbox_patcher/pages/search_ui/searchGamesMenu.dart';
 import 'package:jackbox_patcher/pages/select_server/selectServer.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:jackbox_patcher/services/automaticGameFinder/AutomaticGameFinder.dart';
-import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
-import 'package:jackbox_patcher/services/user/userdata.dart';
 import 'package:window_manager/window_manager.dart';
 
 import 'pages/game_ui/gameInfo.dart';
@@ -19,12 +15,6 @@ import 'pages/patcher/menu.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
-  if (kReleaseMode) {
-    FlutterError.onError = (details) {
-      FlutterError.presentError(details);
-      UserData().writeLogs(details.toString());
-    };
-  }
   runApp(const MyApp());
 }
 
@@ -35,19 +25,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FluentApp(
-      darkTheme: ThemeData(
+      darkTheme: FluentThemeData(
         brightness: Brightness.dark,
         accentColor: Colors.blue,
         visualDensity: VisualDensity.standard,
         focusTheme: FocusThemeData(
-          glowFactor: is10footScreen() ? 2.0 : 0.0,
+          glowFactor: is10footScreen(context) ? 2.0 : 0.0,
         ),
       ),
-      localizationsDelegates: [
+      localizationsDelegates: const [
         FluentLocalizations.delegate,
         AppLocalizations.delegate,
       ],
-      supportedLocales: [
+      supportedLocales: const [
         Locale("en"),
         Locale("fr"),
         Locale("de"),
@@ -56,16 +46,19 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         // When navigating to the "/" route, build the FirstScreen widget.
-        '/': (context) => MainContainer(),
-        '/serverSelect': (context) => SelectServerPage(),
+        '/': (context) => const MainContainer(),
+        '/serverSelect': (context) => const SelectServerPage(),
         // When navigating to the "/second" route, build the SecondScreen widget.
         '/settings': (context) =>
-            showMainContainerIfNotLoaded(ParametersRoute()),
-        '/game': (context) => showMainContainerIfNotLoaded(GameInfoRoute()),
-        '/search': (context) => showMainContainerIfNotLoaded(SearchGameRoute()),
+            showMainContainerIfNotLoaded(const ParametersRoute()),
+        '/settings/packs': 
+          (context) =>
+              showMainContainerIfNotLoaded(const ParametersPackRoute()),
+        '/game': (context) => showMainContainerIfNotLoaded(const GameInfoRoute()),
+        '/search': (context) => showMainContainerIfNotLoaded(const SearchGameRoute()),
         '/searchMenu': (context) =>
-            showMainContainerIfNotLoaded(SearchGameMenuWidget()),
-        '/patch': (context) => showMainContainerIfNotLoaded(PatcherMenuWidget())
+            showMainContainerIfNotLoaded(const SearchGameMenuWidget()),
+        '/patch': (context) => showMainContainerIfNotLoaded(const PatcherMenuWidget())
       },
       themeMode: ThemeMode.dark,
       title: 'Jackbox Utility',
@@ -75,6 +68,6 @@ class MyApp extends StatelessWidget {
   Widget showMainContainerIfNotLoaded(Widget widgetIfLoaded) {
     return APIService().cachedPacks.isNotEmpty
         ? widgetIfLoaded
-        : MainContainer();
+        : const MainContainer();
   }
 }

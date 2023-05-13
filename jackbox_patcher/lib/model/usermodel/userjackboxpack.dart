@@ -4,10 +4,10 @@ import 'package:jackbox_patcher/model/jackbox/jackboxpack.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgamepatch.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpackpatch.dart';
-import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 
 import '../../services/launcher/launcher.dart';
+import '../misc/launchers.dart';
 
 class UserJackboxPack {
   final JackboxPack pack;
@@ -16,12 +16,14 @@ class UserJackboxPack {
   UserJackboxLoader? loader;
   String? path;
   bool owned = false;
+  LauncherType? origin;
 
   UserJackboxPack({
     required this.pack,
     required this.loader,
     required this.path,
     required this.owned,
+    required this.origin,
   });
 
   Directory? getPackFolder() {
@@ -38,7 +40,7 @@ class UserJackboxPack {
     } else {
       if (await folder.exists() &&
           (pack.executable == null ||
-              await File(folder.path + "/" + pack.executable!).exists())) {
+              await File("${folder.path}/${pack.executable!}").exists())) {
         return "FOUND";
       } else {
         return "NOT_FOUND";
@@ -47,12 +49,12 @@ class UserJackboxPack {
   }
 
   Future<void> setPath(String p) async {
-    this.path = p;
+    path = p;
     await UserData().savePack(this);
   }
 
   Future<void> setOwned(bool o) async {
-    this.owned = o;
+    owned = o;
     await UserData().savePack(this);
   }
 
@@ -62,12 +64,19 @@ class UserJackboxPack {
 
   UserJackboxPackPatch? getInstalledPackPatch() {
     Iterable<UserJackboxPackPatch> patchesInstalled = patches.where((patch) =>
-        patch.getInstalledStatus() == UserInstalledPatchStatus.INSTALLED || patch.getInstalledStatus() == UserInstalledPatchStatus.INSTALLED_OUTDATED);
+        patch.getInstalledStatus() == UserInstalledPatchStatus.INSTALLED ||
+        patch.getInstalledStatus() ==
+            UserInstalledPatchStatus.INSTALLED_OUTDATED);
     if (patchesInstalled.isNotEmpty) {
       return patchesInstalled.first;
-    }else{
+    } else {
       return null;
     }
+  }
+
+  setLauncher(LauncherType launcher) {
+    origin = launcher;
+    UserData().savePack(this);
   }
 }
 

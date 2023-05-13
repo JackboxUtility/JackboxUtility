@@ -1,14 +1,8 @@
 import 'dart:io';
 
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:jackbox_patcher/components/dialogs/leaveApplicationDialog.dart';
-import 'package:jackbox_patcher/components/menu.dart';
 import 'package:jackbox_patcher/model/patchserver.dart';
-import 'package:jackbox_patcher/pages/parameters/packs.dart';
-import 'package:jackbox_patcher/pages/patcher/packContainer.dart';
-import 'package:jackbox_patcher/model/jackbox/jackboxpack.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/device/device.dart';
 import 'package:jackbox_patcher/services/downloader/downloader_service.dart';
@@ -16,25 +10,25 @@ import 'package:jackbox_patcher/services/downloader/precache_service.dart';
 import 'package:jackbox_patcher/services/error/error.dart';
 import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
+import 'package:jackbox_patcher/services/windowManager/windowsManagerService.dart';
 import 'package:lottie/lottie.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:window_manager/window_manager.dart';
 
 import '../components/dialogs/automaticGameFinderDialog.dart';
-import '../model/news.dart';
+import '../components/notificationsCaroussel.dart';
 import '../services/automaticGameFinder/AutomaticGameFinder.dart';
 
 class MainContainer extends StatefulWidget {
-  MainContainer({Key? key}) : super(key: key);
+  const MainContainer({Key? key}) : super(key: key);
 
   @override
   State<MainContainer> createState() => _MainContainerState();
 }
 
 class _MainContainerState extends State<MainContainer> with WindowListener {
-  int _selectedView = 0;
+  bool isFirstTimeOpening = true;
   bool _loaded = false;
 
   double calculatePadding() {
@@ -52,114 +46,44 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
     super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
     TranslationsHelper().appLocalizations = AppLocalizations.of(context);
     return NavigationView(
-        content: Stack(children: [
-      _loaded
-          ? Positioned(
-              top: 10,
-              right: 10,
-              child: GestureDetector(
-                  onTap: () {
-                    _openNotificationsWindow();
-                  },
-                  child: Icon(
-                      APIService().cachedNews[0].id ==
-                              UserData().getLastNewsReaden()
-                          ? FluentIcons.ringer
-                          : FluentIcons.ringer_active,
-                      color: Colors.white,
-                      size: 30)))
-          : Container(),
-      Column(children: [
-        Expanded(
-          child: _buildUpper(),
-        ),
-        _buildLower(),
-      ])
-    ]));
-  }
+        content: 
+       Stack(
+         children: 
+          [
+            Image.asset("assets/images/background_pattern.png", scale: 1.5,  repeat: ImageRepeat.repeat, width: MediaQuery.of(context).size.width, height: MediaQuery.of(context).size.height),
+         Container(
+           width: MediaQuery.of(context).size.width,
+           height: MediaQuery.of(context).size.height,
+           color: const Color.fromARGB(1,32,32,32).withOpacity(0.98),
+         ),
+         Column(children: [
+          const Spacer(),
+          _buildUpper(),
+          _buildLower(),
+          const Spacer(),
+           ]),
+           ],
 
-  void _openNotificationsWindow() {
-    UserData().setLastNewsReaden(APIService().cachedNews[0].id);
-    showDialog(
-        context: context,
-        builder: (context) => ContentDialog(
-                title: Text(AppLocalizations.of(context)!.notifications),
-                content: ListView(
-                    children: List.generate(
-                            APIService().cachedNews.length,
-                            (index) => _buildNotificationWidget(
-                                APIService().cachedNews[index]))
-                        .expand((w) => [w, SizedBox(height: 10)])
-                        .toList()),
-                actions: [
-                  TextButton(
-                      onPressed: () => Navigator.pop(context),
-                      child: Text(AppLocalizations.of(context)!.close))
-                ])).then((value) => setState(() {}));
-  }
-
-  Widget _buildNotificationWidget(News news) {
-    return ClipRRect(
-        borderRadius: BorderRadius.all(Radius.circular(8)),
-        child: GestureDetector(
-            onTap: () {
-              showDialog(
-                  context: context,
-                  builder: (context) => ContentDialog(
-                          title: Text(news.title),
-                          content: Markdown(
-                              data: news.content,
-                              onTapLink: (text, href, title) =>
-                                  launchUrl(Uri.parse(href!))),
-                          actions: [
-                            TextButton(
-                                onPressed: () => Navigator.pop(context),
-                                child:
-                                    Text(AppLocalizations.of(context)!.close))
-                          ]));
-            },
-            child: Container(
-                color: FluentTheme.of(context).cardColor,
-                width: 300,
-                height: 100,
-                child: Row(children: [
-                  Container(
-                    width: 100,
-                    height: 100,
-                    child: Image.network(APIService().assetLink(news.image)),
-                  ),
-                  Container(
-                    padding: EdgeInsets.all(10),
-                    width: 200,
-                    height: 100,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(news.title,
-                            style: FluentTheme.of(context).typography.subtitle),
-                        Text(news.smallDescription)
-                      ],
-                    ),
-                  )
-                ]))));
+       ));
   }
 
   Widget _buildUpper() {
     return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-      Container(),
-      Expanded(child: Container()),
       _buildTitle(),
-      SizedBox(
+      const SizedBox(
         height: 30,
       ),
       _loaded
           ? _buildMenu()
           : LottieBuilder.asset("assets/lotties/QuiplashOutput.json",
               width: 200, height: 200),
-      Expanded(child: Container()),
+      const SizedBox(
+        height: 30,
+      ),
     ]);
   }
 
@@ -177,20 +101,20 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
                   onPressed: () {
                     Navigator.pushNamed(context, "/searchMenu");
                   },
-                  child: Container(
+                  child: SizedBox(
                       width: 300,
                       height: 20,
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(FluentIcons.play, color: Colors.white),
-                            SizedBox(width: 10),
+                            const Icon(FluentIcons.play, color: Colors.white),
+                            const SizedBox(width: 10),
                             Text(
                                 AppLocalizations.of(context)!
                                     .launch_search_game,
-                                style: TextStyle(color: Colors.white))
+                                style: const TextStyle(color: Colors.white))
                           ])))),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           !DeviceService.isWeb()
               ? MouseRegion(
                   cursor: SystemMouseCursors.click,
@@ -202,19 +126,19 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
                       onPressed: () {
                         Navigator.pushNamed(context, "/patch");
                       },
-                      child: Container(
+                      child: SizedBox(
                           width: 300,
                           height: 20,
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(FluentIcons.download, color: Colors.white),
-                                SizedBox(width: 10),
+                                const Icon(FluentIcons.download, color: Colors.white),
+                                const SizedBox(width: 10),
                                 Text(AppLocalizations.of(context)!.patch_a_game,
-                                    style: TextStyle(color: Colors.white))
+                                    style: const TextStyle(color: Colors.white))
                               ]))))
-              : SizedBox(height: 0),
-          SizedBox(height: 30),
+              : const SizedBox(height: 0),
+          const SizedBox(height: 30),
           !DeviceService.isWeb()
               ? MouseRegion(
                   cursor: SystemMouseCursors.click,
@@ -232,18 +156,18 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
                           _load(false);
                         }
                       },
-                      child: Container(
+                      child: SizedBox(
                           width: 300,
                           height: 20,
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(FluentIcons.settings, color: Colors.white),
-                                SizedBox(width: 10),
+                                const Icon(FluentIcons.settings, color: Colors.white),
+                                const SizedBox(width: 10),
                                 Text(AppLocalizations.of(context)!.settings,
-                                    style: TextStyle(color: Colors.white))
+                                    style: const TextStyle(color: Colors.white))
                               ]))))
-              : SizedBox(height: 0)
+              : const SizedBox(height: 0)
         ]));
   }
 
@@ -251,10 +175,10 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
     return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
       Text(AppLocalizations.of(context)!
           .connected_to_server(APIService().cachedSelectedServer!.name)),
-      SizedBox(width: 10),
+      const SizedBox(width: 10),
       GestureDetector(
         child: Text(AppLocalizations.of(context)!.connected_to_server_change,
-            style: TextStyle(decoration: TextDecoration.underline)),
+            style: const TextStyle(decoration: TextDecoration.underline)),
         onTap: () async {
           UserData().setSelectedServer(null);
           UserData().packs = [];
@@ -286,17 +210,27 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
   }
 
   Widget _buildLower() {
-    return Container();
+    return _loaded
+        ? Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: NotificationCaroussel(
+              news: APIService().cachedNews,
+            ),
+          )
+        : Container();
   }
 
   void _load(bool automaticallyChooseBestServer) async {
-    print("Loading");
     bool changedServer = false;
     bool automaticGameFindNotificationAvailable = false;
+    if (isFirstTimeOpening) {
+      isFirstTimeOpening = false;
+      await windowManager.setPreventClose(true);
+      await UserData().init();
+      WindowManagerService.updateScreenSizeFromLastOpening();
+    }
     UserData().packs = [];
     APIService().resetCache();
-    await windowManager.setPreventClose(true);
-    await UserData().init();
     if (UserData().getSelectedServer() == null) {
       if (automaticallyChooseBestServer) {
         await findBestServer();
@@ -305,21 +239,22 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
         automaticGameFindNotificationAvailable = true;
       }
       changedServer = true;
-      print("ChangedServer");
     }
     try {
       await _loadInfo();
       await _loadWelcome();
       await _loadPacks();
       await _loadBlurHashes();
+      await _loadServerConfigurations();
       _precacheImages();
-      if (changedServer)
+      if (changedServer) {
         await _launchAutomaticGameFinder(
             automaticGameFindNotificationAvailable);
+      }
     } catch (e) {
       InfoBarService.showError(
           context, AppLocalizations.of(context)!.connection_to_server_failed,
-          duration: Duration(minutes: 5));
+          duration: const Duration(minutes: 5));
       rethrow;
     }
     setState(() {
@@ -335,7 +270,7 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
     print(servers);
     for (var server in servers) {
       print(server.languages);
-      if (server.languages.where((e) => locale.startsWith(e)).length > 0) {
+      if (server.languages.where((e) => locale.startsWith(e)).isNotEmpty) {
         print("Found server");
         await UserData().setSelectedServer(server.infoUrl);
         InfoBarService.showInfo(
@@ -355,7 +290,7 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
     }
     var packageInfo = (await PackageInfo.fromPlatform());
     File("jackbox_patcher.version")
-        .writeAsString(packageInfo.version + "+" + packageInfo.buildNumber);
+        .writeAsString("${packageInfo.version}+${packageInfo.buildNumber}");
   }
 
   Future<void> _precacheImages() async {
@@ -378,11 +313,15 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
     await APIService().recoverBlurHashes();
   }
 
+  Future<void> _loadServerConfigurations() async {
+    await APIService().recoverConfigurations();
+  }
+
   Future<void> _showAutomaticGameFinderDialog() async {
     await showDialog(
         context: context,
         builder: (context) {
-          return AutomaticGameFinderDialog();
+          return const AutomaticGameFinderDialog();
         });
   }
 
@@ -400,16 +339,18 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
 
   @override
   void onWindowClose() async {
-    bool _isPreventClose = await windowManager.isPreventClose();
-    if (_isPreventClose) {
+    bool isPreventClose = await windowManager.isPreventClose();
+    if (isPreventClose) {
       bool shouldClose = DownloaderService.isDownloading
           ? await (showDialog<bool>(
                   context: context,
                   builder: (context) {
-                    return LeaveApplicationDialog();
+                    return const LeaveApplicationDialog();
                   })) ==
               true
           : true;
+
+      await WindowManagerService.saveCurrentScreenSize();
       if (shouldClose) {
         windowManager.destroy();
       }

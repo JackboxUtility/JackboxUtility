@@ -5,7 +5,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AppInfoWidget extends StatefulWidget {
-  AppInfoWidget({Key? key}) : super(key: key);
+  const AppInfoWidget({Key? key}) : super(key: key);
 
   @override
   State<AppInfoWidget> createState() => _AppInfoWidgetState();
@@ -16,7 +16,8 @@ class _AppInfoWidgetState extends State<AppInfoWidget> {
 
   @override
   void initState() {
-    PackageInfo.fromPlatform().then((value) => setState((() => version = value.version)));
+    PackageInfo.fromPlatform()
+        .then((value) => setState((() => version = value.version)));
     // TODO: implement initState
     super.initState();
   }
@@ -31,60 +32,89 @@ class _AppInfoWidgetState extends State<AppInfoWidget> {
 
   @override
   Widget build(BuildContext context) {
-    Typography typography = FluentTheme.of(context).typography;
     return Padding(
         padding:
             EdgeInsets.symmetric(vertical: 24, horizontal: calculatePadding()),
         child: Column(children: [
-          Spacer(flex:2),
+          const Spacer(flex: 2),
           ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
               child: Image.asset('assets/logo.png', height: 100)),
           Text(AppLocalizations.of(context)!.jackbox_utility,
               style: FluentTheme.of(context).typography.titleLarge),
-          SizedBox(height:12),
-          Text(
-              AppLocalizations.of(context)!.jackbox_utility_description,
+          const SizedBox(height: 12),
+          Text(AppLocalizations.of(context)!.jackbox_utility_description,
               style: FluentTheme.of(context).typography.body),
-          SizedBox(height:12),
-          Text(AppLocalizations.of(context)!.version+" " + version,
+          const SizedBox(height: 12),
+          Text("${AppLocalizations.of(context)!.version} $version",
               style: FluentTheme.of(context).typography.body),
-          SizedBox(height:12),
-          Row( mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextButton(
-                  child: Row(children:[FaIcon(FontAwesomeIcons.github), SizedBox(width: 10,), Text("GitHub")]),
-                  onPressed: () async {
-                    await launchUrl(Uri.parse("https://github.com/AlexisL61/JackboxUtility")); 
-                  })]),
-          Spacer(),
-          Row( mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Spacer(),
-              Column(children: [
-
-                Text(AppLocalizations.of(context)!.author),
-                TextButton(
-                  child: Row(children:[FaIcon(FontAwesomeIcons.github), SizedBox(width: 10,), Text("AlexisL61")]),
-                  onPressed: () async {
-                    await launchUrl(Uri.parse("https://github.com/AlexisL61")); 
-                  }), 
+          const SizedBox(height: 12),
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            HyperlinkButton(
+                child: const Row(children: [
+                  FaIcon(FontAwesomeIcons.github),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text("GitHub")
+                ]),
+                onPressed: () async {
+                  await launchUrl(
+                      Uri.parse("https://github.com/AlexisL61/JackboxUtility"));
+                })
+          ]),
+          const Spacer(),
+          Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Spacer(),
+                Column(children: [
+                  Text(AppLocalizations.of(context)!.author),
+                  HyperlinkButton(
+                      child: const Row(children: [
+                        FaIcon(FontAwesomeIcons.github),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text("AlexisL61")
+                      ]),
+                      onPressed: () async {
+                        await launchUrl(
+                            Uri.parse("https://github.com/AlexisL61"));
+                      }),
+                ]),
+                const Spacer(),
+                Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+                  Text(AppLocalizations.of(context)!.contributors),
+                  HyperlinkButton(
+                      child: const Row(children: [
+                        FaIcon(FontAwesomeIcons.github),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text("Akira896")
+                      ]),
+                      onPressed: () async {
+                        await launchUrl(
+                            Uri.parse("https://github.com/AkiraArtuhaxis"));
+                      }),
+                  HyperlinkButton(
+                      child: const Row(children: [
+                        FaIcon(FontAwesomeIcons.github),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text("Erizzle")
+                      ]),
+                      onPressed: () async {
+                        await launchUrl(
+                            Uri.parse("https://github.com/DerErizzle"));
+                      })
+                ]),
+                const Spacer()
               ]),
-              Spacer(),
-              Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-                Text(AppLocalizations.of(context)!.contributors),
-                TextButton(
-                  child: Row(children:[FaIcon(FontAwesomeIcons.github), SizedBox(width: 10,), Text("Akira896")]),
-                  onPressed: () async {
-                    await launchUrl(Uri.parse("https://github.com/AkiraArtuhaxis")); 
-                  }), 
-                TextButton(
-                  child: Row(children:[FaIcon(FontAwesomeIcons.github), SizedBox(width: 10,), Text("Erizzle")]),
-                  onPressed: () async {
-                    await launchUrl(Uri.parse("https://github.com/DerErizzle")); 
-                  })]), 
-                  Spacer()]),
-          Spacer(flex:2)
+          const Spacer(flex: 2)
         ]));
   }
 }

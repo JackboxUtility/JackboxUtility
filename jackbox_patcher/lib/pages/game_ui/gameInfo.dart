@@ -14,10 +14,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../model/usermodel/userjackboxgame.dart';
 import '../../model/usermodel/userjackboxpack.dart';
 import '../../services/api/api_service.dart';
-import '../../services/user/userdata.dart';
 
 class GameInfoRoute extends StatefulWidget {
-  GameInfoRoute({Key? key}) : super(key: key);
+  const GameInfoRoute({Key? key}) : super(key: key);
 
   @override
   State<GameInfoRoute> createState() => _GameInfoRouteState();
@@ -36,7 +35,7 @@ class _GameInfoRouteState extends State<GameInfoRoute> {
 }
 
 class GameInfoWidget extends StatefulWidget {
-  GameInfoWidget(
+  const GameInfoWidget(
       {Key? key,
       required this.pack,
       required this.game,
@@ -95,10 +94,10 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
               child:
                   Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
                 GestureDetector(
-                  child: Icon(FluentIcons.chevron_left),
+                  child: const Icon(FluentIcons.chevron_left),
                   onTap: () => Navigator.pop(context),
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 Text(
                   widget.game.game.name,
                   style: typography.titleLarge,
@@ -149,12 +148,12 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                   },
                 ))
           ])),
-          SizedBox(
+          const SizedBox(
             width: 40,
           ),
           Column(children: [
             _buildPlayPanel(),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             _buildGameTags()
           ])
         ],
@@ -169,24 +168,29 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
             shadowColor: backgroundColor,
             blurAmount: 1,
             tintAlpha: 1,
-            tint: Color.fromARGB(255, 48, 48, 48),
+            tint: const Color.fromARGB(255, 48, 48, 48),
             child: SizedBox(
                 width: 300,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CachedNetworkImage(
+                       colorBlendMode: !widget.pack.owned
+                                      ? BlendMode.saturation
+                                      : null,
+                                  color:
+                                      !widget.pack.owned ? Colors.black : null,
                       imageUrl:
                           APIService().assetLink(widget.game.game.background),
                       fit: BoxFit.fitWidth,
                     ),
                     Padding(
                         padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                            const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                         child: Column(children: [
                           Text(widget.game.game.info.smallDescription),
-                          SizedBox(height: 10),
-                          !kIsWeb ? _buildPlayButton() : SizedBox(height: 0),
+                          const SizedBox(height: 10),
+                          !kIsWeb ? _buildPlayButton() : const SizedBox(height: 0),
                         ]))
                   ],
                 ))));
@@ -196,7 +200,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
     return !widget.pack.owned
         ? GestureDetector(
             onTap: () async {
-              await Navigator.pushNamed(context, "/settings");
+              await Navigator.pushNamed(context, "/settings/packs");
               setState(() {});
             },
             child: Text(
@@ -206,7 +210,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
         : ((widget.pack.path == null || widget.pack.path == "")
             ? GestureDetector(
                 onTap: () async {
-                  await Navigator.pushNamed(context, "/settings");
+                  await Navigator.pushNamed(context, "/settings/packs");
                   setState(() {});
                 },
                 child: Text(
@@ -237,28 +241,28 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(FluentIcons.play, color: Colors.white),
-                        SizedBox(width: 10),
+                        const Icon(FluentIcons.play, color: Colors.white),
+                        const SizedBox(width: 10),
                         Text(
                             launchingStatus == "WAITING"
                                 ? AppLocalizations.of(context)!.launch_game
                                 : (launchingStatus == "LAUNCHING"
                                     ? AppLocalizations.of(context)!.launching
                                     : AppLocalizations.of(context)!.launched),
-                            style: TextStyle(color: Colors.white)),
+                            style: const TextStyle(color: Colors.white)),
                       ],
                     ))),
-            DropDownButton(leading: SizedBox(height: 19), items: [
+            DropDownButton(leading: const SizedBox(height: 19), items: [
               MenuFlyoutItem(
-                  leading: Icon(FluentIcons.play),
+                  leading: const Icon(FluentIcons.play),
                   text: Text(AppLocalizations.of(context)!.launch_game),
                   onPressed: launchGameFunction),
               MenuFlyoutItem(
-                  leading: Icon(FluentIcons.play),
+                  leading: const Icon(FluentIcons.play),
                   text: Text(AppLocalizations.of(context)!.launch_pack),
                   onPressed: launchPackFunction),
               MenuFlyoutItem(
-                  leading: Icon(FluentIcons.info),
+                  leading: const Icon(FluentIcons.info),
                   text: Text(AppLocalizations.of(context)!.more_informations),
                   onPressed: showLaunchInfo),
             ])
@@ -270,15 +274,15 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(FluentIcons.play, color: Colors.white),
-              SizedBox(width: 10),
+              const Icon(FluentIcons.play, color: Colors.white),
+              const SizedBox(width: 10),
               Text(
                   launchingStatus == "WAITING"
                       ? AppLocalizations.of(context)!.launch_pack
                       : (launchingStatus == "LAUNCHING"
                           ? AppLocalizations.of(context)!.launching
                           : AppLocalizations.of(context)!.launched),
-                  style: TextStyle(color: Colors.white)),
+                  style: const TextStyle(color: Colors.white)),
             ],
           ));
     }
@@ -323,7 +327,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                     ),
                     Text(AppLocalizations.of(context)!
                         .launch_game_fast_launcher_description),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Text(
                       AppLocalizations.of(context)!.launch_game,
                       style: FluentTheme.of(context).typography.subtitle,
@@ -331,7 +335,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                     Text(AppLocalizations.of(context)!.launch_pack_description),
                   ])),
           actions: [
-            TextButton(
+            HyperlinkButton(
               child: Text(AppLocalizations.of(context)!.close),
               onPressed: () {
                 Navigator.of(context).pop();
@@ -351,26 +355,26 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
               shadowColor: backgroundColor,
               blurAmount: 1,
               tintAlpha: 1,
-              tint: Color.fromARGB(255, 48, 48, 48),
+              tint: const Color.fromARGB(255, 48, 48, 48),
               child: SizedBox(
                   width: 300,
                   child: Padding(
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: _generateClassicGameTags()))))),
-      SizedBox(height: 20),
+      const SizedBox(height: 20),
       ClipRRect(
           borderRadius: BorderRadius.circular(8.0),
           child: Acrylic(
               shadowColor: backgroundColor,
               blurAmount: 1,
               tintAlpha: 1,
-              tint: Color.fromARGB(255, 48, 48, 48),
+              tint: const Color.fromARGB(255, 48, 48, 48),
               child: SizedBox(
                   width: 300,
                   child: Padding(
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: _generateCustomGameTags())))))
@@ -417,7 +421,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
           FluentIcons.allIcons[element.icon]!, element.name,
           isLink: true,
           filter: (pack, game) =>
-              game.game.info.tags.where((e) => e.id == element.id).length > 0,
+              game.game.info.tags.where((e) => e.id == element.id).isNotEmpty,
           background: null,
           description: element.description));
     }
@@ -456,14 +460,14 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
           }
         },
         child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
             child: Row(children: [
               Icon(icon),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               Expanded(
                   child: Text(text,
                       style: isLink
-                          ? TextStyle(decoration: TextDecoration.underline)
+                          ? const TextStyle(decoration: TextDecoration.underline)
                           : null))
             ])));
   }

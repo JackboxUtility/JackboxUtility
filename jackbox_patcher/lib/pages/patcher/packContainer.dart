@@ -3,10 +3,6 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:jackbox_patcher/components/blurhashimage.dart';
-import 'package:jackbox_patcher/model/jackbox/jackboxgame.dart';
-import 'package:jackbox_patcher/model/jackbox/jackboxpack.dart';
-import 'package:jackbox_patcher/model/jackbox/jackboxgamepatch.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgamepatch.dart';
@@ -19,7 +15,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'gamePatch.dart';
 
 class PatcherPackWidget extends StatefulWidget {
-  PatcherPackWidget({Key? key, required this.userPack}) : super(key: key);
+  const PatcherPackWidget({Key? key, required this.userPack}) : super(key: key);
 
   final UserJackboxPack userPack;
   @override
@@ -50,10 +46,11 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
           pathFoundStatus = "FOUND";
         });
       } else {
-        if (mounted)
-        setState(() {
-          pathFoundStatus = "NOT_FOUND";
-        });
+        if (mounted) {
+          setState(() {
+            pathFoundStatus = "NOT_FOUND";
+          });
+        }
       }
     }
   }
@@ -61,7 +58,7 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
   @override
   Widget build(BuildContext context) {
     return ListView(
-        children: [_buildHeader(), SizedBox(height: 30), _buildGames()]);
+        children: [_buildHeader(), const SizedBox(height: 30), _buildGames()]);
   }
 
   Widget _buildHeader() {
@@ -74,7 +71,8 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
                 child: Row(children: [
                   Expanded(
                       child: CachedNetworkImage(
-                    imageUrl:APIService().assetLink(widget.userPack.pack.background),
+                    imageUrl:
+                        APIService().assetLink(widget.userPack.pack.background),
                     fit: BoxFit.fitWidth,
                   ))
                 ])),
@@ -94,20 +92,22 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
                         1.0
                       ])),
             ),
-            Container(margin:EdgeInsets.only(top:140,left:20,right:20),child: Column(
+            Container(
+              margin: const EdgeInsets.only(top: 140, left: 20, right: 20),
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     widget.userPack.pack.name,
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: Colors.white,
                         fontSize: 30,
                         fontWeight: FontWeight.bold),
                   ),
                   Text(
                     widget.userPack.pack.description,
-                    style: TextStyle(color: Colors.white, fontSize: 15),
-                  ) 
+                    style: const TextStyle(color: Colors.white, fontSize: 15),
+                  )
                 ],
               ),
             ),
@@ -131,22 +131,22 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
                           openPack();
                         },
                         icon: launchingStatus == "NOT_LAUNCHED"
-                            ? Icon(FluentIcons.play)
+                            ? const Icon(FluentIcons.play)
                             : (launchingStatus == "LOADING"
                                 ? Row(children: [
-                                    Icon(FluentIcons.play),
-                                    SizedBox(width: 10),
+                                    const Icon(FluentIcons.play),
+                                    const SizedBox(width: 10),
                                     Text(
                                       AppLocalizations.of(context)!.launching,
-                                      style: TextStyle(fontSize: 11),
+                                      style: const TextStyle(fontSize: 11),
                                     )
                                   ])
                                 : Row(children: [
-                                    Icon(FluentIcons.check_mark),
-                                    SizedBox(width: 10),
+                                    const Icon(FluentIcons.check_mark),
+                                    const SizedBox(width: 10),
                                     Text(
                                       AppLocalizations.of(context)!.launched,
-                                      style: TextStyle(fontSize: 11),
+                                      style: const TextStyle(fontSize: 11),
                                     )
                                   ]))))
                 : Container(),
@@ -160,10 +160,10 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
                     onPressed: () async {
                       await _showParametersDialog();
                     },
-                    icon: Icon(FluentIcons.settings))),
+                    icon: const Icon(FluentIcons.settings))),
           ],
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         _buildPathMessage()
@@ -173,7 +173,7 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
 
   Widget _buildPathMessage() {
     if (pathFoundStatus == "LOADING") {
-      return ProgressRing();
+      return const ProgressRing();
     }
     if (pathFoundStatus == "FOUND") {
       return Container();
@@ -212,14 +212,15 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
       ));
     }
     return Padding(
-        padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
-        child: Column(children:[Column(
-            children: packPatchChildren), 
-            StaggeredGrid.count(
-            mainAxisSpacing: 20,
-            crossAxisSpacing: 20,
-            crossAxisCount: 3,
-            children: gamesChildren)]));
+        padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+        child: Column(children: [
+          Column(children: packPatchChildren),
+          StaggeredGrid.count(
+              mainAxisSpacing: 20,
+              crossAxisSpacing: 20,
+              crossAxisCount: 3,
+              children: gamesChildren)
+        ]));
   }
 
   void openPack() async {
@@ -235,35 +236,6 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
   }
 
   Future<void> _showParametersDialog() async {
-    await showDialog(
-        context: context,
-        builder: (context) => ContentDialog(
-              title: Text(AppLocalizations.of(context)!.settings),
-              content: SizedBox(
-                  height: 100,
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(AppLocalizations.of(context)!.pack_path),
-                        SizedBox(
-                          height: 6,
-                        ),
-                        TextBox(
-                          controller: pathController,
-                          onChanged: (value) {
-                            widget.userPack.setOwned(true);
-                            widget.userPack.setPath(value);
-                          },
-                        )
-                      ])),
-              actions: [
-                TextButton(
-                    child: Text(AppLocalizations.of(context)!.confirm),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    })
-              ],
-            ));
-    _loadPathFoundStatus();
+    await Navigator.pushNamed(context, "/settings/packs");
   }
 }

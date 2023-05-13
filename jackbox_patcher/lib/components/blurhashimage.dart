@@ -5,7 +5,7 @@ import 'package:jackbox_patcher/model/misc/urlblurhash.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 
 class BlurHashImage extends StatefulWidget {
-  BlurHashImage(
+  const BlurHashImage(
       {Key? key, required this.url, this.fit, this.width, this.height})
       : super(key: key);
 
@@ -37,17 +37,17 @@ class _BlurHashImageState extends State<BlurHashImage> {
 
   int _getDecodingWidth() {
     if (widget.width != null) return widget.width!.toInt();
-    if (widget.height != null)
-      return (blurHash!.width * widget.height!.toInt() / blurHash!.height)
-          .toInt();
+    if (widget.height != null) {
+      return blurHash!.width * widget.height!.toInt() ~/ blurHash!.height;
+    }
     return 32;
   }
 
   int _getDecodingHeight() {
     if (widget.height != null) return widget.height!.toInt();
-    if (widget.width != null)
-      return (blurHash!.height * widget.width!.toInt() / blurHash!.width)
-          .toInt();
+    if (widget.width != null) {
+      return blurHash!.height * widget.width!.toInt() ~/ blurHash!.width;
+    }
     return 32;
   }
 
@@ -60,7 +60,7 @@ class _BlurHashImageState extends State<BlurHashImage> {
     }
     return CachedNetworkImage(
       placeholderFadeInDuration: Duration.zero,
-      fadeInDuration: Duration(milliseconds: 400),
+      fadeInDuration: const Duration(milliseconds: 400),
         imageUrl: APIService().assetLink(widget.url),
         width: widget.width,
         height: widget.height,
@@ -69,7 +69,7 @@ class _BlurHashImageState extends State<BlurHashImage> {
         memCacheWidth:
             widget.width != null ? (widget.width! * 2).toInt() : null,
         fit: widget.fit,
-        placeholder: (context, url) => Container(
+        placeholder: (context, url) => SizedBox(
             width: widget.width,
             height: widget.height,
             child:  blurHash != null

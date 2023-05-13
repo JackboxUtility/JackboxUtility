@@ -1,8 +1,5 @@
-import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxpackpatch.dart';
-import 'package:jackbox_patcher/services/launcher/launcher.dart';
 
 import 'jackboxgame.dart';
 
@@ -105,13 +102,35 @@ class LaunchersId {
 }
 
 class PackConfiguration {
-  final String file;
+  final LocalVersionOrigin versionOrigin;
+  final String versionFile;
   final String versionProperty;
 
-  PackConfiguration({required this.file, required this.versionProperty});
+  PackConfiguration(
+      {required this.versionOrigin,
+      required this.versionFile,
+      required this.versionProperty});
 
   factory PackConfiguration.fromJson(Map<String, dynamic> json) {
     return PackConfiguration(
-        file: json['file'], versionProperty: json['version_property']);
+        versionOrigin: LocalVersionOrigin.fromString(json['version_origin']),
+        versionFile: json['version_file'],
+        versionProperty: json['version_property']);
+  }
+}
+
+enum LocalVersionOrigin {
+  APP,
+  GAME_FILE;
+
+  static LocalVersionOrigin fromString(String value) {
+    switch (value) {
+      case "app":
+        return LocalVersionOrigin.APP;
+      case "game_file":
+        return LocalVersionOrigin.GAME_FILE;
+      default:
+        throw Exception("Invalid VersionOrigin");
+    }
   }
 }

@@ -4,11 +4,9 @@ import 'package:jackbox_patcher/pages/parameters/appinfo.dart';
 import 'package:jackbox_patcher/pages/parameters/packs.dart';
 import 'package:jackbox_patcher/pages/parameters/serverinfo.dart';
 
-import '../../model/usermodel/userjackboxpack.dart';
-import '../../services/user/userdata.dart';
 
 class ParametersRoute extends StatefulWidget {
-  ParametersRoute({Key? key}) : super(key: key);
+  const ParametersRoute({Key? key}) : super(key: key);
 
   @override
   State<ParametersRoute> createState() => _ParametersRouteState();
@@ -17,13 +15,12 @@ class ParametersRoute extends StatefulWidget {
 class _ParametersRouteState extends State<ParametersRoute> {
   @override
   Widget build(BuildContext context) {
-    Typography typography = FluentTheme.of(context).typography;
-    return ParametersMenuWidget();
+    return const ParametersMenuWidget();
   }
 }
 
 class ParametersMenuWidget extends StatefulWidget {
-  ParametersMenuWidget({Key? key}) : super(key: key);
+  const ParametersMenuWidget({Key? key}) : super(key: key);
 
   @override
   State<ParametersMenuWidget> createState() => _ParametersMenuWidgetState();
@@ -31,7 +28,6 @@ class ParametersMenuWidget extends StatefulWidget {
 
 class _ParametersMenuWidgetState extends State<ParametersMenuWidget> {
   int _selectedView = 0;
-  List<UserJackboxPack> packs = UserData().packs;
   @override
   void initState() {
     super.initState();
@@ -50,12 +46,12 @@ class _ParametersMenuWidgetState extends State<ParametersMenuWidget> {
       appBar: NavigationAppBar(
           automaticallyImplyLeading: false,
           leading: GestureDetector(
-            child: Icon(FluentIcons.chevron_left),
+            child: const Icon(FluentIcons.chevron_left),
             onTap: () => Navigator.pop(context),
           ),
           title: Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
-            Padding(padding: EdgeInsets.only(bottom: 4), child: Icon(FluentIcons.settings, size: 25)),
-            SizedBox(width: 10),
+            const Padding(padding: EdgeInsets.only(bottom: 4), child: Icon(FluentIcons.settings, size: 25)),
+            const SizedBox(width: 10),
             Text(
             AppLocalizations.of(context)!.settings,
             style: typography.title,
@@ -69,22 +65,21 @@ class _ParametersMenuWidgetState extends State<ParametersMenuWidget> {
           selected: _selectedView,
           items: [
             PaneItem(
-              icon: Icon(FluentIcons.package),
+              icon: const Icon(FluentIcons.package),
               title: Text(AppLocalizations.of(context)!.owned_packs),
-              body: ParametersWidget(
-                originalPacks: packs,
+              body: const ParametersWidget(
               ),
             ),
             PaneItem(
-                icon: Icon(FluentIcons.server),
+                icon: const Icon(FluentIcons.server),
                 title: Text(AppLocalizations.of(context)!.server_information),
                 body: ServerInfoWidget())
           ],
           footerItems: [
             PaneItem(
-              icon: Icon(FluentIcons.info),
+              icon: const Icon(FluentIcons.info),
               title: Text(AppLocalizations.of(context)!.app_information),
-              body: AppInfoWidget(),
+              body: const AppInfoWidget(),
             )
           ]),
     );

@@ -65,8 +65,8 @@
   "launch_game": "Ejecutar juego",
   "launch_game_fast_launcher": "Ejecutar juego (rápidamente)",
   "launch_game_fast_launcher_description": "Ejecuta el juego rápidamente, omitiendo el video de introducción del Pack y la sección del menú.",
-  "launch_pack": "Ejecutar Pack",
-  "launch_pack_description": "Ejecuta el Pack normalmente",
+  "launch_pack": "Ejecutar juego",
+  "launch_pack_description": "Ejecuta el juego normalmente",
   "launch_informations": "Información de ejecución",
   "launching": "Ejecutando...",
   "launched": "¡Ejecutado!",
@@ -87,7 +87,7 @@
   "game_type_team": "Equipos",
   "game_type_team_description": "En estos juegos, los jugadores se dividen en equipos y deben trabajar juntos para ganar.",
   "game_translation_translated": "Traducido oficialmente",
-  "game_translation_translated_description": "Estos juegos están traducidos de manera oficial al español",
+  "game_translation_translated_description": "Estos juegos están traducidos de manera oficial al español.",
   "game_translation_community_translated": "Traducido por la comunidad",
   "game_translation_community_translated_description": "Estos juegos están traducidos por la comunidad.",
   "game_translation_not_available": "En inglés",
@@ -106,8 +106,8 @@
   "search_game": "Buscar un juego",
   "search": "Buscar",
   "all_games": "Todos los juegos",
-  "all_games_description": "Encuentra todos los juegos de Jackbox en un solo lugar",
-  "search_by_pack": "Buscar por Pack",
+  "all_games_description": "Encuentra todos los juegos de Jackbox en un solo lugar.",
+  "search_by_pack": "Buscar por juego",
   "search_by_type": "Buscar por tipo",
   "search_by_translation": "Buscar por traducción",
   "search_by_tags": "Buscar por etiquetas",
@@ -182,7 +182,7 @@
             }
         }
     },
-    "in_language_description":"Estos juegos están disponibles en {language} (nativamente o traducidos por la comunidad)",
+    "in_language_description":"Estos juegos están disponibles en {language} (nativamente o traducidos por la comunidad).",
     "@in_language_description":{
         "placeholders":{
             "language":{
@@ -192,5 +192,31 @@
         }
     },
     "game_community_dubbed":"Doblado por la comunidad",
-    "game_community_dubbed_description":"Estos juegos se encuentran doblados por la comunidad"
+    "game_community_dubbed_description":"Estos juegos se encuentran doblados por la comunidad.", 
+
+    "no_game_in_this_category_title":"No hay juegos en esta categoría",
+    "no_game_in_this_category_description":"No se encuentran juegos en esta categoría. Intenta añadir más en la sección de Ajustes.",
+
+    "select_game_location":"Selecciona la ubicación de {game}",
+    "@select_game_location":{
+        "placeholders":{
+            "game":{
+                "type":"String",
+                "example":"The Jackbox Party Pack 1"
+            }
+        }
+    },
+
+    "download_error":"Error al descargar",
+    "download_error_description":"Se produjo un error al descargar el parche. Verifica tu conexión a internet e inténtalo de nuevo.",
+
+    "extracting_error":"Error al extraer",
+    "extracting_error_description":"Se produjo un error al extraer el juego. Comprueba si tienes suficiente espacio de almacenamiento libre e inténtalo de nuevo.",
+
+    "game_reset":"Restaurar juego",
+    "game_reset_description":"Esto validará todos los archivos de este juego. Si instalaste algún parche, se eliminará del juego. ¿Seguro que quieres continuar?", 
+
+    "small_description":"Descripción",
+
+    "patreon_subscribers":"Suscriptores de Patreon"
 }

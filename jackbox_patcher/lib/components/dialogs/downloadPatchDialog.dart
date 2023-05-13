@@ -3,10 +3,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpackpatch.dart';
 import 'package:windows_taskbar/windows_taskbar.dart';
 
-import '../../services/error/error.dart';
 
 class DownloadPatchDialogComponent extends StatefulWidget {
-  DownloadPatchDialogComponent(
+  const DownloadPatchDialogComponent(
       {Key? key, required this.localPaths, required this.patchs})
       : super(key: key);
 
@@ -33,24 +32,26 @@ class _DownloadPatchDialogComponentState
     super.initState();
   }
 
-  void _startDownload() async{
+  void _startDownload() async {
     downloadingProgress = 1;
-                  setState(() {});
-                  for (var patch in widget.patchs) {
-                    await patch.downloadPatch(widget.localPaths[currentPatchDownloading],
-                        (stat, substat, progress) async {
-                      status = stat;
-                      substatus = substat;
-                      if (progression.toInt() != progress.toInt()) {
-                        WindowsTaskbar.setProgress(progress.toInt()+(currentPatchDownloading)*100, 100*widget.patchs.length);
-                      }
-                      progression = progress;
-                      setState(() {});
-                    });
-                    currentPatchDownloading++;
-                  }
-                  downloadingProgress = 2;
-                  setState(() {});
+    setState(() {});
+    for (var patch in widget.patchs) {
+      await patch.downloadPatch(widget.localPaths[currentPatchDownloading],
+          (stat, substat, progress) async {
+        status = stat;
+        substatus = substat;
+        if (progression.toInt() != progress.toInt()) {
+          WindowsTaskbar.setProgress(
+              progress.toInt() + (currentPatchDownloading) * 100,
+              100 * widget.patchs.length);
+        }
+        progression = progress;
+        setState(() {});
+      });
+      currentPatchDownloading++;
+    }
+    downloadingProgress = 2;
+    setState(() {});
   }
 
   @override
@@ -61,11 +62,11 @@ class _DownloadPatchDialogComponentState
             content: Text(
                 AppLocalizations.of(context)!.installing_a_patch_description),
             actions: [
-              TextButton(
+              HyperlinkButton(
                 onPressed: () => Navigator.pop(context),
                 child: Text(AppLocalizations.of(context)!.cancel),
               ),
-              TextButton(
+              HyperlinkButton(
                 onPressed: () async {},
                 child: Text(AppLocalizations.of(context)!.page_continue),
               ),
@@ -88,13 +89,9 @@ class _DownloadPatchDialogComponentState
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                 ProgressRing(value: progression),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Text(
-                    "[" +
-                        (currentPatchDownloading + 1).toString() +
-                        "/" +
-                        widget.patchs.length.toString() +
-                        "] " +
+                    "[${currentPatchDownloading + 1}/${widget.patchs.length}] " +
                         (widget.patchs[currentPatchDownloading]
                                 is UserJackboxPackPatch
                             ? widget.patchs[currentPatchDownloading]
@@ -105,17 +102,29 @@ class _DownloadPatchDialogComponentState
                                 .getGame()
                                 .game
                                 .name),
-                    style: TextStyle(fontSize: 20)),
-                Text(status, style: TextStyle(fontSize: 20)),
-                Text(substatus, style: TextStyle(fontSize: 16)),
+                    style: const TextStyle(fontSize: 20)),
+                Text(status, style: const TextStyle(fontSize: 20)),
+                Text(substatus, style: const TextStyle(fontSize: 16)),
               ]))),
+              actions: progression == 0 ? [
+                HyperlinkButton(
+                  onPressed: () {
+                    WindowsTaskbar.setProgressMode(TaskbarProgressMode.noProgress);
+                    Navigator.pop(context);
+                    downloadingProgress = 0;
+                    setState(() {});
+                  },
+                  child: Text(AppLocalizations.of(context)!.cancel),
+                ),
+              
+              ]:[],
     );
   }
 
   ContentDialog buildFinishDialog() {
     return ContentDialog(
       actions: [
-        TextButton(
+        HyperlinkButton(
           onPressed: () {
             WindowsTaskbar.setProgressMode(TaskbarProgressMode.noProgress);
             Navigator.pop(context);
@@ -133,12 +142,12 @@ class _DownloadPatchDialogComponentState
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                Icon(FluentIcons.check_mark),
-                SizedBox(height: 10),
+                const Icon(FluentIcons.check_mark),
+                const SizedBox(height: 10),
                 Text(AppLocalizations.of(context)!.installing_a_patch_end,
-                    style: TextStyle(fontSize: 20)),
+                    style: const TextStyle(fontSize: 20)),
                 Text(AppLocalizations.of(context)!.can_close_popup,
-                    style: TextStyle(fontSize: 16)),
+                    style: const TextStyle(fontSize: 16)),
               ]))),
     );
   }

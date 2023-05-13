@@ -5,7 +5,7 @@ import 'package:lottie/lottie.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AutomaticGameFinderDialog extends StatefulWidget {
-  AutomaticGameFinderDialog({Key? key}) : super(key: key);
+  const AutomaticGameFinderDialog({Key? key}) : super(key: key);
 
   @override
   State<AutomaticGameFinderDialog> createState() =>
@@ -20,7 +20,7 @@ class _AutomaticGameFinderDialogState extends State<AutomaticGameFinderDialog> {
   Widget build(BuildContext context) {
     return visibleDialog == 0
         ? ContentDialog(
-            style: ContentDialogThemeData(
+            style: const ContentDialogThemeData(
                 titlePadding:
                     EdgeInsets.only(top: 0, left: 0, right: 0, bottom: 16),
                 padding:
@@ -38,14 +38,14 @@ class _AutomaticGameFinderDialogState extends State<AutomaticGameFinderDialog> {
                     textAlign: TextAlign.center,
                   )
                 ])),
-            content: Text(
-                AppLocalizations.of(context)!.automatic_game_finder_description),
+            content: Text(AppLocalizations.of(context)!
+                .automatic_game_finder_description),
             actions: [
-                TextButton(
+                HyperlinkButton(
                   onPressed: () => Navigator.pop(context, false),
                   child: Text(AppLocalizations.of(context)!.cancel),
                 ),
-                TextButton(
+                HyperlinkButton(
                   onPressed: () async {
                     setState(() {
                       visibleDialog = 1;
@@ -71,9 +71,10 @@ class _AutomaticGameFinderDialogState extends State<AutomaticGameFinderDialog> {
         content: SizedBox(
             height: 50,
             child: Column(children: [
-              Text(AppLocalizations.of(context)!.automatic_game_finder_in_progress),
+              Text(AppLocalizations.of(context)!
+                  .automatic_game_finder_in_progress),
             ])),
-        actions: []);
+        actions: const []);
   }
 
   ContentDialog finishDialog() {
@@ -82,13 +83,14 @@ class _AutomaticGameFinderDialogState extends State<AutomaticGameFinderDialog> {
         content: SizedBox(
             height: 50,
             child: Column(children: [
-              Text(AppLocalizations.of(context)!.automatic_game_finder_finish(gamesFound)),
+              Text(AppLocalizations.of(context)!
+                  .automatic_game_finder_finish(gamesFound)),
             ])),
         actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context, true),
-              child: Text(AppLocalizations.of(context)!.close),
-            ),
+          HyperlinkButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: Text(AppLocalizations.of(context)!.close),
+          ),
         ]);
   }
 }

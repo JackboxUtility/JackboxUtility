@@ -1,11 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:jackbox_patcher/model/jackbox/jackboxpack.dart';
+import 'package:jackbox_patcher/model/misc/launchers.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:win32_registry/win32_registry.dart';
 
-import '../../model/usermodel/userjackboxgame.dart';
 
 class AutomaticGameFinderService {
   static Future<int> findGames(List<UserJackboxPack> packs) async {
@@ -56,7 +55,7 @@ class AutomaticGameFinderService {
   static Map<String, List<String>> _getSteamFoldersWithAppId(
       String steamLocation) {
     Map<String, List<String>> folderWithApps = {};
-    final file = File(steamLocation + "\\steamapps\\libraryfolders.vdf");
+    final file = File("$steamLocation\\steamapps\\libraryfolders.vdf");
     final fileLines = file.readAsLinesSync();
     final pathLines = fileLines.where((element) => element.contains('"path"'));
     for (var line in pathLines) {
@@ -79,11 +78,11 @@ class AutomaticGameFinderService {
   }
 
   static _getSteamGamePathFromFolderAndAppId(String folder, String appId) {
-    final file = File(folder + "\\steamapps\\appmanifest_" + appId + ".acf");
+    final file = File("$folder\\steamapps\\appmanifest_$appId.acf");
     final fileLines = file.readAsLinesSync();
     final pathLines =
         fileLines.where((element) => element.contains('"installdir"'));
-    return folder + "\\steamapps\\common\\" + pathLines.first.split('"')[3];
+    return "$folder\\steamapps\\common\\${pathLines.first.split('"')[3]}";
   }
 
   static Future<int> _linkSteamFolderWithPack(
@@ -94,11 +93,14 @@ class AutomaticGameFinderService {
       if (userPack.pack.launchersId != null &&
           userPack.pack.launchersId!.steam != null) {
         for (var folder in steamFoldersWithAppId.keys) {
-          if (await File("$folder\\steamapps\\appmanifest_${userPack.pack.launchersId!.steam!}.acf").exists()) {
+          if (await File(
+                  "$folder\\steamapps\\appmanifest_${userPack.pack.launchersId!.steam!}.acf")
+              .exists()) {
             numberGamesFound++;
             await userPack.setOwned(true);
             await userPack.setPath(_getSteamGamePathFromFolderAndAppId(
                 folder, userPack.pack.launchersId!.steam!));
+            await userPack.setLauncher(LauncherType.STEAM);
           }
         }
       }
@@ -121,9 +123,8 @@ class AutomaticGameFinderService {
   static Future<List<dynamic>> _getEpicInstalledApps(
       String epicLocation) async {
     print("Epic games apps");
-    Map<String, List<String>> folderWithApps = {};
     final file = File(
-        epicLocation + "\\..\\..\\UnrealEngineLauncher\\LauncherInstalled.dat");
+        "$epicLocation\\..\\..\\UnrealEngineLauncher\\LauncherInstalled.dat");
     print("File found");
     String fileData = await file.readAsString();
     print(fileData);

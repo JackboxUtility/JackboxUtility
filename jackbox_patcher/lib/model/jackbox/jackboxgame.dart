@@ -205,11 +205,11 @@ enum JackboxGameTranslation {
   Color get color {
     switch (this) {
       case JackboxGameTranslation.NATIVELY_TRANSLATED:
-        return Color.fromARGB(255, 13, 187, 196);
+        return const Color.fromARGB(255, 13, 187, 196);
       case JackboxGameTranslation.COMMUNITY_TRANSLATED:
-        return Color.fromARGB(255, 20, 140, 12);
+        return const Color.fromARGB(255, 20, 140, 12);
       case JackboxGameTranslation.ENGLISH:
-        return Color.fromARGB(255, 207, 0, 0);
+        return const Color.fromARGB(255, 207, 0, 0);
     }
   }
 }
@@ -239,11 +239,11 @@ enum JackboxGameTranslationCategory {
   Color get color {
     switch (this) {
       case JackboxGameTranslationCategory.TRANSLATED:
-        return Color.fromARGB(255, 0, 208, 0);
+        return const Color.fromARGB(255, 0, 208, 0);
       case JackboxGameTranslationCategory.COMMUNITY_DUBBED:
-        return Color.fromARGB(255, 12, 78, 140);
+        return const Color.fromARGB(255, 12, 78, 140);
       default:
-        return JackboxGameTranslation.fromString(this.id).color;
+        return JackboxGameTranslation.fromString(id).color;
     }
   }
 
@@ -259,7 +259,7 @@ enum JackboxGameTranslationCategory {
             .appLocalizations!
             .game_community_dubbed;
       default:
-        return JackboxGameTranslation.fromString(this.id).name;
+        return JackboxGameTranslation.fromString(id).name;
     }
   }
 
@@ -275,7 +275,7 @@ enum JackboxGameTranslationCategory {
             .appLocalizations!
             .game_community_dubbed_description;
       default:
-        return JackboxGameTranslation.fromString(this.id).description;
+        return JackboxGameTranslation.fromString(id).description;
     }
   }
 

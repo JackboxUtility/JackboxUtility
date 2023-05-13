@@ -5,13 +5,12 @@ import 'package:jackbox_patcher/model/jackbox/jackboxpackpatch.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgamepatch.dart';
 import 'package:jackbox_patcher/pages/patcher/gamePatch.dart';
 
-import '../../model/usermodel/userjackboxgame.dart';
 import '../../model/usermodel/userjackboxpack.dart';
 import '../../model/usermodel/userjackboxpackpatch.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PackPatch extends StatefulWidget {
-  PackPatch({Key? key, required this.pack, required this.patch})
+  const PackPatch({Key? key, required this.pack, required this.patch})
       : super(key: key);
 
   final UserJackboxPack pack;
@@ -47,9 +46,9 @@ class _PackPatchState extends State<PackPatch> {
     _getPatchStatus();
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       FilledButton(
-          child: Text(buttonText),
           onPressed: !installButtonDisabled? ()async {
             await showDialog(
+              dismissWithEsc: false,
                 context: context,
                 builder: (context) {
                   return DownloadPatchDialogComponent(
@@ -58,8 +57,9 @@ class _PackPatchState extends State<PackPatch> {
             setState(() {
               
             });
-          }:null),
-      SizedBox(height: 20),
+          }:null,
+          child: Text(buttonText)),
+      const SizedBox(height: 20),
       Container(
           child: Stack(
         clipBehavior: Clip.none,
@@ -71,17 +71,17 @@ class _PackPatchState extends State<PackPatch> {
                       shadowColor: Colors.black,
                       blurAmount: 1,
                       tintAlpha: 1,
-                      tint: Color.fromARGB(255, 48, 48, 48),
+                      tint: const Color.fromARGB(255, 48, 48, 48),
                       child: 
                         Container(
-                            padding: EdgeInsets.only(bottom: 12, top: 12),
+                            padding: const EdgeInsets.only(bottom: 12, top: 12),
                             child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Expanded(
                                       child: Padding(
                                     padding:
-                                        EdgeInsets.symmetric(horizontal: 12),
+                                        const EdgeInsets.symmetric(horizontal: 12),
                                     child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -90,18 +90,17 @@ class _PackPatchState extends State<PackPatch> {
                                             children: [
                                               Text(widget.patch.patch.name,
                                                   overflow: TextOverflow.ellipsis,
-                                                  style: TextStyle(fontSize: 25)),
-                                              SizedBox(width: 20),
-                                              Text(AppLocalizations.of(context)!.version +" "+
-                                      widget.patch.patch.latestVersion, style:TextStyle(color: Colors.white.withOpacity(0.7)))
+                                                  style: const TextStyle(fontSize: 25)),
+                                              const SizedBox(width: 20),
+                                              Text("${AppLocalizations.of(context)!.version} ${widget.patch.patch.latestVersion}", style:TextStyle(color: Colors.white.withOpacity(0.7)))
                                             ],
                                           ),
                                           Text(
                                             widget
                                                 .patch.patch.smallDescription,
                                           ),
-                                          SizedBox(height: 10),
-                                          gamesIncluded.length != 0
+                                          const SizedBox(height: 10),
+                                          gamesIncluded.isNotEmpty
                                               ? StaggeredGrid.count(
                                                   mainAxisSpacing: 20,
                                                   crossAxisSpacing: 20,
@@ -115,7 +114,7 @@ class _PackPatchState extends State<PackPatch> {
                       ))),
         ],
       )),
-    SizedBox(height:40) 
+    const SizedBox(height:40) 
     ]);
   }
 
