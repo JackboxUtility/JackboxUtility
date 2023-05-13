@@ -171,26 +171,42 @@
         }
     },
     "author": "Autor",
-    "contributors": "Mitwirkende", 
-
-    "in_language":"In {language}",
-    "@in_language":{
-        "placeholders":{
-            "language":{
-                "type":"String",
-                "example":"French"
+    "contributors": "Mitwirkende",
+    "in_language": "Auf {language}",
+    "@in_language": {
+        "placeholders": {
+            "language": {
+                "type": "String",
+                "example": "Deutsch"
             }
         }
     },
-    "in_language_description":"These games are available in {language} (natively or translated by the community)",
-    "@in_language_description":{
-        "placeholders":{
-            "language":{
-                "type":"String",
-                "example":"French"
+    "in_language_description": "Diese Spiele sind verfügbar auf {language} (nativ oder durch die Community)",
+    "@in_language_description": {
+        "placeholders": {
+            "language": {
+                "type": "String",
+                "example": "Deutsch"
             }
         }
     },
-    "game_community_dubbed":"Community dubbed",
-    "game_community_dubbed_description":"These games are dubbed by the community"
+    "game_community_dubbed": "Community-Synchro",
+    "game_community_dubbed_description": "Diese Spiele wurden von der Community synchronisiert",
+    "no_game_in_this_category_title": "Kein Spiel in dieser Kategorie",
+    "no_game_in_this_category_description": "In dieser Kategorie besitzt du keine Spiele. Wenn du in den Einstellungen welche hinzufügst, werden sie dir hier angezeigt.",
+    "select_game_location": "Wähle den Speicherort von {game}",
+    "@select_game_location": {
+        "placeholders": {
+            "game": {
+                "type": "String",
+                "example": "The Jackbox Party Pack 8"
+            }
+        }
+    },
+    "download_error": "Fehler beim Herunterladen",
+    "download_error_description": "Beim Herunterladen des Spiels ist ein Fehler aufgetreten. Bitte überprüfe deine Internetverbindung und versuche es erneut.",
+    "extracting_error": "Fehler beim Entpacken",
+    "extracting_error_description": "Beim Entpacken des Spiels ist ein Fehler aufgetreten. Bitte überprüfe, ob du ausreichend freien Speicherplatz zur Verfügung hast und versuche es erneut.",
+    "game_reset": "Übersetzung entfernen",
+    "game_reset_description": "Dadurch wird dein Spiel vollständig zurückgesetzt. Wenn du einen Patch installiert haben solltest, wird dieser gelöscht. Bist du dir GANZ sicher, dass du fortfahren möchtest?"
 }

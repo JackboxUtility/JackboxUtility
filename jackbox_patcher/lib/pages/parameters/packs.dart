@@ -5,6 +5,7 @@ import 'package:jackbox_patcher/components/dialogs/resetPackDialog.dart';
 import 'package:jackbox_patcher/model/misc/launchers.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
+import 'package:jackbox_patcher/services/logger/logger.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -147,7 +148,6 @@ class _ParametersWidgetState extends State<ParametersWidget> {
                               child: Text(notOwnedPacks[index].pack.name),
                             )),
                     onChanged: (pack) async {
-                      await pack!.setOwned(true);
                       Navigator.pop(context, pack);
                     },
                     placeholder:
@@ -279,7 +279,9 @@ class _PackInParametersWidgetState extends State<PackInParametersWidget> {
             icon: const Icon(FluentIcons.update_restore),
             onPressed: () async {
               await showDialog(
-                  context: context, builder: (context) => ResetPackDialog(appId:widget.pack.pack.launchersId!.steam!));
+                  context: context,
+                  builder: (context) => ResetPackDialog(
+                      appId: widget.pack.pack.launchersId!.steam!));
             },
           ),
         IconButton(
@@ -339,6 +341,7 @@ class _PackInParametersWidgetState extends State<PackInParametersWidget> {
                                           .select_game_location(
                                               widget.pack.pack.name),
                                       lockParentWindow: true);
+                              JULogger().i(path);
                               if (path != null) {
                                 pathController.text = path;
                                 widget.pack.setPath(path);
