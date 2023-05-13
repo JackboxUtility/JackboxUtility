@@ -143,18 +143,18 @@ class _ParametersWidgetState extends State<ParametersWidget> {
                     items: List.generate(
                         notOwnedPacks.length,
                         (index) => ComboBoxItem(
-                              value: notOwnedPacks[index],
-                              onTap: () {},
-                              child: Row(children: [
-                                CachedNetworkImage(
-                                    imageUrl: APIService().assetLink(notOwnedPacks[index].pack.icon),
-                                    height: 30,
-                                    memCacheHeight: 30,
-                                    width: 30),
-                                const SizedBox(width: 10),
-                                Text(notOwnedPacks[index].pack.name),
-                              ])
-                            )),
+                            value: notOwnedPacks[index],
+                            onTap: () {},
+                            child: Row(children: [
+                              CachedNetworkImage(
+                                  imageUrl: APIService().assetLink(
+                                      notOwnedPacks[index].pack.icon),
+                                  height: 30,
+                                  memCacheHeight: 30,
+                                  width: 30),
+                              const SizedBox(width: 10),
+                              Text(notOwnedPacks[index].pack.name),
+                            ]))),
                     onChanged: (pack) async {
                       Navigator.pop(context, pack);
                     },
@@ -178,6 +178,7 @@ class _ParametersWidgetState extends State<ParametersWidget> {
               .select_game_location(packSelected.pack.name),
           lockParentWindow: true);
       if (path != null) {
+        packSelected.setOwned(true);
         packSelected.setPath(path);
         setState(() {});
       }
