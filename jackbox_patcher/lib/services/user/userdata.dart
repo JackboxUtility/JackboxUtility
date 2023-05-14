@@ -160,13 +160,6 @@ class UserData {
     }
   }
 
-  /// Write logs (mostly used when a patch is not downloaded properly)
-  Future<void> writeLogs(String logs) async {
-    File logFile = File("./logs.txt");
-    await logFile.writeAsString("[${DateTime.now()}]\n$logs",
-        mode: FileMode.append);
-  }
-
   String? getLastNewsReaden() {
     return preferences.getString("last_news_readen");
   }

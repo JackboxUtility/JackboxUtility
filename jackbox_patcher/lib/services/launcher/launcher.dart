@@ -8,6 +8,7 @@ import 'package:jackbox_patcher/services/api/api_service.dart';
 import '../user/userdata.dart';
 
 class Launcher {
+  /// This function will launch the [pack]
   static Future<void> launchPack(UserJackboxPack pack) async {
     if (pack.path == null) {
       throw Exception("Pack path is null");
@@ -32,6 +33,7 @@ class Launcher {
     }
   }
 
+  /// This function will launch the [game] from the [pack]
   static Future<void> launchGame(
       UserJackboxPack pack, UserJackboxGame game) async {
     if (pack.path == null) {

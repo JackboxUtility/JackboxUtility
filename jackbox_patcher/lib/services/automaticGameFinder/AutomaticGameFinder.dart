@@ -3,15 +3,22 @@ import 'dart:io';
 
 import 'package:jackbox_patcher/model/misc/launchers.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
+import 'package:jackbox_patcher/services/logger/logger.dart';
 import 'package:win32_registry/win32_registry.dart';
 
-
+/// This service is used to automatically find games installed on the user's computer
 class AutomaticGameFinderService {
+  /// This function will find games installed on the user's computer and link them to the packs
   static Future<int> findGames(List<UserJackboxPack> packs) async {
-    int gameFound = 0;
-    gameFound += await _findSteamGames(packs);
-    gameFound += await _findEpicGamesGames(packs);
-    return gameFound;
+    try {
+      int gameFound = 0;
+      gameFound += await _findSteamGames(packs);
+      gameFound += await _findEpicGamesGames(packs);
+      return gameFound;
+    } catch (e) {
+      JULogger().e(e.toString());
+      rethrow;
+    }
   }
 
   static Future<int> _findSteamGames(List<UserJackboxPack> packs) async {
