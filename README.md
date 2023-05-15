@@ -22,13 +22,9 @@ Languages includes :
 - Launch your jackbox games without seeing the pack video and the menu
 - Detect automatically your installed games
 
-## Installation
+## Tutorial / Installation
 
-https://github.com/AlexisL61/JackboxPatcherFR/releases/latest
-
-## Tutorial 
-
-In French : http://blog.laboxdejack.fr/application-jackbox-patcher/
+In French : https://github.com/AlexisL61/JackboxUtility/wiki/Tutoriel-d'installation-de-Jackbox-Utility
 
 ## Folder content 
 
