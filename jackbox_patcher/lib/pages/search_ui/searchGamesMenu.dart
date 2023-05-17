@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:jackbox_patcher/components/starsRate.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxgame.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
 import 'package:jackbox_patcher/pages/search_ui/searchGames.dart';
@@ -102,7 +104,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
 
     List<NavigationPaneItem> typeItem = [];
 
-    List<NavigationPaneItem> tagItem = [];
+    List<NavigationPaneItem> tagItem = _buildTagsPaneItem();
 
     for (var type in JackboxGameType.values) {
       tagItem.add(PaneItem(
@@ -119,26 +121,6 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
             background: APIService().getDefaultBackground(),
             name: type.name,
             description: type.description,
-            showAllPacks: showAllPacks,
-            icon: null,
-          )));
-    }
-
-    for (var tag in APIService().getTags()) {
-      tagItem.add(PaneItem(
-          icon: Container(),
-          title: Text(tag.name),
-          body: SearchGameWidget(
-            filter: (UserJackboxPack pack, UserJackboxGame game) =>
-                game.game.info.tags.where((t) => t.id == tag.id).isNotEmpty &&
-                game.game.name
-                    .toLowerCase()
-                    .contains(_searchController.text.toLowerCase()) &&
-                (showAllPacks || pack.owned),
-            comeFromGame: false,
-            background: APIService().getDefaultBackground(),
-            name: tag.name,
-            description: tag.description,
             showAllPacks: showAllPacks,
             icon: null,
           )));
@@ -188,19 +170,8 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
         },
       ));
 
-      // items.add(PaneItemExpander(
-      //   icon: Icon(FluentIcons.people),
-      //   body: Container(),
-      //   title: Text(AppLocalizations.of(context)!.search_by_type),
-      //   items: typeItem,
-      //   onTap: () {
-      //     setState(() {
-      //       _selectedView = 3 + packItems.length;
-      //     });
-      //   },
-      // ));
-
-      List<NavigationPaneItem> translationItem = _buildTranlationPaneItem();
+      List<NavigationPaneItem> translationItem = _buildTranslationPaneItem();
+      List<NavigationPaneItem> starsItem = _buildStarsPaneItem();
 
       items.add(PaneItemExpander(
         icon: const Icon(FluentIcons.translate),
@@ -226,20 +197,37 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
           });
         },
       ));
+
+      items.add(PaneItemExpander(
+        icon: const Icon(FontAwesomeIcons.star),
+        body: Container(),
+        title: Text("Search by ranking"),
+        items: starsItem,
+        onTap: () {
+          setState(() {
+            _selectedView = 5 +
+                packItems.length +
+                typeItem.length +
+                translationItem.length +
+                tagItem.length;
+          });
+        },
+      ));
     }
 
     return items;
   }
 
-  List<NavigationPaneItem> _buildTranlationPaneItem() {
+  List<NavigationPaneItem> _buildTranslationPaneItem() {
     List<NavigationPaneItem> translationItem = [];
 
     // Adding each translation values
     for (var translation in JackboxGameTranslationCategory.values) {
       if (translation == JackboxGameTranslationCategory.COMMUNITY_DUBBED &&
           APIService()
-              .cachedConfigurations!
-              .getConfiguration("LAUNCHER", "HIDE_DUBBED_BY_COMMUNITY") == true) continue;
+                  .cachedConfigurations!
+                  .getConfiguration("LAUNCHER", "HIDE_DUBBED_BY_COMMUNITY") ==
+              true) continue;
       translationItem.add(PaneItem(
           icon: Container(
               decoration: BoxDecoration(
@@ -264,5 +252,60 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
           )));
     }
     return translationItem;
+  }
+
+  List<NavigationPaneItem> _buildTagsPaneItem() {
+    List<PaneItem> tagItem = [];
+
+    for (var tag in APIService().getTags()) {
+      tagItem.add(PaneItem(
+          icon: Container(),
+          title: Text(tag.name),
+          body: SearchGameWidget(
+            filter: (UserJackboxPack pack, UserJackboxGame game) =>
+                game.game.info.tags.where((t) => t.id == tag.id).isNotEmpty &&
+                game.game.name
+                    .toLowerCase()
+                    .contains(_searchController.text.toLowerCase()) &&
+                (showAllPacks || pack.owned),
+            comeFromGame: false,
+            background: APIService().getDefaultBackground(),
+            name: tag.name,
+            description: tag.description,
+            showAllPacks: showAllPacks,
+            icon: null,
+          )));
+    }
+
+    return tagItem;
+  }
+
+  List<NavigationPaneItem> _buildStarsPaneItem() {
+    List<PaneItem> starItems = [];
+
+    for (int i = 5; i >= 0; i--) {
+      print(i);
+      starItems.add(PaneItem(
+          icon: i != 0? Row(children: [SizedBox(width:8), StarsRateWidget(defaultStars: i, readOnly: true, color: Colors.yellow,)]):Container(),
+          title: i != 0
+              ? null
+              : Text("Unranked"),
+          body: SearchGameWidget(
+            filter: (UserJackboxPack pack, UserJackboxGame game) =>
+                game.stars == i &&
+                game.game.name
+                    .toLowerCase()
+                    .contains(_searchController.text.toLowerCase()) &&
+                (showAllPacks || pack.owned),
+            comeFromGame: false,
+            background: APIService().getDefaultBackground(),
+            name: i != 0 ? "$i stars" : "Unranked",
+            description: i != 0 ? "Games ranked with $i stars" : "Games without stars",
+            showAllPacks: showAllPacks,
+            icon: null,
+          )));
+    }
+
+    return starItems;
   }
 }

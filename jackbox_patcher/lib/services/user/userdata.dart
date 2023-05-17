@@ -70,8 +70,10 @@ class UserData {
               version: preferences.getString("${game.id}_loader_version"));
         }
 
-        UserJackboxGame currentGame =
-            UserJackboxGame(game: game, loader: gameLoader);
+        UserJackboxGame currentGame = UserJackboxGame(
+            game: game,
+            stars: preferences.getInt("${game.id}_stars") ?? 0,
+            loader: gameLoader);
         userPack.games.add(currentGame);
         for (var patch in game.patches) {
           final String? patchVersionInstalled =
@@ -140,6 +142,7 @@ class UserData {
     if (game.loader != null) {
       await saveLoader(game.loader!, game.game.id);
     }
+    await preferences.setInt("${game.game.id}_stars", game.stars);
   }
 
   /// Save a patch (mostly used when a patch is downloaded)

@@ -7,6 +7,7 @@ import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../components/starsRate.dart';
 import '../../services/launcher/launcher.dart';
 
 class SearchGameRoute extends StatefulWidget {
@@ -360,20 +361,12 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                                                     color: Colors.white
                                                         .withOpacity(opacity)))
                                           ]),
-                                          Row(children: [
-                                            Icon(
-                                              FluentIcons.translate,
-                                              color: Colors.white
-                                                  .withOpacity(opacity),
-                                            ),
-                                            const SizedBox(width: 10),
-                                            Text(gameInfo.translation.name,
-                                                style: TextStyle(
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    color: Colors.white
-                                                        .withOpacity(opacity)))
-                                          ]),
+                                          Opacity(opacity: opacity, child:
+                                          StarsRateWidget(
+                                            color: Colors.white,
+                                              defaultStars: widget.game.stars,
+                                              readOnly: true,
+                                          ))
                                         ]))
                               ]),
                             )));
