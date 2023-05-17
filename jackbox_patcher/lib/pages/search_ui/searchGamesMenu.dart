@@ -282,29 +282,39 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
 
   List<NavigationPaneItem> _buildStarsPaneItem() {
     List<PaneItem> starItems = [];
-
-    for (int i = 5; i >= 0; i--) {
-      print(i);
+    
       starItems.add(PaneItem(
-          icon: i != 0? Row(children: [SizedBox(width:8), StarsRateWidget(defaultStars: i, readOnly: true, color: Colors.yellow,)]):Container(),
-          title: i != 0
-              ? null
-              : Text("Unranked"),
+        icon: Container(),
+          title: Text("Personal ranking"),
           body: SearchGameWidget(
             filter: (UserJackboxPack pack, UserJackboxGame game) =>
-                game.stars == i &&
                 game.game.name
                     .toLowerCase()
                     .contains(_searchController.text.toLowerCase()) &&
                 (showAllPacks || pack.owned),
             comeFromGame: false,
             background: APIService().getDefaultBackground(),
-            name: i != 0 ? "$i stars" : "Unranked",
-            description: i != 0 ? "Games ranked with $i stars" : "Games without stars",
+            name: "Ranked by stars",
+            description: "Games ranked by stars from your personal ranking",
             showAllPacks: showAllPacks,
             icon: null,
+            separators: [
+              for (int i = 5; i >=0 ;i--)
+                i!=0? Row(
+                  children: [
+                    StarsRateWidget(defaultStars: i, readOnly: true, color: Colors.yellow,),
+                  ],
+                ): 
+                Row(
+                  children: [
+                    Text("Unranked", style : FluentTheme.of(context).typography.bodyLarge),
+                  ],
+                )
+            ], 
+            separatorFilter: (p0, p1) {
+              return 5-p1.stars;
+            },
           )));
-    }
 
     return starItems;
   }

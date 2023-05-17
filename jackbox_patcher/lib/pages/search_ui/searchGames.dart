@@ -27,6 +27,9 @@ class _SearchGameRouteState extends State<SearchGameRoute> {
     String? description = data[3];
     String? icon = data[4];
     bool? showAllPacks = data[5];
+    List<Widget>? separators = data[6];
+    int Function(UserJackboxPack, UserJackboxGame)? separatorFilter = data[7];
+
     return SearchGameWidget(
         filter: filter,
         comeFromGame: true,
@@ -34,7 +37,9 @@ class _SearchGameRouteState extends State<SearchGameRoute> {
         name: name,
         description: description,
         showAllPacks: showAllPacks ?? false,
-        icon: icon);
+        icon: icon,
+        separators: separators,
+        separatorFilter: separatorFilter);
   }
 }
 
@@ -47,6 +52,8 @@ class SearchGameWidget extends StatefulWidget {
       this.name,
       this.description,
       required this.showAllPacks,
+      this.separators,
+      this.separatorFilter,
       this.icon})
       : super(key: key);
 
@@ -57,12 +64,21 @@ class SearchGameWidget extends StatefulWidget {
   final String? description;
   final bool showAllPacks;
   final String? icon;
+  final List<Widget>? separators;
+  final int Function(UserJackboxPack, UserJackboxGame)? separatorFilter;
 
   @override
   State<SearchGameWidget> createState() => _SearchGameWidgetState();
 }
 
 class _SearchGameWidgetState extends State<SearchGameWidget> {
+  UniqueKey key = UniqueKey();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return NavigationView(
@@ -149,7 +165,15 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
           (widget.showAllPacks || element.owned)) {
         for (var game in element.games) {
           if (widget.filter(element, game)) {
-            games.add({"game": game, "pack": element});
+            if (widget.separators != null) {
+              games.add({
+                "game": game,
+                "pack": element,
+                "separator": widget.separatorFilter!(element, game)
+              });
+            } else {
+              games.add({"game": game, "pack": element});
+            }
           }
         }
       }
@@ -158,8 +182,47 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
   }
 
   Widget _buildBottom() {
+    print("_BuldBottom");
     List<Map<String, Object>> games = getFilteredGames();
     if (games.isNotEmpty) {
+      if (widget.separators != null) {
+        List<Widget> widgetsWithSeparators = [];
+        for (int i = 0; i < widget.separators!.length; i++) {
+          if (games
+              .where(
+                (element) => element["separator"] == i,
+              )
+              .isNotEmpty) {
+            Widget separator = widget.separators![i];
+            print(i);
+            widgetsWithSeparators.add(separator);
+            widgetsWithSeparators.add(const SizedBox(height: 20));
+            widgetsWithSeparators.add(StaggeredGrid.count(
+                mainAxisSpacing: 20,
+                crossAxisSpacing: 20,
+                crossAxisCount: _getGamesByGrid(),
+                children: games
+                    .where(
+                      (element) => element["separator"] == i,
+                    )
+                    .map((game) => SearchGameGameWidget(
+                          pack: game["pack"] as UserJackboxPack,
+                          game: game["game"] as UserJackboxGame,
+                          showAllPacks: widget.showAllPacks,
+                          parentReload: () {
+                            setState(() {
+                              key = UniqueKey();
+                            });
+                          },
+                        ))
+                    .toList()));
+            widgetsWithSeparators.add(const SizedBox(height: 40));
+          }
+        }
+        return Padding(
+            padding: EdgeInsets.symmetric(horizontal: calculatePadding()),
+            child: Column(key: key, children: widgetsWithSeparators));
+      }
       return Padding(
           padding: EdgeInsets.symmetric(horizontal: calculatePadding()),
           child: StaggeredGrid.count(
@@ -208,7 +271,7 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
   }
 
   double calculatePadding() {
-     if (widget.comeFromGame && MediaQuery.of(context).size.width > 1800) {
+    if (widget.comeFromGame && MediaQuery.of(context).size.width > 1800) {
       return (MediaQuery.of(context).size.width - 1680) / 2;
     }
     if (widget.comeFromGame && MediaQuery.of(context).size.width > 1400) {
@@ -241,12 +304,14 @@ class SearchGameGameWidget extends StatefulWidget {
       {Key? key,
       required this.pack,
       required this.game,
-      required this.showAllPacks})
+      required this.showAllPacks,
+      this.parentReload})
       : super(key: key);
 
   final UserJackboxPack pack;
   final UserJackboxGame game;
   final bool showAllPacks;
+  final Function? parentReload;
   @override
   State<SearchGameGameWidget> createState() => _SearchGameGameWidgetState();
 }
@@ -275,12 +340,17 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                         child: GestureDetector(
                             onSecondaryTap: () =>
                                 Launcher.launchGame(widget.pack, widget.game),
-                            onTap: () => Navigator.pushNamed(context, "/game",
-                                    arguments: [
-                                      widget.pack,
-                                      widget.game,
-                                      widget.showAllPacks
-                                    ]),
+                            onTap: () async {
+                              await Navigator.pushNamed(context, "/game",
+                                  arguments: [
+                                    widget.pack,
+                                    widget.game,
+                                    widget.showAllPacks
+                                  ]);
+                              if (widget.parentReload != null) {
+                                widget.parentReload!();
+                              }
+                            },
                             child: MouseRegion(
                               onEnter: (a) => setState(() {
                                 isFirstTime = false;
@@ -361,12 +431,13 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                                                     color: Colors.white
                                                         .withOpacity(opacity)))
                                           ]),
-                                          Opacity(opacity: opacity, child:
-                                          StarsRateWidget(
-                                            color: Colors.white,
-                                              defaultStars: widget.game.stars,
-                                              readOnly: true,
-                                          ))
+                                          Opacity(
+                                              opacity: opacity,
+                                              child: StarsRateWidget(
+                                                color: Colors.white,
+                                                defaultStars: widget.game.stars,
+                                                readOnly: true,
+                                              ))
                                         ]))
                               ]),
                             )));
