@@ -1,4 +1,3 @@
-
 import 'package:jackbox_patcher/model/jackbox/jackboxgame.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgamepatch.dart';
@@ -10,12 +9,16 @@ import '../base/patchinformation.dart';
 class UserJackboxGame {
   final JackboxGame game;
   final List<UserJackboxGamePatch> patches = [];
+  int _stars = 0;
   final UserJackboxLoader? loader;
 
   UserJackboxGame({
     required this.game,
+    stars = 0,
     required this.loader,
-  });
+  }){
+    _stars = stars;
+  }
 
   ///
   /// Retrieving the installed patch for this game
@@ -46,5 +49,14 @@ class UserJackboxGame {
   UserJackboxPack getUserJackboxPack() {
     return UserData().packs.firstWhere((pack) =>
         pack.games.where((packGame) => packGame.game.id == game.id).isNotEmpty);
+  }
+
+  set stars(int s) {
+    _stars = s;
+    UserData().saveGame(this);
+  }
+
+  int get stars {
+    return _stars;
   }
 }

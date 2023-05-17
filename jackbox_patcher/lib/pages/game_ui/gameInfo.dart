@@ -2,8 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jackbox_patcher/components/blurhashimage.dart';
 import 'package:jackbox_patcher/components/caroussel.dart';
+import 'package:jackbox_patcher/components/starsRate.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxgame.dart';
 import 'package:jackbox_patcher/services/error/error.dart';
 import 'package:jackbox_patcher/services/launcher/launcher.dart';
@@ -52,6 +54,7 @@ class GameInfoWidget extends StatefulWidget {
 class _GameInfoWidgetState extends State<GameInfoWidget> {
   Color? backgroundColor;
   String launchingStatus = "WAITING";
+  FlyoutController starsController = FlyoutController();
   @override
   Widget build(BuildContext context) {
     return NavigationView(
@@ -89,19 +92,26 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                     ])),
           ),
           Positioned(
+              width: MediaQuery.of(context).size.width - calculatePadding() * 2,
               top: 140,
               left: calculatePadding() - 30,
-              child:
-                  Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                GestureDetector(
-                  child: const Icon(FluentIcons.chevron_left),
-                  onTap: () => Navigator.pop(context),
-                ),
-                const SizedBox(width: 10),
-                Text(
-                  widget.game.game.name,
-                  style: typography.titleLarge,
-                ),
+              child: Row(children: [
+                Expanded(
+                    child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                      GestureDetector(
+                        child: const Icon(FluentIcons.chevron_left),
+                        onTap: () => Navigator.pop(context),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                          child: Text(
+                        widget.game.game.name,
+                        style: typography.titleLarge,
+                        overflow: TextOverflow.ellipsis,
+                      ))
+                    ])),
               ]))
         ])
       ],
@@ -154,6 +164,8 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
           Column(children: [
             _buildPlayPanel(),
             const SizedBox(height: 20),
+            buildStarsNumberPanel(),
+            const SizedBox(height: 20),
             _buildGameTags()
           ])
         ],
@@ -175,50 +187,134 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CachedNetworkImage(
-                       colorBlendMode: !widget.pack.owned
-                                      ? BlendMode.saturation
-                                      : null,
-                                  color:
-                                      !widget.pack.owned ? Colors.black : null,
+                      colorBlendMode:
+                          !widget.pack.owned ? BlendMode.saturation : null,
+                      color: !widget.pack.owned ? Colors.black : null,
                       imageUrl:
                           APIService().assetLink(widget.game.game.background),
                       fit: BoxFit.fitWidth,
                     ),
                     Padding(
-                        padding:
-                            const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 10),
                         child: Column(children: [
                           Text(widget.game.game.info.smallDescription),
                           const SizedBox(height: 10),
-                          !kIsWeb ? _buildPlayButton() : const SizedBox(height: 0),
-                        ]))
+                          !kIsWeb
+                              ? _buildPlayButton()
+                              : const SizedBox(height: 0),
+                        ])),
                   ],
                 ))));
   }
 
+  Widget buildStarsNumberPanel() {
+    return ClipRRect(
+        borderRadius: BorderRadius.circular(8.0),
+        child: Acrylic(
+            shadowColor: backgroundColor,
+            blurAmount: 1,
+            tintAlpha: 1,
+            tint: const Color.fromARGB(255, 48, 48, 48),
+            child: SizedBox(
+                width: 300,
+                child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          // FlyoutTarget(
+                          //     controller: starsController,
+                          //     child: HyperlinkButton(
+                          //         onPressed: () => starsController.showFlyout(
+                          //             builder: (context) => FlyoutContent(child: StarsRateWidget(
+                          //                 defaultStars: widget.game.stars,
+                          //                 onStarChanged: (int stars) {
+                          //                   setState(() {
+                          //                     widget.game.stars = stars;
+                          //                   });
+                          //                   Navigator.pop(context);
+                          //                 }))),
+                          //         child: Column(children: [
+                          //           Row(children: [
+                          //             Text(
+                          //               widget.game.stars.toString(),
+                          //               style: TextStyle(
+                          //                   color: Colors.yellow, fontSize: 18),
+                          //             ),
+                          //             const SizedBox(width: 2),
+                          //             Icon(FontAwesomeIcons.solidStar,
+                          //                 color: Colors.yellow)
+                          //           ]),
+                          //           Text(
+                          //             "Stars",
+                          //             style: TextStyle(color: Colors.yellow),
+                          //           )
+                          //         ]))),
+                          StarsRateWidget(
+                              defaultStars: widget.game.stars,
+                              onStarChanged: (int stars) {
+                                setState(() {
+                                  widget.game.stars = stars;
+                                });
+                              }),
+                        ])))));
+  }
+
+  Widget buildStarsPanel() {
+    return ClipRRect(
+        borderRadius: BorderRadius.circular(8.0),
+        child: Acrylic(
+            shadowColor: backgroundColor,
+            blurAmount: 1,
+            tintAlpha: 1,
+            tint: const Color.fromARGB(255, 48, 48, 48),
+            child: SizedBox(
+                width: 300,
+                child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: StarsRateWidget(
+                      defaultStars: 0,
+                      onStarChanged: (int stars) {
+                        widget.game.stars = stars;
+                      },
+                    )))));
+  }
+
   Widget _buildPlayButton() {
-    return !widget.pack.owned
-        ? GestureDetector(
-            onTap: () async {
-              await Navigator.pushNamed(context, "/settings/packs");
-              setState(() {});
-            },
-            child: Text(
-                AppLocalizations.of(context)!.path_not_found_description,
-                style: TextStyle(
-                    color: Colors.red, decoration: TextDecoration.underline)))
-        : ((widget.pack.path == null || widget.pack.path == "")
-            ? GestureDetector(
-                onTap: () async {
-                  await Navigator.pushNamed(context, "/settings/packs");
-                  setState(() {});
-                },
-                child: Text(
-                    AppLocalizations.of(context)!.path_inexistant_description,
-                    style: TextStyle(
-                        color: Colors.red,
-                        decoration: TextDecoration.underline)))
-            : _buildLauncherButton());
+    return Row(children: [
+      Expanded(
+          child: !widget.pack.owned
+              ? GestureDetector(
+                  onTap: () async {
+                    await Navigator.pushNamed(context, "/settings/packs");
+                    setState(() {});
+                  },
+                  child: Text(
+                      AppLocalizations.of(context)!.path_not_found_description,
+                      style: TextStyle(
+                          color: Colors.red,
+                          decoration: TextDecoration.underline)))
+              : ((widget.pack.path == null || widget.pack.path == "")
+                  ? GestureDetector(
+                      onTap: () async {
+                        await Navigator.pushNamed(context, "/settings/packs");
+                        setState(() {});
+                      },
+                      child: Text(
+                          AppLocalizations.of(context)!
+                              .path_inexistant_description,
+                          style: TextStyle(
+                              color: Colors.red,
+                              decoration: TextDecoration.underline)))
+                  : _buildLauncherButton())),
+      const SizedBox(width: 10),
+      IconButton(
+        icon: Icon(FontAwesomeIcons.eye),
+        onPressed: () {},
+        style: ButtonStyle(backgroundColor: ButtonState.all(Colors.blue)),
+      )
+    ]);
   }
 
   Widget _buildLauncherButton() {
@@ -467,7 +563,8 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
               Expanded(
                   child: Text(text,
                       style: isLink
-                          ? const TextStyle(decoration: TextDecoration.underline)
+                          ? const TextStyle(
+                              decoration: TextDecoration.underline)
                           : null))
             ])));
   }
