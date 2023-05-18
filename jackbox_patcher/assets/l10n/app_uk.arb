@@ -6,7 +6,7 @@
     "quit":"Вийти",
 
     "jackbox_utility":"Jackbox Utility",
-    "launch_search_game":"Запустити/Шукати ігри",
+    "launch_search_game":"Запустити / Шукати ігри",
     "patch_a_game":"Пропатчити гру",
     "settings":"Налаштування",
     "notifications":"Сповіщення",
@@ -74,7 +74,7 @@
     "launch_game_fast_launcher":"Запустити гру (швидкий запуск)",
     "launch_game_fast_launcher_description":"Запускає гру у режимі швидкого запуску, що пропускає вступне відео та вибір ігор. Доступно лише для кількох ігор.",
     "launch_pack":"Запустити комплект",
-    "launch_pack_description":"Запускає пак стандартним способом",
+    "launch_pack_description":"Запускає комплект стандартним способом",
     "launch_informations":"Інформація про запуск",
     "launching":"Запуск...",
     "launched":"Запущено!",
@@ -86,13 +86,13 @@
     "path_inexistant_description":"Ви не додали шлях до комплекта. Ви можете зробити це в налаштуваннях.",
     "pack_path":"Шлях до комплекта",
 
-    "owned_packs":"Комплекти у володінні",
+    "owned_packs":"Наявні комплекти",
     "add_pack":"Додати комплект",
     "choose_pack":"Оберіть комплект",
 
     "game_type_coop":"Кооперативні",
     "game_type_coop_description":"У цих іграх гравці повинні працювати разом, щоб перемогти.",
-    "game_type_versus":"Сам за себе",
+    "game_type_versus":"Кожен сам за себе",
     "game_type_versus_description":"У цих іграх кожен гравець грає сам за себе та повинен перемогти інших гравців.",
     "game_type_team":"Командні",
     "game_type_team_description":"У цих іграх гравці діляться на команди та повинні працювати разом, щоб перемогти.",
@@ -101,7 +101,7 @@
     "game_translation_translated_description":"Ці ігри офіційно перекладено *мовою*.",
     "game_translation_community_translated":"Перекладено спільнотою",
     "game_translation_community_translated_description":"Ці ігри перекладено спільнотою",
-    "game_translation_not_available":"Англійською",
+    "game_translation_not_available":"Без перекладу",
     "game_translation_not_available_description":"Ці ігри не перекладено *мовою*.",
 
     "downloading":"Завантаження",
@@ -161,7 +161,7 @@
     },
 
     "automatic_server_finder_found":"Сервер знайдено",
-    "automatic_server_finder_found_description":"Сервер «{server}» було обрано на основі вашої мови",
+    "automatic_server_finder_found_description":"На основі вашої мови було обрано сервер «{server}»",
     "@automatic_server_finder_found_description":{
         "placeholders":{
             "server":{
@@ -171,7 +171,7 @@
         }
     },
     "show_all_packs":"Показати всі комплекти",
-    "show_owned_packs_only":"Показати лише комплекти у володінні",
+    "show_owned_packs_only":"Показати лише наявні комплекти",
 
     "all_patches":"Усі патчі",
 
@@ -200,26 +200,26 @@
     "author":"Автор",
     "contributors":"Помічники", 
 
-    "in_language":"{language}",
+    "in_language":"Присутня {language}",
     "@in_language":{
         "placeholders":{
             "language":{
                 "type":"String",
-                "example":"Українською"
+                "example":"українська"
             }
         }
     },
-    "in_language_description":"Ці ігри доступні {language} (офіційно або перекладені спільнотою)",
+    "in_language_description":"У цих іграх присутня {language} (офіційно або перекладена спільнотою)",
     "@in_language_description":{
         "placeholders":{
             "language":{
                 "type":"String",
-                "example":"українською"
+                "example":"українська"
             }
         }
     },
     "game_community_dubbed":"Озвучено спільнотою",
-    "game_community_dubbed_description":"Ці ігри озвучені спільнотою",
+    "game_community_dubbed_description":"У цих іграх присутнє озвучення від спільноти",
 
     "no_game_in_this_category_title":"У цій категорії немає ігор",
     "no_game_in_this_category_description":"У цій категорії немає жодної гри. Спробуйте додати у налаштуваннях.",
