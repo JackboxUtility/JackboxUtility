@@ -12,7 +12,8 @@ jobs:
         node-version: 18
     - run: npm install json-schema-static-docs
     - run: touch index.js
-    - run: |
+    - working-directory: ./documentation/server
+      run: |
         echo "const JsonSchemaStaticDocs = require('json-schema-static-docs');
 
         (async () => {
