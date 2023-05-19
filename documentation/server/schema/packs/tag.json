@@ -1,0 +1,30 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Tag",
+    "description": "A tag is a label that can be attached to a game",
+    "type": "object",
+    "properties": {
+        "id": {
+            "description": "The unique identifier for a tag",
+            "type": "string"
+        },
+        "name": {
+            "description": "Name of the tag",
+            "type": "string"
+        },
+        "icon": {
+            "description": "Icon of the tag",
+            "type": "string"
+        },
+        "description": {
+            "description": "Description of the tag",
+            "type": "string"
+        }
+    },
+    "required": [
+        "id",
+        "name",
+        "icon",
+        "description"
+    ]
+}
