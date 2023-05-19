@@ -70,8 +70,6 @@
         "packs": {
             "type": "array",
             "items": {
-                "title": "Pack",
-                "$id": "#/pack",
                 "type": "object",
                 "properties": {
                     "id": {

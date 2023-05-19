@@ -9,6 +9,14 @@
                 "description": "Tag",
                 "$ref": "tag.json"
             }
+        },
+        "patchsCategories": {
+            "type": "array",
+            "description": "List of patchs categories found in the all patches table",
+            "items": {
+                "description": "Patch category",
+                "$ref": "patchCategory.json"
+            }
         }
     }
 }
