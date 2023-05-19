@@ -29,7 +29,7 @@ jobs:
     - run: node index.js
       working-directory: ./documentation/server
     - uses: actions/upload-artifact@v3
-       with:
+      with:
           name: documentation
           path: ./documentation/server/docs
     
