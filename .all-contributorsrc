@@ -24,6 +24,17 @@
       "contributions": [
         "translation"
       ]
+    },
+    {
+      "login": "DerErizzle",
+      "name": "Eric",
+      "avatar_url": "https://avatars.githubusercontent.com/u/43215958?v=4",
+      "profile": "http://twitch.tv/Erizzle",
+      "contributions": [
+        "ideas",
+        "bug",
+        "translation"
+      ]
     }
   ],
   "contributorsPerLine": 7,
