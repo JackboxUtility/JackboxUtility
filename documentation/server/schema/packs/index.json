@@ -1,12 +1,13 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id":"./packs/index.json",
     "type": "object",
     "properties": {
         "tags": {
             "type": "array",
             "items": {
                 "description": "Tag",
-                "$ref": "./tag.json"
+                "$ref": "./packs/tag.json"
             }
         }
     }

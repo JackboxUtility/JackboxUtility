@@ -1,5 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
+    "$id": "./packs/tag.json",
     "title": "Tag",
     "description": "A tag is a label that can be attached to a game",
     "type": "object",
