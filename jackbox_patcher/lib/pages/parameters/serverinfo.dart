@@ -197,7 +197,7 @@ class _ServerInfoWidgetState extends State<ServerInfoWidget> {
         return FontAwesomeIcons.telegram;
 
       case "hryvnia":
-        return FontAwesomeIcons.hryvnia_sign;
+        return FontAwesomeIcons.hryvniaSign;
 
       case "cellphone":
         return FluentIcons.cell_phone;
