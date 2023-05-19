@@ -30,6 +30,17 @@
       "name": "Akira Artuhaxis",
       "avatar_url": "https://avatars.githubusercontent.com/u/93792993?v=4",
       "profile": "https://github.com/AkiraArtuhaxis",
+"contributions": [
+        "ideas",
+        "bug",
+        "translation"
+      ]
+    },
+    {
+      "login": "DerErizzle",
+      "name": "Eric",
+      "avatar_url": "https://avatars.githubusercontent.com/u/43215958?v=4",
+      "profile": "http://twitch.tv/Erizzle",
       "contributions": [
         "ideas",
         "bug",
