@@ -31,7 +31,7 @@ jobs:
       working-directory: ./documentation/server
     - run: sudo apt-get install pandoc
       working-directory: ./documentation/server
-    - run: for i in docs/**.md; do pandoc -f markdown -t html -s "$i" > "$i".html; done;
+    - run: for i in $(find docs -name "*.md"); do pandoc -f markdown -t html -s "$i" > "$i".html; done;
       working-directory: ./documentation/server
     - run : rm -rf docs/**.md
       working-directory: ./documentation/server
