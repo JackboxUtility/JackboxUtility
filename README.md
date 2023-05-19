@@ -19,6 +19,7 @@ Languages includes :
 - French
 - Deutsche
 - Spanish
+- Ukrainian
 
 ## Functionalities
 
