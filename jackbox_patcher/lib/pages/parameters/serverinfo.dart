@@ -165,8 +165,10 @@ class _ServerInfoWidgetState extends State<ServerInfoWidget> {
     switch (icon) {
       case "discord":
         return FontAwesomeIcons.discord;
+
       case "reddit":
         return FontAwesomeIcons.reddit;
+
       case "twitter":
         return FontAwesomeIcons.twitter;
 
@@ -190,6 +192,12 @@ class _ServerInfoWidgetState extends State<ServerInfoWidget> {
 
       case "patreon":
         return FontAwesomeIcons.patreon;
+
+      case "telegram":
+        return FontAwesomeIcons.telegram;
+
+      case "hryvnia":
+        return FontAwesomeIcons.hryvnia_sign;
 
       case "cellphone":
         return FluentIcons.cell_phone;
