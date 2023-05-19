@@ -6,8 +6,8 @@
     "quit":"Вийти",
 
     "jackbox_utility":"Jackbox Utility",
-    "launch_search_game":"Запустити / Шукати ігри",
-    "patch_a_game":"Пропатчити гру",
+    "launch_search_game":"Лаунчер / Пошук",
+    "patch_a_game":"Патчер",
     "settings":"Налаштування",
     "notifications":"Сповіщення",
 
@@ -177,7 +177,7 @@
 
     "error_happened":"Виникла помилка",
 
-    "jackbox_utility_description":"Додаток з відкритим вихідним кодом для завантаження патчів та запуску ігор Jackbox Games",
+    "jackbox_utility_description":"Додаток з відкритим вихідним кодом для встановлення патчів та запуску ігор від Jackbox Games",
 
     "server_information":"Інформація про сервер",
     "selected_server":"Обраний сервер",
@@ -197,8 +197,8 @@
         }
     },
 
-    "author":"Автор",
-    "contributors":"Помічники", 
+    "author":"Головний розробник",
+    "contributors":"Співавтори",
 
     "in_language":"Присутня {language}",
     "@in_language":{
