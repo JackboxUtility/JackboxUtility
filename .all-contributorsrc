@@ -24,6 +24,17 @@
       "contributions": [
         "translation"
       ]
+    },
+    {
+      "login": "AkiraArtuhaxis",
+      "name": "Akira Artuhaxis",
+      "avatar_url": "https://avatars.githubusercontent.com/u/93792993?v=4",
+      "profile": "https://github.com/AkiraArtuhaxis",
+      "contributions": [
+        "ideas",
+        "bug",
+        "translation"
+      ]
     }
   ],
   "contributorsPerLine": 7,
