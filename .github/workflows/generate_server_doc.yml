@@ -33,10 +33,10 @@ jobs:
       working-directory: ./documentation/server
     - run: for i in $(find docs -name "*.md"); do pandoc -f markdown -t html -s "$i" > "$i".html; done;
       working-directory: ./documentation/server
-    - run : rm -rf docs/**.md
+    - run : find docs -name "*.md" | xargs rm
       working-directory: ./documentation/server
     - uses: actions/upload-artifact@v3
       with:
           name: documentation
-          path: ./documentation/server
+          path: ./documentation/server/docs
     
