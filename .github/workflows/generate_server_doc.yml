@@ -1,0 +1,35 @@
+on:
+  push:
+     branches: [ dev ]
+name: Generate server documentations
+jobs:
+  create-release-notes:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 18
+    - run: npm install json-schema-static-docs
+    - run: touch index.js
+    - run: |
+        echo "const JsonSchemaStaticDocs = require('json-schema-static-docs');
+
+        (async () => {
+          let jsonSchemaStaticDocs = new JsonSchemaStaticDocs({
+            inputPath: 'schema',
+            outputPath: 'docs',
+            ajvOptions: {
+              allowUnionTypes: true,
+            },
+          });
+          await jsonSchemaStaticDocs.generate();
+          console.log('Documents generated.');
+        })();" > index.js
+    - run: node index.js
+      working-directory: ./documentation/server
+    - uses: actions/upload-artifact@v3
+       with:
+          name: documentation
+          path: ./documentation/server/docs
+    
