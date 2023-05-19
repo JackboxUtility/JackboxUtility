@@ -7,7 +7,7 @@
             "type": "array",
             "items": {
                 "description": "Tag",
-                "$ref": "./packs/tag.json"
+                "$ref": "./tag.json"
             }
         }
     }
