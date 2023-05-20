@@ -29,9 +29,15 @@ jobs:
         })();" > index.js
     - run: node index.js
       working-directory: ./documentation/server
+    - run: |
+        echo "function Link(el)
+        el.target = string.gsub(el.target, "%.md", ".html")
+        return el
+        end" > links-to-html.lua
+      working-directory: ./documentation/server
     - run: sudo apt-get install pandoc
       working-directory: ./documentation/server
-    - run: for i in $(find docs -name "*.md"); do pandoc -f markdown -t html -s "$i" > "$i".html; done;
+    - run: for i in $(find docs -name "*.md"); do pandoc -f markdown -t html -s "$i" --lua-filter=links-to-html.lua > ${"$i"/.md/.html}; done;
       working-directory: ./documentation/server
     - run : find docs -name "*.md" | xargs rm
       working-directory: ./documentation/server
