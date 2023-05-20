@@ -31,7 +31,7 @@ jobs:
       working-directory: ./documentation/server
     - run: |
         echo "function Link(el)
-        el.target = string.gsub(el.target, "%.md", ".html")
+        el.target = el.target.gsub(".md", ".html")
         return el
         end" > links-to-html.lua
       working-directory: ./documentation/server
