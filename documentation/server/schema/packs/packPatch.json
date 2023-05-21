@@ -20,6 +20,7 @@
             "type": "string"
         },
         "configuration": {
+            
             "type": "object",
             "properties": {
                 "version_origin": {
@@ -31,12 +32,7 @@
                 "version_property": {
                     "type": "string"
                 }
-            },
-            "required": [
-                "version_origin",
-                "version_file",
-                "version_property"
-            ]
+            }
         }
     },
     "required": [
