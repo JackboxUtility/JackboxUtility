@@ -1,10 +1,13 @@
 <p align="center">
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
+  
+[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors)
+  
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
-  <img src="https://user-images.githubusercontent.com/30233189/220177345-b408e0da-9369-42fc-a841-d7232ef7e36b.png" />
 </p>
 
+  <img src="https://user-images.githubusercontent.com/30233189/220177345-b408e0da-9369-42fc-a841-d7232ef7e36b.png" />
+  
 ## Introduction
 
 ⚠ This repository only contains the code for the app (not the auto-updater). If you want to keep it updated, you should download the auto-updater : https://github.com/AlexisL61/JackboxUtilityUpdater/releases 
