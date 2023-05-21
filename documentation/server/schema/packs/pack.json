@@ -93,6 +93,7 @@
         "games": {
             "type": "array",
             "items": {
+                "$ref": "game.json",
                 "type": "object",
                 "properties": {
                     "id": {

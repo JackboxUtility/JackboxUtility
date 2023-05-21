@@ -1,0 +1,116 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "packs/game.json",
+    "title": "Game",
+    "description": "A game in a pack",
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "string"
+        },
+        "name": {
+            "type": "string"
+        },
+        "background": {
+            "type": "string"
+        },
+        "path": {
+            "type": "string"
+        },
+        "game_info": {
+            "type": "object",
+            "properties": {
+                "players": {
+                    "type": "object",
+                    "properties": {
+                        "min": {
+                            "type": "integer"
+                        },
+                        "max": {
+                            "type": "integer"
+                        }
+                    },
+                    "required": [
+                        "min",
+                        "max"
+                    ]
+                },
+                "length": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "translation": {
+                    "type": "string"
+                },
+                "tagline": {
+                    "type": "string"
+                },
+                "small_description": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "images": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "required": [
+                "players",
+                "length",
+                "type",
+                "translation",
+                "tagline",
+                "small_description",
+                "description",
+                "images",
+                "tags"
+            ]
+        },
+        "loader": {
+            "type": "object",
+            "properties": {
+                "path": {
+                    "type": "string"
+                },
+                "version": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "path",
+                "version"
+            ]
+        },
+        "patchs": {
+            "type": "array",
+            "items": {
+                "$ref": "gamePatch.json"
+            }
+        },
+        "icon": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "id",
+        "name",
+        "background",
+        "path",
+        "game_info",
+        "loader",
+        "patchs",
+        "icon"
+    ]
+}
