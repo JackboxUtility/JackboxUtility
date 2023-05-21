@@ -17,7 +17,7 @@ With this app, you will be able to download translation patches for your Jackbox
 
 Languages includes :
 - French
-- Deutsche
+- German
 - Spanish
 - Ukrainian
 
