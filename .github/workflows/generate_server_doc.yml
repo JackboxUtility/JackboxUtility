@@ -37,7 +37,7 @@ jobs:
       working-directory: ./documentation/server
     - run: sudo apt-get install pandoc
       working-directory: ./documentation/server
-    - run : echo $(curl https://raw.githubusercontent.com/sindresorhus/github-markdown-css/main/github-markdown-light.css) | sed "${s//markdown/a}" > markdowncss.css
+    - run : echo $(curl https://raw.githubusercontent.com/sindresorhus/github-markdown-css/main/github-markdown-light.css) | sed "${s//.markdown-/}" > markdowncss.css
       working-directory: ./documentation/server/docs
     - run: for i in $(find docs -name "*.md"); do pandoc -f markdown -t html -s "$i" --css markdowncss.css --lua-filter=links-to-html.lua > "${i/.md/.html}"; done;
       working-directory: ./documentation/server
