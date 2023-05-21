@@ -29,22 +29,24 @@ jobs:
         })();" > index.js
     - run: node index.js
       working-directory: ./documentation/server
-    - run: |
-        echo "function Link(el)
-        el.target = string.gsub(el.target,'.md', '.html')
-        return el
-        end" > links-to-html.lua
-      working-directory: ./documentation/server
-    - run: sudo apt-get install pandoc
-      working-directory: ./documentation/server
-    - run : echo $(curl https://raw.githubusercontent.com/sindresorhus/github-markdown-css/main/github-markdown-light.css) | sed "s/.markdown-//g" > markdowncss.css
-      working-directory: ./documentation/server/docs
-    - run: for i in $(find docs -name "*.md"); do pandoc -f markdown -t html -s "$i" --css markdowncss.css --lua-filter=links-to-html.lua > "${i/.md/.html}"; done;
-      working-directory: ./documentation/server
-    - run : find docs -name "*.md" | xargs rm
-      working-directory: ./documentation/server
     - uses: actions/upload-artifact@v3
       with:
-          name: documentation
+          name: server_documentation
           path: ./documentation/server/docs
+
+  push_generation: 
+    needs:
+    - create-release-notes
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - run: git checkout website
+    - run: git pull
+    - uses: actions/download-artifact@master
+      with:
+        name: documentation
+        path: documentation/server
+    - uses: EndBug/add-and-commit@v9
+      with:
+        default_author: github_actions
     
