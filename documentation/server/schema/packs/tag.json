@@ -4,6 +4,14 @@
     "title": "Tag",
     "description": "A tag is a label that can be attached to a game",
     "type": "object",
+    "examples": [
+        {
+            "id":"talking",
+            "name":"Discussion",
+            "icon":"action_center",
+            "description":"Jeux nécessitant de discuter entre joueurs pour avancer dans la partie."
+       }
+    ],
     "properties": {
         "id": {
             "description": "The unique identifier for a tag",
