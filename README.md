@@ -1,10 +1,13 @@
 <p align="center">
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
-  <img src="https://user-images.githubusercontent.com/30233189/220177345-b408e0da-9369-42fc-a841-d7232ef7e36b.png" />
-</p>
 
+[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
+</p>
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/30233189/220177345-b408e0da-9369-42fc-a841-d7232ef7e36b.png" />
+ </p>
+  
 ## Introduction
 
 ⚠ This repository only contains the code for the app (not the auto-updater). If you want to keep it updated, you should download the auto-updater : https://github.com/AlexisL61/JackboxUtilityUpdater/releases 
@@ -65,7 +68,7 @@ flutter build linux
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/AlexisL61"><img src="https://avatars.githubusercontent.com/u/30233189?v=4?s=100" width="100px;" alt="Alexis"/><br /><sub><b>Alexis</b></sub></a><br /><a href="https://github.com/AlexisL61/JackboxUtility/commits?author=AlexisL61" title="Code">💻</a> <a href="#translation-AlexisL61" title="Translation">🌍</a></td>
       <td align="center" valign="top" width="14.28%"><a href="http://t.me/MeDustyy"><img src="https://avatars.githubusercontent.com/u/58863601?v=4?s=100" width="100px;" alt="Oleksandr"/><br /><sub><b>Oleksandr</b></sub></a><br /><a href="#translation-MeDustyy" title="Translation">🌍</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/AkiraArtuhaxis"><img src="https://avatars.githubusercontent.com/u/93792993?v=4?s=100" width="100px;" alt="Akira Artuhaxis"/><br /><sub><b>Akira Artuhaxis</b></sub></a><br /><a href="#ideas-AkiraArtuhaxis" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/AlexisL61/JackboxUtility/issues?q=author%3AAkiraArtuhaxis" title="Bug reports">🐛</a> <a href="#translation-AkiraArtuhaxis" title="Translation">🌍</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/AkiraArtuhaxis"><img src="https://avatars.githubusercontent.com/u/93792993?v=4?s=100" width="100px;" alt="Akira Artuhaxis"/><br /><sub><b>Akira896</b></sub></a><br /><a href="#ideas-AkiraArtuhaxis" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/AlexisL61/JackboxUtility/issues?q=author%3AAkiraArtuhaxis" title="Bug reports">🐛</a> <a href="#translation-AkiraArtuhaxis" title="Translation">🌍</a></td>
       <td align="center" valign="top" width="14.28%"><a href="http://twitch.tv/Erizzle"><img src="https://avatars.githubusercontent.com/u/43215958?v=4?s=100" width="100px;" alt="Eric"/><br /><sub><b>Eric</b></sub></a><br /><a href="#ideas-DerErizzle" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/AlexisL61/JackboxUtility/issues?q=author%3ADerErizzle" title="Bug reports">🐛</a> <a href="#translation-DerErizzle" title="Translation">🌍</a></td>
     </tr>
   </tbody>
