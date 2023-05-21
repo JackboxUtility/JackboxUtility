@@ -1,0 +1,51 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id":"packs/packPatch.json",
+    "title": "PackPatch",
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "string"
+        },
+        "name": {
+            "type": "string"
+        },
+        "small_description": {
+            "type": "string"
+        },
+        "description": {
+            "type": "string"
+        },
+        "patch_path": {
+            "type": "string"
+        },
+        "configuration": {
+            "type": "object",
+            "properties": {
+                "version_origin": {
+                    "type": "string"
+                },
+                "version_file": {
+                    "type": "string"
+                },
+                "version_property": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "version_origin",
+                "version_file",
+                "version_property"
+            ]
+        }
+    },
+    "required": [
+        "id",
+        "name",
+        "small_description",
+        "description",
+        "patch_path",
+        "components"
+    ]
+    
+}
