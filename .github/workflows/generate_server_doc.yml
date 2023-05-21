@@ -44,7 +44,7 @@ jobs:
         ref: "website"
     - uses: actions/download-artifact@master
       with:
-        name: documentation
+        name: server_documentation
         path: documentation/server
     - uses: EndBug/add-and-commit@v9
       with:
