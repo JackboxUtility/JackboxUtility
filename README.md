@@ -7,15 +7,15 @@
 
 ## Introduction
 
-⚠ This repository only contains the code for the app (not the auto-updater). If you want to keep it updated, you should download the auto-updater : https://github.com/AlexisL61/JackboxUtilityUpdater/releases 
+⚠ This repository only contains the code for the app (not the auto-updater). If you want to keep it updated, you should download the auto-updater, you can find it by ![clicking here](https://github.com/AlexisL61/JackboxUtilityUpdater/releases)
 
 ## Description 
 
 **An app to download patches and launch Jackbox games**
 
-With this app, you will be able to download translation patches for your Jackbox Games. You will also be able to find every jackbox game in one place to launch them.
+With this app, you will be able to download translation patches for your Jackbox games. You also have the ability to launch your Jackbox games, where all your Jackbox games are listed.
 
-Languages includes :
+Languages includes:
 - French
 - German
 - Spanish
@@ -24,13 +24,13 @@ Languages includes :
 ## Functionalities
 
 - Download translation patches for your games
-- Find every jackbox game in the same place
-- Launch your jackbox games without seeing the pack video and the menu
+- Find every Jackbox game in the same place
+- Launch your Jackbox games without seeing the pack video and the menu
 - Detect automatically your installed games
 
 ## Tutorial / Installation
 
-In French : https://github.com/AlexisL61/JackboxUtility/wiki/Tutoriel-d'installation-de-Jackbox-Utility
+In French: https://github.com/AlexisL61/JackboxUtility/wiki/Tutoriel-d'installation-de-Jackbox-Utility
 
 ## Folder content 
 
@@ -38,17 +38,17 @@ jackbox_patcher → Project source code
 
 ## Contribution
 
-Clone the repo :
+Clone the repo:
 ```
 git clone https://github.com/AlexisL61/JackboxUtility.git
 ```
 
-Launch the app :
+Launch the app:
 ```
 flutter run
 ```
 
-Build the app :
+Build the app:
 ```
 flutter build windows
 OR
