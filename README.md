@@ -1,12 +1,12 @@
 <p align="center">
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-  
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors)
-  
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 </p>
-
+<p align="center">
   <img src="https://user-images.githubusercontent.com/30233189/220177345-b408e0da-9369-42fc-a841-d7232ef7e36b.png" />
+ </p>
   
 ## Introduction
 
