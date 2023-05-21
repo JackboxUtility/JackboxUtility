@@ -86,7 +86,7 @@
         "patchs": {
             "type": "array",
             "items": {
-                "$ref": "packs/packPatch.json",
+                "$ref": "packPatch.json",
                 "type": "object"
             }
         },
