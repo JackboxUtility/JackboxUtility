@@ -31,8 +31,7 @@
             "examples": [
                 "action_center"
             ],
-            "$comment": "You can find a list of the icons available here : You can find a list of the icons available here : https://bdlukaa.github.io/fluent_ui/#/theming/icons",
-            "description": "Icon of the tag used in FluentUI.",
+            "description": "Icon of the tag used in FluentUI. You can find a list of the icons available here : https://bdlukaa.github.io/fluent_ui/#/theming/icons",
             "type": "string"
         },
         "description": {
