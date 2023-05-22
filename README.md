@@ -1,12 +1,13 @@
-<p align="center">
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
-</p>
+[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors)<!-- ALL-CONTRIBUTORS-BADGE:END -->
+[![Discord](https://img.shields.io/discord/1108095925366308954?color=%235865F2&label=discord&logo=discord&style=flat-square)](https://discord.gg/jUQzjjaxQP)
+![GitHub release](https://img.shields.io/github/v/release/AlexisL61/JackboxUtility?style=flat-square)
+![App downloads](https://img.shields.io/github/downloads/AlexisL61/JackboxUtility/latest/total?label=app%20downloads&style=flat-square)
+![Updater downloads](https://img.shields.io/github/downloads/AlexisL61/JackboxUtilityUpdater/total?label=updater%20downloads&style=flat-square)
 <p align="center">
   <img src="https://user-images.githubusercontent.com/30233189/220177345-b408e0da-9369-42fc-a841-d7232ef7e36b.png" />
- </p>
+</p>
   
 ## Introduction
 
