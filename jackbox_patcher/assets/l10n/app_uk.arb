@@ -11,7 +11,7 @@
     "settings":"Налаштування",
     "notifications":"Сповіщення",
 
-    "installing_a_patch":"Встановлення патчу",
+    "installing_a_patch":"Встановлення патча",
     "installing_a_patch_description":"Ви встановлюєте патч. Ця дія є незворотною.",
     "installing_a_patch_end":"Встановлення завершено",
     "can_close_popup":"Ви можете закрити це вікно",
@@ -56,7 +56,7 @@
     "patch_modification_content_text":"Модифікація текстового наповнення гри",
     "patch_modification_content_internal":"Модифікація внутрішніх файлів гри (зображень, текстів...)",
     "patch_modification_content_subtitles":"Модифікація субтитрів до гри",
-    "patch_modification_content_website":"Модифікація текстового наповнення клієнта Jackbox (доступно лише на {website})",
+    "patch_modification_content_website":"Модифікація текстового наповнення клієнта Jackbox (лише на {website})",
     "@patch_modification_content_website":{
         "placeholders":{
             "website":{
@@ -67,7 +67,7 @@
     },
     "patch_modification_content_audios":"Модифікація звукового супроводу гри",
     "version":"Версія",
-    "authors":"Автор(-и)",
+    "authors":"Автор(и)",
     "small_information":"Інфо",
     "more_informations":"Більше інформації",
     "launch_game":"Запустити гру",
@@ -81,7 +81,7 @@
     "path_not_found":"Шлях не знайдено",
     "path_not_found_small_description":"Шлях до гри не знайдено.",
     "path_not_found_description":"Шлях до гри не знайдено. Будь ласка, перевірте, чи встановлено гру та чи правильно вказано шлях до неї.",
-    "path_inexistant":"Шлях не існує",
+    "path_inexistant":"Шляху не існує",
     "path_inexistant_small_description":"Ви не додали шлях до комплекта.",
     "path_inexistant_description":"Ви не додали шлях до комплекта. Ви можете зробити це в налаштуваннях.",
     "pack_path":"Шлях до комплекта",
@@ -91,30 +91,30 @@
     "choose_pack":"Оберіть комплект",
 
     "game_type_coop":"Кооперативні",
-    "game_type_coop_description":"У цих іграх гравці повинні працювати разом, щоб перемогти.",
+    "game_type_coop_description":"У цих іграх гравці повинні працювати разом, щоб перемогти",
     "game_type_versus":"Кожен сам за себе",
-    "game_type_versus_description":"У цих іграх кожен гравець грає сам за себе та повинен перемогти інших гравців.",
+    "game_type_versus_description":"У цих іграх кожен гравець грає сам за себе та повинен перемогти інших гравців",
     "game_type_team":"Командні",
-    "game_type_team_description":"У цих іграх гравці діляться на команди та повинні працювати разом, щоб перемогти.",
+    "game_type_team_description":"У цих іграх гравці діляться на команди та повинні працювати разом, щоб перемогти",
 
-    "game_translation_translated":"Офіційно перекладено *мовою*",
-    "game_translation_translated_description":"Ці ігри офіційно перекладено *мовою*.",
-    "game_translation_community_translated":"Перекладено спільнотою",
-    "game_translation_community_translated_description":"Ці ігри перекладено спільнотою",
+    "game_translation_translated":"Офіційний переклад",
+    "game_translation_translated_description":"У цих іграх офіційно присутня обрана мова",
+    "game_translation_community_translated":"Переклад від спільноти",
+    "game_translation_community_translated_description":"У цих іграх присутній переклад обраною мовою від спільноти",
     "game_translation_not_available":"Без перекладу",
-    "game_translation_not_available_description":"Ці ігри не перекладено *мовою*.",
+    "game_translation_not_available_description":"У цих іграх наразі відсутній переклад обраною мовою",
 
     "downloading":"Завантаження",
     "starting":"Початок роботи",
     "extracting":"Витягування",
     "finalizing":"Завершення роботи",
     "unknown_error":"Невідома помилка",
-    "contact_error":"Зв'яжіться з Alexis#1588 у Discord (англійською/французькою)",
+    "contact_error":"Запитайте про вашу помилку на Discord-сервері (https://discord.gg/jUQzjjaxQP)",
 
     "game_patch_unavailable":"Патч недоступний",
     "game_patch_available":"Патч доступний",
     "game_patch_installed":"Патч актуальний",
-    "game_patch_outdated":"Для цього патчу доступне оновлення",
+    "game_patch_outdated":"Для цього патча доступне оновлення",
 
     "players":"гравців",
 
@@ -142,7 +142,7 @@
     },
     "connected_to_server_change":"Змінити",
     "connection_to_server_failed":"Не вдалося з'єднатися з сервером",
-    "connection_to_main_server_failed":"Помилка під час отримання доступних серверів",
+    "connection_to_main_server_failed":"Помилка під час отримання даних про доступні сервери",
 
     "quit_while_downloading_title":"Завантаження триває",
     "quit_while_downloading_description":"Завантаження триває, ви впевнені, що хочете вийти зараз?",
@@ -170,7 +170,7 @@
             }
         }
     },
-    "show_all_packs":"Показати всі комплекти",
+    "show_all_packs":"Показати усі комплекти",
     "show_owned_packs_only":"Показати лише наявні комплекти",
 
     "all_patches":"Усі патчі",
@@ -187,7 +187,7 @@
 
     "automatic_game_finder_button":"Автоматичне виявлення встановлених ігор",
 
-    "games_available": "{count, plural, =0 {Немає доступних ігор} one {1 доступна гра} few {{count} доступні гри} other {{count} доступних ігор}}",
+    "games_available": "{count, plural, =0 {Немає доступних ігор} one {Доступна 1 гра} few {Доступно {count} гри} other {Доступно {count} ігор}}",
     "@games_available":{
         "placeholders":{
             "count":{
@@ -209,7 +209,7 @@
             }
         }
     },
-    "in_language_description":"У цих іграх присутня {language} (офіційно або перекладена спільнотою)",
+    "in_language_description":"У цих іграх присутня {language} (або офіційно або переклад від спільноти)",
     "@in_language_description":{
         "placeholders":{
             "language":{
@@ -218,11 +218,11 @@
             }
         }
     },
-    "game_community_dubbed":"Озвучено спільнотою",
-    "game_community_dubbed_description":"У цих іграх присутнє озвучення від спільноти",
+    "game_community_dubbed":"Озвучення від спільноти",
+    "game_community_dubbed_description":"У цих іграх присутнє озвучення обраною мовою від спільноти",
 
     "no_game_in_this_category_title":"У цій категорії немає ігор",
-    "no_game_in_this_category_description":"У цій категорії немає жодної гри. Спробуйте додати у налаштуваннях.",
+    "no_game_in_this_category_description":"У цій категорії немає жодної гри. Спробуйте змінити категорію чи додати необхідну гру у налаштуваннях .",
 
     "select_game_location":"Оберіть папку з {game}",
     "@select_game_location":{
@@ -234,11 +234,11 @@
         }
     },
 
-    "download_error":"",
-    "download_error_description":"An error occurred while downloading the game. Please verify your internet connection and try again.",
+    "download_error":"Помилка під час завантаження",
+    "download_error_description":"Під час завантаження гри сталася помилка. Будь ласка, перевірте ваше підключення до Інтернету і спробуйте ще раз.",
 
-    "extracting_error":"Помилка під час завантаження",
-    "extracting_error_description":"Виникла помилка під час розпакування гри. Перевірте, чи достатньо у вас вільного місця на диску, і спробуйте ще раз.",
+    "extracting_error":"Помилка під час розпакування",
+    "extracting_error_description":"Під час розпакування гри сталася помилка. Будь ласка, перевірте, чи достатньо у вас вільного місця на диску і спробуйте ще раз.",
 
     "game_reset":"Відновити гру",
     "game_reset_description":"Ця дія перевірить всі файли гри. Якщо ви встановили якийсь патч, його буде видалено. Ви впевнені, що хочете продовжити?",
