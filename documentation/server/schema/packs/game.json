@@ -207,14 +207,12 @@
                     }
                 },
                 "tags": {
-                    "examples": [
-                        [
-                            "drawing"
-                        ]
-                    ],
                     "description": "A lit of tags Id for this game.",
                     "type": "array",
                     "items": {
+                        "examples": [
+                            "drawing"
+                        ],
                         "type": "string"
                     }
                 }
@@ -232,28 +230,8 @@
             ]
         },
         "loader": {
-            "examples": [
-                {
-                    "path":"loaders/tjpp7/champdup.zip",
-                    "version":"1.0.0"
-                }
-            ],
-            "description": "The loader (used for the fast launcher feature)",
-            "type": "object",
-            "properties": {
-                "path": {
-                    "description":"The path (or URL) to the loader zip",
-                    "type": "string"
-                },
-                "version": {
-                    "description": "The version of the loader (in case you update your loader, change this version)",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "path",
-                "version"
-            ]
+            "type":"object",
+            "$ref": "loader.json"
         },
         "patchs": {
             "description": "A list of patches for this game",
