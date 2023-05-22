@@ -27,10 +27,10 @@
             "type": "string"
         },
         "launchers_id": {
-            "$ref": "packs/launchersId.json"
+            "$ref": "launchersId.json"
         },
         "executables": {
-            "$ref": "packs/executables.json"
+            "$ref": "executables.json"
         },
         "loader": {
             "type": "object",
