@@ -1,0 +1,79 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id":"packs/packPatchComponent.json",
+    "type": "object",
+    "examples": [
+        {
+            "id":"fibbage2_patch",
+            "linked_game":"fibbage2",
+            "name":"Fibbage 2",
+            "description":"",
+            "authors":"* Akira896 (traducción e imágenes)\n* Fukken Hanzel (imágenes adicionales)\n* Fixed Fun (videos)",
+            "small_description":"¡Juego traducido al español!",
+            "patch_type":{
+                "game_text":true,
+                "game_assets":true,
+                "game_subtitles":false,
+                "website":true,
+                "audios":false
+            }
+        }
+    ],
+    "properties": {
+      "id": {
+        "examples": [
+          "fibbage2_patch"
+        ],
+        "description": "Unique id of the component",
+        "type": "string"
+      },
+      "linked_game": {
+        "examples": [
+          "fibbage2"
+        ],
+        "description": "Id of the linked game for this component",
+        "type": "string"
+      },
+      "name": {
+        "examples": [
+          "Fibbage 2"
+        ],
+        "description": "Name of the component",
+        "type": "string"
+      },
+      "description": {
+        "examples": [
+          ""
+        ],
+        "description": "Description of the component",
+        "type": "string"
+      },
+      "authors": {
+        "examples": [
+          "* Akira896 (traducción e imágenes)\n* Fukken Hanzel (imágenes adicionales)\n* Fixed Fun (videos)"
+        ],
+        "description": "Authors of the component",
+        "type": "string"
+      },
+      "small_description": {
+        "examples": [
+          "¡Juego traducido al español!"
+        ],
+        "description": "Small description of the component",
+        "type": "string"
+      },
+      "patch_type": {
+        "description": "Type of the patch",
+        "$ref": "patchType.json"
+      } 
+    },
+    "required": [
+      "id",
+      "linked_game",
+      "name",
+      "description",
+      "authors",
+      "small_description",
+      "patch_type"
+    ]
+  }

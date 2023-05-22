@@ -1,0 +1,44 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id":"packs/packPatchConfiguration.json",
+    "title": "PackPatchConfiguration",
+    "type": "object",
+    "examples": [
+        {
+            "version_origin":"repo_file",
+            "version_file":"https://raw.githubusercontent.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-2-Spanish/main/Main/config.jet",
+            "version_property":"buildVersion"
+        }
+    ],
+    "properties": {
+        "version_origin": {
+            "examples": [
+                "repo_file"
+            ],
+            "enum": [
+                "repo_file"
+            ],
+            "description": "Where the app should retrieve the latest version for the file. repo_file : From a repo file",
+            "type": "string"
+        },
+        "version_file": {
+            "examples": [
+                "https://raw.githubusercontent.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-2-Spanish/main/Main/config.jet"
+            ],
+            "description": "The file where the app should retrieve the latest version",
+            "type": "string"
+        },
+        "version_property": {
+            "examples": [
+                "buildVersion"
+            ],
+            "description": "The property where the app should retrieve the latest version",
+            "type": "string"
+        }
+    },
+    "required": [
+        "version_origin",
+        "version_file",
+        "version_property"
+    ]
+}

@@ -4,54 +4,76 @@
     "title": "GamePatch",
     "description": "A patch for a game",
     "type": "object",
+    "examples": [
+        {
+            "id":"splittheroom_fr",
+            "name":"[PREVIEW] Split The Room",
+            "small_description":"[PREVIEW] Traduction du jeu en Français",
+            "description":"Le patch complet arrive bientôt. Vous pouvez toujours télécharger la preview mais gardez à l'esprit que la traduction n'est pas terminée. Avec cette preview, le jeu est traduit en français, mais il peut y avoir des fautes. N'hésitez pas à prévenir MisterShaokahn#0765 si il y a des problèmes de traduction",
+            "version":"0.1.1_credits",
+            "authors":"MisterShaokahn#0765",
+            "patch_path":"patchs/splittheroom_0.1.1.zip",
+            "patch_type":{
+                "game_text":true,
+                "game_assets":false,
+                "game_subtitles":false,
+                "website":false,
+                "audios":false
+            }
+        }
+    ],
     "properties": {
         "id": {
+            "examples": [
+                "splittheroom_fr"
+            ],
+            "description": "The unique identifier for a game patch",
             "type": "string"
         },
         "name": {
+            "examples": [
+                "[PREVIEW] Split The Room"
+            ],
+            "description": "The name of the game patch",
             "type": "string"
         },
         "small_description": {
+            "examples": [
+                "[PREVIEW] Traduction du jeu en Français"
+            ],
+            "description": "A small description of the game patch",
             "type": "string"
         },
         "description": {
+            "examples": [
+                "Le patch complet arrive bientôt. Vous pouvez toujours télécharger la preview mais gardez à l'esprit que la traduction n'est pas terminée. Avec cette preview, le jeu est traduit en français, mais il peut y avoir des fautes. N'hésitez pas à prévenir MisterShaokahn#0765 si il y a des problèmes de traduction"
+            ],
+            "description": "The description of the game patch",
             "type": "string"
         },
         "version": {
+            "examples": [
+                "0.1.1_credits"
+            ],
+            "description": "The version of the game patch",
             "type": "string"
         },
         "authors": {
+            "examples": [
+                "MisterShaokahn#0765"
+            ],
+            "description": "The authors of the game patch",
             "type": "string"
         },
         "patch_path": {
+            "examples": [
+                "patchs/splittheroom_0.1.1.zip"
+            ],
+            "description": "The url to the game patch",
             "type": "string"
         },
         "patch_type": {
-            "type": "object",
-            "properties": {
-                "game_text": {
-                    "type": "boolean"
-                },
-                "game_assets": {
-                    "type": "boolean"
-                },
-                "game_subtitles": {
-                    "type": "boolean"
-                },
-                "website": {
-                    "type": "boolean"
-                },
-                "audios": {
-                    "type": "boolean"
-                }
-            },
-            "required": [
-                "game_text",
-                "game_assets",
-                "game_subtitles",
-                "website",
-                "audios"
-            ]
+            "$ref": "patchType.json"
         }
     },
     "required": [
