@@ -1,6 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "$id":"packs/packPatchComponent.json",
+    "title": "Pack Patch Component",
+    "description": "Component of a pack patch",
     "type": "object",
     "examples": [
         {

@@ -3,20 +3,47 @@
     "$id":"packs/packPatch.json",
     "title": "PackPatch",
     "type": "object",
+    "examples": [
+        {
+            "id":"jpp2_es",
+            "name":"Traducción al Español Latino",
+            "small_description":"Pack 100% traducido.\nEarwax: Sonidos Raros cuenta con doblaje latino.",
+            "patch_path":"https://github.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-2-Spanish/releases/latest/download/JPP2-ES.zip",
+            "configuration": {
+                "version_origin":"repo_file",
+                "version_file":"https://raw.githubusercontent.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-2-Spanish/main/Main/config.jet",
+                "version_property":"buildVersion"
+            },
+            "components":[]
+        }
+    ],
     "properties": {
         "id": {
+            "examples": [
+                "jpp2_es"
+            ],
+            "description": "Unique ID of the patch",
             "type": "string"
         },
         "name": {
+            "examples": [
+                "Traducción al Español Latino"
+            ],
+            "description": "Name of the patch",
             "type": "string"
         },
         "small_description": {
-            "type": "string"
-        },
-        "description": {
+            "examples": [
+                "Pack 100% traducido.\nEarwax: Sonidos Raros cuenta con doblaje latino."
+            ],
+            "description": "Small description of the patch",
             "type": "string"
         },
         "patch_path": {
+            "examples": [
+                "https://github.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-2-Spanish/releases/latest/download/JPP2-ES.zip"
+            ],
+            "description": "URL of the patch",
             "type": "string"
         },
         "configuration": {
@@ -33,7 +60,6 @@
         "id",
         "name",
         "small_description",
-        "description",
         "patch_path",
         "configuration",
         "components"
