@@ -61,7 +61,7 @@
         "placeholders":{
             "website":{
                 "type":"String",
-                "example":"laboxdejack.fr"
+                "example":"jackbox.tv"
             }
         }
     },
@@ -73,8 +73,8 @@
     "launch_game":"Запустити гру",
     "launch_game_fast_launcher":"Запустити гру (швидкий запуск)",
     "launch_game_fast_launcher_description":"Запускає гру у режимі швидкого запуску, що пропускає вступне відео та вибір ігор. Доступно лише для кількох ігор.",
-    "launch_pack":"Запустити комплект",
-    "launch_pack_description":"Запускає комплект стандартним способом",
+    "launch_pack":"Запустити збірку",
+    "launch_pack_description":"Запускає збірку стандартним способом",
     "launch_informations":"Інформація про запуск",
     "launching":"Запуск...",
     "launched":"Запущено!",
@@ -82,13 +82,13 @@
     "path_not_found_small_description":"Шлях до гри не знайдено.",
     "path_not_found_description":"Шлях до гри не знайдено. Будь ласка, перевірте, чи встановлено гру та чи правильно вказано шлях до неї.",
     "path_inexistant":"Шляху не існує",
-    "path_inexistant_small_description":"Ви не додали шлях до комплекта.",
-    "path_inexistant_description":"Ви не додали шлях до комплекта. Ви можете зробити це в налаштуваннях.",
-    "pack_path":"Шлях до комплекта",
+    "path_inexistant_small_description":"Шлях до гри відсутній.",
+    "path_inexistant_description":"Шлях до гри відсутній. Будь ласка, вкажіть шлях у налаштуваннях.",
+    "pack_path":"Шлях до гри",
 
-    "owned_packs":"Наявні комплекти",
-    "add_pack":"Додати комплект",
-    "choose_pack":"Оберіть комплект",
+    "owned_packs":"Встановлені ігри",
+    "add_pack":"Додати гру",
+    "choose_pack":"Оберіть гру",
 
     "game_type_coop":"Кооперативні",
     "game_type_coop_description":"У цих іграх гравці повинні працювати разом, щоб перемогти",
@@ -122,7 +122,7 @@
     "search":"Пошук",
     "all_games":"Усі ігри",
     "all_games_description":"Знайдіть усі ігри Jackbox Games у одному місці",
-    "search_by_pack":"Пошук за комплектом",
+    "search_by_pack":"Пошук за збіркою",
     "search_by_type":"Пошук за типом",
     "search_by_translation":"Пошук за перекладом",
     "search_by_tags":"Пошук за тегами",
@@ -136,7 +136,7 @@
         "placeholders":{
             "server":{
                 "type":"String",
-                "example":"Jackbox France"
+                "example":"Назва серверу"
             }
         }
     },
@@ -147,7 +147,7 @@
     "quit_while_downloading_title":"Завантаження триває",
     "quit_while_downloading_description":"Завантаження триває, ви впевнені, що хочете вийти зараз?",
 
-    "automatic_game_finder_title":"Автоматичне виявлення ігор",
+    "automatic_game_finder_title":"Автоматичне виявлення",
     "automatic_game_finder_description":"Jackbox Utility може виявити встановлену гру на цьому комп'ютері за допомогою Steam та Epic Games.\nБажаєте скористатися цією функцією?",
     "automatic_game_finder_in_progress":"Виявлення ігор, будь ласка, зачекайте",
     "automatic_game_finder_finish": "{count, plural, =0 {Ігор не виявлено} one {Виявлено 1 гру} few {Виявлено {count} гри} other {Виявлено {count} ігор}}",
@@ -166,18 +166,18 @@
         "placeholders":{
             "server":{
                 "type":"String",
-                "example":"Jackbox France"
+                "example":"Назва серверу"
             }
         }
     },
-    "show_all_packs":"Показати усі комплекти",
-    "show_owned_packs_only":"Показати лише наявні комплекти",
+    "show_all_packs":"Показати усі ігри",
+    "show_owned_packs_only":"Показати лише встановлені ігри",
 
     "all_patches":"Усі патчі",
 
     "error_happened":"Виникла помилка",
 
-    "jackbox_utility_description":"Додаток з відкритим вихідним кодом для встановлення патчів та запуску ігор від Jackbox Games",
+    "jackbox_utility_description":"Застосунок з відкритим вихідним кодом для встановлення патчів та запуску ігор від Jackbox Games",
 
     "server_information":"Інформація про сервер",
     "selected_server":"Обраний сервер",
@@ -185,7 +185,7 @@
 
     "app_information":"Інформація про застосунок",
 
-    "automatic_game_finder_button":"Автоматичне виявлення встановлених ігор",
+    "automatic_game_finder_button":"Автоматичне виявлення",
 
     "games_available": "{count, plural, =0 {Немає доступних ігор} one {Доступна 1 гра} few {Доступно {count} гри} other {Доступно {count} ігор}}",
     "@games_available":{
@@ -235,10 +235,10 @@
     },
 
     "download_error":"Помилка під час завантаження",
-    "download_error_description":"Під час завантаження гри сталася помилка. Будь ласка, перевірте ваше підключення до Інтернету і спробуйте ще раз.",
+    "download_error_description":"Під час завантаження гри виникла помилка. Будь ласка, перевірте ваше підключення до Інтернету і спробуйте ще раз.",
 
     "extracting_error":"Помилка під час розпакування",
-    "extracting_error_description":"Під час розпакування гри сталася помилка. Будь ласка, перевірте, чи достатньо у вас вільного місця на диску і спробуйте ще раз.",
+    "extracting_error_description":"Під час розпакування гри виникла помилка. Будь ласка, перевірте, чи достатньо у вас вільного місця на диску і спробуйте ще раз.",
 
     "game_reset":"Відновити гру",
     "game_reset_description":"Ця дія перевірить всі файли гри. Якщо ви встановили якийсь патч, його буде видалено. Ви впевнені, що хочете продовжити?",
