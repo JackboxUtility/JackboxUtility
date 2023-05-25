@@ -1,6 +1,6 @@
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-
-[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors)<!-- ALL-CONTRIBUTORS-BADGE:END -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 [![Discord](https://img.shields.io/discord/1108095925366308954?color=%235865F2&label=discord&logo=discord&style=flat-square)](https://discord.gg/jUQzjjaxQP)
 ![GitHub release](https://img.shields.io/github/v/release/AlexisL61/JackboxUtility?style=flat-square)
 ![App downloads](https://img.shields.io/github/downloads/AlexisL61/JackboxUtility/latest/total?label=app%20downloads&style=flat-square)
@@ -69,8 +69,9 @@ flutter build linux
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/AlexisL61"><img src="https://avatars.githubusercontent.com/u/30233189?v=4?s=100" width="100px;" alt="Alexis"/><br /><sub><b>Alexis</b></sub></a><br /><a href="https://github.com/AlexisL61/JackboxUtility/commits?author=AlexisL61" title="Code">💻</a> <a href="#translation-AlexisL61" title="Translation">🌍</a></td>
       <td align="center" valign="top" width="14.28%"><a href="http://t.me/MeDustyy"><img src="https://avatars.githubusercontent.com/u/58863601?v=4?s=100" width="100px;" alt="Oleksandr"/><br /><sub><b>Oleksandr</b></sub></a><br /><a href="#translation-MeDustyy" title="Translation">🌍</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/AkiraArtuhaxis"><img src="https://avatars.githubusercontent.com/u/93792993?v=4?s=100" width="100px;" alt="Akira Artuhaxis"/><br /><sub><b>Akira896</b></sub></a><br /><a href="#ideas-AkiraArtuhaxis" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/AlexisL61/JackboxUtility/issues?q=author%3AAkiraArtuhaxis" title="Bug reports">🐛</a> <a href="#translation-AkiraArtuhaxis" title="Translation">🌍</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/AkiraArtuhaxis"><img src="https://avatars.githubusercontent.com/u/93792993?v=4?s=100" width="100px;" alt="Akira896"/><br /><sub><b>Akira896</b></sub></a><br /><a href="#ideas-AkiraArtuhaxis" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/AlexisL61/JackboxUtility/issues?q=author%3AAkiraArtuhaxis" title="Bug reports">🐛</a> <a href="#translation-AkiraArtuhaxis" title="Translation">🌍</a></td>
       <td align="center" valign="top" width="14.28%"><a href="http://twitch.tv/Erizzle"><img src="https://avatars.githubusercontent.com/u/43215958?v=4?s=100" width="100px;" alt="Eric"/><br /><sub><b>Eric</b></sub></a><br /><a href="#ideas-DerErizzle" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/AlexisL61/JackboxUtility/issues?q=author%3ADerErizzle" title="Bug reports">🐛</a> <a href="#translation-DerErizzle" title="Translation">🌍</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/VladGraund"><img src="https://avatars.githubusercontent.com/u/106146104?v=4?s=100" width="100px;" alt="Vladyslav Kulybaba"/><br /><sub><b>Vladyslav Kulybaba</b></sub></a><br /><a href="#translation-VladGraund" title="Translation">🌍</a></td>
     </tr>
   </tbody>
 </table>
