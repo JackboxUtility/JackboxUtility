@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/pages/patcher/categoryPackPatch.dart';
 
+import '../../components/closableRouteWithEsc.dart';
 import '../../services/api/api_service.dart';
 import '../../services/user/userdata.dart';
 import 'packContainer.dart';
@@ -31,7 +32,7 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
     if (items.isEmpty) {
       _buildPaneItems();
     }
-    return NavigationView(
+    return ClosableRouteWithEsc(child:NavigationView(
       transitionBuilder: (child, animation) {
         return FadeTransition(
           opacity: animation,
@@ -72,7 +73,7 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
               },
             )
           ]),
-    );
+    ));
   }
 
   _changeMenuView(String packId) {

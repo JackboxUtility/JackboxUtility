@@ -13,6 +13,7 @@ import 'package:palette_generator/palette_generator.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../components/closableRouteWithEsc.dart';
 import '../../model/usermodel/userjackboxgame.dart';
 import '../../model/usermodel/userjackboxpack.dart';
 import '../../services/api/api_service.dart';
@@ -57,8 +58,8 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
   FlyoutController starsController = FlyoutController();
   @override
   Widget build(BuildContext context) {
-    return NavigationView(
-        content: ListView(children: [_buildHeader(), _buildBottom()]));
+    return ClosableRouteWithEsc(child:NavigationView(
+        content: ListView(children: [_buildHeader(), _buildBottom()])));
   }
 
   Widget _buildHeader() {

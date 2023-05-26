@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter/services.dart';
 import 'package:jackbox_patcher/components/dialogs/leaveApplicationDialog.dart';
 import 'package:jackbox_patcher/model/patchserver.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
@@ -19,6 +20,10 @@ import 'package:window_manager/window_manager.dart';
 import '../components/dialogs/automaticGameFinderDialog.dart';
 import '../components/notificationsCaroussel.dart';
 import '../services/automaticGameFinder/AutomaticGameFinder.dart';
+
+class CloseWindowIntent extends Intent {
+  const CloseWindowIntent();
+}
 
 class MainContainer extends StatefulWidget {
   const MainContainer({Key? key}) : super(key: key);
@@ -50,25 +55,26 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
   Widget build(BuildContext context) {
     TranslationsHelper().appLocalizations = AppLocalizations.of(context);
     return NavigationView(
-        content: 
-       Stack(
-         children: 
-          [
-            Image.asset("assets/images/background_pattern.png", scale: 1.5,  repeat: ImageRepeat.repeat, width: MediaQuery.of(context).size.width, height: MediaQuery.of(context).size.height),
-         Container(
-           width: MediaQuery.of(context).size.width,
-           height: MediaQuery.of(context).size.height,
-           color: const Color.fromARGB(1,32,32,32).withOpacity(0.98),
-         ),
-         Column(children: [
-          const Spacer(),
-          _buildUpper(),
-          _buildLower(),
-          const Spacer(),
-           ]),
-           ],
-
-       ));
+                content: Stack(
+              children: [
+                Image.asset("assets/images/background_pattern.png",
+                    scale: 1.5,
+                    repeat: ImageRepeat.repeat,
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  color: const Color.fromARGB(1, 32, 32, 32).withOpacity(0.98),
+                ),
+                Column(children: [
+                  const Spacer(),
+                  _buildUpper(),
+                  _buildLower(),
+                  const Spacer(),
+                ]),
+              ],
+            ));
   }
 
   Widget _buildUpper() {
@@ -132,7 +138,8 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Icon(FluentIcons.download, color: Colors.white),
+                                const Icon(FluentIcons.download,
+                                    color: Colors.white),
                                 const SizedBox(width: 10),
                                 Text(AppLocalizations.of(context)!.patch_a_game,
                                     style: const TextStyle(color: Colors.white))
@@ -162,7 +169,8 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Icon(FluentIcons.settings, color: Colors.white),
+                                const Icon(FluentIcons.settings,
+                                    color: Colors.white),
                                 const SizedBox(width: 10),
                                 Text(AppLocalizations.of(context)!.settings,
                                     style: const TextStyle(color: Colors.white))

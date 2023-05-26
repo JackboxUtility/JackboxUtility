@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:jackbox_patcher/components/closableRouteWithEsc.dart';
 import 'package:jackbox_patcher/components/starsRate.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxgame.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
@@ -32,7 +33,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
   @override
   Widget build(BuildContext context) {
     Typography typography = FluentTheme.of(context).typography;
-    return NavigationView(
+    return ClosableRouteWithEsc(child: NavigationView(
       appBar: NavigationAppBar(
           automaticallyImplyLeading: false,
           leading: GestureDetector(
@@ -67,7 +68,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
               },
             )
           ]),
-    );
+    ));
   }
 
   _buildPaneItems() {

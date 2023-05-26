@@ -4,6 +4,8 @@ import 'package:jackbox_patcher/pages/parameters/appinfo.dart';
 import 'package:jackbox_patcher/pages/parameters/packs.dart';
 import 'package:jackbox_patcher/pages/parameters/serverinfo.dart';
 
+import '../../components/closableRouteWithEsc.dart';
+
 
 class ParametersRoute extends StatefulWidget {
   const ParametersRoute({Key? key}) : super(key: key);
@@ -36,7 +38,7 @@ class _ParametersMenuWidgetState extends State<ParametersMenuWidget> {
   @override
   Widget build(BuildContext context) {
     Typography typography = FluentTheme.of(context).typography;
-    return NavigationView(
+    return ClosableRouteWithEsc(child:NavigationView(
       transitionBuilder: (child, animation) {
         return FadeTransition(
           opacity: animation,
@@ -82,6 +84,6 @@ class _ParametersMenuWidgetState extends State<ParametersMenuWidget> {
               body: const AppInfoWidget(),
             )
           ]),
-    );
+    ));
   }
 }

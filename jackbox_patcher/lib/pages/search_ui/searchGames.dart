@@ -7,6 +7,7 @@ import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../components/closableRouteWithEsc.dart';
 import '../../components/starsRate.dart';
 import '../../services/launcher/launcher.dart';
 
@@ -27,8 +28,15 @@ class _SearchGameRouteState extends State<SearchGameRoute> {
     String? description = data[3];
     String? icon = data[4];
     bool? showAllPacks = data[5];
-    List<Widget>? separators = data[6];
-    int Function(UserJackboxPack, UserJackboxGame)? separatorFilter = data[7];
+    List<Widget>? separators = null;
+    if (data.length>=7) {
+      separators = data[6];
+    }
+
+    int Function(UserJackboxPack, UserJackboxGame)? separatorFilter = null;
+    if (data.length>=8) {
+      separatorFilter = data[7];
+    }
 
     return SearchGameWidget(
         filter: filter,
@@ -81,8 +89,8 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return NavigationView(
-        content: ListView(children: [_buildHeader(), _buildBottom()]));
+    return ClosableRouteWithEsc(child: NavigationView(
+        content: ListView(children: [_buildHeader(), _buildBottom()])));
   }
 
   Widget _buildHeader() {
