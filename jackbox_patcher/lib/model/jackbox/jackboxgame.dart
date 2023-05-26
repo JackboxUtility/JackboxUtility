@@ -169,11 +169,12 @@ enum JackboxGameTranslation {
   }
 
   String get name {
+        String languageKey = APIService().cachedSelectedServer!.languages[0];
     switch (this) {
       case JackboxGameTranslation.NATIVELY_TRANSLATED:
         return TranslationsHelper()
             .appLocalizations!
-            .game_translation_translated;
+            .game_translation_translated(LanguageService().getLanguageName(languageKey));
       case JackboxGameTranslation.COMMUNITY_TRANSLATED:
         return TranslationsHelper()
             .appLocalizations!
@@ -186,11 +187,12 @@ enum JackboxGameTranslation {
   }
 
   String get description {
+        String languageKey = APIService().cachedSelectedServer!.languages[0];
     switch (this) {
       case JackboxGameTranslation.NATIVELY_TRANSLATED:
         return TranslationsHelper()
             .appLocalizations!
-            .game_translation_translated_description;
+            .game_translation_translated_description(LanguageService().getLanguageName(languageKey));
       case JackboxGameTranslation.COMMUNITY_TRANSLATED:
         return TranslationsHelper()
             .appLocalizations!
@@ -198,7 +200,7 @@ enum JackboxGameTranslation {
       case JackboxGameTranslation.ENGLISH:
         return TranslationsHelper()
             .appLocalizations!
-            .game_translation_not_available_description;
+            .game_translation_not_available_description(LanguageService().getLanguageName(languageKey));
     }
   }
 

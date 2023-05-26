@@ -97,12 +97,36 @@
     "game_type_team":"Team",
     "game_type_team_description":"In these games, players are divided into teams and must work together to win.",
 
-    "game_translation_translated":"Officially translated in *language*",
-    "game_translation_translated_description":"These games are translated natively into *language*",
+    "game_translation_translated":"Officially translated in {language}",
+    "@game_translation_translated":{
+        "placeholders":{
+            "language":{
+                "type":"String",
+                "example":"French"
+            }
+        }
+    },
+    "game_translation_translated_description":"These games are translated natively into {language}",
+    "@game_translation_translated_description":{
+        "placeholders":{
+            "language":{
+                "type":"String",
+                "example":"French"
+            }
+        }
+    },
     "game_translation_community_translated":"Translated by the community",
     "game_translation_community_translated_description":"These games are translated by the community",
     "game_translation_not_available":"In English",
-    "game_translation_not_available_description":"These games are not translated into *language*",
+    "game_translation_not_available_description":"These games are not translated into {language}",
+    "@game_translation_not_available_description":{
+        "placeholders":{
+            "language":{
+                "type":"String",
+                "example":"French"
+            }
+        }
+    },
 
     "downloading":"Downloading",
     "starting":"Starting",

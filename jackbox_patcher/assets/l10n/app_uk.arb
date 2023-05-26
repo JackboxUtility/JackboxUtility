@@ -98,11 +98,35 @@
     "game_type_team_description":"У цих іграх гравці діляться на команди та повинні працювати разом, щоб перемогти",
 
     "game_translation_translated":"Офіційний переклад",
+    "@game_translation_translated":{
+        "placeholders":{
+            "language":{
+                "type":"String",
+                "example":"French"
+            }
+        }
+    },
     "game_translation_translated_description":"У цих іграх офіційно присутня обрана мова",
+    "@game_translation_translated_description":{
+        "placeholders":{
+            "language":{
+                "type":"String",
+                "example":"French"
+            }
+        }
+    },
     "game_translation_community_translated":"Переклад від спільноти",
     "game_translation_community_translated_description":"У цих іграх присутній переклад обраною мовою від спільноти",
     "game_translation_not_available":"Без перекладу",
     "game_translation_not_available_description":"У цих іграх наразі відсутній переклад обраною мовою",
+    "@game_translation_not_available_description":{
+        "placeholders":{
+            "language":{
+                "type":"String",
+                "example":"French"
+            }
+        }
+    },
 
     "downloading":"Завантаження",
     "starting":"Початок роботи",
