@@ -439,6 +439,7 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                                                     color: Colors.white
                                                         .withOpacity(opacity)))
                                           ]),
+                                          SizedBox(height:4),
                                           Opacity(
                                               opacity: opacity,
                                               child: StarsRateWidget(
