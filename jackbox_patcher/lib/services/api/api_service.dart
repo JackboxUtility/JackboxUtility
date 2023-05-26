@@ -82,7 +82,7 @@ class APIService {
             .map<PatchCategory>((category) => PatchCategory.fromJson(category))
             .toList()
         : [];
-    applyExternalConfiguration();
+    await applyExternalConfiguration();
   }
 
   Future<void> applyExternalConfiguration() async {
