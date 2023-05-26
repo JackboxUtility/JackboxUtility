@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:jackbox_patcher/model/misc/sortOrder.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
@@ -29,12 +31,12 @@ class _SearchGameRouteState extends State<SearchGameRoute> {
     String? icon = data[4];
     bool? showAllPacks = data[5];
     List<Widget>? separators = null;
-    if (data.length>=7) {
+    if (data.length >= 7) {
       separators = data[6];
     }
 
     int Function(UserJackboxPack, UserJackboxGame)? separatorFilter = null;
-    if (data.length>=8) {
+    if (data.length >= 8) {
       separatorFilter = data[7];
     }
 
@@ -81,6 +83,8 @@ class SearchGameWidget extends StatefulWidget {
 
 class _SearchGameWidgetState extends State<SearchGameWidget> {
   UniqueKey key = UniqueKey();
+  SortOrder sortOrder = SortOrder.PACK;
+  bool sortAscending = true;
 
   @override
   void initState() {
@@ -89,8 +93,9 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return ClosableRouteWithEsc(child: NavigationView(
-        content: ListView(children: [_buildHeader(), _buildBottom()])));
+    return ClosableRouteWithEsc(
+        child: NavigationView(
+            content: ListView(children: [_buildHeader(), _buildBottom()])));
   }
 
   Widget _buildHeader() {
@@ -130,36 +135,82 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
               right: 0,
               child: SizedBox(
                   height: 100,
-                  child: Row(children: [
-                    SizedBox(
-                        width: calculatePadding() -
-                            (widget.comeFromGame ? 40 : 0)),
-                    widget.comeFromGame
-                        ? GestureDetector(
-                            child: const Icon(FluentIcons.chevron_left),
-                            onTap: () => Navigator.pop(context))
-                        : Container(),
-                    widget.comeFromGame
-                        ? const SizedBox(width: 20)
-                        : Container(),
-                    Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            widget.name!,
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            widget.description!,
-                            style: const TextStyle(
-                                color: Colors.white, fontSize: 15),
-                          )
-                        ])
-                  ])))
+                  child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        SizedBox(
+                            width: calculatePadding() -
+                                (widget.comeFromGame ? 40 : 0)),
+                        widget.comeFromGame
+                            ? GestureDetector(
+                                child: const Icon(FluentIcons.chevron_left),
+                                onTap: () => Navigator.pop(context))
+                            : Container(),
+                        widget.comeFromGame
+                            ? const SizedBox(width: 20)
+                            : Container(),
+                        Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                widget.name!,
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                widget.description!,
+                                style: const TextStyle(
+                                    color: Colors.white, fontSize: 15),
+                              )
+                            ]),
+                        Spacer(),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Row(
+                              children: [
+                                MouseRegion(
+                                    child: GestureDetector(
+                                        child: Icon(sortAscending
+                                            ? FontAwesomeIcons.sortDown
+                                            : FontAwesomeIcons.sortUp),
+                                        onTap: () {
+                                          key = UniqueKey();
+                                          setState(() =>
+                                              sortAscending = !sortAscending);
+                                        }),
+                                    cursor: SystemMouseCursors.click),
+                                const SizedBox(width: 10),
+                                ComboBox<SortOrder>(
+                                    popupColor: Colors.black,
+                                    elevation: 0,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                    value: sortOrder,
+                                    items: List.generate(
+                                        SortOrder.values.length,
+                                        (index) => ComboBoxItem(
+                                              child: Text("Sort by " +
+                                                  SortOrder.values[index].name),
+                                              value: SortOrder.values[index],
+                                            )),
+                                    onChanged: (value) {
+                                      key = UniqueKey();
+                                      setState(() => sortOrder = value!);
+                                    }),
+                              ],
+                            ),
+                            SizedBox(height: 10),
+                          ],
+                        ),
+                        SizedBox(
+                            width: calculatePadding() -
+                                (widget.comeFromGame ? 40 : 0)),
+                      ])))
         ]),
         const SizedBox(height: 20)
       ],
@@ -186,6 +237,7 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
         }
       }
     }
+    games = sortGames(games);
     return games;
   }
 
@@ -234,6 +286,7 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
       return Padding(
           padding: EdgeInsets.symmetric(horizontal: calculatePadding()),
           child: StaggeredGrid.count(
+              key: key,
               mainAxisSpacing: 20,
               crossAxisSpacing: 20,
               crossAxisCount: _getGamesByGrid(),
@@ -242,6 +295,11 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
                         pack: game["pack"] as UserJackboxPack,
                         game: game["game"] as UserJackboxGame,
                         showAllPacks: widget.showAllPacks,
+                        parentReload: () {
+                            setState(() {
+                              key = UniqueKey();
+                            });
+                          }
                       ))
                   .toList()));
     } else {
@@ -262,6 +320,32 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
         ),
       ]);
     }
+  }
+
+  List<Map<String, Object>> sortGames(List<Map<String, Object>> games) {
+    switch (sortOrder) {
+      case SortOrder.PACK:
+        games.sort((a, b) => (a["pack"] as UserJackboxPack)
+            .pack
+            .name
+            .compareTo((b["pack"] as UserJackboxPack).pack.name));
+        break;
+      case SortOrder.STARS:
+        games.sort((a, b) => (b["game"] as UserJackboxGame)
+            .stars
+            .compareTo((a["game"] as UserJackboxGame).stars));
+        break;
+      case SortOrder.NAME:
+        games.sort((a, b) => (a["game"] as UserJackboxGame)
+            .game
+            .name
+            .compareTo((b["game"] as UserJackboxGame).game.name));
+        break;
+    }
+    if (!sortAscending) {
+      games = games.reversed.toList();
+    }
+    return games;
   }
 
   int _getGamesByGrid() {
@@ -439,7 +523,7 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                                                     color: Colors.white
                                                         .withOpacity(opacity)))
                                           ]),
-                                          SizedBox(height:4),
+                                          SizedBox(height: 4),
                                           Opacity(
                                               opacity: opacity,
                                               child: StarsRateWidget(
