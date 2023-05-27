@@ -3,56 +3,43 @@
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 [![Discord](https://img.shields.io/discord/1108095925366308954?color=%235865F2&label=discord&logo=discord&style=flat-square)](https://discord.gg/jUQzjjaxQP)
 ![GitHub release](https://img.shields.io/github/v/release/AlexisL61/JackboxUtility?style=flat-square)
-![App downloads](https://img.shields.io/github/downloads/AlexisL61/JackboxUtility/latest/total?label=app%20downloads&style=flat-square)
-![Updater downloads](https://img.shields.io/github/downloads/AlexisL61/JackboxUtilityUpdater/total?label=updater%20downloads&style=flat-square)
-<p align="center">
-  <img src="https://user-images.githubusercontent.com/30233189/220177345-b408e0da-9369-42fc-a841-d7232ef7e36b.png" />
-</p>
-  
-## Introduction
+[![App downloads](https://img.shields.io/github/downloads/AlexisL61/JackboxUtility/latest/total?label=latest%20downloads&style=flat-square)](https://github.com/AlexisL61/JackboxUtility/releases/latest)
+[![Updater downloads](https://img.shields.io/github/downloads/AlexisL61/JackboxUtilityUpdater/total?label=updater%20downloads&style=flat-square)](https://github.com/AlexisL61/JackboxUtilityUpdater/releases)
 
-⚠ This repository only contains the code for the app (not the auto-updater). If you want to keep it updated, you should download the auto-updater : https://github.com/AlexisL61/JackboxUtilityUpdater/releases 
+<p align="center"><img src="https://raw.githubusercontent.com/MeDustyy/JackboxUtility/91974b98e0c1aaeae8ae7fe93495914885cf2a26/Banner.png"></p>
+With this app, you will be able to download translation patches for your Jackbox games. You also have the ability to launch your Jackbox games, where all your Jackbox games are listed.
 
-## Description 
+## Features
 
-**An app to download patches and launch Jackbox games**
-
-With this app, you will be able to download translation patches for your Jackbox Games. You will also be able to find every jackbox game in one place to launch them.
-
-Languages includes :
-- French
-- Deutsche
-- Spanish
-- Ukrainian
-
-## Functionalities
-
-- Download translation patches for your games
-- Find every jackbox game in the same place
-- Launch your jackbox games without seeing the pack video and the menu
+- Supports the following languages: <img src="https://raw.githubusercontent.com/lipis/flag-icons/0df85234c05404587baf0a7cb2c4e82c36ed4648/flags/1x1/fr.svg" width="12" height="12" /> French, <img src="https://raw.githubusercontent.com/lipis/flag-icons/0df85234c05404587baf0a7cb2c4e82c36ed4648/flags/1x1/de.svg" width="12" height="12" /> German, <img src="https://raw.githubusercontent.com/lipis/flag-icons/0df85234c05404587baf0a7cb2c4e82c36ed4648/flags/1x1/es.svg" width="12" height="12" /> Spanish, <img src="https://raw.githubusercontent.com/lipis/flag-icons/0df85234c05404587baf0a7cb2c4e82c36ed4648/flags/1x1/ua.svg" width="12" height="12" /> Ukrainian
 - Detect automatically your installed games
+- Download translation patches for your games
+- Find every Jackbox game in the same place
+- Launch your Jackbox games without seeing the pack video and the menu
 
-## Tutorial / Installation
+## Installation
 
-In French : https://github.com/AlexisL61/JackboxUtility/wiki/Tutoriel-d'installation-de-Jackbox-Utility
+**⚠ If you want your app to always be the latest version, you should download the auto-updater from [here](https://github.com/AlexisL61/JackboxUtilityUpdater/releases).**
 
-## Folder content 
+After downloading the auto-updater or any release of the application, all you need to do is unzip the downloaded .zip file and run the `JackboxUtility` (or `jackbox_patcher`).
 
-jackbox_patcher → Project source code
+### Tutorial
+
+In French: https://github.com/AlexisL61/JackboxUtility/wiki/Tutoriel-d'installation-de-Jackbox-Utility
 
 ## Contribution
 
-Clone the repo :
+Clone the repo:
 ```
 git clone https://github.com/AlexisL61/JackboxUtility.git
 ```
 
-Launch the app :
+Launch the app:
 ```
 flutter run
 ```
 
-Build the app :
+Build the app:
 ```
 flutter build windows
 OR
