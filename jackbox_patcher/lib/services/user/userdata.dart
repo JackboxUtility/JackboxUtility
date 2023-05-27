@@ -5,6 +5,7 @@ import 'package:jackbox_patcher/model/jackbox/jackboxpack.dart';
 import 'package:jackbox_patcher/model/misc/windowInformation.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgamepatch.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
+import 'package:jackbox_patcher/services/user/usersettings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../model/misc/launchers.dart';
@@ -15,6 +16,7 @@ import '../../model/usermodel/userjackboxpackpatch.dart';
 class UserData {
   static final UserData _instance = UserData._internal();
   late SharedPreferences preferences;
+  late UserSettings settings;
 
   factory UserData() {
     return _instance;
@@ -26,6 +28,10 @@ class UserData {
 
   Future<void> init() async {
     preferences = await SharedPreferences.getInstance();
+  }
+
+  Future<void> syncSettings()async{
+    settings = UserSettings(preferences: preferences);
   }
 
   Future<void> syncInfo() async {

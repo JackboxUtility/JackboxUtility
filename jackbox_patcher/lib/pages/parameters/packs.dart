@@ -86,7 +86,7 @@ class _ParametersWidgetState extends State<ParametersWidget> {
               ),
               Row(children: [
                 Text(AppLocalizations.of(context)!.owned_packs,
-                    style: typography.titleLarge),
+                    style: typography.title),
                 const Spacer(),
                 FilledButton(
                     child: Text(AppLocalizations.of(context)!

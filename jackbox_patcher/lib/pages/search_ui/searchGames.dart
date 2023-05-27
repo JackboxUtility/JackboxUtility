@@ -11,6 +11,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../components/closableRouteWithEsc.dart';
 import '../../components/starsRate.dart';
+import '../../services/discord/DiscordService.dart';
 import '../../services/launcher/launcher.dart';
 
 class SearchGameRoute extends StatefulWidget {
@@ -86,8 +87,13 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
   SortOrder sortOrder = SortOrder.PACK;
   bool sortAscending = true;
 
+  void _startDiscordrichPresence() {
+    DiscordService().launchGameMenuPresence();
+  }
+
   @override
   void initState() {
+    _startDiscordrichPresence();
     super.initState();
   }
 
@@ -329,14 +335,11 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
         break;
       case SortOrder.STARS:
         gamesToSort.sort((a, b) {
-          int firstGameStars =
-              (b["game"] as UserJackboxGame).stars;
-          int secondGameStars =
-              (a["game"] as UserJackboxGame).stars;
-              if (firstGameStars != secondGameStars){
-          return firstGameStars
-              .compareTo(secondGameStars);
-              } else {
+          int firstGameStars = (b["game"] as UserJackboxGame).stars;
+          int secondGameStars = (a["game"] as UserJackboxGame).stars;
+          if (firstGameStars != secondGameStars) {
+            return firstGameStars.compareTo(secondGameStars);
+          } else {
             return games.indexOf(a).compareTo(games.indexOf(b));
           }
         });
@@ -461,6 +464,7 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                               if (widget.parentReload != null) {
                                 widget.parentReload!();
                               }
+                              _startDiscordrichPresence();
                             },
                             child: MouseRegion(
                               onEnter: (a) => setState(() {
@@ -593,5 +597,9 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                             )));
                   })),
         ));
+  }
+
+  void _startDiscordrichPresence() {
+    DiscordService().launchGameMenuPresence();
   }
 }

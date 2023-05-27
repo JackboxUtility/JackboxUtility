@@ -41,7 +41,7 @@ class _AppInfoWidgetState extends State<AppInfoWidget> {
               borderRadius: BorderRadius.circular(8.0),
               child: Image.asset('assets/logo.png', height: 100)),
           Text(AppLocalizations.of(context)!.jackbox_utility,
-              style: FluentTheme.of(context).typography.titleLarge),
+              style: FluentTheme.of(context).typography.title),
           const SizedBox(height: 12),
           Text(AppLocalizations.of(context)!.jackbox_utility_description,
               style: FluentTheme.of(context).typography.body),
