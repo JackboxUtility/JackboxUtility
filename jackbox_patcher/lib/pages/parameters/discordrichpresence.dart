@@ -33,18 +33,28 @@ class _DiscordRichPresenceSettingsState
                 style: FluentTheme.of(context).typography.title),
             const SizedBox(height: 10),
             ListTile.selectable(
-              title: const Text("Discord Rich Presence"),
+              title: Row(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Discord Rich Presence", style: FluentTheme.of(context).typography.bodyLarge),
+                      Text(
+                  "Show what you're playing on Discord. This will only work if you have Discord open.", style: FluentTheme.of(context).typography.body),
+                    ],
+                  ),
+                  const Spacer(),
+                  ToggleSwitch(
+                    checked: UserData().settings.isDiscordRPCActivated,
+                    onChanged: (value) async{
+                        await UserData().settings.setDiscordRPC(
+                            !UserData().settings.isDiscordRPCActivated);
+                      setState((){
+                      }); 
+                    }),
+                ],
+              ),
               selected: UserData().settings.isDiscordRPCActivated,
-              trailing: ToggleSwitch(
-                  checked: UserData().settings.isDiscordRPCActivated,
-                  onChanged: (value) async{
-                      await UserData().settings.setDiscordRPC(
-                          !UserData().settings.isDiscordRPCActivated);
-                    setState((){
-                    });
-                  }),
-              subtitle: const Text(
-                  "Show what you're playing on Discord. This will only work if you have Discord open."),
               onPressed: () async {
                       await UserData().settings.setDiscordRPC(
                           !UserData().settings.isDiscordRPCActivated);

@@ -1,26 +1,19 @@
-import 'dart:io';
 
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:jackbox_patcher/components/dialogs/leaveApplicationDialog.dart';
-import 'package:jackbox_patcher/model/patchserver.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/device/device.dart';
 import 'package:jackbox_patcher/services/downloader/downloader_service.dart';
-import 'package:jackbox_patcher/services/downloader/precache_service.dart';
-import 'package:jackbox_patcher/services/error/error.dart';
 import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
 import 'package:jackbox_patcher/services/user/initialLoad.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 import 'package:jackbox_patcher/services/windowManager/windowsManagerService.dart';
 import 'package:lottie/lottie.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:window_manager/window_manager.dart';
 
-import '../components/dialogs/automaticGameFinderDialog.dart';
 import '../components/notificationsCaroussel.dart';
-import '../services/automaticGameFinder/AutomaticGameFinder.dart';
 import '../services/discord/DiscordService.dart';
 
 class CloseWindowIntent extends Intent {
@@ -235,6 +228,7 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
 
   void _load(bool automaticallyChooseBestServer) async {
     await InitialLoad.init(context,isFirstTimeOpening, automaticallyChooseBestServer);
+      isFirstTimeOpening = false;
     setState(() {
       _loaded = true;
     });

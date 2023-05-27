@@ -19,7 +19,6 @@ class InitialLoad{
     bool changedServer = false;
     bool automaticGameFindNotificationAvailable = false;
     if (isFirstTimeOpening) {
-      isFirstTimeOpening = false;
       await windowManager.setPreventClose(true);
       await UserData().init();
       await WindowManagerService.updateScreenSizeFromLastOpening();
