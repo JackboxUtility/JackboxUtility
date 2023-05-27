@@ -6,7 +6,7 @@ import 'package:jackbox_patcher/services/user/userdata.dart';
 import 'package:window_manager/window_manager.dart';
 
 class WindowManagerService {
-  static void updateScreenSizeFromLastOpening() {
+  static Future<void> updateScreenSizeFromLastOpening() async {
     try {
       JULogger().d("Updating screen size from last opening");
       WindowInformation lastWindowInformations =
@@ -23,13 +23,13 @@ class WindowManagerService {
       if (lastWindowInformations.height < 100) {
         lastWindowInformations.height = 720;
       }
-      windowManager.setBounds(Rect.fromLTWH(
+      await windowManager.setBounds(Rect.fromLTWH(
           lastWindowInformations.x.toDouble(),
           lastWindowInformations.y.toDouble(),
           lastWindowInformations.width.toDouble(),
           lastWindowInformations.height.toDouble()));
       if (lastWindowInformations.maximized) {
-        windowManager.maximize();
+        await windowManager.maximize();
       }
     } catch (e) {
       JULogger().e(e.toString());
@@ -46,6 +46,5 @@ class WindowManagerService {
         x: windowPosition.dx.toInt(),
         y: windowPosition.dy.toInt());
     UserData().setLastWindowInformations(windowInformation);
-    return Future.value();
   }
 }

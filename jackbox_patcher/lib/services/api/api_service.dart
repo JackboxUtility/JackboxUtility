@@ -18,7 +18,8 @@ import 'api_endpoints.dart';
 
 class APIService {
   static final APIService _instance = APIService._internal();
-  String masterServer ="https://raw.githubusercontent.com/AlexisL61/JackboxUtility/main/servers.json";
+  String masterServer =
+      "https://raw.githubusercontent.com/AlexisL61/JackboxUtility/main/servers.json";
   String? baseEndpoint;
   String? baseAssets;
 
@@ -86,19 +87,26 @@ class APIService {
   }
 
   Future<void> applyExternalConfiguration() async {
+    List<Future> futures = [];
     for (JackboxPack pack in cachedPacks) {
       for (JackboxPackPatch patch in pack.patches) {
         if (patch.configuration != null) {
           if (patch.configuration!.versionOrigin ==
               OnlineVersionOrigin.REPO_FILE) {
             final rawData =
-                await getRequest(Uri.parse(patch.configuration!.versionFile));
-            final Map<String, dynamic> data = jsonDecode(rawData);
-            patch.latestVersion = data[patch.configuration!.versionProperty].replaceAll("Build:", "").trim();
+                getRequest(Uri.parse(patch.configuration!.versionFile));
+            rawData.then((retrievedData) {
+              final Map<String, dynamic> data = jsonDecode(retrievedData);
+              patch.latestVersion = data[patch.configuration!.versionProperty]
+                  .replaceAll("Build:", "")
+                  .trim();
+            });
+            futures.add(rawData);
           }
         }
       }
     }
+    await Future.wait(futures);
   }
 
   Future<void> recoverNewsAndLinks() async {

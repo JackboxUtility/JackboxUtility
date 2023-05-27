@@ -1,3 +1,4 @@
+import 'package:dart_discord_rpc/dart_discord_rpc.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/pages/mainContainer.dart';
 import 'package:jackbox_patcher/pages/parameters/menu.dart';
@@ -15,6 +16,7 @@ import 'pages/patcher/menu.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
+  DiscordRPC.initialize();
   runApp(const MyApp());
 }
 
@@ -52,14 +54,16 @@ class MyApp extends StatelessWidget {
         // When navigating to the "/second" route, build the SecondScreen widget.
         '/settings': (context) =>
             showMainContainerIfNotLoaded(const ParametersRoute()),
-        '/settings/packs': 
-          (context) =>
-              showMainContainerIfNotLoaded(const ParametersPackRoute()),
-        '/game': (context) => showMainContainerIfNotLoaded(const GameInfoRoute()),
-        '/search': (context) => showMainContainerIfNotLoaded(const SearchGameRoute()),
+        '/settings/packs': (context) =>
+            showMainContainerIfNotLoaded(const ParametersPackRoute()),
+        '/game': (context) =>
+            showMainContainerIfNotLoaded(const GameInfoRoute()),
+        '/search': (context) =>
+            showMainContainerIfNotLoaded(const SearchGameRoute()),
         '/searchMenu': (context) =>
             showMainContainerIfNotLoaded(const SearchGameMenuWidget()),
-        '/patch': (context) => showMainContainerIfNotLoaded(const PatcherMenuWidget())
+        '/patch': (context) =>
+            showMainContainerIfNotLoaded(const PatcherMenuWidget())
       },
       themeMode: ThemeMode.dark,
       title: 'Jackbox Utility',

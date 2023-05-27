@@ -7,6 +7,7 @@ import 'package:jackbox_patcher/components/blurhashimage.dart';
 import 'package:jackbox_patcher/components/caroussel.dart';
 import 'package:jackbox_patcher/components/starsRate.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxgame.dart';
+import 'package:jackbox_patcher/services/discord/DiscordService.dart';
 import 'package:jackbox_patcher/services/error/error.dart';
 import 'package:jackbox_patcher/services/launcher/launcher.dart';
 import 'package:palette_generator/palette_generator.dart';
@@ -56,6 +57,13 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
   Color? backgroundColor;
   String launchingStatus = "WAITING";
   FlyoutController starsController = FlyoutController();
+
+  @override
+  void initState() {
+    DiscordService().launchGameInfoPresence(widget.game.game.name);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ClosableRouteWithEsc(child:NavigationView(
