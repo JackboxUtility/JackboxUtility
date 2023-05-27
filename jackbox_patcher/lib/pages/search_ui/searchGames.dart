@@ -261,20 +261,26 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
               .isNotEmpty) {
             Widget separator = widget.separators![i];
             print(i);
+            List<Map<String, Object>> gamesWithSeparator = games
+                .where(
+                  (element) => element["separator"] == i,
+                )
+                .toList();
             widgetsWithSeparators.add(separator);
             widgetsWithSeparators.add(const SizedBox(height: 20));
             widgetsWithSeparators.add(StaggeredGrid.count(
                 mainAxisSpacing: 20,
                 crossAxisSpacing: 20,
                 crossAxisCount: _getGamesByGrid(),
-                children: games
-                    .where(
-                      (element) => element["separator"] == i,
-                    )
+                children: gamesWithSeparator
                     .map((game) => SearchGameGameWidget(
                           pack: game["pack"] as UserJackboxPack,
                           game: game["game"] as UserJackboxGame,
                           showAllPacks: widget.showAllPacks,
+                          allAvailableGames:  List.generate(gamesWithSeparator.length, (index) => (
+                            g:gamesWithSeparator[index]["game"] as UserJackboxGame,
+                            p:gamesWithSeparator[index]["pack"] as UserJackboxPack
+                          )),
                           parentReload: () {
                             setState(() {
                               key = UniqueKey();
@@ -301,6 +307,10 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
                       pack: game["pack"] as UserJackboxPack,
                       game: game["game"] as UserJackboxGame,
                       showAllPacks: widget.showAllPacks,
+                      allAvailableGames:  List.generate(games.length, (index) => (
+                        g:games[index]["game"] as UserJackboxGame,
+                        p:games[index]["pack"] as UserJackboxPack
+                      )),
                       parentReload: () {
                         setState(() {
                           key = UniqueKey();
@@ -408,7 +418,12 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
             children: pack.games
                 .where((game) => widget.filter(pack, game))
                 .map((game) => SearchGameGameWidget(
-                    pack: pack, game: game, showAllPacks: widget.showAllPacks))
+                    pack: pack, game: game, showAllPacks: widget.showAllPacks, allAvailableGames: 
+                      List.generate(pack.pack.games.length, (index) => (
+                        g:pack.games[index],
+                        p:pack
+                      ))
+                    ,))
                 .toList()));
   }
 }
@@ -419,13 +434,15 @@ class SearchGameGameWidget extends StatefulWidget {
       required this.pack,
       required this.game,
       required this.showAllPacks,
-      this.parentReload})
+      this.parentReload, 
+      required this.allAvailableGames})
       : super(key: key);
 
   final UserJackboxPack pack;
   final UserJackboxGame game;
   final bool showAllPacks;
   final Function? parentReload;
+  final List<({UserJackboxGame g, UserJackboxPack p})> allAvailableGames;
   @override
   State<SearchGameGameWidget> createState() => _SearchGameGameWidgetState();
 }
@@ -459,7 +476,8 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                                   arguments: [
                                     widget.pack,
                                     widget.game,
-                                    widget.showAllPacks
+                                    widget.showAllPacks, 
+                                    widget.allAvailableGames
                                   ]);
                               if (widget.parentReload != null) {
                                 widget.parentReload!();

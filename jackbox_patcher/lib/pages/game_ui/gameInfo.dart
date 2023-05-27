@@ -34,7 +34,16 @@ class _GameInfoRouteState extends State<GameInfoRoute> {
     final UserJackboxPack pack = data[0] as UserJackboxPack;
     final UserJackboxGame game = data[1] as UserJackboxGame;
     final bool showAllPacks = data[2] as bool;
-    return GameInfoWidget(pack: pack, game: game, showAllPacks: showAllPacks);
+    List<({UserJackboxGame g, UserJackboxPack p})>? allAvailableGames;
+    if (data.length >= 4) {
+      allAvailableGames =
+          data[3] as List<({UserJackboxGame g, UserJackboxPack p})>;
+    }
+    return GameInfoWidget(
+        pack: pack,
+        game: game,
+        showAllPacks: showAllPacks,
+        allAvailableGames: allAvailableGames);
   }
 }
 
@@ -43,12 +52,14 @@ class GameInfoWidget extends StatefulWidget {
       {Key? key,
       required this.pack,
       required this.game,
-      required this.showAllPacks})
+      required this.showAllPacks,
+      this.allAvailableGames})
       : super(key: key);
 
   final UserJackboxPack pack;
   final UserJackboxGame game;
   final bool showAllPacks;
+  final List<({UserJackboxGame g, UserJackboxPack p})>? allAvailableGames;
   @override
   State<GameInfoWidget> createState() => _GameInfoWidgetState();
 }
@@ -66,9 +77,65 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return ClosableRouteWithEsc(child:NavigationView(
-        content: ListView(children: [_buildHeader(), _buildBottom()])));
+    return ClosableRouteWithEsc(
+        child: NavigationView(
+            content: Stack(children: [
+      ListView(children: [_buildHeader(), _buildBottom()]),
+      if (widget.allAvailableGames!=null) Positioned(
+          height: MediaQuery.of(context).size.height,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: GestureDetector(
+              onTap: () => _openPreviousGame(),
+              child: Icon(
+              FluentIcons.chevron_left,
+              size: 30,
+              color: Colors.white,
+            )),
+          )),
+      if (widget.allAvailableGames!=null) Positioned(
+        height:MediaQuery.of(context).size.height,
+              right: 0,
+              child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: GestureDetector(
+              onTap: () => _openNextGame(),
+              child: Icon(
+              FluentIcons.chevron_right,
+              size: 30,
+              color: Colors.white,
+            )),
+          ))
+    ])));
   }
+
+  void _openPreviousGame(){
+    if(widget.allAvailableGames != null){
+      int index = widget.allAvailableGames!.indexWhere((element) => element.g.game.id == widget.game.game.id);
+      if(index != -1){
+        if(index - 1 >= 0){
+          Navigator.pushReplacementNamed(context, "/game", arguments: [widget.allAvailableGames![index - 1].p, widget.allAvailableGames![index - 1].g, widget.showAllPacks, widget.allAvailableGames]);
+        }else{
+          Navigator.pushReplacementNamed(context, "/game", arguments: [widget.allAvailableGames![widget.allAvailableGames!.length - 1].p, widget.allAvailableGames![widget.allAvailableGames!.length - 1].g, widget.showAllPacks, widget.allAvailableGames]);
+        }
+      }
+    }
+  }
+
+  void _openNextGame(){
+    if(widget.allAvailableGames != null){
+      int index = widget.allAvailableGames!.indexWhere((element) => element.g.game.id == widget.game.game.id);
+      if(index != -1){
+        if(index + 1 < widget.allAvailableGames!.length){
+          Navigator.pushReplacementNamed(context, "/game", arguments: [widget.allAvailableGames![index + 1].p, widget.allAvailableGames![index + 1].g, widget.showAllPacks, widget.allAvailableGames]);
+        }else{
+          Navigator.pushReplacementNamed(context, "/game", arguments: [widget.allAvailableGames![0].p, widget.allAvailableGames![0].g, widget.showAllPacks, widget.allAvailableGames]);
+        }
+      }
+    }
+  }
+
+
 
   Widget _buildHeader() {
     Typography typography = FluentTheme.of(context).typography;
