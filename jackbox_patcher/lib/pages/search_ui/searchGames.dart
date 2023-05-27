@@ -328,9 +328,18 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
       case SortOrder.PACK:
         break;
       case SortOrder.STARS:
-        gamesToSort.sort((a, b) => (b["game"] as UserJackboxGame)
-            .stars
-            .compareTo((a["game"] as UserJackboxGame).stars));
+        gamesToSort.sort((a, b) {
+          int firstGameStars =
+              (b["game"] as UserJackboxGame).stars;
+          int secondGameStars =
+              (a["game"] as UserJackboxGame).stars;
+              if (firstGameStars != secondGameStars){
+          return firstGameStars
+              .compareTo(secondGameStars);
+              } else {
+            return games.indexOf(a).compareTo(games.indexOf(b));
+          }
+        });
         break;
       case SortOrder.NAME:
         gamesToSort.sort((a, b) => (a["game"] as UserJackboxGame)
@@ -339,12 +348,17 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
             .compareTo((b["game"] as UserJackboxGame).game.filteredName));
         break;
       case SortOrder.PLAYERS_NUMBER:
-        gamesToSort.sort((a, b) => (a["game"] as UserJackboxGame)
-            .game
-            .info
-            .players
-            .max
-            .compareTo((b["game"] as UserJackboxGame).game.info.players.max));
+        gamesToSort.sort(((a, b) {
+          int firstGameMax =
+              (b["game"] as UserJackboxGame).game.info.players.max;
+          int secondGameMax =
+              (a["game"] as UserJackboxGame).game.info.players.max;
+          if (firstGameMax != secondGameMax) {
+            return firstGameMax.compareTo((secondGameMax));
+          } else {
+            return games.indexOf(a).compareTo(games.indexOf(b));
+          }
+        }));
         break;
     }
     if (!sortAscending) {
