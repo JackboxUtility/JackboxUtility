@@ -341,7 +341,9 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
       case SortOrder.PLAYERS_NUMBER:
         gamesToSort.sort((a, b) => (a["game"] as UserJackboxGame)
             .game
-            .info.players.max
+            .info
+            .players
+            .max
             .compareTo((b["game"] as UserJackboxGame).game.info.players.max));
         break;
     }
@@ -476,65 +478,103 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                                       Colors.black.withOpacity(opacity)
                                     ]))),
                                 Padding(
-                                    padding: const EdgeInsets.only(
-                                        bottom: 8, left: 8),
-                                    child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(widget.game.game.name,
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  fontSize: 15,
-                                                  color: Colors.white
-                                                      .withOpacity(opacity))),
-                                          Text(gameInfo.tagline,
-                                              style: TextStyle(
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  color: Colors.white
-                                                      .withOpacity(opacity))),
-                                          const SizedBox(height: 10),
-                                          Row(children: [
-                                            Icon(
-                                              FluentIcons.people,
-                                              color: Colors.white
-                                                  .withOpacity(opacity),
-                                            ),
-                                            const SizedBox(width: 10),
-                                            Text(
-                                                "${gameInfo.players.min} - ${gameInfo.players.max} ${AppLocalizations.of(context)!.players}",
-                                                style: TextStyle(
-                                                    color: Colors.white
-                                                        .withOpacity(opacity)))
-                                          ]),
-                                          Row(children: [
-                                            Icon(
-                                              FluentIcons.clock,
-                                              color: Colors.white
-                                                  .withOpacity(opacity),
-                                            ),
-                                            const SizedBox(width: 10),
-                                            Text(gameInfo.length,
-                                                style: TextStyle(
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    color: Colors.white
-                                                        .withOpacity(opacity)))
-                                          ]),
-                                          SizedBox(height: 4),
-                                          Opacity(
-                                              opacity: opacity,
-                                              child: StarsRateWidget(
-                                                color: Colors.white,
-                                                defaultStars: widget.game.stars,
-                                                readOnly: true,
-                                              ))
-                                        ]))
+                                  padding:
+                                      const EdgeInsets.only(bottom: 8, left: 8),
+                                  child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(widget.game.game.name,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                overflow: TextOverflow.ellipsis,
+                                                fontSize: 15,
+                                                color: Colors.white
+                                                    .withOpacity(opacity))),
+                                        Text(gameInfo.tagline,
+                                            style: TextStyle(
+                                                overflow: TextOverflow.ellipsis,
+                                                color: Colors.white
+                                                    .withOpacity(opacity))),
+                                        const SizedBox(height: 10),
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          children: [
+                                            Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Row(children: [
+                                                    Icon(
+                                                      FluentIcons.people,
+                                                      color: Colors.white
+                                                          .withOpacity(opacity),
+                                                    ),
+                                                    const SizedBox(width: 10),
+                                                    Text(
+                                                        "${gameInfo.players.min} - ${gameInfo.players.max} ${AppLocalizations.of(context)!.players}",
+                                                        style: TextStyle(
+                                                            color: Colors.white
+                                                                .withOpacity(
+                                                                    opacity)))
+                                                  ]),
+                                                  Row(children: [
+                                                    Icon(
+                                                      FluentIcons.clock,
+                                                      color: Colors.white
+                                                          .withOpacity(opacity),
+                                                    ),
+                                                    const SizedBox(width: 10),
+                                                    Text(gameInfo.length,
+                                                        style: TextStyle(
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            color: Colors.white
+                                                                .withOpacity(
+                                                                    opacity)))
+                                                  ]),
+                                                  SizedBox(height: 4),
+                                                  Opacity(
+                                                      opacity: opacity,
+                                                      child: StarsRateWidget(
+                                                        color: Colors.white,
+                                                        defaultStars:
+                                                            widget.game.stars,
+                                                        readOnly: true,
+                                                      )),
+                                                ]),
+                                            Spacer(),
+                                            if (widget.pack.owned)
+                                              Opacity(
+                                                  opacity: opacity,
+                                                  child: Padding(
+                                                      padding: EdgeInsets.only(
+                                                          right: 8),
+                                                      child: Button(
+                                                        style: ButtonStyle(
+                                                          backgroundColor:
+                                                              ButtonState.all<
+                                                                      Color>(
+                                                                  Colors.green),
+                                                        ),
+                                                        child: Icon(
+                                                            FontAwesomeIcons
+                                                                .play),
+                                                        onPressed: () {
+                                                          Launcher.launchGame(
+                                                              widget.pack,
+                                                              widget.game);
+                                                        },
+                                                      ))),
+                                          ],
+                                        )
+                                      ]),
+                                ),
                               ]),
                             )));
                   })),

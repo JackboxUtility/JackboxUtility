@@ -55,7 +55,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
           items: _buildPaneItems(),
           footerItems: [
             PaneItem(
-              icon: const Icon(FluentIcons.package),
+              icon: const Icon(FontAwesomeIcons.boxArchive),
               title: Text(showAllPacks == false
                   ? AppLocalizations.of(context)!.show_all_packs
                   : AppLocalizations.of(context)!.show_owned_packs_only),
@@ -144,7 +144,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
       )));
       items.add(PaneItemSeparator());
       items.add(PaneItem(
-          icon: const Icon(FluentIcons.game),
+          icon: const Icon(FontAwesomeIcons.gamepad),
           title: Text(AppLocalizations.of(context)!.all_games),
           body: SearchGameWidget(
             filter: (UserJackboxPack pack, UserJackboxGame game) =>
@@ -160,7 +160,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
             icon: null,
           )));
       items.add(PaneItemExpander(
-        icon: const Icon(FluentIcons.gift_box_solid),
+        icon: const Icon(FontAwesomeIcons.boxOpen),
         body: Container(),
         title: Text(AppLocalizations.of(context)!.search_by_pack),
         items: packItems,
@@ -175,7 +175,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
       List<NavigationPaneItem> starsItem = _buildStarsPaneItem();
 
       items.add(PaneItemExpander(
-        icon: const Icon(FluentIcons.translate),
+        icon: const Icon(FontAwesomeIcons.language),
         body: Container(),
         title: Text(AppLocalizations.of(context)!.search_by_translation),
         items: translationItem,
@@ -187,7 +187,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
       ));
 
       items.add(PaneItemExpander(
-        icon: const Icon(FluentIcons.tag),
+        icon: const Icon(FontAwesomeIcons.tag),
         body: Container(),
         title: Text(AppLocalizations.of(context)!.search_by_tags),
         items: tagItem,
