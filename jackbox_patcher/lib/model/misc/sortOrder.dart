@@ -1,7 +1,8 @@
 enum SortOrder {
   PACK,
   NAME,
-  STARS;
+  STARS, 
+  PLAYERS_NUMBER;
 }
 
 extension SortOrderExtension on SortOrder {
@@ -13,6 +14,8 @@ extension SortOrderExtension on SortOrder {
         return 'Name';
       case SortOrder.STARS:
         return 'Stars';
+      case SortOrder.PLAYERS_NUMBER:
+        return 'Players number';
       default:
         return 'Unknown';
     }

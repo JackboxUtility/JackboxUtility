@@ -292,15 +292,14 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
               crossAxisCount: _getGamesByGrid(),
               children: games
                   .map((game) => SearchGameGameWidget(
-                        pack: game["pack"] as UserJackboxPack,
-                        game: game["game"] as UserJackboxGame,
-                        showAllPacks: widget.showAllPacks,
-                        parentReload: () {
-                            setState(() {
-                              key = UniqueKey();
-                            });
-                          }
-                      ))
+                      pack: game["pack"] as UserJackboxPack,
+                      game: game["game"] as UserJackboxGame,
+                      showAllPacks: widget.showAllPacks,
+                      parentReload: () {
+                        setState(() {
+                          key = UniqueKey();
+                        });
+                      }))
                   .toList()));
     } else {
       return Column(children: [
@@ -323,29 +322,33 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
   }
 
   List<Map<String, Object>> sortGames(List<Map<String, Object>> games) {
+    List<Map<String, Object>> gamesToSort = [];
+    gamesToSort.addAll(games);
     switch (sortOrder) {
       case SortOrder.PACK:
-        games.sort((a, b) => (a["pack"] as UserJackboxPack)
-            .pack
-            .name
-            .compareTo((b["pack"] as UserJackboxPack).pack.name));
         break;
       case SortOrder.STARS:
-        games.sort((a, b) => (b["game"] as UserJackboxGame)
+        gamesToSort.sort((a, b) => (b["game"] as UserJackboxGame)
             .stars
             .compareTo((a["game"] as UserJackboxGame).stars));
         break;
       case SortOrder.NAME:
-        games.sort((a, b) => (a["game"] as UserJackboxGame)
+        gamesToSort.sort((a, b) => (a["game"] as UserJackboxGame)
             .game
-            .name
-            .compareTo((b["game"] as UserJackboxGame).game.name));
+            .filteredName
+            .compareTo((b["game"] as UserJackboxGame).game.filteredName));
+        break;
+      case SortOrder.PLAYERS_NUMBER:
+        gamesToSort.sort((a, b) => (a["game"] as UserJackboxGame)
+            .game
+            .info.players.max
+            .compareTo((b["game"] as UserJackboxGame).game.info.players.max));
         break;
     }
     if (!sortAscending) {
-      games = games.reversed.toList();
+      gamesToSort = gamesToSort.reversed.toList();
     }
-    return games;
+    return gamesToSort;
   }
 
   int _getGamesByGrid() {
