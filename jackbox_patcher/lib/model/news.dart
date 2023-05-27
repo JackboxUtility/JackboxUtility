@@ -1,15 +1,17 @@
 class News {
   final String id;
   final String title;
-  final String content;
-  final String smallDescription;
+  final String? content;
+  final bool? shadow;
+  final String? link;
   final String image;
 
   News({
     required this.id,
     required this.title,
     required this.content,
-    required this.smallDescription,
+    required this.shadow,
+    required this.link,
     required this.image,
   });
 
@@ -18,7 +20,8 @@ class News {
       id: json['id'],
       title: json['title'],
       content: json['content'],
-      smallDescription: json['smallDescription'],
+      shadow: json['shadow'] != null ? json['shadow'] : true,
+      link: json['link'],
       image: json['image'],
     );
   }

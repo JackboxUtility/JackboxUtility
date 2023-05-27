@@ -3,7 +3,7 @@
     "$id": "welcome/news.json",
     "title": "News",
     "type": "object",
-    "description": "A news item.",
+    "description": "A news item. There are two types of news : Links news (when the user clicks on the news, he is sent to a website referenced by the link property) and Content news (when the user clicks on the news, he will see a dialog with the content property in it).",
     "properties": {
         "id": {
             "type": "string",
@@ -20,11 +20,27 @@
                 "Jackbox Utility"
             ]
         },
+        "link":{
+            "type": "string",
+            "format": "uri",
+            "description": "The url the user will be sent to if he clicks on the news item.",
+            "examples": [
+                "https://jackboxutility.com"
+            ]
+        },
         "content": {
             "type": "string",
             "description": "The content of the news item.",
             "examples": [
                 "# Voici le nouveau Jackbox Utility\n\nDans cette nouvelle version, vous allez pouvoir lancer tous vos jeux préférés en un seul et même endroit !\n\nEnvie d'être encore plus rapide ? Vos jeux se lancent en mode **Fast Launch** ce qui permet de passer l'intro du pack et de choisir automatiquement le jeu voulu. De quoi aller encore plus vite dans l'action !"
+            ]
+        },
+        
+        "shadow": {
+            "type": "boolean",
+            "description": "If the title should have a black shadow behind it.",
+            "examples": [
+                true, false
             ]
         },
         "image": {
@@ -39,7 +55,6 @@
     "required": [
         "id",
         "title",
-        "content",
         "image"
     ]
 }
