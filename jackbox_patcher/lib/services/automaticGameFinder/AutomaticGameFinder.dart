@@ -23,14 +23,17 @@ class AutomaticGameFinderService {
 
   static Future<int> _findSteamGames(List<UserJackboxPack> packs) async {
     int numberGamesFound = 0;
+    String? steamLocation;
     if (Platform.isWindows) {
-      final steamLocation = _getSteamLocation();
-      if (steamLocation != null) {
-        Map<String, List<String>> steamFolderWithAppId =
-            _getSteamFoldersWithAppId(steamLocation);
-        numberGamesFound =
-            await _linkSteamFolderWithPack(steamFolderWithAppId, packs);
-      }
+      steamLocation = _getSteamLocation();
+    } else {
+      steamLocation = "~/.steam/steam";
+    }
+    if (steamLocation != null) {
+      Map<String, List<String>> steamFolderWithAppId =
+          _getSteamFoldersWithAppId(steamLocation);
+      numberGamesFound =
+          await _linkSteamFolderWithPack(steamFolderWithAppId, packs);
     }
     return numberGamesFound;
   }
