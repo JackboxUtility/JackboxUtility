@@ -30,7 +30,7 @@ class UserData {
     preferences = await SharedPreferences.getInstance();
   }
 
-  Future<void> syncSettings()async{
+  Future<void> syncSettings() async {
     settings = UserSettings(preferences: preferences);
   }
 
@@ -79,6 +79,7 @@ class UserData {
         UserJackboxGame currentGame = UserJackboxGame(
             game: game,
             stars: preferences.getInt("${game.id}_stars") ?? 0,
+            hidden : preferences.getBool("${game.id}_hidden")??false,
             loader: gameLoader);
         userPack.games.add(currentGame);
         for (var patch in game.patches) {
@@ -149,6 +150,7 @@ class UserData {
       await saveLoader(game.loader!, game.game.id);
     }
     await preferences.setInt("${game.game.id}_stars", game.stars);
+    await preferences.setBool("${game.game.id}_hidden", game.hidden);
   }
 
   /// Save a patch (mostly used when a patch is downloaded)

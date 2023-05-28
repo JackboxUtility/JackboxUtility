@@ -24,6 +24,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
   int _selectedView = 0;
   late TextEditingController _searchController;
   bool showAllPacks = false;
+  bool showHidden = false;
 
   @override
   void initState() {
@@ -56,6 +57,19 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
           selected: _selectedView,
           items: _buildPaneItems(),
           footerItems: [
+            PaneItem(
+              icon: const Icon(FontAwesomeIcons.eye),
+              title: Text(showHidden == false
+                  ? "Show hidden games"
+                  : "Hide hidden games"),
+              body: Container(),
+              onTap: () {
+                setState(() {
+                  showHidden = !showHidden;
+                  _selectedView = 0;
+                });
+              },
+            ),
             PaneItem(
               icon: const Icon(FontAwesomeIcons.boxArchive),
               title: Text(showAllPacks == false
@@ -95,7 +109,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                 pack.pack.id == userPack.pack.id &&
                 game.game.name
                     .toLowerCase()
-                    .contains(_searchController.text.toLowerCase()),
+                    .contains(_searchController.text.toLowerCase()) && (showHidden || !game.hidden),
             comeFromGame: false,
             showAllPacks: showAllPacks,
             background: userPack.pack.background,
@@ -119,7 +133,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                 game.game.name
                     .toLowerCase()
                     .contains(_searchController.text.toLowerCase()) &&
-                (showAllPacks || pack.owned),
+                (showAllPacks || pack.owned) && (showHidden || !game.hidden),
             comeFromGame: false,
             background: APIService().getDefaultBackground(),
             name: type.name,
@@ -153,7 +167,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                 game.game.name
                     .toLowerCase()
                     .contains(_searchController.text.toLowerCase()) &&
-                (showAllPacks || pack.owned),
+                (showAllPacks || pack.owned) && (showHidden || !game.hidden),
             comeFromGame: false,
             background: APIService().getDefaultBackground(),
             name: AppLocalizations.of(context)!.all_games,
@@ -245,7 +259,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                 game.game.name
                     .toLowerCase()
                     .contains(_searchController.text.toLowerCase()) &&
-                (showAllPacks || pack.owned),
+                (showAllPacks || pack.owned) && (showHidden || !game.hidden),
             showAllPacks: showAllPacks,
             comeFromGame: false,
             background: APIService().getDefaultBackground(),
@@ -270,7 +284,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                 game.game.name
                     .toLowerCase()
                     .contains(_searchController.text.toLowerCase()) &&
-                (showAllPacks || pack.owned),
+                (showAllPacks || pack.owned) && (showHidden || !game.hidden),
             comeFromGame: false,
             background: APIService().getDefaultBackground(),
             name: tag.name,
@@ -294,7 +308,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
               game.game.name
                   .toLowerCase()
                   .contains(_searchController.text.toLowerCase()) &&
-              (showAllPacks || pack.owned),
+              (showAllPacks || pack.owned) && (showHidden || !game.hidden),
           comeFromGame: false,
           background: APIService().getDefaultBackground(),
           name: "Ranked by stars",

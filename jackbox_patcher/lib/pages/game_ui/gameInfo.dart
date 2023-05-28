@@ -126,17 +126,13 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
         if (index - 1 >= 0) {
           currentGame = widget.allAvailableGames![index - 1].g;
           currentPack = widget.allAvailableGames![index - 1].p;
-          setState(() {
-            
-          });
+          setState(() {});
         } else {
-          currentGame = widget.allAvailableGames![
-          widget.allAvailableGames!.length - 1].g;
-          currentPack = widget.allAvailableGames![
-          widget.allAvailableGames!.length- 1].p;
-          setState(() {
-            
-          });
+          currentGame =
+              widget.allAvailableGames![widget.allAvailableGames!.length - 1].g;
+          currentPack =
+              widget.allAvailableGames![widget.allAvailableGames!.length - 1].p;
+          setState(() {});
         }
       }
     }
@@ -147,18 +143,14 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
       int index = widget.allAvailableGames!
           .indexWhere((element) => element.g.game.id == currentGame.game.id);
       if (index != -1) {
-        if (index + 1 < widget.allAvailableGames!.length){
+        if (index + 1 < widget.allAvailableGames!.length) {
           currentGame = widget.allAvailableGames![index + 1].g;
           currentPack = widget.allAvailableGames![index + 1].p;
-          setState(() {
-            
-          });
+          setState(() {});
         } else {
           currentGame = widget.allAvailableGames![0].g;
           currentPack = widget.allAvailableGames![0].p;
-          setState(() {
-            
-          });
+          setState(() {});
         }
       }
     }
@@ -355,7 +347,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                           //           )
                           //         ]))),
                           StarsRateWidget(
-                            key:UniqueKey(),
+                              key: UniqueKey(),
                               defaultStars: currentGame.stars,
                               onStarChanged: (int stars) {
                                 setState(() {
@@ -414,8 +406,13 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                   : _buildLauncherButton())),
       const SizedBox(width: 10),
       IconButton(
-        icon: Icon(FontAwesomeIcons.eye),
-        onPressed: () {},
+        icon: Icon(widget.game.hidden? FontAwesomeIcons.eyeSlash:  FontAwesomeIcons.eye),
+        onPressed: () {
+          widget.game.hidden = !widget.game.hidden;
+          setState(() {
+            
+          });
+        },
         style: ButtonStyle(backgroundColor: ButtonState.all(Colors.blue)),
       )
     ]);
