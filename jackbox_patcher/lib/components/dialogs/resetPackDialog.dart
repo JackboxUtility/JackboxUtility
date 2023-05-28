@@ -1,6 +1,7 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class ResetPackDialog extends StatefulWidget {
@@ -35,8 +36,8 @@ class _ResetPackDialogState extends State<ResetPackDialog> {
           ),
           HyperlinkButton(
             onPressed: () async {
-              launchUrlString(
-                  "steam://validate/${widget.appId}");
+              launchUrl(Uri.parse(
+                  "steam://validate/${widget.appId}"));
               Navigator.pop(context, true);
             },
             child: Text(AppLocalizations.of(context)!.confirm),

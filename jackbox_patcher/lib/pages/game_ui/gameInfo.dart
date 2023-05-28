@@ -68,10 +68,14 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
   Color? backgroundColor;
   String launchingStatus = "WAITING";
   FlyoutController starsController = FlyoutController();
+  late UserJackboxPack currentPack;
+  late UserJackboxGame currentGame;
 
   @override
   void initState() {
-    DiscordService().launchGameInfoPresence(widget.game.game.name);
+    currentGame = widget.game;
+    currentPack = widget.pack;
+    DiscordService().launchGameInfoPresence(currentGame.game.name);
     super.initState();
   }
 
@@ -79,63 +83,86 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
   Widget build(BuildContext context) {
     return ClosableRouteWithEsc(
         child: NavigationView(
+            transitionBuilder: (Widget w, Animation<double> a) {
+              return EntrancePageTransition(animation: a, child: w);
+            },
             content: Stack(children: [
-      ListView(children: [_buildHeader(), _buildBottom()]),
-      if (widget.allAvailableGames!=null) Positioned(
-          height: MediaQuery.of(context).size.height,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: GestureDetector(
-              onTap: () => _openPreviousGame(),
-              child: Icon(
-              FluentIcons.chevron_left,
-              size: 30,
-              color: Colors.white,
-            )),
-          )),
-      if (widget.allAvailableGames!=null) Positioned(
-        height:MediaQuery.of(context).size.height,
-              right: 0,
-              child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: GestureDetector(
-              onTap: () => _openNextGame(),
-              child: Icon(
-              FluentIcons.chevron_right,
-              size: 30,
-              color: Colors.white,
-            )),
-          ))
-    ])));
+              ListView(children: [_buildHeader(), _buildBottom()]),
+              if (widget.allAvailableGames != null)
+                Positioned(
+                    height: MediaQuery.of(context).size.height,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: GestureDetector(
+                          onTap: () => _openPreviousGame(),
+                          child: Icon(
+                            FluentIcons.chevron_left,
+                            size: 30,
+                            color: Colors.white,
+                          )),
+                    )),
+              if (widget.allAvailableGames != null)
+                Positioned(
+                    height: MediaQuery.of(context).size.height,
+                    right: 0,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: GestureDetector(
+                          onTap: () => _openNextGame(),
+                          child: Icon(
+                            FluentIcons.chevron_right,
+                            size: 30,
+                            color: Colors.white,
+                          )),
+                    ))
+            ])));
   }
 
-  void _openPreviousGame(){
-    if(widget.allAvailableGames != null){
-      int index = widget.allAvailableGames!.indexWhere((element) => element.g.game.id == widget.game.game.id);
-      if(index != -1){
-        if(index - 1 >= 0){
-          Navigator.pushReplacementNamed(context, "/game", arguments: [widget.allAvailableGames![index - 1].p, widget.allAvailableGames![index - 1].g, widget.showAllPacks, widget.allAvailableGames]);
-        }else{
-          Navigator.pushReplacementNamed(context, "/game", arguments: [widget.allAvailableGames![widget.allAvailableGames!.length - 1].p, widget.allAvailableGames![widget.allAvailableGames!.length - 1].g, widget.showAllPacks, widget.allAvailableGames]);
+  void _openPreviousGame() {
+    if (widget.allAvailableGames != null) {
+      int index = widget.allAvailableGames!
+          .indexWhere((element) => element.g.game.id == currentGame.game.id);
+      if (index != -1) {
+        if (index - 1 >= 0) {
+          currentGame = widget.allAvailableGames![index - 1].g;
+          currentPack = widget.allAvailableGames![index - 1].p;
+          setState(() {
+            
+          });
+        } else {
+          currentGame = widget.allAvailableGames![
+          widget.allAvailableGames!.length - 1].g;
+          currentPack = widget.allAvailableGames![
+          widget.allAvailableGames!.length- 1].p;
+          setState(() {
+            
+          });
         }
       }
     }
   }
 
-  void _openNextGame(){
-    if(widget.allAvailableGames != null){
-      int index = widget.allAvailableGames!.indexWhere((element) => element.g.game.id == widget.game.game.id);
-      if(index != -1){
-        if(index + 1 < widget.allAvailableGames!.length){
-          Navigator.pushReplacementNamed(context, "/game", arguments: [widget.allAvailableGames![index + 1].p, widget.allAvailableGames![index + 1].g, widget.showAllPacks, widget.allAvailableGames]);
-        }else{
-          Navigator.pushReplacementNamed(context, "/game", arguments: [widget.allAvailableGames![0].p, widget.allAvailableGames![0].g, widget.showAllPacks, widget.allAvailableGames]);
+  void _openNextGame() {
+    if (widget.allAvailableGames != null) {
+      int index = widget.allAvailableGames!
+          .indexWhere((element) => element.g.game.id == currentGame.game.id);
+      if (index != -1) {
+        if (index + 1 < widget.allAvailableGames!.length){
+          currentGame = widget.allAvailableGames![index + 1].g;
+          currentPack = widget.allAvailableGames![index + 1].p;
+          setState(() {
+            
+          });
+        } else {
+          currentGame = widget.allAvailableGames![0].g;
+          currentPack = widget.allAvailableGames![0].p;
+          setState(() {
+            
+          });
         }
       }
     }
   }
-
-
 
   Widget _buildHeader() {
     Typography typography = FluentTheme.of(context).typography;
@@ -147,7 +174,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
               child: Row(children: [
                 Expanded(
                     child: BlurHashImage(
-                  url: widget.pack.pack.background,
+                  url: currentPack.pack.background,
                   fit: BoxFit.fitWidth,
                 ))
               ])),
@@ -183,7 +210,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                       const SizedBox(width: 10),
                       Expanded(
                           child: Text(
-                        widget.game.game.name,
+                        currentGame.game.name,
                         style: typography.titleLarge,
                         overflow: TextOverflow.ellipsis,
                       ))
@@ -196,7 +223,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
 
   void _loadBackgroundColor() {
     PaletteGenerator.fromImageProvider(CachedNetworkImageProvider(
-            APIService().assetLink(widget.pack.pack.background)))
+            APIService().assetLink(currentPack.pack.background)))
         .then((value) {
       setState(() {
         backgroundColor = value.dominantColor?.color;
@@ -223,12 +250,12 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
             Stack(children: [
               SizedBox(
                   child: AssetCarousselWidget(
-                      images: widget.game.game.info.images))
+                      images: currentGame.game.info.images))
             ]),
             SizedBox(
                 height: 500,
                 child: Markdown(
-                  data: widget.game.game.info.description,
+                  data: currentGame.game.info.description,
                   onTapLink: (text, href, title) {
                     launchUrl(Uri.parse(href!));
                   },
@@ -264,17 +291,17 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                   children: [
                     CachedNetworkImage(
                       colorBlendMode:
-                          !widget.pack.owned ? BlendMode.saturation : null,
-                      color: !widget.pack.owned ? Colors.black : null,
+                          !currentPack.owned ? BlendMode.saturation : null,
+                      color: !currentPack.owned ? Colors.black : null,
                       imageUrl:
-                          APIService().assetLink(widget.game.game.background),
+                          APIService().assetLink(currentGame.game.background),
                       fit: BoxFit.fitWidth,
                     ),
                     Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 10),
                         child: Column(children: [
-                          Text(widget.game.game.info.smallDescription),
+                          Text(currentGame.game.info.smallDescription),
                           const SizedBox(height: 10),
                           !kIsWeb
                               ? _buildPlayButton()
@@ -304,17 +331,17 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                           //     child: HyperlinkButton(
                           //         onPressed: () => starsController.showFlyout(
                           //             builder: (context) => FlyoutContent(child: StarsRateWidget(
-                          //                 defaultStars: widget.game.stars,
+                          //                 defaultStars: currentGame.stars,
                           //                 onStarChanged: (int stars) {
                           //                   setState(() {
-                          //                     widget.game.stars = stars;
+                          //                     currentGame.stars = stars;
                           //                   });
                           //                   Navigator.pop(context);
                           //                 }))),
                           //         child: Column(children: [
                           //           Row(children: [
                           //             Text(
-                          //               widget.game.stars.toString(),
+                          //               currentGame.stars.toString(),
                           //               style: TextStyle(
                           //                   color: Colors.yellow, fontSize: 18),
                           //             ),
@@ -328,10 +355,11 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                           //           )
                           //         ]))),
                           StarsRateWidget(
-                              defaultStars: widget.game.stars,
+                            key:UniqueKey(),
+                              defaultStars: currentGame.stars,
                               onStarChanged: (int stars) {
                                 setState(() {
-                                  widget.game.stars = stars;
+                                  currentGame.stars = stars;
                                 });
                               }),
                         ])))));
@@ -352,7 +380,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                     child: StarsRateWidget(
                       defaultStars: 0,
                       onStarChanged: (int stars) {
-                        widget.game.stars = stars;
+                        currentGame.stars = stars;
                       },
                     )))));
   }
@@ -360,7 +388,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
   Widget _buildPlayButton() {
     return Row(children: [
       Expanded(
-          child: !widget.pack.owned
+          child: !currentPack.owned
               ? GestureDetector(
                   onTap: () async {
                     await Navigator.pushNamed(context, "/settings/packs");
@@ -371,7 +399,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                       style: TextStyle(
                           color: Colors.red,
                           decoration: TextDecoration.underline)))
-              : ((widget.pack.path == null || widget.pack.path == "")
+              : ((currentPack.path == null || currentPack.path == "")
                   ? GestureDetector(
                       onTap: () async {
                         await Navigator.pushNamed(context, "/settings/packs");
@@ -394,7 +422,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
   }
 
   Widget _buildLauncherButton() {
-    if (widget.game.loader != null) {
+    if (currentGame.loader != null) {
       return SplitButtonBar(
           style: SplitButtonThemeData.standard(FluentTheme.of(context)).merge(
               SplitButtonThemeData(
@@ -463,7 +491,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
   void launchGameFunction() {
     launchingStatus = "LAUNCHING";
     setState(() {});
-    Launcher.launchGame(widget.pack, widget.game).then((value) {
+    Launcher.launchGame(currentPack, currentGame).then((value) {
       launchingStatus = "LAUNCHED";
       setState(() {});
     }).catchError((error) {
@@ -474,7 +502,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
   void launchPackFunction() {
     launchingStatus = "LAUNCHING";
     setState(() {});
-    Launcher.launchPack(widget.pack).then((value) {
+    Launcher.launchPack(currentPack).then((value) {
       launchingStatus = "LAUNCHED";
       setState(() {});
     }).catchError((error) {
@@ -554,17 +582,17 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
   }
 
   List<Widget> _generateClassicGameTags() {
-    JackboxGameInfo gameInfo = widget.game.game.info;
+    JackboxGameInfo gameInfo = currentGame.game.info;
     List<Widget> gameTagWidgets = [];
     // Add tags available for all games
     gameTagWidgets.add(_buildGameTag(
-        FluentIcons.allIcons["package"]!, widget.pack.pack.name,
+        FluentIcons.allIcons["package"]!, currentPack.pack.name,
         isLink: true,
-        filter: (pack, game) => pack.pack.id == widget.pack.pack.id,
-        background: APIService().assetLink(widget.pack.pack.background),
-        description: widget.pack.pack.description));
+        filter: (pack, game) => pack.pack.id == currentPack.pack.id,
+        background: APIService().assetLink(currentPack.pack.background),
+        description: currentPack.pack.description));
     gameTagWidgets.add(_buildGameTag(FluentIcons.allIcons["people"]!,
-        "${widget.game.game.info.players.min} - ${widget.game.game.info.players.max} ${AppLocalizations.of(context)!.players}"));
+        "${currentGame.game.info.players.min} - ${currentGame.game.info.players.max} ${AppLocalizations.of(context)!.players}"));
     gameTagWidgets
         .add(_buildGameTag(FluentIcons.allIcons["timer"]!, gameInfo.length));
     gameTagWidgets.add(_buildGameTag(
@@ -585,7 +613,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
   }
 
   List<Widget> _generateCustomGameTags() {
-    JackboxGameInfo gameInfo = widget.game.game.info;
+    JackboxGameInfo gameInfo = currentGame.game.info;
     List<Widget> gameTagWidgets = [];
     // Add custom tags
     for (var element in gameInfo.tags) {

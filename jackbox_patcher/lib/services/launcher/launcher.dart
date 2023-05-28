@@ -36,9 +36,7 @@ class Launcher {
           pack.pack.launchersId != null &&
           pack.pack.launchersId!.steam != null) {
             try {
-              await launchUrl(Uri(
-                  scheme: "steam",
-                  path: "rungameid/${pack.pack.launchersId!.steam!}"));
+              await launchUrl(Uri.parse("steam://rungameid/${pack.pack.launchersId!.steam!}"));
             } catch (e) {
               JULogger().e(e);
             }
@@ -75,8 +73,7 @@ class Launcher {
           pack.origin == LauncherType.STEAM &&
           pack.pack.launchersId != null &&
           pack.pack.launchersId!.steam != null) {
-        await launchUrlString(
-            "steam://rungameid/${pack.pack.launchersId!.steam!}");
+        await launchUrl(Uri.parse("steam://rungameid/${pack.pack.launchersId!.steam!}"));
       } else {
         await Process.run("${pack.path!}/${pack.pack.executable}", [],
             workingDirectory: pack.path);
