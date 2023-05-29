@@ -242,6 +242,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
             Stack(children: [
               SizedBox(
                   child: AssetCarousselWidget(
+                    key:UniqueKey(),
                       images: currentGame.game.info.images))
             ]),
             SizedBox(
@@ -405,8 +406,10 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                               decoration: TextDecoration.underline)))
                   : _buildLauncherButton())),
       const SizedBox(width: 10),
-      IconButton(
-        icon: Icon(widget.game.hidden? FontAwesomeIcons.eyeSlash:  FontAwesomeIcons.eye),
+      IconButton( 
+        key: UniqueKey(),
+        icon:
+            SizedBox(width: 16, height:16, child: Icon(widget.game.hidden? FontAwesomeIcons.eyeSlash:  FontAwesomeIcons.eye, size: widget.game.hidden?15:16)),
         onPressed: () {
           widget.game.hidden = !widget.game.hidden;
           setState(() {

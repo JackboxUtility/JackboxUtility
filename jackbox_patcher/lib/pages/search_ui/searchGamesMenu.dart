@@ -57,11 +57,12 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
           selected: _selectedView,
           items: _buildPaneItems(),
           footerItems: [
+            if (UserJackboxGame.countHiddenGames(UserData().packs)>=1) 
             PaneItem(
               icon: const Icon(FontAwesomeIcons.eye),
               title: Text(showHidden == false
-                  ? "Show hidden games"
-                  : "Hide hidden games"),
+                  ? "Show games you've hidden"
+                  : "Hide games you've hidden"),
               body: Container(),
               onTap: () {
                 setState(() {
@@ -109,7 +110,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                 pack.pack.id == userPack.pack.id &&
                 game.game.name
                     .toLowerCase()
-                    .contains(_searchController.text.toLowerCase()) && (showHidden || !game.hidden),
+                    .contains(_searchController.text.toLowerCase()),
             comeFromGame: false,
             showAllPacks: showAllPacks,
             background: userPack.pack.background,
