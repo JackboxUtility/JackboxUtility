@@ -41,7 +41,7 @@
         }
     },
     "delete_version": "Version entfernen",
-    "delete_version_description": "Wenn du dein Spiel zurückgesetzt hast, kannst du die installierte Version dieses Spiels löschen. So kannst du die Patches neu installieren.",
+    "delete_version_description": "Wenn du dein Spiel zurückgesetzt hast, kannst du die installierte Version dieses Spiels löschen. So kannst du die Patches erneut installieren.",
     "description": "Beschreibung",
     "patch_modification": "Patch-Modifizierung",
     "patch_modification_description": "Dieser Patch hat Einfluss auf folgende Inhalte:",
@@ -83,24 +83,24 @@
     "game_type_coop": "Co-Op",
     "game_type_coop_description": "Bei diesen Spielen müssen die Spieler zusammenarbeiten, um zu gewinnen.",
     "game_type_versus": "Gegeneinander",
-    "game_type_versus_description": "In diesen Spielen treten die Spieler gegeneinander an und versuchen selber zu gewinnen.",
+    "game_type_versus_description": "In diesen Spielen treten die Spieler gegeneinander an und versuchen, selber zu gewinnen.",
     "game_type_team": "Team",
     "game_type_team_description": "In diesen Spielen werden die Spieler in Teams aufgeteilt und müssen zusammenarbeiten, um zu gewinnen.",
     "game_translation_translated": "Offiziell übersetzt ins {language}",
-    "@game_translation_translated":{
-        "placeholders":{
-            "language":{
-                "type":"String",
-                "example":"French"
+    "@game_translation_translated": {
+        "placeholders": {
+            "language": {
+                "type": "String",
+                "example": "French"
             }
         }
     },
     "game_translation_translated_description": "Diese Spiele haben eine offizielle {language} Übersetzung",
-    "@game_translation_translated_description":{
-        "placeholders":{
-            "language":{
-                "type":"String",
-                "example":"French"
+    "@game_translation_translated_description": {
+        "placeholders": {
+            "language": {
+                "type": "String",
+                "example": "French"
             }
         }
     },
@@ -108,11 +108,11 @@
     "game_translation_community_translated_description": "Diese Spiele wurden von der Community übersetzt",
     "game_translation_not_available": "Auf Englisch",
     "game_translation_not_available_description": "Diese Spiele wurden nicht ins {language} übersetzt",
-    "@game_translation_not_available_description":{
-        "placeholders":{
-            "language":{
-                "type":"String",
-                "example":"French"
+    "@game_translation_not_available_description": {
+        "placeholders": {
+            "language": {
+                "type": "String",
+                "example": "French"
             }
         }
     },
@@ -151,10 +151,10 @@
     "connection_to_server_failed": "Verbindung zum Server fehlgeschlagen",
     "connection_to_main_server_failed": "Aufgrund eines Fehlers konnten die verfügbaren Server nicht abgerufen werden.",
     "quit_while_downloading_title": "Ein Download ist aktiv",
-    "quit_while_downloading_description": "Ein Download ist aktiv, bist du sicher, dass du das Programm schließen möchtest?",
+    "quit_while_downloading_description": "Ein Download ist zurzeit aktiv, bist du sicher, dass du die App schließen möchtest?",
     "quit": "Beenden",
     "automatic_game_finder_title": "Automatische Spiele-Erkennung",
-    "automatic_game_finder_description": "Jackbox Utility kann installierte Spiele über Steam und Epic Games automatisch erkennen.\nMöchtest du diese Funktion nutzen?",
+    "automatic_game_finder_description": "Jackbox Utility kann installierte Spiele über Steam und Epic Games automatisch für dich erkennen.\nMöchtest du diese Funktion nutzen?",
     "automatic_game_finder_in_progress": "Spiele werden abgerufen. Bitte warte kurz",
     "automatic_game_finder_finish": "{count, plural, =0 {Kein Spiel gefunden} one {1 Spiel gefunden} other {{count} Spiele gefunden}}",
     "@automatic_game_finder_finish": {
@@ -233,8 +233,6 @@
     "extracting_error_description": "Beim Entpacken des Spiels ist ein Fehler aufgetreten. Bitte überprüfe, ob du ausreichend freien Speicherplatz zur Verfügung hast und versuche es erneut.",
     "game_reset": "Übersetzung entfernen",
     "game_reset_description": "Dadurch wird dein Spiel vollständig zurückgesetzt. Wenn du einen Patch installiert haben solltest, wird dieser gelöscht. Bist du dir GANZ sicher, dass du fortfahren möchtest?",
-
-    "small_description":"Beschreibung",
-
-    "patreon_subscribers":"Patreon-Supporter"
+    "small_description": "Beschreibung",
+    "patreon_subscribers": "Patreon-Supporter"
 }
