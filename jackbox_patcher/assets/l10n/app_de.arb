@@ -86,12 +86,36 @@
     "game_type_versus_description": "In diesen Spielen treten die Spieler gegeneinander an und versuchen selber zu gewinnen.",
     "game_type_team": "Team",
     "game_type_team_description": "In diesen Spielen werden die Spieler in Teams aufgeteilt und müssen zusammenarbeiten, um zu gewinnen.",
-    "game_translation_translated": "Offiziell übersetzt ins Deutsche",
-    "game_translation_translated_description": "Diese Spiele haben eine offizielle deutsche Übersetzung",
+    "game_translation_translated": "Offiziell übersetzt ins {language}",
+    "@game_translation_translated":{
+        "placeholders":{
+            "language":{
+                "type":"String",
+                "example":"French"
+            }
+        }
+    },
+    "game_translation_translated_description": "Diese Spiele haben eine offizielle {language} Übersetzung",
+    "@game_translation_translated_description":{
+        "placeholders":{
+            "language":{
+                "type":"String",
+                "example":"French"
+            }
+        }
+    },
     "game_translation_community_translated": "Übersetzt von der Community",
     "game_translation_community_translated_description": "Diese Spiele wurden von der Community übersetzt",
     "game_translation_not_available": "Auf Englisch",
-    "game_translation_not_available_description": "Diese Spiele wurden nicht ins Deutsche übersetzt",
+    "game_translation_not_available_description": "Diese Spiele wurden nicht ins {language} übersetzt",
+    "@game_translation_not_available_description":{
+        "placeholders":{
+            "language":{
+                "type":"String",
+                "example":"French"
+            }
+        }
+    },
     "downloading": "Downloade...",
     "starting": "Starte...",
     "extracting": "Entpacke Patch...",

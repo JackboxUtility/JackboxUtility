@@ -1,0 +1,147 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "packs/gameInfo.json",
+    "title": "Game Info",
+    "description": "The game static informations (players number, time length, type, etc)",
+    "examples": [
+        {
+            "players":{
+                "min":3,
+                "max":8
+            },
+            "length":"Environ 20 minutes",
+            "translation":"COMMUNITY_TRANSLATED",
+            "type":"VERSUS",
+            "tagline":"Faites combattre vos dessins",
+            "small_description":"Le combat approche. Il est l'heure de créer vos meilleurs combattants pour qu'ils puissent se battre sur le ring. Arriverez-vous à sortir vainqueur ?",
+            "description":"# A vos crayons, prêt... combattez !\n\nIl est l'heure de dessiner ! Vous allez recevoir un thème sur votre appareil. Il vous faudra créer un personnage qui répond au mieux au critère en le dessinant et en le nommant !\n\nLors du second tour, vous allez recevoir le dessin d'un autre joueur et allez devoir dessiner son rival, celui qui pourrait le battre à son propre thème.\n\nSerez-vous le vainqueur de ce tournoi, ou resterez-vous sur la touche ? Bienvenue sur **Champ'd Up** !",
+            "images":[
+    "game_images/ChampdUp/champdup_1.webp",
+                "game_images/ChampdUp/champdup_2.webp",
+                "game_images/ChampdUp/champdup_3.webp",
+                "game_images/ChampdUp/champdup_4.webp"
+            ],
+            "tags":[
+                "drawing",
+                "writing"
+            ]
+
+        }
+    ],
+    "type": "object",
+    "properties": {
+        "players": {
+            "examples": [
+                {
+                    "players":{
+                        "min":3,
+                        "max":8
+                    }
+                }
+            ],
+            "description": "Information about the players number",
+            "type": "object",
+            "properties": {
+                "min": {
+                    "examples": [
+                        3
+                    ],
+                    "description": "The minimum number of player in this game",
+                    "type": "integer"
+                },
+                "max": {
+                    "examples": [
+                        8
+                    ],
+                    "description": "The maximum number of player in this game",
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "min",
+                "max"
+            ]
+        },
+        "length": {
+            "examples": [
+                "15 minutes"
+            ],
+            "description": "The approximative length of the game",
+            "type": "string"
+        },
+        "type": {
+            "examples": [
+                "VERSUS","COOP","TEAM"
+            ],
+            "description": "The game type",
+            "enum": ["VERSUS","COOP","TEAM"]
+        },
+        "translation": {
+            "examples": [
+                "NATIVELY_TRANSLATED",
+                "COMMUNITY_TRANSLATED",
+                "ENGLISH"
+            ],
+            "description": "The translation state for this game",
+            "enum": [
+                "NATIVELY_TRANSLATED",
+                "COMMUNITY_TRANSLATED",
+                "ENGLISH"
+            ]
+        },
+        "tagline": {
+            "examples": [
+                "Fight with your drawings !"
+            ],
+            "description": "A tagline for this game. Visible when you hover your mouse on the game image",
+            "type": "string"
+        },
+        "small_description": {
+            "examples": [
+
+            ],
+            "description": "A small description for this game. Visible above the Play button",
+            "type": "string"
+        },
+        "description": {
+            "description": "A description for this game. Supporting markdown",
+            "type": "string"
+        },
+        "images": {
+            "examples": [
+                [
+                    "game_images/ChampdUp/champdup_1.webp",
+                                "game_images/ChampdUp/champdup_2.webp",
+                                "game_images/ChampdUp/champdup_3.webp",
+                                "game_images/ChampdUp/champdup_4.webp"
+                            ]
+            ],
+            "description": "A list of images for this game carousel",
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "tags": {
+            "description": "A lit of tags Id for this game.",
+            "type": "array",
+            "items": {
+                "examples": [
+                    "drawing"
+                ],
+                "type": "string"
+            }
+        }
+    },
+    "required": [
+        "players",
+        "length",
+        "type",
+        "translation",
+        "tagline",
+        "small_description",
+        "description",
+        "images",
+        "tags"
+    ]
+}

@@ -1,9 +1,14 @@
 import 'dart:io';
 
 import 'package:archive/archive_io.dart';
+import 'package:jackbox_patcher/model/misc/launchers.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
+import 'package:jackbox_patcher/services/error/error.dart';
+import 'package:jackbox_patcher/services/logger/logger.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../user/userdata.dart';
 
@@ -26,10 +31,19 @@ class Launcher {
         String packFolder = pack.path!;
         await extractFileToDisk(pack.loader!.path!, packFolder);
       }
-
-      await Process.run("${pack.path!}/${pack.pack.executable}", [],
-          workingDirectory: pack.path);
-      // Extracting into game file
+      if (pack.origin != null &&
+          pack.origin == LauncherType.STEAM &&
+          pack.pack.launchersId != null &&
+          pack.pack.launchersId!.steam != null) {
+            try {
+              await launchUrl(Uri.parse("steam://rungameid/${pack.pack.launchersId!.steam!}"));
+            } catch (e) {
+              JULogger().e(e);
+            }
+      } else {
+        await Process.run("${pack.path!}/${pack.pack.executable}", [],
+            workingDirectory: pack.path);
+      }
     }
   }
 
@@ -55,8 +69,15 @@ class Launcher {
       // Extracting into game file
       String packFolder = pack.path!;
       await extractFileToDisk(game.loader!.path!, packFolder);
-      await Process.run("${pack.path!}/${pack.pack.executable}", [],
-          workingDirectory: pack.path);
+      if (pack.origin != null &&
+          pack.origin == LauncherType.STEAM &&
+          pack.pack.launchersId != null &&
+          pack.pack.launchersId!.steam != null) {
+        await launchUrl(Uri.parse("steam://rungameid/${pack.pack.launchersId!.steam!}"));
+      } else {
+        await Process.run("${pack.path!}/${pack.pack.executable}", [],
+            workingDirectory: pack.path);
+      }
     }
   }
 }

@@ -4,20 +4,40 @@
     "title": "Tag",
     "description": "A tag is a label that can be attached to a game",
     "type": "object",
+    "examples": [
+        {
+            "id":"talking",
+            "name":"Discussion",
+            "icon":"action_center",
+            "description":"Jeux nécessitant de discuter entre joueurs pour avancer dans la partie."
+       }
+    ],
     "properties": {
         "id": {
+            "examples": [
+                "talking"
+            ],
             "description": "The unique identifier for a tag",
             "type": "string"
         },
         "name": {
+            "examples": [
+                "Talking"
+            ],
             "description": "Name of the tag",
             "type": "string"
         },
         "icon": {
-            "description": "Icon of the tag",
+            "examples": [
+                "action_center"
+            ],
+            "description": "Icon of the tag used in FluentUI. You can find a list of the icons available here : https://bdlukaa.github.io/fluent_ui/#/theming/icons",
             "type": "string"
         },
         "description": {
+            "examples": [
+                "Players need to talk to play these games."
+            ],
             "description": "Description of the tag",
             "type": "string"
         }

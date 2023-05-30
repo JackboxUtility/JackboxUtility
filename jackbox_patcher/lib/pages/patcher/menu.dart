@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/pages/patcher/categoryPackPatch.dart';
+import 'package:jackbox_patcher/services/discord/DiscordService.dart';
 
+import '../../components/closableRouteWithEsc.dart';
 import '../../services/api/api_service.dart';
 import '../../services/user/userdata.dart';
 import 'packContainer.dart';
@@ -22,6 +24,7 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
 
   @override
   void initState() {
+    DiscordService().launchPatchingPresence();
     super.initState();
   }
 
@@ -31,7 +34,8 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
     if (items.isEmpty) {
       _buildPaneItems();
     }
-    return NavigationView(
+    return ClosableRouteWithEsc(
+        child: NavigationView(
       transitionBuilder: (child, animation) {
         return FadeTransition(
           opacity: animation,
@@ -49,7 +53,7 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
             style: typography.title,
           )),
       pane: NavigationPane(
-        indicator: null,
+          indicator: null,
           onChanged: (int nSelected) {
             setState(() {
               _selectedView = nSelected;
@@ -72,7 +76,7 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
               },
             )
           ]),
-    );
+    ));
   }
 
   _changeMenuView(String packId) {
@@ -117,8 +121,8 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
         items.add(PaneItem(
             key: ValueKey(userPack.pack.id),
             icon: CachedNetworkImage(
-              fit:BoxFit.fitHeight,
-              imageUrl:APIService().assetLink(userPack.pack.icon),
+              fit: BoxFit.fitHeight,
+              imageUrl: APIService().assetLink(userPack.pack.icon),
               memCacheHeight: 40,
               memCacheWidth: 40,
             ),

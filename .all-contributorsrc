@@ -27,10 +27,10 @@
     },
     {
       "login": "AkiraArtuhaxis",
-      "name": "Akira Artuhaxis",
+      "name": "Akira896",
       "avatar_url": "https://avatars.githubusercontent.com/u/93792993?v=4",
       "profile": "https://github.com/AkiraArtuhaxis",
-"contributions": [
+      "contributions": [
         "ideas",
         "bug",
         "translation"
@@ -46,6 +46,15 @@
         "bug",
         "translation"
       ]
+    },
+    {
+      "login": "VladGraund",
+      "name": "Vladyslav Kulybaba",
+      "avatar_url": "https://avatars.githubusercontent.com/u/106146104?v=4",
+      "profile": "https://github.com/VladGraund",
+      "contributions": [
+        "translation"
+      ]
     }
   ],
   "contributorsPerLine": 7,
@@ -53,5 +62,6 @@
   "repoType": "github",
   "repoHost": "https://github.com",
   "projectName": "JackboxUtility",
-  "projectOwner": "AlexisL61"
+  "projectOwner": "AlexisL61",
+  "commitType": "docs"
 }

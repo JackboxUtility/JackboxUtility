@@ -1,0 +1,60 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "welcome/news.json",
+    "title": "News",
+    "type": "object",
+    "description": "A news item. There are two types of news : Links news (when the user clicks on the news, he is sent to a website referenced by the link property) and Content news (when the user clicks on the news, he will see a dialog with the content property in it).",
+    "properties": {
+        "id": {
+            "type": "string",
+            "description": "A unique id for a news.",
+            "examples": [
+                "2023-02-21 19:02:14",
+                "id"
+            ]
+        },
+        "title": {
+            "type": "string",
+            "description": "The title of the news item.",
+            "examples": [
+                "Jackbox Utility"
+            ]
+        },
+        "link":{
+            "type": "string",
+            "format": "uri",
+            "description": "The url the user will be sent to if he clicks on the news item.",
+            "examples": [
+                "https://jackboxutility.com"
+            ]
+        },
+        "content": {
+            "type": "string",
+            "description": "The content of the news item.",
+            "examples": [
+                "# Voici le nouveau Jackbox Utility\n\nDans cette nouvelle version, vous allez pouvoir lancer tous vos jeux préférés en un seul et même endroit !\n\nEnvie d'être encore plus rapide ? Vos jeux se lancent en mode **Fast Launch** ce qui permet de passer l'intro du pack et de choisir automatiquement le jeu voulu. De quoi aller encore plus vite dans l'action !"
+            ]
+        },
+        
+        "shadow": {
+            "type": "boolean",
+            "description": "If the title should have a black shadow behind it.",
+            "examples": [
+                true, false
+            ]
+        },
+        "image": {
+            "type": "string",
+            "format": "uri",
+            "description": "The URL of the image associated with the news item.",
+            "examples": [
+                "news_images/logo.png"
+            ]
+        }
+    },
+    "required": [
+        "id",
+        "title",
+        "image"
+    ]
+}

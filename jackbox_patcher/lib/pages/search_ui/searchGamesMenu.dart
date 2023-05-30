@@ -1,10 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:jackbox_patcher/components/closableRouteWithEsc.dart';
 import 'package:jackbox_patcher/components/starsRate.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxgame.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
 import 'package:jackbox_patcher/pages/search_ui/searchGames.dart';
+import 'package:jackbox_patcher/services/discord/DiscordService.dart';
 
 import '../../model/usermodel/userjackboxpack.dart';
 import '../../services/api/api_service.dart';
@@ -22,6 +24,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
   int _selectedView = 0;
   late TextEditingController _searchController;
   bool showAllPacks = false;
+  bool showHidden = false;
 
   @override
   void initState() {
@@ -32,7 +35,8 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
   @override
   Widget build(BuildContext context) {
     Typography typography = FluentTheme.of(context).typography;
-    return NavigationView(
+    return ClosableRouteWithEsc(
+        child: NavigationView(
       appBar: NavigationAppBar(
           automaticallyImplyLeading: false,
           leading: GestureDetector(
@@ -53,8 +57,22 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
           selected: _selectedView,
           items: _buildPaneItems(),
           footerItems: [
+            if (UserJackboxGame.countHiddenGames(UserData().packs)>=1) 
             PaneItem(
-              icon: const Icon(FluentIcons.package),
+              icon: const Icon(FontAwesomeIcons.eye),
+              title: Text(showHidden == false
+                  ? "Show games you've hidden"
+                  : "Hide games you've hidden"),
+              body: Container(),
+              onTap: () {
+                setState(() {
+                  showHidden = !showHidden;
+                  _selectedView = 0;
+                });
+              },
+            ),
+            PaneItem(
+              icon: const Icon(FontAwesomeIcons.boxArchive),
               title: Text(showAllPacks == false
                   ? AppLocalizations.of(context)!.show_all_packs
                   : AppLocalizations.of(context)!.show_owned_packs_only),
@@ -67,7 +85,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
               },
             )
           ]),
-    );
+    ));
   }
 
   _buildPaneItems() {
@@ -116,7 +134,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                 game.game.name
                     .toLowerCase()
                     .contains(_searchController.text.toLowerCase()) &&
-                (showAllPacks || pack.owned),
+                (showAllPacks || pack.owned) && (showHidden || !game.hidden),
             comeFromGame: false,
             background: APIService().getDefaultBackground(),
             name: type.name,
@@ -143,14 +161,14 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
       )));
       items.add(PaneItemSeparator());
       items.add(PaneItem(
-          icon: const Icon(FluentIcons.game),
+          icon: const Icon(FontAwesomeIcons.gamepad),
           title: Text(AppLocalizations.of(context)!.all_games),
           body: SearchGameWidget(
             filter: (UserJackboxPack pack, UserJackboxGame game) =>
                 game.game.name
                     .toLowerCase()
                     .contains(_searchController.text.toLowerCase()) &&
-                (showAllPacks || pack.owned),
+                (showAllPacks || pack.owned) && (showHidden || !game.hidden),
             comeFromGame: false,
             background: APIService().getDefaultBackground(),
             name: AppLocalizations.of(context)!.all_games,
@@ -159,7 +177,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
             icon: null,
           )));
       items.add(PaneItemExpander(
-        icon: const Icon(FluentIcons.gift_box_solid),
+        icon: const Icon(FontAwesomeIcons.boxOpen),
         body: Container(),
         title: Text(AppLocalizations.of(context)!.search_by_pack),
         items: packItems,
@@ -174,7 +192,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
       List<NavigationPaneItem> starsItem = _buildStarsPaneItem();
 
       items.add(PaneItemExpander(
-        icon: const Icon(FluentIcons.translate),
+        icon: const Icon(FontAwesomeIcons.language),
         body: Container(),
         title: Text(AppLocalizations.of(context)!.search_by_translation),
         items: translationItem,
@@ -186,7 +204,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
       ));
 
       items.add(PaneItemExpander(
-        icon: const Icon(FluentIcons.tag),
+        icon: const Icon(FontAwesomeIcons.tag),
         body: Container(),
         title: Text(AppLocalizations.of(context)!.search_by_tags),
         items: tagItem,
@@ -199,7 +217,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
       ));
 
       items.add(PaneItemExpander(
-        icon: const Icon(FontAwesomeIcons.star),
+        icon: const Icon(FontAwesomeIcons.solidStar),
         body: Container(),
         title: Text("Search by ranking"),
         items: starsItem,
@@ -242,7 +260,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                 game.game.name
                     .toLowerCase()
                     .contains(_searchController.text.toLowerCase()) &&
-                (showAllPacks || pack.owned),
+                (showAllPacks || pack.owned) && (showHidden || !game.hidden),
             showAllPacks: showAllPacks,
             comeFromGame: false,
             background: APIService().getDefaultBackground(),
@@ -267,7 +285,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                 game.game.name
                     .toLowerCase()
                     .contains(_searchController.text.toLowerCase()) &&
-                (showAllPacks || pack.owned),
+                (showAllPacks || pack.owned) && (showHidden || !game.hidden),
             comeFromGame: false,
             background: APIService().getDefaultBackground(),
             name: tag.name,
@@ -282,39 +300,46 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
 
   List<NavigationPaneItem> _buildStarsPaneItem() {
     List<PaneItem> starItems = [];
-    
-      starItems.add(PaneItem(
+
+    starItems.add(PaneItem(
         icon: Container(),
-          title: Text("Personal ranking"),
-          body: SearchGameWidget(
-            filter: (UserJackboxPack pack, UserJackboxGame game) =>
-                game.game.name
-                    .toLowerCase()
-                    .contains(_searchController.text.toLowerCase()) &&
-                (showAllPacks || pack.owned),
-            comeFromGame: false,
-            background: APIService().getDefaultBackground(),
-            name: "Ranked by stars",
-            description: "Games ranked by stars from your personal ranking",
-            showAllPacks: showAllPacks,
-            icon: null,
-            separators: [
-              for (int i = 5; i >=0 ;i--)
-                i!=0? Row(
-                  children: [
-                    StarsRateWidget(defaultStars: i, readOnly: true, color: Colors.yellow,),
-                  ],
-                ): 
-                Row(
-                  children: [
-                    Text("Unranked", style : FluentTheme.of(context).typography.bodyLarge),
-                  ],
-                )
-            ], 
-            separatorFilter: (p0, p1) {
-              return 5-p1.stars;
-            },
-          )));
+        title: Text("Personal ranking"),
+        body: SearchGameWidget(
+          filter: (UserJackboxPack pack, UserJackboxGame game) =>
+              game.game.name
+                  .toLowerCase()
+                  .contains(_searchController.text.toLowerCase()) &&
+              (showAllPacks || pack.owned) && (showHidden || !game.hidden),
+          comeFromGame: false,
+          background: APIService().getDefaultBackground(),
+          name: "Ranked by stars",
+          description: "Games ranked by stars from your personal ranking",
+          showAllPacks: showAllPacks,
+          icon: null,
+          separators: [
+            for (int i = 5; i >= 0; i--)
+              i != 0
+                  ? Row(
+                      children: [
+                        StarsRateWidget(
+                          defaultStars: i,
+                          readOnly: true,
+                          color: Colors.yellow,
+                        ),
+                      ],
+                    )
+                  : Row(
+                      children: [
+                        Text("Unranked",
+                            style:
+                                FluentTheme.of(context).typography.bodyLarge),
+                      ],
+                    )
+          ],
+          separatorFilter: (p0, p1) {
+            return 5 - p1.stars;
+          },
+        )));
 
     return starItems;
   }

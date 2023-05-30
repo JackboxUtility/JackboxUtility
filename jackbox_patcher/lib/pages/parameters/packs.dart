@@ -10,6 +10,7 @@ import 'package:jackbox_patcher/services/user/userdata.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
+import '../../components/closableRouteWithEsc.dart';
 import '../../services/automaticGameFinder/AutomaticGameFinder.dart';
 import '../../services/error/error.dart';
 
@@ -24,7 +25,7 @@ class _ParametersPackRouteState extends State<ParametersPackRoute> {
   @override
   Widget build(BuildContext context) {
     Typography typography = FluentTheme.of(context).typography;
-    return NavigationView(
+    return ClosableRouteWithEsc(child:NavigationView(
         appBar: NavigationAppBar(
             automaticallyImplyLeading: false,
             leading: GestureDetector(
@@ -41,7 +42,7 @@ class _ParametersPackRouteState extends State<ParametersPackRoute> {
                 style: typography.title,
               )
             ])),
-        content: const ParametersWidget());
+        content: const ParametersWidget()));
   }
 }
 
@@ -85,7 +86,7 @@ class _ParametersWidgetState extends State<ParametersWidget> {
               ),
               Row(children: [
                 Text(AppLocalizations.of(context)!.owned_packs,
-                    style: typography.titleLarge),
+                    style: typography.title),
                 const Spacer(),
                 FilledButton(
                     child: Text(AppLocalizations.of(context)!

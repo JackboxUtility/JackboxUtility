@@ -10,14 +10,17 @@ class UserJackboxGame {
   final JackboxGame game;
   final List<UserJackboxGamePatch> patches = [];
   int _stars = 0;
+  bool _hidden = false;
   final UserJackboxLoader? loader;
 
   UserJackboxGame({
     required this.game,
     stars = 0,
+    hidden = false,
     required this.loader,
-  }){
+  }) {
     _stars = stars;
+    _hidden = hidden;
   }
 
   ///
@@ -49,6 +52,27 @@ class UserJackboxGame {
   UserJackboxPack getUserJackboxPack() {
     return UserData().packs.firstWhere((pack) =>
         pack.games.where((packGame) => packGame.game.id == game.id).isNotEmpty);
+  }
+
+  static int countHiddenGames(List<UserJackboxPack> packs) {
+    int hiddenGames = 0;
+    packs.forEach((element) {
+      element.games.forEach((game) {
+        if (game.hidden) {
+          hiddenGames++;
+        }
+      });
+    });
+    return hiddenGames;
+  }
+
+  set hidden(bool hiddenValue) {
+    _hidden = hiddenValue;
+    UserData().saveGame(this);
+  }
+
+  bool get hidden {
+    return _hidden;
   }
 
   set stars(int s) {

@@ -7,6 +7,8 @@ import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/error/error.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 
+import '../../components/closableRouteWithEsc.dart';
+
 class SelectServerPage extends StatefulWidget {
   const SelectServerPage({Key? key}) : super(key: key);
 
@@ -37,7 +39,7 @@ class _SelectServerPageState extends State<SelectServerPage> {
 
   @override
   Widget build(BuildContext context) {
-    return NavigationView(
+    return ClosableRouteWithEsc(child:NavigationView(
         content: ListView(
       children: [
         Column(children: [
@@ -57,7 +59,7 @@ class _SelectServerPageState extends State<SelectServerPage> {
                 children: List.generate(servers.length,
                     (index) => _buildServerCard(servers[index]))))
       ],
-    ));
+    )));
   }
 
   Widget _buildServerCard(PatchServer server) {

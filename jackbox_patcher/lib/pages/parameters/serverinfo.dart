@@ -33,7 +33,7 @@ class _ServerInfoWidgetState extends State<ServerInfoWidget> {
           children: [
             Row(children: [
                     Text(AppLocalizations.of(context)!.selected_server,
-                        style: typography.titleLarge),
+                        style: typography.title),
                     const Spacer(),
                     FilledButton(
                         child: Text(AppLocalizations.of(context)!.change_server),
@@ -56,7 +56,7 @@ class _ServerInfoWidgetState extends State<ServerInfoWidget> {
                                   .assetLink(APIService().cachedSelectedServer!.image),
                               height: 100)),
                       Text(APIService().cachedSelectedServer!.name,
-                          style: FluentTheme.of(context).typography.titleLarge),
+                          style: FluentTheme.of(context).typography.title),
                       const SizedBox(
                         height: 8,
                       ),

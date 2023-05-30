@@ -1,13 +1,17 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:jackbox_patcher/model/misc/sortOrder.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../components/closableRouteWithEsc.dart';
 import '../../components/starsRate.dart';
+import '../../services/discord/DiscordService.dart';
 import '../../services/launcher/launcher.dart';
 
 class SearchGameRoute extends StatefulWidget {
@@ -27,8 +31,15 @@ class _SearchGameRouteState extends State<SearchGameRoute> {
     String? description = data[3];
     String? icon = data[4];
     bool? showAllPacks = data[5];
-    List<Widget>? separators = data[6];
-    int Function(UserJackboxPack, UserJackboxGame)? separatorFilter = data[7];
+    List<Widget>? separators = null;
+    if (data.length >= 7) {
+      separators = data[6];
+    }
+
+    int Function(UserJackboxPack, UserJackboxGame)? separatorFilter = null;
+    if (data.length >= 8) {
+      separatorFilter = data[7];
+    }
 
     return SearchGameWidget(
         filter: filter,
@@ -73,16 +84,24 @@ class SearchGameWidget extends StatefulWidget {
 
 class _SearchGameWidgetState extends State<SearchGameWidget> {
   UniqueKey key = UniqueKey();
+  SortOrder sortOrder = SortOrder.PACK;
+  bool sortAscending = true;
+
+  void _startDiscordrichPresence() {
+    DiscordService().launchGameMenuPresence();
+  }
 
   @override
   void initState() {
+    _startDiscordrichPresence();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return NavigationView(
-        content: ListView(children: [_buildHeader(), _buildBottom()]));
+    return ClosableRouteWithEsc(
+        child: NavigationView(
+            content: ListView(children: [_buildHeader(), _buildBottom()])));
   }
 
   Widget _buildHeader() {
@@ -122,36 +141,82 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
               right: 0,
               child: SizedBox(
                   height: 100,
-                  child: Row(children: [
-                    SizedBox(
-                        width: calculatePadding() -
-                            (widget.comeFromGame ? 40 : 0)),
-                    widget.comeFromGame
-                        ? GestureDetector(
-                            child: const Icon(FluentIcons.chevron_left),
-                            onTap: () => Navigator.pop(context))
-                        : Container(),
-                    widget.comeFromGame
-                        ? const SizedBox(width: 20)
-                        : Container(),
-                    Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            widget.name!,
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            widget.description!,
-                            style: const TextStyle(
-                                color: Colors.white, fontSize: 15),
-                          )
-                        ])
-                  ])))
+                  child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        SizedBox(
+                            width: calculatePadding() -
+                                (widget.comeFromGame ? 40 : 0)),
+                        widget.comeFromGame
+                            ? GestureDetector(
+                                child: const Icon(FluentIcons.chevron_left),
+                                onTap: () => Navigator.pop(context))
+                            : Container(),
+                        widget.comeFromGame
+                            ? const SizedBox(width: 20)
+                            : Container(),
+                        Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                widget.name!,
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                widget.description!,
+                                style: const TextStyle(
+                                    color: Colors.white, fontSize: 15),
+                              )
+                            ]),
+                        Spacer(),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Row(
+                              children: [
+                                MouseRegion(
+                                    child: GestureDetector(
+                                        child: Icon(sortAscending
+                                            ? FontAwesomeIcons.sortDown
+                                            : FontAwesomeIcons.sortUp),
+                                        onTap: () {
+                                          key = UniqueKey();
+                                          setState(() =>
+                                              sortAscending = !sortAscending);
+                                        }),
+                                    cursor: SystemMouseCursors.click),
+                                const SizedBox(width: 10),
+                                ComboBox<SortOrder>(
+                                    popupColor: Colors.black,
+                                    elevation: 0,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                    value: sortOrder,
+                                    items: List.generate(
+                                        SortOrder.values.length,
+                                        (index) => ComboBoxItem(
+                                              child: Text("Sort by " +
+                                                  SortOrder.values[index].name),
+                                              value: SortOrder.values[index],
+                                            )),
+                                    onChanged: (value) {
+                                      key = UniqueKey();
+                                      setState(() => sortOrder = value!);
+                                    }),
+                              ],
+                            ),
+                            SizedBox(height: 10),
+                          ],
+                        ),
+                        SizedBox(
+                            width: calculatePadding() -
+                                (widget.comeFromGame ? 40 : 0)),
+                      ])))
         ]),
         const SizedBox(height: 20)
       ],
@@ -178,6 +243,7 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
         }
       }
     }
+    games = sortGames(games);
     return games;
   }
 
@@ -195,20 +261,26 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
               .isNotEmpty) {
             Widget separator = widget.separators![i];
             print(i);
+            List<Map<String, Object>> gamesWithSeparator = games
+                .where(
+                  (element) => element["separator"] == i,
+                )
+                .toList();
             widgetsWithSeparators.add(separator);
             widgetsWithSeparators.add(const SizedBox(height: 20));
             widgetsWithSeparators.add(StaggeredGrid.count(
                 mainAxisSpacing: 20,
                 crossAxisSpacing: 20,
                 crossAxisCount: _getGamesByGrid(),
-                children: games
-                    .where(
-                      (element) => element["separator"] == i,
-                    )
+                children: gamesWithSeparator
                     .map((game) => SearchGameGameWidget(
                           pack: game["pack"] as UserJackboxPack,
                           game: game["game"] as UserJackboxGame,
                           showAllPacks: widget.showAllPacks,
+                          allAvailableGames:  List.generate(gamesWithSeparator.length, (index) => (
+                            g:gamesWithSeparator[index]["game"] as UserJackboxGame,
+                            p:gamesWithSeparator[index]["pack"] as UserJackboxPack
+                          )),
                           parentReload: () {
                             setState(() {
                               key = UniqueKey();
@@ -226,15 +298,24 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
       return Padding(
           padding: EdgeInsets.symmetric(horizontal: calculatePadding()),
           child: StaggeredGrid.count(
+              key: key,
               mainAxisSpacing: 20,
               crossAxisSpacing: 20,
               crossAxisCount: _getGamesByGrid(),
               children: games
                   .map((game) => SearchGameGameWidget(
-                        pack: game["pack"] as UserJackboxPack,
-                        game: game["game"] as UserJackboxGame,
-                        showAllPacks: widget.showAllPacks,
-                      ))
+                      pack: game["pack"] as UserJackboxPack,
+                      game: game["game"] as UserJackboxGame,
+                      showAllPacks: widget.showAllPacks,
+                      allAvailableGames:  List.generate(games.length, (index) => (
+                        g:games[index]["game"] as UserJackboxGame,
+                        p:games[index]["pack"] as UserJackboxPack
+                      )),
+                      parentReload: () {
+                        setState(() {
+                          key = UniqueKey();
+                        });
+                      }))
                   .toList()));
     } else {
       return Column(children: [
@@ -254,6 +335,49 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
         ),
       ]);
     }
+  }
+
+  List<Map<String, Object>> sortGames(List<Map<String, Object>> games) {
+    List<Map<String, Object>> gamesToSort = [];
+    gamesToSort.addAll(games);
+    switch (sortOrder) {
+      case SortOrder.PACK:
+        break;
+      case SortOrder.STARS:
+        gamesToSort.sort((a, b) {
+          int firstGameStars = (b["game"] as UserJackboxGame).stars;
+          int secondGameStars = (a["game"] as UserJackboxGame).stars;
+          if (firstGameStars != secondGameStars) {
+            return firstGameStars.compareTo(secondGameStars);
+          } else {
+            return games.indexOf(a).compareTo(games.indexOf(b));
+          }
+        });
+        break;
+      case SortOrder.NAME:
+        gamesToSort.sort((a, b) => (a["game"] as UserJackboxGame)
+            .game
+            .filteredName
+            .compareTo((b["game"] as UserJackboxGame).game.filteredName));
+        break;
+      case SortOrder.PLAYERS_NUMBER:
+        gamesToSort.sort(((a, b) {
+          int firstGameMax =
+              (b["game"] as UserJackboxGame).game.info.players.max;
+          int secondGameMax =
+              (a["game"] as UserJackboxGame).game.info.players.max;
+          if (firstGameMax != secondGameMax) {
+            return firstGameMax.compareTo((secondGameMax));
+          } else {
+            return games.indexOf(a).compareTo(games.indexOf(b));
+          }
+        }));
+        break;
+    }
+    if (!sortAscending) {
+      gamesToSort = gamesToSort.reversed.toList();
+    }
+    return gamesToSort;
   }
 
   int _getGamesByGrid() {
@@ -294,7 +418,12 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
             children: pack.games
                 .where((game) => widget.filter(pack, game))
                 .map((game) => SearchGameGameWidget(
-                    pack: pack, game: game, showAllPacks: widget.showAllPacks))
+                    pack: pack, game: game, showAllPacks: widget.showAllPacks, allAvailableGames: 
+                      List.generate(pack.pack.games.length, (index) => (
+                        g:pack.games[index],
+                        p:pack
+                      ))
+                    ,))
                 .toList()));
   }
 }
@@ -305,13 +434,15 @@ class SearchGameGameWidget extends StatefulWidget {
       required this.pack,
       required this.game,
       required this.showAllPacks,
-      this.parentReload})
+      this.parentReload, 
+      required this.allAvailableGames})
       : super(key: key);
 
   final UserJackboxPack pack;
   final UserJackboxGame game;
   final bool showAllPacks;
   final Function? parentReload;
+  final List<({UserJackboxGame g, UserJackboxPack p})> allAvailableGames;
   @override
   State<SearchGameGameWidget> createState() => _SearchGameGameWidgetState();
 }
@@ -345,11 +476,13 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                                   arguments: [
                                     widget.pack,
                                     widget.game,
-                                    widget.showAllPacks
+                                    widget.showAllPacks, 
+                                    widget.allAvailableGames
                                   ]);
                               if (widget.parentReload != null) {
                                 widget.parentReload!();
                               }
+                              _startDiscordrichPresence();
                             },
                             child: MouseRegion(
                               onEnter: (a) => setState(() {
@@ -381,67 +514,110 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                                       Colors.black.withOpacity(opacity)
                                     ]))),
                                 Padding(
-                                    padding: const EdgeInsets.only(
-                                        bottom: 8, left: 8),
-                                    child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(widget.game.game.name,
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  fontSize: 15,
-                                                  color: Colors.white
-                                                      .withOpacity(opacity))),
-                                          Text(gameInfo.tagline,
-                                              style: TextStyle(
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  color: Colors.white
-                                                      .withOpacity(opacity))),
-                                          const SizedBox(height: 10),
-                                          Row(children: [
-                                            Icon(
-                                              FluentIcons.people,
-                                              color: Colors.white
-                                                  .withOpacity(opacity),
-                                            ),
-                                            const SizedBox(width: 10),
-                                            Text(
-                                                "${gameInfo.players.min} - ${gameInfo.players.max} ${AppLocalizations.of(context)!.players}",
-                                                style: TextStyle(
-                                                    color: Colors.white
-                                                        .withOpacity(opacity)))
-                                          ]),
-                                          Row(children: [
-                                            Icon(
-                                              FluentIcons.clock,
-                                              color: Colors.white
-                                                  .withOpacity(opacity),
-                                            ),
-                                            const SizedBox(width: 10),
-                                            Text(gameInfo.length,
-                                                style: TextStyle(
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    color: Colors.white
-                                                        .withOpacity(opacity)))
-                                          ]),
-                                          Opacity(
-                                              opacity: opacity,
-                                              child: StarsRateWidget(
-                                                color: Colors.white,
-                                                defaultStars: widget.game.stars,
-                                                readOnly: true,
-                                              ))
-                                        ]))
+                                  padding:
+                                      const EdgeInsets.only(bottom: 8, left: 8),
+                                  child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(widget.game.game.name,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                overflow: TextOverflow.ellipsis,
+                                                fontSize: 15,
+                                                color: Colors.white
+                                                    .withOpacity(opacity))),
+                                        Text(gameInfo.tagline,
+                                            style: TextStyle(
+                                                overflow: TextOverflow.ellipsis,
+                                                color: Colors.white
+                                                    .withOpacity(opacity))),
+                                        const SizedBox(height: 10),
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          children: [
+                                            Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Row(children: [
+                                                    Icon(
+                                                      FluentIcons.people,
+                                                      color: Colors.white
+                                                          .withOpacity(opacity),
+                                                    ),
+                                                    const SizedBox(width: 10),
+                                                    Text(
+                                                        "${gameInfo.players.min} - ${gameInfo.players.max} ${AppLocalizations.of(context)!.players}",
+                                                        style: TextStyle(
+                                                            color: Colors.white
+                                                                .withOpacity(
+                                                                    opacity)))
+                                                  ]),
+                                                  Row(children: [
+                                                    Icon(
+                                                      FluentIcons.clock,
+                                                      color: Colors.white
+                                                          .withOpacity(opacity),
+                                                    ),
+                                                    const SizedBox(width: 10),
+                                                    Text(gameInfo.length,
+                                                        style: TextStyle(
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            color: Colors.white
+                                                                .withOpacity(
+                                                                    opacity)))
+                                                  ]),
+                                                  SizedBox(height: 4),
+                                                  Opacity(
+                                                      opacity: opacity,
+                                                      child: StarsRateWidget(
+                                                        color: Colors.white,
+                                                        defaultStars:
+                                                            widget.game.stars,
+                                                        readOnly: true,
+                                                      )),
+                                                ]),
+                                            Spacer(),
+                                            if (widget.pack.owned)
+                                              Opacity(
+                                                  opacity: opacity,
+                                                  child: Padding(
+                                                      padding: EdgeInsets.only(
+                                                          right: 8),
+                                                      child: Button(
+                                                        style: ButtonStyle(
+                                                          backgroundColor:
+                                                              ButtonState.all<
+                                                                      Color>(
+                                                                  Colors.green),
+                                                        ),
+                                                        child: Icon(
+                                                            FontAwesomeIcons
+                                                                .play),
+                                                        onPressed: () {
+                                                          Launcher.launchGame(
+                                                              widget.pack,
+                                                              widget.game);
+                                                        },
+                                                      ))),
+                                          ],
+                                        )
+                                      ]),
+                                ),
                               ]),
                             )));
                   })),
         ));
+  }
+
+  void _startDiscordrichPresence() {
+    DiscordService().launchGameMenuPresence();
   }
 }

@@ -5,6 +5,7 @@ import 'package:jackbox_patcher/model/jackbox/jackboxpack.dart';
 import 'package:jackbox_patcher/model/misc/windowInformation.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgamepatch.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
+import 'package:jackbox_patcher/services/user/usersettings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../model/misc/launchers.dart';
@@ -15,6 +16,7 @@ import '../../model/usermodel/userjackboxpackpatch.dart';
 class UserData {
   static final UserData _instance = UserData._internal();
   late SharedPreferences preferences;
+  late UserSettings settings;
 
   factory UserData() {
     return _instance;
@@ -26,6 +28,10 @@ class UserData {
 
   Future<void> init() async {
     preferences = await SharedPreferences.getInstance();
+  }
+
+  Future<void> syncSettings() async {
+    settings = UserSettings(preferences: preferences);
   }
 
   Future<void> syncInfo() async {
@@ -73,6 +79,7 @@ class UserData {
         UserJackboxGame currentGame = UserJackboxGame(
             game: game,
             stars: preferences.getInt("${game.id}_stars") ?? 0,
+            hidden : preferences.getBool("${game.id}_hidden")??false,
             loader: gameLoader);
         userPack.games.add(currentGame);
         for (var patch in game.patches) {
@@ -143,6 +150,7 @@ class UserData {
       await saveLoader(game.loader!, game.game.id);
     }
     await preferences.setInt("${game.game.id}_stars", game.stars);
+    await preferences.setBool("${game.game.id}_hidden", game.hidden);
   }
 
   /// Save a patch (mostly used when a patch is downloaded)

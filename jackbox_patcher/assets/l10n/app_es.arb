@@ -87,11 +87,35 @@
   "game_type_team": "Equipos",
   "game_type_team_description": "En estos juegos, los jugadores se dividen en equipos y deben trabajar juntos para ganar.",
   "game_translation_translated": "Traducido oficialmente",
-  "game_translation_translated_description": "Estos juegos están traducidos de manera oficial al español.",
+  "@game_translation_translated":{
+        "placeholders":{
+            "language":{
+                "type":"String",
+                "example":"French"
+            }
+        }
+    },
+  "game_translation_translated_description": "Estos juegos están traducidos de manera oficial al {language}.",
+  "@game_translation_translated_description":{
+        "placeholders":{
+            "language":{
+                "type":"String",
+                "example":"French"
+            }
+        }
+    },
   "game_translation_community_translated": "Traducido por la comunidad",
   "game_translation_community_translated_description": "Estos juegos están traducidos por la comunidad.",
   "game_translation_not_available": "En inglés",
-  "game_translation_not_available_description": "Estos juegos no están traducidos al español.",
+  "game_translation_not_available_description": "Estos juegos no están traducidos al {language}.",
+  "@game_translation_not_available_description":{
+        "placeholders":{
+            "language":{
+                "type":"String",
+                "example":"French"
+            }
+        }
+    },
   "downloading": "Descargando",
   "starting": "Comenzando",
   "extracting": "Extrayendo",

@@ -4,6 +4,8 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/components/dialogs/newsReadingDialog.dart';
 import 'package:jackbox_patcher/model/news.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 
 class NotificationCaroussel extends StatefulWidget {
@@ -37,13 +39,13 @@ class _NotificationCarousselState extends State<NotificationCaroussel> {
       SizedBox(
           height: 130,
           child: AspectRatio(
-            aspectRatio: 1.778,
+            aspectRatio: 2.011,
             child: CarouselSlider.builder(
               itemCount: images.length,
               carouselController: _controller,
               options: CarouselOptions(
                 autoPlay: true,
-                aspectRatio: 1.778,
+                aspectRatio: 2.011,
                 height: 130,
                 enlargeCenterPage: true,
                 onPageChanged: (index, reason) {
@@ -53,7 +55,7 @@ class _NotificationCarousselState extends State<NotificationCaroussel> {
                 },
               ),
               itemBuilder: (context, index, realIdx) {
-                return GestureDetector(onTap: () => _openNotificationsWindow(index), child: MouseRegion(
+                return GestureDetector(onTap: () => widget.news[index].link != null? launchUrlString(widget.news[index].link!): _openNotificationsWindow(index), child: MouseRegion(
                   cursor: SystemMouseCursors.click,
                   child: Container(
                       child: Center(
@@ -61,19 +63,22 @@ class _NotificationCarousselState extends State<NotificationCaroussel> {
                               borderRadius: BorderRadius.circular(8.0),
                               child: Stack(children: [
                                 AspectRatio(
-                                    aspectRatio: 1.778,
+                                    aspectRatio: 2.011,
                                     child: CachedNetworkImage(
                                         imageUrl: images[index],
                                         fit: BoxFit.cover,
                                         height: 130)),
                                 Container(
                                     width: double.maxFinite,
-                                    color: Colors.black.withOpacity(0.7),
+                                    color: widget.news[index].shadow==null || widget.news[index].shadow ==true ? Colors.black.withOpacity(0.7): Colors.transparent,
                                     child: Padding(
-                                      padding: const EdgeInsets.all(4.0),
+                                      padding: const EdgeInsets.only(top:1, bottom:1),
                                       child: Text(
                                         widget.news[index].title,
                                         textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 14,)
                                       ),
                                     ))
                               ])))),

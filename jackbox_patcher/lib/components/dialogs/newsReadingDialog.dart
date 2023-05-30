@@ -20,7 +20,7 @@ class _NewsReadingDialogState extends State<NewsReadingDialog> {
     return ContentDialog(
         title: Text(widget.news.title),
         content: Markdown(
-            data: widget.news.content,
+            data: widget.news.content!,
             onTapLink: (text, href, title) => launchUrl(Uri.parse(href!))),
         actions: [
           HyperlinkButton(
