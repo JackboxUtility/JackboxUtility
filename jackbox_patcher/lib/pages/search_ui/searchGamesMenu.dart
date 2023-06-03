@@ -59,7 +59,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
           footerItems: [
             if (UserJackboxGame.countHiddenGames(UserData().packs)>=1) 
             PaneItem(
-              icon: const Icon(FontAwesomeIcons.eye),
+              icon: Icon(showHidden? FontAwesomeIcons.eyeSlash :FontAwesomeIcons.eye),
               title: Text(showHidden == false
                   ? "Show games you've hidden"
                   : "Hide games you've hidden"),
