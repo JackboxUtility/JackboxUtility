@@ -11,7 +11,11 @@ With this app, you will be able to download translation patches for your Jackbox
 
 ## Features
 
-- Supports the following languages: <img src="https://raw.githubusercontent.com/lipis/flag-icons/0df85234c05404587baf0a7cb2c4e82c36ed4648/flags/1x1/fr.svg" width="12" height="12" /> French, <img src="https://raw.githubusercontent.com/lipis/flag-icons/0df85234c05404587baf0a7cb2c4e82c36ed4648/flags/1x1/de.svg" width="12" height="12" /> German, <img src="https://raw.githubusercontent.com/lipis/flag-icons/0df85234c05404587baf0a7cb2c4e82c36ed4648/flags/1x1/es.svg" width="12" height="12" /> Spanish, <img src="https://raw.githubusercontent.com/lipis/flag-icons/0df85234c05404587baf0a7cb2c4e82c36ed4648/flags/1x1/ua.svg" width="12" height="12" /> Ukrainian
+- Supports the following languages: 
+<img src="https://raw.githubusercontent.com/lipis/flag-icons/0df85234c05404587baf0a7cb2c4e82c36ed4648/flags/1x1/fr.svg" width="12" height="12" /> French, 
+<img src="https://raw.githubusercontent.com/lipis/flag-icons/0df85234c05404587baf0a7cb2c4e82c36ed4648/flags/1x1/de.svg" width="12" height="12" /> German, 
+<img src="https://raw.githubusercontent.com/lipis/flag-icons/0df85234c05404587baf0a7cb2c4e82c36ed4648/flags/1x1/es.svg" width="12" height="12" /> Spanish, 
+<img src="https://raw.githubusercontent.com/lipis/flag-icons/0df85234c05404587baf0a7cb2c4e82c36ed4648/flags/1x1/ua.svg" width="12" height="12" /> Ukrainian
 - Detect automatically your installed games
 - Download translation patches for your games
 - Find every Jackbox game in the same place
