@@ -70,6 +70,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
   FlyoutController starsController = FlyoutController();
   late UserJackboxPack currentPack;
   late UserJackboxGame currentGame;
+  UniqueKey carousselKey = UniqueKey();
 
   @override
   void initState() {
@@ -135,6 +136,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
           setState(() {});
         }
         DiscordService().launchGameInfoPresence(currentGame.game.name);
+        carousselKey = UniqueKey();
       }
     }
   }
@@ -154,6 +156,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
           setState(() {});
         }
         DiscordService().launchGameInfoPresence(currentGame.game.name);
+        carousselKey = UniqueKey();
       }
     }
   }
@@ -244,8 +247,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
             Stack(children: [
               SizedBox(
                   child: AssetCarousselWidget(
-                    key:UniqueKey(),
-                      images: currentGame.game.info.images))
+                      key: carousselKey, images: currentGame.game.info.images))
             ]),
             SizedBox(
                 height: 500,
@@ -408,15 +410,19 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                               decoration: TextDecoration.underline)))
                   : _buildLauncherButton())),
       const SizedBox(width: 10),
-      IconButton( 
-        key: UniqueKey(),
-        icon:
-            SizedBox(width: 16, height:16, child: Icon(widget.game.hidden? FontAwesomeIcons.eyeSlash:  FontAwesomeIcons.eye, size: widget.game.hidden?15:16)),
+      IconButton(
+        icon: SizedBox(
+            width: 16,
+            height: 16,
+            child: Icon(
+                currentGame.hidden
+                    ? FontAwesomeIcons.eyeSlash
+                    : FontAwesomeIcons.eye,
+                key: UniqueKey(),
+                size: currentGame.hidden ? 15 : 16)),
         onPressed: () {
-          widget.game.hidden = !widget.game.hidden;
-          setState(() {
-            
-          });
+          currentGame.hidden = !currentGame.hidden;
+          setState(() {});
         },
         style: ButtonStyle(backgroundColor: ButtonState.all(Colors.blue)),
       )
