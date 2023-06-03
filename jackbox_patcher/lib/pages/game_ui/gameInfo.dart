@@ -134,6 +134,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
               widget.allAvailableGames![widget.allAvailableGames!.length - 1].p;
           setState(() {});
         }
+        DiscordService().launchGameInfoPresence(currentGame.game.name);
       }
     }
   }
@@ -152,6 +153,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
           currentPack = widget.allAvailableGames![0].p;
           setState(() {});
         }
+        DiscordService().launchGameInfoPresence(currentGame.game.name);
       }
     }
   }
