@@ -267,6 +267,11 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                   .cachedConfigurations!
                   .getConfiguration("LAUNCHER", "HIDE_DUBBED_BY_COMMUNITY") ==
               true) continue;
+      if (translation == JackboxGameTranslationCategory.DUBBED &&
+          APIService()
+                  .cachedConfigurations!
+                  .getConfiguration("LAUNCHER", "HIDE_DUBBED_IN_LANGUAGE") ==
+              true) continue;
       translationItem.add(PaneItem(
           icon: Container(
               decoration: BoxDecoration(

@@ -227,6 +227,7 @@ enum JackboxGameTranslation {
 enum JackboxGameTranslationCategory {
   TRANSLATED,
   NATIVELY_TRANSLATED,
+  DUBBED,
   COMMUNITY_DUBBED,
   COMMUNITY_TRANSLATED,
   ENGLISH;
@@ -239,6 +240,8 @@ enum JackboxGameTranslationCategory {
         return 'NATIVELY_TRANSLATED';
       case JackboxGameTranslationCategory.COMMUNITY_DUBBED:
         return 'COMMUNITY_DUBBED';
+      case JackboxGameTranslationCategory.DUBBED:
+        return 'DUBBED';
       case JackboxGameTranslationCategory.COMMUNITY_TRANSLATED:
         return 'COMMUNITY_TRANSLATED';
       case JackboxGameTranslationCategory.ENGLISH:
@@ -252,20 +255,24 @@ enum JackboxGameTranslationCategory {
         return const Color.fromARGB(255, 0, 208, 0);
       case JackboxGameTranslationCategory.COMMUNITY_DUBBED:
         return const Color.fromARGB(255, 12, 78, 140);
+      case JackboxGameTranslationCategory.DUBBED:
+        return const Color.fromARGB(255, 12, 140, 140);
       default:
         return JackboxGameTranslation.fromString(id).color;
     }
   }
 
   String get name {
+        String languageKey = APIService().cachedSelectedServer!.languages[0];
     switch (this) {
       case JackboxGameTranslationCategory.TRANSLATED:
-        String languageKey = APIService().cachedSelectedServer!.languages[0];
         return TranslationsHelper()
             .appLocalizations!
             .in_language(LanguageService().getLanguageName(languageKey));
       case JackboxGameTranslationCategory.COMMUNITY_DUBBED:
         return TranslationsHelper().appLocalizations!.game_community_dubbed;
+      case JackboxGameTranslationCategory.DUBBED:
+        return TranslationsHelper().appLocalizations!.game_dubbed(LanguageService().getLanguageName(languageKey));
       default:
         return JackboxGameTranslation.fromString(id).name;
     }
@@ -281,6 +288,10 @@ enum JackboxGameTranslationCategory {
         return TranslationsHelper()
             .appLocalizations!
             .game_community_dubbed_description;
+      case JackboxGameTranslationCategory.DUBBED:
+        return TranslationsHelper()
+            .appLocalizations!
+            .game_dubbed_description;
       default:
         return JackboxGameTranslation.fromString(id).description;
     }
@@ -304,6 +315,12 @@ enum JackboxGameTranslationCategory {
         return (UserJackboxPack pack, UserJackboxGame game) {
           return (game.getInstalledPatch() != null &&
               game.getInstalledPatch()!.patchType!.audios);
+        };
+      case JackboxGameTranslationCategory.DUBBED:
+        return (UserJackboxPack pack, UserJackboxGame game) {
+          return ((game.getInstalledPatch() != null &&
+              game.getInstalledPatch()!.patchType!.audios) || game.game.info.translation ==
+              JackboxGameTranslation.NATIVELY_TRANSLATED);
         };
       case JackboxGameTranslationCategory.COMMUNITY_TRANSLATED:
         return (UserJackboxPack pack, UserJackboxGame game) {

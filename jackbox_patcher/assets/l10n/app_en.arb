@@ -245,6 +245,17 @@
     "game_community_dubbed":"Community dubbed",
     "game_community_dubbed_description":"These games are dubbed by the community",
 
+    "game_dubbed":"Dubbed in {language}",
+    "@game_dubbed":{
+        "placeholders":{
+            "language":{
+                "type":"String",
+                "example":"French"
+            }
+        } 
+    },
+    "game_dubbed_description":"These games are dubbed by the community or by Jackbox",
+
     "no_game_in_this_category_title":"No game in this category",
     "no_game_in_this_category_description":"There is no game in this category. Try adding more in the settings section.",
 

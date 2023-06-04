@@ -94,7 +94,7 @@
     "game_type_team":"Jeu en équipe",
     "game_type_team_description":"Dans ces jeux, les joueurs sont divisés en équipes et doivent travailler ensemble pour gagner.",
 
-    "game_translation_translated":"Traduit en {language}",
+    "game_translation_translated":"Traduit en {language} par Jackbox",
     "@game_translation_translated":{
         "placeholders":{
             "language":{
@@ -222,7 +222,7 @@
     "author":"Auteur",
     "contributors":"Contributeurs", 
 
-    "in_language":"En {language}",
+    "in_language":"Traduit en {language}",
     "@in_language":{
         "placeholders":{
             "language":{
