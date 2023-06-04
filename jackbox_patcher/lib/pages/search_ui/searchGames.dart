@@ -435,14 +435,14 @@ class SearchGameGameWidget extends StatefulWidget {
       required this.game,
       required this.showAllPacks,
       this.parentReload, 
-      required this.allAvailableGames})
+      this.allAvailableGames})
       : super(key: key);
 
   final UserJackboxPack pack;
   final UserJackboxGame game;
   final bool showAllPacks;
   final Function? parentReload;
-  final List<({UserJackboxGame g, UserJackboxPack p})> allAvailableGames;
+  final List<({UserJackboxGame g, UserJackboxPack p})>? allAvailableGames;
   @override
   State<SearchGameGameWidget> createState() => _SearchGameGameWidgetState();
 }

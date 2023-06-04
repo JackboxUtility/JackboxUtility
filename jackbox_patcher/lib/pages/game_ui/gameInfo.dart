@@ -35,7 +35,7 @@ class _GameInfoRouteState extends State<GameInfoRoute> {
     final UserJackboxGame game = data[1] as UserJackboxGame;
     final bool showAllPacks = data[2] as bool;
     List<({UserJackboxGame g, UserJackboxPack p})>? allAvailableGames;
-    if (data.length >= 4) {
+    if (data.length >= 4 && data[3] != null) {
       allAvailableGames =
           data[3] as List<({UserJackboxGame g, UserJackboxPack p})>;
     }

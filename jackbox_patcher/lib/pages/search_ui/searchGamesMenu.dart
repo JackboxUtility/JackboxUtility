@@ -5,6 +5,7 @@ import 'package:jackbox_patcher/components/closableRouteWithEsc.dart';
 import 'package:jackbox_patcher/components/starsRate.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxgame.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
+import 'package:jackbox_patcher/pages/search_ui/randomGame.dart';
 import 'package:jackbox_patcher/pages/search_ui/searchGames.dart';
 import 'package:jackbox_patcher/services/discord/DiscordService.dart';
 
@@ -25,6 +26,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
   late TextEditingController _searchController;
   bool showAllPacks = false;
   bool showHidden = false;
+  num maxSelectableView = 0;
 
   @override
   void initState() {
@@ -49,28 +51,31 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
           )),
       pane: NavigationPane(
           onChanged: (int nSelected) {
-            setState(() {
-              _searchController.text = "";
-              _selectedView = nSelected;
-            });
+            if (nSelected <= maxSelectableView) {
+              setState(() {
+                _searchController.text = "";
+                _selectedView = nSelected;
+              });
+            }
           },
           selected: _selectedView,
           items: _buildPaneItems(),
           footerItems: [
-            if (UserJackboxGame.countHiddenGames(UserData().packs)>=1) 
-            PaneItem(
-              icon: Icon(showHidden? FontAwesomeIcons.eyeSlash :FontAwesomeIcons.eye),
-              title: Text(showHidden == false
-                  ? "Show games you've hidden"
-                  : "Hide games you've hidden"),
-              body: Container(),
-              onTap: () {
-                setState(() {
-                  showHidden = !showHidden;
-                  _selectedView = 0;
-                });
-              },
-            ),
+            if (UserJackboxGame.countHiddenGames(UserData().packs) >= 1)
+              PaneItem(
+                icon: Icon(showHidden
+                    ? FontAwesomeIcons.eyeSlash
+                    : FontAwesomeIcons.eye),
+                title: Text(showHidden == false
+                    ? "Show games you've hidden"
+                    : "Hide games you've hidden"),
+                body: Container(),
+                onTap: () {
+                  setState(() {
+                    showHidden = !showHidden;
+                  });
+                },
+              ),
             PaneItem(
               icon: const Icon(FontAwesomeIcons.boxArchive),
               title: Text(showAllPacks == false
@@ -80,7 +85,6 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
               onTap: () {
                 setState(() {
                   showAllPacks = !showAllPacks;
-                  _selectedView = 0;
                 });
               },
             )
@@ -134,7 +138,8 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                 game.game.name
                     .toLowerCase()
                     .contains(_searchController.text.toLowerCase()) &&
-                (showAllPacks || pack.owned) && (showHidden || !game.hidden),
+                (showAllPacks || pack.owned) &&
+                (showHidden || !game.hidden),
             comeFromGame: false,
             background: APIService().getDefaultBackground(),
             name: type.name,
@@ -168,7 +173,8 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                 game.game.name
                     .toLowerCase()
                     .contains(_searchController.text.toLowerCase()) &&
-                (showAllPacks || pack.owned) && (showHidden || !game.hidden),
+                (showAllPacks || pack.owned) &&
+                (showHidden || !game.hidden),
             comeFromGame: false,
             background: APIService().getDefaultBackground(),
             name: AppLocalizations.of(context)!.all_games,
@@ -231,6 +237,21 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
           });
         },
       ));
+
+      items.add(PaneItem(
+          icon: Icon(FontAwesomeIcons.dice),
+          title:Text("Random game"),
+          body: RandomGameWidget(
+              showHiddenGames: showHidden, showUnownedGames: showAllPacks)));
+    }
+
+    maxSelectableView = 0;
+    for (var item in items) {
+      if (item is PaneItemExpander) {
+        maxSelectableView += item.items.length;
+      } else {
+        maxSelectableView++;
+      }
     }
 
     return items;
@@ -260,7 +281,8 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                 game.game.name
                     .toLowerCase()
                     .contains(_searchController.text.toLowerCase()) &&
-                (showAllPacks || pack.owned) && (showHidden || !game.hidden),
+                (showAllPacks || pack.owned) &&
+                (showHidden || !game.hidden),
             showAllPacks: showAllPacks,
             comeFromGame: false,
             background: APIService().getDefaultBackground(),
@@ -285,7 +307,8 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                 game.game.name
                     .toLowerCase()
                     .contains(_searchController.text.toLowerCase()) &&
-                (showAllPacks || pack.owned) && (showHidden || !game.hidden),
+                (showAllPacks || pack.owned) &&
+                (showHidden || !game.hidden),
             comeFromGame: false,
             background: APIService().getDefaultBackground(),
             name: tag.name,
@@ -309,7 +332,8 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
               game.game.name
                   .toLowerCase()
                   .contains(_searchController.text.toLowerCase()) &&
-              (showAllPacks || pack.owned) && (showHidden || !game.hidden),
+              (showAllPacks || pack.owned) &&
+              (showHidden || !game.hidden),
           comeFromGame: false,
           background: APIService().getDefaultBackground(),
           name: "Ranked by stars",
