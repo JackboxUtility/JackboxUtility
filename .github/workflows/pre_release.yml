@@ -21,7 +21,7 @@ jobs:
       run: |
          DATE=$(date +%s)
          VERSION=$(more pubspec.yaml | grep version: | cut -d ' ' -f2)
-         echo "version=${VERSION}_beta_${DATE}" >> $GITHUB_OUTPUT
+         echo "version=${VERSION}-beta-${DATE}" >> $GITHUB_OUTPUT
  build_windows:
    runs-on: windows-latest
    needs: retrievingVersion
