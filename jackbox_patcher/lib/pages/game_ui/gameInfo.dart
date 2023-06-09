@@ -84,9 +84,6 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
   Widget build(BuildContext context) {
     return ClosableRouteWithEsc(
         child: NavigationView(
-            transitionBuilder: (Widget w, Animation<double> a) {
-              return EntrancePageTransition(animation: a, child: w);
-            },
             content: Stack(children: [
               ListView(children: [_buildHeader(), _buildBottom()]),
               if (widget.allAvailableGames != null)

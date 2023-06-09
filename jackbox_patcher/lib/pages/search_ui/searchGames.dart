@@ -65,7 +65,8 @@ class SearchGameWidget extends StatefulWidget {
       required this.showAllPacks,
       this.separators,
       this.separatorFilter,
-      this.icon})
+      this.icon,
+      this.parentReload})
       : super(key: key);
 
   final bool Function(UserJackboxPack, UserJackboxGame) filter;
@@ -77,6 +78,7 @@ class SearchGameWidget extends StatefulWidget {
   final String? icon;
   final List<Widget>? separators;
   final int Function(UserJackboxPack, UserJackboxGame)? separatorFilter;
+  final void Function()? parentReload;
 
   @override
   State<SearchGameWidget> createState() => _SearchGameWidgetState();
@@ -277,14 +279,21 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
                           pack: game["pack"] as UserJackboxPack,
                           game: game["game"] as UserJackboxGame,
                           showAllPacks: widget.showAllPacks,
-                          allAvailableGames:  List.generate(gamesWithSeparator.length, (index) => (
-                            g:gamesWithSeparator[index]["game"] as UserJackboxGame,
-                            p:gamesWithSeparator[index]["pack"] as UserJackboxPack
-                          )),
+                          allAvailableGames: List.generate(
+                              gamesWithSeparator.length,
+                              (index) => (
+                                    g: gamesWithSeparator[index]["game"]
+                                        as UserJackboxGame,
+                                    p: gamesWithSeparator[index]["pack"]
+                                        as UserJackboxPack
+                                  )),
                           parentReload: () {
                             setState(() {
                               key = UniqueKey();
                             });
+                            if (widget.parentReload != null) {
+                              widget.parentReload!();
+                            }
                           },
                         ))
                     .toList()));
@@ -307,14 +316,20 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
                       pack: game["pack"] as UserJackboxPack,
                       game: game["game"] as UserJackboxGame,
                       showAllPacks: widget.showAllPacks,
-                      allAvailableGames:  List.generate(games.length, (index) => (
-                        g:games[index]["game"] as UserJackboxGame,
-                        p:games[index]["pack"] as UserJackboxPack
-                      )),
+                      allAvailableGames: List.generate(
+                          games.length,
+                          (index) => (
+                                g: games[index]["game"] as UserJackboxGame,
+                                p: games[index]["pack"] as UserJackboxPack
+                              )),
                       parentReload: () {
                         setState(() {
                           key = UniqueKey();
                         });
+
+                        if (widget.parentReload != null) {
+                          widget.parentReload!();
+                        }
                       }))
                   .toList()));
     } else {
@@ -418,12 +433,12 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
             children: pack.games
                 .where((game) => widget.filter(pack, game))
                 .map((game) => SearchGameGameWidget(
-                    pack: pack, game: game, showAllPacks: widget.showAllPacks, allAvailableGames: 
-                      List.generate(pack.pack.games.length, (index) => (
-                        g:pack.games[index],
-                        p:pack
-                      ))
-                    ,))
+                      pack: pack,
+                      game: game,
+                      showAllPacks: widget.showAllPacks,
+                      allAvailableGames: List.generate(pack.pack.games.length,
+                          (index) => (g: pack.games[index], p: pack)),
+                    ))
                 .toList()));
   }
 }
@@ -434,7 +449,7 @@ class SearchGameGameWidget extends StatefulWidget {
       required this.pack,
       required this.game,
       required this.showAllPacks,
-      this.parentReload, 
+      this.parentReload,
       this.allAvailableGames})
       : super(key: key);
 
@@ -467,8 +482,7 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                   duration: const Duration(milliseconds: 200),
                   builder:
                       (BuildContext context, double opacity, Widget? child) {
-                    return IntrinsicHeight(
-                        child: GestureDetector(
+                     return GestureDetector(
                             onSecondaryTap: () =>
                                 Launcher.launchGame(widget.pack, widget.game),
                             onTap: () async {
@@ -476,7 +490,7 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                                   arguments: [
                                     widget.pack,
                                     widget.game,
-                                    widget.showAllPacks, 
+                                    widget.showAllPacks,
                                     widget.allAvailableGames
                                   ]);
                               if (widget.parentReload != null) {
@@ -612,7 +626,7 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                                       ]),
                                 ),
                               ]),
-                            )));
+                            ));
                   })),
         ));
   }
