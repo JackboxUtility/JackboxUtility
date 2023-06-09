@@ -69,6 +69,98 @@
             "description": "The approximative length of the game",
             "type": "string"
         },
+        "playtime": {
+            "examples": [
+                {
+                    "playtime":{
+                        "min":15,
+                        "max":20
+                    }
+                }
+            ],
+            "description": "Information about tthe playtime of the game",
+            "type": "object",
+            "properties": {
+                "min": {
+                    "examples": [
+                        15
+                    ],
+                    "description": "The minimum playtime",
+                    "type": "integer"
+                },
+                "max": {
+                    "examples": [
+                        20
+                    ],
+                    "description": "The maximum playtime",
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "min",
+                "max"
+            ]
+        },
+        "family_friendly": {
+            "examples": [
+                true
+            ],
+            "description": "If the game has a family friendly setting available",
+            "type": "boolean"
+        },
+        "audience": {
+            "examples": [
+                true
+            ],
+            "description": "If the game can have an audience",
+            "type": "boolean"
+        },
+        "audience_description": {
+            "examples": [
+                "The audience can vote for the best drawing"
+            ],
+            "description": "A description of what can the audience do in the game",
+            "type": "string"
+        },
+        "stream_friendly": {
+            "examples": [
+                "PLAYABLE", "MIDLY_PLAYABLE", "NOT_PLAYABLE"
+            ],
+            "description": "If the game can be played in stream",
+            "enum": [
+                "PLAYABLE", "MIDLY_PLAYABLE", "NOT_PLAYABLE"
+            ]
+        },
+        "stream_friendly_description": {
+            "examples": [
+                "The audience can vote for the best drawing"
+            ],
+            "description": "A description of why this game is stream friendly or not",
+            "type": "string"
+        },
+        "moderation": {
+            "examples": [
+                "FULL_MODERATION", "CENSORING", "NO_MODERATION"
+            ],
+            "description": "If the game has a moderation setting available",
+            "enum": [
+                "FULL_MODERATION", "CENSORING", "NO_MODERATION"
+            ]
+        },
+        "moderation_description": {
+            "examples": [
+                ""
+            ],
+            "description": "A description of the moderation setting of this game",
+            "type": "string"
+        },
+        "subtitles": {
+            "examples": [
+                true
+            ],
+            "description": "If the game has subtitles",
+            "type": "boolean"
+        },
         "type": {
             "examples": [
                 "VERSUS","COOP","TEAM"
@@ -136,6 +228,12 @@
     "required": [
         "players",
         "length",
+        "playtime",
+        "family_friendly",
+        "audience",
+        "stream_friendly",
+        "moderation",
+        "subtitles",
         "type",
         "translation",
         "tagline",
