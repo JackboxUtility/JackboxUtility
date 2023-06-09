@@ -2,13 +2,17 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jackbox_patcher/components/closableRouteWithEsc.dart';
+import 'package:jackbox_patcher/components/filters/booleanFilterPaneItem.dart';
+import 'package:jackbox_patcher/components/filters/intFilterPaneItem.dart';
 import 'package:jackbox_patcher/components/starsRate.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxgame.dart';
+import 'package:jackbox_patcher/model/misc/filterEnum.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
 import 'package:jackbox_patcher/pages/search_ui/randomGame.dart';
 import 'package:jackbox_patcher/pages/search_ui/searchGames.dart';
 import 'package:jackbox_patcher/services/discord/DiscordService.dart';
 
+import '../../components/filters/enumFilterPaneItem.dart';
 import '../../model/usermodel/userjackboxpack.dart';
 import '../../services/api/api_service.dart';
 import '../../services/user/userdata.dart';
@@ -27,10 +31,19 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
   bool showAllPacks = false;
   bool showHidden = false;
   num maxSelectableView = 0;
+  List<({bool activated, FilterValue selected, FilterType type})> filters = [];
+  List<({bool activated, int selected, String type})> intFilters = [];
+  Key filterKey = UniqueKey();
 
   @override
   void initState() {
     _searchController = TextEditingController();
+    FilterType.values.forEach((element) {
+      filters.add(
+          (activated: false, selected: element.values.first, type: element));
+    });
+    intFilters.add((activated: false, selected: 10, type: "minPlayers"));
+    intFilters.add((activated: false, selected: 30, type: "maxPlaytime"));
     super.initState();
   }
 
@@ -50,7 +63,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
             style: typography.title,
           )),
       pane: NavigationPane(
-          key: UniqueKey(),
+          size: NavigationPaneSize(openWidth: 400),
           onChanged: (int nSelected) {
             if (nSelected <= maxSelectableView) {
               setState(() {
@@ -62,6 +75,17 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
           selected: _selectedView,
           items: _buildPaneItems(),
           footerItems: [
+            PaneItemExpander(
+              key: filterKey,
+              onTap: () {
+                setState(() {
+                  filterKey = UniqueKey();
+                });
+              },
+                icon: Icon(FontAwesomeIcons.filter),
+                title: Text("Filter"),
+                items: _buildGameFilterPaneItems(),
+                body: Container()),
             if (UserJackboxGame.countHiddenGames(UserData().packs) >= 1)
               PaneItem(
                 icon: Icon(showHidden
@@ -91,6 +115,68 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
             )
           ]),
     ));
+  }
+
+  List<NavigationPaneItem> _buildGameFilterPaneItems() {
+    List<NavigationPaneItem> items = [];
+    items.add(IntFilterPaneItem(
+        activated: intFilters.firstWhere((element) => element.type == "minPlayers").activated,
+        icon: FontAwesomeIcons.users,
+        min: 1,
+        max: 16,
+        step: 1,
+        defaultValue: intFilters.firstWhere((element) => element.type == "minPlayers").selected,
+        name: "Number of players",
+        onChanged: (int value) {
+          int index = intFilters.indexWhere((element) => element.type == "minPlayers");
+          intFilters[index] = (activated: true, selected: value, type: "minPlayers");
+        },
+        onActivationChanged: (bool value) {
+          int index = intFilters.indexWhere((element) => element.type == "minPlayers");
+          intFilters[index] = (activated: value, selected: intFilters[index].selected, type: "minPlayers");
+        }));
+    items.add(IntFilterPaneItem(
+        activated: intFilters.firstWhere((element) => element.type == "maxPlaytime").activated,
+        icon: FontAwesomeIcons.clock,
+        min: 5,
+        max: 40,
+        step: 5,
+        defaultValue: intFilters.firstWhere((element) => element.type == "maxPlaytime").selected,
+        name: "Max playtime",
+        onChanged: (int value) {
+          int index = intFilters.indexWhere((element) => element.type == "maxPlaytime");
+          intFilters[index] = (activated: true, selected: value, type: "maxPlaytime");
+        },
+        onActivationChanged: (bool value) {
+          int index = intFilters.indexWhere((element) => element.type == "maxPlaytime");
+          intFilters[index] = (activated: value, selected: intFilters[index].selected, type: "maxPlaytime");
+        }));
+    for (var filter in filters) {
+      print(filter);
+      items.add(EnumFilterPaneItem(
+        activated: filter.activated,
+          icon: filter.type.icon,
+          defaultValue: filter.selected,
+          name: filter.type.name,
+          availableValues: filter.type.values,
+          onChanged: (FilterValue value) {
+            var index =
+                filters.indexWhere((element) => element.type == filter.type);
+            filters[index] =
+                (activated: true, selected: value, type: filter.type);
+          },
+          onActivationChanged: (bool value) {
+            var index =
+                filters.indexWhere((element) => element.type == filter.type);
+            filters[index] = (
+              activated: value,
+              selected: filter.selected,
+              type: filter.type
+            );
+          }));
+    }
+
+    return items;
   }
 
   _buildPaneItems() {
