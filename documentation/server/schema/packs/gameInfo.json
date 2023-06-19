@@ -103,10 +103,16 @@
         },
         "family_friendly": {
             "examples": [
-                true
+                "FAMILY_FRIENDLY",
+                "OPTIONAL",
+                "NOT_FAMILY_FRIENDLY"
             ],
             "description": "If the game has a family friendly setting available",
-            "type": "boolean"
+            "enum": [
+                "FAMILY_FRIENDLY",
+                "OPTIONAL",
+                "NOT_FAMILY_FRIENDLY"
+            ]
         },
         "audience": {
             "examples": [

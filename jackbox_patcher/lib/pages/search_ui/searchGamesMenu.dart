@@ -179,6 +179,10 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
     return items;
   }
 
+  bool _filterGameBasedOnActiveFilters(UserJackboxPack pack, UserJackboxGame game){
+    return false;
+  }
+
   _buildPaneItems() {
     List<NavigationPaneItem> items = [];
     List<NavigationPaneItem> packItems = [];
