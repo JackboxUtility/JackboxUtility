@@ -82,7 +82,20 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                   });
                 },
                 icon: Icon(FontAwesomeIcons.filter),
-                title: Text("Filter"),
+                title:Text("Filter"),
+                infoBadge: filters.where((element) => element.activated).length >
+                        0 || intFilters.where((element) => element.activated).length > 0
+                    ? Checkbox(checked: true, onChanged: (value){
+                      setState(() {
+                        for (int i=0;i<filters.length;i++) {
+                          filters[i] = (activated: false, selected: filters[i].selected, type: filters[i].type);
+                        };
+                        for (int i=0;i<intFilters.length;i++) {
+                          intFilters[i] = (activated: false, selected: intFilters[i].selected, type: intFilters[i].type);
+                        };
+                        filterKey = UniqueKey();
+                      });
+                    },):Container(),
                 items: _buildGameFilterPaneItems(),
                 body: Container()),
             if (UserJackboxGame.countHiddenGames(UserData().packs) >= 1)
@@ -218,6 +231,8 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
 
     return items;
   }
+
+
 
   bool _filterGameBasedOnActiveFilters(
       UserJackboxPack pack, UserJackboxGame game) {
