@@ -13,7 +13,7 @@ class StarsRateWidget extends StatefulWidget {
   final int defaultStars;
   final Function(int)? onStarChanged;
   final bool readOnly;
-  Color? color;
+  final Color? color;
 
   @override
   State<StarsRateWidget> createState() => _StarsRateWidgetState();

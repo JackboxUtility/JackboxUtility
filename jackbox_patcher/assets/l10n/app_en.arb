@@ -280,5 +280,7 @@
 
     "small_description":"Description",
 
-    "patreon_subscribers":"Patreon subscribers"
+    "patreon_subscribers":"Patreon subscribers",
+
+    "audience":"Audience"
 }

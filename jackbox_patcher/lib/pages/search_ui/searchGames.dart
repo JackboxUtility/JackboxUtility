@@ -11,7 +11,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../components/closableRouteWithEsc.dart';
 import '../../components/starsRate.dart';
-import '../../model/misc/filterEnum.dart';
 import '../../services/discord/DiscordService.dart';
 import '../../services/launcher/launcher.dart';
 

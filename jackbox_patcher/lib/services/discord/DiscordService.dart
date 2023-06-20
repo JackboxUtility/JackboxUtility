@@ -1,5 +1,4 @@
 import 'package:dart_discord_rpc/dart_discord_rpc.dart';
-import 'package:jackbox_patcher/services/logger/logger.dart';
 
 class DiscordService {
   static final DiscordService _instance = DiscordService._internal();
