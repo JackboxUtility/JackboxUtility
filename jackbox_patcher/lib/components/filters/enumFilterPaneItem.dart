@@ -1,5 +1,4 @@
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jackbox_patcher/model/misc/filterEnum.dart';
 
 class EnumFilterPaneItem extends PaneItemHeader {
@@ -84,7 +83,7 @@ class _EnumFilterPaneItemTitleState extends State<EnumFilterPaneItemTitle> {
       Text(widget.name,
           style: TextStyle(color: activated ? null : Colors.grey)),
       Spacer(),
-      ComboBox(
+      widget.availableValues.length>1? ComboBox(
         elevation: 0,
        items: widget.availableValues
               .map((e) => ComboBoxItem(value: e, child: Row(children: [
@@ -103,7 +102,7 @@ class _EnumFilterPaneItemTitleState extends State<EnumFilterPaneItemTitle> {
               currentValue = value;
             });
           }:null,
-          value: currentValue)
+          value: currentValue):Container()
     ]);
   }
 }

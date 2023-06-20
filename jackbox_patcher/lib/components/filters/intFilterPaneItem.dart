@@ -105,7 +105,7 @@ class _IntFilterPaneItemTitleState
         },
         child:Icon(FontAwesomeIcons.minus, color: activated?null:Colors.grey )), 
       SizedBox(width: 8),
-      Text(currentValue.toString(), style:TextStyle(color: activated?null:Colors.grey)),
+      SizedBox(width:20, child: Text( currentValue.toString(), textAlign: TextAlign.center, style:TextStyle(color: activated?null:Colors.grey))),
       SizedBox(width: 8),
       GestureDetector(
         onTap: () {

@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jackbox_patcher/components/closableRouteWithEsc.dart';
-import 'package:jackbox_patcher/components/filters/booleanFilterPaneItem.dart';
 import 'package:jackbox_patcher/components/filters/intFilterPaneItem.dart';
 import 'package:jackbox_patcher/components/starsRate.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxgame.dart';
@@ -10,7 +9,6 @@ import 'package:jackbox_patcher/model/misc/filterEnum.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
 import 'package:jackbox_patcher/pages/search_ui/randomGame.dart';
 import 'package:jackbox_patcher/pages/search_ui/searchGames.dart';
-import 'package:jackbox_patcher/services/discord/DiscordService.dart';
 
 import '../../components/filters/enumFilterPaneItem.dart';
 import '../../model/usermodel/userjackboxpack.dart';

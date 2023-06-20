@@ -15,6 +15,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../components/closableRouteWithEsc.dart';
+import '../../components/gameinfo/specialGameInfo.dart';
 import '../../model/usermodel/userjackboxgame.dart';
 import '../../model/usermodel/userjackboxpack.dart';
 import '../../services/api/api_service.dart';
@@ -62,6 +63,7 @@ class GameInfoWidget extends StatefulWidget {
   final List<({UserJackboxGame g, UserJackboxPack p})>? allAvailableGames;
   @override
   State<GameInfoWidget> createState() => _GameInfoWidgetState();
+
 }
 
 class _GameInfoWidgetState extends State<GameInfoWidget> {
@@ -85,35 +87,35 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
     return ClosableRouteWithEsc(
         child: NavigationView(
             content: Stack(children: [
-              ListView(children: [_buildHeader(), _buildBottom()]),
-              if (widget.allAvailableGames != null)
-                Positioned(
-                    height: MediaQuery.of(context).size.height,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: GestureDetector(
-                          onTap: () => _openPreviousGame(),
-                          child: Icon(
-                            FluentIcons.chevron_left,
-                            size: 30,
-                            color: Colors.white,
-                          )),
-                    )),
-              if (widget.allAvailableGames != null)
-                Positioned(
-                    height: MediaQuery.of(context).size.height,
-                    right: 0,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: GestureDetector(
-                          onTap: () => _openNextGame(),
-                          child: Icon(
-                            FluentIcons.chevron_right,
-                            size: 30,
-                            color: Colors.white,
-                          )),
-                    ))
-            ])));
+      ListView(children: [_buildHeader(), _buildBottom()]),
+      if (widget.allAvailableGames != null)
+        Positioned(
+            height: MediaQuery.of(context).size.height,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GestureDetector(
+                  onTap: () => _openPreviousGame(),
+                  child: Icon(
+                    FluentIcons.chevron_left,
+                    size: 30,
+                    color: Colors.white,
+                  )),
+            )),
+      if (widget.allAvailableGames != null)
+        Positioned(
+            height: MediaQuery.of(context).size.height,
+            right: 0,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GestureDetector(
+                  onTap: () => _openNextGame(),
+                  child: Icon(
+                    FluentIcons.chevron_right,
+                    size: 30,
+                    color: Colors.white,
+                  )),
+            ))
+    ])));
   }
 
   void _openPreviousGame() {
@@ -263,7 +265,9 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
             const SizedBox(height: 20),
             buildStarsNumberPanel(),
             const SizedBox(height: 20),
-            _buildGameTags()
+            _buildGameTags(),
+            const SizedBox(height: 20),
+            SpecialGameAllInfoWidget(gameInfo: currentGame.game.info),
           ])
         ],
       ),
@@ -320,34 +324,6 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          // FlyoutTarget(
-                          //     controller: starsController,
-                          //     child: HyperlinkButton(
-                          //         onPressed: () => starsController.showFlyout(
-                          //             builder: (context) => FlyoutContent(child: StarsRateWidget(
-                          //                 defaultStars: currentGame.stars,
-                          //                 onStarChanged: (int stars) {
-                          //                   setState(() {
-                          //                     currentGame.stars = stars;
-                          //                   });
-                          //                   Navigator.pop(context);
-                          //                 }))),
-                          //         child: Column(children: [
-                          //           Row(children: [
-                          //             Text(
-                          //               currentGame.stars.toString(),
-                          //               style: TextStyle(
-                          //                   color: Colors.yellow, fontSize: 18),
-                          //             ),
-                          //             const SizedBox(width: 2),
-                          //             Icon(FontAwesomeIcons.solidStar,
-                          //                 color: Colors.yellow)
-                          //           ]),
-                          //           Text(
-                          //             "Stars",
-                          //             style: TextStyle(color: Colors.yellow),
-                          //           )
-                          //         ]))),
                           StarsRateWidget(
                               key: UniqueKey(),
                               defaultStars: currentGame.stars,
@@ -583,6 +559,19 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: _generateCustomGameTags())))))
+    ]);
+  }
+
+  Widget buildSpecialGameInfo() {
+    return Column(children: [
+      ClipRRect(
+          borderRadius: BorderRadius.circular(8.0),
+          child: Acrylic(
+              shadowColor: backgroundColor,
+              blurAmount: 1,
+              tintAlpha: 1,
+              tint: const Color.fromARGB(255, 48, 48, 48),
+              child: SizedBox(width: 300)))
     ]);
   }
 
