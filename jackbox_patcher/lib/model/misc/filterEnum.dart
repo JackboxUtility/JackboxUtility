@@ -122,10 +122,10 @@ extension FilterValueExtension on FilterValue {
 
 enum FilterType {
   FAMILY_FRIENDLY,
+  SUBTITLES,
   AUDIENCE,
   STREAM_FRIENDLY,
-  MODERATION,
-  SUBTITLES
+  MODERATION
 }
 
 extension FilterTypeExtension on FilterType {

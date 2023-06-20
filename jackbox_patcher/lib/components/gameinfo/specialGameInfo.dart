@@ -10,6 +10,7 @@ import '../../services/translations/translationsHelper.dart';
 typedef SpecialGameInfo = ({
   String name,
   IconData icon,
+  String Function(JackboxGameInfo) subname,
   Color Function(JackboxGameInfo) color,
   String? Function(JackboxGameInfo) description
 });
@@ -28,12 +29,20 @@ class SpecialGameAllInfoWidget extends StatelessWidget {
     (
       name: "Family Friendly",
       icon: FontAwesomeIcons.child,
+      subname: (JackboxGameInfo gI){
+        switch (gI.familyFriendly){
+          case GameInfoFamilyFriendly.OPTIONAL:
+            return "Optional";
+          default:
+            return "";
+        }
+      },
       color: (JackboxGameInfo gI) {
         switch (gI.familyFriendly) {
           case GameInfoFamilyFriendly.FAMILY_FRIENDLY:
             return Colors.green;
           case GameInfoFamilyFriendly.OPTIONAL:
-            return Colors.orange;
+            return Colors.green;
           case GameInfoFamilyFriendly.NOT_FAMILY_FRIENDLY:
             return Colors.red;
           default:
@@ -47,6 +56,9 @@ class SpecialGameAllInfoWidget extends StatelessWidget {
     (
       name: TranslationsHelper().appLocalizations!.audience,
       icon: FontAwesomeIcons.users,
+      subname: (JackboxGameInfo gI){
+        return "";
+      },
       color: (JackboxGameInfo gI) {
         if (gI.audience) {
           return Colors.green;
@@ -61,6 +73,9 @@ class SpecialGameAllInfoWidget extends StatelessWidget {
     (
       name: "Stream friendly",
       icon: FontAwesomeIcons.twitch,
+      subname: (JackboxGameInfo gI){
+        return "";
+      },
       color: (JackboxGameInfo gI) {
         switch (gI.streamFriendly) {
           case GameInfoStreamFriendly.PLAYABLE:
@@ -80,6 +95,9 @@ class SpecialGameAllInfoWidget extends StatelessWidget {
     (
       name: "Moderation",
       icon: FontAwesomeIcons.userShield,
+      subname: (JackboxGameInfo gI){
+        return "";
+      },
       color: (JackboxGameInfo gI) {
         switch (gI.moderation) {
           case GameInfoModeration.FULL_MODERATION:
@@ -99,6 +117,9 @@ class SpecialGameAllInfoWidget extends StatelessWidget {
     (
       name: "Subtitles",
       icon: FontAwesomeIcons.closedCaptioning,
+      subname: (JackboxGameInfo gI){
+        return "";
+      },
       color: (JackboxGameInfo gI) {
         if (gI.subtitles) {
           return Colors.green;
@@ -157,13 +178,16 @@ class SpecialGameInfoWidget extends StatelessWidget {
                           ),
                           SizedBox(width: 6),
                           Text(specialGameInfo.name),
-                          SizedBox(width: 6),
+                          SizedBox(width: 4),
                           Container(
+                            margin: EdgeInsets.only(top:2), 
                               width: 10,
                               height: 10,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
-                                  color: specialGameInfo.color(gameInfo)))
+                                  color: specialGameInfo.color(gameInfo))),
+                          SizedBox(width: 6),
+                          Text(specialGameInfo.subname(gameInfo)),
                         ],
                       ),
                       if (specialGameInfo.description(gameInfo) != null)
