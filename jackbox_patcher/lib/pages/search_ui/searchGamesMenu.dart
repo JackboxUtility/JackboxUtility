@@ -34,6 +34,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
   List<({bool activated, FilterValue selected, FilterType type})> filters = [];
   List<({bool activated, int selected, String type})> intFilters = [];
   Key filterKey = UniqueKey();
+  Key gamePaneKey = UniqueKey();
 
   @override
   void initState() {
@@ -76,12 +77,12 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
           items: _buildPaneItems(),
           footerItems: [
             PaneItemExpander(
-              key: filterKey,
-              onTap: () {
-                setState(() {
-                  filterKey = UniqueKey();
-                });
-              },
+                key: filterKey,
+                onTap: () {
+                  setState(() {
+                    filterKey = UniqueKey();
+                  });
+                },
                 icon: Icon(FontAwesomeIcons.filter),
                 title: Text("Filter"),
                 items: _buildGameFilterPaneItems(),
@@ -120,41 +121,76 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
   List<NavigationPaneItem> _buildGameFilterPaneItems() {
     List<NavigationPaneItem> items = [];
     items.add(IntFilterPaneItem(
-        activated: intFilters.firstWhere((element) => element.type == "minPlayers").activated,
+        activated: intFilters
+            .firstWhere((element) => element.type == "minPlayers")
+            .activated,
         icon: FontAwesomeIcons.users,
         min: 1,
         max: 16,
         step: 1,
-        defaultValue: intFilters.firstWhere((element) => element.type == "minPlayers").selected,
+        defaultValue: intFilters
+            .firstWhere((element) => element.type == "minPlayers")
+            .selected,
         name: "Number of players",
         onChanged: (int value) {
-          int index = intFilters.indexWhere((element) => element.type == "minPlayers");
-          intFilters[index] = (activated: true, selected: value, type: "minPlayers");
+          
+          int index =
+              intFilters.indexWhere((element) => element.type == "minPlayers");
+          intFilters[index] =
+              (activated: true, selected: value, type: "minPlayers");
+          setState(() {
+            gamePaneKey = UniqueKey();
+          });
         },
         onActivationChanged: (bool value) {
-          int index = intFilters.indexWhere((element) => element.type == "minPlayers");
-          intFilters[index] = (activated: value, selected: intFilters[index].selected, type: "minPlayers");
+          int index =
+              intFilters.indexWhere((element) => element.type == "minPlayers");
+          intFilters[index] = (
+            activated: value,
+            selected: intFilters[index].selected,
+            type: "minPlayers"
+          );
+          setState(() {
+            gamePaneKey = UniqueKey();
+          });
         }));
     items.add(IntFilterPaneItem(
-        activated: intFilters.firstWhere((element) => element.type == "maxPlaytime").activated,
+        activated: intFilters
+            .firstWhere((element) => element.type == "maxPlaytime")
+            .activated,
         icon: FontAwesomeIcons.clock,
         min: 5,
         max: 40,
         step: 5,
-        defaultValue: intFilters.firstWhere((element) => element.type == "maxPlaytime").selected,
+        defaultValue: intFilters
+            .firstWhere((element) => element.type == "maxPlaytime")
+            .selected,
         name: "Max playtime",
         onChanged: (int value) {
-          int index = intFilters.indexWhere((element) => element.type == "maxPlaytime");
-          intFilters[index] = (activated: true, selected: value, type: "maxPlaytime");
+          int index =
+              intFilters.indexWhere((element) => element.type == "maxPlaytime");
+          intFilters[index] =
+              (activated: true, selected: value, type: "maxPlaytime");
+          setState(() {
+            gamePaneKey = UniqueKey();
+          });
         },
         onActivationChanged: (bool value) {
-          int index = intFilters.indexWhere((element) => element.type == "maxPlaytime");
-          intFilters[index] = (activated: value, selected: intFilters[index].selected, type: "maxPlaytime");
+          int index =
+              intFilters.indexWhere((element) => element.type == "maxPlaytime");
+          intFilters[index] = (
+            activated: value,
+            selected: intFilters[index].selected,
+            type: "maxPlaytime"
+          );
+          setState(() {
+            gamePaneKey = UniqueKey();
+          });
         }));
     for (var filter in filters) {
       print(filter);
       items.add(EnumFilterPaneItem(
-        activated: filter.activated,
+          activated: filter.activated,
           icon: filter.type.icon,
           defaultValue: filter.selected,
           name: filter.type.name,
@@ -164,6 +200,9 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                 filters.indexWhere((element) => element.type == filter.type);
             filters[index] =
                 (activated: true, selected: value, type: filter.type);
+                setState(() {
+            gamePaneKey = UniqueKey();
+          });
           },
           onActivationChanged: (bool value) {
             var index =
@@ -173,14 +212,35 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
               selected: filter.selected,
               type: filter.type
             );
+            setState(() {
+            gamePaneKey = UniqueKey();
+          });
           }));
     }
 
     return items;
   }
 
-  bool _filterGameBasedOnActiveFilters(UserJackboxPack pack, UserJackboxGame game){
-    return false;
+  bool _filterGameBasedOnActiveFilters(
+      UserJackboxPack pack, UserJackboxGame game) {
+    for (({bool activated, FilterValue selected, FilterType type}) filter
+        in filters) {
+      if (filter.activated) {
+        if (!filter.selected.isValidWithThisFilter(game.game)) {
+          return false;
+        }
+      }
+    }
+
+    if (intFilters[0].activated && (game.game.info.players.min > intFilters[0].selected ||
+        game.game.info.players.max < intFilters[0].selected)) {
+      return false;
+    }
+    if (intFilters[1].activated && (game.game.info.playtime.min > intFilters[1].selected ||
+        game.game.info.playtime.max < intFilters[1].selected)) {
+      return false;
+    }
+    return true;
   }
 
   _buildPaneItems() {
@@ -194,6 +254,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
     }
     for (var userPack in wantedPacks) {
       packItems.add(PaneItem(
+        key: gamePaneKey,
           icon: CachedNetworkImage(
               imageUrl: APIService().assetLink(userPack.pack.icon),
               filterQuality: FilterQuality.high,
@@ -205,7 +266,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                 pack.pack.id == userPack.pack.id &&
                 game.game.name
                     .toLowerCase()
-                    .contains(_searchController.text.toLowerCase()),
+                    .contains(_searchController.text.toLowerCase()) && _filterGameBasedOnActiveFilters(pack, game),
             comeFromGame: false,
             showAllPacks: showAllPacks,
             background: userPack.pack.background,
@@ -221,6 +282,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
 
     for (var type in JackboxGameType.values) {
       tagItem.add(PaneItem(
+          key: gamePaneKey,
           icon: Container(),
           title: Text(type.name),
           body: SearchGameWidget(
@@ -230,7 +292,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                       .toLowerCase()
                       .contains(_searchController.text.toLowerCase()) &&
                   (showAllPacks || pack.owned) &&
-                  (showHidden || !game.hidden),
+                  (showHidden || !game.hidden) && _filterGameBasedOnActiveFilters(pack, game),
               comeFromGame: false,
               background: APIService().getDefaultBackground(),
               name: type.name,
@@ -260,12 +322,13 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
           icon: const Icon(FontAwesomeIcons.gamepad),
           title: Text(AppLocalizations.of(context)!.all_games),
           body: SearchGameWidget(
+        key: gamePaneKey,
               filter: (UserJackboxPack pack, UserJackboxGame game) =>
                   game.game.name
                       .toLowerCase()
                       .contains(_searchController.text.toLowerCase()) &&
                   (showAllPacks || pack.owned) &&
-                  (showHidden || !game.hidden),
+                  (showHidden || !game.hidden) && _filterGameBasedOnActiveFilters(pack, game),
               comeFromGame: false,
               background: APIService().getDefaultBackground(),
               name: AppLocalizations.of(context)!.all_games,
@@ -273,7 +336,6 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
               showAllPacks: showAllPacks,
               icon: null,
               parentReload: () => setState(() {
-                    print("HERE");
                   }))));
       items.add(PaneItemExpander(
         icon: const Icon(FontAwesomeIcons.boxOpen),
@@ -335,7 +397,9 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
           icon: Icon(FontAwesomeIcons.dice),
           title: Text("Random game"),
           body: RandomGameWidget(
-              showHiddenGames: showHidden, showUnownedGames: showAllPacks)));
+            filter: (UserJackboxPack pack, UserJackboxGame game) =>
+                (showAllPacks || pack.owned) &&
+                (showHidden || !game.hidden) && _filterGameBasedOnActiveFilters(pack, game),)));
     }
 
     maxSelectableView = 0;
@@ -374,13 +438,14 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
               height: 10),
           title: Text(translation.name),
           body: SearchGameWidget(
+              key: gamePaneKey,
               filter: (UserJackboxPack pack, UserJackboxGame game) =>
                   translation.filter(pack, game) &&
                   game.game.name
                       .toLowerCase()
                       .contains(_searchController.text.toLowerCase()) &&
                   (showAllPacks || pack.owned) &&
-                  (showHidden || !game.hidden),
+                  (showHidden || !game.hidden)&& _filterGameBasedOnActiveFilters(pack, game),
               showAllPacks: showAllPacks,
               comeFromGame: false,
               background: APIService().getDefaultBackground(),
@@ -400,13 +465,14 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
           icon: Container(),
           title: Text(tag.name),
           body: SearchGameWidget(
+              key: gamePaneKey,
               filter: (UserJackboxPack pack, UserJackboxGame game) =>
                   game.game.info.tags.where((t) => t.id == tag.id).isNotEmpty &&
                   game.game.name
                       .toLowerCase()
                       .contains(_searchController.text.toLowerCase()) &&
                   (showAllPacks || pack.owned) &&
-                  (showHidden || !game.hidden),
+                  (showHidden || !game.hidden) && _filterGameBasedOnActiveFilters(pack, game),
               comeFromGame: false,
               background: APIService().getDefaultBackground(),
               name: tag.name,
@@ -426,12 +492,13 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
         icon: Container(),
         title: Text("Personal ranking"),
         body: SearchGameWidget(
+          key: gamePaneKey,
           filter: (UserJackboxPack pack, UserJackboxGame game) =>
               game.game.name
                   .toLowerCase()
                   .contains(_searchController.text.toLowerCase()) &&
               (showAllPacks || pack.owned) &&
-              (showHidden || !game.hidden),
+              (showHidden || !game.hidden) && _filterGameBasedOnActiveFilters(pack, game),
           comeFromGame: false,
           background: APIService().getDefaultBackground(),
           name: "Ranked by stars",

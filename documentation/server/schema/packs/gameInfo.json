@@ -9,17 +9,25 @@
                 "min":3,
                 "max":8
             },
-            "length":"Environ 20 minutes",
-            "translation":"COMMUNITY_TRANSLATED",
+            "length":"20 - 25 minutos",
+            "playtime":{
+                "min":20,
+                "max":25
+            },
+            "family_friendly":"NOT_FAMILY_FRIENDLY",
+            "audience":false,
+            "stream_friendly":"PLAYABLE",
+            "moderation":"NO_MODERATION",
+            "moderation_description":"Los jugadores pueden enviar texto y dibujos.",
+            "subtitles":false,
             "type":"VERSUS",
-            "tagline":"Faites combattre vos dessins",
-            "small_description":"Le combat approche. Il est l'heure de créer vos meilleurs combattants pour qu'ils puissent se battre sur le ring. Arriverez-vous à sortir vainqueur ?",
-            "description":"# A vos crayons, prêt... combattez !\n\nIl est l'heure de dessiner ! Vous allez recevoir un thème sur votre appareil. Il vous faudra créer un personnage qui répond au mieux au critère en le dessinant et en le nommant !\n\nLors du second tour, vous allez recevoir le dessin d'un autre joueur et allez devoir dessiner son rival, celui qui pourrait le battre à son propre thème.\n\nSerez-vous le vainqueur de ce tournoi, ou resterez-vous sur la touche ? Bienvenue sur **Champ'd Up** !",
+            "translation":"COMMUNITY_TRANSLATED",
+            "tagline":"¿Qué $#&! dibujaste?",
+            "small_description":"¿Qué $#&! dibujaste?",
+            "description":"El juego de dibujo que toma los demás juegos de dibujo y les pone pequeños bigotes. ¿No sabes dibujar? ¡No hay problema! ¡Es más divertido así!",
             "images":[
-    "game_images/ChampdUp/champdup_1.webp",
-                "game_images/ChampdUp/champdup_2.webp",
-                "game_images/ChampdUp/champdup_3.webp",
-                "game_images/ChampdUp/champdup_4.webp"
+                "game_images/Drawful/drawful_1.webp",
+                "game_images/Drawful/drawful_2.webp"
             ],
             "tags":[
                 "drawing",

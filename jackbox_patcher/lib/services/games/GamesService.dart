@@ -17,18 +17,12 @@ class GamesService {
   // Build internal
   GamesService._internal();
 
-  UserJackboxGame chooseRandomGame(
-      bool showUnownedGames, bool showHiddenGames) {
+  UserJackboxGame chooseRandomGame(Function(UserJackboxPack, UserJackboxGame) filter) {
     List<UserJackboxGame> games = [];
     for (UserJackboxPack pack in UserData().packs) {
       for (UserJackboxGame game in pack.games) {
-        if (game.hidden && !showHiddenGames) {
-          continue;
-        }
-        if (!game.getUserJackboxPack().owned && !showUnownedGames) {
-          continue;
-        }
-        games.add(game);
+        if (filter(pack, game))
+          games.add(game);
       }
     }
     // Select random game

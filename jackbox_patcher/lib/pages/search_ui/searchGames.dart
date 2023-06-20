@@ -11,6 +11,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../components/closableRouteWithEsc.dart';
 import '../../components/starsRate.dart';
+import '../../model/misc/filterEnum.dart';
 import '../../services/discord/DiscordService.dart';
 import '../../services/launcher/launcher.dart';
 
@@ -482,151 +483,147 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                   duration: const Duration(milliseconds: 200),
                   builder:
                       (BuildContext context, double opacity, Widget? child) {
-                     return GestureDetector(
-                            onSecondaryTap: () =>
-                                Launcher.launchGame(widget.pack, widget.game),
-                            onTap: () async {
-                              await Navigator.pushNamed(context, "/game",
-                                  arguments: [
-                                    widget.pack,
-                                    widget.game,
-                                    widget.showAllPacks,
-                                    widget.allAvailableGames
-                                  ]);
-                              if (widget.parentReload != null) {
-                                widget.parentReload!();
-                              }
-                              _startDiscordrichPresence();
-                            },
-                            child: MouseRegion(
-                              onEnter: (a) => setState(() {
-                                isFirstTime = false;
-                                smallInfoVisible = true;
-                              }),
-                              onExit: (a) => setState(() {
-                                isFirstTime = false;
-                                smallInfoVisible = false;
-                              }),
-                              child: Stack(fit: StackFit.expand, children: [
-                                CachedNetworkImage(
-                                  colorBlendMode: !widget.pack.owned
-                                      ? BlendMode.saturation
-                                      : null,
-                                  color:
-                                      !widget.pack.owned ? Colors.black : null,
-                                  imageUrl: APIService()
-                                      .assetLink(widget.game.game.background),
-                                  fit: BoxFit.cover,
-                                ),
-                                Container(
-                                    decoration: BoxDecoration(
-                                        gradient: LinearGradient(
-                                            begin: Alignment.topCenter,
-                                            end: Alignment.bottomCenter,
-                                            colors: [
-                                      Colors.black.withOpacity(opacity / 2),
-                                      Colors.black.withOpacity(opacity)
-                                    ]))),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.only(bottom: 8, left: 8),
-                                  child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.end,
+                    return GestureDetector(
+                        onSecondaryTap: () =>
+                            Launcher.launchGame(widget.pack, widget.game),
+                        onTap: () async {
+                          await Navigator.pushNamed(context, "/game",
+                              arguments: [
+                                widget.pack,
+                                widget.game,
+                                widget.showAllPacks,
+                                widget.allAvailableGames
+                              ]);
+                          if (widget.parentReload != null) {
+                            widget.parentReload!();
+                          }
+                          _startDiscordrichPresence();
+                        },
+                        child: MouseRegion(
+                          onEnter: (a) => setState(() {
+                            isFirstTime = false;
+                            smallInfoVisible = true;
+                          }),
+                          onExit: (a) => setState(() {
+                            isFirstTime = false;
+                            smallInfoVisible = false;
+                          }),
+                          child: Stack(fit: StackFit.expand, children: [
+                            CachedNetworkImage(
+                              colorBlendMode: !widget.pack.owned
+                                  ? BlendMode.saturation
+                                  : null,
+                              color: !widget.pack.owned ? Colors.black : null,
+                              imageUrl: APIService()
+                                  .assetLink(widget.game.game.background),
+                              fit: BoxFit.cover,
+                            ),
+                            Container(
+                                decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter,
+                                        colors: [
+                                  Colors.black.withOpacity(opacity / 2),
+                                  Colors.black.withOpacity(opacity)
+                                ]))),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(bottom: 8, left: 8),
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(widget.game.game.name,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            overflow: TextOverflow.ellipsis,
+                                            fontSize: 15,
+                                            color: Colors.white
+                                                .withOpacity(opacity))),
+                                    Text(gameInfo.tagline,
+                                        style: TextStyle(
+                                            overflow: TextOverflow.ellipsis,
+                                            color: Colors.white
+                                                .withOpacity(opacity))),
+                                    const SizedBox(height: 10),
+                                    Row(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                          CrossAxisAlignment.end,
                                       children: [
-                                        Text(widget.game.game.name,
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                overflow: TextOverflow.ellipsis,
-                                                fontSize: 15,
-                                                color: Colors.white
-                                                    .withOpacity(opacity))),
-                                        Text(gameInfo.tagline,
-                                            style: TextStyle(
-                                                overflow: TextOverflow.ellipsis,
-                                                color: Colors.white
-                                                    .withOpacity(opacity))),
-                                        const SizedBox(height: 10),
-                                        Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.end,
-                                          children: [
-                                            Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.end,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Row(children: [
-                                                    Icon(
-                                                      FluentIcons.people,
-                                                      color: Colors.white
-                                                          .withOpacity(opacity),
-                                                    ),
-                                                    const SizedBox(width: 10),
-                                                    Text(
-                                                        "${gameInfo.players.min} - ${gameInfo.players.max} ${AppLocalizations.of(context)!.players}",
-                                                        style: TextStyle(
-                                                            color: Colors.white
-                                                                .withOpacity(
-                                                                    opacity)))
-                                                  ]),
-                                                  Row(children: [
-                                                    Icon(
-                                                      FluentIcons.clock,
-                                                      color: Colors.white
-                                                          .withOpacity(opacity),
-                                                    ),
-                                                    const SizedBox(width: 10),
-                                                    Text(gameInfo.length,
-                                                        style: TextStyle(
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                            color: Colors.white
-                                                                .withOpacity(
-                                                                    opacity)))
-                                                  ]),
-                                                  SizedBox(height: 4),
-                                                  Opacity(
-                                                      opacity: opacity,
-                                                      child: StarsRateWidget(
-                                                        color: Colors.white,
-                                                        defaultStars:
-                                                            widget.game.stars,
-                                                        readOnly: true,
-                                                      )),
-                                                ]),
-                                            Spacer(),
-                                            if (widget.pack.owned)
+                                        Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Row(children: [
+                                                Icon(
+                                                  FluentIcons.people,
+                                                  color: Colors.white
+                                                      .withOpacity(opacity),
+                                                ),
+                                                const SizedBox(width: 10),
+                                                Text(
+                                                    "${gameInfo.players.min} - ${gameInfo.players.max} ${AppLocalizations.of(context)!.players}",
+                                                    style: TextStyle(
+                                                        color: Colors.white
+                                                            .withOpacity(
+                                                                opacity)))
+                                              ]),
+                                              Row(children: [
+                                                Icon(
+                                                  FluentIcons.clock,
+                                                  color: Colors.white
+                                                      .withOpacity(opacity),
+                                                ),
+                                                const SizedBox(width: 10),
+                                                Text(gameInfo.length,
+                                                    style: TextStyle(
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        color: Colors.white
+                                                            .withOpacity(
+                                                                opacity)))
+                                              ]),
+                                              SizedBox(height: 4),
                                               Opacity(
                                                   opacity: opacity,
-                                                  child: Padding(
-                                                      padding: EdgeInsets.only(
-                                                          right: 8),
-                                                      child: Button(
-                                                        style: ButtonStyle(
-                                                          backgroundColor:
-                                                              ButtonState.all<
-                                                                      Color>(
-                                                                  Colors.green),
-                                                        ),
-                                                        child: Icon(
-                                                            FontAwesomeIcons
-                                                                .play),
-                                                        onPressed: () {
-                                                          Launcher.launchGame(
-                                                              widget.pack,
-                                                              widget.game);
-                                                        },
-                                                      ))),
-                                          ],
-                                        )
-                                      ]),
-                                ),
-                              ]),
-                            ));
+                                                  child: StarsRateWidget(
+                                                    color: Colors.white,
+                                                    defaultStars:
+                                                        widget.game.stars,
+                                                    readOnly: true,
+                                                  )),
+                                            ]),
+                                        Spacer(),
+                                        if (widget.pack.owned)
+                                          Opacity(
+                                              opacity: opacity,
+                                              child: Padding(
+                                                  padding:
+                                                      EdgeInsets.only(right: 8),
+                                                  child: Button(
+                                                    style: ButtonStyle(
+                                                      backgroundColor:
+                                                          ButtonState.all<
+                                                                  Color>(
+                                                              Colors.green),
+                                                    ),
+                                                    child: Icon(
+                                                        FontAwesomeIcons.play),
+                                                    onPressed: () {
+                                                      Launcher.launchGame(
+                                                          widget.pack,
+                                                          widget.game);
+                                                    },
+                                                  ))),
+                                      ],
+                                    )
+                                  ]),
+                            ),
+                          ]),
+                        ));
                   })),
         ));
   }
