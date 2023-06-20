@@ -32,7 +32,7 @@ class SpecialGameAllInfoWidget extends StatelessWidget {
       subname: (JackboxGameInfo gI){
         switch (gI.familyFriendly){
           case GameInfoFamilyFriendly.OPTIONAL:
-            return "(Optional)";
+            return "Optional";
           default:
             return "";
         }
@@ -42,7 +42,7 @@ class SpecialGameAllInfoWidget extends StatelessWidget {
           case GameInfoFamilyFriendly.FAMILY_FRIENDLY:
             return Colors.green;
           case GameInfoFamilyFriendly.OPTIONAL:
-            return Colors.orange;
+            return Colors.green;
           case GameInfoFamilyFriendly.NOT_FAMILY_FRIENDLY:
             return Colors.red;
           default:
@@ -177,14 +177,17 @@ class SpecialGameInfoWidget extends StatelessWidget {
                             child: Icon(specialGameInfo.icon),
                           ),
                           SizedBox(width: 6),
-                          Text(specialGameInfo.name+" "+specialGameInfo.subname(gameInfo)),
-                          SizedBox(width: 6),
+                          Text(specialGameInfo.name),
+                          SizedBox(width: 4),
                           Container(
+                            margin: EdgeInsets.only(top:2), 
                               width: 10,
                               height: 10,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
-                                  color: specialGameInfo.color(gameInfo)))
+                                  color: specialGameInfo.color(gameInfo))),
+                          SizedBox(width: 6),
+                          Text(specialGameInfo.subname(gameInfo)),
                         ],
                       ),
                       if (specialGameInfo.description(gameInfo) != null)
