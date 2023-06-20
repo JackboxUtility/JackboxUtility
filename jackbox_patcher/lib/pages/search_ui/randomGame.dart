@@ -5,21 +5,22 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
+import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/pages/patcher/gamePatch.dart';
 import 'package:jackbox_patcher/pages/search_ui/searchGames.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/launcher/launcher.dart';
 import 'package:palette_generator/palette_generator.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../services/games/GamesService.dart';
 
 class RandomGameWidget extends StatefulWidget {
   RandomGameWidget(
-      {Key? key, required this.showUnownedGames, required this.showHiddenGames})
+      {Key? key, required Function(UserJackboxPack, UserJackboxGame) this.filter})
       : super(key: key);
 
-  final bool showUnownedGames;
-  final bool showHiddenGames;
+  final Function(UserJackboxPack, UserJackboxGame) filter;
 
   @override
   State<RandomGameWidget> createState() => _RandomGameWidgetState();
@@ -37,7 +38,8 @@ class _RandomGameWidgetState extends State<RandomGameWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(children: [
+    return selectedGame!=null?
+     Stack(children: [
       Positioned(
         top: 0,
         left: 0,
@@ -143,7 +145,24 @@ class _RandomGameWidgetState extends State<RandomGameWidget> {
           ));}),
         ],
       )),
-    ]);
+    ]):
+      Column(children: [
+        const SizedBox(height: 50),
+        Image.asset(
+          "assets/images/Mayonnaise.webp",
+          height: 200,
+          cacheHeight: 200,
+        ),
+        Text(
+          AppLocalizations.of(context)!.no_game_in_this_category_title,
+          style: const TextStyle(fontSize: 20),
+        ),
+        Text(
+          AppLocalizations.of(context)!.no_game_in_this_category_description,
+          style: TextStyle(fontSize: 14, color: Colors.white.withOpacity(0.8)),
+        ),
+      ]);
+    
   }
 
   void _selectRandomGame() async {
@@ -152,7 +171,7 @@ class _RandomGameWidgetState extends State<RandomGameWidget> {
     while (animationState < 5) {
       setState(() {
         selectedGame = GamesService()
-            .chooseRandomGame(widget.showUnownedGames, widget.showHiddenGames);
+            .chooseRandomGame(widget.filter);
       });
       animationState++;
       await Future.delayed(const Duration(milliseconds: 100));
@@ -164,7 +183,7 @@ class _RandomGameWidgetState extends State<RandomGameWidget> {
 
   void _launchRandomGame() {
     UserJackboxGame randomGame =
-        GamesService().chooseRandomGame(false, widget.showHiddenGames);
+        GamesService().chooseRandomGame((UserJackboxPack pack, UserJackboxGame game) => widget.filter(pack, game) && game.getUserJackboxPack().owned);
     Launcher.launchGame(randomGame.getUserJackboxPack(), randomGame);
   }
 }
