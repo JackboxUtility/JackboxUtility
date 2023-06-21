@@ -243,19 +243,19 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
         children: [
           Expanded(
               child: Column(children: [
-            Stack(children: [
               SizedBox(
                   child: AssetCarousselWidget(
-                      key: carousselKey, images: currentGame.game.info.images))
-            ]),
-            SizedBox(
-                height: 500,
-                child: Markdown(
+                      key: carousselKey, images: currentGame.game.info.images)),
+              SizedBox(height:20),
+              MarkdownBody(
                   data: currentGame.game.info.description,
                   onTapLink: (text, href, title) {
                     launchUrl(Uri.parse(href!));
                   },
-                ))
+                ), 
+                SizedBox(height: 20),
+            SpecialGameAllInfoWidget(gameInfo: currentGame.game.info),
+            SizedBox(height: 20),
           ])),
           const SizedBox(
             width: 40,
@@ -267,8 +267,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
             const SizedBox(height: 20),
             _buildGameTags(),
             const SizedBox(height: 20),
-            SpecialGameAllInfoWidget(gameInfo: currentGame.game.info),
-          ])
+          ]),
         ],
       ),
     );

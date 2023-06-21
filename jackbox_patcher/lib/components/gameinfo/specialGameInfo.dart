@@ -1,4 +1,5 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jackbox_patcher/model/jackbox/gameinfo/familyfriendly.dart';
 import 'package:jackbox_patcher/model/jackbox/gameinfo/moderation.dart';
@@ -69,6 +70,23 @@ class SpecialGameAllInfoWidget extends StatelessWidget {
       description: (JackboxGameInfo gI) {
         return gI.audienceDescription;
       }
+    ), 
+    (
+      name: "Subtitles",
+      icon: FontAwesomeIcons.closedCaptioning,
+      subname: (JackboxGameInfo gI){
+        return "";
+      },
+      color: (JackboxGameInfo gI) {
+        if (gI.subtitles) {
+          return Colors.green;
+        } else {
+          return Colors.red;
+        }
+      },
+      description: (JackboxGameInfo gI) {
+        return null;
+      }
     ),
     (
       name: "Stream friendly",
@@ -113,36 +131,22 @@ class SpecialGameAllInfoWidget extends StatelessWidget {
       description: (JackboxGameInfo gI) {
         return gI.moderationDescription;
       }
-    ), 
-    (
-      name: "Subtitles",
-      icon: FontAwesomeIcons.closedCaptioning,
-      subname: (JackboxGameInfo gI){
-        return "";
-      },
-      color: (JackboxGameInfo gI) {
-        if (gI.subtitles) {
-          return Colors.green;
-        } else {
-          return Colors.red;
-        }
-      },
-      description: (JackboxGameInfo gI) {
-        return null;
-      }
     )
   ];
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
+    return StaggeredGrid.count(
+            mainAxisSpacing: 20,
+            crossAxisSpacing: 20,
+            crossAxisCount: 2,
+            children: [
         for (SpecialGameInfo specialGameInfo in allInfoList)
           SpecialGameInfoWidget(
             specialGameInfo: specialGameInfo,
             gameInfo: gameInfo,
           )
-      ].expand((element) => [element, const SizedBox(height: 20)]).toList(),
+      ],
     );
   }
 }
@@ -166,7 +170,6 @@ class SpecialGameInfoWidget extends StatelessWidget {
             tintAlpha: 1,
             tint: const Color.fromARGB(255, 48, 48, 48),
             child: SizedBox(
-                width: 300,
                 child: Padding(
                     padding: const EdgeInsets.all(10),
                     child: Column(children: [
