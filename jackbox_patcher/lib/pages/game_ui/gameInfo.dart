@@ -63,7 +63,6 @@ class GameInfoWidget extends StatefulWidget {
   final List<({UserJackboxGame g, UserJackboxPack p})>? allAvailableGames;
   @override
   State<GameInfoWidget> createState() => _GameInfoWidgetState();
-
 }
 
 class _GameInfoWidgetState extends State<GameInfoWidget> {
@@ -243,17 +242,17 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
         children: [
           Expanded(
               child: Column(children: [
-              SizedBox(
-                  child: AssetCarousselWidget(
-                      key: carousselKey, images: currentGame.game.info.images)),
-              SizedBox(height:20),
-              MarkdownBody(
-                  data: currentGame.game.info.description,
-                  onTapLink: (text, href, title) {
-                    launchUrl(Uri.parse(href!));
-                  },
-                ), 
-                SizedBox(height: 20),
+            SizedBox(
+                child: AssetCarousselWidget(
+                    key: carousselKey, images: currentGame.game.info.images)),
+            SizedBox(height: 20),
+            MarkdownBody(
+              data: currentGame.game.info.description,
+              onTapLink: (text, href, title) {
+                launchUrl(Uri.parse(href!));
+              },
+            ),
+            SizedBox(height: 20),
             SpecialGameAllInfoWidget(gameInfo: currentGame.game.info),
             SizedBox(height: 20),
           ])),
@@ -544,20 +543,21 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: _generateClassicGameTags()))))),
       const SizedBox(height: 20),
-      ClipRRect(
-          borderRadius: BorderRadius.circular(8.0),
-          child: Acrylic(
-              shadowColor: backgroundColor,
-              blurAmount: 1,
-              tintAlpha: 1,
-              tint: const Color.fromARGB(255, 48, 48, 48),
-              child: SizedBox(
-                  width: 300,
-                  child: Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: _generateCustomGameTags())))))
+      if (widget.game.game.info.tags.length >= 1)
+        ClipRRect(
+            borderRadius: BorderRadius.circular(8.0),
+            child: Acrylic(
+                shadowColor: backgroundColor,
+                blurAmount: 1,
+                tintAlpha: 1,
+                tint: const Color.fromARGB(255, 48, 48, 48),
+                child: SizedBox(
+                    width: 300,
+                    child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: _generateCustomGameTags())))))
     ]);
   }
 
