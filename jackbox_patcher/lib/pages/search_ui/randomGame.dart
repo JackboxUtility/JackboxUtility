@@ -108,7 +108,7 @@ class _RandomGameWidgetState extends State<RandomGameWidget> {
             width: 200,
             child: FilledButton(
               onPressed: () => _selectRandomGame(),
-              child: Row(children: [
+              child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 const Icon(FontAwesomeIcons.dice),
                 const SizedBox(
                   width: 10,
@@ -136,7 +136,7 @@ class _RandomGameWidgetState extends State<RandomGameWidget> {
             width: 200,
             child: FilledButton(
                 onPressed: () => _launchRandomGame(),
-                child: Row(children: [Icon(FontAwesomeIcons.clover), SizedBox(width: 10), const Text("I am feeling lucky")])),
+                child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [Icon(FontAwesomeIcons.clover), SizedBox(width: 10), const Text("I am feeling lucky")])),
           ));}),
         ],
       )),
