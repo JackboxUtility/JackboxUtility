@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jackbox_patcher/components/blurhashimage.dart';
@@ -84,37 +85,39 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
   @override
   Widget build(BuildContext context) {
     return ClosableRouteWithEsc(
+      leftEvent: () => _openPreviousGame(),
+      rightEvent: () => _openNextGame(),
         child: NavigationView(
-            content: Stack(children: [
-      ListView(children: [_buildHeader(), _buildBottom()]),
-      if (widget.allAvailableGames != null)
-        Positioned(
-            height: MediaQuery.of(context).size.height,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: GestureDetector(
-                  onTap: () => _openPreviousGame(),
-                  child: Icon(
-                    FluentIcons.chevron_left,
-                    size: 30,
-                    color: Colors.white,
-                  )),
-            )),
-      if (widget.allAvailableGames != null)
-        Positioned(
-            height: MediaQuery.of(context).size.height,
-            right: 0,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: GestureDetector(
-                  onTap: () => _openNextGame(),
-                  child: Icon(
-                    FluentIcons.chevron_right,
-                    size: 30,
-                    color: Colors.white,
-                  )),
-            ))
-    ])));
+                content: Stack(children: [
+              ListView(children: [_buildHeader(), _buildBottom()]),
+              if (widget.allAvailableGames != null)
+                Positioned(
+                    height: MediaQuery.of(context).size.height,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: GestureDetector(
+                          onTap: () => _openPreviousGame(),
+                          child: Icon(
+                            FluentIcons.chevron_left,
+                            size: 30,
+                            color: Colors.white,
+                          )),
+                    )),
+              if (widget.allAvailableGames != null)
+                Positioned(
+                    height: MediaQuery.of(context).size.height,
+                    right: 0,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: GestureDetector(
+                          onTap: () => _openNextGame(),
+                          child: Icon(
+                            FluentIcons.chevron_right,
+                            size: 30,
+                            color: Colors.white,
+                          )),
+                    ))
+            ])));
   }
 
   void _openPreviousGame() {
