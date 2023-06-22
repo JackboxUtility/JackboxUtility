@@ -103,9 +103,9 @@ class _IntFilterPaneItemTitleState
               });
           }
         },
-        child:Icon(FontAwesomeIcons.minus, color: activated?null:Colors.grey )), 
+        child:Icon(FontAwesomeIcons.minus, color: activated && currentValue!=widget.min?null:Colors.grey )), 
       SizedBox(width: 8),
-      SizedBox(width:20, child: Text( currentValue.toString(), textAlign: TextAlign.center, style:TextStyle(color: activated?null:Colors.grey))),
+      SizedBox(width:30, child: Text( currentValue.toString()+(currentValue==widget.max?"+":""), textAlign: TextAlign.center, style:TextStyle(color: activated?null:Colors.grey))),
       SizedBox(width: 8),
       GestureDetector(
         onTap: () {
@@ -117,7 +117,7 @@ class _IntFilterPaneItemTitleState
               });
           }
         },
-        child:Icon(FontAwesomeIcons.plus, color: activated?null:Colors.grey)),
+        child:Icon(FontAwesomeIcons.plus, color: activated && currentValue!=widget.max?null:Colors.grey)),
     ]);
   }
 }
