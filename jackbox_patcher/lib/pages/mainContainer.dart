@@ -109,7 +109,7 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Icon(FluentIcons.play, color: Colors.white),
+                            const Icon(FluentIcons.play_solid, color: Colors.white),
                             const SizedBox(width: 10),
                             Text(
                                 AppLocalizations.of(context)!
