@@ -39,7 +39,7 @@ class _SelectServerPageState extends State<SelectServerPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ClosableRouteWithEsc(child:NavigationView(
+    return NavigationView(
         content: ListView(
       children: [
         Column(children: [
@@ -59,7 +59,7 @@ class _SelectServerPageState extends State<SelectServerPage> {
                 children: List.generate(servers.length,
                     (index) => _buildServerCard(servers[index]))))
       ],
-    )));
+    ));
   }
 
   Widget _buildServerCard(PatchServer server) {

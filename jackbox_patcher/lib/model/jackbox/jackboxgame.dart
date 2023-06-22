@@ -94,6 +94,7 @@ class JackboxGameInfo {
   });
 
   factory JackboxGameInfo.fromJson(Map<String, dynamic> json) {
+    //print(json);
     return JackboxGameInfo(
       tagline: json['tagline'],
       description: json['description'],
@@ -103,15 +104,19 @@ class JackboxGameInfo {
       translation: JackboxGameTranslation.fromString(json['translation']),
       images:
           (json['images'] as List<dynamic>).map((e) => e.toString()).toList(),
-      tags: (json['tags'] as List<dynamic>)
-          .map((e) => GameTag.fromId(e))
-          .toList(),
+      tags: json['tags'] != null
+          ? (json['tags'] as List<dynamic>).map((e) {
+              return GameTag.fromId(e);
+            }).toList()
+          : [],
       players: JackboxGameMinMaxInfo.fromJson(json['players']),
       playtime: JackboxGameMinMaxInfo.fromJson(json['playtime']),
-      familyFriendly: GameInfoFamilyFriendlyExtension.fromValue(json['family_friendly']),
+      familyFriendly:
+          GameInfoFamilyFriendlyExtension.fromValue(json['family_friendly']),
       audience: json['audience'],
       audienceDescription: json['audience_description'],
-      streamFriendly: GameInfoStreamFriendlyExtension.fromValue(json['stream_friendly']),
+      streamFriendly:
+          GameInfoStreamFriendlyExtension.fromValue(json['stream_friendly']),
       streamFriendlyDescription: json['stream_friendly_description'],
       moderation: GameInfoModerationExtension.fromValue(json['moderation']),
       moderationDescription: json['moderation_description'],
