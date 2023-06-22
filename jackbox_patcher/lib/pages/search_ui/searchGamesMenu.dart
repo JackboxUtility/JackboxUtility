@@ -113,7 +113,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                   });
                 },
               ),
-            PaneItem(
+            if (UserJackboxPack.countUnownedPack(UserData().packs)>=1) PaneItem(
               icon: const Icon(FontAwesomeIcons.boxArchive),
               title: Text(showAllPacks == false
                   ? AppLocalizations.of(context)!.show_all_packs

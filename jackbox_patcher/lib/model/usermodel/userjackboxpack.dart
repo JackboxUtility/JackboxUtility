@@ -26,6 +26,16 @@ class UserJackboxPack {
     required this.origin,
   });
 
+  static int countUnownedPack(List<UserJackboxPack> packs) {
+    int unownedPacks = 0;
+    packs.forEach((element) {
+      if (!element.owned) {
+        unownedPacks++;
+      }
+    });
+    return unownedPacks;
+  }
+
   Directory? getPackFolder() {
     if (path == null || path == "") {
       return null;
