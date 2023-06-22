@@ -423,7 +423,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(FluentIcons.play, color: Colors.white),
+                        const Icon(FluentIcons.play_solid, color: Colors.white),
                         const SizedBox(width: 10),
                         Text(
                             launchingStatus == "WAITING"
@@ -436,11 +436,11 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                     ))),
             DropDownButton(leading: const SizedBox(height: 19), items: [
               MenuFlyoutItem(
-                  leading: const Icon(FluentIcons.play),
+                  leading: const Icon(FluentIcons.play_solid),
                   text: Text(AppLocalizations.of(context)!.launch_game),
                   onPressed: launchGameFunction),
               MenuFlyoutItem(
-                  leading: const Icon(FluentIcons.play),
+                  leading: const Icon(FluentIcons.play_solid),
                   text: Text(AppLocalizations.of(context)!.launch_pack),
                   onPressed: launchPackFunction),
               MenuFlyoutItem(

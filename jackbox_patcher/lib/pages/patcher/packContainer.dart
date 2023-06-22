@@ -131,10 +131,10 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
                           openPack();
                         },
                         icon: launchingStatus == "NOT_LAUNCHED"
-                            ? const Icon(FluentIcons.play)
+                            ? const Icon(FluentIcons.play_solid)
                             : (launchingStatus == "LOADING"
                                 ? Row(children: [
-                                    const Icon(FluentIcons.play),
+                                    const Icon(FluentIcons.play_solid),
                                     const SizedBox(width: 10),
                                     Text(
                                       AppLocalizations.of(context)!.launching,
