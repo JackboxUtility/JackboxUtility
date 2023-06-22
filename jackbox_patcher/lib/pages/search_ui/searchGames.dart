@@ -537,7 +537,7 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             overflow: TextOverflow.ellipsis,
-                                            fontSize: 15,
+                                            fontSize: 14.5,
                                             color: Colors.white
                                                 .withOpacity(opacity))),
                                     Text(gameInfo.tagline,
