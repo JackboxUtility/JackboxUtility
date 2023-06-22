@@ -43,8 +43,7 @@ class PatchServer {
       links: json['links']!=null?(json['links'] as List<dynamic>)
           .map((e) => PatchServerLink.fromJson(e))
           .toList():[]
-          ..addAll(json['controller']!=null?[PatchServerLink(icon: "cellphone", text: json["controller"], url: "https://"+json["controller"])]:[]),
-    );
+      );
   }
 
   Future<PatchServerUrls> getVersionUrl() async {

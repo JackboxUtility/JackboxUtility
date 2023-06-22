@@ -1,4 +1,5 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jackbox_patcher/model/patchserver.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
@@ -32,72 +33,102 @@ class _ServerInfoWidgetState extends State<ServerInfoWidget> {
         child: Column(
           children: [
             Row(children: [
-                    Text(AppLocalizations.of(context)!.selected_server,
-                        style: typography.title),
-                    const Spacer(),
-                    FilledButton(
-                        child: Text(AppLocalizations.of(context)!.change_server),
-                        onPressed: () async {
-                          UserData().setSelectedServer(null);
-                          Navigator.of(context).pop();
-                        })
-                  ]),
+              Text(AppLocalizations.of(context)!.selected_server,
+                  style: typography.title),
+              const Spacer(),
+              FilledButton(
+                  child: Text(AppLocalizations.of(context)!.change_server),
+                  onPressed: () async {
+                    UserData().setSelectedServer(null);
+                    Navigator.of(context).pop();
+                  })
+            ]),
             Expanded(
-              child: Center(child: ListView(shrinkWrap: true, children: [
-                  Column(
+              child: Center(
+                child: ListView(shrinkWrap: true, children: [
+                  Column(children: [
+                    const SizedBox(height: 50),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
-                       children: [
-                      
-                      const SizedBox(height: 50),
-                      ClipRRect(
-                          borderRadius: BorderRadius.circular(8.0),
-                          child: Image.network(
-                              APIService()
-                                  .assetLink(APIService().cachedSelectedServer!.image),
-                              height: 100)),
-                      Text(APIService().cachedSelectedServer!.name,
-                          style: FluentTheme.of(context).typography.title),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      Text(APIService().cachedSelectedServer!.description,
-                          style: FluentTheme.of(context).typography.body),
-                      const SizedBox(
-                        height: 36,
-                      ),
-                      Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                        const Icon(FluentIcons.package),
-                        const SizedBox(
-                          width: 12,
+                      children: [
+                        ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: Image.network(
+                                APIService().assetLink(
+                                    APIService().cachedSelectedServer!.image),
+                                height: 120)),
+                        SizedBox(width: 12), 
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(APIService().cachedSelectedServer!.name,
+                                style:
+                                    FluentTheme.of(context).typography.title),
+                            const SizedBox(
+                              height: 16,
+                            ),Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    width: 9,),
+                                  const Icon(FluentIcons.package),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(AppLocalizations.of(context)!
+                                      .games_available(UserData().packs.length))
+                                ]),
+                            const SizedBox(
+                              height: 4,
+                            ),
+                            HyperlinkButton(
+                                    onPressed: () {
+                                      launchUrl(Uri.http(APIService()
+                                          .cachedSelectedServer!
+                                          .controllerUrl!));
+                                    },
+                                    child: Row(
+                                        children: [
+                                          Icon(FluentIcons.cell_phone),
+                                          const SizedBox(
+                                            width: 12,
+                                          ),
+                                          Text(APIService()
+                                              .cachedSelectedServer!
+                                              .controllerUrl!)
+                                        ])),
+                            
+                          ],
                         ),
-                        Text(AppLocalizations.of(context)!
-                            .games_available(UserData().packs.length))
-                      ]),
-                      const SizedBox(
-                        height: 12,
-                      ),
-                      // if (APIService().cachedSelectedServer!.controllerUrl != null)
-                      //   HyperlinkButton(
-                      //       child:
-                      //           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                      //         Icon(FluentIcons.cell_phone),
-                      //         SizedBox(
-                      //           width: 12,
-                      //         ),
-                      //         Text(APIService().cachedSelectedServer!.controllerUrl!)
-                      //       ]),
-                      //       onPressed: () {
-                      //         launchUrl(Uri.http(
-                      //             APIService().cachedSelectedServer!.controllerUrl!));
-                      //       }),
-                      Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: _buildLinks())
-                    ]),
-                  if (APIService().cachedConfigurations!.getConfiguration(
+                      ],
+                    ),
+                    const SizedBox(height: 24),
+                    MarkdownBody(data:APIService().cachedSelectedServer!.description),
+                    // if (APIService().cachedSelectedServer!.controllerUrl != null)
+                    //   HyperlinkButton(
+                    //       child:
+                    //           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                    //         Icon(FluentIcons.cell_phone),
+                    //         SizedBox(
+                    //           width: 12,
+                    //         ),
+                    //         Text(APIService().cachedSelectedServer!.controllerUrl!)
+                    //       ]),
+                    //       onPressed: () {
+                    //         launchUrl(Uri.http(
+                    //             APIService().cachedSelectedServer!.controllerUrl!));
+                    //       }),
+                    const SizedBox(height: 24),
+                    if (APIService().cachedConfigurations!.getConfiguration(
                           "SERVER_INFORMATION", "SHOW_PATREONS_SUBSCRIBERS") ==
                       true)
-                    _buildPatreonSubscribers()
+                    _buildPatreonSubscribers(),
+                    Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: _buildLinks())
+                  ]),
+                  
                 ]),
               ),
             ),
@@ -133,10 +164,12 @@ class _ServerInfoWidgetState extends State<ServerInfoWidget> {
   }
 
   _buildPatreonSubscribers() {
-    List<dynamic> patreonsSubscribers = APIService().cachedConfigurations!
-        .getConfiguration("SERVER_INFORMATION", "PATREONS_SUBSCRIBERS") as List<dynamic>;
+    List<dynamic> patreonsSubscribers = APIService()
+            .cachedConfigurations!
+            .getConfiguration("SERVER_INFORMATION", "PATREONS_SUBSCRIBERS")
+        as List<dynamic>;
     return Container(
-      margin: const EdgeInsets.only(top:24),
+        margin: const EdgeInsets.only(top: 12, bottom:16),
         decoration: BoxDecoration(
           color: FluentTheme.of(context).menuColor,
           borderRadius: BorderRadius.circular(8.0),
@@ -144,19 +177,19 @@ class _ServerInfoWidgetState extends State<ServerInfoWidget> {
         child: Padding(
             padding: const EdgeInsets.all(12),
             child: Column(
-              
               children: [
                 Row(
                   children: [
                     const Icon(FontAwesomeIcons.patreon),
                     const SizedBox(width: 12),
-                    Text(AppLocalizations.of(context)!.patreon_subscribers, style: FluentTheme.of(context).typography.subtitle),
+                    Text(AppLocalizations.of(context)!.patreon_subscribers,
+                        style: FluentTheme.of(context).typography.subtitle),
                   ],
                 ),
                 const SizedBox(height: 12),
-                 Text(
-                        patreonsSubscribers.join(", "),
-                      )
+                Text(
+                  patreonsSubscribers.join(", "),
+                )
               ],
             )));
   }
