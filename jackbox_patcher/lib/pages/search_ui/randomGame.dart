@@ -136,7 +136,7 @@ class _RandomGameWidgetState extends State<RandomGameWidget> {
             width: 200,
             child: FilledButton(
                 onPressed: () => _launchRandomGame(),
-                child: const Text("I am feeling lucky")),
+                child: Row(children: [Icon(FontAwesomeIcons.clover), SizedBox(width: 10), const Text("I am feeling lucky")])),
           ));}),
         ],
       )),
