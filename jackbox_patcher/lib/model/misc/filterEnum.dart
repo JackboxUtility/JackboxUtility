@@ -11,8 +11,10 @@ enum FilterValue {
   AUDIENCE_AVAILABLE,
   STREAM_FRIENDLY_PLAYABLE,
   STREAM_FRIENDLY_MIDLY_PLAYABLE,
+  STREAM_FRIENDLY_BOTH,
   MODERATION_FULL_MODERATION,
   MODERATION_CENSORING,
+  MODERATION_BOTH,
   SUBTITLES_AVAILABLE;
 }
 
@@ -24,13 +26,17 @@ extension FilterValueExtension on FilterValue {
       case FilterValue.AUDIENCE_AVAILABLE:
         return 'Available';
       case FilterValue.STREAM_FRIENDLY_PLAYABLE:
-        return 'Playable';
+        return 'Fully Playable';
       case FilterValue.STREAM_FRIENDLY_MIDLY_PLAYABLE:
-        return 'Mildly Playable';
+        return 'Midly Playable';
+      case FilterValue.STREAM_FRIENDLY_BOTH:
+        return 'Playable';
       case FilterValue.MODERATION_FULL_MODERATION:
         return 'Full Moderation';
       case FilterValue.MODERATION_CENSORING:
         return 'Censoring';
+      case FilterValue.MODERATION_BOTH:
+        return 'Mod. & Censoring';
       case FilterValue.SUBTITLES_AVAILABLE:
         return 'Available';
       default:
@@ -48,10 +54,14 @@ extension FilterValueExtension on FilterValue {
         return Colors.green;
       case FilterValue.STREAM_FRIENDLY_MIDLY_PLAYABLE:
         return Colors.orange;
+      case FilterValue.STREAM_FRIENDLY_BOTH:
+        return Colors.blue;
       case FilterValue.MODERATION_FULL_MODERATION:
         return Colors.green;
       case FilterValue.MODERATION_CENSORING:
         return Colors.orange;
+      case FilterValue.MODERATION_BOTH:
+        return Colors.blue;
       case FilterValue.SUBTITLES_AVAILABLE:
         return Colors.green;
       default:
@@ -72,10 +82,20 @@ extension FilterValueExtension on FilterValue {
         return [GameInfoStreamFriendly.PLAYABLE];
       case FilterValue.STREAM_FRIENDLY_MIDLY_PLAYABLE:
         return [GameInfoStreamFriendly.MIDLY_PLAYABLE];
+      case FilterValue.STREAM_FRIENDLY_BOTH:
+        return [
+          GameInfoStreamFriendly.PLAYABLE,
+          GameInfoStreamFriendly.MIDLY_PLAYABLE
+        ];
       case FilterValue.MODERATION_FULL_MODERATION:
         return [GameInfoModeration.FULL_MODERATION];
       case FilterValue.MODERATION_CENSORING:
         return [GameInfoModeration.CENSORING];
+      case FilterValue.MODERATION_BOTH:
+        return [
+          GameInfoModeration.FULL_MODERATION,
+          GameInfoModeration.CENSORING
+        ];
       case FilterValue.SUBTITLES_AVAILABLE:
         return [true];
       default:
@@ -93,9 +113,13 @@ extension FilterValueExtension on FilterValue {
         return FilterType.STREAM_FRIENDLY;
       case FilterValue.STREAM_FRIENDLY_MIDLY_PLAYABLE:
         return FilterType.STREAM_FRIENDLY;
+      case FilterValue.STREAM_FRIENDLY_BOTH:
+        return FilterType.STREAM_FRIENDLY;
       case FilterValue.MODERATION_FULL_MODERATION:
         return FilterType.MODERATION;
       case FilterValue.MODERATION_CENSORING:
+        return FilterType.MODERATION;
+      case FilterValue.MODERATION_BOTH:
         return FilterType.MODERATION;
       case FilterValue.SUBTITLES_AVAILABLE:
         return FilterType.SUBTITLES;
@@ -104,6 +128,9 @@ extension FilterValueExtension on FilterValue {
     }
   }
 
+/**
+ * Returns true if the game is valid with this filter
+ */
   bool isValidWithThisFilter(JackboxGame game) {
     switch (this.type) {
       case FilterType.FAMILY_FRIENDLY:
@@ -171,11 +198,13 @@ extension FilterTypeExtension on FilterType {
         return [FilterValue.AUDIENCE_AVAILABLE];
       case FilterType.STREAM_FRIENDLY:
         return [
+          FilterValue.STREAM_FRIENDLY_BOTH,
           FilterValue.STREAM_FRIENDLY_PLAYABLE,
           FilterValue.STREAM_FRIENDLY_MIDLY_PLAYABLE
         ];
       case FilterType.MODERATION:
         return [
+          FilterValue.MODERATION_BOTH,
           FilterValue.MODERATION_FULL_MODERATION,
           FilterValue.MODERATION_CENSORING
         ];
