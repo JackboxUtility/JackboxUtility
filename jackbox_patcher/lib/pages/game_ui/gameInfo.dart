@@ -288,13 +288,17 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CachedNetworkImage(
-                      colorBlendMode:
-                          !currentPack.owned ? BlendMode.saturation : null,
-                      color: !currentPack.owned ? Colors.black : null,
-                      imageUrl:
-                          APIService().assetLink(currentGame.game.background),
-                      fit: BoxFit.fitWidth,
+                    AspectRatio(
+                      aspectRatio: 2.17,
+                      child: CachedNetworkImage(
+                        width:300,
+                        colorBlendMode:
+                            !currentPack.owned ? BlendMode.saturation : null,
+                        color: !currentPack.owned ? Colors.black : null,
+                        imageUrl:
+                            APIService().assetLink(currentGame.game.background),
+                        fit: BoxFit.fitWidth,
+                      ),
                     ),
                     Padding(
                         padding: const EdgeInsets.symmetric(
