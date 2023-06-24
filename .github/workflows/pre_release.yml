@@ -66,13 +66,13 @@ jobs:
        with:
         flutter-version: '3.10.0'
         channel: 'stable'
-     - name: Build linux
+     - name: Build Macos
        working-directory: ./jackbox_patcher
        run: flutter build macos --build-name ${{ needs.retrievingVersion.outputs.version }} -t ./lib/main_beta.dart
      - uses: actions/upload-artifact@v3
        with:
-          name: build_linux
-          path: ./jackbox_patcher/build/macos
+          name: build_macos
+          path: ./jackbox_patcher/build/macos/Build/Products/Release/jackbox_patcher.app
  upload:
     runs-on: ubuntu-latest
     needs: 
