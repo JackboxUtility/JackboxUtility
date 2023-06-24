@@ -57,6 +57,22 @@ jobs:
        with:
           name: build_linux
           path: ./jackbox_patcher/build/linux/x64/release/bundle
+ build_macos:
+   runs-on: macos-latest
+   needs: retrievingVersion
+   steps:
+     - uses: actions/checkout@v3
+     - uses: subosito/flutter-action@v2
+       with:
+        flutter-version: '3.10.0'
+        channel: 'stable'
+     - name: Build linux
+       working-directory: ./jackbox_patcher
+       run: flutter build macos --build-name ${{ needs.retrievingVersion.outputs.version }} -t ./lib/main_beta.dart
+     - uses: actions/upload-artifact@v3
+       with:
+          name: build_linux
+          path: ./jackbox_patcher/build/macos
  upload:
     runs-on: ubuntu-latest
     needs: 
