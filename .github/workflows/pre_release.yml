@@ -69,10 +69,13 @@ jobs:
      - name: Build Macos
        working-directory: ./jackbox_patcher
        run: flutter build macos --build-name ${{ needs.retrievingVersion.outputs.version }} -t ./lib/main_beta.dart
+     - run: |
+        mkdir ./jackbox_patcher/build/macosbuildresult
+        mv ./jackbox_patcher/build/macos/Build/Products/Release/jackbox_patcher.app ./jackbox_patcher/build/macosbuildresult
      - uses: actions/upload-artifact@v3
        with:
           name: build_macos
-          path: ./jackbox_patcher/build/macos/Build/Products/Release/jackbox_patcher.app
+          path: ./jackbox_patcher/build/macosbuildresult
  upload:
     runs-on: ubuntu-latest
     needs: 
