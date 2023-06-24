@@ -546,7 +546,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: _generateClassicGameTags()))))),
       const SizedBox(height: 20),
-      if (widget.game.game.info.tags.length >= 1)
+      if (currentGame.game.info.tags.isNotEmpty)
         ClipRRect(
             borderRadius: BorderRadius.circular(8.0),
             child: Acrylic(
