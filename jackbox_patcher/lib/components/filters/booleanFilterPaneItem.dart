@@ -50,7 +50,7 @@ class _BooleanFilterPaneItemTitleState
             });}),
       SizedBox(width: 8),
       
-      Text(widget.name, style: TextStyle(color: activated ? null : Colors.grey)),
+      Text(widget.name, style: TextStyle(color: activated ? null : const Color.fromARGB(255, 130, 130, 130))),
       Spacer(),
       ToggleSwitch(
         

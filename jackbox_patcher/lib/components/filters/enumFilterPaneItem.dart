@@ -78,10 +78,10 @@ class _EnumFilterPaneItemTitleState extends State<EnumFilterPaneItemTitle> {
             });
           }),
       SizedBox(width: 8),
-      Icon(widget.icon, color: activated ? null : Colors.grey),
+      Icon(widget.icon, color: activated ? null : const Color.fromARGB(255, 130, 130, 130)),
       SizedBox(width: 10),
       Text(widget.name,
-          style: TextStyle(color: activated ? null : Colors.grey)),
+          style: TextStyle(color: activated ? null : const Color.fromARGB(255, 130, 130, 130))),
       Spacer(),
       widget.availableValues.length>1? ComboBox(
         elevation: 0,
