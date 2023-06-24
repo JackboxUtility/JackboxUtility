@@ -1,6 +1,7 @@
 
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_flavor/flutter_flavor.dart';
 import 'package:jackbox_patcher/components/dialogs/leaveApplicationDialog.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/device/device.dart';
@@ -68,6 +69,16 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
           _buildLower(),
           const Spacer(),
         ]),
+        if (FlavorConfig.instance.name == "BETA")
+          Positioned(
+              bottom: 0,
+              right: 0,
+              left:0,
+              child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                      "You are using the beta version of the app. If you encounter any issues, please report them on the Discord server or Github repository.",
+                      style: TextStyle(color: Colors.white.withOpacity(0.7)), textAlign: TextAlign.center,)))
       ],
     ));
   }

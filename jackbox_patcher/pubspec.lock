@@ -191,6 +191,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.3.0"
+  flutter_flavor:
+    dependency: "direct main"
+    description:
+      name: flutter_flavor
+      sha256: "7740f2b15598ba67f9306ef41ad462ef92036d7cb7928d9da16908e139a7f618"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.1"
   flutter_lints:
     dependency: "direct dev"
     description:

@@ -30,7 +30,7 @@ jobs:
         channel: 'stable'
      - name: Build windows
        working-directory: ./jackbox_patcher
-       run: flutter build windows
+       run: flutter build windows --flavor release -t ./lib/main_release.dart
      - uses: actions/upload-artifact@v3
        with:
           name: build_windows
@@ -49,7 +49,7 @@ jobs:
         channel: 'stable'
      - name: Build linux
        working-directory: ./jackbox_patcher
-       run: flutter build linux
+       run: flutter build linux --flavor release -t ./lib/main_release.dart
      - uses: actions/upload-artifact@v3
        with:
           name: build_linux

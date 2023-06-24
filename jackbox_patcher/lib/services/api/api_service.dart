@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:flutter_flavor/flutter_flavor.dart';
 import 'package:http/http.dart' as http;
 import 'package:jackbox_patcher/model/jackbox/jackboxgame.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxpackpatch.dart';
@@ -17,8 +18,7 @@ import 'api_endpoints.dart';
 
 class APIService {
   static final APIService _instance = APIService._internal();
-  String masterServer =
-      "https://raw.githubusercontent.com/AlexisL61/JackboxUtility/main/servers.json";
+  String masterServer = FlavorConfig.instance.variables["masterServerUrl"];
   String? baseEndpoint;
   String? baseAssets;
 

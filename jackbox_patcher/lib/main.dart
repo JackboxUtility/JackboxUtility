@@ -13,13 +13,6 @@ import 'pages/game_ui/gameInfo.dart';
 import 'pages/parameters/packs.dart';
 import 'pages/patcher/menu.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await windowManager.ensureInitialized();
-  DiscordRPC.initialize();
-  runApp(const MyApp());
-}
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
