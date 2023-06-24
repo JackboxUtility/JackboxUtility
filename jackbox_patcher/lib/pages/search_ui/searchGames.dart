@@ -96,6 +96,7 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
   @override
   void initState() {
     _startDiscordrichPresence();
+    sortOrder = UserData().gameList.loadSort();
     super.initState();
   }
 
@@ -103,7 +104,7 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
   Widget build(BuildContext context) {
     return ClosableRouteWithEsc(
         child: NavigationView(
-            content: ListView(children: [_buildHeader(), _buildBottom()])));
+            content: ListView(children: [_buildHeader(), _buildBottom(), SizedBox(height: 20,)])));
   }
 
   Widget _buildHeader() {
@@ -207,8 +208,8 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
                                               value: SortOrder.values[index],
                                             )),
                                     onChanged: (value) {
-                                      key = UniqueKey();
                                       setState(() => sortOrder = value!);
+                                      UserData().gameList.saveSort(value!);
                                     }),
                               ],
                             ),

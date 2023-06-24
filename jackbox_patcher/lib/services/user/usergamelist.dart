@@ -1,4 +1,5 @@
 import 'package:jackbox_patcher/model/misc/filterEnum.dart';
+import 'package:jackbox_patcher/model/misc/sortOrder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
@@ -55,5 +56,20 @@ class UserGameList {
       preferences.setBool("filter_"+element.type.toString()+"_activated", element.activated);
       preferences.setInt("filter_"+element.type.toString()+"_selected", element.selected);
     });
+  }
+
+  SortOrder loadSort(){
+    List<SortOrder> sortsFound = SortOrder.values.where((element) => element.name == preferences.getString("sort_selected")).toList(); 
+    late SortOrder sortSelected;
+    if (sortsFound.length == 1){
+      sortSelected = sortsFound[0];
+    } else {
+      sortSelected = SortOrder.NAME;
+    }
+    return sortSelected;
+  }
+
+  saveSort(SortOrder sort){
+    preferences.setString("sort_selected", sort.name);
   }
 }
