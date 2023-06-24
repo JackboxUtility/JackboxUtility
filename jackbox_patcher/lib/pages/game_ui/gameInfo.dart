@@ -590,7 +590,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
     gameTagWidgets.add(_buildGameTag(FluentIcons.allIcons["people"]!,
         "${currentGame.game.info.players.min} - ${currentGame.game.info.players.max} ${AppLocalizations.of(context)!.players}"));
     gameTagWidgets
-        .add(_buildGameTag(FluentIcons.allIcons["timer"]!, gameInfo.length));
+        .add(_buildGameTag(FluentIcons.allIcons["timer"]!, "${gameInfo.playtime.min} - ${gameInfo.playtime.max} minutes"));
     gameTagWidgets.add(_buildGameTag(
         FluentIcons.allIcons["group"]!, gameInfo.type.name,
         isLink: true,
