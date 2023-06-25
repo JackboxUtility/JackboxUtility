@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:jackbox_patcher/model/jackbox/jackboxgame.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 
