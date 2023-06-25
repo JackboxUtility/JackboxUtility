@@ -611,14 +611,14 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
     List<Widget> gameTagWidgets = [];
     // Add tags available for all games
     gameTagWidgets.add(_buildGameTag(
-        FluentIcons.allIcons["package"]!, currentPack.pack.name,
+        FontAwesomeIcons.boxOpen!, currentPack.pack.name,
         isLink: true,
         filter: (pack, game) => pack.pack.id == currentPack.pack.id,
         linkedPack: currentPack,
         description: currentPack.pack.description));
-    gameTagWidgets.add(_buildGameTag(FluentIcons.allIcons["people"]!,
+    gameTagWidgets.add(_buildGameTag(FontAwesomeIcons.users,
         "${currentGame.game.info.players.min} - ${currentGame.game.info.players.max} ${AppLocalizations.of(context)!.players}"));
-    gameTagWidgets.add(_buildGameTag(FluentIcons.allIcons["timer"]!,
+    gameTagWidgets.add(_buildGameTag(FontAwesomeIcons.clock,
         "${gameInfo.playtime.min} - ${gameInfo.playtime.max} minutes"));
     gameTagWidgets.add(_buildGameTag(gameInfo.type.icon, gameInfo.type.name,
         isLink: true,
@@ -626,7 +626,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
         linkedPack: null,
         description: gameInfo.type.description));
     gameTagWidgets.add(_buildGameTag(
-        FluentIcons.allIcons["translate"]!, gameInfo.translation.name,
+        FontAwesomeIcons.language, gameInfo.translation.name,
         isLink: true,
         filter: (pack, game) =>
             game.game.info.translation == gameInfo.translation,
