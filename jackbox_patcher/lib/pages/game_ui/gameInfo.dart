@@ -404,7 +404,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                           }),
                     )]), 
                     SizedBox(height: 4),
-                     if (currentPack.pack.storeLinks!.epic != null) Row(
+                     if (currentPack.pack.storeLinks!.jackboxGamesStore != null) Row(
                        children: [
                          Expanded(
                           child: FilledButton(
