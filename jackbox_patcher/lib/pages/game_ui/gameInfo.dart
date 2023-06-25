@@ -14,6 +14,7 @@ import 'package:jackbox_patcher/services/launcher/launcher.dart';
 import 'package:palette_generator/palette_generator.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../components/closableRouteWithEsc.dart';
 import '../../components/gameinfo/specialGameInfo.dart';
@@ -361,50 +362,101 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
   }
 
   Widget _buildPlayButton() {
-    return Row(children: [
-      Expanded(
-          child: !currentPack.owned
-              ? GestureDetector(
-                  onTap: () async {
-                    await Navigator.pushNamed(context, "/settings/packs");
-                    setState(() {});
-                  },
-                  child: Text(
-                      AppLocalizations.of(context)!.path_not_found_description,
-                      style: TextStyle(
-                          color: Colors.red,
-                          decoration: TextDecoration.underline)))
-              : ((currentPack.path == null || currentPack.path == "")
-                  ? GestureDetector(
-                      onTap: () async {
-                        await Navigator.pushNamed(context, "/settings/packs");
-                        setState(() {});
-                      },
-                      child: Text(
-                          AppLocalizations.of(context)!
-                              .path_inexistant_description,
-                          style: TextStyle(
-                              color: Colors.red,
-                              decoration: TextDecoration.underline)))
-                  : _buildLauncherButton())),
-      const SizedBox(width: 10),
-      IconButton(
-        icon: SizedBox(
-            width: 16,
-            height: 16,
-            child: Icon(
-                currentGame.hidden
-                    ? FontAwesomeIcons.eyeSlash
-                    : FontAwesomeIcons.eye,
-                key: UniqueKey(),
-                size: currentGame.hidden ? 15 : 16)),
-        onPressed: () {
-          currentGame.hidden = !currentGame.hidden;
-          setState(() {});
-        },
-        style: ButtonStyle(backgroundColor: ButtonState.all(Colors.blue)),
-      )
-    ]);
+    return !currentPack.owned
+        ? (currentPack.pack.storeLinks != null
+            ? Column(children: [
+                Row(
+                  children: [
+                    if (currentPack.pack.storeLinks!.steam != null)
+                      Expanded(
+                        child: FilledButton(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(FontAwesomeIcons.steam),
+                                SizedBox(width: 10),
+                                Text("Steam"),
+                              ],
+                            ),
+                            onPressed: () {
+                              launchUrlString(
+                                  currentPack.pack.storeLinks!.steam!);
+                            }),
+                      ),
+                    SizedBox(width: 4),
+                    if (currentPack.pack.storeLinks!.epic != null) Expanded(
+                      child: FilledButton(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                "assets/logos/epicgames.webp",
+                                height: 14,
+                                cacheHeight: 28,
+                              ),
+                              SizedBox(width: 10),
+                              Text("Epic games"),
+                            ],
+                          ),
+                          onPressed: () {
+                            launchUrlString(
+                                  currentPack.pack.storeLinks!.epic!);
+                          }),
+                    )]), 
+                    SizedBox(height: 4),
+                     if (currentPack.pack.storeLinks!.epic != null) Row(
+                       children: [
+                         Expanded(
+                          child: FilledButton(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(FontAwesomeIcons.boxOpen),
+                                  SizedBox(width: 10),
+                                  Text("Jackbox games store"),
+                                ],
+                              ),
+                              onPressed: () {
+                                launchUrlString(
+                                      currentPack.pack.storeLinks!.jackboxGamesStore!);
+                              }),
+                ),
+                       ],
+                     )
+              ])
+            : GestureDetector(
+                onTap: () async {
+                  await Navigator.pushNamed(context, "/settings/packs");
+                  setState(() {});
+                },
+                child: Text(
+                    AppLocalizations.of(context)!.path_not_found_description,
+                    style: TextStyle(
+                        color: Colors.red,
+                        decoration: TextDecoration.underline))))
+        : Row(
+            children: [
+              Expanded(child: _buildLauncherButton()),
+              const SizedBox(width: 10),
+              IconButton(
+                icon: SizedBox(
+                    width: 16,
+                    height: 16,
+                    child: Icon(
+                        currentGame.hidden
+                            ? FontAwesomeIcons.eyeSlash
+                            : FontAwesomeIcons.eye,
+                        key: UniqueKey(),
+                        size: currentGame.hidden ? 15 : 16)),
+                onPressed: () {
+                  currentGame.hidden = !currentGame.hidden;
+                  setState(() {});
+                },
+                style:
+                    ButtonStyle(backgroundColor: ButtonState.all(Colors.blue)),
+              )
+            ],
+          );
   }
 
   Widget _buildLauncherButton() {
@@ -568,8 +620,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
         "${currentGame.game.info.players.min} - ${currentGame.game.info.players.max} ${AppLocalizations.of(context)!.players}"));
     gameTagWidgets.add(_buildGameTag(FluentIcons.allIcons["timer"]!,
         "${gameInfo.playtime.min} - ${gameInfo.playtime.max} minutes"));
-    gameTagWidgets.add(_buildGameTag(
-        gameInfo.type.icon, gameInfo.type.name,
+    gameTagWidgets.add(_buildGameTag(gameInfo.type.icon, gameInfo.type.name,
         isLink: true,
         filter: (pack, game) => game.game.info.type == gameInfo.type,
         linkedPack: null,

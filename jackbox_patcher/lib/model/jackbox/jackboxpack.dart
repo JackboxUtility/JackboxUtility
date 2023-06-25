@@ -15,6 +15,7 @@ class JackboxPack {
   final PackConfiguration? configuration;
   final String background;
   final String? executable;
+  final StoreLinks? storeLinks;
 
   JackboxPack(
       {required this.id,
@@ -27,7 +28,8 @@ class JackboxPack {
       required this.games,
       required this.patches,
       required this.configuration,
-      required this.executable});
+      required this.executable, 
+      required this.storeLinks});
 
   factory JackboxPack.fromJson(Map<String, dynamic> json) {
     List<JackboxPackPatch> patches = json['patchs'] != null
@@ -35,7 +37,7 @@ class JackboxPack {
             .map((e) => JackboxPackPatch.fromJson(e))
             .toList()
         : [];
-    
+
     return JackboxPack(
         id: json['id'],
         name: json['name'],
@@ -49,19 +51,22 @@ class JackboxPack {
             : null,
         background: json['background'],
         games: (json['games'] as List<dynamic>)
-            .map((e) => JackboxGame.fromJson(e, isGameDubbedByPackPatch(patches, e["id"])))
+            .map((e) => JackboxGame.fromJson(
+                e, isGameDubbedByPackPatch(patches, e["id"])))
             .toList(),
         patches: patches,
         configuration: json['configuration'] != null
             ? PackConfiguration.fromJson(json['configuration'])
             : null,
         executable:
-            JackboxPack.generateExecutableFromJson(json['executables']));
+            JackboxPack.generateExecutableFromJson(json['executables']), 
+        storeLinks: json['store_links'] != null ? StoreLinks.fromJson(json['store_links']) : null);
   }
 
-  static isGameDubbedByPackPatch(List<JackboxPackPatch> patches, String gameId) {
+  static isGameDubbedByPackPatch(
+      List<JackboxPackPatch> patches, String gameId) {
     for (var patch in patches) {
-      for (var game in patch.components){
+      for (var game in patch.components) {
         if (game.linkedGame == gameId && game.patchType!.audios) {
           return true;
         }
@@ -111,6 +116,18 @@ class LaunchersId {
   factory LaunchersId.fromJson(Map<String, dynamic> json) {
     print("launcherId");
     return LaunchersId(steam: json['steam'], epic: json['epic']);
+  }
+}
+
+class StoreLinks {
+  final String? steam;
+  final String? epic;
+  final String? jackboxGamesStore;
+
+  StoreLinks({required this.steam, required this.epic, this.jackboxGamesStore});
+
+  factory StoreLinks.fromJson(Map<String, dynamic> json) {
+    return StoreLinks(steam: json['steam'] != null ? json["steam"]:null , epic: json['epic']  != null ? json["epic"]:null, jackboxGamesStore: json['jackbox_games_store']!= null ? json["jackbox_games_store"]:null);
   }
 }
 
