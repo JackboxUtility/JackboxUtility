@@ -134,7 +134,8 @@ class _ParametersWidgetState extends State<ParametersWidget> {
         UserData().packs.where((element) => !element.owned).toList();
     UserJackboxPack? packSelected = await showDialog<UserJackboxPack?>(
         context: context,
-        builder: (context) => ContentDialog(
+        builder: (context) => ContentDialog( 
+          constraints: BoxConstraints(minWidth:450, maxWidth: 450),
               title: Text(AppLocalizations.of(context)!.add_pack),
               content: SizedBox(
                   child: Row(children: [
