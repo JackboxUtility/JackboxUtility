@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:jackbox_patcher/model/jackbox/jackboxpack.dart';
 import 'package:jackbox_patcher/model/misc/sortOrder.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
@@ -26,7 +27,7 @@ class _SearchGameRouteState extends State<SearchGameRoute> {
   Widget build(BuildContext context) {
     List<dynamic> data = ModalRoute.of(context)!.settings.arguments as List;
     bool Function(UserJackboxPack, UserJackboxGame) filter = data[0];
-    String? background = data[1];
+    UserJackboxPack? linkedPack = data[1];
     String? name = data[2];
     String? description = data[3];
     String? icon = data[4];
@@ -44,7 +45,7 @@ class _SearchGameRouteState extends State<SearchGameRoute> {
     return SearchGameWidget(
         filter: filter,
         comeFromGame: true,
-        background: background,
+        linkedPack: linkedPack,
         name: name,
         description: description,
         showAllPacks: showAllPacks ?? false,
@@ -59,7 +60,7 @@ class SearchGameWidget extends StatefulWidget {
       {Key? key,
       required this.filter,
       this.comeFromGame = false,
-      this.background,
+      this.linkedPack,
       this.name,
       this.description,
       required this.showAllPacks,
@@ -71,7 +72,7 @@ class SearchGameWidget extends StatefulWidget {
 
   final bool Function(UserJackboxPack, UserJackboxGame) filter;
   final bool comeFromGame;
-  final String? background;
+  final UserJackboxPack? linkedPack;
   final String? name;
   final String? description;
   final bool showAllPacks;
@@ -104,7 +105,13 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
   Widget build(BuildContext context) {
     return ClosableRouteWithEsc(
         child: NavigationView(
-            content: ListView(children: [_buildHeader(), _buildBottom(), SizedBox(height: 20,)])));
+            content: ListView(children: [
+      _buildHeader(),
+      _buildBottom(),
+      SizedBox(
+        height: 20,
+      )
+    ])));
   }
 
   Widget _buildHeader() {
@@ -116,8 +123,8 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
               child: Row(children: [
                 Expanded(
                     child: CachedNetworkImage(
-                  imageUrl: widget.background != null
-                      ? APIService().assetLink(widget.background!)
+                  imageUrl: widget.linkedPack != null
+                      ? APIService().assetLink(widget.linkedPack!.pack.background)
                       : APIService().getDefaultBackground(),
                   height: 200,
                   fit: BoxFit.fitWidth,
@@ -145,15 +152,18 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
               child: SizedBox(
                   height: 100,
                   child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
                             width: calculatePadding() -
                                 (widget.comeFromGame ? 40 : 0)),
                         widget.comeFromGame
-                            ? GestureDetector(
-                                child: const Icon(FluentIcons.chevron_left),
-                                onTap: () => Navigator.pop(context))
+                            ? Container(
+                              margin: EdgeInsets.only(top: 44),
+                              child: GestureDetector(
+                                  child: const Icon(FluentIcons.chevron_left),
+                                  onTap: () => Navigator.pop(context)),
+                            )
                             : Container(),
                         widget.comeFromGame
                             ? const SizedBox(width: 20)
@@ -219,7 +229,19 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
                         SizedBox(
                             width: calculatePadding() -
                                 (widget.comeFromGame ? 40 : 0)),
-                      ])))
+                      ]))),
+          if (widget.linkedPack != null)
+            Positioned(
+                top: 20,
+                right: 60,
+                child: IconButton(
+                    style: ButtonStyle(
+                        backgroundColor: ButtonState.all(Colors.green)),
+                    onPressed: () async {
+                      Launcher.launchPack(widget.linkedPack!);
+                    },
+                    icon:const Icon(FluentIcons.play_solid)
+                ))
         ]),
         const SizedBox(height: 20)
       ],

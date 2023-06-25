@@ -305,7 +305,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                 _filterGameBasedOnActiveFilters(pack, game),
             comeFromGame: false,
             showAllPacks: showAllPacks,
-            background: userPack.pack.background,
+            linkedPack: userPack,
             name: userPack.pack.name,
             description: userPack.pack.description,
             icon: userPack.pack.icon,
@@ -330,7 +330,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                   (showHidden || !game.hidden) &&
                   _filterGameBasedOnActiveFilters(pack, game),
               comeFromGame: false,
-              background: APIService().getDefaultBackground(),
+              linkedPack: null,
               name: type.name,
               description: type.description,
               showAllPacks: showAllPacks,
@@ -366,7 +366,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                   (showHidden || !game.hidden) &&
                   _filterGameBasedOnActiveFilters(pack, game),
               comeFromGame: false,
-              background: APIService().getDefaultBackground(),
+              linkedPack: null,
               name: AppLocalizations.of(context)!.all_games,
               description: AppLocalizations.of(context)!.all_games_description,
               showAllPacks: showAllPacks,
@@ -449,7 +449,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                   (showHidden || !game.hidden) &&
                   _filterGameBasedOnActiveFilters(pack, game),
               comeFromGame: false,
-              background: APIService().getDefaultBackground(),
+              linkedPack: null,
               name: tag.name,
               description: tag.description,
               showAllPacks: showAllPacks,
@@ -475,7 +475,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
               (showHidden || !game.hidden) &&
               _filterGameBasedOnActiveFilters(pack, game),
           comeFromGame: false,
-          background: APIService().getDefaultBackground(),
+          linkedPack: null,
           name: "Ranked by stars",
           description: "Games ranked by stars from your personal ranking",
           showAllPacks: showAllPacks,

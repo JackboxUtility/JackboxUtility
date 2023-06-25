@@ -85,39 +85,39 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
   @override
   Widget build(BuildContext context) {
     return ClosableRouteWithEsc(
-      leftEvent: () => _openPreviousGame(),
-      rightEvent: () => _openNextGame(),
+        leftEvent: () => _openPreviousGame(),
+        rightEvent: () => _openNextGame(),
         child: NavigationView(
-                content: Stack(children: [
-              ListView(children: [_buildHeader(), _buildBottom()]),
-              if (widget.allAvailableGames != null)
-                Positioned(
-                    height: MediaQuery.of(context).size.height,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: GestureDetector(
-                          onTap: () => _openPreviousGame(),
-                          child: Icon(
-                            FluentIcons.chevron_left,
-                            size: 30,
-                            color: Colors.white,
-                          )),
-                    )),
-              if (widget.allAvailableGames != null)
-                Positioned(
-                    height: MediaQuery.of(context).size.height,
-                    right: 0,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: GestureDetector(
-                          onTap: () => _openNextGame(),
-                          child: Icon(
-                            FluentIcons.chevron_right,
-                            size: 30,
-                            color: Colors.white,
-                          )),
-                    ))
-            ])));
+            content: Stack(children: [
+          ListView(children: [_buildHeader(), _buildBottom()]),
+          if (widget.allAvailableGames != null)
+            Positioned(
+                height: MediaQuery.of(context).size.height,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: GestureDetector(
+                      onTap: () => _openPreviousGame(),
+                      child: Icon(
+                        FluentIcons.chevron_left,
+                        size: 30,
+                        color: Colors.white,
+                      )),
+                )),
+          if (widget.allAvailableGames != null)
+            Positioned(
+                height: MediaQuery.of(context).size.height,
+                right: 0,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: GestureDetector(
+                      onTap: () => _openNextGame(),
+                      child: Icon(
+                        FluentIcons.chevron_right,
+                        size: 30,
+                        color: Colors.white,
+                      )),
+                ))
+        ])));
   }
 
   void _openPreviousGame() {
@@ -291,7 +291,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                     AspectRatio(
                       aspectRatio: 2.17,
                       child: CachedNetworkImage(
-                        width:300,
+                        width: 300,
                         colorBlendMode:
                             !currentPack.owned ? BlendMode.saturation : null,
                         color: !currentPack.owned ? Colors.black : null,
@@ -409,50 +409,23 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
 
   Widget _buildLauncherButton() {
     if (currentGame.loader != null) {
-      return SplitButtonBar(
-          style: SplitButtonThemeData.standard(FluentTheme.of(context)).merge(
-              SplitButtonThemeData(
-                  primaryButtonStyle: ButtonStyle(
-                      backgroundColor: ButtonState.all(Colors.green)),
-                  actionButtonStyle: ButtonStyle(
-                      backgroundColor: ButtonState.all(Colors.green)))),
-          buttons: [
-            Expanded(
-                child: FilledButton(
-                    style: ButtonStyle(
-                        backgroundColor: ButtonState.all(Colors.green)),
-                    onPressed: launchingStatus == "WAITING"
-                        ? launchGameFunction
-                        : null,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(FluentIcons.play_solid, color: Colors.white),
-                        const SizedBox(width: 10),
-                        Text(
-                            launchingStatus == "WAITING"
-                                ? AppLocalizations.of(context)!.launch_game
-                                : (launchingStatus == "LAUNCHING"
-                                    ? AppLocalizations.of(context)!.launching
-                                    : AppLocalizations.of(context)!.launched),
-                            style: const TextStyle(color: Colors.white)),
-                      ],
-                    ))),
-            DropDownButton(leading: const SizedBox(height: 19), items: [
-              MenuFlyoutItem(
-                  leading: const Icon(FluentIcons.play_solid),
-                  text: Text(AppLocalizations.of(context)!.launch_game),
-                  onPressed: launchGameFunction),
-              MenuFlyoutItem(
-                  leading: const Icon(FluentIcons.play_solid),
-                  text: Text(AppLocalizations.of(context)!.launch_pack),
-                  onPressed: launchPackFunction),
-              MenuFlyoutItem(
-                  leading: const Icon(FluentIcons.info),
-                  text: Text(AppLocalizations.of(context)!.more_informations),
-                  onPressed: showLaunchInfo),
-            ])
-          ]);
+      return FilledButton(
+          style: ButtonStyle(backgroundColor: ButtonState.all(Colors.green)),
+          onPressed: launchingStatus == "WAITING" ? launchGameFunction : null,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(FluentIcons.play_solid, color: Colors.white),
+              const SizedBox(width: 10),
+              Text(
+                  launchingStatus == "WAITING"
+                      ? AppLocalizations.of(context)!.launch_game
+                      : (launchingStatus == "LAUNCHING"
+                          ? AppLocalizations.of(context)!.launching
+                          : AppLocalizations.of(context)!.launched),
+                  style: const TextStyle(color: Colors.white)),
+            ],
+          ));
     } else {
       return FilledButton(
           style: ButtonStyle(backgroundColor: ButtonState.all(Colors.green)),
@@ -589,24 +562,24 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
         FluentIcons.allIcons["package"]!, currentPack.pack.name,
         isLink: true,
         filter: (pack, game) => pack.pack.id == currentPack.pack.id,
-        background: APIService().assetLink(currentPack.pack.background),
+        linkedPack: currentPack,
         description: currentPack.pack.description));
     gameTagWidgets.add(_buildGameTag(FluentIcons.allIcons["people"]!,
         "${currentGame.game.info.players.min} - ${currentGame.game.info.players.max} ${AppLocalizations.of(context)!.players}"));
-    gameTagWidgets
-        .add(_buildGameTag(FluentIcons.allIcons["timer"]!, "${gameInfo.playtime.min} - ${gameInfo.playtime.max} minutes"));
+    gameTagWidgets.add(_buildGameTag(FluentIcons.allIcons["timer"]!,
+        "${gameInfo.playtime.min} - ${gameInfo.playtime.max} minutes"));
     gameTagWidgets.add(_buildGameTag(
         FluentIcons.allIcons["group"]!, gameInfo.type.name,
         isLink: true,
         filter: (pack, game) => game.game.info.type == gameInfo.type,
-        background: null,
+        linkedPack: null,
         description: gameInfo.type.description));
     gameTagWidgets.add(_buildGameTag(
         FluentIcons.allIcons["translate"]!, gameInfo.translation.name,
         isLink: true,
         filter: (pack, game) =>
             game.game.info.translation == gameInfo.translation,
-        background: null,
+        linkedPack: null,
         description: gameInfo.translation.description));
 
     return gameTagWidgets;
@@ -622,7 +595,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
           isLink: true,
           filter: (pack, game) =>
               game.game.info.tags.where((e) => e.id == element.id).isNotEmpty,
-          background: null,
+          linkedPack: null,
           description: element.description));
     }
 
@@ -644,14 +617,14 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
   Widget _buildGameTag(IconData icon, String text,
       {bool isLink = false,
       bool Function(UserJackboxPack, UserJackboxGame)? filter,
-      String? background,
+      UserJackboxPack? linkedPack,
       String? description}) {
     return GestureDetector(
         onTap: () {
           if (isLink) {
             Navigator.pushNamed(context, "/search", arguments: [
               filter,
-              background,
+              linkedPack,
               text,
               description,
               null,
