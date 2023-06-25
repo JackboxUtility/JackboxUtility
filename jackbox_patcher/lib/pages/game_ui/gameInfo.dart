@@ -616,9 +616,9 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
         filter: (pack, game) => pack.pack.id == currentPack.pack.id,
         linkedPack: currentPack,
         description: currentPack.pack.description));
-    gameTagWidgets.add(_buildGameTag(FontAwesomeIcons.users,
+    gameTagWidgets.add(_buildGameTag(FluentIcons.people,
         "${currentGame.game.info.players.min} - ${currentGame.game.info.players.max} ${AppLocalizations.of(context)!.players}"));
-    gameTagWidgets.add(_buildGameTag(FontAwesomeIcons.clock,
+    gameTagWidgets.add(_buildGameTag(FontAwesomeIcons.clock, 
         "${gameInfo.playtime.min} - ${gameInfo.playtime.max} minutes"));
     gameTagWidgets.add(_buildGameTag(gameInfo.type.icon, gameInfo.type.name,
         isLink: true,

@@ -228,7 +228,7 @@ enum JackboxGameType {
   IconData get icon {
     switch (this) {
       case JackboxGameType.VERSUS:
-        return FluentIcons.people;
+        return FontAwesomeIcons.users;
       case JackboxGameType.COOP:
         return FontAwesomeIcons.handshake;
       case JackboxGameType.TEAM:

@@ -159,7 +159,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
         activated: intFilters
             .firstWhere((element) => element.type == "minPlayers")
             .activated,
-        icon: FontAwesomeIcons.users,
+        icon: FluentIcons.people,
         min: 1,
         max: 11,
         step: 1,
