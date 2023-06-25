@@ -73,9 +73,9 @@ extension FilterValueExtension on FilterValue {
       case FilterValue.SUBTITLES_AVAILABLE:
         return Colors.green;
       case FilterValue.TRANSLATION_DUBBED:
-        return Colors.green;
+        return Colors.blue;
       case FilterValue.TRANSLATION_TRANSLATED:
-        return Colors.orange;
+        return Colors.green;
       default:
         throw Exception('Unknown FilterValue');
     }
@@ -241,8 +241,8 @@ extension FilterTypeExtension on FilterType {
         return APIService().cachedConfigurations?.getConfiguration("LAUNCHER", "HIDE_DUBBED") == true?[
           FilterValue.TRANSLATION_TRANSLATED
         ]: [
-          FilterValue.TRANSLATION_DUBBED,
-          FilterValue.TRANSLATION_TRANSLATED
+          FilterValue.TRANSLATION_TRANSLATED,
+          FilterValue.TRANSLATION_DUBBED
         ];
       default:
         throw Exception('Unknown FilterType');
