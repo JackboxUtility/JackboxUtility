@@ -203,7 +203,7 @@ extension FilterTypeExtension on FilterType {
       case FilterType.FAMILY_FRIENDLY:
         return FontAwesomeIcons.child;
       case FilterType.AUDIENCE:
-        return FontAwesomeIcons.users;
+        return FontAwesomeIcons.userPlus;
       case FilterType.STREAM_FRIENDLY:
         return FontAwesomeIcons.twitch;
       case FilterType.MODERATION:

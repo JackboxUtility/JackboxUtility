@@ -56,7 +56,7 @@ class SpecialGameAllInfoWidget extends StatelessWidget {
     ),
     (
       name: TranslationsHelper().appLocalizations!.audience,
-      icon: FontAwesomeIcons.users,
+      icon: FontAwesomeIcons.userPlus,
       subname: (JackboxGameInfo gI){
         return "";
       },
