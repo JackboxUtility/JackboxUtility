@@ -128,7 +128,7 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
                                 style: const TextStyle(color: Colors.white))
                           ])))),
           const SizedBox(height: 10),
-          !DeviceService.isWeb()
+          !DeviceService.isWeb() &&  (APIService().cachedConfigurations?.getConfiguration("MAIN", "HIDE_PATCHER")) != true
               ? MouseRegion(
                   cursor: SystemMouseCursors.click,
                   child: FilledButton(

@@ -19,6 +19,20 @@
         },
         "required": []
       },
+      "MAIN": {
+        "type": "object",
+        "description": "The main app configurations.",
+        "properties": {
+          "HIDE_PATCHER": {
+            "type": "boolean",
+            "description": "Hide the patcher part of the app",
+            "examples": [
+              true
+            ]
+          }
+        },
+        "required": []
+      },
       "SERVER_INFORMATION": {
         "type": "object",
         "description": "The configuration for the server information.",

@@ -49,6 +49,9 @@ class InitialLoad{
         await _launchAutomaticGameFinder(context,
             automaticGameFindNotificationAvailable);
       }
+      if (isFirstTimeOpening && UserData().settings.isOpenLauncherOnStartupActivated){
+        openLauncher(context);
+      }
     } catch (e) {
       InfoBarService.showError(
           context, AppLocalizations.of(context)!.connection_to_server_failed,
@@ -73,6 +76,10 @@ class InitialLoad{
       }
     }
     await Navigator.pushNamed(context, "/serverSelect");
+  }
+
+  static void openLauncher(context){
+    Navigator.pushNamed(context, "/searchMenu");
   }
 
   static Future<void> _precacheImages(context) async {

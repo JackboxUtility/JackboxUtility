@@ -6,6 +6,7 @@ import 'package:jackbox_patcher/components/filters/intFilterPaneItem.dart';
 import 'package:jackbox_patcher/components/starsRate.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxgame.dart';
 import 'package:jackbox_patcher/model/misc/filterEnum.dart';
+import 'package:jackbox_patcher/model/misc/tip.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
 import 'package:jackbox_patcher/pages/search_ui/randomGame.dart';
 import 'package:jackbox_patcher/pages/search_ui/searchGames.dart';
@@ -48,6 +49,12 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
     UserData().gameList.loadFilters(filters);
     UserData().gameList.loadIntFilters(intFilters);
     super.initState();
+    Future.delayed(
+        Duration(milliseconds: 500),()=>
+        UserData()
+            .tips
+            .getTip(TipAvailable.LAUNCHER_ON_STARTUP)
+            .activate(context));
   }
 
   @override
@@ -386,8 +393,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
         items: tagItem,
         onTap: () {
           setState(() {
-            _selectedView =
-                3 + packItems.length + typeItem.length;
+            _selectedView = 3 + packItems.length + typeItem.length;
           });
         },
       ));
@@ -399,10 +405,8 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
         items: starsItem,
         onTap: () {
           setState(() {
-            _selectedView = 4 +
-                packItems.length +
-                typeItem.length +
-                tagItem.length;
+            _selectedView =
+                4 + packItems.length + typeItem.length + tagItem.length;
           });
         },
       ));
@@ -421,14 +425,12 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
     maxSelectableView = 1;
     for (var item in items) {
       if (item is PaneItemExpander) {
-        maxSelectableView += item.items.length+1;
+        maxSelectableView += item.items.length + 1;
       }
     }
 
     return items;
   }
-
-
 
   List<NavigationPaneItem> _buildTagsPaneItem() {
     List<PaneItem> tagItem = [];

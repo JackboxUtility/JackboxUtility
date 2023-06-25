@@ -7,6 +7,7 @@ import 'package:jackbox_patcher/model/usermodel/userjackboxgamepatch.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/user/usergamelist.dart';
 import 'package:jackbox_patcher/services/user/usersettings.dart';
+import 'package:jackbox_patcher/services/user/usertip.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../model/misc/launchers.dart';
@@ -19,6 +20,7 @@ class UserData {
   late SharedPreferences preferences;
   late UserSettings settings;
   late UserGameList gameList;
+  late UserTips tips;
 
   factory UserData() {
     return _instance;
@@ -31,6 +33,8 @@ class UserData {
   Future<void> init() async {
     preferences = await SharedPreferences.getInstance();
     gameList = UserGameList(preferences: preferences);
+    tips = UserTips(preferences: preferences);
+    tips.init();
   }
 
   Future<void> syncSettings() async {
@@ -82,7 +86,7 @@ class UserData {
         UserJackboxGame currentGame = UserJackboxGame(
             game: game,
             stars: preferences.getInt("${game.id}_stars") ?? 0,
-            hidden : preferences.getBool("${game.id}_hidden")??false,
+            hidden: preferences.getBool("${game.id}_hidden") ?? false,
             loader: gameLoader);
         userPack.games.add(currentGame);
         for (var patch in game.patches) {
