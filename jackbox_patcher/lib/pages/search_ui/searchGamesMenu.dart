@@ -79,8 +79,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
           items: _buildPaneItems(),
           footerItems: [
             PaneItemExpander(
-                onTap: () {
-                },
+                onTap: () {},
                 icon: Icon(FontAwesomeIcons.filter),
                 title: Text("Filter"),
                 infoBadge:
@@ -167,8 +166,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
           intFilters[index] =
               (activated: true, selected: value, type: "minPlayers");
           _saveIntFilter(intFilters[index]);
-          setState(() {
-          });
+          setState(() {});
         },
         onActivationChanged: (bool value) {
           int index =
@@ -179,8 +177,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
             type: "minPlayers"
           );
           _saveIntFilter(intFilters[index]);
-          setState(() {
-          });
+          setState(() {});
         }));
     items.add(IntFilterPaneItem(
         activated: intFilters
@@ -200,8 +197,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
           intFilters[index] =
               (activated: true, selected: value, type: "maxPlaytime");
           _saveIntFilter(intFilters[index]);
-          setState(() {
-          });
+          setState(() {});
         },
         onActivationChanged: (bool value) {
           int index =
@@ -212,8 +208,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
             type: "maxPlaytime"
           );
           _saveIntFilter(intFilters[index]);
-          setState(() {
-          });
+          setState(() {});
         }));
     for (var filter in filters) {
       items.add(EnumFilterPaneItem(
@@ -228,8 +223,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
             filters[index] =
                 (activated: true, selected: value, type: filter.type);
             _saveFilter(filters[index]);
-            setState(() {
-            });
+            setState(() {});
           },
           onActivationChanged: (bool value) {
             var index =
@@ -240,8 +234,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
               type: filter.type
             );
             _saveFilter(filters[index]);
-            setState(() {
-            });
+            setState(() {});
           }));
     }
 
@@ -267,13 +260,13 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
       }
     }
 
-    if (intFilters[0].activated && (game.game.info.players.min > intFilters[0].selected ||
-        game.game.info.players.max < intFilters[0].selected)) {
+    if (intFilters[0].activated &&
+        (game.game.info.players.min > intFilters[0].selected ||
+            game.game.info.players.max < intFilters[0].selected)) {
       return false;
     }
     if (intFilters[1].activated &&
-        (
-            game.game.info.playtime.max > intFilters[1].selected)) {
+        (game.game.info.playtime.max > intFilters[1].selected)) {
       return false;
     }
     return true;
@@ -290,7 +283,6 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
     }
     for (var userPack in wantedPacks) {
       packItems.add(PaneItem(
-          
           icon: CachedNetworkImage(
               imageUrl: APIService().assetLink(userPack.pack.icon),
               filterQuality: FilterQuality.high,
@@ -319,7 +311,6 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
 
     for (var type in JackboxGameType.values) {
       tagItem.add(PaneItem(
-          
           icon: Container(),
           title: Text(type.name),
           body: SearchGameWidget(
@@ -360,7 +351,6 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
           icon: const Icon(FontAwesomeIcons.gamepad),
           title: Text(AppLocalizations.of(context)!.all_games),
           body: SearchGameWidget(
-              
               filter: (UserJackboxPack pack, UserJackboxGame game) =>
                   game.game.name
                       .toLowerCase()
@@ -387,20 +377,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
         },
       ));
 
-      List<NavigationPaneItem> translationItem = _buildTranslationPaneItem();
       List<NavigationPaneItem> starsItem = _buildStarsPaneItem();
-
-      items.add(PaneItemExpander(
-        icon: const Icon(FontAwesomeIcons.language),
-        body: Container(),
-        title: Text(AppLocalizations.of(context)!.search_by_translation),
-        items: translationItem,
-        onTap: () {
-          setState(() {
-            _selectedView = 3 + packItems.length + typeItem.length;
-          });
-        },
-      ));
 
       items.add(PaneItemExpander(
         icon: const Icon(FontAwesomeIcons.tag),
@@ -410,7 +387,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
         onTap: () {
           setState(() {
             _selectedView =
-                4 + packItems.length + typeItem.length + translationItem.length;
+                3 + packItems.length + typeItem.length;
           });
         },
       ));
@@ -422,10 +399,9 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
         items: starsItem,
         onTap: () {
           setState(() {
-            _selectedView = 5 +
+            _selectedView = 4 +
                 packItems.length +
                 typeItem.length +
-                translationItem.length +
                 tagItem.length;
           });
         },
@@ -442,61 +418,17 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
           )));
     }
 
-    maxSelectableView = 0;
+    maxSelectableView = 1;
     for (var item in items) {
       if (item is PaneItemExpander) {
-        maxSelectableView += item.items.length;
-      } else {
-        maxSelectableView++;
+        maxSelectableView += item.items.length+1;
       }
     }
 
     return items;
   }
 
-  List<NavigationPaneItem> _buildTranslationPaneItem() {
-    List<NavigationPaneItem> translationItem = [];
 
-    // Adding each translation values
-    for (var translation in JackboxGameTranslationCategory.values) {
-      if (translation == JackboxGameTranslationCategory.COMMUNITY_DUBBED &&
-          APIService()
-                  .cachedConfigurations!
-                  .getConfiguration("LAUNCHER", "HIDE_DUBBED_BY_COMMUNITY") ==
-              true) continue;
-      if (translation == JackboxGameTranslationCategory.DUBBED &&
-          APIService()
-                  .cachedConfigurations!
-                  .getConfiguration("LAUNCHER", "HIDE_DUBBED_IN_LANGUAGE") ==
-              true) continue;
-      translationItem.add(PaneItem(
-          icon: Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: translation.color),
-              width: 10,
-              height: 10),
-          title: Text(translation.name),
-          body: SearchGameWidget(
-              
-              filter: (UserJackboxPack pack, UserJackboxGame game) =>
-                  translation.filter(pack, game) &&
-                  game.game.name
-                      .toLowerCase()
-                      .contains(_searchController.text.toLowerCase()) &&
-                  (showAllPacks || pack.owned) &&
-                  (showHidden || !game.hidden) &&
-                  _filterGameBasedOnActiveFilters(pack, game),
-              showAllPacks: showAllPacks,
-              comeFromGame: false,
-              background: APIService().getDefaultBackground(),
-              name: translation.name,
-              description: translation.description,
-              icon: null,
-              parentReload: () => setState(() {}))));
-    }
-    return translationItem;
-  }
 
   List<NavigationPaneItem> _buildTagsPaneItem() {
     List<PaneItem> tagItem = [];
@@ -506,7 +438,6 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
           icon: Container(),
           title: Text(tag.name),
           body: SearchGameWidget(
-              
               filter: (UserJackboxPack pack, UserJackboxGame game) =>
                   game.game.info.tags.where((t) => t.id == tag.id).isNotEmpty &&
                   game.game.name
@@ -534,7 +465,6 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
         icon: Container(),
         title: Text("Personal ranking"),
         body: SearchGameWidget(
-          
           filter: (UserJackboxPack pack, UserJackboxGame game) =>
               game.game.name
                   .toLowerCase()

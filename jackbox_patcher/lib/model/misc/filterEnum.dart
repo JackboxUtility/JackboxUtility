@@ -1,9 +1,11 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:jackbox_patcher/services/api/api_service.dart';
 
 import '../jackbox/gameinfo/familyfriendly.dart';
 import '../jackbox/gameinfo/moderation.dart';
 import '../jackbox/gameinfo/streamfriendly.dart';
+import '../jackbox/gameinfo/translation.dart';
 import '../jackbox/jackboxgame.dart';
 
 enum FilterValue {
@@ -15,7 +17,9 @@ enum FilterValue {
   MODERATION_FULL_MODERATION,
   MODERATION_CENSORING,
   MODERATION_BOTH,
-  SUBTITLES_AVAILABLE;
+  SUBTITLES_AVAILABLE,
+  TRANSLATION_DUBBED,
+  TRANSLATION_TRANSLATED;
 }
 
 extension FilterValueExtension on FilterValue {
@@ -39,6 +43,10 @@ extension FilterValueExtension on FilterValue {
         return 'Mod. & Censoring';
       case FilterValue.SUBTITLES_AVAILABLE:
         return 'Available';
+      case FilterValue.TRANSLATION_DUBBED:
+        return 'Dubbed';
+      case FilterValue.TRANSLATION_TRANSLATED:
+        return 'Translated';
       default:
         throw Exception('Unknown FilterValue');
     }
@@ -64,6 +72,10 @@ extension FilterValueExtension on FilterValue {
         return Colors.blue;
       case FilterValue.SUBTITLES_AVAILABLE:
         return Colors.green;
+      case FilterValue.TRANSLATION_DUBBED:
+        return Colors.green;
+      case FilterValue.TRANSLATION_TRANSLATED:
+        return Colors.orange;
       default:
         throw Exception('Unknown FilterValue');
     }
@@ -98,6 +110,10 @@ extension FilterValueExtension on FilterValue {
         ];
       case FilterValue.SUBTITLES_AVAILABLE:
         return [true];
+      case FilterValue.TRANSLATION_DUBBED:
+        return [GameInfoTranslation.NATIVELY_TRANSLATED, GameInfoTranslation.COMMUNITY_DUBBED];
+      case FilterValue.TRANSLATION_TRANSLATED:
+        return [GameInfoTranslation.NATIVELY_TRANSLATED, GameInfoTranslation.COMMUNITY_DUBBED,  GameInfoTranslation.COMMUNITY_TRANSLATED];
       default:
         throw Exception('Unknown FilterValue');
     }
@@ -123,6 +139,10 @@ extension FilterValueExtension on FilterValue {
         return FilterType.MODERATION;
       case FilterValue.SUBTITLES_AVAILABLE:
         return FilterType.SUBTITLES;
+      case FilterValue.TRANSLATION_DUBBED:
+        return FilterType.TRANSLATION;
+      case FilterValue.TRANSLATION_TRANSLATED:
+        return FilterType.TRANSLATION;
       default:
         throw Exception('Unknown FilterValue');
     }
@@ -143,6 +163,8 @@ extension FilterValueExtension on FilterValue {
         return this.linkedGameInfo.contains(game.info.moderation);
       case FilterType.SUBTITLES:
         return this.linkedGameInfo.contains(game.info.subtitles);
+      case FilterType.TRANSLATION:
+        return this.linkedGameInfo.contains(game.info.translation);
     }
   }
 }
@@ -152,7 +174,8 @@ enum FilterType {
   SUBTITLES,
   AUDIENCE,
   STREAM_FRIENDLY,
-  MODERATION
+  MODERATION,
+  TRANSLATION
 }
 
 extension FilterTypeExtension on FilterType {
@@ -168,6 +191,8 @@ extension FilterTypeExtension on FilterType {
         return 'Moderation';
       case FilterType.SUBTITLES:
         return 'Subtitles';
+      case FilterType.TRANSLATION:
+        return 'Translation';
       default:
         throw Exception('Unknown FilterType');
     }
@@ -185,6 +210,8 @@ extension FilterTypeExtension on FilterType {
         return FontAwesomeIcons.userShield;
       case FilterType.SUBTITLES:
         return FontAwesomeIcons.closedCaptioning;
+      case FilterType.TRANSLATION:
+        return FontAwesomeIcons.language;
       default:
         throw Exception('Unknown FilterType');
     }
@@ -210,6 +237,13 @@ extension FilterTypeExtension on FilterType {
         ];
       case FilterType.SUBTITLES:
         return [FilterValue.SUBTITLES_AVAILABLE];
+      case FilterType.TRANSLATION:
+        return APIService().cachedConfigurations?.getConfiguration("LAUNCHER", "HIDE_DUBBED") == true?[
+          FilterValue.TRANSLATION_TRANSLATED
+        ]: [
+          FilterValue.TRANSLATION_DUBBED,
+          FilterValue.TRANSLATION_TRANSLATED
+        ];
       default:
         throw Exception('Unknown FilterType');
     }

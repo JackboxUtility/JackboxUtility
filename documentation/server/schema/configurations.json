@@ -9,7 +9,7 @@
         "type": "object",
         "description": "The configuration for the launcher.",
         "properties": {
-          "HIDE_DUBBED_BY_COMMUNITY": {
+          "HIDE_DUBBED": {
             "type": "boolean",
             "description": "Whether to hide dubbed category from the launcher part.",
             "examples": [

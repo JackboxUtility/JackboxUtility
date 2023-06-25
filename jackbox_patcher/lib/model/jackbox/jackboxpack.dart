@@ -30,6 +30,12 @@ class JackboxPack {
       required this.executable});
 
   factory JackboxPack.fromJson(Map<String, dynamic> json) {
+    List<JackboxPackPatch> patches = json['patchs'] != null
+        ? (json['patchs'] as List<dynamic>)
+            .map((e) => JackboxPackPatch.fromJson(e))
+            .toList()
+        : [];
+    
     return JackboxPack(
         id: json['id'],
         name: json['name'],
@@ -43,18 +49,25 @@ class JackboxPack {
             : null,
         background: json['background'],
         games: (json['games'] as List<dynamic>)
-            .map((e) => JackboxGame.fromJson(e))
+            .map((e) => JackboxGame.fromJson(e, isGameDubbedByPackPatch(patches, e["id"])))
             .toList(),
-        patches: json['patchs'] != null
-            ? (json['patchs'] as List<dynamic>)
-                .map((e) => JackboxPackPatch.fromJson(e))
-                .toList()
-            : [],
+        patches: patches,
         configuration: json['configuration'] != null
             ? PackConfiguration.fromJson(json['configuration'])
             : null,
         executable:
             JackboxPack.generateExecutableFromJson(json['executables']));
+  }
+
+  static isGameDubbedByPackPatch(List<JackboxPackPatch> patches, String gameId) {
+    for (var patch in patches) {
+      for (var game in patch.components){
+        if (game.linkedGame == gameId && game.patchType!.audios) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   static List<JackboxPack> fromJsonList(List<dynamic> jsonList) {

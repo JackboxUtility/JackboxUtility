@@ -11,6 +11,7 @@ import '../usermodel/userjackboxgame.dart';
 import '../usermodel/userjackboxpack.dart';
 import 'gameinfo/moderation.dart';
 import 'gameinfo/streamfriendly.dart';
+import 'gameinfo/translation.dart';
 
 class JackboxGame {
   final String id;
@@ -31,7 +32,15 @@ class JackboxGame {
     required this.info,
   });
 
-  factory JackboxGame.fromJson(Map<String, dynamic> json) {
+  factory JackboxGame.fromJson(Map<String, dynamic> json, bool isDubbed) {
+    List<JackboxGamePatch> patches = [];
+    patches = (json['patchs'] as List<dynamic>)
+        .map((e) => JackboxGamePatch.fromJson(e))
+        .toList();
+    if (!isDubbed &&
+        patches.where((element) => element.patchType!.audios).isNotEmpty) {
+      isDubbed = true;
+    }
     return JackboxGame(
       id: json['id'],
       name: json['name'],
@@ -40,10 +49,8 @@ class JackboxGame {
           ? JackboxLoader.fromJson(json['loader'])
           : null,
       path: json['path'],
-      patches: (json['patchs'] as List<dynamic>)
-          .map((e) => JackboxGamePatch.fromJson(e))
-          .toList(),
-      info: JackboxGameInfo.fromJson(json['game_info']),
+      patches: patches,
+      info: JackboxGameInfo.fromJson(json['game_info'], isDubbed),
     );
   }
 
@@ -58,7 +65,7 @@ class JackboxGameInfo {
   final String smallDescription;
   final String length;
   final JackboxGameType type;
-  final JackboxGameTranslation translation;
+  final GameInfoTranslation translation;
   final List<GameTag> tags;
   final List<String> images;
   final JackboxGameMinMaxInfo players;
@@ -93,7 +100,7 @@ class JackboxGameInfo {
     required this.subtitles,
   });
 
-  factory JackboxGameInfo.fromJson(Map<String, dynamic> json) {
+  factory JackboxGameInfo.fromJson(Map<String, dynamic> json, bool isDubbed) {
     //print(json);
     return JackboxGameInfo(
       tagline: json['tagline'],
@@ -101,7 +108,8 @@ class JackboxGameInfo {
       smallDescription: json['small_description'],
       length: json['length'],
       type: JackboxGameType.fromString(json['type']),
-      translation: JackboxGameTranslation.fromString(json['translation']),
+      translation:
+          GameInfoTranslation.fromString(json['translation'], isDubbed),
       images:
           (json['images'] as List<dynamic>).map((e) => e.toString()).toList(),
       tags: json['tags'] != null
@@ -185,188 +193,6 @@ enum JackboxGameType {
         return TranslationsHelper()
             .appLocalizations!
             .game_type_team_description;
-    }
-  }
-}
-
-enum JackboxGameTranslation {
-  NATIVELY_TRANSLATED,
-  COMMUNITY_TRANSLATED,
-  ENGLISH;
-
-  static JackboxGameTranslation fromString(String translation) {
-    switch (translation) {
-      case 'NATIVELY_TRANSLATED':
-        return JackboxGameTranslation.NATIVELY_TRANSLATED;
-      case 'COMMUNITY_TRANSLATED':
-        return JackboxGameTranslation.COMMUNITY_TRANSLATED;
-      case 'ENGLISH':
-        return JackboxGameTranslation.ENGLISH;
-      default:
-        return JackboxGameTranslation.ENGLISH;
-    }
-  }
-
-  String get name {
-    String languageKey = APIService().cachedSelectedServer!.languages[0];
-    switch (this) {
-      case JackboxGameTranslation.NATIVELY_TRANSLATED:
-        return TranslationsHelper()
-            .appLocalizations!
-            .game_translation_translated(
-                LanguageService().getLanguageName(languageKey));
-      case JackboxGameTranslation.COMMUNITY_TRANSLATED:
-        return TranslationsHelper()
-            .appLocalizations!
-            .game_translation_community_translated;
-      case JackboxGameTranslation.ENGLISH:
-        return TranslationsHelper()
-            .appLocalizations!
-            .game_translation_not_available;
-    }
-  }
-
-  String get description {
-    String languageKey = APIService().cachedSelectedServer!.languages[0];
-    switch (this) {
-      case JackboxGameTranslation.NATIVELY_TRANSLATED:
-        return TranslationsHelper()
-            .appLocalizations!
-            .game_translation_translated_description(
-                LanguageService().getLanguageName(languageKey));
-      case JackboxGameTranslation.COMMUNITY_TRANSLATED:
-        return TranslationsHelper()
-            .appLocalizations!
-            .game_translation_community_translated_description;
-      case JackboxGameTranslation.ENGLISH:
-        return TranslationsHelper()
-            .appLocalizations!
-            .game_translation_not_available_description(
-                LanguageService().getLanguageName(languageKey));
-    }
-  }
-
-  Color get color {
-    switch (this) {
-      case JackboxGameTranslation.NATIVELY_TRANSLATED:
-        return const Color.fromARGB(255, 13, 187, 196);
-      case JackboxGameTranslation.COMMUNITY_TRANSLATED:
-        return const Color.fromARGB(255, 20, 140, 12);
-      case JackboxGameTranslation.ENGLISH:
-        return const Color.fromARGB(255, 207, 0, 0);
-    }
-  }
-}
-
-enum JackboxGameTranslationCategory {
-  TRANSLATED,
-  NATIVELY_TRANSLATED,
-  DUBBED,
-  COMMUNITY_DUBBED,
-  COMMUNITY_TRANSLATED,
-  ENGLISH;
-
-  String get id {
-    switch (this) {
-      case JackboxGameTranslationCategory.TRANSLATED:
-        return 'TRANSLATED';
-      case JackboxGameTranslationCategory.NATIVELY_TRANSLATED:
-        return 'NATIVELY_TRANSLATED';
-      case JackboxGameTranslationCategory.COMMUNITY_DUBBED:
-        return 'COMMUNITY_DUBBED';
-      case JackboxGameTranslationCategory.DUBBED:
-        return 'DUBBED';
-      case JackboxGameTranslationCategory.COMMUNITY_TRANSLATED:
-        return 'COMMUNITY_TRANSLATED';
-      case JackboxGameTranslationCategory.ENGLISH:
-        return 'ENGLISH';
-    }
-  }
-
-  Color get color {
-    switch (this) {
-      case JackboxGameTranslationCategory.TRANSLATED:
-        return const Color.fromARGB(255, 0, 208, 0);
-      case JackboxGameTranslationCategory.COMMUNITY_DUBBED:
-        return const Color.fromARGB(255, 12, 78, 140);
-      case JackboxGameTranslationCategory.DUBBED:
-        return const Color.fromARGB(255, 12, 140, 140);
-      default:
-        return JackboxGameTranslation.fromString(id).color;
-    }
-  }
-
-  String get name {
-    String languageKey = APIService().cachedSelectedServer!.languages[0];
-    switch (this) {
-      case JackboxGameTranslationCategory.TRANSLATED:
-        return TranslationsHelper()
-            .appLocalizations!
-            .in_language(LanguageService().getLanguageName(languageKey));
-      case JackboxGameTranslationCategory.COMMUNITY_DUBBED:
-        return TranslationsHelper().appLocalizations!.game_community_dubbed;
-      case JackboxGameTranslationCategory.DUBBED:
-        return TranslationsHelper()
-            .appLocalizations!
-            .game_dubbed(LanguageService().getLanguageName(languageKey));
-      default:
-        return JackboxGameTranslation.fromString(id).name;
-    }
-  }
-
-  String get description {
-    switch (this) {
-      case JackboxGameTranslationCategory.TRANSLATED:
-        String languageKey = APIService().cachedSelectedServer!.languages[0];
-        return TranslationsHelper().appLocalizations!.in_language_description(
-            LanguageService().getLanguageName(languageKey));
-      case JackboxGameTranslationCategory.COMMUNITY_DUBBED:
-        return TranslationsHelper()
-            .appLocalizations!
-            .game_community_dubbed_description;
-      case JackboxGameTranslationCategory.DUBBED:
-        return TranslationsHelper().appLocalizations!.game_dubbed_description;
-      default:
-        return JackboxGameTranslation.fromString(id).description;
-    }
-  }
-
-  Function(UserJackboxPack pack, UserJackboxGame game) get filter {
-    switch (this) {
-      case JackboxGameTranslationCategory.TRANSLATED:
-        return (UserJackboxPack pack, UserJackboxGame game) {
-          return (game.game.info.translation ==
-                  JackboxGameTranslation.COMMUNITY_TRANSLATED ||
-              game.game.info.translation ==
-                  JackboxGameTranslation.NATIVELY_TRANSLATED);
-        };
-      case JackboxGameTranslationCategory.NATIVELY_TRANSLATED:
-        return (UserJackboxPack pack, UserJackboxGame game) {
-          return (game.game.info.translation ==
-              JackboxGameTranslation.NATIVELY_TRANSLATED);
-        };
-      case JackboxGameTranslationCategory.COMMUNITY_DUBBED:
-        return (UserJackboxPack pack, UserJackboxGame game) {
-          return (game.getInstalledPatch() != null &&
-              game.getInstalledPatch()!.patchType!.audios);
-        };
-      case JackboxGameTranslationCategory.DUBBED:
-        return (UserJackboxPack pack, UserJackboxGame game) {
-          return ((game.getInstalledPatch() != null &&
-                  game.getInstalledPatch()!.patchType!.audios) ||
-              game.game.info.translation ==
-                  JackboxGameTranslation.NATIVELY_TRANSLATED);
-        };
-      case JackboxGameTranslationCategory.COMMUNITY_TRANSLATED:
-        return (UserJackboxPack pack, UserJackboxGame game) {
-          return (game.game.info.translation ==
-              JackboxGameTranslation.COMMUNITY_TRANSLATED);
-        };
-
-      case JackboxGameTranslationCategory.ENGLISH:
-        return (UserJackboxPack pack, UserJackboxGame game) {
-          return (game.game.info.translation == JackboxGameTranslation.ENGLISH);
-        };
     }
   }
 }
