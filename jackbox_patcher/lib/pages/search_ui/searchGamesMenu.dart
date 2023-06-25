@@ -318,7 +318,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
 
     for (var type in JackboxGameType.values) {
       tagItem.add(PaneItem(
-          icon: Container(),
+          icon: Icon(type.icon),
           title: Text(type.name),
           body: SearchGameWidget(
               filter: (UserJackboxPack pack, UserJackboxGame game) =>
@@ -437,7 +437,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
 
     for (var tag in APIService().getTags()) {
       tagItem.add(PaneItem(
-          icon: Container(),
+          icon: Icon(FluentIcons.allIcons[tag.icon]),
           title: Text(tag.name),
           body: SearchGameWidget(
               filter: (UserJackboxPack pack, UserJackboxGame game) =>

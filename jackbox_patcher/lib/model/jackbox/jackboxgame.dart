@@ -1,4 +1,5 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jackbox_patcher/model/gametag.dart';
 import 'package:jackbox_patcher/model/jackbox/gameinfo/familyfriendly.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxpack.dart';
@@ -193,6 +194,17 @@ enum JackboxGameType {
         return TranslationsHelper()
             .appLocalizations!
             .game_type_team_description;
+    }
+  }
+
+  IconData get icon {
+    switch (this) {
+      case JackboxGameType.VERSUS:
+        return FluentIcons.people;
+      case JackboxGameType.COOP:
+        return FontAwesomeIcons.handshake;
+      case JackboxGameType.TEAM:
+        return FontAwesomeIcons.peopleGroup;
     }
   }
 }

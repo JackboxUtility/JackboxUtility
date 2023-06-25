@@ -569,7 +569,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
     gameTagWidgets.add(_buildGameTag(FluentIcons.allIcons["timer"]!,
         "${gameInfo.playtime.min} - ${gameInfo.playtime.max} minutes"));
     gameTagWidgets.add(_buildGameTag(
-        FluentIcons.allIcons["group"]!, gameInfo.type.name,
+        gameInfo.type.icon, gameInfo.type.name,
         isLink: true,
         filter: (pack, game) => game.game.info.type == gameInfo.type,
         linkedPack: null,
