@@ -273,7 +273,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
       return false;
     }
     if (intFilters[1].activated &&
-        (game.game.info.playtime.max >= intFilters[1].selected)) {
+        (game.game.info.playtime.max > intFilters[1].selected)) {
       return false;
     }
     return true;
