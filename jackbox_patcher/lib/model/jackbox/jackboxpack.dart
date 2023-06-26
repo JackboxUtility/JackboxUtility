@@ -28,7 +28,7 @@ class JackboxPack {
       required this.games,
       required this.patches,
       required this.configuration,
-      required this.executable, 
+      required this.executable,
       required this.storeLinks});
 
   factory JackboxPack.fromJson(Map<String, dynamic> json) {
@@ -58,9 +58,10 @@ class JackboxPack {
         configuration: json['configuration'] != null
             ? PackConfiguration.fromJson(json['configuration'])
             : null,
-        executable:
-            JackboxPack.generateExecutableFromJson(json['executables']), 
-        storeLinks: json['store_links'] != null ? StoreLinks.fromJson(json['store_links']) : null);
+        executable: JackboxPack.generateExecutableFromJson(json['executables']),
+        storeLinks: json['store_links'] != null
+            ? StoreLinks.fromJson(json['store_links'])
+            : null);
   }
 
   static isGameDubbedByPackPatch(
@@ -127,7 +128,12 @@ class StoreLinks {
   StoreLinks({required this.steam, required this.epic, this.jackboxGamesStore});
 
   factory StoreLinks.fromJson(Map<String, dynamic> json) {
-    return StoreLinks(steam: json['steam'] != null ? json["steam"]:null , epic: json['epic']  != null ? json["epic"]:null, jackboxGamesStore: json['jackbox_games_store']!= null ? json["jackbox_games_store"]:null);
+    return StoreLinks(
+        steam: json['steam'] != null ? json["steam"] : null,
+        epic: json['epic'] != null ? json["epic"] : null,
+        jackboxGamesStore: json['jackbox_games_store'] != null
+            ? json["jackbox_games_store"]
+            : null);
   }
 }
 
@@ -142,6 +148,7 @@ class PackConfiguration {
       required this.versionProperty});
 
   factory PackConfiguration.fromJson(Map<String, dynamic> json) {
+    print(json);
     return PackConfiguration(
         versionOrigin: LocalVersionOrigin.fromString(json['version_origin']),
         versionFile: json['version_file'],
