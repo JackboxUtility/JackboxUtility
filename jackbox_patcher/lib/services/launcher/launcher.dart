@@ -11,6 +11,8 @@ import 'package:url_launcher/url_launcher.dart';
 import '../user/userdata.dart';
 
 class Launcher {
+  static List<UserJackboxPack> _openedLaunchers = [];
+
   /// This function will launch the [pack]
   static Future<void> launchPack(UserJackboxPack pack) async {
     if (pack.path == null) {
@@ -33,11 +35,12 @@ class Launcher {
           pack.origin == LauncherType.STEAM &&
           pack.pack.launchersId != null &&
           pack.pack.launchersId!.steam != null) {
-            try {
-              await launchUrl(Uri.parse("steam://rungameid/${pack.pack.launchersId!.steam!}"));
-            } catch (e) {
-              JULogger().e(e);
-            }
+        try {
+          await launchUrl(
+              Uri.parse("steam://rungameid/${pack.pack.launchersId!.steam!}"));
+        } catch (e) {
+          JULogger().e(e);
+        }
       } else {
         await Process.run("${pack.path!}/${pack.pack.executable}", [],
             workingDirectory: pack.path);
@@ -54,6 +57,20 @@ class Launcher {
       if (game.loader == null) {
         return await launchPack(pack);
       }
+      // If the original loader is not already installed or need update, download it 
+      if (pack.loader != null) {
+        if (pack.loader!.path == null ||
+            pack.loader!.version != pack.pack.loader!.version ||
+            !File(pack.loader!.path!).existsSync()) {
+          pack.loader!.path =
+              await APIService().downloadPackLoader(pack.pack, (p0, p1) {});
+          pack.loader!.version = pack.pack.loader!.version;
+          await UserData().savePack(pack);
+        }
+        String packFolder = pack.path!;
+        await extractFileToDisk(pack.loader!.path!, packFolder);
+      }
+
       // If the loader is not already installed or need update, download it
       if (game.loader!.path == null ||
           game.loader!.version != game.game.loader!.version ||
@@ -71,11 +88,21 @@ class Launcher {
           pack.origin == LauncherType.STEAM &&
           pack.pack.launchersId != null &&
           pack.pack.launchersId!.steam != null) {
-        await launchUrl(Uri.parse("steam://rungameid/${pack.pack.launchersId!.steam!}"));
+        await launchUrl(
+            Uri.parse("steam://rungameid/${pack.pack.launchersId!.steam!}"));
       } else {
         await Process.run("${pack.path!}/${pack.pack.executable}", [],
             workingDirectory: pack.path);
       }
+      _openedLaunchers.add(pack);
     }
+  }
+
+  static Future<void> restoreOldLaunchers() async {
+    for (UserJackboxPack pack in _openedLaunchers){
+      // Extracting back files 
+      String packFolder = pack.path!;
+      await extractFileToDisk(pack.loader!.path!, packFolder);
+    };
   }
 }

@@ -16,6 +16,7 @@ import 'package:window_manager/window_manager.dart';
 
 import '../components/notificationsCaroussel.dart';
 import '../services/discord/DiscordService.dart';
+import '../services/launcher/launcher.dart';
 
 class CloseWindowIntent extends Intent {
   const CloseWindowIntent();
@@ -257,6 +258,7 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
                   })) ==
               true
           : true;
+      await Launcher.restoreOldLaunchers();
 
       await WindowManagerService.saveCurrentScreenSize();
       if (shouldClose) {
