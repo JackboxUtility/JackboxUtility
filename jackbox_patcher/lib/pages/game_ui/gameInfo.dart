@@ -383,7 +383,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                                   currentPack.pack.storeLinks!.steam!);
                             }),
                       ),
-                    SizedBox(width: 4),
+                    if (currentPack.pack.storeLinks!.steam != null && currentPack.pack.storeLinks!.epic!=null) SizedBox(width: 4),
                     if (currentPack.pack.storeLinks!.epic != null) Expanded(
                       child: FilledButton(
                           child: Row(
