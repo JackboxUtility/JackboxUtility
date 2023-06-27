@@ -10,14 +10,11 @@ enum GameInfoTranslation {
   COMMUNITY_TRANSLATED,
   ENGLISH;
 
-  static GameInfoTranslation fromString(String translation, bool isDubbed) {
+  static GameInfoTranslation fromString(String translation) {
     switch (translation) {
       case 'NATIVELY_TRANSLATED':
         return GameInfoTranslation.NATIVELY_TRANSLATED;
       case 'COMMUNITY_TRANSLATED':
-        if (isDubbed) {
-          return GameInfoTranslation.COMMUNITY_DUBBED;
-        }
         return GameInfoTranslation.COMMUNITY_TRANSLATED;
       case 'ENGLISH':
         return GameInfoTranslation.ENGLISH;

@@ -52,7 +52,7 @@ class JackboxPack {
         background: json['background'],
         games: (json['games'] as List<dynamic>)
             .map((e) => JackboxGame.fromJson(
-                e, isGameDubbedByPackPatch(patches, e["id"])))
+                e))
             .toList(),
         patches: patches,
         configuration: json['configuration'] != null

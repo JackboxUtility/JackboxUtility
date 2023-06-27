@@ -35,15 +35,11 @@ class JackboxGame {
     required this.info,
   });
 
-  factory JackboxGame.fromJson(Map<String, dynamic> json, bool isDubbed) {
+  factory JackboxGame.fromJson(Map<String, dynamic> json) {
     List<JackboxGamePatch> patches = [];
     patches = (json['patchs'] as List<dynamic>)
         .map((e) => JackboxGamePatch.fromJson(e))
         .toList();
-    if (!isDubbed &&
-        patches.where((element) => element.patchType!.audios).isNotEmpty) {
-      isDubbed = true;
-    }
     return JackboxGame(
       id: json['id'],
       name: json['name'],
@@ -53,7 +49,7 @@ class JackboxGame {
           : null,
       path: json['path'],
       patches: patches,
-      info: JackboxGameInfo.fromJson(json["id"], json['game_info'], isDubbed),
+      info: JackboxGameInfo.fromJson(json["id"], json['game_info']),
     );
   }
 
@@ -106,7 +102,7 @@ class JackboxGameInfo {
   });
 
   factory JackboxGameInfo.fromJson(
-      String gameId, Map<String, dynamic> json, bool isDubbed) {
+      String gameId, Map<String, dynamic> json) {
     //print(json);
     return JackboxGameInfo(
       internalGameId: gameId,
@@ -116,7 +112,7 @@ class JackboxGameInfo {
       length: json['length'],
       type: JackboxGameType.fromString(json['type']),
       internalTranslation:
-          GameInfoTranslation.fromString(json['translation'], isDubbed),
+          GameInfoTranslation.fromString(json['translation']),
       images:
           (json['images'] as List<dynamic>).map((e) => e.toString()).toList(),
       tags: json['tags'] != null
@@ -140,7 +136,7 @@ class JackboxGameInfo {
   }
 
   get translation {
-    if (internalTranslation == GameInfoTranslation.COMMUNITY_DUBBED) {
+    if (internalTranslation == GameInfoTranslation.COMMUNITY_TRANSLATED || internalTranslation == GameInfoTranslation.NATIVELY_TRANSLATED) {
       UserJackboxGame? correspondingUserGame;
       for (var pack in UserData().packs) {
         for (var game in pack.games) {
@@ -151,11 +147,11 @@ class JackboxGameInfo {
         }
       }
       if (correspondingUserGame == null) {
-        return GameInfoTranslation.COMMUNITY_TRANSLATED;
+        return internalTranslation;
       }
       PatchInformation? installedPatch = correspondingUserGame.getInstalledPatch();
-      if (installedPatch==null || !installedPatch.patchType!.audios) {
-        return GameInfoTranslation.COMMUNITY_TRANSLATED;
+      if (installedPatch!=null && installedPatch.patchType!.audios) {
+        return GameInfoTranslation.COMMUNITY_DUBBED;
       }
     }
     return internalTranslation;
