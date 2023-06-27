@@ -91,7 +91,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
         child: NavigationView(
             content: Stack(children: [
           ListView(children: [_buildHeader(), _buildBottom()]),
-          if (widget.allAvailableGames != null)
+          if (widget.allAvailableGames != null && widget.allAvailableGames.length>1)
             Positioned(
                 height: MediaQuery.of(context).size.height,
                 child: Padding(
@@ -104,7 +104,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                         color: Colors.white,
                       )),
                 )),
-          if (widget.allAvailableGames != null)
+          if (widget.allAvailableGames != null && widget.allAvailableGames.length>1)
             Positioned(
                 height: MediaQuery.of(context).size.height,
                 right: 0,
