@@ -105,13 +105,13 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return ScrollConfiguration(behavior:  ScrollConfiguration.of(context).copyWith(scrollbars: false), child: ListView(children: [
+    return ListView(children: [
       _buildHeader(),
       _buildBottom(),
       SizedBox(
         height: 20,
       )
-    ]));
+    ]);
   }
 
   Widget _buildHeader() {

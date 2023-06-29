@@ -21,7 +21,7 @@ class InitialLoad{
     if (isFirstTimeOpening) {
       await windowManager.setPreventClose(true);
       await UserData().init();
-      await WindowManagerService.updateScreenSizeFromLastOpening();
+      WindowManagerService.updateScreenSizeFromLastOpening();
     }
     UserData().packs = [];
     APIService().resetCache();

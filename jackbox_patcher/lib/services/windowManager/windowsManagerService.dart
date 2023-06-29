@@ -23,16 +23,17 @@ class WindowManagerService {
       if (lastWindowInformations.height < 100) {
         lastWindowInformations.height = 720;
       }
-      
-      if (lastWindowInformations.maximized) {
-        await windowManager.maximize();
-      }else{
-        await windowManager.setBounds(Rect.fromLTWH(
-          lastWindowInformations.x.toDouble(),
-          lastWindowInformations.y.toDouble(),
-          lastWindowInformations.width.toDouble(),
-          lastWindowInformations.height.toDouble()));
-      }
+      Future.delayed(Duration(milliseconds: 100), () async {
+        if (lastWindowInformations.maximized) {
+          await windowManager.maximize();
+        } else {
+          await windowManager.setBounds(Rect.fromLTWH(
+              lastWindowInformations.x.toDouble(),
+              lastWindowInformations.y.toDouble(),
+              lastWindowInformations.width.toDouble(),
+              lastWindowInformations.height.toDouble()));
+        }
+      });
     } catch (e) {
       JULogger().e(e.toString());
     }
