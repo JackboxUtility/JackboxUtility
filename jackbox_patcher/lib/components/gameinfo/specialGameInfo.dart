@@ -90,7 +90,7 @@ class SpecialGameAllInfoWidget extends StatelessWidget {
     ),
     (
       name: "Stream friendly",
-      icon: FontAwesomeIcons.twitch,
+      icon: FluentIcons.screen_cast,
       subname: (JackboxGameInfo gI){
         return "";
       },

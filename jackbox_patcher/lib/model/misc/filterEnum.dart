@@ -205,7 +205,7 @@ extension FilterTypeExtension on FilterType {
       case FilterType.AUDIENCE:
         return FontAwesomeIcons.userPlus;
       case FilterType.STREAM_FRIENDLY:
-        return FontAwesomeIcons.twitch;
+        return FluentIcons.screen_cast;
       case FilterType.MODERATION:
         return FontAwesomeIcons.userShield;
       case FilterType.SUBTITLES:
