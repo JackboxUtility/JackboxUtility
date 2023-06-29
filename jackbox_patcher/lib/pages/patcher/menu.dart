@@ -1,9 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jackbox_patcher/pages/patcher/categoryPackPatch.dart';
 import 'package:jackbox_patcher/services/discord/DiscordService.dart';
 
 import '../../components/closableRouteWithEsc.dart';
+import '../../model/usermodel/userjackboxpack.dart';
 import '../../services/api/api_service.dart';
 import '../../services/user/userdata.dart';
 import 'packContainer.dart';
@@ -62,8 +64,9 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
           selected: _selectedView,
           items: items,
           footerItems: [
-            PaneItem(
-              icon: const Icon(FluentIcons.package),
+            if (UserJackboxPack.countUnownedPack(UserData().packs) >= 1)
+              PaneItem(
+              icon: const Icon(FontAwesomeIcons.boxArchive),
               title: Text(showAllPacks == false
                   ? AppLocalizations.of(context)!.show_all_packs
                   : AppLocalizations.of(context)!.show_owned_packs_only),
