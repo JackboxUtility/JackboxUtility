@@ -612,6 +612,7 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                                               Opacity(
                                                   opacity: opacity,
                                                   child: StarsRateWidget(
+                                                    key:UniqueKey(),
                                                     color: Colors.white,
                                                     defaultStars:
                                                         widget.game.stars,
