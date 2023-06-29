@@ -44,6 +44,8 @@ class InitialLoad{
       if (UserData().settings.isDiscordRPCActivated){
         DiscordService().init();
       }
+      await precacheImage(
+        Image.network(APIService().assetLink(APIService().cachedSelectedServer!.image)).image, context);
       _precacheImages(context);
       if (changedServer) {
         await _launchAutomaticGameFinder(context,
