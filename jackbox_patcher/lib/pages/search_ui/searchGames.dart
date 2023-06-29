@@ -42,16 +42,18 @@ class _SearchGameRouteState extends State<SearchGameRoute> {
       separatorFilter = data[7];
     }
 
-    return SearchGameWidget(
-        filter: filter,
-        comeFromGame: true,
-        linkedPack: linkedPack,
-        name: name,
-        description: description,
-        showAllPacks: showAllPacks ?? false,
-        icon: icon,
-        separators: separators,
-        separatorFilter: separatorFilter);
+    return ClosableRouteWithEsc(
+        child: NavigationView(
+            content: SearchGameWidget(
+                filter: filter,
+                comeFromGame: true,
+                linkedPack: linkedPack,
+                name: name,
+                description: description,
+                showAllPacks: showAllPacks ?? false,
+                icon: icon,
+                separators: separators,
+                separatorFilter: separatorFilter)));
   }
 }
 
@@ -103,15 +105,13 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return ClosableRouteWithEsc(
-        child: NavigationView(
-            content: ListView(children: [
+    return ScrollConfiguration(behavior:  ScrollConfiguration.of(context).copyWith(scrollbars: false), child: ListView(children: [
       _buildHeader(),
       _buildBottom(),
       SizedBox(
         height: 20,
       )
-    ])));
+    ]));
   }
 
   Widget _buildHeader() {
@@ -124,7 +124,8 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
                 Expanded(
                     child: CachedNetworkImage(
                   imageUrl: widget.linkedPack != null
-                      ? APIService().assetLink(widget.linkedPack!.pack.background)
+                      ? APIService()
+                          .assetLink(widget.linkedPack!.pack.background)
                       : APIService().getDefaultBackground(),
                   height: 200,
                   fit: BoxFit.fitWidth,
@@ -159,11 +160,11 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
                                 (widget.comeFromGame ? 40 : 0)),
                         widget.comeFromGame
                             ? Container(
-                              margin: EdgeInsets.only(top: 44),
-                              child: GestureDetector(
-                                  child: const Icon(FluentIcons.chevron_left),
-                                  onTap: () => Navigator.pop(context)),
-                            )
+                                margin: EdgeInsets.only(top: 44),
+                                child: GestureDetector(
+                                    child: const Icon(FluentIcons.chevron_left),
+                                    onTap: () => Navigator.pop(context)),
+                              )
                             : Container(),
                         widget.comeFromGame
                             ? const SizedBox(width: 20)
@@ -240,8 +241,7 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
                     onPressed: () async {
                       Launcher.launchPack(widget.linkedPack!);
                     },
-                    icon:const Icon(FluentIcons.play_solid)
-                ))
+                    icon: const Icon(FluentIcons.play_solid)))
         ]),
         const SizedBox(height: 20)
       ],
@@ -273,7 +273,6 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
   }
 
   Widget _buildBottom() {
-    print("_BuldBottom");
     List<Map<String, Object>> games = getFilteredGames();
     if (games.isNotEmpty) {
       if (widget.separators != null) {
@@ -285,7 +284,6 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
               )
               .isNotEmpty) {
             Widget separator = widget.separators![i];
-            print(i);
             List<Map<String, Object>> gamesWithSeparator = games
                 .where(
                   (element) => element["separator"] == i,
@@ -612,7 +610,7 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                                               Opacity(
                                                   opacity: opacity,
                                                   child: StarsRateWidget(
-                                                    key:UniqueKey(),
+                                                    key: UniqueKey(),
                                                     color: Colors.white,
                                                     defaultStars:
                                                         widget.game.stars,
