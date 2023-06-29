@@ -47,10 +47,8 @@ class InitialLoad{
       await precacheImage(
         Image.network(APIService().assetLink(APIService().cachedSelectedServer!.image)).image, context);
       _precacheImages(context);
-      if (changedServer) {
         await _launchAutomaticGameFinder(context,
             automaticGameFindNotificationAvailable);
-      }
       if (isFirstTimeOpening && UserData().settings.isOpenLauncherOnStartupActivated){
         openLauncher(context);
       }
@@ -115,7 +113,7 @@ class InitialLoad{
   static Future<void> _launchAutomaticGameFinder(context,bool showNotification) async {
     int gamesFound =
         await AutomaticGameFinderService.findGames(UserData().packs);
-    if (showNotification) {
+    if (showNotification && gamesFound > 0) {
       InfoBarService.showInfo(
           context,
           AppLocalizations.of(context)!.automatic_game_finder_title,
