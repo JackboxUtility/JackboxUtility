@@ -23,13 +23,15 @@ class WindowManagerService {
       if (lastWindowInformations.height < 100) {
         lastWindowInformations.height = 720;
       }
-      await windowManager.setBounds(Rect.fromLTWH(
+      
+      if (lastWindowInformations.maximized) {
+        await windowManager.maximize();
+      }else{
+        await windowManager.setBounds(Rect.fromLTWH(
           lastWindowInformations.x.toDouble(),
           lastWindowInformations.y.toDouble(),
           lastWindowInformations.width.toDouble(),
           lastWindowInformations.height.toDouble()));
-      if (lastWindowInformations.maximized) {
-        await windowManager.maximize();
       }
     } catch (e) {
       JULogger().e(e.toString());
