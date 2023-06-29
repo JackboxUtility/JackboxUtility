@@ -140,6 +140,9 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
                       onPressed: () async {
                         await Navigator.pushNamed(context, "/patch");
                         DiscordService().launchMenuPresence();
+                        setState(() {
+                          
+                        });
                       },
                       child: SizedBox(
                           width: 300,
@@ -147,6 +150,12 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
+                                if (UserData().gameList.patchesAvailable()>0)
+                                  Container(width: 10,height:10, decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.red),),
+                                if (UserData().gameList.patchesAvailable()>0)
+                                  SizedBox(width: 10),
                                 const Icon(FluentIcons.download,
                                     color: Colors.white),
                                 const SizedBox(width: 10),
