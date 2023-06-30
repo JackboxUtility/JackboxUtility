@@ -152,7 +152,7 @@
     "search_by_tags":"Пошук за тегами",
 
     "select_server_title":"Вітаємо у Jackbox Utility",
-    "select_server_subtitle":"Оберіть мову, щоб почати",
+    "select_server_subtitle":"Оберіть один з доступних серверів",
     "select_server_button":"Обрати",
 
     "connected_to_server":"Під'єднано до сервера «{server}»",
