@@ -50,7 +50,7 @@ class UserJackboxPack {
     } else {
       if (await folder.exists() &&
           (pack.executable == null ||
-              await File("${folder.path}/${pack.executable!}").exists())) {
+              (await File("${folder.path}/${pack.executable!}").exists()) || (origin != null && origin == LauncherType.STEAM))) {
         return "FOUND";
       } else {
         return "NOT_FOUND";
