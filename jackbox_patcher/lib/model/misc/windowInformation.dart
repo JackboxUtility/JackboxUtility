@@ -6,5 +6,5 @@ class WindowInformation {
   int y;
 
   WindowInformation(
-      {this.maximized = false, this.width = 1280, this.height = 720, this.x=10, this.y=10});
+      {this.maximized = false, this.width = 1400, this.height = 800, this.x=10, this.y=10});
 }

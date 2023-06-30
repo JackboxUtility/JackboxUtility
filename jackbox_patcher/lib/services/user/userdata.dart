@@ -193,8 +193,8 @@ class UserData {
   WindowInformation getLastWindowInformations() {
     WindowInformation lastWindowInformations = WindowInformation(
       maximized: preferences.getBool("last_window_maximize") ?? false,
-      width: preferences.getInt("last_window_width") ?? 1280,
-      height: preferences.getInt("last_window_height") ?? 720,
+      width: preferences.getInt("last_window_width") ?? 1400,
+      height: preferences.getInt("last_window_height") ?? 800,
       x: preferences.getInt("last_window_x") ?? 10,
       y: preferences.getInt("last_window_y") ?? 10,
     );
