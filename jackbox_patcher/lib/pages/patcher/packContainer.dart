@@ -25,7 +25,6 @@ class PatcherPackWidget extends StatefulWidget {
 class _PatcherPackWidgetState extends State<PatcherPackWidget> {
   String pathFoundStatus = "LOADING";
   late TextEditingController pathController;
-  String launchingStatus = "NOT_LAUNCHED";
 
   @override
   void initState() {
@@ -119,49 +118,7 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
                 height: 100,
               ),
             ),
-            pathFoundStatus == "FOUND" &&
-                    widget.userPack.pack.executable != null
-                ? Positioned(
-                    top: 20,
-                    right: 60,
-                    child: IconButton(
-                        style: ButtonStyle(
-                            backgroundColor: ButtonState.all(Colors.green)),
-                        onPressed: () async {
-                          openPack();
-                        },
-                        icon: launchingStatus == "NOT_LAUNCHED"
-                            ? const Icon(FluentIcons.play_solid)
-                            : (launchingStatus == "LOADING"
-                                ? Row(children: [
-                                    const Icon(FluentIcons.play_solid),
-                                    const SizedBox(width: 10),
-                                    Text(
-                                      AppLocalizations.of(context)!.launching,
-                                      style: const TextStyle(fontSize: 11),
-                                    )
-                                  ])
-                                : Row(children: [
-                                    const Icon(FluentIcons.check_mark),
-                                    const SizedBox(width: 10),
-                                    Text(
-                                      AppLocalizations.of(context)!.launched,
-                                      style: const TextStyle(fontSize: 11),
-                                    )
-                                  ]))))
-                : Container(),
-            Positioned(
-                top: 20,
-                right: 20,
-                child: IconButton(
-                    style: ButtonStyle(
-                        backgroundColor: ButtonState.all(
-                            FluentTheme.of(context).inactiveBackgroundColor)),
-                    onPressed: () async {
-                      await _showParametersDialog();
-                    },
-                    icon: const Icon(FluentIcons.settings))),
-          ],
+            ],
         ),
         const SizedBox(
           height: 20,
@@ -221,18 +178,6 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
               crossAxisCount: 3,
               children: gamesChildren)
         ]));
-  }
-
-  void openPack() async {
-    if (widget.userPack.pack.executable != null) {
-      setState(() {
-        launchingStatus = "LOADING";
-      });
-      await Launcher.launchPack(widget.userPack);
-      setState(() {
-        launchingStatus = "LAUNCHED";
-      });
-    }
   }
 
   Future<void> _showParametersDialog() async {
