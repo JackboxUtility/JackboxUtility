@@ -13,9 +13,9 @@ import 'package:window_manager/window_manager.dart';
 import '../windowManager/windowsManagerService.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class InitialLoad{
-  static Future<void> init(BuildContext context, bool isFirstTimeOpening, bool automaticallyChooseBestServer) async{
-    
+class InitialLoad {
+  static Future<void> init(BuildContext context, bool isFirstTimeOpening,
+      bool automaticallyChooseBestServer) async {
     bool changedServer = false;
     bool automaticGameFindNotificationAvailable = false;
     if (isFirstTimeOpening) {
@@ -41,15 +41,21 @@ class InitialLoad{
       await _loadPacks();
       await _loadBlurHashes();
       await _loadServerConfigurations();
-      if (UserData().settings.isDiscordRPCActivated){
+      if (UserData().settings.isDiscordRPCActivated) {
         DiscordService().init();
       }
       await precacheImage(
-        Image.network(APIService().assetLink(APIService().cachedSelectedServer!.image)).image, context);
+          Image.network(APIService()
+                  .assetLink(APIService().cachedSelectedServer!.image))
+              .image,
+          context);
       _precacheImages(context);
-        await _launchAutomaticGameFinder(context,
-            automaticGameFindNotificationAvailable);
-      if (isFirstTimeOpening && UserData().settings.isOpenLauncherOnStartupActivated){
+      if (isFirstTimeOpening) {
+        await _launchAutomaticGameFinder(
+            context, automaticGameFindNotificationAvailable);
+      }
+      if (isFirstTimeOpening &&
+          UserData().settings.isOpenLauncherOnStartupActivated) {
         openLauncher(context);
       }
     } catch (e) {
@@ -78,7 +84,7 @@ class InitialLoad{
     await Navigator.pushNamed(context, "/serverSelect");
   }
 
-  static void openLauncher(context){
+  static void openLauncher(context) {
     Navigator.pushNamed(context, "/searchMenu");
   }
 
@@ -110,7 +116,8 @@ class InitialLoad{
     await APIService().recoverConfigurations();
   }
 
-  static Future<void> _launchAutomaticGameFinder(context,bool showNotification) async {
+  static Future<void> _launchAutomaticGameFinder(
+      context, bool showNotification) async {
     int gamesFound =
         await AutomaticGameFinderService.findGames(UserData().packs);
     if (showNotification && gamesFound > 0) {
@@ -121,5 +128,4 @@ class InitialLoad{
               .automatic_game_finder_finish(gamesFound));
     }
   }
-
 }
