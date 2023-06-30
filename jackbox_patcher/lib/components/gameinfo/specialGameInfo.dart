@@ -172,7 +172,7 @@ class SpecialGameInfoWidget extends StatelessWidget {
             child: SizedBox(
                 child: Padding(
                     padding: const EdgeInsets.all(10),
-                    child: Column(children: [
+                    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                       Row(
                         children: [
                           Padding(
