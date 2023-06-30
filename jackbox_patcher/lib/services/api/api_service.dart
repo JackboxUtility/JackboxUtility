@@ -104,6 +104,22 @@ class APIService {
           }
         }
       }
+      for (JackboxPackPatch patch in pack.fixes) {
+        if (patch.configuration != null) {
+          if (patch.configuration!.versionOrigin ==
+              OnlineVersionOrigin.REPO_FILE) {
+            final rawData =
+                getRequest(Uri.parse(patch.configuration!.versionFile));
+            rawData.then((retrievedData) {
+              final Map<String, dynamic> data = jsonDecode(retrievedData);
+              patch.latestVersion = data[patch.configuration!.versionProperty]
+                  .replaceAll("Build:", "")
+                  .trim();
+            });
+            futures.add(rawData);
+          }
+        }
+      }
     }
     await Future.wait(futures);
   }
