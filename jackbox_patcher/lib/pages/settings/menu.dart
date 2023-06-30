@@ -3,7 +3,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jackbox_patcher/pages/settings/appbehavior.dart';
 import 'package:jackbox_patcher/pages/settings/appinfo.dart';
-import 'package:jackbox_patcher/pages/settings/discordrichpresence.dart';
 import 'package:jackbox_patcher/pages/settings/packs.dart';
 import 'package:jackbox_patcher/pages/settings/serverinfo.dart';
 import 'package:jackbox_patcher/services/discord/DiscordService.dart';
@@ -83,11 +82,6 @@ class _ParametersMenuWidgetState extends State<ParametersMenuWidget> {
                 icon: const Icon(FluentIcons.server),
                 title: Text(AppLocalizations.of(context)!.server_information),
                 body: ServerInfoWidget()), 
-            PaneItem(  
-              icon: const Icon(FontAwesomeIcons.discord),
-              title: Text("Discord rich presence"),
-              body: DiscordRichPresenceSettings(),
-            ), 
             PaneItem(  
               icon: const Icon(FontAwesomeIcons.play),
               title: Text("App behaviors"),

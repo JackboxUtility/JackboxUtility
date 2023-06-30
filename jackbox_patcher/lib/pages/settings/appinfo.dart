@@ -61,7 +61,35 @@ class _AppInfoWidgetState extends State<AppInfoWidget> {
                 onPressed: () async {
                   await launchUrl(
                       Uri.parse("https://github.com/AlexisL61/JackboxUtility"));
+                }),
+            const SizedBox(width: 12),
+            HyperlinkButton(
+                child: const Row(children: [
+                  FaIcon(FontAwesomeIcons.discord),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text("Discord")
+                ]),
+                onPressed: () async {
+                  await launchUrl(Uri.parse("https://discord.gg/cYdJkZwCk3"));
                 })
+          ]),
+          const SizedBox(height: 12),
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            HyperlinkButton(
+                style:
+                    ButtonStyle(border: ButtonState.all(BorderSide(color: Colors.red.lighter))),
+                child: Row(children: [
+                  FaIcon(FontAwesomeIcons.heart, color: Colors.red.lighter),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text("Donate", style: TextStyle(color: Colors.red.lighter))
+                ]),
+                onPressed: () async {
+                  await launchUrl(Uri.parse("https://github.com/sponsors/AlexisL61"));
+                }),
           ]),
           const Spacer(),
           Row(

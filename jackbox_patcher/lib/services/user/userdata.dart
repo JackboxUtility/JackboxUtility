@@ -218,4 +218,20 @@ class UserData {
     await preferences.setInt("last_window_x", windowInformation.x);
     await preferences.setInt("last_window_y", windowInformation.y);
   }
+
+  void resetStars() {
+    for (var pack in packs) {
+      for (var game in pack.games) {
+        game.stars = 0;
+      }
+    }
+  }
+
+  void resetHiddenGames() {
+    for (var pack in packs) {
+      for (var game in pack.games) {
+        game.hidden = false;
+      }
+    }
+  }
 }
