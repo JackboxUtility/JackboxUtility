@@ -511,7 +511,37 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
     }
   }
 
-  void launchGameFunction() {
+  void launchGameFunction() async{
+    List<UserJackboxPackPatch> fixesNotInstalled = [];
+    widget.pack.fixes.forEach((fix) {
+      if (fix.patch.components
+              .where((element) => element.linkedGame == currentGame)
+              .isNotEmpty &&
+          fix.getInstalledStatus() == UserInstalledPatchStatus.NOT_INSTALLED) {
+        fixesNotInstalled.add(fix);
+      }
+    });
+    if (fixesNotInstalled.length >= 1) {
+      bool dataReceived = await showDialog(
+          context: context,
+          builder: ((context) {
+            return FixesAvailableToDownloadDialog();
+          })) as bool;
+      if (dataReceived) {
+        List<String> localPaths = [];
+        List<UserJackboxPackPatch> patchs = [];
+        fixesNotInstalled.forEach((fix) {
+          localPaths.add(widget.pack.path!);
+          patchs.add(fix);
+        });
+        await showDialog(
+            context: context,
+            builder: (context) {
+              return DownloadPatchDialogComponent(
+                  localPaths: localPaths, patchs: patchs);
+            });
+      }
+    }
     launchingStatus = "LAUNCHING";
     setState(() {});
     Launcher.launchGame(currentPack, currentGame).then((value) {
@@ -739,11 +769,21 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
             ])));
   }
 
+  ({String status, bool isDisabled}) _getPatchStatus(UserJackboxPackPatch patch) {
+    switch (patch.getInstalledStatus()) {
+      case UserInstalledPatchStatus.INEXISTANT:
+        return (status:AppLocalizations.of(context)!.patch_unavailable, isDisabled: true);
+      case UserInstalledPatchStatus.INSTALLED:
+         return (status:AppLocalizations.of(context)!
+            .patch_installed(1), isDisabled:true);
+      case UserInstalledPatchStatus.INSTALLED_OUTDATED:
+        return (status:AppLocalizations.of(context)!.patch_outdated(1), isDisabled:false);
+      case UserInstalledPatchStatus.NOT_INSTALLED:
+        return (status:AppLocalizations.of(context)!.patch_not_installed(1), isDisabled: false);
+    }
+  }
+
   Widget buildGameFixAvailable(UserJackboxPackPatch fix) {
-    print(fix);
-    bool isAvailabletoDownload = fix.getInstalledStatus() ==
-            UserInstalledPatchStatus.NOT_INSTALLED ||
-        fix.getInstalledStatus() == UserInstalledPatchStatus.INSTALLED_OUTDATED;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -805,9 +845,9 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                                   children: [
                                     Expanded(
                                         child: Button(
-                                            onPressed: isAvailabletoDownload
-                                                ? () {
-                                                    showDialog(
+                                            onPressed: !_getPatchStatus(fix).isDisabled
+                                                ? ()async {
+                                                    await showDialog(
                                                         context: context,
                                                         builder: (context) =>
                                                             DownloadPatchDialogComponent(
@@ -818,11 +858,12 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                                                                 patchs: [
                                                                   fix
                                                                 ]));
+                                                    setState(() {
+                                                      
+                                                    });
                                                   }
                                                 : null,
-                                            child: Text(fix
-                                                .getInstalledStatus()
-                                                .info))),
+                                            child: Text(_getPatchStatus(fix).status))),
                                   ],
                                 ),
                               ]))),
