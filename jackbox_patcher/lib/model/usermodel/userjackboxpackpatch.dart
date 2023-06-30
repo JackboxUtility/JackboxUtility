@@ -13,7 +13,7 @@ class UserJackboxPackPatch {
     required this.patch,
     required this.installedVersion,
   });
- 
+
   UserInstalledPatchStatus getInstalledStatus() {
     UserJackboxPack pack = getPack();
     String? packPath = pack.path;
@@ -50,8 +50,18 @@ class UserJackboxPackPatch {
   }
 
   UserJackboxPack getPack() {
-    return UserData().packs.firstWhere((pack) => pack.patches
-        .where((element) => element.patch.id == patch.id)
-        .isNotEmpty);
+    List<UserJackboxPack> dataFound = UserData()
+        .packs
+        .where((pack) => pack.patches
+            .where((element) => element.patch.id == patch.id)
+            .isNotEmpty)
+        .toList();
+    if (dataFound.length > 0) {
+      return dataFound[0];
+    } else {
+      return UserData().packs.firstWhere((pack) => pack.fixes
+          .where((element) => element.patch.id == patch.id)
+          .isNotEmpty);
+    }
   }
 }

@@ -12,6 +12,7 @@ import '../misc/launchers.dart';
 class UserJackboxPack {
   final JackboxPack pack;
   final List<UserJackboxGame> games = [];
+  final List<UserJackboxPackPatch> fixes = [];
   final List<UserJackboxPackPatch> patches = [];
   UserJackboxLoader? loader;
   String? path;
@@ -74,6 +75,18 @@ class UserJackboxPack {
 
   UserJackboxPackPatch? getInstalledPackPatch() {
     Iterable<UserJackboxPackPatch> patchesInstalled = patches.where((patch) =>
+        patch.getInstalledStatus() == UserInstalledPatchStatus.INSTALLED ||
+        patch.getInstalledStatus() ==
+            UserInstalledPatchStatus.INSTALLED_OUTDATED);
+    if (patchesInstalled.isNotEmpty) {
+      return patchesInstalled.first;
+    } else {
+      return null;
+    }
+  }
+
+  UserJackboxPackPatch? getInstalledPackFix() {
+    Iterable<UserJackboxPackPatch> patchesInstalled = fixes.where((patch) =>
         patch.getInstalledStatus() == UserInstalledPatchStatus.INSTALLED ||
         patch.getInstalledStatus() ==
             UserInstalledPatchStatus.INSTALLED_OUTDATED);

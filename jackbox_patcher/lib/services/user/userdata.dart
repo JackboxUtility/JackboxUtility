@@ -118,6 +118,28 @@ class UserData {
         userPack.patches.add(UserJackboxPackPatch(
             patch: patch, installedVersion: patchVersionInstalled));
       }
+
+      // Do the same for the fixes
+       for (var patch in pack.fixes) {
+        final String? patchVersionInstalled;
+        if (pack.configuration != null && userPack.path != null) {
+          File configurationFile =
+              File("${userPack.path!}/${pack.configuration!.versionFile}");
+          if (configurationFile.existsSync()) {
+            patchVersionInstalled =
+                jsonDecode(configurationFile.readAsStringSync())[
+                        pack.configuration!.versionProperty]
+                    .replaceAll("Build:", "")
+                    .trim();
+          } else {
+            patchVersionInstalled = null;
+          }
+        } else {
+          patchVersionInstalled = null;
+        }
+        userPack.fixes.add(UserJackboxPackPatch(
+            patch: patch, installedVersion: patchVersionInstalled));
+      }
     }
 
     for (var element in APIService().cachedCategories) {

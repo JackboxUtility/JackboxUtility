@@ -11,6 +11,7 @@ class JackboxPack {
   final JackboxLoader? loader;
   final LaunchersId? launchersId;
   final List<JackboxGame> games;
+  final List<JackboxPackPatch> fixes;
   final List<JackboxPackPatch> patches;
   final PackConfiguration? configuration;
   final String background;
@@ -26,6 +27,7 @@ class JackboxPack {
       required this.launchersId,
       required this.background,
       required this.games,
+      required this.fixes,
       required this.patches,
       required this.configuration,
       required this.executable,
@@ -54,6 +56,11 @@ class JackboxPack {
             .map((e) => JackboxGame.fromJson(
                 e))
             .toList(),
+        fixes: json["fixes"] != null
+            ? (json['fixes'] as List<dynamic>)
+                .map((e) => JackboxPackPatch.fromJson(e))
+                .toList()
+            : [],
         patches: patches,
         configuration: json['configuration'] != null
             ? PackConfiguration.fromJson(json['configuration'])

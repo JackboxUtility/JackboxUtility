@@ -6,8 +6,13 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jackbox_patcher/components/blurhashimage.dart';
 import 'package:jackbox_patcher/components/caroussel.dart';
+import 'package:jackbox_patcher/components/dialogs/downloadPatchDialog.dart';
+import 'package:jackbox_patcher/components/dialogs/fixesAvailabletoDownloadDialog.dart';
 import 'package:jackbox_patcher/components/starsRate.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxgame.dart';
+import 'package:jackbox_patcher/model/jackbox/jackboxpackpatch.dart';
+import 'package:jackbox_patcher/model/usermodel/userjackboxgamepatch.dart';
+import 'package:jackbox_patcher/model/usermodel/userjackboxpackpatch.dart';
 import 'package:jackbox_patcher/services/discord/DiscordService.dart';
 import 'package:jackbox_patcher/services/error/error.dart';
 import 'package:jackbox_patcher/services/launcher/launcher.dart';
@@ -91,7 +96,8 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
         child: NavigationView(
             content: Stack(children: [
           ListView(children: [_buildHeader(), _buildBottom()]),
-          if (widget.allAvailableGames != null && widget.allAvailableGames!.length>1)
+          if (widget.allAvailableGames != null &&
+              widget.allAvailableGames!.length > 1)
             Positioned(
                 height: MediaQuery.of(context).size.height,
                 child: Padding(
@@ -104,7 +110,8 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                         color: Colors.white,
                       )),
                 )),
-          if (widget.allAvailableGames != null && widget.allAvailableGames!.length>1)
+          if (widget.allAvailableGames != null &&
+              widget.allAvailableGames!.length > 1)
             Positioned(
                 height: MediaQuery.of(context).size.height,
                 right: 0,
@@ -270,6 +277,8 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
             const SizedBox(height: 20),
             _buildGameTags(),
             const SizedBox(height: 20),
+            _buildGameFixes(),
+            const SizedBox(height: 20),
           ]),
         ],
       ),
@@ -365,26 +374,28 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
     return !currentPack.owned
         ? (currentPack.pack.storeLinks != null
             ? Column(children: [
-                Row(
-                  children: [
-                    if (currentPack.pack.storeLinks!.steam != null)
-                      Expanded(
-                        child: FilledButton(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(FontAwesomeIcons.steam),
-                                SizedBox(width: 10),
-                                Text("Steam"),
-                              ],
-                            ),
-                            onPressed: () {
-                              launchUrlString(
-                                  currentPack.pack.storeLinks!.steam!);
-                            }),
-                      ),
-                    if (currentPack.pack.storeLinks!.steam != null && currentPack.pack.storeLinks!.epic!=null) SizedBox(width: 4),
-                    if (currentPack.pack.storeLinks!.epic != null) Expanded(
+                Row(children: [
+                  if (currentPack.pack.storeLinks!.steam != null)
+                    Expanded(
+                      child: FilledButton(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(FontAwesomeIcons.steam),
+                              SizedBox(width: 10),
+                              Text("Steam"),
+                            ],
+                          ),
+                          onPressed: () {
+                            launchUrlString(
+                                currentPack.pack.storeLinks!.steam!);
+                          }),
+                    ),
+                  if (currentPack.pack.storeLinks!.steam != null &&
+                      currentPack.pack.storeLinks!.epic != null)
+                    SizedBox(width: 4),
+                  if (currentPack.pack.storeLinks!.epic != null)
+                    Expanded(
                       child: FilledButton(
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -399,30 +410,31 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                             ],
                           ),
                           onPressed: () {
-                            launchUrlString(
-                                  currentPack.pack.storeLinks!.epic!);
+                            launchUrlString(currentPack.pack.storeLinks!.epic!);
                           }),
-                    )]), 
-                    SizedBox(height: 4),
-                     if (currentPack.pack.storeLinks!.jackboxGamesStore != null) Row(
-                       children: [
-                         Expanded(
-                          child: FilledButton(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(FontAwesomeIcons.boxOpen),
-                                  SizedBox(width: 10),
-                                  Text("Jackbox games store"),
-                                ],
-                              ),
-                              onPressed: () {
-                                launchUrlString(
-                                      currentPack.pack.storeLinks!.jackboxGamesStore!);
-                              }),
-                ),
-                       ],
-                     )
+                    )
+                ]),
+                SizedBox(height: 4),
+                if (currentPack.pack.storeLinks!.jackboxGamesStore != null)
+                  Row(
+                    children: [
+                      Expanded(
+                        child: FilledButton(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(FontAwesomeIcons.boxOpen),
+                                SizedBox(width: 10),
+                                Text("Jackbox games store"),
+                              ],
+                            ),
+                            onPressed: () {
+                              launchUrlString(currentPack
+                                  .pack.storeLinks!.jackboxGamesStore!);
+                            }),
+                      ),
+                    ],
+                  )
               ])
             : GestureDetector(
                 onTap: () async {
@@ -510,7 +522,37 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
     });
   }
 
-  void launchPackFunction() {
+  void launchPackFunction() async {
+    List<UserJackboxPackPatch> fixesNotInstalled = [];
+    widget.pack.fixes.forEach((fix) {
+      if (fix.patch.components
+              .where((element) => element.linkedGame == currentGame)
+              .isNotEmpty &&
+          fix.getInstalledStatus() == UserInstalledPatchStatus.NOT_INSTALLED) {
+        fixesNotInstalled.add(fix);
+      }
+    });
+    if (fixesNotInstalled.length >= 1) {
+      bool dataReceived = await showDialog(
+          context: context,
+          builder: ((context) {
+            return FixesAvailableToDownloadDialog();
+          })) as bool;
+      if (dataReceived) {
+        List<String> localPaths = [];
+        List<UserJackboxPackPatch> patchs = [];
+        fixesNotInstalled.forEach((fix) {
+          localPaths.add(widget.pack.path!);
+          patchs.add(fix);
+        });
+        await showDialog(
+            context: context,
+            builder: (context) {
+              return DownloadPatchDialogComponent(
+                  localPaths: localPaths, patchs: patchs);
+            });
+      }
+    }
     launchingStatus = "LAUNCHING";
     setState(() {});
     Launcher.launchPack(currentPack).then((value) {
@@ -618,7 +660,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
         description: currentPack.pack.description));
     gameTagWidgets.add(_buildGameTag(FluentIcons.people,
         "${currentGame.game.info.players.min} - ${currentGame.game.info.players.max} ${AppLocalizations.of(context)!.players}"));
-    gameTagWidgets.add(_buildGameTag(FontAwesomeIcons.clock, 
+    gameTagWidgets.add(_buildGameTag(FontAwesomeIcons.clock,
         "${gameInfo.playtime.min} - ${gameInfo.playtime.max} minutes"));
     gameTagWidgets.add(_buildGameTag(gameInfo.type.icon, gameInfo.type.name,
         isLink: true,
@@ -695,5 +737,103 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                               decoration: TextDecoration.underline)
                           : null))
             ])));
+  }
+
+  Widget buildGameFixAvailable(UserJackboxPackPatch fix) {
+    print(fix);
+    bool isAvailabletoDownload = fix.getInstalledStatus() ==
+            UserInstalledPatchStatus.NOT_INSTALLED ||
+        fix.getInstalledStatus() == UserInstalledPatchStatus.INSTALLED_OUTDATED;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+                topRight: Radius.circular(8.0), topLeft: Radius.circular(8.0)),
+            border: Border.all(color: Colors.orange, width: 1.0),
+            color: Colors.orange,
+          ),
+          child: Row(
+            children: [
+              FaIcon(
+                FontAwesomeIcons.screwdriverWrench,
+                color: Colors.white,
+                size: 12,
+              ),
+              SizedBox(
+                width: 4,
+              ),
+              Text("Fix"),
+            ],
+          ),
+          padding: EdgeInsets.all(4),
+        ),
+        Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(8.0),
+                  bottomLeft: Radius.circular(8.0),
+                  bottomRight: Radius.circular(8.0)),
+              border: Border.all(color: Colors.orange, width: 1.0),
+            ),
+            child: ClipRRect(
+                borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(8.0),
+                    bottomLeft: Radius.circular(8.0),
+                    bottomRight: Radius.circular(8.0)),
+                child: Acrylic(
+                  shadowColor: backgroundColor,
+                  blurAmount: 1,
+                  tintAlpha: 1,
+                  tint: const Color.fromARGB(255, 48, 48, 48),
+                  child: SizedBox(
+                      width: 300,
+                      child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(fix.patch.name,
+                                    style: FluentTheme.of(context)
+                                        .typography
+                                        .subtitle),
+                                Text(fix.patch.smallDescription),
+                                const SizedBox(height: 10),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                        child: Button(
+                                            onPressed: isAvailabletoDownload
+                                                ? () {
+                                                    showDialog(
+                                                        context: context,
+                                                        builder: (context) =>
+                                                            DownloadPatchDialogComponent(
+                                                                localPaths: [
+                                                                  widget.pack
+                                                                      .path!
+                                                                ],
+                                                                patchs: [
+                                                                  fix
+                                                                ]));
+                                                  }
+                                                : null,
+                                            child: Text(fix
+                                                .getInstalledStatus()
+                                                .info))),
+                                  ],
+                                ),
+                              ]))),
+                ))),
+      ],
+    );
+  }
+
+  Widget _buildGameFixes() {
+    return Column(
+        children: List.generate(widget.pack.fixes.length,
+            (index) => buildGameFixAvailable(widget.pack.fixes[index])));
   }
 }
