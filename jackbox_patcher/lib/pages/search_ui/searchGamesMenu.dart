@@ -50,8 +50,8 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
     UserData().gameList.loadIntFilters(intFilters);
     super.initState();
     Future.delayed(
-        Duration(milliseconds: 500),()=>
-        UserData()
+        Duration(milliseconds: 500),
+        () => UserData()
             .tips
             .getTip(TipAvailable.LAUNCHER_ON_STARTUP)
             .activate(context));
@@ -144,6 +144,42 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                     : AppLocalizations.of(context)!.show_owned_packs_only),
                 body: Container(),
                 onTap: () {
+                  if (_selectedView != 0) {
+                    if ((showAllPacks == false &&
+                            _selectedView >
+                                UserData()
+                                        .packs
+                                        .where((element) => element.owned)
+                                        .length +
+                                    1) ||
+                        showAllPacks == true &&
+                            _selectedView > UserData().packs.length + 1) {
+                      if (showAllPacks) {
+                        _selectedView -=
+                            UserJackboxPack.countUnownedPack(UserData().packs);
+                      } else {
+                        _selectedView +=
+                            UserJackboxPack.countUnownedPack(UserData().packs);
+                      }
+                    } else {
+                      UserJackboxPack actualPack = showAllPacks
+                          ? UserData().packs[_selectedView -1]
+                          : UserData()
+                              .packs
+                              .where((element) => element.owned)
+                              .toList()[_selectedView -1];
+                      if (showAllPacks) {
+                        _selectedView = UserData()
+                                .packs
+                                .where((element) => element.owned)
+                                .toList()
+                                .indexOf(actualPack)+1 ;
+                      } else {
+                        _selectedView =
+                            UserData().packs.indexOf(actualPack)+1;
+                      }
+                    }
+                  }
                   setState(() {
                     showAllPacks = !showAllPacks;
                   });
