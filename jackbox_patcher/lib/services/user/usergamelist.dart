@@ -115,7 +115,7 @@ class UserGameList {
     if (sortsFound.length == 1) {
       sortSelected = sortsFound[0];
     } else {
-      sortSelected = SortOrder.NAME;
+      sortSelected = SortOrder.PACK;
     }
     return sortSelected;
   }
