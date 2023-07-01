@@ -1,5 +1,4 @@
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jackbox_patcher/pages/settings/appbehavior.dart';
 import 'package:jackbox_patcher/pages/settings/appinfo.dart';
@@ -8,6 +7,7 @@ import 'package:jackbox_patcher/pages/settings/serverinfo.dart';
 import 'package:jackbox_patcher/services/discord/DiscordService.dart';
 
 import '../../components/closableRouteWithEsc.dart';
+import '../../services/translations/translationsHelper.dart';
 
 class ParametersRoute extends StatefulWidget {
   const ParametersRoute({Key? key}) : super(key: key);
@@ -61,7 +61,7 @@ class _ParametersMenuWidgetState extends State<ParametersMenuWidget> {
                 child: Icon(FluentIcons.settings, size: 25)),
             const SizedBox(width: 10),
             Text(
-              AppLocalizations.of(context)!.settings,
+              TranslationsHelper().appLocalizations!.settings,
               style: typography.title,
             )
           ])),
@@ -75,14 +75,15 @@ class _ParametersMenuWidgetState extends State<ParametersMenuWidget> {
           items: [
             PaneItem(
               icon: const Icon(FluentIcons.package),
-              title: Text(AppLocalizations.of(context)!.owned_packs),
+              title: Text(TranslationsHelper().appLocalizations!.owned_packs),
               body: const ParametersWidget(),
             ),
             PaneItem(
                 icon: const Icon(FluentIcons.server),
-                title: Text(AppLocalizations.of(context)!.server_information),
-                body: ServerInfoWidget()), 
-            PaneItem(  
+                title: Text(
+                    TranslationsHelper().appLocalizations!.server_information),
+                body: ServerInfoWidget()),
+            PaneItem(
               icon: const Icon(FontAwesomeIcons.play),
               title: Text("App behaviors"),
               body: AppBehaviorSettings(),
@@ -91,7 +92,8 @@ class _ParametersMenuWidgetState extends State<ParametersMenuWidget> {
           footerItems: [
             PaneItem(
               icon: const Icon(FluentIcons.info),
-              title: Text(AppLocalizations.of(context)!.app_information),
+              title:
+                  Text(TranslationsHelper().appLocalizations!.app_information),
               body: const AppInfoWidget(),
             )
           ]),

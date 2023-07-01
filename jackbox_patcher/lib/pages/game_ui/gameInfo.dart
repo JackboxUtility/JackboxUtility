@@ -7,11 +7,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jackbox_patcher/components/blurhashimage.dart';
 import 'package:jackbox_patcher/components/caroussel.dart';
 import 'package:jackbox_patcher/components/dialogs/downloadPatchDialog.dart';
-import 'package:jackbox_patcher/components/dialogs/fixesAvailabletoDownloadDialog.dart';
 import 'package:jackbox_patcher/components/fixes/gameFixAvailable.dart';
 import 'package:jackbox_patcher/components/starsRate.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxgame.dart';
-import 'package:jackbox_patcher/model/jackbox/jackboxpackpatch.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgamepatch.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpackpatch.dart';
 import 'package:jackbox_patcher/services/discord/DiscordService.dart';
@@ -19,7 +17,6 @@ import 'package:jackbox_patcher/services/error/error.dart';
 import 'package:jackbox_patcher/services/launcher/launcher.dart';
 import 'package:palette_generator/palette_generator.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../components/closableRouteWithEsc.dart';
@@ -27,6 +24,7 @@ import '../../components/gameinfo/specialGameInfo.dart';
 import '../../model/usermodel/userjackboxgame.dart';
 import '../../model/usermodel/userjackboxpack.dart';
 import '../../services/api/api_service.dart';
+import '../../services/translations/translationsHelper.dart';
 
 class GameInfoRoute extends StatefulWidget {
   const GameInfoRoute({Key? key}) : super(key: key);
@@ -443,7 +441,9 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                   setState(() {});
                 },
                 child: Text(
-                    AppLocalizations.of(context)!.path_not_found_description,
+                    TranslationsHelper()
+                        .appLocalizations!
+                        .path_not_found_description,
                     style: TextStyle(
                         color: Colors.red,
                         decoration: TextDecoration.underline))))
@@ -484,10 +484,10 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
               const SizedBox(width: 10),
               Text(
                   launchingStatus == "WAITING"
-                      ? AppLocalizations.of(context)!.launch_game
+                      ? TranslationsHelper().appLocalizations!.launch_game
                       : (launchingStatus == "LAUNCHING"
-                          ? AppLocalizations.of(context)!.launching
-                          : AppLocalizations.of(context)!.launched),
+                          ? TranslationsHelper().appLocalizations!.launching
+                          : TranslationsHelper().appLocalizations!.launched),
                   style: const TextStyle(color: Colors.white)),
             ],
           ));
@@ -502,10 +502,10 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
               const SizedBox(width: 10),
               Text(
                   launchingStatus == "WAITING"
-                      ? AppLocalizations.of(context)!.launch_pack
+                      ? TranslationsHelper().appLocalizations!.launch_pack
                       : (launchingStatus == "LAUNCHING"
-                          ? AppLocalizations.of(context)!.launching
-                          : AppLocalizations.of(context)!.launched),
+                          ? TranslationsHelper().appLocalizations!.launching
+                          : TranslationsHelper().appLocalizations!.launched),
                   style: const TextStyle(color: Colors.white)),
             ],
           ));
@@ -539,28 +539,33 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
       context: context,
       builder: (BuildContext context) {
         return ContentDialog(
-          title: Text(AppLocalizations.of(context)!.more_informations),
+          title: Text(TranslationsHelper().appLocalizations!.more_informations),
           content: SizedBox(
               height: 200,
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      AppLocalizations.of(context)!.launch_game_fast_launcher,
+                      TranslationsHelper()
+                          .appLocalizations!
+                          .launch_game_fast_launcher,
                       style: FluentTheme.of(context).typography.subtitle,
                     ),
-                    Text(AppLocalizations.of(context)!
+                    Text(TranslationsHelper()
+                        .appLocalizations!
                         .launch_game_fast_launcher_description),
                     const SizedBox(height: 10),
                     Text(
-                      AppLocalizations.of(context)!.launch_game,
+                      TranslationsHelper().appLocalizations!.launch_game,
                       style: FluentTheme.of(context).typography.subtitle,
                     ),
-                    Text(AppLocalizations.of(context)!.launch_pack_description),
+                    Text(TranslationsHelper()
+                        .appLocalizations!
+                        .launch_pack_description),
                   ])),
           actions: [
             HyperlinkButton(
-              child: Text(AppLocalizations.of(context)!.close),
+              child: Text(TranslationsHelper().appLocalizations!.close),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -624,13 +629,13 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
     List<Widget> gameTagWidgets = [];
     // Add tags available for all games
     gameTagWidgets.add(_buildGameTag(
-        FontAwesomeIcons.boxOpen!, currentPack.pack.name,
+        FontAwesomeIcons.boxOpen, currentPack.pack.name,
         isLink: true,
         filter: (pack, game) => pack.pack.id == currentPack.pack.id,
         linkedPack: currentPack,
         description: currentPack.pack.description));
     gameTagWidgets.add(_buildGameTag(FluentIcons.people,
-        "${currentGame.game.info.players.min} - ${currentGame.game.info.players.max} ${AppLocalizations.of(context)!.players}"));
+        "${currentGame.game.info.players.min} - ${currentGame.game.info.players.max} ${TranslationsHelper().appLocalizations!.players}"));
     gameTagWidgets.add(_buildGameTag(FontAwesomeIcons.clock,
         "${gameInfo.playtime.min} - ${gameInfo.playtime.max} minutes"));
     gameTagWidgets.add(_buildGameTag(gameInfo.type.icon, gameInfo.type.name,
@@ -668,12 +673,12 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
 
   String _generateGameType(String v) {
     if (v == "COOP") {
-      return AppLocalizations.of(context)!.game_type_coop;
+      return TranslationsHelper().appLocalizations!.game_type_coop;
     } else {
       if (v == "VERSUS") {
-        return AppLocalizations.of(context)!.game_type_versus;
+        return TranslationsHelper().appLocalizations!.game_type_versus;
       } else {
-        return AppLocalizations.of(context)!.game_type_team;
+        return TranslationsHelper().appLocalizations!.game_type_team;
       }
     }
   }
@@ -715,22 +720,22 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
     switch (patch.getInstalledStatus()) {
       case UserInstalledPatchStatus.INEXISTANT:
         return (
-          status: AppLocalizations.of(context)!.patch_unavailable,
+          status: TranslationsHelper().appLocalizations!.patch_unavailable,
           isDisabled: true
         );
       case UserInstalledPatchStatus.INSTALLED:
         return (
-          status: AppLocalizations.of(context)!.patch_installed(1),
+          status: TranslationsHelper().appLocalizations!.patch_installed(1),
           isDisabled: true
         );
       case UserInstalledPatchStatus.INSTALLED_OUTDATED:
         return (
-          status: AppLocalizations.of(context)!.patch_outdated(1),
+          status: TranslationsHelper().appLocalizations!.patch_outdated(1),
           isDisabled: false
         );
       case UserInstalledPatchStatus.NOT_INSTALLED:
         return (
-          status: AppLocalizations.of(context)!.patch_not_installed(1),
+          status: TranslationsHelper().appLocalizations!.patch_not_installed(1),
           isDisabled: false
         );
     }
@@ -762,7 +767,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
 
   Widget _buildGameFixes() {
     return SizedBox(
-      width:300,
+      width: 300,
       child: Column(
           children: List.generate(widget.pack.fixes.length,
               (index) => buildGameFixAvailable(widget.pack.fixes[index]))),

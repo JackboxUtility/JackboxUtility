@@ -1,8 +1,8 @@
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpackpatch.dart';
 import 'package:windows_taskbar/windows_taskbar.dart';
 
+import '../../services/translations/translationsHelper.dart';
 
 class DownloadPatchDialogComponent extends StatefulWidget {
   const DownloadPatchDialogComponent(
@@ -58,17 +58,20 @@ class _DownloadPatchDialogComponentState
   Widget build(BuildContext context) {
     return downloadingProgress == 0
         ? ContentDialog(
-            title: Text(AppLocalizations.of(context)!.installing_a_patch),
-            content: Text(
-                AppLocalizations.of(context)!.installing_a_patch_description),
+            title:
+                Text(TranslationsHelper().appLocalizations!.installing_a_patch),
+            content: Text(TranslationsHelper()
+                .appLocalizations!
+                .installing_a_patch_description),
             actions: [
               HyperlinkButton(
                 onPressed: () => Navigator.pop(context),
-                child: Text(AppLocalizations.of(context)!.cancel),
+                child: Text(TranslationsHelper().appLocalizations!.cancel),
               ),
               HyperlinkButton(
                 onPressed: () async {},
-                child: Text(AppLocalizations.of(context)!.page_continue),
+                child:
+                    Text(TranslationsHelper().appLocalizations!.page_continue),
               ),
             ],
           )
@@ -80,7 +83,7 @@ class _DownloadPatchDialogComponentState
   ContentDialog buildDownloadingPatchDialog(
       String status, String substatus, double progression) {
     return ContentDialog(
-      title: Text(AppLocalizations.of(context)!.installing_a_patch),
+      title: Text(TranslationsHelper().appLocalizations!.installing_a_patch),
       content: SizedBox(
           height: 200,
           child: Center(
@@ -106,18 +109,20 @@ class _DownloadPatchDialogComponentState
                 Text(status, style: const TextStyle(fontSize: 20)),
                 Text(substatus, style: const TextStyle(fontSize: 16)),
               ]))),
-              actions: progression == 0 ? [
-                HyperlinkButton(
-                  onPressed: () {
-                    WindowsTaskbar.setProgressMode(TaskbarProgressMode.noProgress);
-                    Navigator.pop(context);
-                    downloadingProgress = 0;
-                    setState(() {});
-                  },
-                  child: Text(AppLocalizations.of(context)!.cancel),
-                ),
-              
-              ]:[],
+      actions: progression == 0
+          ? [
+              HyperlinkButton(
+                onPressed: () {
+                  WindowsTaskbar.setProgressMode(
+                      TaskbarProgressMode.noProgress);
+                  Navigator.pop(context);
+                  downloadingProgress = 0;
+                  setState(() {});
+                },
+                child: Text(TranslationsHelper().appLocalizations!.cancel),
+              ),
+            ]
+          : [],
     );
   }
 
@@ -131,10 +136,10 @@ class _DownloadPatchDialogComponentState
             downloadingProgress = 0;
             setState(() {});
           },
-          child: Text(AppLocalizations.of(context)!.close),
+          child: Text(TranslationsHelper().appLocalizations!.close),
         ),
       ],
-      title: Text(AppLocalizations.of(context)!.installing_a_patch),
+      title: Text(TranslationsHelper().appLocalizations!.installing_a_patch),
       content: SizedBox(
           height: 200,
           child: Center(
@@ -144,9 +149,12 @@ class _DownloadPatchDialogComponentState
                   children: [
                 const Icon(FluentIcons.check_mark),
                 const SizedBox(height: 10),
-                Text(AppLocalizations.of(context)!.installing_a_patch_end,
+                Text(
+                    TranslationsHelper()
+                        .appLocalizations!
+                        .installing_a_patch_end,
                     style: const TextStyle(fontSize: 20)),
-                Text(AppLocalizations.of(context)!.can_close_popup,
+                Text(TranslationsHelper().appLocalizations!.can_close_popup,
                     style: const TextStyle(fontSize: 16)),
               ]))),
     );

@@ -9,9 +9,8 @@ import 'package:jackbox_patcher/model/usermodel/userjackboxgamepatch.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpackpatch.dart';
 import 'package:jackbox_patcher/pages/patcher/packPatch.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
-import 'package:jackbox_patcher/services/launcher/launcher.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../services/translations/translationsHelper.dart';
 import 'gamePatch.dart';
 
 class PatcherPackWidget extends StatefulWidget {
@@ -118,7 +117,7 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
                 height: 100,
               ),
             ),
-            ],
+          ],
         ),
         const SizedBox(
           height: 20,
@@ -138,14 +137,16 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
     if (pathFoundStatus == "NOT_FOUND") {
       return InfoBar(
         severity: InfoBarSeverity.error,
-        title: Text(AppLocalizations.of(context)!.path_not_found),
-        content: Text(AppLocalizations.of(context)!.path_not_found_description),
+        title: Text(TranslationsHelper().appLocalizations!.path_not_found),
+        content: Text(
+            TranslationsHelper().appLocalizations!.path_not_found_description),
       );
     }
     return InfoBar(
       severity: InfoBarSeverity.warning,
-      title: Text(AppLocalizations.of(context)!.path_inexistant),
-      content: Text(AppLocalizations.of(context)!.path_inexistant_description),
+      title: Text(TranslationsHelper().appLocalizations!.path_inexistant),
+      content: Text(
+          TranslationsHelper().appLocalizations!.path_inexistant_description),
     );
   }
 

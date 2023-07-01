@@ -4,9 +4,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jackbox_patcher/model/patchserver.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../services/api/api_service.dart';
+import '../../services/translations/translationsHelper.dart';
 
 class ServerInfoWidget extends StatefulWidget {
   const ServerInfoWidget({Key? key}) : super(key: key);
@@ -33,11 +33,12 @@ class _ServerInfoWidgetState extends State<ServerInfoWidget> {
         child: Column(
           children: [
             Row(children: [
-              Text(AppLocalizations.of(context)!.selected_server,
+              Text(TranslationsHelper().appLocalizations!.selected_server,
                   style: typography.title),
               const Spacer(),
               FilledButton(
-                  child: Text(AppLocalizations.of(context)!.change_server),
+                  child: Text(
+                      TranslationsHelper().appLocalizations!.change_server),
                   onPressed: () async {
                     UserData().setSelectedServer(null);
                     Navigator.of(context).pop();
@@ -58,7 +59,7 @@ class _ServerInfoWidgetState extends State<ServerInfoWidget> {
                                 APIService().assetLink(
                                     APIService().cachedSelectedServer!.image),
                                 height: 120)),
-                        SizedBox(width: 12), 
+                        SizedBox(width: 12),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -67,44 +68,46 @@ class _ServerInfoWidgetState extends State<ServerInfoWidget> {
                                     FluentTheme.of(context).typography.title),
                             const SizedBox(
                               height: 16,
-                            ),Row(
+                            ),
+                            Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   SizedBox(
-                                    width: 9,),
+                                    width: 9,
+                                  ),
                                   const Icon(FluentIcons.package),
                                   const SizedBox(
                                     width: 10,
                                   ),
-                                  Text(AppLocalizations.of(context)!
+                                  Text(TranslationsHelper()
+                                      .appLocalizations!
                                       .games_available(UserData().packs.length))
                                 ]),
                             const SizedBox(
                               height: 4,
                             ),
                             HyperlinkButton(
-                                    onPressed: () {
-                                      launchUrl(Uri.http(APIService()
-                                          .cachedSelectedServer!
-                                          .controllerUrl!));
-                                    },
-                                    child: Row(
-                                        children: [
-                                          Icon(FluentIcons.cell_phone),
-                                          const SizedBox(
-                                            width: 12,
-                                          ),
-                                          Text(APIService()
-                                              .cachedSelectedServer!
-                                              .controllerUrl!)
-                                        ])),
-                            
+                                onPressed: () {
+                                  launchUrl(Uri.http(APIService()
+                                      .cachedSelectedServer!
+                                      .controllerUrl!));
+                                },
+                                child: Row(children: [
+                                  Icon(FluentIcons.cell_phone),
+                                  const SizedBox(
+                                    width: 12,
+                                  ),
+                                  Text(APIService()
+                                      .cachedSelectedServer!
+                                      .controllerUrl!)
+                                ])),
                           ],
                         ),
                       ],
                     ),
                     const SizedBox(height: 24),
-                    MarkdownBody(data:APIService().cachedSelectedServer!.description),
+                    MarkdownBody(
+                        data: APIService().cachedSelectedServer!.description),
                     // if (APIService().cachedSelectedServer!.controllerUrl != null)
                     //   HyperlinkButton(
                     //       child:
@@ -121,14 +124,14 @@ class _ServerInfoWidgetState extends State<ServerInfoWidget> {
                     //       }),
                     const SizedBox(height: 24),
                     if (APIService().cachedConfigurations!.getConfiguration(
-                          "SERVER_INFORMATION", "SHOW_PATREONS_SUBSCRIBERS") ==
-                      true)
-                    _buildPatreonSubscribers(),
+                            "SERVER_INFORMATION",
+                            "SHOW_PATREONS_SUBSCRIBERS") ==
+                        true)
+                      _buildPatreonSubscribers(),
                     Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: _buildLinks())
                   ]),
-                  
                 ]),
               ),
             ),
@@ -169,7 +172,7 @@ class _ServerInfoWidgetState extends State<ServerInfoWidget> {
             .getConfiguration("SERVER_INFORMATION", "PATREONS_SUBSCRIBERS")
         as List<dynamic>;
     return Container(
-        margin: const EdgeInsets.only(top: 12, bottom:16),
+        margin: const EdgeInsets.only(top: 12, bottom: 16),
         decoration: BoxDecoration(
           color: FluentTheme.of(context).menuColor,
           borderRadius: BorderRadius.circular(8.0),
@@ -182,7 +185,10 @@ class _ServerInfoWidgetState extends State<ServerInfoWidget> {
                   children: [
                     const Icon(FontAwesomeIcons.patreon),
                     const SizedBox(width: 12),
-                    Text(AppLocalizations.of(context)!.patreon_subscribers,
+                    Text(
+                        TranslationsHelper()
+                            .appLocalizations!
+                            .patreon_subscribers,
                         style: FluentTheme.of(context).typography.subtitle),
                   ],
                 ),

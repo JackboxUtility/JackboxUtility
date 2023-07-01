@@ -1,4 +1,3 @@
-
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_flavor/flutter_flavor.dart';
@@ -11,7 +10,6 @@ import 'package:jackbox_patcher/services/user/initialLoad.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 import 'package:jackbox_patcher/services/windowManager/windowsManagerService.dart';
 import 'package:lottie/lottie.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:window_manager/window_manager.dart';
 
 import '../components/notificationsCaroussel.dart';
@@ -44,13 +42,13 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
   @override
   void initState() {
     windowManager.addListener(this);
+    TranslationsHelper().changeLocale(Locale("en"));
     _load(true);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    TranslationsHelper().appLocalizations = AppLocalizations.of(context);
     return NavigationView(
         content: Stack(
       children: [
@@ -74,12 +72,14 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
           Positioned(
               bottom: 0,
               right: 0,
-              left:0,
+              left: 0,
               child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                      "You are using the beta version of the app. If you encounter any issues, please report them on the Discord server or Github repository.",
-                      style: TextStyle(color: Colors.white.withOpacity(0.7)), textAlign: TextAlign.center,)))
+                    "You are using the beta version of the app. If you encounter any issues, please report them on the Discord server or Github repository.",
+                    style: TextStyle(color: Colors.white.withOpacity(0.7)),
+                    textAlign: TextAlign.center,
+                  )))
       ],
     ));
   }
@@ -101,48 +101,22 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
   }
 
   Widget _buildMenu() {
-    return Padding(
-        padding: EdgeInsets.symmetric(horizontal: calculatePadding()),
-        child: Column(children: [
-          MouseRegion(
-              cursor: SystemMouseCursors.click,
-              child: FilledButton(
-                  style: ButtonStyle(
-                      backgroundColor: ButtonState.all(Colors.green),
-                      shape: ButtonState.all(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0)))),
-                  onPressed: () async {
-                    await Navigator.pushNamed(context, "/searchMenu");
-                    DiscordService().launchMenuPresence();
-                  },
-                  child: SizedBox(
-                      width: 300,
-                      height: 20,
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(FluentIcons.play_solid, color: Colors.white),
-                            const SizedBox(width: 10),
-                            Text(
-                                AppLocalizations.of(context)!
-                                    .launch_search_game,
-                                style: const TextStyle(color: Colors.white))
-                          ])))),
-          const SizedBox(height: 10),
-          !DeviceService.isWeb() &&  (APIService().cachedConfigurations?.getConfiguration("MAIN", "HIDE_PATCHER")) != true
-              ? MouseRegion(
+    return Localizations.override(
+        context: context,
+        locale: const Locale('en'),
+        child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: calculatePadding()),
+            child: Column(children: [
+              MouseRegion(
                   cursor: SystemMouseCursors.click,
                   child: FilledButton(
                       style: ButtonStyle(
-                          backgroundColor: ButtonState.all(Colors.blue),
+                          backgroundColor: ButtonState.all(Colors.green),
                           shape: ButtonState.all(RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8.0)))),
                       onPressed: () async {
-                        await Navigator.pushNamed(context, "/patch");
+                        await Navigator.pushNamed(context, "/searchMenu");
                         DiscordService().launchMenuPresence();
-                        setState(() {
-                          
-                        });
                       },
                       child: SizedBox(
                           width: 300,
@@ -150,61 +124,111 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                if (UserData().gameList.patchesAvailable()>0)
-                                  Container(width: 10,height:10, decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.red),),
-                                if (UserData().gameList.patchesAvailable()>0)
-                                  SizedBox(width: 10),
-                                const Icon(FluentIcons.download,
+                                const Icon(FluentIcons.play_solid,
                                     color: Colors.white),
                                 const SizedBox(width: 10),
-                                Text(AppLocalizations.of(context)!.patch_a_game,
+                                Text(
+                                    TranslationsHelper()
+                                        .appLocalizations!
+                                        .launch_search_game,
                                     style: const TextStyle(color: Colors.white))
-                              ]))))
-              : const SizedBox(height: 0),
-          const SizedBox(height: 30),
-          !DeviceService.isWeb()
-              ? MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  child: FilledButton(
-                      style: ButtonStyle(
-                          backgroundColor: ButtonState.all(Colors.grey),
-                          shape: ButtonState.all(RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.0)))),
-                      onPressed: () async {
-                        await Navigator.pushNamed(context, "/settings",
-                            arguments: UserData().packs);
-                        DiscordService().launchMenuPresence();
-                        if (APIService().cachedSelectedServer != null) {
-                          _loaded = false;
-                          setState(() {});
-                          _load(false);
-                        }
-                      },
-                      child: SizedBox(
-                          width: 300,
-                          height: 20,
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Icon(FluentIcons.settings,
-                                    color: Colors.white),
-                                const SizedBox(width: 10),
-                                Text(AppLocalizations.of(context)!.settings,
-                                    style: const TextStyle(color: Colors.white))
-                              ]))))
-              : const SizedBox(height: 0)
-        ]));
+                              ])))),
+              const SizedBox(height: 10),
+              !DeviceService.isWeb() &&
+                      (APIService()
+                              .cachedConfigurations
+                              ?.getConfiguration("MAIN", "HIDE_PATCHER")) !=
+                          true
+                  ? MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: FilledButton(
+                          style: ButtonStyle(
+                              backgroundColor: ButtonState.all(Colors.blue),
+                              shape: ButtonState.all(RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8.0)))),
+                          onPressed: () async {
+                            await Navigator.pushNamed(context, "/patch");
+                            DiscordService().launchMenuPresence();
+                            setState(() {});
+                          },
+                          child: SizedBox(
+                              width: 300,
+                              height: 20,
+                              child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    if (UserData().gameList.patchesAvailable() >
+                                        0)
+                                      Container(
+                                        width: 10,
+                                        height: 10,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            color: Colors.red),
+                                      ),
+                                    if (UserData().gameList.patchesAvailable() >
+                                        0)
+                                      SizedBox(width: 10),
+                                    const Icon(FluentIcons.download,
+                                        color: Colors.white),
+                                    const SizedBox(width: 10),
+                                    Text(
+                                        TranslationsHelper()
+                                            .appLocalizations!
+                                            .patch_a_game,
+                                        style: const TextStyle(
+                                            color: Colors.white))
+                                  ]))))
+                  : const SizedBox(height: 0),
+              const SizedBox(height: 30),
+              !DeviceService.isWeb()
+                  ? MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: FilledButton(
+                          style: ButtonStyle(
+                              backgroundColor: ButtonState.all(Colors.grey),
+                              shape: ButtonState.all(RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8.0)))),
+                          onPressed: () async {
+                            await Navigator.pushNamed(context, "/settings",
+                                arguments: UserData().packs);
+                            DiscordService().launchMenuPresence();
+                            if (APIService().cachedSelectedServer != null) {
+                              _loaded = false;
+                              setState(() {});
+                              _load(false);
+                            }
+                          },
+                          child: SizedBox(
+                              width: 300,
+                              height: 20,
+                              child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Icon(FluentIcons.settings,
+                                        color: Colors.white),
+                                    const SizedBox(width: 10),
+                                    Text(
+                                        TranslationsHelper()
+                                            .appLocalizations!
+                                            .settings,
+                                        style: const TextStyle(
+                                            color: Colors.white))
+                                  ]))))
+                  : const SizedBox(height: 0)
+            ])));
   }
 
   Widget _buildConnectedServer() {
     return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-      Text(AppLocalizations.of(context)!
+      Text(TranslationsHelper()
+          .appLocalizations!
           .connected_to_server(APIService().cachedSelectedServer!.name)),
       const SizedBox(width: 10),
       GestureDetector(
-        child: Text(AppLocalizations.of(context)!.connected_to_server_change,
+        child: Text(
+            TranslationsHelper().appLocalizations!.connected_to_server_change,
             style: const TextStyle(decoration: TextDecoration.underline)),
         onTap: () async {
           UserData().setSelectedServer(null);
@@ -231,7 +255,7 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
       Text(
           _loaded
               ? APIService().cachedSelectedServer!.name
-              : AppLocalizations.of(context)!.jackbox_utility,
+              : TranslationsHelper().appLocalizations!.jackbox_utility,
           style: FluentTheme.of(context).typography.titleLarge)
     ]);
   }
@@ -248,8 +272,9 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
   }
 
   void _load(bool automaticallyChooseBestServer) async {
-    await InitialLoad.init(context,isFirstTimeOpening, automaticallyChooseBestServer);
-      isFirstTimeOpening = false;
+    await InitialLoad.init(
+        context, isFirstTimeOpening, automaticallyChooseBestServer);
+    isFirstTimeOpening = false;
     setState(() {
       _loaded = true;
     });

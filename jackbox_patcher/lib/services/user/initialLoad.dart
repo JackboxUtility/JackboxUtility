@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:io';
 
 import 'package:fluent_ui/fluent_ui.dart';
@@ -8,6 +10,7 @@ import 'package:jackbox_patcher/services/automaticGameFinder/AutomaticGameFinder
 import 'package:jackbox_patcher/services/discord/DiscordService.dart';
 import 'package:jackbox_patcher/services/downloader/precache_service.dart';
 import 'package:jackbox_patcher/services/error/error.dart';
+import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -16,12 +19,10 @@ import '../../components/dialogs/fixesAvailabletoDownloadDialog.dart';
 import '../../model/usermodel/userjackboxgamepatch.dart';
 import '../../model/usermodel/userjackboxpackpatch.dart';
 import '../windowManager/windowsManagerService.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class InitialLoad {
   static Future<void> init(BuildContext context, bool isFirstTimeOpening,
       bool automaticallyChooseBestServer) async {
-    bool changedServer = false;
     bool automaticGameFindNotificationAvailable = false;
     if (isFirstTimeOpening) {
       await windowManager.setPreventClose(true);
@@ -37,7 +38,6 @@ class InitialLoad {
         await Navigator.pushNamed(context, "/serverSelect");
         automaticGameFindNotificationAvailable = true;
       }
-      changedServer = true;
     }
     try {
       await _loadSettings();
@@ -46,6 +46,8 @@ class InitialLoad {
       await _loadPacks();
       await _loadBlurHashes();
       await _loadServerConfigurations();
+      TranslationsHelper().changeLocale(
+          Locale(APIService().cachedSelectedServer!.languages[0]));
       if (UserData().settings.isDiscordRPCActivated) {
         DiscordService().init();
       }
@@ -65,8 +67,8 @@ class InitialLoad {
         openLauncher(context);
       }
     } catch (e) {
-      InfoBarService.showError(
-          context, AppLocalizations.of(context)!.connection_to_server_failed,
+      InfoBarService.showError(context,
+          TranslationsHelper().appLocalizations!.connection_to_server_failed,
           duration: const Duration(minutes: 5));
       rethrow;
     }
@@ -81,8 +83,11 @@ class InitialLoad {
         await UserData().setSelectedServer(server.infoUrl);
         InfoBarService.showInfo(
             context,
-            AppLocalizations.of(context)!.automatic_server_finder_found,
-            AppLocalizations.of(context)!
+            TranslationsHelper()
+                .appLocalizations!
+                .automatic_server_finder_found,
+            TranslationsHelper()
+                .appLocalizations!
                 .automatic_server_finder_found_description(server.name));
         return;
       }
@@ -133,51 +138,54 @@ class InitialLoad {
     if (showNotification && gamesFound > 0) {
       InfoBarService.showInfo(
           context,
-          AppLocalizations.of(context)!.automatic_game_finder_title,
-          AppLocalizations.of(context)!
+          TranslationsHelper().appLocalizations!.automatic_game_finder_title,
+          TranslationsHelper()
+              .appLocalizations!
               .automatic_game_finder_finish(gamesFound));
     }
   }
 
   static Future<void> detectFixesAvailable(context) async {
-    List<({UserJackboxPackPatch fix, UserJackboxPack pack})> fixesNotInstalled = [];
+    List<({UserJackboxPackPatch fix, UserJackboxPack pack})> fixesNotInstalled =
+        [];
     for (UserJackboxPack pack in UserData().packs) {
       pack.fixes.forEach((fix) {
         if (fix.getInstalledStatus() ==
-            UserInstalledPatchStatus.NOT_INSTALLED && UserData().getFixPromptDiscard(fix) == false) {
+                UserInstalledPatchStatus.NOT_INSTALLED &&
+            UserData().getFixPromptDiscard(fix) == false) {
           fixesNotInstalled.add((fix: fix, pack: pack));
         }
       });
     }
-      if (fixesNotInstalled.length >= 1) {
-        bool dataReceived = await showDialog(
+    if (fixesNotInstalled.length >= 1) {
+      bool dataReceived = await showDialog(
+          dismissWithEsc: false,
+          barrierDismissible: false,
+          context: context,
+          builder: ((context) {
+            return FixesAvailableToDownloadDialog(
+                fixesAvailable: fixesNotInstalled);
+          })) as bool;
+      if (dataReceived) {
+        List<String> localPaths = [];
+        List<UserJackboxPackPatch> patchs = [];
+        fixesNotInstalled.forEach((fix) {
+          localPaths.add(fix.pack.path!);
+          patchs.add(fix.fix);
+        });
+        await showDialog(
             dismissWithEsc: false,
             barrierDismissible: false,
             context: context,
-            builder: ((context) {
-              return FixesAvailableToDownloadDialog(fixesAvailable:fixesNotInstalled);
-            })) as bool;
-        if (dataReceived) {
-          List<String> localPaths = [];
-          List<UserJackboxPackPatch> patchs = [];
-          fixesNotInstalled.forEach((fix) {
-            localPaths.add(fix.pack.path!);
-            patchs.add(fix.fix);
-          });
-          await showDialog(
-            dismissWithEsc: false,
-            barrierDismissible: false,
-              context: context,
-              builder: (context) {
-                return DownloadPatchDialogComponent(
-                    localPaths: localPaths, patchs: patchs);
-              });
-        }else{
-          fixesNotInstalled.forEach((fix) {
-            UserData().setFixPromptDiscard(fix.fix, true);
-          });
-        }
+            builder: (context) {
+              return DownloadPatchDialogComponent(
+                  localPaths: localPaths, patchs: patchs);
+            });
+      } else {
+        fixesNotInstalled.forEach((fix) {
+          UserData().setFixPromptDiscard(fix.fix, true);
+        });
       }
-    
+    }
   }
 }

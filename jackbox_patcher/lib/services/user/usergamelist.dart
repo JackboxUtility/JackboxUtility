@@ -2,7 +2,6 @@ import 'package:jackbox_patcher/model/misc/filterEnum.dart';
 import 'package:jackbox_patcher/model/misc/sortOrder.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgamepatch.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpackpatch.dart';
-import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

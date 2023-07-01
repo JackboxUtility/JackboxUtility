@@ -14,8 +14,8 @@ import 'package:jackbox_patcher/pages/search_ui/searchGames.dart';
 import '../../components/filters/enumFilterPaneItem.dart';
 import '../../model/usermodel/userjackboxpack.dart';
 import '../../services/api/api_service.dart';
+import '../../services/translations/translationsHelper.dart';
 import '../../services/user/userdata.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 typedef Filter = ({bool activated, FilterValue selected, FilterType type});
 typedef IntFilter = ({bool activated, int selected, String type});
@@ -69,7 +69,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
             onTap: () => Navigator.pop(context),
           ),
           title: Text(
-            AppLocalizations.of(context)!.search_game,
+            TranslationsHelper().appLocalizations!.search_game,
             style: typography.title,
           )),
       pane: NavigationPane(
@@ -140,8 +140,10 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
               PaneItem(
                 icon: const Icon(FontAwesomeIcons.boxArchive),
                 title: Text(showAllPacks == false
-                    ? AppLocalizations.of(context)!.show_all_packs
-                    : AppLocalizations.of(context)!.show_owned_packs_only),
+                    ? TranslationsHelper().appLocalizations!.show_all_packs
+                    : TranslationsHelper()
+                        .appLocalizations!
+                        .show_owned_packs_only),
                 body: Container(),
                 onTap: () {
                   if (_selectedView != 0) {
@@ -163,20 +165,21 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                       }
                     } else {
                       UserJackboxPack actualPack = showAllPacks
-                          ? UserData().packs[_selectedView -1]
+                          ? UserData().packs[_selectedView - 1]
                           : UserData()
                               .packs
                               .where((element) => element.owned)
-                              .toList()[_selectedView -1];
+                              .toList()[_selectedView - 1];
                       if (showAllPacks) {
                         _selectedView = UserData()
                                 .packs
                                 .where((element) => element.owned)
                                 .toList()
-                                .indexOf(actualPack)+1 ;
+                                .indexOf(actualPack) +
+                            1;
                       } else {
                         _selectedView =
-                            UserData().packs.indexOf(actualPack)+1;
+                            UserData().packs.indexOf(actualPack) + 1;
                       }
                     }
                   }
@@ -379,7 +382,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
       items.add(PaneItemHeader(
           header: TextBox(
         autofocus: true,
-        placeholder: AppLocalizations.of(context)!.search,
+        placeholder: TranslationsHelper().appLocalizations!.search,
         suffix: const Icon(FluentIcons.search),
         controller: _searchController,
         onChanged: (String value) {
@@ -392,7 +395,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
       items.add(PaneItemSeparator());
       items.add(PaneItem(
           icon: const Icon(FontAwesomeIcons.gamepad),
-          title: Text(AppLocalizations.of(context)!.all_games),
+          title: Text(TranslationsHelper().appLocalizations!.all_games),
           body: SearchGameWidget(
               filter: (UserJackboxPack pack, UserJackboxGame game) =>
                   game.game.name
@@ -403,15 +406,16 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                   _filterGameBasedOnActiveFilters(pack, game),
               comeFromGame: false,
               linkedPack: null,
-              name: AppLocalizations.of(context)!.all_games,
-              description: AppLocalizations.of(context)!.all_games_description,
+              name: TranslationsHelper().appLocalizations!.all_games,
+              description:
+                  TranslationsHelper().appLocalizations!.all_games_description,
               showAllPacks: showAllPacks,
               icon: null,
               parentReload: () => setState(() {}))));
       items.add(PaneItemExpander(
         icon: const Icon(FontAwesomeIcons.boxOpen),
         body: Container(),
-        title: Text(AppLocalizations.of(context)!.search_by_pack),
+        title: Text(TranslationsHelper().appLocalizations!.search_by_pack),
         items: packItems,
         onTap: () {
           setState(() {
@@ -425,7 +429,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
       items.add(PaneItemExpander(
         icon: const Icon(FontAwesomeIcons.tag),
         body: Container(),
-        title: Text(AppLocalizations.of(context)!.search_by_tags),
+        title: Text(TranslationsHelper().appLocalizations!.search_by_tags),
         items: tagItem,
         onTap: () {
           setState(() {

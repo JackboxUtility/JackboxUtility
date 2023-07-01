@@ -1,8 +1,11 @@
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../services/translations/translationsHelper.dart';
 
 class ConfirmationDialog extends StatefulWidget {
-  ConfirmationDialog({Key? key, required this.toConfirm, required this.todoWhenConfirmed}) : super(key: key);
+  ConfirmationDialog(
+      {Key? key, required this.toConfirm, required this.todoWhenConfirmed})
+      : super(key: key);
 
   final String toConfirm;
   final Function todoWhenConfirmed;
@@ -21,14 +24,14 @@ class _ConfirmationDialogState extends State<ConfirmationDialog> {
       actions: [
         HyperlinkButton(
           onPressed: () => Navigator.pop(context),
-          child: Text(AppLocalizations.of(context)!.cancel),
+          child: Text(TranslationsHelper().appLocalizations!.cancel),
         ),
         HyperlinkButton(
           onPressed: () async {
             await widget.todoWhenConfirmed();
             Navigator.pop(context);
           },
-          child: Text(AppLocalizations.of(context)!.confirm),
+          child: Text(TranslationsHelper().appLocalizations!.confirm),
         ),
       ],
     );

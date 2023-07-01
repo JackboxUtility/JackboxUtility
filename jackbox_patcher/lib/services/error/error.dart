@@ -1,5 +1,6 @@
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../translations/translationsHelper.dart';
 
 class InfoBarService {
   static showError(BuildContext context, String errorMessage,
@@ -8,7 +9,7 @@ class InfoBarService {
       return InfoBar(
           isLong: true,
           severity: InfoBarSeverity.error,
-          title: Text(AppLocalizations.of(context)!.error_happened),
+          title: Text(TranslationsHelper().appLocalizations!.error_happened),
           content: Text(errorMessage));
     }, duration: duration);
   }
@@ -17,12 +18,15 @@ class InfoBarService {
       {Duration duration = const Duration(seconds: 10)}) {
     displayInfoBar(context, builder: (context, close) {
       return InfoBar(
-        style: InfoBarThemeData(decoration: (severity) {
-          return BoxDecoration(
-              color: FluentTheme.of(context).inactiveBackgroundColor.withOpacity(1),
-              borderRadius: BorderRadius.circular(4));
-        
-        },),
+          style: InfoBarThemeData(
+            decoration: (severity) {
+              return BoxDecoration(
+                  color: FluentTheme.of(context)
+                      .inactiveBackgroundColor
+                      .withOpacity(1),
+                  borderRadius: BorderRadius.circular(4));
+            },
+          ),
           isLong: true,
           severity: InfoBarSeverity.info,
           title: Text(title),

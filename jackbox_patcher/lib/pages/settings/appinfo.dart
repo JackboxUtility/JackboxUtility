@@ -1,8 +1,9 @@
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../services/translations/translationsHelper.dart';
 
 class AppInfoWidget extends StatefulWidget {
   const AppInfoWidget({Key? key}) : super(key: key);
@@ -40,13 +41,16 @@ class _AppInfoWidgetState extends State<AppInfoWidget> {
           ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
               child: Image.asset('assets/logo.png', height: 100)),
-          Text(AppLocalizations.of(context)!.jackbox_utility,
+          Text(TranslationsHelper().appLocalizations!.jackbox_utility,
               style: FluentTheme.of(context).typography.title),
           const SizedBox(height: 12),
-          Text(AppLocalizations.of(context)!.jackbox_utility_description,
+          Text(
+              TranslationsHelper()
+                  .appLocalizations!
+                  .jackbox_utility_description,
               style: FluentTheme.of(context).typography.body),
           const SizedBox(height: 12),
-          Text("${AppLocalizations.of(context)!.version} $version",
+          Text("${TranslationsHelper().appLocalizations!.version} $version",
               style: FluentTheme.of(context).typography.body),
           const SizedBox(height: 12),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -78,8 +82,9 @@ class _AppInfoWidgetState extends State<AppInfoWidget> {
           const SizedBox(height: 12),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             HyperlinkButton(
-                style:
-                    ButtonStyle(border: ButtonState.all(BorderSide(color: Colors.red.lighter))),
+                style: ButtonStyle(
+                    border:
+                        ButtonState.all(BorderSide(color: Colors.red.lighter))),
                 child: Row(children: [
                   FaIcon(FontAwesomeIcons.heart, color: Colors.red.lighter),
                   SizedBox(
@@ -88,7 +93,8 @@ class _AppInfoWidgetState extends State<AppInfoWidget> {
                   Text("Donate", style: TextStyle(color: Colors.red.lighter))
                 ]),
                 onPressed: () async {
-                  await launchUrl(Uri.parse("https://github.com/sponsors/AlexisL61"));
+                  await launchUrl(
+                      Uri.parse("https://github.com/sponsors/AlexisL61"));
                 }),
           ]),
           const Spacer(),
@@ -98,7 +104,7 @@ class _AppInfoWidgetState extends State<AppInfoWidget> {
               children: [
                 const Spacer(),
                 Column(children: [
-                  Text(AppLocalizations.of(context)!.author),
+                  Text(TranslationsHelper().appLocalizations!.author),
                   HyperlinkButton(
                       child: const Row(children: [
                         FaIcon(FontAwesomeIcons.github),
@@ -114,7 +120,7 @@ class _AppInfoWidgetState extends State<AppInfoWidget> {
                 ]),
                 const Spacer(),
                 Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-                  Text(AppLocalizations.of(context)!.contributors),
+                  Text(TranslationsHelper().appLocalizations!.contributors),
                   HyperlinkButton(
                       child: const Row(children: [
                         FaIcon(FontAwesomeIcons.github),

@@ -7,10 +7,10 @@ import 'package:jackbox_patcher/services/discord/DiscordService.dart';
 import '../../components/closableRouteWithEsc.dart';
 import '../../model/usermodel/userjackboxpack.dart';
 import '../../services/api/api_service.dart';
+import '../../services/translations/translationsHelper.dart';
 import '../../services/user/userdata.dart';
 import 'packContainer.dart';
 
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PatcherMenuWidget extends StatefulWidget {
   const PatcherMenuWidget({Key? key}) : super(key: key);
@@ -66,18 +66,20 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
           footerItems: [
             if (UserJackboxPack.countUnownedPack(UserData().packs) >= 1)
               PaneItem(
-              icon: const Icon(FontAwesomeIcons.boxArchive),
-              title: Text(showAllPacks == false
-                  ? AppLocalizations.of(context)!.show_all_packs
-                  : AppLocalizations.of(context)!.show_owned_packs_only),
-              body: Container(),
-              onTap: () {
-                setState(() {
-                  showAllPacks = !showAllPacks;
-                });
-                _buildPaneItems();
-              },
-            )
+                icon: const Icon(FontAwesomeIcons.boxArchive),
+                title: Text(showAllPacks == false
+                    ? TranslationsHelper().appLocalizations!.show_all_packs
+                    : TranslationsHelper()
+                        .appLocalizations!
+                        .show_owned_packs_only),
+                body: Container(),
+                onTap: () {
+                  setState(() {
+                    showAllPacks = !showAllPacks;
+                  });
+                  _buildPaneItems();
+                },
+              )
           ]),
     ));
   }
@@ -99,7 +101,7 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
     _selectedView = 0;
     items.add(PaneItem(
         icon: const Center(child: Icon(FluentIcons.home)),
-        title: Text(AppLocalizations.of(context)!.all_patches),
+        title: Text(TranslationsHelper().appLocalizations!.all_patches),
         body: ListView(
             children: List.generate(
                 APIService().cachedCategories.length,

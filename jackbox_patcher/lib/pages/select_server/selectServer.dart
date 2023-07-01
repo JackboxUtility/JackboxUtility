@@ -1,13 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:jackbox_patcher/model/patchserver.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/error/error.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 
-import '../../components/closableRouteWithEsc.dart';
+import '../../services/translations/translationsHelper.dart';
 
 class SelectServerPage extends StatefulWidget {
   const SelectServerPage({Key? key}) : super(key: key);
@@ -29,8 +28,11 @@ class _SelectServerPageState extends State<SelectServerPage> {
     try {
       await APIService().recoverAvailableServers();
     } catch (e) {
-      InfoBarService.showError(context,
-          AppLocalizations.of(context)!.connection_to_main_server_failed);
+      InfoBarService.showError(
+          context,
+          TranslationsHelper()
+              .appLocalizations!
+              .connection_to_main_server_failed);
       rethrow;
     }
     servers = APIService().cachedServers;
@@ -44,9 +46,9 @@ class _SelectServerPageState extends State<SelectServerPage> {
       children: [
         Column(children: [
           const SizedBox(height: 20),
-          Text(AppLocalizations.of(context)!.select_server_title,
+          Text(TranslationsHelper().appLocalizations!.select_server_title,
               style: FluentTheme.of(context).typography.title),
-          Text(AppLocalizations.of(context)!.select_server_subtitle,
+          Text(TranslationsHelper().appLocalizations!.select_server_subtitle,
               style: FluentTheme.of(context).typography.subtitle),
         ]),
         const SizedBox(height: 20),
@@ -86,7 +88,8 @@ class _SelectServerPageState extends State<SelectServerPage> {
                               children: [
                                 Expanded(
                                     child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 12),
                                   child: Column(children: [
                                     Text(server.name,
                                         overflow: TextOverflow.ellipsis,
@@ -130,7 +133,8 @@ class _SelectServerPageState extends State<SelectServerPage> {
                 await chooseServer(server);
                 Navigator.pop(context);
               },
-              child: Text(AppLocalizations.of(context)!.select_server_button)))
+              child: Text(
+                  TranslationsHelper().appLocalizations!.select_server_button)))
     ]);
   }
 

@@ -2,18 +2,17 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:jackbox_patcher/model/jackbox/jackboxpack.dart';
 import 'package:jackbox_patcher/model/misc/sortOrder.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../components/closableRouteWithEsc.dart';
 import '../../components/starsRate.dart';
 import '../../services/discord/DiscordService.dart';
 import '../../services/launcher/launcher.dart';
+import '../../services/translations/translationsHelper.dart';
 
 class SearchGameRoute extends StatefulWidget {
   const SearchGameRoute({Key? key}) : super(key: key);
@@ -362,11 +361,13 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
           cacheHeight: 200,
         ),
         Text(
-          AppLocalizations.of(context)!.no_game_in_this_category_title,
+          TranslationsHelper().appLocalizations!.no_game_in_this_category_title,
           style: const TextStyle(fontSize: 20),
         ),
         Text(
-          AppLocalizations.of(context)!.no_game_in_this_category_description,
+          TranslationsHelper()
+              .appLocalizations!
+              .no_game_in_this_category_description,
           style: TextStyle(fontSize: 14, color: Colors.white.withOpacity(0.8)),
         ),
       ]);
@@ -585,7 +586,7 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                                                 ),
                                                 const SizedBox(width: 10),
                                                 Text(
-                                                    "${gameInfo.players.min} - ${gameInfo.players.max} ${AppLocalizations.of(context)!.players}",
+                                                    "${gameInfo.players.min} - ${gameInfo.players.max} ${TranslationsHelper().appLocalizations!.players}",
                                                     style: TextStyle(
                                                         color: Colors.white
                                                             .withOpacity(

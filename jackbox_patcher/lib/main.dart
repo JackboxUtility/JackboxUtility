@@ -1,4 +1,3 @@
-import 'package:dart_discord_rpc/dart_discord_rpc.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/pages/mainContainer.dart';
 import 'package:jackbox_patcher/pages/settings/menu.dart';
@@ -7,7 +6,6 @@ import 'package:jackbox_patcher/pages/search_ui/searchGamesMenu.dart';
 import 'package:jackbox_patcher/pages/select_server/selectServer.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:window_manager/window_manager.dart';
 
 import 'pages/game_ui/gameInfo.dart';
 import 'pages/settings/packs.dart';

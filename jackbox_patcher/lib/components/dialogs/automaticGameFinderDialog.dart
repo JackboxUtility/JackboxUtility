@@ -2,7 +2,8 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/services/automaticGameFinder/AutomaticGameFinder.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 import 'package:lottie/lottie.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../services/translations/translationsHelper.dart';
 
 class AutomaticGameFinderDialog extends StatefulWidget {
   const AutomaticGameFinderDialog({Key? key}) : super(key: key);
@@ -34,16 +35,19 @@ class _AutomaticGameFinderDialogState extends State<AutomaticGameFinderDialog> {
                       height: 150,
                       fit: BoxFit.fitWidth),
                   Text(
-                    AppLocalizations.of(context)!.automatic_game_finder_title,
+                    TranslationsHelper()
+                        .appLocalizations!
+                        .automatic_game_finder_title,
                     textAlign: TextAlign.center,
                   )
                 ])),
-            content: Text(AppLocalizations.of(context)!
+            content: Text(TranslationsHelper()
+                .appLocalizations!
                 .automatic_game_finder_description),
             actions: [
                 HyperlinkButton(
                   onPressed: () => Navigator.pop(context, false),
-                  child: Text(AppLocalizations.of(context)!.cancel),
+                  child: Text(TranslationsHelper().appLocalizations!.cancel),
                 ),
                 HyperlinkButton(
                   onPressed: () async {
@@ -57,7 +61,7 @@ class _AutomaticGameFinderDialogState extends State<AutomaticGameFinderDialog> {
                       gamesFound = foundGames;
                     });
                   },
-                  child: Text(AppLocalizations.of(context)!.confirm),
+                  child: Text(TranslationsHelper().appLocalizations!.confirm),
                 ),
               ])
         : visibleDialog == 1
@@ -67,11 +71,13 @@ class _AutomaticGameFinderDialogState extends State<AutomaticGameFinderDialog> {
 
   ContentDialog inProgressDialog() {
     return ContentDialog(
-        title: Text(AppLocalizations.of(context)!.automatic_game_finder_title),
+        title: Text(
+            TranslationsHelper().appLocalizations!.automatic_game_finder_title),
         content: SizedBox(
             height: 50,
             child: Column(children: [
-              Text(AppLocalizations.of(context)!
+              Text(TranslationsHelper()
+                  .appLocalizations!
                   .automatic_game_finder_in_progress),
             ])),
         actions: const []);
@@ -79,17 +85,19 @@ class _AutomaticGameFinderDialogState extends State<AutomaticGameFinderDialog> {
 
   ContentDialog finishDialog() {
     return ContentDialog(
-        title: Text(AppLocalizations.of(context)!.automatic_game_finder_title),
+        title: Text(
+            TranslationsHelper().appLocalizations!.automatic_game_finder_title),
         content: SizedBox(
             height: 50,
             child: Column(children: [
-              Text(AppLocalizations.of(context)!
+              Text(TranslationsHelper()
+                  .appLocalizations!
                   .automatic_game_finder_finish(gamesFound)),
             ])),
         actions: [
           HyperlinkButton(
             onPressed: () => Navigator.pop(context, true),
-            child: Text(AppLocalizations.of(context)!.close),
+            child: Text(TranslationsHelper().appLocalizations!.close),
           ),
         ]);
   }
