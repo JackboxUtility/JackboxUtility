@@ -136,7 +136,7 @@
     "search_by_translation": "Suche nach Übersetzungsstatus",
     "search_by_tags": "Suche nach Tags",
     "select_server_title": "Willkommen bei Jackbox Utility",
-    "select_server_subtitle": "Wähle eine Sprache",
+    "select_server_subtitle": "Wähle einen der verfügbaren Server",
     "select_server_button": "Bestätigen",
     "connected_to_server": "Verbunden mit dem Server: {server}",
     "@connected_to_server": {

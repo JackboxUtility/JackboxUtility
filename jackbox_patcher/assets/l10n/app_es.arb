@@ -136,7 +136,7 @@
   "search_by_translation": "Buscar por traducción",
   "search_by_tags": "Buscar por etiquetas",
   "select_server_title": "Te damos la bienvenida a Jackbox Utility",
-  "select_server_subtitle": "Selecciona un idioma para empezar",
+  "select_server_subtitle": "Selecciona uno de los servidores disponibles",
   "select_server_button": "Seleccionar",
   "connected_to_server": "Conectado al servidor de {server}",
   "@connected_to_server": {
