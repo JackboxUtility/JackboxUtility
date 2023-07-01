@@ -8,6 +8,7 @@ import 'package:jackbox_patcher/components/blurhashimage.dart';
 import 'package:jackbox_patcher/components/caroussel.dart';
 import 'package:jackbox_patcher/components/dialogs/downloadPatchDialog.dart';
 import 'package:jackbox_patcher/components/dialogs/fixesAvailabletoDownloadDialog.dart';
+import 'package:jackbox_patcher/components/fixes/gameFixAvailable.dart';
 import 'package:jackbox_patcher/components/starsRate.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxgame.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxpackpatch.dart';
@@ -511,37 +512,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
     }
   }
 
-  void launchGameFunction() async{
-    List<UserJackboxPackPatch> fixesNotInstalled = [];
-    widget.pack.fixes.forEach((fix) {
-      if (fix.patch.components
-              .where((element) => element.linkedGame == currentGame)
-              .isNotEmpty &&
-          fix.getInstalledStatus() == UserInstalledPatchStatus.NOT_INSTALLED) {
-        fixesNotInstalled.add(fix);
-      }
-    });
-    if (fixesNotInstalled.length >= 1) {
-      bool dataReceived = await showDialog(
-          context: context,
-          builder: ((context) {
-            return FixesAvailableToDownloadDialog();
-          })) as bool;
-      if (dataReceived) {
-        List<String> localPaths = [];
-        List<UserJackboxPackPatch> patchs = [];
-        fixesNotInstalled.forEach((fix) {
-          localPaths.add(widget.pack.path!);
-          patchs.add(fix);
-        });
-        await showDialog(
-            context: context,
-            builder: (context) {
-              return DownloadPatchDialogComponent(
-                  localPaths: localPaths, patchs: patchs);
-            });
-      }
-    }
+  void launchGameFunction() async {
     launchingStatus = "LAUNCHING";
     setState(() {});
     Launcher.launchGame(currentPack, currentGame).then((value) {
@@ -553,36 +524,6 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
   }
 
   void launchPackFunction() async {
-    List<UserJackboxPackPatch> fixesNotInstalled = [];
-    widget.pack.fixes.forEach((fix) {
-      if (fix.patch.components
-              .where((element) => element.linkedGame == currentGame.game.id)
-              .isNotEmpty &&
-          fix.getInstalledStatus() == UserInstalledPatchStatus.NOT_INSTALLED) {
-        fixesNotInstalled.add(fix);
-      }
-    });
-    if (fixesNotInstalled.length >= 1) {
-      bool dataReceived = await showDialog(
-          context: context,
-          builder: ((context) {
-            return FixesAvailableToDownloadDialog();
-          })) as bool;
-      if (dataReceived) {
-        List<String> localPaths = [];
-        List<UserJackboxPackPatch> patchs = [];
-        fixesNotInstalled.forEach((fix) {
-          localPaths.add(widget.pack.path!);
-          patchs.add(fix);
-        });
-        await showDialog(
-            context: context,
-            builder: (context) {
-              return DownloadPatchDialogComponent(
-                  localPaths: localPaths, patchs: patchs);
-            });
-      }
-    }
     launchingStatus = "LAUNCHING";
     setState(() {});
     Launcher.launchPack(currentPack).then((value) {
@@ -769,112 +710,62 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
             ])));
   }
 
-  ({String status, bool isDisabled}) _getPatchStatus(UserJackboxPackPatch patch) {
+  ({String status, bool isDisabled}) _getPatchStatus(
+      UserJackboxPackPatch patch) {
     switch (patch.getInstalledStatus()) {
       case UserInstalledPatchStatus.INEXISTANT:
-        return (status:AppLocalizations.of(context)!.patch_unavailable, isDisabled: true);
+        return (
+          status: AppLocalizations.of(context)!.patch_unavailable,
+          isDisabled: true
+        );
       case UserInstalledPatchStatus.INSTALLED:
-         return (status:AppLocalizations.of(context)!
-            .patch_installed(1), isDisabled:true);
+        return (
+          status: AppLocalizations.of(context)!.patch_installed(1),
+          isDisabled: true
+        );
       case UserInstalledPatchStatus.INSTALLED_OUTDATED:
-        return (status:AppLocalizations.of(context)!.patch_outdated(1), isDisabled:false);
+        return (
+          status: AppLocalizations.of(context)!.patch_outdated(1),
+          isDisabled: false
+        );
       case UserInstalledPatchStatus.NOT_INSTALLED:
-        return (status:AppLocalizations.of(context)!.patch_not_installed(1), isDisabled: false);
+        return (
+          status: AppLocalizations.of(context)!.patch_not_installed(1),
+          isDisabled: false
+        );
     }
   }
 
   Widget buildGameFixAvailable(UserJackboxPackPatch fix) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-                topRight: Radius.circular(8.0), topLeft: Radius.circular(8.0)),
-            border: Border.all(color: Colors.orange, width: 1.0),
-            color: Colors.orange,
-          ),
-          child: Row(
-            children: [
-              FaIcon(
-                FontAwesomeIcons.screwdriverWrench,
-                color: Colors.white,
-                size: 12,
-              ),
-              SizedBox(
-                width: 4,
-              ),
-              Text("Fix"),
-            ],
-          ),
-          padding: EdgeInsets.all(4),
-        ),
-        Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(8.0),
-                  bottomLeft: Radius.circular(8.0),
-                  bottomRight: Radius.circular(8.0)),
-              border: Border.all(color: Colors.orange, width: 1.0),
-            ),
-            child: ClipRRect(
-                borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(8.0),
-                    bottomLeft: Radius.circular(8.0),
-                    bottomRight: Radius.circular(8.0)),
-                child: Acrylic(
-                  shadowColor: backgroundColor,
-                  blurAmount: 1,
-                  tintAlpha: 1,
-                  tint: const Color.fromARGB(255, 48, 48, 48),
-                  child: SizedBox(
-                      width: 300,
-                      child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
-                          child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(fix.patch.name,
-                                    style: FluentTheme.of(context)
-                                        .typography
-                                        .subtitle),
-                                Text(fix.patch.smallDescription),
-                                const SizedBox(height: 10),
-                                Row(
-                                  children: [
-                                    Expanded(
-                                        child: Button(
-                                            onPressed: !_getPatchStatus(fix).isDisabled
-                                                ? ()async {
-                                                    await showDialog(
-                                                        context: context,
-                                                        builder: (context) =>
-                                                            DownloadPatchDialogComponent(
-                                                                localPaths: [
-                                                                  widget.pack
-                                                                      .path!
-                                                                ],
-                                                                patchs: [
-                                                                  fix
-                                                                ]));
-                                                    setState(() {
-                                                      
-                                                    });
-                                                  }
-                                                : null,
-                                            child: Text(_getPatchStatus(fix).status))),
-                                  ],
-                                ),
-                              ]))),
-                ))),
-      ],
+    return GameFixAvailableComponent(
+      fix: fix,
+      button: Row(
+        children: [
+          Expanded(
+              child: Button(
+                  onPressed: !_getPatchStatus(fix).isDisabled
+                      ? () async {
+                          await showDialog(
+                              context: context,
+                              builder: (context) =>
+                                  DownloadPatchDialogComponent(
+                                      localPaths: [widget.pack.path!],
+                                      patchs: [fix]));
+                          setState(() {});
+                        }
+                      : null,
+                  child: Text(_getPatchStatus(fix).status))),
+        ],
+      ),
     );
   }
 
   Widget _buildGameFixes() {
-    return Column(
-        children: List.generate(widget.pack.fixes.length,
-            (index) => buildGameFixAvailable(widget.pack.fixes[index])));
+    return SizedBox(
+      width:300,
+      child: Column(
+          children: List.generate(widget.pack.fixes.length,
+              (index) => buildGameFixAvailable(widget.pack.fixes[index]))),
+    );
   }
 }

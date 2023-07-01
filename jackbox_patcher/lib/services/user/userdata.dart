@@ -252,6 +252,14 @@ class UserData {
     return preferences.getString("selected_server");
   }
 
+  bool getFixPromptDiscard(UserJackboxPackPatch fix){
+    return preferences.getBool("${fix.patch.id}_fix_prompt_discard") ?? false;
+  }
+
+  void setFixPromptDiscard(UserJackboxPackPatch fix, bool value){
+    preferences.setBool("${fix.patch.id}_fix_prompt_discard", value);
+  }
+
   WindowInformation getLastWindowInformations() {
     WindowInformation lastWindowInformations = WindowInformation(
       maximized: preferences.getBool("last_window_maximize") ?? false,

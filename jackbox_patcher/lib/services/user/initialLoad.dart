@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/model/patchserver.dart';
+import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/automaticGameFinder/AutomaticGameFinder.dart';
 import 'package:jackbox_patcher/services/discord/DiscordService.dart';
@@ -10,6 +11,10 @@ import 'package:jackbox_patcher/services/error/error.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 import 'package:window_manager/window_manager.dart';
 
+import '../../components/dialogs/downloadPatchDialog.dart';
+import '../../components/dialogs/fixesAvailabletoDownloadDialog.dart';
+import '../../model/usermodel/userjackboxgamepatch.dart';
+import '../../model/usermodel/userjackboxpackpatch.dart';
 import '../windowManager/windowsManagerService.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -54,6 +59,7 @@ class InitialLoad {
         await _launchAutomaticGameFinder(
             context, automaticGameFindNotificationAvailable);
       }
+      await detectFixesAvailable(context);
       if (isFirstTimeOpening &&
           UserData().settings.isOpenLauncherOnStartupActivated) {
         openLauncher(context);
@@ -120,6 +126,7 @@ class InitialLoad {
       context, bool showNotification) async {
     int gamesFound =
         await AutomaticGameFinderService.findGames(UserData().packs);
+    print(gamesFound);
     if (gamesFound > 0) {
       UserData().updateDownloadedPackPatchVersion();
     }
@@ -130,5 +137,47 @@ class InitialLoad {
           AppLocalizations.of(context)!
               .automatic_game_finder_finish(gamesFound));
     }
+  }
+
+  static Future<void> detectFixesAvailable(context) async {
+    List<({UserJackboxPackPatch fix, UserJackboxPack pack})> fixesNotInstalled = [];
+    for (UserJackboxPack pack in UserData().packs) {
+      pack.fixes.forEach((fix) {
+        if (fix.getInstalledStatus() ==
+            UserInstalledPatchStatus.NOT_INSTALLED && UserData().getFixPromptDiscard(fix) == false) {
+          fixesNotInstalled.add((fix: fix, pack: pack));
+        }
+      });
+    }
+      if (fixesNotInstalled.length >= 1) {
+        bool dataReceived = await showDialog(
+            dismissWithEsc: false,
+            barrierDismissible: false,
+            context: context,
+            builder: ((context) {
+              return FixesAvailableToDownloadDialog(fixesAvailable:fixesNotInstalled);
+            })) as bool;
+        if (dataReceived) {
+          List<String> localPaths = [];
+          List<UserJackboxPackPatch> patchs = [];
+          fixesNotInstalled.forEach((fix) {
+            localPaths.add(fix.pack.path!);
+            patchs.add(fix.fix);
+          });
+          await showDialog(
+            dismissWithEsc: false,
+            barrierDismissible: false,
+              context: context,
+              builder: (context) {
+                return DownloadPatchDialogComponent(
+                    localPaths: localPaths, patchs: patchs);
+              });
+        }else{
+          fixesNotInstalled.forEach((fix) {
+            UserData().setFixPromptDiscard(fix.fix, true);
+          });
+        }
+      }
+    
   }
 }
