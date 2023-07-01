@@ -69,7 +69,6 @@ class _AppBehaviorSettingsState extends State<AppBehaviorSettings> {
                               UserData().resetStars();
                               setState(() {});
                             }));
-                    UserData().resetStars();
                     setState(() {});
                   },
                   style: ButtonSettingStyle.DANGER),
