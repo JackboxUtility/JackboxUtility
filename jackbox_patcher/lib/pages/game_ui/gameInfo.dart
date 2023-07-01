@@ -766,11 +766,23 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
   }
 
   Widget _buildGameFixes() {
-    return SizedBox(
-      width: 300,
-      child: Column(
-          children: List.generate(widget.pack.fixes.length,
-              (index) => buildGameFixAvailable(widget.pack.fixes[index]))),
-    );
+    String pathStatus = "";
+    return FutureBuilder(
+        future: widget.pack.getPathStatus(),
+        builder: (context, snapshot) {
+          print(snapshot.data);
+          if (snapshot.hasData && snapshot.data == "FOUND" && widget.pack.owned) {
+            return SizedBox(
+              width: 300,
+              child: Column(
+                  children: List.generate(
+                      widget.pack.fixes.length,
+                      (index) =>
+                          buildGameFixAvailable(widget.pack.fixes[index]))),
+            );
+          } else {
+            return Container();
+          }
+        });
   }
 }

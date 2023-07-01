@@ -152,7 +152,7 @@ class InitialLoad {
       pack.fixes.forEach((fix) {
         if (fix.getInstalledStatus() ==
                 UserInstalledPatchStatus.NOT_INSTALLED &&
-            UserData().getFixPromptDiscard(fix) == false) {
+            UserData().getFixPromptDiscard(fix) == false && pack.getPathStatus() == "FOUND" && pack.owned) {
           fixesNotInstalled.add((fix: fix, pack: pack));
         }
       });
