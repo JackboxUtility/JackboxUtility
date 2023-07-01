@@ -120,6 +120,9 @@ class InitialLoad {
       context, bool showNotification) async {
     int gamesFound =
         await AutomaticGameFinderService.findGames(UserData().packs);
+    if (gamesFound > 0) {
+      UserData().updateDownloadedPackPatchVersion();
+    }
     if (showNotification && gamesFound > 0) {
       InfoBarService.showInfo(
           context,

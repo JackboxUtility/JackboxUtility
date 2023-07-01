@@ -18,10 +18,10 @@ class WindowManagerService {
         lastWindowInformations.y = 0;
       }
       if (lastWindowInformations.width < 100) {
-        lastWindowInformations.width = 1400;
+        lastWindowInformations.width = 1300;
       }
       if (lastWindowInformations.height < 100) {
-        lastWindowInformations.height = 800;
+        lastWindowInformations.height = 750;
       }
       Future.delayed(Duration(milliseconds: 100), () async {
         if (lastWindowInformations.maximized) {

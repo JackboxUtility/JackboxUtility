@@ -147,6 +147,46 @@ class UserData {
     }
   }
 
+  void updateDownloadedPackPatchVersion(){
+    List<UserJackboxPack> availablePacks = packs.where((element) => element.owned).toList();
+    for (var pack in availablePacks) {
+      for (var patch in pack.patches) {
+        if (pack.pack.configuration != null && pack.path != null) {
+          File configurationFile =
+              File("${pack.path!}/${pack.pack.configuration!.versionFile}");
+          if (configurationFile.existsSync()) {
+            patch.installedVersion =
+                jsonDecode(configurationFile.readAsStringSync())[
+                        pack.pack.configuration!.versionProperty]
+                    .replaceAll("Build:", "")
+                    .trim();
+          } else {
+            patch.installedVersion = null;
+          }
+        } else {
+          patch.installedVersion = null;
+        }
+      }
+      for (var patch in pack.fixes) {
+        if (pack.pack.configuration != null && pack.path != null) {
+          File configurationFile =
+              File("${pack.path!}/${pack.pack.configuration!.versionFile}");
+          if (configurationFile.existsSync()) {
+            patch.installedVersion =
+                jsonDecode(configurationFile.readAsStringSync())[
+                        pack.pack.configuration!.versionProperty]
+                    .replaceAll("Build:", "")
+                    .trim();
+          } else {
+            patch.installedVersion = null;
+          }
+        } else {
+          patch.installedVersion = null;
+        }
+      }
+    }
+  }
+
   /// Sync the welcome message from the server
   Future<void> syncWelcomeMessage() async {
     await APIService().recoverNewsAndLinks();
@@ -215,8 +255,8 @@ class UserData {
   WindowInformation getLastWindowInformations() {
     WindowInformation lastWindowInformations = WindowInformation(
       maximized: preferences.getBool("last_window_maximize") ?? false,
-      width: preferences.getInt("last_window_width") ?? 1400,
-      height: preferences.getInt("last_window_height") ?? 800,
+      width: preferences.getInt("last_window_width") ?? 1300,
+      height: preferences.getInt("last_window_height") ?? 750,
       x: preferences.getInt("last_window_x") ?? 10,
       y: preferences.getInt("last_window_y") ?? 10,
     );

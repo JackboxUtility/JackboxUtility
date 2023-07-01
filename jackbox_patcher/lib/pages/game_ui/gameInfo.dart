@@ -556,7 +556,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
     List<UserJackboxPackPatch> fixesNotInstalled = [];
     widget.pack.fixes.forEach((fix) {
       if (fix.patch.components
-              .where((element) => element.linkedGame == currentGame)
+              .where((element) => element.linkedGame == currentGame.game.id)
               .isNotEmpty &&
           fix.getInstalledStatus() == UserInstalledPatchStatus.NOT_INSTALLED) {
         fixesNotInstalled.add(fix);
