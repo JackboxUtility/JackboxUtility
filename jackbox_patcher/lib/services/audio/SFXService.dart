@@ -1,5 +1,6 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:jackbox_patcher/model/misc/audio/SFXPackEnum.dart';
+import 'package:jackbox_patcher/services/user/userdata.dart';
 
 import '../../model/misc/audio/SFXEnum.dart';
 
@@ -15,7 +16,10 @@ class SFXService {
   // Build internal
   SFXService._internal();
 
-  void playSFX(SFX sfx) async{
-    await player.play(AssetSource("audios/sfx/"+selectedPack.assetDirectory+"/"+ sfx.assetName));
+  void playSFX(SFX sfx) async {
+    if (UserData().settings.isAudioActivated) {
+      await player.play(AssetSource(
+          "audios/sfx/" + selectedPack.assetDirectory + "/" + sfx.assetName));
+    }
   }
 }

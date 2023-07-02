@@ -1,3 +1,4 @@
+import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../discord/DiscordService.dart';
@@ -19,5 +20,11 @@ class UserSettings {
     
   Future<void> setOpenLauncherOnStartup(bool activation) async {
     await preferences.setBool("open_launcher_on_startup", activation);
+  }
+
+  bool get isAudioActivated => preferences.getBool("audio") ?? (APIService().cachedConfigurations!.getConfiguration("SETTINGS", "AUDIO_ENABLE_BY_DEFAULT")??false); 
+
+  Future<void> setAudio(bool activation) async {
+    await preferences.setBool("audio", activation);
   }
 }
