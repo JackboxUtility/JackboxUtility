@@ -6,10 +6,12 @@ import 'package:jackbox_patcher/model/misc/sortOrder.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
+import 'package:jackbox_patcher/services/audio/SFXService.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 
 import '../../components/closableRouteWithEsc.dart';
 import '../../components/starsRate.dart';
+import '../../model/misc/audio/SFXEnum.dart';
 import '../../services/discord/DiscordService.dart';
 import '../../services/launcher/launcher.dart';
 import '../../services/translations/translationsHelper.dart';
@@ -218,6 +220,8 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
                                               value: SortOrder.values[index],
                                             )),
                                     onChanged: (value) {
+                                      SFXService()
+                                          .playSFX(SFX.CLICK_ON_STAR_OR_FILTER);
                                       setState(() => sortOrder = value!);
                                       UserData().gameList.saveSort(value!);
                                     }),
@@ -524,6 +528,7 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                           onEnter: (a) => setState(() {
                             isFirstTime = false;
                             smallInfoVisible = true;
+                            SFXService().playSFX(SFX.HOVER_OVER_BANNER);
                           }),
                           onExit: (a) => setState(() {
                             isFirstTime = false;

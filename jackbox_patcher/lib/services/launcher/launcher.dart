@@ -5,9 +5,11 @@ import 'package:jackbox_patcher/model/misc/launchers.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
+import 'package:jackbox_patcher/services/audio/SFXService.dart';
 import 'package:jackbox_patcher/services/logger/logger.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../model/misc/audio/SFXEnum.dart';
 import '../user/userdata.dart';
 
 class Launcher {
@@ -45,6 +47,7 @@ class Launcher {
         await Process.run("${pack.path!}/${pack.pack.executable}", [],
             workingDirectory: pack.path);
       }
+      SFXService().playSFX(SFX.GAME_LAUNCHED);
     }
   }
 
@@ -57,7 +60,7 @@ class Launcher {
       if (game.loader == null) {
         return await launchPack(pack);
       }
-      // If the original loader is not already installed or need update, download it 
+      // If the original loader is not already installed or need update, download it
       if (pack.loader != null) {
         if (pack.loader!.path == null ||
             pack.loader!.version != pack.pack.loader!.version ||
@@ -94,15 +97,17 @@ class Launcher {
         await Process.run("${pack.path!}/${pack.pack.executable}", [],
             workingDirectory: pack.path);
       }
+      SFXService().playSFX(SFX.GAME_LAUNCHED);
       _openedLaunchers.add(pack);
     }
   }
 
   static Future<void> restoreOldLaunchers() async {
-    for (UserJackboxPack pack in _openedLaunchers){
-      // Extracting back files 
+    for (UserJackboxPack pack in _openedLaunchers) {
+      // Extracting back files
       String packFolder = pack.path!;
       await extractFileToDisk(pack.loader!.path!, packFolder);
-    };
+    }
+    ;
   }
 }

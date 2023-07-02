@@ -10,8 +10,10 @@ import 'package:jackbox_patcher/components/dialogs/downloadPatchDialog.dart';
 import 'package:jackbox_patcher/components/fixes/gameFixAvailable.dart';
 import 'package:jackbox_patcher/components/starsRate.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxgame.dart';
+import 'package:jackbox_patcher/model/misc/audio/SFXEnum.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgamepatch.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpackpatch.dart';
+import 'package:jackbox_patcher/services/audio/SFXService.dart';
 import 'package:jackbox_patcher/services/discord/DiscordService.dart';
 import 'package:jackbox_patcher/services/error/error.dart';
 import 'package:jackbox_patcher/services/launcher/launcher.dart';
@@ -34,6 +36,12 @@ class GameInfoRoute extends StatefulWidget {
 }
 
 class _GameInfoRouteState extends State<GameInfoRoute> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    SFXService().playSFX(SFX.OPEN_GAME_INFO_TAB);
+  }
+
   @override
   Widget build(BuildContext context) {
     final List<dynamic> data =
@@ -90,6 +98,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
   @override
   Widget build(BuildContext context) {
     return ClosableRouteWithEsc(
+        closeSFX: true,
         leftEvent: () => _openPreviousGame(),
         rightEvent: () => _openNextGame(),
         child: NavigationView(
@@ -146,6 +155,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
         DiscordService().launchGameInfoPresence(currentGame.game.name);
         carousselKey = UniqueKey();
       }
+      SFXService().playSFX(SFX.SCROLL_BETWEEN_GAME_INFO_TABS);
     }
   }
 
@@ -166,6 +176,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
         DiscordService().launchGameInfoPresence(currentGame.game.name);
         carousselKey = UniqueKey();
       }
+      SFXService().playSFX(SFX.SCROLL_BETWEEN_GAME_INFO_TABS);
     }
   }
 
@@ -210,7 +221,10 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                         children: [
                       GestureDetector(
                         child: const Icon(FluentIcons.chevron_left),
-                        onTap: () => Navigator.pop(context),
+                        onTap: () {
+                          SFXService().playSFX(SFX.CLOSE_GAME_INFO_TAB);
+                          Navigator.pop(context);
+                        },
                       ),
                       const SizedBox(width: 10),
                       Expanded(
@@ -771,7 +785,9 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
         future: widget.pack.getPathStatus(),
         builder: (context, snapshot) {
           print(snapshot.data);
-          if (snapshot.hasData && snapshot.data == "FOUND" && widget.pack.owned) {
+          if (snapshot.hasData &&
+              snapshot.data == "FOUND" &&
+              widget.pack.owned) {
             return SizedBox(
               width: 300,
               child: Column(
