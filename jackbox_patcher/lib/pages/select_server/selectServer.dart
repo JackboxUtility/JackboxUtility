@@ -46,10 +46,8 @@ class _SelectServerPageState extends State<SelectServerPage> {
       children: [
         Column(children: [
           const SizedBox(height: 20),
-          Text(TranslationsHelper().appLocalizations!.select_server_title,
-              style: FluentTheme.of(context).typography.title),
           Text(TranslationsHelper().appLocalizations!.select_server_subtitle,
-              style: FluentTheme.of(context).typography.subtitle),
+              style: FluentTheme.of(context).typography.title),
         ]),
         const SizedBox(height: 20),
         Padding(
