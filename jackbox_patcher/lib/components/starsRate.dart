@@ -25,6 +25,7 @@ class StarsRateWidget extends StatefulWidget {
 
 class _StarsRateWidgetState extends State<StarsRateWidget> {
   int stars = 0;
+  bool isOut = true;
 
   @override
   void initState() {
@@ -38,8 +39,14 @@ class _StarsRateWidgetState extends State<StarsRateWidget> {
       for (int i = 0; i < 5; i++)
         !widget.readOnly
             ? MouseRegion(
-              onEnter: (PointerEnterEvent event){
-                SFXService().playSFX(SFX.HOVER_OVER_STAR_OR_FILTER);
+              onHover: (PointerHoverEvent event){
+                if (isOut){
+                  SFXService().playSFX(SFX.HOVER_OVER_STAR_OR_FILTER);
+                }
+                isOut = false;
+              },
+              onExit:(PointerExitEvent event){
+                isOut = true;
               },
               child: IconButton(
                   iconButtonMode: IconButtonMode.large,
