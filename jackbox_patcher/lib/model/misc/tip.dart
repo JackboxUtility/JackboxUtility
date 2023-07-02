@@ -1,4 +1,5 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 
 import '../../components/dialogs/tipDialog.dart';
@@ -45,11 +46,11 @@ enum TipAnswer {
   String get name {
     switch (this) {
       case TipAnswer.YES:
-        return "Yes";
+        return TranslationsHelper().appLocalizations!.yes;
       case TipAnswer.NO:
-        return "No";
+        return TranslationsHelper().appLocalizations!.no;
       case TipAnswer.OK:
-        return "Ok";
+        return TranslationsHelper().appLocalizations!.ok;
     }
   }
 }

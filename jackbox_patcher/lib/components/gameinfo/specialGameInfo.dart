@@ -28,12 +28,12 @@ class SpecialGameAllInfoWidget extends StatelessWidget {
    */
   static List<SpecialGameInfo> allInfoList = [
     (
-      name: "Family Friendly",
+      name: TranslationsHelper().appLocalizations!.family_friendly,
       icon: FontAwesomeIcons.child,
       subname: (JackboxGameInfo gI){
         switch (gI.familyFriendly){
           case GameInfoFamilyFriendly.OPTIONAL:
-            return "Optional";
+            return TranslationsHelper().appLocalizations!.optional;
           default:
             return "";
         }
@@ -72,7 +72,7 @@ class SpecialGameAllInfoWidget extends StatelessWidget {
       }
     ), 
     (
-      name: "Subtitles",
+      name: TranslationsHelper().appLocalizations!.subtitles,
       icon: FontAwesomeIcons.closedCaptioning,
       subname: (JackboxGameInfo gI){
         return "";
@@ -89,7 +89,7 @@ class SpecialGameAllInfoWidget extends StatelessWidget {
       }
     ),
     (
-      name: "Stream friendly",
+      name: TranslationsHelper().appLocalizations!.stream_friendly,
       icon: FluentIcons.screen_cast,
       subname: (JackboxGameInfo gI){
         return "";
@@ -111,7 +111,7 @@ class SpecialGameAllInfoWidget extends StatelessWidget {
       }
     ),
     (
-      name: "Moderation",
+      name: TranslationsHelper().appLocalizations!.moderation,
       icon: FontAwesomeIcons.userShield,
       subname: (JackboxGameInfo gI){
         return "";

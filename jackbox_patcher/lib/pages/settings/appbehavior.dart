@@ -1,6 +1,7 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/components/dialogs/confirmationDialog.dart';
 import 'package:jackbox_patcher/components/settings/buttonSetting.dart';
+import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
 
 import '../../components/settings/booleanSetting.dart';
 import '../../components/settings/columnSetting.dart';
@@ -34,50 +35,50 @@ class _AppBehaviorSettingsState extends State<AppBehaviorSettings> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("App startup",
+              Text(TranslationsHelper().appLocalizations!.settings_app_startup_category,
                   style: FluentTheme.of(context).typography.title),
               const SizedBox(height: 10),
               BooleanSetting(
-                  title: "Open launcher on app startup",
-                  description: "Open the list of games when you open the app.",
+                  title: TranslationsHelper().appLocalizations!.settings_app_startup_title,
+                  description: TranslationsHelper().appLocalizations!.settings_app_startup_description,
                   isChecked:
                       UserData().settings.isOpenLauncherOnStartupActivated,
                   setter: UserData().settings.setOpenLauncherOnStartup,
                   parentReload: () => setState(() {})),
               const SizedBox(height: 30),
-              Text("Discord Rich Presence Settings",
+              Text(TranslationsHelper().appLocalizations!.settings_discord_rich_presence_category,
                   style: FluentTheme.of(context).typography.title),
               const SizedBox(height: 10),
               BooleanSetting(
-                  title: "Discord Rich Presence",
+                  title: TranslationsHelper().appLocalizations!.settings_discord_rich_presence_title,
                   description:
-                      "Show what you're playing on Discord. This will only work if you have Discord open.",
+                      TranslationsHelper().appLocalizations!.settings_discord_rich_presence_description,
                   isChecked: UserData().settings.isDiscordRPCActivated,
                   setter: UserData().settings.setDiscordRPC,
                   parentReload: () => setState(() {})),
               const SizedBox(height: 30),
-              Text("Audio", style: FluentTheme.of(context).typography.title),
+              Text(TranslationsHelper().appLocalizations!.settings_audio_category, style: FluentTheme.of(context).typography.title),
               const SizedBox(height: 10),
               BooleanSetting(
-                  title: "Enable SFX",
-                  description: "Enable SFX in the app",
+                  title: TranslationsHelper().appLocalizations!.settings_sfx_title,
+                  description: TranslationsHelper().appLocalizations!.settings_sfx_description,
                   isChecked: UserData().settings.isAudioActivated,
                   setter: UserData().settings.setAudio,
                   parentReload: () => setState(() {})),
               const SizedBox(height: 30),
-              Text("App saves",
+              Text(TranslationsHelper().appLocalizations!.settings_app_saves_category,
                   style: FluentTheme.of(context).typography.title),
               const SizedBox(height: 10),
               ColumnSetting(color: Colors.red, children: [
                 ButtonSetting(
-                    title: "Reset stars",
-                    description: "Reset every stars for each game",
-                    buttonText: "Reset stars",
+                    title: TranslationsHelper().appLocalizations!.settings_app_reset_stars_title,
+                    description: TranslationsHelper().appLocalizations!.settings_app_reset_stars_description,
+                    buttonText: TranslationsHelper().appLocalizations!.settings_app_reset_stars_button_text,
                     onClick: () {
                       showDialog(
                           context: context,
                           builder: (context) => ConfirmationDialog(
-                              toConfirm: "reset every stars for each game",
+                              toConfirm: TranslationsHelper().appLocalizations!.settings_app_reset_stars_action,
                               todoWhenConfirmed: () {
                                 UserData().resetStars();
                                 setState(() {});
@@ -90,14 +91,14 @@ class _AppBehaviorSettingsState extends State<AppBehaviorSettings> {
                         DividerThemeData(horizontalMargin: EdgeInsets.all(12)),
                     size: double.infinity),
                 ButtonSetting(
-                    title: "Reset hidden games",
-                    description: "Reset every hidden games to visible",
-                    buttonText: "Reset hidden games",
+                    title: TranslationsHelper().appLocalizations!.settings_app_reset_hidden_title,
+                    description: TranslationsHelper().appLocalizations!.settings_app_reset_hidden_description,
+                    buttonText: TranslationsHelper().appLocalizations!.settings_app_reset_hidden_button_text,
                     onClick: () {
                       showDialog(
                           context: context,
                           builder: (context) => ConfirmationDialog(
-                              toConfirm: "reset every hidden games to visible",
+                              toConfirm: TranslationsHelper().appLocalizations!.settings_app_reset_hidden_button_text,
                               todoWhenConfirmed: () {
                                 UserData().resetHiddenGames();
                                 setState(() {});

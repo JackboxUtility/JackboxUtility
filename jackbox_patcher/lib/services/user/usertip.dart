@@ -1,3 +1,4 @@
+import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -13,9 +14,9 @@ class UserTips {
   void init() {
     availableTips.add(Tip(
         id: TipAvailable.LAUNCHER_ON_STARTUP,
-        title: "Open launcher on startup",
+        title: TranslationsHelper().appLocalizations!.open_launcher_on_startup_title_tip,
         description:
-            "The app can launch on this screen when you start it automatically. Do you want to activate this feature? (This can always be changed in the settings)",
+            TranslationsHelper().appLocalizations!.open_launcher_on_startup_description_tip,
         answers: [TipAnswer.NO,TipAnswer.YES],
         onTipAnswer: (answer) {
           if (answer == TipAnswer.YES) {

@@ -85,7 +85,7 @@ class _ParametersMenuWidgetState extends State<ParametersMenuWidget> {
                 body: ServerInfoWidget()),
             PaneItem(
               icon: const Icon(FontAwesomeIcons.play),
-              title: Text("App behaviors"),
+              title: Text(TranslationsHelper().appLocalizations!.app_behavior),
               body: AppBehaviorSettings(),
             )
           ],

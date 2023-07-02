@@ -1,6 +1,7 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpackpatch.dart';
+import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
 
 class GameFixAvailableComponent extends StatefulWidget {
   GameFixAvailableComponent({Key? key, required this.fix, this.button}) : super(key: key);
@@ -35,7 +36,7 @@ class _GameFixAvailableComponentState extends State<GameFixAvailableComponent> {
             SizedBox(
               width: 4,
             ),
-            Text("Fix"),
+            Text(TranslationsHelper().appLocalizations!.fix),
           ],
         ),
         padding: EdgeInsets.all(4),

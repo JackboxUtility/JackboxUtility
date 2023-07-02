@@ -4,6 +4,9 @@
     "page_continue":"Continue",
     "confirm":"Confirm",
     "quit":"quit",
+    "yes":"Yes",
+    "no":"No",
+    "ok":"Ok",
 
     "jackbox_utility":"Jackbox Utility",
     "launch_search_game":"Launch / Search games",
@@ -282,5 +285,81 @@
 
     "patreon_subscribers":"Patreon subscribers",
 
-    "audience":"Audience"
+    "audience":"Audience",
+
+    "confirmation":"Confirmation",
+    "confirmation_description":"Are you sure you want to {action}? This action cannot be undone.",
+    "@confirmation_description":{
+        "placeholders":{
+            "action":{
+                "type":"String",
+                "example":"remove all stars"
+            }
+        }
+    },
+    "fix":"Fix",
+    "fixes_available":"Fixes available",
+    "fixes_available_description":"There are several fixes available to download for your games. Do you want to download them now?",
+
+    "family_friendly":"Family friendly",
+    "optional":"Optional",
+    "subtitles":"Subtitles",
+    "stream_friendly":"Stream friendly",
+    "moderation":"Moderation",
+    "randomize_button_text":"Let's try another one",
+    "feeling_lucky":"I am feeling lucky",
+    "sort_by":"Sort by {type}",
+    "@sort_by":{
+        "placeholders":{
+            "type":{
+                "type":"String",
+                "example":"Name"
+            }
+        }
+    },
+    "filter": "Filter",
+    "show_games_hidden": "Show games you've hidden",
+    "hide_games_hidden": "Hide games you've hidden",
+    "max_playtime":"Max playtime",
+    "search_by_ranking":"Search by ranking",
+    "random_game":"Random game",
+    "personal_ranking":"Personal ranking",
+    "ranked_by_stars":"Ranked by stars",
+    "games_ranked_by_stars_from_personal_ranking":"Games ranked by stars from your personal ranking",
+    "unranked":"Unranked",
+
+    "app_behavior":"App behavior",
+
+    "settings_app_startup_category":"App startup",
+    "settings_app_startup_title":"Open launcher on app startup",
+    "settings_app_startup_description":"Open the list of games when you open the app",
+    "settings_discord_rich_presence_category":"Discord Rich Presence Settings",
+    "settings_discord_rich_presence_title":"Discord Rich Presence",
+    "settings_discord_rich_presence_description":"Show what you're playing on Discord. This will only work if you have Discord open",
+    "settings_audio_category":"Audio",
+    "settings_sfx_title":"Enable SFX",
+    "settings_sfx_description":"Enable sound effects in the app",
+    "settings_app_saves_category":"App saves",
+    "settings_app_reset_stars_title":"Reset stars",
+    "settings_app_reset_stars_description":"Reset every stars for each game",
+    "settings_app_reset_stars_button_text":"Reset stars",
+    "settings_app_reset_stars_action":"reset every stars for each game",
+    "settings_app_reset_hidden_title":"Reset hidden games",
+    "settings_app_reset_hidden_description":"Reset every hidden games to visible",
+    "settings_app_reset_hidden_button_text":"Reset hidden games",
+    "settings_app_reset_hidden_action":"reset every hidden games to visible",
+
+    "rich_presence_application_start_details":"Just started the application",
+    "rich_presence_application_start_state":"In the menu",
+    "rich_presence_game_menu_details":"Choosing a game",
+    "rich_presence_game_menu_state":"In the game list",
+    "rich_presence_game_information_details":"Reading the information of a game",
+    "rich_presence_game_information_state":"Choosing a game",
+    "rich_presence_patcher_details":"Patching a game",
+    "rich_presence_patcher_state":"In the patch list",
+    "rich_presence_settings_details":"Tweaking the app",
+    "rich_presence_settings_state":"In the settings",
+
+    "open_launcher_on_startup_title_tip":"Open launcher on startup",
+    "open_launcher_on_startup_description_tip":"The app can launch on this screen when you start it automatically. Do you want to activate this feature? (This can always be changed in the settings)"
 }

@@ -114,7 +114,9 @@ class _RandomGameWidgetState extends State<RandomGameWidget> {
                                     const SizedBox(
                                       width: 10,
                                     ),
-                                    const Text("Let's try another one !"),
+                                    Text(TranslationsHelper()
+                                        .appLocalizations!
+                                        .randomize_button_text),
                                   ]),
                             )),
                       );
@@ -141,7 +143,9 @@ class _RandomGameWidgetState extends State<RandomGameWidget> {
                                     children: [
                                       Icon(FontAwesomeIcons.clover),
                                       SizedBox(width: 10),
-                                      const Text("I am feeling lucky")
+                                      Text(TranslationsHelper()
+                                          .appLocalizations!
+                                          .feeling_lucky)
                                     ])),
                           ));
                     }),

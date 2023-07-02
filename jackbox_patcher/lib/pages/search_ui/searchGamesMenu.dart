@@ -88,7 +88,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
             PaneItemExpander(
                 onTap: () {},
                 icon: Icon(FontAwesomeIcons.filter),
-                title: Text("Filter"),
+                title: Text(TranslationsHelper().appLocalizations!.filter),
                 infoBadge:
                     filters.where((element) => element.activated).length > 0 ||
                             intFilters
@@ -127,8 +127,8 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                     ? FontAwesomeIcons.eyeSlash
                     : FontAwesomeIcons.eye),
                 title: Text(showHidden == false
-                    ? "Show games you've hidden"
-                    : "Hide games you've hidden"),
+                    ? TranslationsHelper().appLocalizations!.show_games_hidden
+                    : TranslationsHelper().appLocalizations!.hide_games_hidden ),
                 body: Container(),
                 onTap: () {
                   setState(() {
@@ -236,7 +236,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
         defaultValue: intFilters
             .firstWhere((element) => element.type == "maxPlaytime")
             .selected,
-        name: "Max playtime",
+        name: TranslationsHelper().appLocalizations!.max_playtime ,
         onChanged: (int value) {
           int index =
               intFilters.indexWhere((element) => element.type == "maxPlaytime");
@@ -441,7 +441,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
       items.add(PaneItemExpander(
         icon: const Icon(FontAwesomeIcons.solidStar),
         body: Container(),
-        title: Text("Search by ranking"),
+        title: Text( TranslationsHelper().appLocalizations!.search_by_ranking),
         items: starsItem,
         onTap: () {
           setState(() {
@@ -453,7 +453,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
 
       items.add(PaneItem(
           icon: Icon(FontAwesomeIcons.dice),
-          title: Text("Random game"),
+          title: Text(TranslationsHelper().appLocalizations!.random_game),
           body: RandomGameWidget(
             filter: (UserJackboxPack pack, UserJackboxGame game) =>
                 (showAllPacks || pack.owned) &&
@@ -505,7 +505,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
 
     starItems.add(PaneItem(
         icon: Container(),
-        title: Text("Personal ranking"),
+        title: Text(TranslationsHelper().appLocalizations!.personal_ranking),
         body: SearchGameWidget(
           filter: (UserJackboxPack pack, UserJackboxGame game) =>
               game.game.name
@@ -516,8 +516,8 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
               _filterGameBasedOnActiveFilters(pack, game),
           comeFromGame: false,
           linkedPack: null,
-          name: "Ranked by stars",
-          description: "Games ranked by stars from your personal ranking",
+          name: TranslationsHelper().appLocalizations!.ranked_by_stars,
+          description: TranslationsHelper().appLocalizations!.games_ranked_by_stars_from_personal_ranking,
           showAllPacks: showAllPacks,
           icon: null,
           parentReload: () => setState(() {}),
@@ -535,7 +535,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                     )
                   : Row(
                       children: [
-                        Text("Unranked",
+                        Text(TranslationsHelper().appLocalizations!.unranked,
                             style:
                                 FluentTheme.of(context).typography.bodyLarge),
                       ],

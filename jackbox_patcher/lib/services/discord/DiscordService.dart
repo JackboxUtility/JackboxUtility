@@ -1,4 +1,5 @@
 import 'package:dart_discord_rpc/dart_discord_rpc.dart';
+import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
 
 class DiscordService {
   static final DiscordService _instance = DiscordService._internal();
@@ -31,28 +32,28 @@ class DiscordService {
   }
 
   void launchMenuPresence() {
-    updatePresence("Just started the application", "In the menu",
-        "jackboxutility", "Jackbox Utility", "", "");
+    updatePresence(TranslationsHelper().appLocalizations!.rich_presence_application_start_details, TranslationsHelper().appLocalizations!.rich_presence_application_start_state,
+        "jackboxutility", TranslationsHelper().appLocalizations!.jackbox_utility, "", "");
   }
 
   void launchGameMenuPresence() {
-    updatePresence("Choosing a game", "In the game list", "jackboxutility",
-        "Jackbox Utility", "play", "Choosing a game");
+    updatePresence(TranslationsHelper().appLocalizations!.rich_presence_game_menu_details, TranslationsHelper().appLocalizations!.rich_presence_game_menu_state, "jackboxutility",
+        TranslationsHelper().appLocalizations!.jackbox_utility, "play", TranslationsHelper().appLocalizations!.rich_presence_game_menu_details);
   }
 
   void launchGameInfoPresence(String gameName) {
-    updatePresence("Reading the information of a game", gameName,
-        "jackboxutility", "Jackbox Utility", "play", "Choosing a game");
+    updatePresence(TranslationsHelper().appLocalizations!.rich_presence_game_information_details, gameName,
+        "jackboxutility", TranslationsHelper().appLocalizations!.jackbox_utility, "play", TranslationsHelper().appLocalizations!.rich_presence_game_information_state);
   }
 
   void launchPatchingPresence() {
-    updatePresence("Patching a game", "In the patch list", "jackboxutility",
-        "Jackbox Utility", "downloading", "Patching a game");
+    updatePresence(TranslationsHelper().appLocalizations!.rich_presence_patcher_details, TranslationsHelper().appLocalizations!.rich_presence_patcher_state, "jackboxutility",
+        TranslationsHelper().appLocalizations!.jackbox_utility, "downloading",TranslationsHelper().appLocalizations!.rich_presence_patcher_details);
   }
 
   void launchSettingsPresence() {
-    updatePresence("Tweaking the app", "In the settings", "jackboxutility",
-        "Jackbox Utility", "settings", "Tweaking the app");
+    updatePresence(TranslationsHelper().appLocalizations!.rich_presence_settings_details, TranslationsHelper().appLocalizations!.rich_presence_settings_state, "jackboxutility",
+        TranslationsHelper().appLocalizations!.jackbox_utility, "settings", TranslationsHelper().appLocalizations!.rich_presence_settings_details);
   }
 
   void stopRichPresence() {

@@ -215,8 +215,8 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
                                     items: List.generate(
                                         SortOrder.values.length,
                                         (index) => ComboBoxItem(
-                                              child: Text("Sort by " +
-                                                  SortOrder.values[index].name),
+                                              child: Text(TranslationsHelper().appLocalizations!.sort_by(
+                                                  SortOrder.values[index].name)),
                                               value: SortOrder.values[index],
                                             )),
                                     onChanged: (value) {

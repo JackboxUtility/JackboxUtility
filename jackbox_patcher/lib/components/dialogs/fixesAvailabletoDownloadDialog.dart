@@ -2,6 +2,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/components/fixes/gameFixAvailable.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpackpatch.dart';
+import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
 
 class FixesAvailableToDownloadDialog extends StatefulWidget {
   FixesAvailableToDownloadDialog({Key? key, required this.fixesAvailable}) : super(key: key);
@@ -16,12 +17,12 @@ class _FixesAvailableToDownloadDialogState extends State<FixesAvailableToDownloa
   @override
   Widget build(BuildContext context) {
     return ContentDialog(
-      title: Text("Fixes available"),
+      title: Text(TranslationsHelper().appLocalizations!.fixes_available),
       content: SizedBox(
         height:200,
         child: ListView(
           children: [
-            Text("There are several fixes available to download for your games. Do you want to download them now?"),
+            Text(TranslationsHelper().appLocalizations!.fixes_available_description),
             SizedBox(height: 10),
             for (var fix in widget.fixesAvailable)
               GameFixAvailableComponent(fix: fix.fix)
@@ -30,13 +31,13 @@ class _FixesAvailableToDownloadDialogState extends State<FixesAvailableToDownloa
       ),
       actions: [
         Button(
-          child: Text("Yes"),
+          child: Text(TranslationsHelper().appLocalizations!.yes),
           onPressed: () {
             Navigator.pop(context, true);
           },
         ),
         Button(
-          child: Text("No"),
+          child: Text(TranslationsHelper().appLocalizations!.no),
           onPressed: () {
             Navigator.pop(context, false);
           },

@@ -18,9 +18,9 @@ class _ConfirmationDialogState extends State<ConfirmationDialog> {
   @override
   Widget build(BuildContext context) {
     return ContentDialog(
-      title: Text("Confirmation"),
+      title: Text(TranslationsHelper().appLocalizations!.confirmation),
       content: Text(
-          "Are you sure you want to ${widget.toConfirm}? This action cannot be undone."),
+          TranslationsHelper().appLocalizations!.confirmation_description(widget.toConfirm)),
       actions: [
         HyperlinkButton(
           onPressed: () => Navigator.pop(context),
