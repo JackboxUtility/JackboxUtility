@@ -309,11 +309,20 @@ class _PackInCategoryCardState extends State<PackInCategoryCard> {
                 if (widget.data.packPatchs.isNotEmpty)
                   Container(
                       margin: const EdgeInsets.only(top: 10, right: 5),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text(widget.data.packPatchs[0].patch.latestVersion)
-                          ])),
+                      child: Column(
+                        children: [
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Text(widget.data.packPatchs[0].patch.latestVersion)
+                              ]),
+                           widget.data.packPatchs[0].getInstalledStatus() == UserInstalledPatchStatus.INSTALLED_OUTDATED && widget.data.packPatchs[0].installedVersion != null?Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Text(widget.data.packPatchs[0].installedVersion!, style: TextStyle(color: Colors.orange),)
+                              ]):SizedBox.shrink(),
+                        ],
+                      )),
                 Container(
                     margin: const EdgeInsets.only(top: 15, left: 10),
                     child: Tooltip(

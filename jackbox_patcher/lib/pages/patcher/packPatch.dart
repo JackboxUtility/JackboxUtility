@@ -46,21 +46,28 @@ class _PackPatchState extends State<PackPatch> {
   Widget build(BuildContext context) {
     _getPatchStatus();
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      FilledButton(
-          onPressed: !installButtonDisabled
-              ? () async {
-                  await showDialog(
-                      dismissWithEsc: false,
-                      context: context,
-                      builder: (context) {
-                        return DownloadPatchDialogComponent(
-                            localPaths: [widget.pack.path!],
-                            patchs: [widget.patch]);
-                      });
-                  setState(() {});
-                }
-              : null,
-          child: Text(buttonText)),
+      Row(
+        children: [
+          FilledButton(
+              onPressed: !installButtonDisabled
+                  ? () async {
+                      await showDialog(
+                          dismissWithEsc: false,
+                          context: context,
+                          builder: (context) {
+                            return DownloadPatchDialogComponent(
+                                localPaths: [widget.pack.path!],
+                                patchs: [widget.patch]);
+                          });
+                      setState(() {});
+                    }
+                  : null,
+              child: Text(buttonText)),
+              SizedBox(width: 10),
+          widget.patch.getInstalledStatus() == UserInstalledPatchStatus.INSTALLED || widget.patch.getInstalledStatus() == UserInstalledPatchStatus.INSTALLED_OUTDATED?
+            Text("Installed version : ${widget.patch.installedVersion}"):SizedBox.shrink(),
+        ],
+      ),
       const SizedBox(height: 20),
       Container(
           child: Stack(
