@@ -44,7 +44,7 @@ dependencies:
   lottie: 2.2.0
   package_info_plus: 3.0.3
   windows_taskbar: ^1.1.1
-  window_manager : 0.3.2
+  window_manager : 0.3.5
   win32_registry: ^1.0.2
   font_awesome_flutter: 10.4.0
   flutter_blurhash: 0.7.0
