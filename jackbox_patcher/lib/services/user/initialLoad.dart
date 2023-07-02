@@ -149,13 +149,13 @@ class InitialLoad {
     List<({UserJackboxPackPatch fix, UserJackboxPack pack})> fixesNotInstalled =
         [];
     for (UserJackboxPack pack in UserData().packs) {
-      pack.fixes.forEach((fix) {
+      for (var fix in pack.fixes) {
         if (fix.getInstalledStatus() ==
                 UserInstalledPatchStatus.NOT_INSTALLED &&
-            UserData().getFixPromptDiscard(fix) == false && pack.getPathStatus() == "FOUND" && pack.owned) {
+            UserData().getFixPromptDiscard(fix) == false && await pack.getPathStatus() == "FOUND" && pack.owned) {
           fixesNotInstalled.add((fix: fix, pack: pack));
         }
-      });
+      }
     }
     if (fixesNotInstalled.length >= 1) {
       bool dataReceived = await showDialog(
