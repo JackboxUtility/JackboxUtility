@@ -90,7 +90,7 @@ class _AppInfoWidgetState extends State<AppInfoWidget> {
                   SizedBox(
                     width: 10,
                   ),
-                  Text("Donate", style: TextStyle(color: Colors.red.lighter))
+                  Text(TranslationsHelper().appLocalizations!.donate, style: TextStyle(color: Colors.red.lighter))
                 ]),
                 onPressed: () async {
                   await launchUrl(

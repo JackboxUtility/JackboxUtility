@@ -360,5 +360,18 @@
     "rich_presence_settings_state":"In the settings",
 
     "open_launcher_on_startup_title_tip":"Open launcher on startup",
-    "open_launcher_on_startup_description_tip":"The app can launch on this screen when you start it automatically. Do you want to activate this feature? (This can always be changed in the settings)"
+    "open_launcher_on_startup_description_tip":"The app can launch on this screen when you start it automatically. Do you want to activate this feature? (This can always be changed in the settings)",
+
+    "minutes":"minutes",
+
+    "translation":"Translation",
+
+    "using_beta_version_text":"You are using the beta version of the app. If you encounter any issues, please report them on the Discord server or Github repository.",
+
+    "pack":"Pack",
+    "stars":"Stars",
+    "name":"Name",
+    "players_number":"Players number",
+    "donate":"Donate",
+    "installed_version":"Installed version"
 }

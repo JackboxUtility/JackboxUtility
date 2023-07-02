@@ -1,6 +1,7 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
+import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
 
 import '../jackbox/gameinfo/familyfriendly.dart';
 import '../jackbox/gameinfo/moderation.dart';
@@ -182,17 +183,17 @@ extension FilterTypeExtension on FilterType {
   String get name {
     switch (this) {
       case FilterType.FAMILY_FRIENDLY:
-        return 'Family Friendly';
+        return TranslationsHelper().appLocalizations!.family_friendly;
       case FilterType.AUDIENCE:
-        return 'Audience';
+        return TranslationsHelper().appLocalizations!.audience;
       case FilterType.STREAM_FRIENDLY:
-        return 'Stream Friendly';
+        return  TranslationsHelper().appLocalizations!.stream_friendly;
       case FilterType.MODERATION:
-        return 'Moderation';
+        return TranslationsHelper().appLocalizations!.moderation;
       case FilterType.SUBTITLES:
-        return 'Subtitles';
+        return TranslationsHelper().appLocalizations!.subtitles;
       case FilterType.TRANSLATION:
-        return 'Translation';
+        return TranslationsHelper().appLocalizations!.translation;
       default:
         throw Exception('Unknown FilterType');
     }

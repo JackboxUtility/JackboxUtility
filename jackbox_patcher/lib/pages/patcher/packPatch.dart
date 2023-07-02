@@ -65,7 +65,7 @@ class _PackPatchState extends State<PackPatch> {
               child: Text(buttonText)),
               SizedBox(width: 10),
           widget.patch.getInstalledStatus() == UserInstalledPatchStatus.INSTALLED || widget.patch.getInstalledStatus() == UserInstalledPatchStatus.INSTALLED_OUTDATED?
-            Text("Installed version : ${widget.patch.installedVersion}"):SizedBox.shrink(),
+            Text(TranslationsHelper().appLocalizations!.installed_version +" : ${widget.patch.installedVersion}"):SizedBox.shrink(),
         ],
       ),
       const SizedBox(height: 20),

@@ -205,7 +205,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
         defaultValue: intFilters
             .firstWhere((element) => element.type == "minPlayers")
             .selected,
-        name: "Number of players",
+        name: TranslationsHelper().appLocalizations!.players_number,
         onChanged: (int value) {
           int index =
               intFilters.indexWhere((element) => element.type == "minPlayers");

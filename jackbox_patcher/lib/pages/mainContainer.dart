@@ -76,7 +76,7 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
               child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "You are using the beta version of the app. If you encounter any issues, please report them on the Discord server or Github repository.",
+                    TranslationsHelper().appLocalizations!.using_beta_version_text,
                     style: TextStyle(color: Colors.white.withOpacity(0.7)),
                     textAlign: TextAlign.center,
                   )))

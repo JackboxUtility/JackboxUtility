@@ -604,7 +604,7 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                                                       .withOpacity(opacity),
                                                 ),
                                                 const SizedBox(width: 10),
-                                                Text(gameInfo.length,
+                                                Text(gameInfo.playtime.min.toString()+" - "+gameInfo.playtime.max.toString()+" "+TranslationsHelper().appLocalizations!.minutes,
                                                     style: TextStyle(
                                                         overflow: TextOverflow
                                                             .ellipsis,
