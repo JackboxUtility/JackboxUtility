@@ -16,7 +16,7 @@ class SFXService {
   // Build internal
   SFXService._internal();
 
-  void playSFX(SFX sfx) async {
+  Future<void> playSFX(SFX sfx) async {
     await player.stop();
     if (UserData().settings.isAudioActivated) {
       await player.play(AssetSource(

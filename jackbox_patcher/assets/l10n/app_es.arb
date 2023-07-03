@@ -311,7 +311,7 @@
     "filter_playable": "Jugable",
     "filter_full_moderation": "Moderación completa",
     "filter_censoring": "Censura",
-    "filter_moderation_censoring": "EN:Moderación y censura",
+    "filter_moderation_censoring": "Moderación y censura",
     "filter_dubbed": "Doblado",
     "filter_translated": "Traducido"
 }

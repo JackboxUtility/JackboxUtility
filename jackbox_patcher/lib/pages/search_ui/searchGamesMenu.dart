@@ -95,14 +95,10 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                 PaneItemExpander(
                     onTap: () {
                       if (filterPanedExpanded) {
-                        setState(() {
                           filterPanedExpanded = false;
-                        });
                         SFXService().playSFX(SFX.FILTER_DOWN);
                       } else {
-                        setState(() {
                           filterPanedExpanded = true;
-                        });
                         SFXService().playSFX(SFX.FILTER_UP);
                       }
                     },
