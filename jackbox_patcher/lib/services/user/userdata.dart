@@ -200,8 +200,12 @@ class UserData {
       await preferences.remove("${pack.pack.id}_path");
     }
     await preferences.setBool("${pack.pack.id}_owned", pack.owned);
+    if (pack.origin != null) {
     await preferences.setString(
         "${pack.pack.id}_origin", pack.origin!.toName());
+    } else {
+      await preferences.remove("${pack.pack.id}_origin");
+    }
     for (var game in pack.games) {
       await saveGame(game);
     }

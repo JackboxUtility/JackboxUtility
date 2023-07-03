@@ -322,6 +322,7 @@ class _PackInParametersWidgetState extends State<PackInParametersWidget> {
         IconButton(
           icon: const Icon(FluentIcons.delete),
           onPressed: () async {
+            widget.pack.origin = null;
             await widget.pack.setOwned(false);
             widget.reloadallPacks();
             setState(() {});
