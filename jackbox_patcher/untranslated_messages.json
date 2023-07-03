@@ -1,1 +1,21 @@
-{}
+{
+  "de": [
+    "settings_discord_rich_presence_buttons_title",
+    "settings_discord_rich_presence_buttons_description"
+  ],
+
+  "es": [
+    "settings_discord_rich_presence_buttons_title",
+    "settings_discord_rich_presence_buttons_description"
+  ],
+
+  "fr": [
+    "settings_discord_rich_presence_buttons_title",
+    "settings_discord_rich_presence_buttons_description"
+  ],
+
+  "uk": [
+    "settings_discord_rich_presence_buttons_title",
+    "settings_discord_rich_presence_buttons_description"
+  ]
+}

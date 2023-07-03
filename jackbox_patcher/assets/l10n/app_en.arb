@@ -335,6 +335,8 @@
     "settings_discord_rich_presence_category":"Discord Rich Presence Settings",
     "settings_discord_rich_presence_title":"Discord Rich Presence",
     "settings_discord_rich_presence_description":"Show what you're playing on Discord. This will only work if you have Discord open",
+    "settings_discord_rich_presence_buttons_title": "Show support buttons",
+    "settings_discord_rich_presence_buttons_description": "Show link buttons to the GitHub and the discord of the app on your Discord Rich Presence.",
     "settings_audio_category":"Audio",
     "settings_sfx_title":"Enable SFX",
     "settings_sfx_description":"Enable sound effects in the app",

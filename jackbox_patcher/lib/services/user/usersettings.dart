@@ -15,6 +15,12 @@ class UserSettings {
     activation ? DiscordService().init() : DiscordService().stopRichPresence();
   }
 
+  bool get isDiscordRPCButtonsActivated => preferences.getBool("discord_rpc_buttons") ?? false;
+
+  Future<void> setDiscordRPCButtons(bool activation) async {
+    await preferences.setBool("discord_rpc_buttons", activation);
+  }
+
   bool get isOpenLauncherOnStartupActivated =>
       preferences.getBool("open_launcher_on_startup") ?? false;
     

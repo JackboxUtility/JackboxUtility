@@ -35,50 +35,86 @@ class _AppBehaviorSettingsState extends State<AppBehaviorSettings> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(TranslationsHelper().appLocalizations!.settings_app_startup_category,
-                  style: FluentTheme.of(context).typography.title),
-              const SizedBox(height: 10),
               BooleanSetting(
-                  title: TranslationsHelper().appLocalizations!.settings_app_startup_title,
-                  description: TranslationsHelper().appLocalizations!.settings_app_startup_description,
+                  title: TranslationsHelper()
+                      .appLocalizations!
+                      .settings_app_startup_title,
+                  description: TranslationsHelper()
+                      .appLocalizations!
+                      .settings_app_startup_description,
                   isChecked:
                       UserData().settings.isOpenLauncherOnStartupActivated,
                   setter: UserData().settings.setOpenLauncherOnStartup,
                   parentReload: () => setState(() {})),
-              const SizedBox(height: 30),
-              Text(TranslationsHelper().appLocalizations!.settings_discord_rich_presence_category,
-                  style: FluentTheme.of(context).typography.title),
               const SizedBox(height: 10),
               BooleanSetting(
-                  title: TranslationsHelper().appLocalizations!.settings_discord_rich_presence_title,
-                  description:
-                      TranslationsHelper().appLocalizations!.settings_discord_rich_presence_description,
-                  isChecked: UserData().settings.isDiscordRPCActivated,
-                  setter: UserData().settings.setDiscordRPC,
-                  parentReload: () => setState(() {})),
-              const SizedBox(height: 30),
-              Text(TranslationsHelper().appLocalizations!.settings_audio_category, style: FluentTheme.of(context).typography.title),
-              const SizedBox(height: 10),
-              BooleanSetting(
-                  title: TranslationsHelper().appLocalizations!.settings_sfx_title,
-                  description: TranslationsHelper().appLocalizations!.settings_sfx_description,
+                  title:
+                      TranslationsHelper().appLocalizations!.settings_sfx_title,
+                  description: TranslationsHelper()
+                      .appLocalizations!
+                      .settings_sfx_description,
                   isChecked: UserData().settings.isAudioActivated,
                   setter: UserData().settings.setAudio,
                   parentReload: () => setState(() {})),
+              // const SizedBox(height: 30),
+              // Text(
+              //     TranslationsHelper()
+              //         .appLocalizations!
+              //         .settings_discord_rich_presence_category,
+              //     style: FluentTheme.of(context).typography.title),
+              const SizedBox(height: 10),
+              BooleanSetting(
+                  title: TranslationsHelper()
+                      .appLocalizations!
+                      .settings_discord_rich_presence_title,
+                  description: TranslationsHelper()
+                      .appLocalizations!
+                      .settings_discord_rich_presence_description,
+                  isChecked: UserData().settings.isDiscordRPCActivated,
+                  setter: UserData().settings.setDiscordRPC,
+                  parentReload: () => setState(() {})),
+              // const SizedBox(height: 10),
+              // BooleanSetting(
+              //     title: TranslationsHelper()
+              //         .appLocalizations!
+              //         .settings_discord_rich_presence_buttons_title,
+              //     description: TranslationsHelper()
+              //         .appLocalizations!
+              //         .settings_discord_rich_presence_buttons_description,
+              //     isChecked: UserData().settings.isDiscordRPCActivated &&
+              //         UserData().settings.isDiscordRPCButtonsActivated,
+              //     setter: (bool rpcBtn) async{
+              //       await UserData().settings.setDiscordRPCButtons(rpcBtn);
+              //       if (!rpcBtn){
+              //         await UserData().settings.setDiscordRPC(false);
+              //       }
+              //     },
+              //     parentReload: () => setState(() {})),
               const SizedBox(height: 30),
-              Text(TranslationsHelper().appLocalizations!.settings_app_saves_category,
+              Text(
+                  TranslationsHelper()
+                      .appLocalizations!
+                      .settings_app_saves_category,
                   style: FluentTheme.of(context).typography.title),
               const SizedBox(height: 10),
               ColumnSetting(color: Colors.red, children: [
                 ButtonSetting(
-                    title: TranslationsHelper().appLocalizations!.settings_app_reset_stars_title,
-                    description: TranslationsHelper().appLocalizations!.settings_app_reset_stars_description,
-                    buttonText: TranslationsHelper().appLocalizations!.settings_app_reset_stars_button_text,
+                    title: TranslationsHelper()
+                        .appLocalizations!
+                        .settings_app_reset_stars_title,
+                    description: TranslationsHelper()
+                        .appLocalizations!
+                        .settings_app_reset_stars_description,
+                    buttonText: TranslationsHelper()
+                        .appLocalizations!
+                        .settings_app_reset_stars_button_text,
                     onClick: () {
                       showDialog(
                           context: context,
                           builder: (context) => ConfirmationDialog(
-                              toConfirm: TranslationsHelper().appLocalizations!.settings_app_reset_stars_action,
+                              toConfirm: TranslationsHelper()
+                                  .appLocalizations!
+                                  .settings_app_reset_stars_action,
                               todoWhenConfirmed: () {
                                 UserData().resetStars();
                                 setState(() {});
@@ -91,14 +127,22 @@ class _AppBehaviorSettingsState extends State<AppBehaviorSettings> {
                         DividerThemeData(horizontalMargin: EdgeInsets.all(12)),
                     size: double.infinity),
                 ButtonSetting(
-                    title: TranslationsHelper().appLocalizations!.settings_app_reset_hidden_title,
-                    description: TranslationsHelper().appLocalizations!.settings_app_reset_hidden_description,
-                    buttonText: TranslationsHelper().appLocalizations!.settings_app_reset_hidden_button_text,
+                    title: TranslationsHelper()
+                        .appLocalizations!
+                        .settings_app_reset_hidden_title,
+                    description: TranslationsHelper()
+                        .appLocalizations!
+                        .settings_app_reset_hidden_description,
+                    buttonText: TranslationsHelper()
+                        .appLocalizations!
+                        .settings_app_reset_hidden_button_text,
                     onClick: () {
                       showDialog(
                           context: context,
                           builder: (context) => ConfirmationDialog(
-                              toConfirm: TranslationsHelper().appLocalizations!.settings_app_reset_hidden_button_text,
+                              toConfirm: TranslationsHelper()
+                                  .appLocalizations!
+                                  .settings_app_reset_hidden_button_text,
                               todoWhenConfirmed: () {
                                 UserData().resetHiddenGames();
                                 setState(() {});
