@@ -148,7 +148,7 @@ class _AppBehaviorSettingsState extends State<AppBehaviorSettings> {
                           builder: (context) => ConfirmationDialog(
                               toConfirm: TranslationsHelper()
                                   .appLocalizations!
-                                  .settings_app_reset_hidden_button_text,
+                                  .settings_app_reset_hidden_action,
                               todoWhenConfirmed: () {
                                 UserData().resetHiddenGames();
                                 setState(() {});
