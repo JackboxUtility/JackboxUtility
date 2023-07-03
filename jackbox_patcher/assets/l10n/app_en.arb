@@ -9,17 +9,17 @@
     "ok":"Ok",
 
     "jackbox_utility":"Jackbox Utility",
-    "launch_search_game":"Launch / Search games",
-    "patch_a_game":"Patch a game",
+    "launch_search_game":"Launch / Search Games",
+    "patch_a_game":"Patch Games",
     "settings":"Settings",
     "notifications":"Notifications",
 
-    "installing_a_patch":"Installing a patch",
+    "installing_a_patch":"Installing a Patch",
     "installing_a_patch_description":"You will install the patch. This action is irreversible.",
-    "installing_a_patch_end":"Installation completed",
+    "installing_a_patch_end":"Installation Complete",
     "can_close_popup":"You can close this pop-up",
 
-    "patch_unavailable":"Patch unavailable",
+    "patch_unavailable":"Patch Unavailable",
 
     "patch_installed": "{count, plural, one {Patch installed} other {Patches installed}}",
     "@patch_installed":{
@@ -55,7 +55,7 @@
     "delete_version_description":"If you have reset your game, you can delete the installed version of this game. This will allow you to reinstall the patches.",
     "description":"Description",
     "patch_modification":"Patch modification",
-    "patch_modification_description":"This patch changes the game in the following way :",
+    "patch_modification_description":"This patch changes the game in the following way:",
     "patch_modification_content_text":"Modification of the game's text content",
     "patch_modification_content_internal":"Modification of the internal files of the game (images, texts...)",
     "patch_modification_content_subtitles":"Modification of the game's subtitles",
@@ -72,26 +72,26 @@
     "version":"Version",
     "authors":"Author(s)",
     "small_information":"Info",
-    "more_informations":"More informations",
-    "launch_game":"Launch game",
-    "launch_game_fast_launcher":"Launch game (fast launcher)",
+    "more_informations":"More Information",
+    "launch_game":"Launch Game",
+    "launch_game_fast_launcher":"Launch Game (Fast Launcher)",
     "launch_game_fast_launcher_description":"Launches the game in fast launcher mode which allows you to skip the intro video of the pack and the choice of the game. Only available for some games.",
-    "launch_pack":"Launch pack",
-    "launch_pack_description":"Launches the pack normally",
-    "launch_informations":"Launch informations",
+    "launch_pack":"Launch Pack",
+    "launch_pack_description":"Launches the Pack normally",
+    "launch_informations":"Launch Information",
     "launching":"Launching...",
-    "launched":"Launched !",
-    "path_not_found":"Path not found",
+    "launched":"Launched!",
+    "path_not_found":"Path Not Found",
     "path_not_found_small_description":"The path to the game was not found.",
     "path_not_found_description":"The path to the game was not found. Please check that the game is installed and that the path is correct.",
     "path_inexistant":"Path inexistant",
     "path_inexistant_small_description":"You did not add the path to the pack.",
     "path_inexistant_description":"You did not add the path to the pack. You can do it in the settings.",
-    "pack_path":"Pack path",
+    "pack_path":"Game path",
 
-    "owned_packs":"Owned packs",
-    "add_pack":"Add a pack",
-    "choose_pack":"Choose a pack",
+    "owned_packs":"Owned Games",
+    "add_pack":"Add a Game",
+    "choose_pack":"Choose a Game",
 
     "game_type_coop":"Coop",
     "game_type_coop_description":"In these games, players must work together to win.",
@@ -100,7 +100,7 @@
     "game_type_team":"Team",
     "game_type_team_description":"In these games, players are divided into teams and must work together to win.",
 
-    "game_translation_translated":"Officially translated in {language}",
+    "game_translation_translated":"Officially Translated in {language}",
     "@game_translation_translated":{
         "placeholders":{
             "language":{
@@ -109,7 +109,7 @@
             }
         }
     },
-    "game_translation_translated_description":"These games are translated natively into {language}",
+    "game_translation_translated_description":"These games are translated natively into {language}.",
     "@game_translation_translated_description":{
         "placeholders":{
             "language":{
@@ -118,10 +118,10 @@
             }
         }
     },
-    "game_translation_community_translated":"Translated by the community",
-    "game_translation_community_translated_description":"These games are translated by the community",
+    "game_translation_community_translated":"Translated by the Community",
+    "game_translation_community_translated_description":"These games are translated by the community.",
     "game_translation_not_available":"In English",
-    "game_translation_not_available_description":"These games are not translated into {language}",
+    "game_translation_not_available_description":"These games are not translated into {language}.",
     "@game_translation_not_available_description":{
         "placeholders":{
             "language":{
@@ -135,8 +135,8 @@
     "starting":"Starting",
     "extracting":"Extracting",
     "finalizing":"Finalizing",
-    "unknown_error":"Unknown error",
-    "contact_error":"Contact Alexis#1588 on Discord",
+    "unknown_error":"Unknown Error",
+    "contact_error":"Contact Alexisl61 on Discord",
 
     "game_patch_unavailable":"Patch unavailable",
     "game_patch_available":"A patch is available",
@@ -145,14 +145,14 @@
 
     "players":"players",
 
-    "search_game":"Search a game",
+    "search_game":"Search a Game",
     "search":"Search",
-    "all_games":"All games",
-    "all_games_description":"Find all jackbox games in one place",
-    "search_by_pack":"Search by pack",
-    "search_by_type":"Search by type",
-    "search_by_translation":"Search by translation",
-    "search_by_tags":"Search by tags",
+    "all_games":"All Games",
+    "all_games_description":"Find all Jackbox games in one place.",
+    "search_by_pack":"Search by Pack",
+    "search_by_type":"Search by Type",
+    "search_by_translation":"Search by Translation",
+    "search_by_tags":"Search by Tags",
 
     "select_server_subtitle":"Select one of the available servers",
     "select_server_button":"Select",
@@ -167,14 +167,14 @@
         }
     },
     "connected_to_server_change":"Change",
-    "connection_to_server_failed":"Connection to the server failed",
-    "connection_to_main_server_failed":"Error while retrieving available servers",
+    "connection_to_server_failed":"Connection to the Server Failed",
+    "connection_to_main_server_failed":"Error while retrieving available servers.",
 
-    "quit_while_downloading_title":"Download in progress",
-    "quit_while_downloading_description":"A download is in progress, are you sure you want to quit now ?",
+    "quit_while_downloading_title":"Download in Progress",
+    "quit_while_downloading_description":"A download is in progress. Are you sure you want to quit now?",
 
-    "automatic_game_finder_title":"Automatic game finder",
-    "automatic_game_finder_description":"Jackbox Utility can detect installed game on this computer using Steam and Epic Games.\nDo you want to use this feature?",
+    "automatic_game_finder_title":"Automatic Game Finder",
+    "automatic_game_finder_description":"Jackbox Utility can detect installed games on this computer using Steam and Epic Games.\nDo you want to use this feature?",
     "automatic_game_finder_in_progress":"Retrieving games, please wait",
     "automatic_game_finder_finish": "{count, plural, =0 {No game found} one {1 game found} other {{count} games found}}",
     "@automatic_game_finder_finish":{
@@ -186,8 +186,8 @@
         }
     },
 
-    "automatic_server_finder_found":"Server found",
-    "automatic_server_finder_found_description":"The server {server} has been chosen based on your language",
+    "automatic_server_finder_found":"Server Found",
+    "automatic_server_finder_found_description":"The server {server} has been chosen based on your language.",
     "@automatic_server_finder_found_description":{
         "placeholders":{
             "server":{
@@ -196,20 +196,20 @@
             }
         }
     },
-    "show_all_packs":"Show all packs",
-    "show_owned_packs_only":"Show owned packs only",
+    "show_all_packs":"Show Unowned Games",
+    "show_owned_packs_only":"Show Owned Games Only",
 
     "all_patches":"All patches",
 
     "error_happened":"An error has occurred",
 
-    "jackbox_utility_description":"An open-source app to download patches and launch Jackbox games",
+    "jackbox_utility_description":"An open-source app to download patches and launch Jackbox games.",
 
-    "server_information":"Server information",
-    "selected_server":"Selected server",
-    "change_server":"Change server",
+    "server_information":"Server Information",
+    "selected_server":"Selected Server",
+    "change_server":"Change Server",
 
-    "app_information":"App information",
+    "app_information":"App Information",
 
     "automatic_game_finder_button":"Auto-detect installed games",
 
@@ -235,7 +235,7 @@
             }
         }
     },
-    "in_language_description":"These games are available in {language} (natively or translated by the community)",
+    "in_language_description":"These games are available in {language} (natively or translated by the community.)",
     "@in_language_description":{
         "placeholders":{
             "language":{
@@ -244,8 +244,8 @@
             }
         }
     },
-    "game_community_dubbed":"Community dubbed",
-    "game_community_dubbed_description":"These games are dubbed by the community",
+    "game_community_dubbed":"Community Dubbed",
+    "game_community_dubbed_description":"These games are dubbed by the community.",
 
     "game_dubbed":"Dubbed in {language}",
     "@game_dubbed":{
@@ -256,10 +256,10 @@
             }
         } 
     },
-    "game_dubbed_description":"These games are dubbed by the community or by Jackbox",
+    "game_dubbed_description":"These games are dubbed by the community or by Jackbox.",
 
-    "no_game_in_this_category_title":"No game in this category",
-    "no_game_in_this_category_description":"There is no game in this category. Try adding more in the settings section.",
+    "no_game_in_this_category_title":"No games in this category",
+    "no_game_in_this_category_description":"There are no games in this category. Try adding more in the Settings section.",
 
     "select_game_location":"Select the location of {game}",
     "@select_game_location":{
@@ -277,12 +277,12 @@
     "extracting_error":"Error while extracting",
     "extracting_error_description":"An error occurred while extracting the game. Check if you have enough storage free and try again.",
 
-    "game_reset":"Reset game",
-    "game_reset_description":"This will validate all the files of this game. If you installed any patch, it will be deleted from your game. Are you sure you want to continue ?",
+    "game_reset":"Reset Game",
+    "game_reset_description":"This will validate all the files of this game. If you installed any patch, it will be deleted from your game. Are you sure you want to continue?",
 
     "small_description":"Description",
 
-    "patreon_subscribers":"Patreon subscribers",
+    "patreon_subscribers":"Patreon Subscribers",
 
     "audience":"Audience",
 
@@ -297,16 +297,16 @@
         }
     },
     "fix":"Fix",
-    "fixes_available":"Fixes available",
-    "fixes_available_description":"There are several fixes available to download for your games. Do you want to download them now?",
+    "fixes_available":"YDKJ Vol. 6 Fix",
+    "fixes_available_description":"You Don't Know Jack Vol. 6 The Lost Gold was detected as one of the installed games. This game normally doesn't work on Windows 10/11 and Linux. Would you like to download and install a patch that fixes it? You can always install it in its respective game info tab.",
 
-    "family_friendly":"Family friendly",
+    "family_friendly":"Family-Friendly",
     "optional":"Optional",
     "subtitles":"Subtitles",
-    "stream_friendly":"Stream friendly",
+    "stream_friendly":"Stream-Friendly",
     "moderation":"Moderation",
-    "randomize_button_text":"Let's try another one",
-    "feeling_lucky":"I am feeling lucky",
+    "randomize_button_text":"Let's Try Another One!",
+    "feeling_lucky":"I'm Feeling Lucky",
     "sort_by":"Sort by {type}",
     "@sort_by":{
         "placeholders":{
@@ -319,50 +319,50 @@
     "filter": "Filter",
     "show_games_hidden": "Show games you've hidden",
     "hide_games_hidden": "Hide games you've hidden",
-    "max_playtime":"Max playtime",
-    "search_by_ranking":"Search by ranking",
-    "random_game":"Random game",
-    "personal_ranking":"Personal ranking",
-    "ranked_by_stars":"Ranked by stars",
-    "games_ranked_by_stars_from_personal_ranking":"Games ranked by stars from your personal ranking",
+    "max_playtime":"Max Playtime",
+    "search_by_ranking":"Search by Ranking",
+    "random_game":"Random Game",
+    "personal_ranking":"Personal Ranking",
+    "ranked_by_stars":"Ranked by Stars",
+    "games_ranked_by_stars_from_personal_ranking":"Games ranked by stars from your personal ranking.",
     "unranked":"Unranked",
 
-    "app_behavior":"App behavior",
+    "app_behavior":"App Behavior",
 
-    "settings_app_startup_category":"App startup",
-    "settings_app_startup_title":"Open launcher on app startup",
-    "settings_app_startup_description":"Open the list of games when you open the app",
+    "settings_app_startup_category":"App Startup",
+    "settings_app_startup_title":"Open Launcher on App Startup",
+    "settings_app_startup_description":"Open the list of games when you open the app.",
     "settings_discord_rich_presence_category":"Discord Rich Presence Settings",
     "settings_discord_rich_presence_title":"Discord Rich Presence",
-    "settings_discord_rich_presence_description":"Show what you're playing on Discord. This will only work if you have Discord open",
-    "settings_discord_rich_presence_buttons_title": "Show support buttons",
-    "settings_discord_rich_presence_buttons_description": "Show link buttons to the GitHub and the discord of the app on your Discord Rich Presence.",
+    "settings_discord_rich_presence_description":"Shows what you're playing on Discord. This will only work if you have Discord open.",
+    "settings_discord_rich_presence_buttons_title": "Show Support Buttons",
+    "settings_discord_rich_presence_buttons_description": "Shows link buttons to the GitHub and the Discord of the app on your Discord Rich Presence.",
     "settings_audio_category":"Audio",
     "settings_sfx_title":"Enable SFX",
-    "settings_sfx_description":"Enable sound effects in the app",
-    "settings_app_saves_category":"App saves",
-    "settings_app_reset_stars_title":"Reset stars",
-    "settings_app_reset_stars_description":"Reset every stars for each game",
-    "settings_app_reset_stars_button_text":"Reset stars",
-    "settings_app_reset_stars_action":"reset every stars for each game",
-    "settings_app_reset_hidden_title":"Reset hidden games",
-    "settings_app_reset_hidden_description":"Reset every hidden games to visible",
-    "settings_app_reset_hidden_button_text":"Reset hidden games",
-    "settings_app_reset_hidden_action":"reset every hidden games to visible",
+    "settings_sfx_description":"Enables sound effects in the app.",
+    "settings_app_saves_category":"App Saves",
+    "settings_app_reset_stars_title":"Reset Stars",
+    "settings_app_reset_stars_description":"Resets all the stars for each game.",
+    "settings_app_reset_stars_button_text":"Reset Stars",
+    "settings_app_reset_stars_action":"reset all the stars for each game",
+    "settings_app_reset_hidden_title":"Reset Hidden Games",
+    "settings_app_reset_hidden_description":"Resets all the hidden games to visible.",
+    "settings_app_reset_hidden_button_text":"Reset Hidden Games",
+    "settings_app_reset_hidden_action":"reset all the hidden games to visible",
 
-    "rich_presence_application_start_details":"Just started the application",
-    "rich_presence_application_start_state":"In the menu",
-    "rich_presence_game_menu_details":"Choosing a game",
-    "rich_presence_game_menu_state":"In the game list",
-    "rich_presence_game_information_details":"Reading the information of a game",
-    "rich_presence_game_information_state":"Choosing a game",
-    "rich_presence_patcher_details":"Patching a game",
-    "rich_presence_patcher_state":"In the patch list",
-    "rich_presence_settings_details":"Tweaking the app",
-    "rich_presence_settings_state":"In the settings",
+    "rich_presence_application_start_details":"Just Started the App",
+    "rich_presence_application_start_state":"In the Menu",
+    "rich_presence_game_menu_details":"Choosing a Game",
+    "rich_presence_game_menu_state":"In the Games List",
+    "rich_presence_game_information_details":"Reading the Information of a Game",
+    "rich_presence_game_information_state":"Choosing a Game",
+    "rich_presence_patcher_details":"Patching a Game",
+    "rich_presence_patcher_state":"In the Patch List",
+    "rich_presence_settings_details":"Tweaking the App",
+    "rich_presence_settings_state":"In the Settings",
 
-    "open_launcher_on_startup_title_tip":"Open launcher on startup",
-    "open_launcher_on_startup_description_tip":"The app can launch on this screen when you start it automatically. Do you want to activate this feature? (This can always be changed in the settings)",
+    "open_launcher_on_startup_title_tip":"Open Launcher on Startup",
+    "open_launcher_on_startup_description_tip":"The app can launch on this screen when you start it automatically. Do you want to activate this feature? (This can always be changed in the settings.)",
 
     "minutes":"minutes",
 
@@ -373,15 +373,15 @@
     "pack":"Pack",
     "stars":"Stars",
     "name":"Name",
-    "players_number":"Players number",
+    "players_number":"Player Count",
     "donate":"Donate",
-    "installed_version":"Installed version",
+    "installed_version":"Installed Version",
 
     "filter_available":"Available",
-    "filter_fully_playable":"Fully playable",
-    "filter_midly_playable":"Midly playable",
+    "filter_fully_playable":"Fully Playable",
+    "filter_midly_playable":"Mildly Playable",
     "filter_playable":"Playable",
-    "filter_full_moderation":"Full moderation",
+    "filter_full_moderation":"Full Moderation",
     "filter_censoring":"Censoring",
     "filter_moderation_censoring":"Mod. & Censoring",
     "filter_dubbed":"Dubbed",
