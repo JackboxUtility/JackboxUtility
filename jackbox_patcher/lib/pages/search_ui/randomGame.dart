@@ -1,10 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:jackbox_patcher/model/misc/audio/SFXEnum.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/pages/search_ui/searchGames.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
+import 'package:jackbox_patcher/services/audio/SFXService.dart';
 import 'package:jackbox_patcher/services/launcher/launcher.dart';
 
 import '../../services/games/GamesService.dart';
@@ -183,6 +185,7 @@ class _RandomGameWidgetState extends State<RandomGameWidget> {
         selectedGame = GamesService().chooseRandomGame(widget.filter);
       });
       animationState++;
+      SFXService().playSFX(SFX.HOVER_OVER_BANNER);
       await Future.delayed(const Duration(milliseconds: 100));
     }
     setState(() {

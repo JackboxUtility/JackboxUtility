@@ -1,5 +1,9 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter/gestures.dart';
 import 'package:jackbox_patcher/model/misc/filterEnum.dart';
+
+import '../../model/misc/audio/SFXEnum.dart';
+import '../../services/audio/SFXService.dart';
 
 class EnumFilterPaneItem extends PaneItemHeader {
   EnumFilterPaneItem(
@@ -69,14 +73,20 @@ class _EnumFilterPaneItemTitleState extends State<EnumFilterPaneItemTitle> {
   @override
   Widget build(BuildContext context) {
     return Row(mainAxisSize: MainAxisSize.min, children: [
-      Checkbox(
-          checked: activated,
-          onChanged: (value) {
-            widget.onActivationChanged(value!);
-            setState(() {
-              activated = value;
-            });
-          }),
+      MouseRegion(
+        onEnter: (PointerEnterEvent e){
+          SFXService().playSFX(SFX.HOVER_OVER_STAR_OR_FILTER);
+        },
+        child: Checkbox(
+            checked: activated,
+            onChanged: (value) {
+              widget.onActivationChanged(value!);
+              setState(() {
+                activated = value;
+              });
+              SFXService().playSFX(SFX.CLICK);
+            }),
+      ),
       SizedBox(width: 8),
       Icon(widget.icon, color: activated ? null : const Color.fromARGB(255, 130, 130, 130)),
       SizedBox(width: 10),
@@ -101,6 +111,7 @@ class _EnumFilterPaneItemTitleState extends State<EnumFilterPaneItemTitle> {
             setState(() {
               currentValue = value;
             });
+            SFXService().playSFX(SFX.CLICK);
           }:null,
           value: currentValue):Container()
     ]);

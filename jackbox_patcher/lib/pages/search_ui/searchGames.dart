@@ -164,7 +164,10 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
                                 margin: EdgeInsets.only(top: 44),
                                 child: GestureDetector(
                                     child: const Icon(FluentIcons.chevron_left),
-                                    onTap: () => Navigator.pop(context)),
+                                    onTap: () {
+                                      SFXService().playSFX(SFX.CLOSE_GAME_INFO_TAB);
+                                      Navigator.pop(context);
+                                    }),
                               )
                             : Container(),
                         widget.comeFromGame
@@ -199,6 +202,7 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
                                             ? FontAwesomeIcons.sortDown
                                             : FontAwesomeIcons.sortUp),
                                         onTap: () {
+                                          SFXService().playSFX(SFX.CLICK);
                                           key = UniqueKey();
                                           setState(() =>
                                               sortAscending = !sortAscending);
@@ -215,13 +219,14 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
                                     items: List.generate(
                                         SortOrder.values.length,
                                         (index) => ComboBoxItem(
-                                              child: Text(TranslationsHelper().appLocalizations!.sort_by(
-                                                  SortOrder.values[index].name)),
+                                              child: Text(TranslationsHelper()
+                                                  .appLocalizations!
+                                                  .sort_by(SortOrder
+                                                      .values[index].name)),
                                               value: SortOrder.values[index],
                                             )),
                                     onChanged: (value) {
-                                      SFXService()
-                                          .playSFX(SFX.CLICK_ON_STAR_OR_FILTER);
+                                      SFXService().playSFX(SFX.CLICK);
                                       setState(() => sortOrder = value!);
                                       UserData().gameList.saveSort(value!);
                                     }),
@@ -604,7 +609,16 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                                                       .withOpacity(opacity),
                                                 ),
                                                 const SizedBox(width: 10),
-                                                Text(gameInfo.playtime.min.toString()+" - "+gameInfo.playtime.max.toString()+" "+TranslationsHelper().appLocalizations!.minutes,
+                                                Text(
+                                                    gameInfo.playtime.min
+                                                            .toString() +
+                                                        " - " +
+                                                        gameInfo.playtime.max
+                                                            .toString() +
+                                                        " " +
+                                                        TranslationsHelper()
+                                                            .appLocalizations!
+                                                            .minutes,
                                                     style: TextStyle(
                                                         overflow: TextOverflow
                                                             .ellipsis,

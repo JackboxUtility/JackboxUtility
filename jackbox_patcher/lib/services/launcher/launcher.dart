@@ -20,6 +20,8 @@ class Launcher {
     if (pack.path == null) {
       throw Exception("Pack path is null");
     } else {
+      
+      SFXService().playSFX(SFX.GAME_LAUNCHED);
       // If the loader is not already installed or need update, download it
       if (pack.loader != null) {
         if (pack.loader!.path == null ||
@@ -47,7 +49,6 @@ class Launcher {
         await Process.run("${pack.path!}/${pack.pack.executable}", [],
             workingDirectory: pack.path);
       }
-      SFXService().playSFX(SFX.GAME_LAUNCHED);
     }
   }
 
@@ -60,6 +61,8 @@ class Launcher {
       if (game.loader == null) {
         return await launchPack(pack);
       }
+      
+      SFXService().playSFX(SFX.GAME_LAUNCHED);
       // If the original loader is not already installed or need update, download it
       if (pack.loader != null) {
         if (pack.loader!.path == null ||

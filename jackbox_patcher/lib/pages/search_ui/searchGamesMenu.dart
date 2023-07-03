@@ -5,11 +5,13 @@ import 'package:jackbox_patcher/components/closableRouteWithEsc.dart';
 import 'package:jackbox_patcher/components/filters/intFilterPaneItem.dart';
 import 'package:jackbox_patcher/components/starsRate.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxgame.dart';
+import 'package:jackbox_patcher/model/misc/audio/SFXEnum.dart';
 import 'package:jackbox_patcher/model/misc/filterEnum.dart';
 import 'package:jackbox_patcher/model/misc/tip.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
 import 'package:jackbox_patcher/pages/search_ui/randomGame.dart';
 import 'package:jackbox_patcher/pages/search_ui/searchGames.dart';
+import 'package:jackbox_patcher/services/audio/SFXService.dart';
 
 import '../../components/filters/enumFilterPaneItem.dart';
 import '../../model/usermodel/userjackboxpack.dart';
@@ -36,6 +38,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
   List<Filter> filters = [];
   List<IntFilter> intFilters = [];
   Key gamePaneKey = UniqueKey();
+  bool filterPanedExpanded = false;
 
   @override
   void initState() {
@@ -61,36 +64,54 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
   Widget build(BuildContext context) {
     Typography typography = FluentTheme.of(context).typography;
     return ClosableRouteWithEsc(
+        closeSFX: true,
         child: NavigationView(
-      appBar: NavigationAppBar(
-          automaticallyImplyLeading: false,
-          leading: GestureDetector(
-            child: const Icon(FluentIcons.chevron_left),
-            onTap: () => Navigator.pop(context),
-          ),
-          title: Text(
-            TranslationsHelper().appLocalizations!.search_game,
-            style: typography.title,
-          )),
-      pane: NavigationPane(
-          size: NavigationPaneSize(openWidth: 400),
-          onChanged: (int nSelected) {
-            if (nSelected <= maxSelectableView) {
-              setState(() {
-                _searchController.text = "";
-                _selectedView = nSelected;
-              });
-            }
-          },
-          selected: _selectedView,
-          items: _buildPaneItems(),
-          footerItems: [
-            PaneItemExpander(
-                onTap: () {},
-                icon: Icon(FontAwesomeIcons.filter),
-                title: Text(TranslationsHelper().appLocalizations!.filter),
-                infoBadge:
-                    filters.where((element) => element.activated).length > 0 ||
+          appBar: NavigationAppBar(
+              automaticallyImplyLeading: false,
+              leading: GestureDetector(
+                child: const Icon(FluentIcons.chevron_left),
+                onTap: () {
+                  SFXService().playSFX(SFX.CLOSE_GAME_INFO_TAB);
+                  Navigator.pop(context);
+                },
+              ),
+              title: Text(
+                TranslationsHelper().appLocalizations!.search_game,
+                style: typography.title,
+              )),
+          pane: NavigationPane(
+              size: NavigationPaneSize(openWidth: 400),
+              onChanged: (int nSelected) {
+                if (nSelected <= maxSelectableView) {
+                  setState(() {
+                    _searchController.text = "";
+                    _selectedView = nSelected;
+                  });
+                }
+              },
+              selected: _selectedView,
+              items: _buildPaneItems(),
+              footerItems: [
+                PaneItemExpander(
+                    onTap: () {
+                      if (filterPanedExpanded) {
+                        setState(() {
+                          filterPanedExpanded = false;
+                        });
+                        SFXService().playSFX(SFX.FILTER_DOWN);
+                      } else {
+                        setState(() {
+                          filterPanedExpanded = true;
+                        });
+                        SFXService().playSFX(SFX.FILTER_UP);
+                      }
+                    },
+                    icon: Icon(FontAwesomeIcons.filter),
+                    title: Text(TranslationsHelper().appLocalizations!.filter),
+                    infoBadge: filters
+                                    .where((element) => element.activated)
+                                    .length >
+                                0 ||
                             intFilters
                                     .where((element) => element.activated)
                                     .length >
@@ -119,77 +140,83 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                             },
                           )
                         : Container(),
-                items: _buildGameFilterPaneItems(),
-                body: Container()),
-            if (UserJackboxGame.countHiddenGames(UserData().packs) >= 1)
-              PaneItem(
-                icon: Icon(showHidden
-                    ? FontAwesomeIcons.eyeSlash
-                    : FontAwesomeIcons.eye),
-                title: Text(showHidden == false
-                    ? TranslationsHelper().appLocalizations!.show_games_hidden
-                    : TranslationsHelper().appLocalizations!.hide_games_hidden ),
-                body: Container(),
-                onTap: () {
-                  setState(() {
-                    showHidden = !showHidden;
-                  });
-                },
-              ),
-            if (UserJackboxPack.countUnownedPack(UserData().packs) >= 1)
-              PaneItem(
-                icon: const Icon(FontAwesomeIcons.boxArchive),
-                title: Text(showAllPacks == false
-                    ? TranslationsHelper().appLocalizations!.show_all_packs
-                    : TranslationsHelper()
-                        .appLocalizations!
-                        .show_owned_packs_only),
-                body: Container(),
-                onTap: () {
-                  if (_selectedView != 0) {
-                    if ((showAllPacks == false &&
-                            _selectedView >
-                                UserData()
-                                        .packs
-                                        .where((element) => element.owned)
-                                        .length +
-                                    1) ||
-                        showAllPacks == true &&
-                            _selectedView > UserData().packs.length + 1) {
-                      if (showAllPacks) {
-                        _selectedView -=
-                            UserJackboxPack.countUnownedPack(UserData().packs);
-                      } else {
-                        _selectedView +=
-                            UserJackboxPack.countUnownedPack(UserData().packs);
+                    items: _buildGameFilterPaneItems(),
+                    body: Container()),
+                if (UserJackboxGame.countHiddenGames(UserData().packs) >= 1)
+                  PaneItem(
+                    icon: Icon(showHidden
+                        ? FontAwesomeIcons.eyeSlash
+                        : FontAwesomeIcons.eye),
+                    title: Text(showHidden == false
+                        ? TranslationsHelper()
+                            .appLocalizations!
+                            .show_games_hidden
+                        : TranslationsHelper()
+                            .appLocalizations!
+                            .hide_games_hidden),
+                    body: Container(),
+                    onTap: () {
+                      SFXService().playSFX(SFX.CLICK);
+                      setState(() {
+                        showHidden = !showHidden;
+                      });
+                    },
+                  ),
+                if (UserJackboxPack.countUnownedPack(UserData().packs) >= 1)
+                  PaneItem(
+                    icon: const Icon(FontAwesomeIcons.boxArchive),
+                    title: Text(showAllPacks == false
+                        ? TranslationsHelper().appLocalizations!.show_all_packs
+                        : TranslationsHelper()
+                            .appLocalizations!
+                            .show_owned_packs_only),
+                    body: Container(),
+                    onTap: () {
+                      SFXService().playSFX(SFX.CLICK);
+                      if (_selectedView != 0) {
+                        if ((showAllPacks == false &&
+                                _selectedView >
+                                    UserData()
+                                            .packs
+                                            .where((element) => element.owned)
+                                            .length +
+                                        1) ||
+                            showAllPacks == true &&
+                                _selectedView > UserData().packs.length + 1) {
+                          if (showAllPacks) {
+                            _selectedView -= UserJackboxPack.countUnownedPack(
+                                UserData().packs);
+                          } else {
+                            _selectedView += UserJackboxPack.countUnownedPack(
+                                UserData().packs);
+                          }
+                        } else {
+                          UserJackboxPack actualPack = showAllPacks
+                              ? UserData().packs[_selectedView - 1]
+                              : UserData()
+                                  .packs
+                                  .where((element) => element.owned)
+                                  .toList()[_selectedView - 1];
+                          if (showAllPacks) {
+                            _selectedView = UserData()
+                                    .packs
+                                    .where((element) => element.owned)
+                                    .toList()
+                                    .indexOf(actualPack) +
+                                1;
+                          } else {
+                            _selectedView =
+                                UserData().packs.indexOf(actualPack) + 1;
+                          }
+                        }
                       }
-                    } else {
-                      UserJackboxPack actualPack = showAllPacks
-                          ? UserData().packs[_selectedView - 1]
-                          : UserData()
-                              .packs
-                              .where((element) => element.owned)
-                              .toList()[_selectedView - 1];
-                      if (showAllPacks) {
-                        _selectedView = UserData()
-                                .packs
-                                .where((element) => element.owned)
-                                .toList()
-                                .indexOf(actualPack) +
-                            1;
-                      } else {
-                        _selectedView =
-                            UserData().packs.indexOf(actualPack) + 1;
-                      }
-                    }
-                  }
-                  setState(() {
-                    showAllPacks = !showAllPacks;
-                  });
-                },
-              )
-          ]),
-    ));
+                      setState(() {
+                        showAllPacks = !showAllPacks;
+                      });
+                    },
+                  )
+              ]),
+        ));
   }
 
   List<NavigationPaneItem> _buildGameFilterPaneItems() {
@@ -236,7 +263,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
         defaultValue: intFilters
             .firstWhere((element) => element.type == "maxPlaytime")
             .selected,
-        name: TranslationsHelper().appLocalizations!.max_playtime ,
+        name: TranslationsHelper().appLocalizations!.max_playtime,
         onChanged: (int value) {
           int index =
               intFilters.indexWhere((element) => element.type == "maxPlaytime");
@@ -441,7 +468,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
       items.add(PaneItemExpander(
         icon: const Icon(FontAwesomeIcons.solidStar),
         body: Container(),
-        title: Text( TranslationsHelper().appLocalizations!.search_by_ranking),
+        title: Text(TranslationsHelper().appLocalizations!.search_by_ranking),
         items: starsItem,
         onTap: () {
           setState(() {
@@ -517,7 +544,9 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
           comeFromGame: false,
           linkedPack: null,
           name: TranslationsHelper().appLocalizations!.ranked_by_stars,
-          description: TranslationsHelper().appLocalizations!.games_ranked_by_stars_from_personal_ranking,
+          description: TranslationsHelper()
+              .appLocalizations!
+              .games_ranked_by_stars_from_personal_ranking,
           showAllPacks: showAllPacks,
           icon: null,
           parentReload: () => setState(() {}),
