@@ -301,6 +301,17 @@
     "stars": "зірками",
     "name": "назвою",
     "players_number": "к-тю гравців",
-    "donate":"Підтримати",
-    "installed_version":"Встановлена версія"
+    "donate": "Підтримати",
+    "installed_version": "Встановлена версія",
+    "settings_discord_rich_presence_buttons_title": "EN:Show support buttons",
+    "settings_discord_rich_presence_buttons_description": "EN:Show link buttons to the GitHub and the discord of the app on your Discord Rich Presence.",
+    "filter_available": "EN:Available",
+    "filter_fully_playable": "EN:Fully playable",
+    "filter_midly_playable": "EN:Midly playable",
+    "filter_playable": "EN:Playable",
+    "filter_full_moderation": "EN:Full moderation",
+    "filter_censoring": "EN:Censoring",
+    "filter_moderation_censoring": "EN:Mod. & Censoring",
+    "filter_dubbed": "EN:Dubbed",
+    "filter_translated": "EN:Translated"
 }

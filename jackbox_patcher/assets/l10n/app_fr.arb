@@ -301,6 +301,17 @@
     "stars": "Etoiles",
     "name": "Nom",
     "players_number": "Nombre de joueurs",
-    "donate":"Supporter l'application",
-    "installed_version":"Version installée"
+    "donate": "Supporter l'application",
+    "installed_version": "Version installée",
+    "settings_discord_rich_presence_buttons_title": "EN:Show support buttons",
+    "settings_discord_rich_presence_buttons_description": "EN:Show link buttons to the GitHub and the discord of the app on your Discord Rich Presence.",
+    "filter_available": "Disponible",
+    "filter_fully_playable": "Jouable entièrement",
+    "filter_midly_playable": "Jouable partiellement",
+    "filter_playable": "Jouable",
+    "filter_full_moderation": "Modération complète",
+    "filter_censoring": "Censure",
+    "filter_moderation_censoring": "Mod. et Censure",
+    "filter_dubbed": "Doublé",
+    "filter_translated": "Traduit"
 }

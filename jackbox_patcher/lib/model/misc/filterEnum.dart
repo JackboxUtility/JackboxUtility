@@ -27,27 +27,27 @@ extension FilterValueExtension on FilterValue {
   String get name {
     switch (this) {
       case FilterValue.FAMILY_FRIENDLY_AVAILABLE:
-        return 'Available';
+        return TranslationsHelper().appLocalizations!.filter_available;
       case FilterValue.AUDIENCE_AVAILABLE:
-        return 'Available';
+        return TranslationsHelper().appLocalizations!.filter_available;
       case FilterValue.STREAM_FRIENDLY_PLAYABLE:
-        return 'Fully Playable';
+        return TranslationsHelper().appLocalizations!.filter_fully_playable;
       case FilterValue.STREAM_FRIENDLY_MIDLY_PLAYABLE:
-        return 'Midly Playable';
+        return TranslationsHelper().appLocalizations!.filter_midly_playable;
       case FilterValue.STREAM_FRIENDLY_BOTH:
-        return 'Playable';
+        return TranslationsHelper().appLocalizations!.filter_playable;
       case FilterValue.MODERATION_FULL_MODERATION:
-        return 'Full Moderation';
+        return TranslationsHelper().appLocalizations!.filter_full_moderation;
       case FilterValue.MODERATION_CENSORING:
-        return 'Censoring';
+        return TranslationsHelper().appLocalizations!.filter_censoring;
       case FilterValue.MODERATION_BOTH:
-        return 'Mod. & Censoring';
+        return  TranslationsHelper().appLocalizations!.filter_moderation_censoring;
       case FilterValue.SUBTITLES_AVAILABLE:
-        return 'Available';
+        return TranslationsHelper().appLocalizations!.filter_available;
       case FilterValue.TRANSLATION_DUBBED:
-        return 'Dubbed';
+        return TranslationsHelper().appLocalizations!.filter_dubbed;
       case FilterValue.TRANSLATION_TRANSLATED:
-        return 'Translated';
+        return TranslationsHelper().appLocalizations!.filter_translated;
       default:
         throw Exception('Unknown FilterValue');
     }

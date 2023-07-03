@@ -35,6 +35,12 @@ class _AppBehaviorSettingsState extends State<AppBehaviorSettings> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Text(
+                  TranslationsHelper()
+                      .appLocalizations!
+                      .app_behavior,
+                  style: FluentTheme.of(context).typography.title),
+              const SizedBox(height: 10),
               BooleanSetting(
                   title: TranslationsHelper()
                       .appLocalizations!

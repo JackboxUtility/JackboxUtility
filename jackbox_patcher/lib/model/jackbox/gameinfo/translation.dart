@@ -58,7 +58,8 @@ enum GameInfoTranslation {
       case GameInfoTranslation.COMMUNITY_TRANSLATED:
         return TranslationsHelper()
             .appLocalizations!
-            .game_translation_community_translated_description;
+            .game_translation_community_translated_description(
+                LanguageService().getLanguageName(languageKey));
       case GameInfoTranslation.COMMUNITY_DUBBED:
         return TranslationsHelper()
             .appLocalizations!

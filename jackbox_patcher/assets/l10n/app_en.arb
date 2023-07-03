@@ -375,5 +375,15 @@
     "name":"Name",
     "players_number":"Players number",
     "donate":"Donate",
-    "installed_version":"Installed version"
+    "installed_version":"Installed version",
+
+    "filter_available":"Available",
+    "filter_fully_playable":"Fully playable",
+    "filter_midly_playable":"Midly playable",
+    "filter_playable":"Playable",
+    "filter_full_moderation":"Full moderation",
+    "filter_censoring":"Censoring",
+    "filter_moderation_censoring":"Mod. & Censoring",
+    "filter_dubbed":"Dubbed",
+    "filter_translated":"Translated"
 }
