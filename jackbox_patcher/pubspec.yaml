@@ -55,6 +55,12 @@ dependencies:
   dart_discord_rpc:
     git:
       url: https://github.com/AlexisL61/dart_discord_rpc.git
+  media_kit: ^1.0.2                         
+  media_kit_video: ^1.0.2 
+  media_kit_libs_macos_video: ^1.0.5             
+  media_kit_libs_windows_video: ^1.0.2          
+  media_kit_libs_linux: ^1.0.2                      
+  
 
 
   # The following adds the Cupertino Icons font to your application.

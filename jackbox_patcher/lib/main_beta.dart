@@ -2,6 +2,7 @@ import 'package:dart_discord_rpc/dart_discord_rpc_native.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_flavor/flutter_flavor.dart';
 import 'package:jackbox_patcher/main.dart';
+import 'package:media_kit/media_kit.dart';
 import 'package:window_manager/window_manager.dart';
 
 void main() async {
@@ -12,6 +13,7 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
+  MediaKit.ensureInitialized();
   DiscordRPC.initialize();
   runApp(FlavorBanner(color: Colors.orange, child: const MyApp()));
 }
