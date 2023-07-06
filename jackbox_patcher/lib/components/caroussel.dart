@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/components/blurhashimage.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
@@ -21,7 +23,12 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
   int imageIndex = 0;
   bool hasVideo = false;
   bool isVideoFullScreen = false;
+  bool isVideoLoaded = false;
   TweenAnimationBuilder<double>? tweenAnimationBuilder;
+
+  late StreamSubscription<bool> completedStream;
+  late StreamSubscription<bool> bufferingStream;
+  late StreamSubscription<Duration> positionStream;
 
   // Create a [Player] to control playback.
   Player player = VideoService.player;
@@ -30,24 +37,25 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
 
   @override
   void initState() {
-    checkingIfHasVideo();
-    startVideo();
-    controlPlayerState();
     super.initState();
+    checkingIfHasVideo();
+
+    startVideo().then((a) => controlPlayerState());
   }
 
   @override
   void dispose() {
+    completedStream.cancel();
+    positionStream.cancel();
+    bufferingStream.cancel();
     super.dispose();
   }
 
   void checkingIfHasVideo() {
-    player.stop();
     for (var i = 0; i < widget.images.length; i++) {
       if (isAVideo(widget.images[i])) {
         hasVideo = true;
         controller = VideoController(player);
-        setState(() {});
         break;
       }
     }
@@ -56,23 +64,43 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
   void controlPlayerState() {
     if (hasVideo) {
       if (!UserData().settings.isAudioActivated) player.setVolume(0);
-      player.stream.completed.listen((bool ended) {
+      completedStream = player.stream.completed.listen((bool ended) {
         if (ended) {
           print("ENDED");
           player.play();
         }
       });
+      positionStream = player.stream.position.listen((event) {
+        if (event.inMilliseconds >= 1 &&
+            !isVideoLoaded &&
+            player.state.playing) {
+          setState(() {
+            isVideoLoaded = true;
+          });
+        }
+      });
+      bufferingStream = player.stream.buffering.listen((event) {
+        if (event) {
+          setState(() {
+            isVideoLoaded = false;
+          });
+        }
+      });
     }
   }
 
-  void startVideo() {
+  Future<void> startVideo() async {
     if (hasVideo) {
       if (isAVideo(widget.images[imageIndex])) {
-        player.open(Media(APIService().assetLink(widget.images[imageIndex])));
-
         setState(() {
+          isVideoLoaded = false;
           changingImage = true;
         });
+        await player.stop();
+        await player.seek(const Duration(milliseconds: 0));
+        await player.open(
+          Media(APIService().assetLink(widget.images[imageIndex])),
+        );
       } else {
         player.stop();
       }
@@ -101,18 +129,25 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
                                   url: widget.images[imageIndex],
                                   fit: BoxFit.fitWidth,
                                 )
-                              : Video(
-                                  key: Key(widget.images[0]),
-                                  controller: controller,
-                                  controls: (VideoState? state) {
-                                    if (state != null)
-                                      isVideoFullScreen = state.isFullscreen();
-                                    if (state != null) {
-                                      return AdaptiveVideoControls(state);
-                                    } else {
-                                      return SizedBox.shrink();
-                                    }
-                                  }),
+                              : (isVideoLoaded
+                                  ? Video(
+                                      key: Key(widget.images[0]),
+                                      controller: controller,
+                                      controls: (VideoState? state) {
+                                        if (state != null) {
+                                          return AdaptiveVideoControls(state);
+                                        } else {
+                                          return SizedBox.shrink();
+                                        }
+                                      })
+                                  : Container(
+                                      color: Colors.black,
+                                      child: Center(
+                                        child: ProgressRing(
+                                          activeColor: Colors.white,
+                                        ),
+                                      ),
+                                    )),
                           tweenAnimationBuilder = TweenAnimationBuilder<double>(
                               onEnd: () {
                                 if (!moveButtonVisible &&

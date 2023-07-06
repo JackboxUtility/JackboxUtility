@@ -269,9 +269,9 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
           Expanded(
               child: Column(children: [
             SizedBox(
-                key: carousselKey,
                 child:
-                    AssetCarousselWidget(images: currentGame.game.info.images)),
+                    AssetCarousselWidget(
+                key: carousselKey,images: currentGame.game.info.images)),
             SizedBox(height: 20),
             MarkdownBody(
               data: currentGame.game.info.description,
