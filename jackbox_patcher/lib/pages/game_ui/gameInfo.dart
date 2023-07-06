@@ -156,6 +156,9 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
         DiscordService().launchGameInfoPresence(currentGame.game.name);
         carousselKey = UniqueKey();
       }
+      setState(() {
+        launchingStatus = "WAITING";
+      });
       SFXService().playSFX(SFX.SCROLL_BETWEEN_GAME_INFO_TABS);
     }
   }
@@ -177,6 +180,9 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
         DiscordService().launchGameInfoPresence(currentGame.game.name);
         carousselKey = UniqueKey();
       }
+      setState(() {
+        launchingStatus = "WAITING";
+      });
       SFXService().playSFX(SFX.SCROLL_BETWEEN_GAME_INFO_TABS);
     }
   }
@@ -531,7 +537,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
   }
 
   void launchGameFunction() async {
-    VideoService.player.stop();
+    VideoService.player.pause();
     launchingStatus = "LAUNCHING";
     setState(() {});
     Launcher.launchGame(currentPack, currentGame).then((value) {
@@ -543,7 +549,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
   }
 
   void launchPackFunction() async {
-    VideoService.player.stop();
+    VideoService.player.pause();
     launchingStatus = "LAUNCHING";
     setState(() {});
     Launcher.launchPack(currentPack).then((value) {
