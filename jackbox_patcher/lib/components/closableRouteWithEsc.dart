@@ -2,6 +2,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:jackbox_patcher/model/misc/audio/SFXEnum.dart';
 import 'package:jackbox_patcher/services/audio/SFXService.dart';
+import 'package:jackbox_patcher/services/video/videoService.dart';
 
 class ClosableRouteWithEsc extends StatefulWidget {
   ClosableRouteWithEsc(
@@ -28,7 +29,7 @@ class _ClosableRouteWithEscState extends State<ClosableRouteWithEsc> {
       autofocus: true,
       onKey: (node, event) {
         if (event.isKeyPressed(LogicalKeyboardKey.escape)) {
-          print(widget.closeSFX);
+          VideoService.player.stop();
           if (widget.closeSFX) {
             SFXService().playSFX(SFX.CLOSE_GAME_INFO_TAB);
           }

@@ -2,6 +2,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/components/blurhashimage.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
+import 'package:jackbox_patcher/services/video/videoService.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:media_kit_video/media_kit_video.dart';
 
@@ -18,53 +19,63 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
   bool moveButtonVisible = false;
   bool changingImage = false;
   int imageIndex = 0;
+  bool hasVideo = false;
+  bool isVideoFullScreen = false;
   TweenAnimationBuilder<double>? tweenAnimationBuilder;
 
   // Create a [Player] to control playback.
-  late final player = Player();
+  Player player = VideoService.player;
   // Create a [VideoController] to handle video output from [Player].
-  late final controller = VideoController(player);
+  late VideoController controller;
 
   @override
   void initState() {
+    checkingIfHasVideo();
     startVideo();
     controlPlayerState();
-    if (!UserData().settings.isAudioActivated) 
-        player.setVolume(0);
     super.initState();
   }
 
   @override
   void dispose() {
-    player.dispose();
     super.dispose();
   }
 
-  void controlPlayerState() {
-    player.stream.completed.listen((bool ended) {
-      if (ended) {
-        setState(() {
-          imageIndex = (imageIndex + 1) % widget.images.length;
-        });
-        startVideo();
-        Future.delayed(
-            const Duration(milliseconds: 1100),
-            () => setState(() {
-                  changingImage = false;
-                }));
+  void checkingIfHasVideo() {
+    player.stop();
+    for (var i = 0; i < widget.images.length; i++) {
+      if (isAVideo(widget.images[i])) {
+        hasVideo = true;
+        controller = VideoController(player);
+        setState(() {});
+        break;
       }
-    });
+    }
+  }
+
+  void controlPlayerState() {
+    if (hasVideo) {
+      if (!UserData().settings.isAudioActivated) player.setVolume(0);
+      player.stream.completed.listen((bool ended) {
+        if (ended) {
+          print("ENDED");
+          player.play();
+        }
+      });
+    }
   }
 
   void startVideo() {
-    if (isAVideo(widget.images[imageIndex])) {
-      player.open(Media(APIService().assetLink(widget.images[imageIndex])));
-      
-      setState(() {
-        changingImage = true;
-      });
-    } else {
-      player.stop();
+    if (hasVideo) {
+      if (isAVideo(widget.images[imageIndex])) {
+        player.open(Media(APIService().assetLink(widget.images[imageIndex])));
+
+        setState(() {
+          changingImage = true;
+        });
+      } else {
+        player.stop();
+      }
     }
   }
 
@@ -90,7 +101,18 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
                                   url: widget.images[imageIndex],
                                   fit: BoxFit.fitWidth,
                                 )
-                              : Video(controller: controller),
+                              : Video(
+                                  key: Key(widget.images[0]),
+                                  controller: controller,
+                                  controls: (VideoState? state) {
+                                    if (state != null)
+                                      isVideoFullScreen = state.isFullscreen();
+                                    if (state != null) {
+                                      return AdaptiveVideoControls(state);
+                                    } else {
+                                      return SizedBox.shrink();
+                                    }
+                                  }),
                           tweenAnimationBuilder = TweenAnimationBuilder<double>(
                               onEnd: () {
                                 if (!moveButtonVisible &&
@@ -101,11 +123,13 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
                                     changingImage = true;
                                   });
                                   startVideo();
-                                  Future.delayed(
-                                      const Duration(milliseconds: 1100),
-                                      () => setState(() {
-                                            changingImage = false;
-                                          }));
+                                  if (!isAVideo(widget.images[imageIndex])) {
+                                    Future.delayed(
+                                        const Duration(milliseconds: 1100),
+                                        () => setState(() {
+                                              changingImage = false;
+                                            }));
+                                  }
                                 }
                               },
                               tween: Tween<double>(
@@ -146,6 +170,7 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
                                         onTap: () => setState(() {
                                               imageIndex = (imageIndex - 1) %
                                                   (widget.images.length);
+                                              changingImage = false;
                                               startVideo();
                                             }),
                                         child: const Icon(
@@ -155,6 +180,7 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
                                         onTap: () => setState(() {
                                               imageIndex = (imageIndex + 1) %
                                                   (widget.images.length);
+                                              changingImage = false;
                                               startVideo();
                                             }),
                                         child: const Icon(

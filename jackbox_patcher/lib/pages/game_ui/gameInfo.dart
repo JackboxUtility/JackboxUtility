@@ -17,6 +17,7 @@ import 'package:jackbox_patcher/services/audio/SFXService.dart';
 import 'package:jackbox_patcher/services/discord/DiscordService.dart';
 import 'package:jackbox_patcher/services/error/error.dart';
 import 'package:jackbox_patcher/services/launcher/launcher.dart';
+import 'package:jackbox_patcher/services/video/videoService.dart';
 import 'package:palette_generator/palette_generator.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -222,6 +223,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                       GestureDetector(
                         child: const Icon(FluentIcons.chevron_left),
                         onTap: () {
+                          VideoService.player.stop();
                           SFXService().playSFX(SFX.CLOSE_GAME_INFO_TAB);
                           Navigator.pop(context);
                         },
@@ -267,8 +269,9 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
           Expanded(
               child: Column(children: [
             SizedBox(
-                child: AssetCarousselWidget(
-                    key: carousselKey, images: currentGame.game.info.images)),
+                key: carousselKey,
+                child:
+                    AssetCarousselWidget(images: currentGame.game.info.images)),
             SizedBox(height: 20),
             MarkdownBody(
               data: currentGame.game.info.description,
@@ -528,6 +531,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
   }
 
   void launchGameFunction() async {
+    VideoService.player.stop();
     launchingStatus = "LAUNCHING";
     setState(() {});
     Launcher.launchGame(currentPack, currentGame).then((value) {
@@ -539,6 +543,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
   }
 
   void launchPackFunction() async {
+    VideoService.player.stop();
     launchingStatus = "LAUNCHING";
     setState(() {});
     Launcher.launchPack(currentPack).then((value) {
