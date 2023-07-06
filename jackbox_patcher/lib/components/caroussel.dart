@@ -104,12 +104,21 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
       } else {
         player.stop();
       }
+    }else{
+      player.stop();
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
+    return MaterialDesktopVideoControlsTheme(
+      normal: const MaterialDesktopVideoControlsThemeData(
+        bottomButtonBar: const [
+          MaterialDesktopSkipPreviousButton(), MaterialDesktopPlayOrPauseButton(), MaterialDesktopSkipNextButton(), MaterialDesktopVolumeButton(), MaterialDesktopPositionIndicator(), Spacer()
+        ],
+      ),
+      fullscreen: const MaterialDesktopVideoControlsThemeData(),
+      child: ClipRRect(
         borderRadius: BorderRadius.circular(8.0),
         child: SizedBox(
             width: double.maxFinite,
@@ -226,7 +235,7 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
                                   ],
                                 ))
                               : Container()
-                        ]))))));
+                        ])))))));
   }
 
   bool isAVideo(String url) => url.contains(".mp4");
