@@ -239,7 +239,7 @@
     "ok": "Гаразд",
     "game_dubbed": "Присутня {language} озвучка",
     "game_dubbed_description": "У цих іграх присутнє озвучення",
-    "audience": "Гра з авдиторією",
+    "audience": "Глядачі",
     "confirmation": "Підтвердження",
     "confirmation_description": "Ви дійсно бажаєте {action}? Цю дію неможливо скасувати.",
     "fix": "Виправлення",
