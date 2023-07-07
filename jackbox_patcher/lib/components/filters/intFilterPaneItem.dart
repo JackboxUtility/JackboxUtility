@@ -81,70 +81,73 @@ class _IntFilterPaneItemTitleState extends State<IntFilterPaneItemTitle> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(mainAxisSize: MainAxisSize.min, children: [
-      MouseRegion(
-        onEnter: (PointerEnterEvent e) {
-          SFXService().playSFX(SFX.HOVER_OVER_STAR_OR_FILTER);
-        },
-        child: Checkbox(
-            checked: activated,
-            onChanged: (value) {
-              widget.onActivationChanged(value!);
-              setState(() {
-                activated = value;
-              });
-              SFXService().playSFX(SFX.CLICK);
-            }),
-      ),
-      SizedBox(width: 8),
-      Icon(widget.icon,
-          color: activated ? null : const Color.fromARGB(255, 130, 130, 130)),
-      SizedBox(width: 10),
-      Text(widget.name,
-          style: TextStyle(
-              color:
-                  activated ? null : const Color.fromARGB(255, 130, 130, 130))),
-      Spacer(),
-      GestureDetector(
-          onTap: () {
-            if (activated) {
-              if (currentValue - widget.step >= widget.min) {
+    return SizedBox(
+      height:33,
+      child: Row(mainAxisSize: MainAxisSize.min, children: [
+        MouseRegion(
+          onEnter: (PointerEnterEvent e) {
+            SFXService().playSFX(SFX.HOVER_OVER_STAR_OR_FILTER);
+          },
+          child: Checkbox(
+              checked: activated,
+              onChanged: (value) {
+                widget.onActivationChanged(value!);
                 setState(() {
-                  currentValue = currentValue - widget.step;
-                  widget.onChanged(currentValue);
+                  activated = value;
                 });
                 SFXService().playSFX(SFX.CLICK);
+              }),
+        ),
+        SizedBox(width: 8),
+        Icon(widget.icon,
+            color: activated ? null : const Color.fromARGB(255, 130, 130, 130)),
+        SizedBox(width: 10),
+        Text(widget.name,
+            style: TextStyle(
+                color:
+                    activated ? null : const Color.fromARGB(255, 130, 130, 130))),
+        Spacer(),
+        GestureDetector(
+            onTap: () {
+              if (activated) {
+                if (currentValue - widget.step >= widget.min) {
+                  setState(() {
+                    currentValue = currentValue - widget.step;
+                    widget.onChanged(currentValue);
+                  });
+                  SFXService().playSFX(SFX.CLICK);
+                }
               }
-            }
-          },
-          child: Icon(FontAwesomeIcons.minus,
-              color: activated && currentValue != widget.min
-                  ? null
-                  : Colors.grey)),
-      SizedBox(width: 8),
-      SizedBox(
-          width: 30,
-          child: Text(
-              currentValue.toString() + (currentValue == widget.max ? "+" : ""),
-              textAlign: TextAlign.center,
-              style: TextStyle(color: activated ? null : Colors.grey))),
-      SizedBox(width: 8),
-      GestureDetector(
-          onTap: () {
-            if (activated) {
-              if (currentValue + widget.step <= widget.max) {
-                setState(() {
-                  currentValue = currentValue + widget.step;
-                  widget.onChanged(currentValue);
-                });
-                SFXService().playSFX(SFX.CLICK);
+            },
+            child: Icon(FontAwesomeIcons.minus,
+                color: activated && currentValue != widget.min
+                    ? null
+                    : Colors.grey)),
+        SizedBox(width: 8),
+        SizedBox(
+            width: 30,
+            child: Text(
+                currentValue.toString() + (currentValue == widget.max ? "+" : ""),
+                textAlign: TextAlign.center,
+                style: TextStyle(color: activated ? null : Colors.grey))),
+        SizedBox(width: 8),
+        GestureDetector(
+            onTap: () {
+              if (activated) {
+                if (currentValue + widget.step <= widget.max) {
+                  setState(() {
+                    currentValue = currentValue + widget.step;
+                    widget.onChanged(currentValue);
+                  });
+                  SFXService().playSFX(SFX.CLICK);
+                }
               }
-            }
-          },
-          child: Icon(FontAwesomeIcons.plus,
-              color: activated && currentValue != widget.max
-                  ? null
-                  : Colors.grey)),
-    ]);
+            },
+            child: Icon(FontAwesomeIcons.plus,
+                color: activated && currentValue != widget.max
+                    ? null
+                    : Colors.grey)),
+      ]),
+    );
   }
 }
