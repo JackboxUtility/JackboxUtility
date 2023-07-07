@@ -32,7 +32,6 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
   late StreamSubscription<Duration> positionStream;
 
   // Create a [Player] to control playback.
-  Player player = VideoService.player;
   // Create a [VideoController] to handle video output from [Player].
   late VideoController controller;
 
@@ -61,7 +60,7 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
           i--;
         } else {
           hasVideo = true;
-          controller = VideoController(player);
+          controller = VideoController(VideoService.player);
           break;
         }
       }
@@ -70,23 +69,23 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
 
   void controlPlayerState() {
     if (hasVideo) {
-      if (!UserData().settings.isAudioActivated) player.setVolume(0);
-      completedStream = player.stream.completed.listen((bool ended) {
+      if (!UserData().settings.isAudioActivated) VideoService.player.setVolume(0);
+      completedStream = VideoService.player.stream.completed.listen((bool ended) {
         if (ended) {
           print("ENDED");
-          player.play();
+          VideoService.player.play();
         }
       });
-      positionStream = player.stream.position.listen((event) {
+      positionStream = VideoService.player.stream.position.listen((event) {
         if (event.inMilliseconds >= 1 &&
             !isVideoLoaded &&
-            player.state.playing) {
+            VideoService.player.state.playing) {
           setState(() {
             isVideoLoaded = true;
           });
         }
       });
-      bufferingStream = player.stream.buffering.listen((event) {
+      bufferingStream = VideoService.player.stream.buffering.listen((event) {
         if (event) {
           setState(() {
             isVideoLoaded = false;
@@ -103,13 +102,13 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
           isVideoLoaded = false;
           changingImage = true;
         });
-        await player.stop();
-        await player.seek(const Duration(milliseconds: 0));
-        await player.open(
+        await VideoService.player.stop();
+        await VideoService.player.seek(const Duration(milliseconds: 0));
+        await VideoService.player.open(
           Media(APIService().assetLink(widget.images[imageIndex])),
         );
       } else {
-        player.stop();
+        VideoService.player.stop();
       }
     } else {
       VideoService.stop();

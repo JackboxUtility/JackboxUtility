@@ -125,7 +125,7 @@ class _AppInfoWidgetState extends State<AppInfoWidget> {
           ]),
           const Spacer(),
           _buildCollaborators(),
-          const Spacer(flex: 2)
+          const Spacer(flex: 2) 
         ]));
   }
 
@@ -135,8 +135,10 @@ class _AppInfoWidgetState extends State<AppInfoWidget> {
     for (var collaboratorType in contributorsList) {
       children.add(Spacer());
       List<Widget> currentColumnChildren = [];
-      currentColumnChildren.add(Text(collaboratorType.name));
-
+      currentColumnChildren.add(SizedBox(
+        width:180,
+        child: Text(collaboratorType.name, textAlign: TextAlign.center,)));
+      currentColumnChildren.add(SizedBox(height: 12));
       for (var member in collaboratorType.members) {
         currentColumnChildren.add(HyperlinkButton(
             child: Row(children: [
@@ -150,16 +152,18 @@ class _AppInfoWidgetState extends State<AppInfoWidget> {
                   : SizedBox.shrink(),
               Text(member.name)
             ]),
-            onPressed: member.githubLink != null
+            onPressed: member.githubLink != (null)
                 ? () async {
                     await launchUrl(Uri.parse(member.githubLink!));
                   }
-                : null));
+                : (){}));
       }
-      children.add(Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: currentColumnChildren));
+      children.add( Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: currentColumnChildren,
+      ));
     }
-    return Row(children: children,mainAxisAlignment: MainAxisAlignment.center);
+    children.add(Spacer());
+    return Row(children: children,mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.start,);
   }
 }

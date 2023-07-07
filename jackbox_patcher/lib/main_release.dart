@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dart_discord_rpc/dart_discord_rpc_native.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_flavor/flutter_flavor.dart';
@@ -13,7 +15,8 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
-  MediaKit.ensureInitialized();
+  if (!Platform.isLinux)
+    MediaKit.ensureInitialized();
   DiscordRPC.initialize();
   runApp(const MyApp());
 }
