@@ -87,6 +87,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
   late UserJackboxPack currentPack;
   late UserJackboxGame currentGame;
   UniqueKey carousselKey = UniqueKey();
+  bool isOpeningAGame = false;
 
   @override
   void initState() {
@@ -138,7 +139,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
   }
 
   void _openPreviousGame() {
-    if (widget.allAvailableGames != null) {
+    if (widget.allAvailableGames != null && !isOpeningAGame) {
       int index = widget.allAvailableGames!
           .indexWhere((element) => element.g.game.id == currentGame.game.id);
       if (index != -1) {
@@ -164,7 +165,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
   }
 
   void _openNextGame() {
-    if (widget.allAvailableGames != null) {
+    if (widget.allAvailableGames != null && !isOpeningAGame) {
       int index = widget.allAvailableGames!
           .indexWhere((element) => element.g.game.id == currentGame.game.id);
       if (index != -1) {
@@ -275,9 +276,8 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
           Expanded(
               child: Column(children: [
             SizedBox(
-                child:
-                    AssetCarousselWidget(
-                key: carousselKey,images: currentGame.game.info.images)),
+                child: AssetCarousselWidget(
+                    key: carousselKey, images: currentGame.game.info.images)),
             SizedBox(height: 20),
             MarkdownBody(
               data: currentGame.game.info.description,
@@ -537,11 +537,14 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
   }
 
   void launchGameFunction() async {
+
     VideoService.player.pause();
     launchingStatus = "LAUNCHING";
+    isOpeningAGame = true;
     setState(() {});
     Launcher.launchGame(currentPack, currentGame).then((value) {
       launchingStatus = "LAUNCHED";
+      isOpeningAGame = false;
       setState(() {});
     }).catchError((error) {
       InfoBarService.showError(context, error.toString());
@@ -551,9 +554,11 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
   void launchPackFunction() async {
     VideoService.player.pause();
     launchingStatus = "LAUNCHING";
+    isOpeningAGame = true;
     setState(() {});
     Launcher.launchPack(currentPack).then((value) {
       launchingStatus = "LAUNCHED";
+      isOpeningAGame = false;
       setState(() {});
     }).catchError((error) {
       InfoBarService.showError(context, error.toString());

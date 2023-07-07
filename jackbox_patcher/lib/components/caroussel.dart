@@ -120,6 +120,7 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
   Widget build(BuildContext context) {
     return MaterialDesktopVideoControlsTheme(
         normal: const MaterialDesktopVideoControlsThemeData(
+          toggleFullscreenOnDoublePress: false,
           bottomButtonBar: const [
             MaterialDesktopSkipPreviousButton(),
             MaterialDesktopPlayOrPauseButton(),
@@ -130,7 +131,6 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
           ],
         ),
         fullscreen: const MaterialDesktopVideoControlsThemeData(
-          toggleFullscreenOnDoublePress: false
         ),
         child: ClipRRect(
             borderRadius: BorderRadius.circular(8.0),
