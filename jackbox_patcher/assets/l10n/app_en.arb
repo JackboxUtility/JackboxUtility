@@ -385,5 +385,7 @@
     "filter_censoring":"Censoring",
     "filter_moderation_censoring":"Mod. & Censoring",
     "filter_dubbed":"Dubbed",
-    "filter_translated":"Translated"
+    "filter_translated":"Translated",
+
+    "special_thanks":"Special Thanks"
 }

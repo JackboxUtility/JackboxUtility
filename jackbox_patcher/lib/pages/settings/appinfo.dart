@@ -13,6 +13,31 @@ class AppInfoWidget extends StatefulWidget {
 }
 
 class _AppInfoWidgetState extends State<AppInfoWidget> {
+  List<({String name, List<({String name, String? githubLink})> members})>
+      contributorsList = [
+    (
+      name: TranslationsHelper().appLocalizations!.author,
+      members: [(name: "AlexisL61", githubLink: "https://github.com/AlexisL61")]
+    ),
+    (
+      name: TranslationsHelper().appLocalizations!.contributors,
+      members: [
+        (name: "Akira896", githubLink: "https://github.com/AkiraArtuhaxis"),
+        (name: "Erizzle", githubLink: "https://github.com/DerErizzle"),
+        (name: "Dsty", githubLink: "https://github.com/MeDustyy")
+      ]
+    ),
+    (
+      name: TranslationsHelper().appLocalizations!.special_thanks,
+      members: [
+        (name: "VladGraund", githubLink: "https://github.com/VladGraund"),
+        (name: "Forseti", githubLink: null),
+        (name: "Piximator", githubLink: null),
+        (name: "Charlie", githubLink: null)
+      ]
+    )
+  ];
+
   String version = "";
 
   @override
@@ -90,7 +115,8 @@ class _AppInfoWidgetState extends State<AppInfoWidget> {
                   SizedBox(
                     width: 10,
                   ),
-                  Text(TranslationsHelper().appLocalizations!.donate, style: TextStyle(color: Colors.red.lighter))
+                  Text(TranslationsHelper().appLocalizations!.donate,
+                      style: TextStyle(color: Colors.red.lighter))
                 ]),
                 onPressed: () async {
                   await launchUrl(
@@ -98,57 +124,42 @@ class _AppInfoWidgetState extends State<AppInfoWidget> {
                 }),
           ]),
           const Spacer(),
-          Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Spacer(),
-                Column(children: [
-                  Text(TranslationsHelper().appLocalizations!.author),
-                  HyperlinkButton(
-                      child: const Row(children: [
-                        FaIcon(FontAwesomeIcons.github),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text("AlexisL61")
-                      ]),
-                      onPressed: () async {
-                        await launchUrl(
-                            Uri.parse("https://github.com/AlexisL61"));
-                      }),
-                ]),
-                const Spacer(),
-                Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-                  Text(TranslationsHelper().appLocalizations!.contributors),
-                  HyperlinkButton(
-                      child: const Row(children: [
-                        FaIcon(FontAwesomeIcons.github),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text("Akira896")
-                      ]),
-                      onPressed: () async {
-                        await launchUrl(
-                            Uri.parse("https://github.com/AkiraArtuhaxis"));
-                      }),
-                  HyperlinkButton(
-                      child: const Row(children: [
-                        FaIcon(FontAwesomeIcons.github),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text("Erizzle")
-                      ]),
-                      onPressed: () async {
-                        await launchUrl(
-                            Uri.parse("https://github.com/DerErizzle"));
-                      })
-                ]),
-                const Spacer()
-              ]),
+          _buildCollaborators(),
           const Spacer(flex: 2)
         ]));
+  }
+
+  Widget _buildCollaborators() {
+    List<Widget> children = [];
+
+    for (var collaboratorType in contributorsList) {
+      children.add(Spacer());
+      List<Widget> currentColumnChildren = [];
+      currentColumnChildren.add(Text(collaboratorType.name));
+
+      for (var member in collaboratorType.members) {
+        currentColumnChildren.add(HyperlinkButton(
+            child: Row(children: [
+              member.githubLink != null
+                  ? FaIcon(FontAwesomeIcons.github)
+                  : SizedBox.shrink(),
+              member.githubLink != null
+                  ? SizedBox(
+                      width: 10,
+                    )
+                  : SizedBox.shrink(),
+              Text(member.name)
+            ]),
+            onPressed: member.githubLink != null
+                ? () async {
+                    await launchUrl(Uri.parse(member.githubLink!));
+                  }
+                : null));
+      }
+      children.add(Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: currentColumnChildren));
+    }
+    return Row(children: children,mainAxisAlignment: MainAxisAlignment.center);
   }
 }
