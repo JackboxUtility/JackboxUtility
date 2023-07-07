@@ -100,6 +100,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
   @override
   Widget build(BuildContext context) {
     return ClosableRouteWithEsc(
+        pressingSpacePauseVideo:true,
         closeSFX: true,
         leftEvent: () => _openPreviousGame(),
         rightEvent: () => _openNextGame(),

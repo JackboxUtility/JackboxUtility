@@ -11,6 +11,12 @@ class VideoService {
     }
   }
 
+  static void playPause(){
+    if (!Platform.isLinux) {
+      player.playOrPause();
+    }
+  }
+
   static void stop() {
     if (!Platform.isLinux) {
       player.stop();

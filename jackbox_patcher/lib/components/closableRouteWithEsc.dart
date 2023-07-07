@@ -10,13 +10,15 @@ class ClosableRouteWithEsc extends StatefulWidget {
       required this.child,
       this.leftEvent,
       this.rightEvent,
-      this.closeSFX = false})
+      this.closeSFX = false,
+      this.pressingSpacePauseVideo = false})
       : super(key: key);
 
   final Widget child;
   final Function()? leftEvent;
   final Function()? rightEvent;
   final bool closeSFX;
+  final bool pressingSpacePauseVideo;
 
   @override
   State<ClosableRouteWithEsc> createState() => _ClosableRouteWithEscState();
@@ -45,6 +47,12 @@ class _ClosableRouteWithEscState extends State<ClosableRouteWithEsc> {
         if (event.isKeyPressed(LogicalKeyboardKey.arrowRight)) {
           if (widget.rightEvent != null) {
             widget.rightEvent!();
+            return KeyEventResult.handled;
+          }
+        }
+        if (event.isKeyPressed(LogicalKeyboardKey.space)) {
+          if (widget.pressingSpacePauseVideo) {
+            VideoService.playPause();
             return KeyEventResult.handled;
           }
         }
