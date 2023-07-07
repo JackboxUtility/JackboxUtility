@@ -256,7 +256,7 @@
     "filter": "Фільтри",
     "show_games_hidden": "Показати приховані ігри",
     "hide_games_hidden": "Приховати приховані ігри",
-    "max_playtime": "Максимальний час гри",
+    "max_playtime": "Максимальний час гри (хв)",
     "search_by_ranking": "Пошук за рейтингом",
     "random_game": "Випадкова гра",
     "personal_ranking": "Особистий рейтинг",
