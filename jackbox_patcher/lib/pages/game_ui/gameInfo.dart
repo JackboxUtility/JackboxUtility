@@ -275,7 +275,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-              child: Column(children: [
+              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             SizedBox(
                 child: AssetCarousselWidget(
                     key: carousselKey, images: currentGame.game.info.images)),
