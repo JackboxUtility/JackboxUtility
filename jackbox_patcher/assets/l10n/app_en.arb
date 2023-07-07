@@ -76,7 +76,7 @@
     "launch_game":"Launch Game",
     "launch_game_fast_launcher":"Launch Game (Fast Launcher)",
     "launch_game_fast_launcher_description":"Launches the game in fast launcher mode which allows you to skip the intro video of the pack and the choice of the game. Only available for some games.",
-    "launch_pack":"Launch Pack",
+    "launch_pack":"Launch Game",
     "launch_pack_description":"Launches the Pack normally",
     "launch_informations":"Launch Information",
     "launching":"Launching...",
@@ -95,7 +95,7 @@
 
     "game_type_coop":"Coop",
     "game_type_coop_description":"In these games, players must work together to win.",
-    "game_type_versus":"Free for all",
+    "game_type_versus":"Free For All",
     "game_type_versus_description":"In these games, each player plays for himself and must beat the other players.",
     "game_type_team":"Team",
     "game_type_team_description":"In these games, players are divided into teams and must work together to win.",
@@ -317,8 +317,8 @@
         }
     },
     "filter": "Filter",
-    "show_games_hidden": "Show games you've hidden",
-    "hide_games_hidden": "Hide games you've hidden",
+    "show_games_hidden": "Show Games You've Hidden",
+    "hide_games_hidden": "Hide Games You've Hidden",
     "max_playtime":"Max Playtime",
     "search_by_ranking":"Search by Ranking",
     "random_game":"Random Game",
