@@ -229,7 +229,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                       GestureDetector(
                         child: const Icon(FluentIcons.chevron_left),
                         onTap: () {
-                          VideoService.player.stop();
+                          VideoService.stop();
                           SFXService().playSFX(SFX.CLOSE_GAME_INFO_TAB);
                           Navigator.pop(context);
                         },
@@ -275,9 +275,8 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
           Expanded(
               child: Column(children: [
             SizedBox(
-                child:
-                    AssetCarousselWidget(
-                key: carousselKey,images: currentGame.game.info.images)),
+                child: AssetCarousselWidget(
+                    key: carousselKey, images: currentGame.game.info.images)),
             SizedBox(height: 20),
             MarkdownBody(
               data: currentGame.game.info.description,
@@ -537,7 +536,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
   }
 
   void launchGameFunction() async {
-    VideoService.player.pause();
+    VideoService.pause();
     launchingStatus = "LAUNCHING";
     setState(() {});
     Launcher.launchGame(currentPack, currentGame).then((value) {
@@ -549,7 +548,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
   }
 
   void launchPackFunction() async {
-    VideoService.player.pause();
+    VideoService.pause();
     launchingStatus = "LAUNCHING";
     setState(() {});
     Launcher.launchPack(currentPack).then((value) {

@@ -29,7 +29,7 @@ class _ClosableRouteWithEscState extends State<ClosableRouteWithEsc> {
       autofocus: true,
       onKey: (node, event) {
         if (event.isKeyPressed(LogicalKeyboardKey.escape)) {
-          VideoService.player.stop();
+          VideoService.stop();
           if (widget.closeSFX) {
             SFXService().playSFX(SFX.CLOSE_GAME_INFO_TAB);
           }
