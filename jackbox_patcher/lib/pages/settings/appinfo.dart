@@ -24,7 +24,7 @@ class _AppInfoWidgetState extends State<AppInfoWidget> {
       members: [
         (name: "Akira896", githubLink: "https://github.com/AkiraArtuhaxis"),
         (name: "Erizzle", githubLink: "https://github.com/DerErizzle"),
-        (name: "Dsty", githubLink: "https://github.com/MeDustyy")
+        (name: "dsty", githubLink: "https://github.com/MeDustyy")
       ]
     ),
     (
