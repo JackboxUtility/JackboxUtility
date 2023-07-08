@@ -18,8 +18,15 @@ With this app, you will be able to download translation patches for your Jackbox
 <img src="https://raw.githubusercontent.com/lipis/flag-icons/0df85234c05404587baf0a7cb2c4e82c36ed4648/flags/1x1/ua.svg" width="12" height="12" /> Ukrainian
 - Detect automatically your installed games
 - Download translation patches for your games
-- Find every Jackbox game in the same place
-- Launch your Jackbox games without seeing the pack video and the menu
+- Launch the games directly, skipping the intros and menus entirely
+- Search the games using different tags
+- Set ratings to your favorite games, from 1-5 stars
+- Filter the games in many ways, like by number of players, family friendly, moderation and many more!
+- All the game tabs are packed with all the info you need
+- Sort the game list in many ways
+- Hide games you don't want to see in the launcher
+- Don't know what to play? Hit the Random tab!
+- And many more!
 
 ## Installation
 
