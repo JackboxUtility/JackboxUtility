@@ -5,6 +5,7 @@ enum SFX {
   HOVER_OVER_BANNER,
   HOVER_OVER_STAR_OR_FILTER,
   OPEN_GAME_INFO_TAB,
+  OPEN_GAME_LIST,
   SCROLL_BETWEEN_GAME_INFO_TABS,
   FILTER_UP,
   FILTER_DOWN;
@@ -25,6 +26,8 @@ extension SFXExtension on SFX {
         return "hover_over_star_or_filter.mp3";
       case SFX.OPEN_GAME_INFO_TAB:
         return "open_game_info_tab.mp3";
+      case SFX.OPEN_GAME_LIST:
+        return "open_game_list.mp3";
       case SFX.SCROLL_BETWEEN_GAME_INFO_TABS:
         return "scroll_between_game_info_tabs.mp3";
       case SFX.FILTER_UP:

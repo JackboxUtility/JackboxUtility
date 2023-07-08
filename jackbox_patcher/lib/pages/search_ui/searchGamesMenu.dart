@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter/gestures.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jackbox_patcher/components/closableRouteWithEsc.dart';
 import 'package:jackbox_patcher/components/filters/intFilterPaneItem.dart';
@@ -93,7 +94,6 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
               items: _buildPaneItems(),
               footerItems: [
                 PaneItemExpander(
-                  
                     onTap: () {
                       if (filterPanedExpanded) {
                         filterPanedExpanded = false;
@@ -113,9 +113,13 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                                     .where((element) => element.activated)
                                     .length >
                                 0
-                        ? Checkbox(
+                        ? MouseRegion(
+              onEnter: (PointerEnterEvent e){
+                SFXService().playSFX(SFX.HOVER_OVER_STAR_OR_FILTER);
+              }, child:Checkbox(
                             checked: true,
                             onChanged: (value) {
+                              SFXService().playSFX(SFX.CLICK);
                               setState(() {
                                 for (int i = 0; i < filters.length; i++) {
                                   filters[i] = (
@@ -135,7 +139,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                                 UserData().gameList.saveIntFilters(intFilters);
                               });
                             },
-                          )
+                          ))
                         : Container(),
                     items: _buildGameFilterPaneItems(),
                     body: Container()),
@@ -353,6 +357,9 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
     }
     for (var userPack in wantedPacks) {
       packItems.add(PaneItem(
+          onTap: () {
+            SFXService().playSFX(SFX.OPEN_GAME_LIST);
+          },
           icon: CachedNetworkImage(
               imageUrl: APIService().assetLink(userPack.pack.icon),
               filterQuality: FilterQuality.high,
@@ -381,6 +388,9 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
 
     for (var type in JackboxGameType.values) {
       tagItem.add(PaneItem(
+          onTap: () {
+            SFXService().playSFX(SFX.OPEN_GAME_LIST);
+          },
           icon: Icon(type.icon),
           title: Text(type.name),
           body: SearchGameWidget(
@@ -418,6 +428,9 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
       )));
       items.add(PaneItemSeparator());
       items.add(PaneItem(
+          onTap: () {
+            SFXService().playSFX(SFX.OPEN_GAME_LIST);
+          },
           icon: const Icon(FontAwesomeIcons.gamepad),
           title: Text(TranslationsHelper().appLocalizations!.all_games),
           body: SearchGameWidget(
@@ -443,6 +456,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
         items: packItems,
         onTap: () {
           setState(() {
+            SFXService().playSFX(SFX.OPEN_GAME_LIST);
             _selectedView = 2;
           });
         },
@@ -457,6 +471,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
         items: tagItem,
         onTap: () {
           setState(() {
+            SFXService().playSFX(SFX.OPEN_GAME_LIST);
             _selectedView = 3 + packItems.length + typeItem.length;
           });
         },
@@ -469,6 +484,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
         items: starsItem,
         onTap: () {
           setState(() {
+            SFXService().playSFX(SFX.OPEN_GAME_LIST);
             _selectedView =
                 4 + packItems.length + typeItem.length + tagItem.length;
           });
@@ -501,6 +517,9 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
 
     for (var tag in APIService().getTags()) {
       tagItem.add(PaneItem(
+        onTap: (){
+            SFXService().playSFX(SFX.OPEN_GAME_LIST);
+        },
           icon: Icon(FluentIcons.allIcons[tag.icon]),
           title: Text(tag.name),
           body: SearchGameWidget(
@@ -528,6 +547,9 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
     List<PaneItem> starItems = [];
 
     starItems.add(PaneItem(
+      onTap: (){
+            SFXService().playSFX(SFX.OPEN_GAME_LIST);
+        },
         icon: Container(),
         title: Text(TranslationsHelper().appLocalizations!.personal_ranking),
         body: SearchGameWidget(

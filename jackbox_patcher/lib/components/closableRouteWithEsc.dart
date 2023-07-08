@@ -11,7 +11,8 @@ class ClosableRouteWithEsc extends StatefulWidget {
       this.leftEvent,
       this.rightEvent,
       this.closeSFX = false,
-      this.pressingSpacePauseVideo = false})
+      this.pressingSpacePauseVideo = false,
+      this.stopVideo = true})
       : super(key: key);
 
   final Widget child;
@@ -19,6 +20,7 @@ class ClosableRouteWithEsc extends StatefulWidget {
   final Function()? rightEvent;
   final bool closeSFX;
   final bool pressingSpacePauseVideo;
+  final bool stopVideo;
 
   @override
   State<ClosableRouteWithEsc> createState() => _ClosableRouteWithEscState();
@@ -31,7 +33,9 @@ class _ClosableRouteWithEscState extends State<ClosableRouteWithEsc> {
       autofocus: true,
       onKey: (node, event) {
         if (event.isKeyPressed(LogicalKeyboardKey.escape)) {
-          VideoService.stop();
+          if (widget.stopVideo) {
+            VideoService.stop();
+          }
           if (widget.closeSFX) {
             SFXService().playSFX(SFX.CLOSE_GAME_INFO_TAB);
           }

@@ -44,6 +44,8 @@ class _SearchGameRouteState extends State<SearchGameRoute> {
     }
 
     return ClosableRouteWithEsc(
+        stopVideo: false,
+        closeSFX: true,
         child: NavigationView(
             content: SearchGameWidget(
                 filter: filter,
@@ -165,7 +167,8 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
                                 child: GestureDetector(
                                     child: const Icon(FluentIcons.chevron_left),
                                     onTap: () {
-                                      SFXService().playSFX(SFX.CLOSE_GAME_INFO_TAB);
+                                      SFXService()
+                                          .playSFX(SFX.CLOSE_GAME_INFO_TAB);
                                       Navigator.pop(context);
                                     }),
                               )
@@ -210,6 +213,9 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
                                     cursor: SystemMouseCursors.click),
                                 const SizedBox(width: 10),
                                 ComboBox<SortOrder>(
+                                    onTap: () {
+                                      SFXService().playSFX(SFX.FILTER_UP);
+                                    },
                                     popupColor: Colors.black,
                                     elevation: 0,
                                     style: const TextStyle(

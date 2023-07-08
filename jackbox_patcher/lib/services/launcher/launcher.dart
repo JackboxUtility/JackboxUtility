@@ -100,7 +100,6 @@ class Launcher {
         await Process.run("${pack.path!}/${pack.pack.executable}", [],
             workingDirectory: pack.path);
       }
-      SFXService().playSFX(SFX.GAME_LAUNCHED);
       _openedLaunchers.add(pack);
     }
   }
