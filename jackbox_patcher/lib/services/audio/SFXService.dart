@@ -10,12 +10,21 @@ class SFXService {
   SFXPackEnum selectedPack = SFXPackEnum.DEFAULT;
 
   List<({SFX highPriority, SFX lowPriority})> sfxPriority = [
-    (highPriority: SFX.CLICK, lowPriority: SFX.HOVER_OVER_STAR_OR_FILTER), 
-    (highPriority: SFX.HOVER_OVER_BANNER, lowPriority: SFX.HOVER_OVER_STAR_OR_FILTER),
-    (highPriority: SFX.GAME_LAUNCHED, lowPriority: SFX.HOVER_OVER_STAR_OR_FILTER),
+    (highPriority: SFX.CLICK, lowPriority: SFX.HOVER_OVER_STAR_OR_FILTER),
+    (
+      highPriority: SFX.HOVER_OVER_BANNER,
+      lowPriority: SFX.HOVER_OVER_STAR_OR_FILTER
+    ),
+    (
+      highPriority: SFX.GAME_LAUNCHED,
+      lowPriority: SFX.HOVER_OVER_STAR_OR_FILTER
+    ),
     (highPriority: SFX.GAME_LAUNCHED, lowPriority: SFX.CLICK),
     (highPriority: SFX.GAME_LAUNCHED, lowPriority: SFX.HOVER_OVER_BANNER),
-    (highPriority: SFX.GAME_LAUNCHED, lowPriority: SFX.SCROLL_BETWEEN_GAME_INFO_TABS),
+    (
+      highPriority: SFX.GAME_LAUNCHED,
+      lowPriority: SFX.SCROLL_BETWEEN_GAME_INFO_TABS
+    ),
     (highPriority: SFX.GAME_LAUNCHED, lowPriority: SFX.CLOSE_GAME_INFO_TAB),
     (highPriority: SFX.CLOSE_GAME_INFO_TAB, lowPriority: SFX.HOVER_OVER_BANNER),
   ];
@@ -27,11 +36,11 @@ class SFXService {
   }
 
   // Build internal
-  SFXService._internal(){
+  SFXService._internal() {
     init();
   }
 
-  init(){
+  init() {
     player.onPlayerComplete.listen((event) {
       isCurrentlyPlaying = false;
     });
@@ -49,11 +58,16 @@ class SFXService {
         return;
       }
     }
-    isCurrentlyPlaying = true;
-    lastPlayedSFX = sfx;
-    if (player.state == PlayerState.playing) {
+
+    if (isCurrentlyPlaying && lastPlayedSFX == sfx) {
+      await player.seek(Duration.zero);
+      return;
+    }
+    if (isCurrentlyPlaying) {
       await player.stop();
     }
+    isCurrentlyPlaying = true;
+    lastPlayedSFX = sfx;
     if (UserData().settings.isAudioActivated) {
       await player.play(
           AssetSource("audios/sfx/" +
