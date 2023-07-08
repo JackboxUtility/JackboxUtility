@@ -1,0 +1,111 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "packs/game.json",
+    "title": "Game",
+    "description": "A game in a pack",
+    "type": "object",
+    "examples": [
+        {
+            "id":"talkingpoints",
+            "name":"Talking Points",
+            "background":"game_backgrounds/TalkingPoints.webp",
+            "path":"games/JackboxTalks",
+            "game_info":{
+                "players":{
+                    "min":3,
+                    "max":8
+                },
+                "length":"20 - 40 minutes",
+                "type":"VERSUS",
+                "translation":"COMMUNITY_TRANSLATED",
+                "tagline":"Présentez votre pire sujet",
+                "small_description":"L'impro ça vous connait ? Vous allez devoir passer à l'oral sur un thème que vous ne connaissez pas et avec des diapositives choisies par d'autres joueurs. Parlez bien pour gagner !",
+                "description":"# Retour à l'école !\n\nVous allez devoir passer à l'oral sur un thème choisit par un autre joueur. Dites n'importe quoi et essayez d'être le plus raccord avec les diapositives choisies par votre suppléant : un autre joueur.\n\nEn plus de noter les autres pendant la présentation, vous pouvez aussi donner un award à votre présentation préférée pour lui faire gagner pleins de points !",
+                "images":[
+                    "game_images/TalkingPoints/talkingpoints_1.webp",
+                    "game_images/TalkingPoints/talkingpoints_2.webp",
+                    "game_images/TalkingPoints/talkingpoints_3.webp",
+                    "game_images/TalkingPoints/talkingpoints_4.webp"
+                ],
+                "tags":[
+                    "talking",
+                    "writing"
+                ]
+
+            },
+            "loader":{
+                "path":"loaders/tjpp7/talkingpoints.zip",
+                "version":"1.0.1"
+            },
+            "patchs":[
+                {
+                    "id":"talkingpoints_fr",
+                    "name":"Talking Points FR",
+                    "small_description":"Traduisez votre jeu en Français !",
+                    "description":"Parlez et présentez votre pire sujet",
+                    "authors":"Alexis",
+                    "version":"1.0.0_credits",
+                    "patch_path":"patchs/talkingpoints_1.0.0.zip",
+                    "patch_type":{
+                        "game_text":true,
+                        "game_assets":false,
+                        "game_subtitles":false,
+                        "website":false,
+                        "audios":false
+                    }
+                }
+            ]
+        }
+    ],
+    "properties": {
+        "id": {
+            "examples": [
+                "champdup"
+            ],
+            "description":"Id of the game (it should be unique)",
+            "type": "string"
+        },
+        "name": {
+            "examples": [
+                "Champ'd Up"
+            ],
+            "description": "Name of the game",
+            "type": "string"
+        },
+        "background": {
+            "examples": [
+                "game_backgrounds/Champdup.webp"
+            ],
+            "description": "The image of the game",
+            "type": "string"
+        },
+        "path": {
+            "examples": [
+                "games/WorldChampions"
+            ],
+            "description": "Local path of the game in the pack",
+            "type": "string"
+        },
+        "game_info": {
+            "$ref": "gameInfo.json"
+        },
+        "loader": {
+            "$ref": "loader.json"
+        },
+        "patchs": {
+            "description": "A list of patches for this game",
+            "type": "array",
+            "items": {
+                "$ref": "gamePatch.json"
+            }
+        }
+    },
+    "required": [
+        "id",
+        "name",
+        "background",
+        "path",
+        "game_info",
+        "patchs"
+    ]
+}

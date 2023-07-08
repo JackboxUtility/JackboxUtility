@@ -1,0 +1,42 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "packs/executables.json",
+    "description": "The executable files for the game",
+    "title":"Executables",
+    "examples": [
+        {
+            "windows":"The Jackbox Party Pack 3.exe",
+            "mac":"The Jackbox Party Pack 3.app/Contents/MacOS/The Jackbox Party Pack 3",
+            "linux":"Launcher.sh"
+        }
+    ],
+    "type": "object",
+    "properties": {
+        "windows": {
+            "examples": [
+                "The Jackbox Party Pack 3.exe"
+            ],
+            "description": "The executable file for Windows",
+            "type": "string"
+        },
+        "mac": {
+            "examples": [
+                "The Jackbox Party Pack 3.app/Contents/MacOS/The Jackbox Party Pack 3"
+            ],
+            "description": "The executable file for Mac",
+            "type": "string"
+        },
+        "linux": {
+            "examples": [
+                "Launcher.sh"
+            ],
+            "description": "The executable file for Linux",
+            "type": "string"
+        }
+    },
+    "required": [
+        "windows",
+        "mac",
+        "linux"
+    ]
+}

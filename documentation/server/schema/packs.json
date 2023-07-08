@@ -1,0 +1,30 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id":"packs.json",
+    "type": "object",
+    "properties": {
+        "tags": {
+            "type": "array",
+            "items": {
+                "description": "Tag",
+                "$ref": "packs/tag.json"
+            }
+        },
+        "patchsCategories": {
+            "type": "array",
+            "description": "List of patchs categories found in the all patches table",
+            "items": {
+                "description": "Patch category",
+                "$ref": "packs/patchCategory.json"
+            }
+        },
+        "packs":{
+            "type": "array",
+            "description": "List of packs",
+            "items": {
+                "description": "Pack",
+                "$ref": "packs/pack.json"
+            }
+        }
+    }
+}

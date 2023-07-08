@@ -3,27 +3,44 @@ import 'dart:io';
 
 import 'package:jackbox_patcher/model/misc/launchers.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
+import 'package:jackbox_patcher/services/logger/logger.dart';
 import 'package:win32_registry/win32_registry.dart';
 
-
+/// This service is used to automatically find games installed on the user's computer
 class AutomaticGameFinderService {
+  /// This function will find games installed on the user's computer and link them to the packs
   static Future<int> findGames(List<UserJackboxPack> packs) async {
-    int gameFound = 0;
-    gameFound += await _findSteamGames(packs);
-    gameFound += await _findEpicGamesGames(packs);
-    return gameFound;
+    for (UserJackboxPack pack in packs) {
+      if (pack.origin == LauncherType.STEAM ||
+          pack.origin == LauncherType.EPIC) {
+        pack.origin = null;
+        await pack.setOwned(false);
+      }
+    }
+    try {
+      int gameFound = 0;
+      gameFound += await _findSteamGames(packs);
+      gameFound += await _findEpicGamesGames(packs);
+      return gameFound;
+    } catch (e) {
+      JULogger().e(e.toString());
+      rethrow;
+    }
   }
 
   static Future<int> _findSteamGames(List<UserJackboxPack> packs) async {
     int numberGamesFound = 0;
+    String? steamLocation;
     if (Platform.isWindows) {
-      final steamLocation = _getSteamLocation();
-      if (steamLocation != null) {
-        Map<String, List<String>> steamFolderWithAppId =
-            _getSteamFoldersWithAppId(steamLocation);
-        numberGamesFound =
-            await _linkSteamFolderWithPack(steamFolderWithAppId, packs);
-      }
+      steamLocation = _getSteamLocation();
+    } else {
+      steamLocation = Platform.environment["HOME"]! + "/.steam/steam";
+    }
+    if (steamLocation != null) {
+      Map<String, List<String>> steamFolderWithAppId =
+          _getSteamFoldersWithAppId(steamLocation);
+      numberGamesFound =
+          await _linkSteamFolderWithPack(steamFolderWithAppId, packs);
     }
     return numberGamesFound;
   }
@@ -55,7 +72,12 @@ class AutomaticGameFinderService {
   static Map<String, List<String>> _getSteamFoldersWithAppId(
       String steamLocation) {
     Map<String, List<String>> folderWithApps = {};
-    final file = File("$steamLocation\\steamapps\\libraryfolders.vdf");
+    File file;
+    if (Platform.isWindows) {
+      file = File("$steamLocation\\steamapps\\libraryfolders.vdf");
+    } else {
+      file = File("$steamLocation/steamapps/libraryfolders.vdf");
+    }
     final fileLines = file.readAsLinesSync();
     final pathLines = fileLines.where((element) => element.contains('"path"'));
     for (var line in pathLines) {
@@ -78,11 +100,21 @@ class AutomaticGameFinderService {
   }
 
   static _getSteamGamePathFromFolderAndAppId(String folder, String appId) {
-    final file = File("$folder\\steamapps\\appmanifest_$appId.acf");
+    final file = File("$folder" +
+        Platform.pathSeparator +
+        "steamapps" +
+        Platform.pathSeparator +
+        "appmanifest_$appId.acf");
     final fileLines = file.readAsLinesSync();
     final pathLines =
         fileLines.where((element) => element.contains('"installdir"'));
-    return "$folder\\steamapps\\common\\${pathLines.first.split('"')[3]}";
+    return "$folder" +
+        Platform.pathSeparator +
+        "steamapps" +
+        Platform.pathSeparator +
+        "common" +
+        Platform.pathSeparator +
+        "${pathLines.first.split('"')[3]}";
   }
 
   static Future<int> _linkSteamFolderWithPack(
@@ -93,8 +125,11 @@ class AutomaticGameFinderService {
       if (userPack.pack.launchersId != null &&
           userPack.pack.launchersId!.steam != null) {
         for (var folder in steamFoldersWithAppId.keys) {
-          if (await File(
-                  "$folder\\steamapps\\appmanifest_${userPack.pack.launchersId!.steam!}.acf")
+          if (await File("$folder" +
+                  Platform.pathSeparator +
+                  "steamapps" +
+                  Platform.pathSeparator +
+                  "appmanifest_${userPack.pack.launchersId!.steam!}.acf")
               .exists()) {
             numberGamesFound++;
             await userPack.setOwned(true);

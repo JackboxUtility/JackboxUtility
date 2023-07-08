@@ -5,6 +5,9 @@ import 'package:jackbox_patcher/model/jackbox/jackboxpack.dart';
 import 'package:jackbox_patcher/model/misc/windowInformation.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgamepatch.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
+import 'package:jackbox_patcher/services/user/usergamelist.dart';
+import 'package:jackbox_patcher/services/user/usersettings.dart';
+import 'package:jackbox_patcher/services/user/usertip.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../model/misc/launchers.dart';
@@ -15,6 +18,9 @@ import '../../model/usermodel/userjackboxpackpatch.dart';
 class UserData {
   static final UserData _instance = UserData._internal();
   late SharedPreferences preferences;
+  late UserSettings settings;
+  late UserGameList gameList;
+  late UserTips tips;
 
   factory UserData() {
     return _instance;
@@ -26,6 +32,13 @@ class UserData {
 
   Future<void> init() async {
     preferences = await SharedPreferences.getInstance();
+    gameList = UserGameList(preferences: preferences);
+    tips = UserTips(preferences: preferences);
+    tips.init();
+  }
+
+  Future<void> syncSettings() async {
+    settings = UserSettings(preferences: preferences);
   }
 
   Future<void> syncInfo() async {
@@ -70,8 +83,11 @@ class UserData {
               version: preferences.getString("${game.id}_loader_version"));
         }
 
-        UserJackboxGame currentGame =
-            UserJackboxGame(game: game, loader: gameLoader);
+        UserJackboxGame currentGame = UserJackboxGame(
+            game: game,
+            stars: preferences.getInt("${game.id}_stars") ?? 0,
+            hidden: preferences.getBool("${game.id}_hidden") ?? false,
+            loader: gameLoader);
         userPack.games.add(currentGame);
         for (var patch in game.patches) {
           final String? patchVersionInstalled =
@@ -102,10 +118,72 @@ class UserData {
         userPack.patches.add(UserJackboxPackPatch(
             patch: patch, installedVersion: patchVersionInstalled));
       }
+
+      // Do the same for the fixes
+       for (var patch in pack.fixes) {
+        final String? patchVersionInstalled;
+        if (pack.configuration != null && userPack.path != null) {
+          File configurationFile =
+              File("${userPack.path!}/${pack.configuration!.versionFile}");
+          if (configurationFile.existsSync()) {
+            patchVersionInstalled =
+                jsonDecode(configurationFile.readAsStringSync())[
+                        pack.configuration!.versionProperty]
+                    .replaceAll("Build:", "")
+                    .trim();
+          } else {
+            patchVersionInstalled = null;
+          }
+        } else {
+          patchVersionInstalled = null;
+        }
+        userPack.fixes.add(UserJackboxPackPatch(
+            patch: patch, installedVersion: patchVersionInstalled));
+      }
     }
 
     for (var element in APIService().cachedCategories) {
       element.addPatchs(packs);
+    }
+  }
+
+  void updateDownloadedPackPatchVersion(){
+    List<UserJackboxPack> availablePacks = packs.where((element) => element.owned).toList();
+    for (var pack in availablePacks) {
+      for (var patch in pack.patches) {
+        if (pack.pack.configuration != null && pack.path != null) {
+          File configurationFile =
+              File("${pack.path!}/${pack.pack.configuration!.versionFile}");
+          if (configurationFile.existsSync()) {
+            patch.installedVersion =
+                jsonDecode(configurationFile.readAsStringSync())[
+                        pack.pack.configuration!.versionProperty]
+                    .replaceAll("Build:", "")
+                    .trim();
+          } else {
+            patch.installedVersion = null;
+          }
+        } else {
+          patch.installedVersion = null;
+        }
+      }
+      for (var patch in pack.fixes) {
+        if (pack.pack.configuration != null && pack.path != null) {
+          File configurationFile =
+              File("${pack.path!}/${pack.pack.configuration!.versionFile}");
+          if (configurationFile.existsSync()) {
+            patch.installedVersion =
+                jsonDecode(configurationFile.readAsStringSync())[
+                        pack.pack.configuration!.versionProperty]
+                    .replaceAll("Build:", "")
+                    .trim();
+          } else {
+            patch.installedVersion = null;
+          }
+        } else {
+          patch.installedVersion = null;
+        }
+      }
     }
   }
 
@@ -122,8 +200,12 @@ class UserData {
       await preferences.remove("${pack.pack.id}_path");
     }
     await preferences.setBool("${pack.pack.id}_owned", pack.owned);
+    if (pack.origin != null) {
     await preferences.setString(
         "${pack.pack.id}_origin", pack.origin!.toName());
+    } else {
+      await preferences.remove("${pack.pack.id}_origin");
+    }
     for (var game in pack.games) {
       await saveGame(game);
     }
@@ -140,6 +222,8 @@ class UserData {
     if (game.loader != null) {
       await saveLoader(game.loader!, game.game.id);
     }
+    await preferences.setInt("${game.game.id}_stars", game.stars);
+    await preferences.setBool("${game.game.id}_hidden", game.hidden);
   }
 
   /// Save a patch (mostly used when a patch is downloaded)
@@ -160,13 +244,6 @@ class UserData {
     }
   }
 
-  /// Write logs (mostly used when a patch is not downloaded properly)
-  Future<void> writeLogs(String logs) async {
-    File logFile = File("./logs.txt");
-    await logFile.writeAsString("[${DateTime.now()}]\n$logs",
-        mode: FileMode.append);
-  }
-
   String? getLastNewsReaden() {
     return preferences.getString("last_news_readen");
   }
@@ -179,11 +256,19 @@ class UserData {
     return preferences.getString("selected_server");
   }
 
+  bool getFixPromptDiscard(UserJackboxPackPatch fix){
+    return preferences.getBool("${fix.patch.id}_fix_prompt_discard") ?? false;
+  }
+
+  void setFixPromptDiscard(UserJackboxPackPatch fix, bool value){
+    preferences.setBool("${fix.patch.id}_fix_prompt_discard", value);
+  }
+
   WindowInformation getLastWindowInformations() {
     WindowInformation lastWindowInformations = WindowInformation(
       maximized: preferences.getBool("last_window_maximize") ?? false,
-      width: preferences.getInt("last_window_width") ?? 1280,
-      height: preferences.getInt("last_window_height") ?? 720,
+      width: preferences.getInt("last_window_width") ?? 1300,
+      height: preferences.getInt("last_window_height") ?? 750,
       x: preferences.getInt("last_window_x") ?? 10,
       y: preferences.getInt("last_window_y") ?? 10,
     );
@@ -206,5 +291,21 @@ class UserData {
     await preferences.setInt("last_window_height", windowInformation.height);
     await preferences.setInt("last_window_x", windowInformation.x);
     await preferences.setInt("last_window_y", windowInformation.y);
+  }
+
+  void resetStars() {
+    for (var pack in packs) {
+      for (var game in pack.games) {
+        game.stars = 0;
+      }
+    }
+  }
+
+  void resetHiddenGames() {
+    for (var pack in packs) {
+      for (var game in pack.games) {
+        game.hidden = false;
+      }
+    }
   }
 }

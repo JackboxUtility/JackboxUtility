@@ -1,0 +1,42 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id":"packs/packConfiguration.json",
+    "title": "Pack Configuration",
+    "description": "Configuration for a pack. It changed the behavior of the pack for this pack",
+    "examples": [
+        {
+	        "version_origin":"game_file",
+            "version_file":"config.jet",
+            "version_property":"buildVersion"
+        }
+    ],
+    "type": "object",
+    "properties": {
+        "version_origin": {
+            "description": "Where the version is taken from. game_file : from the game_file",
+            "enum": [
+                "game_file"
+            ],
+            "type": "string"
+        },
+        "version_file": {
+            "examples": [
+                "config.jet"
+            ],
+            "description": "The file where the version is taken from",
+            "type": "string"
+        },
+        "version_property": {
+            "examples": [
+                "buildVersion"
+            ],
+            "description": "The property where the version is taken from",
+            "type": "string"
+        }
+    },
+    "required": [
+        "version_origin",
+        "version_file",
+        "version_property"
+    ]
+}

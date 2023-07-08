@@ -1,12 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jackbox_patcher/pages/patcher/categoryPackPatch.dart';
+import 'package:jackbox_patcher/services/discord/DiscordService.dart';
 
+import '../../components/closableRouteWithEsc.dart';
+import '../../model/usermodel/userjackboxpack.dart';
 import '../../services/api/api_service.dart';
+import '../../services/translations/translationsHelper.dart';
 import '../../services/user/userdata.dart';
 import 'packContainer.dart';
 
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PatcherMenuWidget extends StatefulWidget {
   const PatcherMenuWidget({Key? key}) : super(key: key);
@@ -22,6 +26,7 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
 
   @override
   void initState() {
+    DiscordService().launchPatchingPresence();
     super.initState();
   }
 
@@ -31,7 +36,8 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
     if (items.isEmpty) {
       _buildPaneItems();
     }
-    return NavigationView(
+    return ClosableRouteWithEsc(
+        child: NavigationView(
       transitionBuilder: (child, animation) {
         return FadeTransition(
           opacity: animation,
@@ -49,7 +55,7 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
             style: typography.title,
           )),
       pane: NavigationPane(
-        indicator: null,
+          indicator: null,
           onChanged: (int nSelected) {
             setState(() {
               _selectedView = nSelected;
@@ -58,21 +64,24 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
           selected: _selectedView,
           items: items,
           footerItems: [
-            PaneItem(
-              icon: const Icon(FluentIcons.package),
-              title: Text(showAllPacks == false
-                  ? AppLocalizations.of(context)!.show_all_packs
-                  : AppLocalizations.of(context)!.show_owned_packs_only),
-              body: Container(),
-              onTap: () {
-                setState(() {
-                  showAllPacks = !showAllPacks;
-                });
-                _buildPaneItems();
-              },
-            )
+            if (UserJackboxPack.countUnownedPack(UserData().packs) >= 1)
+              PaneItem(
+                icon: const Icon(FontAwesomeIcons.boxArchive),
+                title: Text(showAllPacks == false
+                    ? TranslationsHelper().appLocalizations!.show_all_packs
+                    : TranslationsHelper()
+                        .appLocalizations!
+                        .show_owned_packs_only),
+                body: Container(),
+                onTap: () {
+                  setState(() {
+                    showAllPacks = !showAllPacks;
+                  });
+                  _buildPaneItems();
+                },
+              )
           ]),
-    );
+    ));
   }
 
   _changeMenuView(String packId) {
@@ -92,7 +101,7 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
     _selectedView = 0;
     items.add(PaneItem(
         icon: const Center(child: Icon(FluentIcons.home)),
-        title: Text(AppLocalizations.of(context)!.all_patches),
+        title: Text(TranslationsHelper().appLocalizations!.all_patches),
         body: ListView(
             children: List.generate(
                 APIService().cachedCategories.length,
@@ -117,8 +126,8 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
         items.add(PaneItem(
             key: ValueKey(userPack.pack.id),
             icon: CachedNetworkImage(
-              fit:BoxFit.fitHeight,
-              imageUrl:APIService().assetLink(userPack.pack.icon),
+              fit: BoxFit.fitHeight,
+              imageUrl: APIService().assetLink(userPack.pack.icon),
               memCacheHeight: 40,
               memCacheWidth: 40,
             ),

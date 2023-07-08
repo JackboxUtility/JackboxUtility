@@ -12,6 +12,7 @@ class DownloaderService {
   /// Downloads a patch from [patchUrl] and extracts it to [uri]
   static Future<void> downloadPatch(String uri, String patchUrl,
       void Function(String, String, double) callback) async {
+    JULogger().i("Downloading patch from $patchUrl to $uri");
     isDownloading = true;
     String filePath = "";
     try {
@@ -32,11 +33,13 @@ class DownloaderService {
       rethrow;
     }
     try {
+      JULogger().i("Extracting patch from $filePath to $uri");
       callback(TranslationsHelper().appLocalizations!.extracting, "", 75);
 
       await extractFileToDisk(filePath, uri, callback);
       callback(TranslationsHelper().appLocalizations!.finalizing, "", 100);
     } catch (e) {
+      
       callback(
           TranslationsHelper().appLocalizations!.extracting_error,
           TranslationsHelper().appLocalizations!.extracting_error_description,
@@ -49,6 +52,7 @@ class DownloaderService {
     //File(filePath).deleteSync(recursive: true);
   }
 
+  /// Extracts a file from [filePath] to [uri]
   static Future<void> extractFileToDisk(
       filePath, uri, void Function(String, String, double) callback) async {
     if (Platform.isWindows) {
@@ -58,6 +62,7 @@ class DownloaderService {
     }
   }
 
+  /// Extracts a file from [filePath] to [uri] on Linux
   static Future<void> extractFileToDiskUnix(
       filePath, uri, void Function(String, String, double) callback) async {
     ProcessResult listProcess = await Process.run("unzip", ["-l", filePath]);
@@ -76,6 +81,7 @@ class DownloaderService {
     return;
   }
 
+  /// Extracts a file from [filePath] to [uri] on Windows
   static Future<void> extractFileToDiskWindows(
       filePath, uri, void Function(String, String, double) callback) async {
     ProcessResult listProcess = await Process.run("tar", ["-tf", "$filePath"]);

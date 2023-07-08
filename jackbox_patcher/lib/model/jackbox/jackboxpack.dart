@@ -11,10 +11,12 @@ class JackboxPack {
   final JackboxLoader? loader;
   final LaunchersId? launchersId;
   final List<JackboxGame> games;
+  final List<JackboxPackPatch> fixes;
   final List<JackboxPackPatch> patches;
   final PackConfiguration? configuration;
   final String background;
   final String? executable;
+  final StoreLinks? storeLinks;
 
   JackboxPack(
       {required this.id,
@@ -25,11 +27,19 @@ class JackboxPack {
       required this.launchersId,
       required this.background,
       required this.games,
+      required this.fixes,
       required this.patches,
       required this.configuration,
-      required this.executable});
+      required this.executable,
+      required this.storeLinks});
 
   factory JackboxPack.fromJson(Map<String, dynamic> json) {
+    List<JackboxPackPatch> patches = json['patchs'] != null
+        ? (json['patchs'] as List<dynamic>)
+            .map((e) => JackboxPackPatch.fromJson(e))
+            .toList()
+        : [];
+
     return JackboxPack(
         id: json['id'],
         name: json['name'],
@@ -43,18 +53,34 @@ class JackboxPack {
             : null,
         background: json['background'],
         games: (json['games'] as List<dynamic>)
-            .map((e) => JackboxGame.fromJson(e))
+            .map((e) => JackboxGame.fromJson(
+                e))
             .toList(),
-        patches: json['patchs'] != null
-            ? (json['patchs'] as List<dynamic>)
+        fixes: json["fixes"] != null
+            ? (json['fixes'] as List<dynamic>)
                 .map((e) => JackboxPackPatch.fromJson(e))
                 .toList()
             : [],
+        patches: patches,
         configuration: json['configuration'] != null
             ? PackConfiguration.fromJson(json['configuration'])
             : null,
-        executable:
-            JackboxPack.generateExecutableFromJson(json['executables']));
+        executable: JackboxPack.generateExecutableFromJson(json['executables']),
+        storeLinks: json['store_links'] != null
+            ? StoreLinks.fromJson(json['store_links'])
+            : null);
+  }
+
+  static isGameDubbedByPackPatch(
+      List<JackboxPackPatch> patches, String gameId) {
+    for (var patch in patches) {
+      for (var game in patch.components) {
+        if (game.linkedGame == gameId && game.patchType!.audios) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   static List<JackboxPack> fromJsonList(List<dynamic> jsonList) {
@@ -101,6 +127,23 @@ class LaunchersId {
   }
 }
 
+class StoreLinks {
+  final String? steam;
+  final String? epic;
+  final String? jackboxGamesStore;
+
+  StoreLinks({required this.steam, required this.epic, this.jackboxGamesStore});
+
+  factory StoreLinks.fromJson(Map<String, dynamic> json) {
+    return StoreLinks(
+        steam: json['steam'] != null ? json["steam"] : null,
+        epic: json['epic'] != null ? json["epic"] : null,
+        jackboxGamesStore: json['jackbox_games_store'] != null
+            ? json["jackbox_games_store"]
+            : null);
+  }
+}
+
 class PackConfiguration {
   final LocalVersionOrigin versionOrigin;
   final String versionFile;
@@ -112,6 +155,7 @@ class PackConfiguration {
       required this.versionProperty});
 
   factory PackConfiguration.fromJson(Map<String, dynamic> json) {
+    print(json);
     return PackConfiguration(
         versionOrigin: LocalVersionOrigin.fromString(json['version_origin']),
         versionFile: json['version_file'],

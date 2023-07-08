@@ -1,0 +1,73 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "packs/pack.json",
+    "title": "Pack",
+    "description": "A pack is a collection of games (For example : Jackbox Party Pack 9)",
+    "type": "object",
+    "properties": {
+        "id": {
+            "examples": [
+                "jpp2"
+            ],
+            "description": "The unique identifier for a pack",
+            "type": "string"
+        },
+        "name": {
+            "examples": [
+                "The Jackbox Party Pack 2"
+            ],
+            "description": "The name of the pack",
+            "type": "string"
+        },
+        "description": {
+            "examples": [
+                "The sequel to the party game phenomenon The Jackbox Party Pack"
+            ],
+            "description": "The description of the pack",
+            "type": "string"
+        },
+        "launchers_id": {
+            "$ref": "launchersId.json"
+        },
+        "executables": {
+            "$ref": "executables.json"
+        },
+        "loader": {
+            "type": "object",
+            "$ref": "loader.json",
+            "description": "The default loader for this pack"
+        },
+        "configuration": {
+            "$ref": "packConfiguration.json"
+        },
+        "patchs": {
+            "type": "array",
+            "items": {
+                "$ref": "packPatch.json",
+                "type": "object"
+            }
+        },
+        "games": {
+            "type": "array",
+            "items": {
+                "$ref": "game.json",
+                "type": "object"
+            }
+        },
+        "icon": {
+            "type": "string"
+        },
+        "background": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "id",
+        "name",
+        "description",
+        "patchs",
+        "games",
+        "icon",
+        "background"
+    ]
+}

@@ -9,11 +9,11 @@ import 'package:jackbox_patcher/model/usermodel/userjackboxpackpatch.dart';
 import 'package:jackbox_patcher/services/error/error.dart';
 import 'package:jackbox_patcher/services/launcher/launcher.dart';
 import 'package:palette_generator/palette_generator.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../model/usermodel/userjackboxgame.dart';
 import '../../model/usermodel/userjackboxpack.dart';
 import '../../services/api/api_service.dart';
+import '../../services/translations/translationsHelper.dart';
 
 void _openPatchInfo(context, dynamic data, JackboxGame? relatedGame) {
   showDialog(
@@ -81,7 +81,7 @@ void _openPatchInfo(context, dynamic data, JackboxGame? relatedGame) {
           ]),
           content: ListView(children: [
             data.description != null && data.description != ""
-                ? Text(AppLocalizations.of(context)!.description,
+                ? Text(TranslationsHelper().appLocalizations!.description,
                     style: const TextStyle(fontSize: 20))
                 : Container(),
             data.description != null && data.description != ""
@@ -90,44 +90,44 @@ void _openPatchInfo(context, dynamic data, JackboxGame? relatedGame) {
             data.description != null && data.description != ""
                 ? const SizedBox(height: 10)
                 : Container(),
-            Text(AppLocalizations.of(context)!.patch_modification,
+            Text(TranslationsHelper().appLocalizations!.patch_modification,
                 style: const TextStyle(fontSize: 20)),
-            Text(AppLocalizations.of(context)!.patch_modification_description),
+            Text(TranslationsHelper()
+                .appLocalizations!
+                .patch_modification_description),
             data.patchType!.gameText
                 ? Text(
-                    "- ${AppLocalizations.of(context)!.patch_modification_content_text}")
+                    "- ${TranslationsHelper().appLocalizations!.patch_modification_content_text}")
                 : const SizedBox(),
             data.patchType!.gameAssets
                 ? Text(
-                    "- ${AppLocalizations.of(context)!.patch_modification_content_internal}")
+                    "- ${TranslationsHelper().appLocalizations!.patch_modification_content_internal}")
                 : const SizedBox(),
             data.patchType!.gameSubtitles
                 ? Text(
-                    "- ${AppLocalizations.of(context)!.patch_modification_content_subtitles}")
+                    "- ${TranslationsHelper().appLocalizations!.patch_modification_content_subtitles}")
                 : const SizedBox(),
             data.patchType!.website
                 ? Text(
-                    "- ${AppLocalizations.of(context)!.patch_modification_content_website(APIService().cachedSelectedServer!.controllerUrl != null ? APIService().cachedSelectedServer!.controllerUrl! : "jackbox.tv")}")
+                    "- ${TranslationsHelper().appLocalizations!.patch_modification_content_website(APIService().cachedSelectedServer!.controllerUrl != null ? APIService().cachedSelectedServer!.controllerUrl! : "jackbox.tv")}")
                 : const SizedBox(),
             data.patchType!.audios
                 ? Text(
-                    "- ${AppLocalizations.of(context)!.patch_modification_content_audios}")
+                    "- ${TranslationsHelper().appLocalizations!.patch_modification_content_audios}")
                 : const SizedBox(),
             const SizedBox(
               height: 20,
             ),
             data is JackboxGamePatch
-                ? Text(AppLocalizations.of(context)!.version,
+                ? Text(TranslationsHelper().appLocalizations!.version,
                     style: const TextStyle(fontSize: 20))
                 : Container(),
-            data is JackboxGamePatch
-                ? Text(data.latestVersion)
-                : Container(),
+            data is JackboxGamePatch ? Text(data.latestVersion) : Container(),
             const SizedBox(
               height: 20,
             ),
             data.authors != null && data.authors != ""
-                ? Text(AppLocalizations.of(context)!.authors,
+                ? Text(TranslationsHelper().appLocalizations!.authors,
                     style: const TextStyle(fontSize: 20))
                 : Container(),
             data.authors != null && data.authors != ""
@@ -137,7 +137,7 @@ void _openPatchInfo(context, dynamic data, JackboxGame? relatedGame) {
           actions: [
             HyperlinkButton(
               onPressed: () => Navigator.pop(context),
-              child: Text(AppLocalizations.of(context)!.close),
+              child: Text(TranslationsHelper().appLocalizations!.close),
             ),
           ],
         );
@@ -217,7 +217,8 @@ class _GameInPatchCardState extends State<GameInPatchCard> {
                               children: [
                                 Expanded(
                                     child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 12),
                                   child: Column(children: [
                                     Text(widget.gamePatchIncluded.name,
                                         overflow: TextOverflow.ellipsis,
@@ -317,7 +318,8 @@ class _GamePatchCardState extends State<GamePatchCard> {
                               children: [
                                 Expanded(
                                     child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 12),
                                   child: Column(children: [
                                     Text(widget.patch.patch.name,
                                         overflow: TextOverflow.ellipsis,
@@ -394,18 +396,19 @@ class _GamePatchCardState extends State<GamePatchCard> {
 
     switch (patchStatus) {
       case UserInstalledPatchStatus.INEXISTANT:
-        buttonText = AppLocalizations.of(context)!.patch_unavailable;
+        buttonText = TranslationsHelper().appLocalizations!.patch_unavailable;
         break;
       case UserInstalledPatchStatus.INSTALLED:
-        buttonText = AppLocalizations.of(context)!.patch_installed(1);
+        buttonText = TranslationsHelper().appLocalizations!.patch_installed(1);
         removePatchButtonVisible = true;
         break;
       case UserInstalledPatchStatus.INSTALLED_OUTDATED:
-        buttonText = AppLocalizations.of(context)!.patch_outdated(1);
+        buttonText = TranslationsHelper().appLocalizations!.patch_outdated(1);
         removePatchButtonVisible = true;
         break;
       case UserInstalledPatchStatus.NOT_INSTALLED:
-        buttonText = AppLocalizations.of(context)!.patch_not_installed(1);
+        buttonText =
+            TranslationsHelper().appLocalizations!.patch_not_installed(1);
         break;
       default:
     }
@@ -429,13 +432,14 @@ class _GamePatchCardState extends State<GamePatchCard> {
         context: context,
         builder: (context) {
           return ContentDialog(
-            title: Text(AppLocalizations.of(context)!.delete_version),
-            content:
-                Text(AppLocalizations.of(context)!.delete_version_description),
+            title: Text(TranslationsHelper().appLocalizations!.delete_version),
+            content: Text(TranslationsHelper()
+                .appLocalizations!
+                .delete_version_description),
             actions: [
               HyperlinkButton(
                 onPressed: () => Navigator.pop(context),
-                child: Text(AppLocalizations.of(context)!.cancel),
+                child: Text(TranslationsHelper().appLocalizations!.cancel),
               ),
               HyperlinkButton(
                 onPressed: () async {
@@ -443,7 +447,7 @@ class _GamePatchCardState extends State<GamePatchCard> {
                   Navigator.pop(context);
                   setState(() {});
                 },
-                child: Text(AppLocalizations.of(context)!.confirm),
+                child: Text(TranslationsHelper().appLocalizations!.confirm),
               ),
             ],
           );
@@ -509,7 +513,8 @@ class _GameImageWithOpenerState extends State<GameImageWithOpener> {
                                         begin: playButtonVisible ? 0 : 1,
                                         end: playButtonVisible ? 1 : 0,
                                       ),
-                                      duration: const Duration(milliseconds: 200),
+                                      duration:
+                                          const Duration(milliseconds: 200),
                                       builder: (BuildContext context,
                                           double opacity, Widget? child) {
                                         return Column(
@@ -522,7 +527,8 @@ class _GameImageWithOpenerState extends State<GameImageWithOpener> {
                                                   .withOpacity(opacity),
                                             ),
                                             Text(
-                                              AppLocalizations.of(context)!
+                                              TranslationsHelper()
+                                                  .appLocalizations!
                                                   .small_description,
                                               style: TextStyle(
                                                   color: Colors.white

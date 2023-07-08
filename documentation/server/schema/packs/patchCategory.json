@@ -1,0 +1,58 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id":"packs/patchCategory.json",
+    "title": "PatchCategory",
+    "description": "A group of different patches that can be downloaded all at once",
+    "type": "object",
+    "examples": [
+        {
+            "id":"spanish_patchs",
+            "name":"Traducción al Español Latino",
+            "smallDescription":"¡Traduce los juegos al español latino!\n(Ve más abajo para la traducción al Español Castellano)",
+            "patchs":["jpp1_es","jpp2_es","jpp3_es","jpp4_es","jpp5_es","jpp6_es","jpp7_es","jpp8_es","jpp9_es","jpstarter_es","fbxl_es","quip_es","quip2int_es","df2_es","uyw_es","wtd_es","rttg_es"]
+        }
+    ],
+    "properties": {
+        "id": {
+            "examples": [
+                "french_patches"
+            ],
+            "description": "The unique identifier for a patch category",
+            "type": "string"
+        },
+        "name": {
+            "examples": [
+                "French patches"
+            ],
+            "description": "Name of the patch category",
+            "type": "string"
+        },
+        "smallDescription": {
+            "examples": [
+                "All the french patches in the same place !"
+            ],
+            "description": "Small description of the patch category",
+            "type": "string"
+        },
+        "patchs": {
+            "examples": [
+                [
+                    "bombcorp_fr","bidiots_fr","monsterseekingmonster_fr","bracketeering_fr","splittheroom_fr","patentlystupid_fr","jokeboat_fr","dictionarium_fr","pushthebutton_fr","champdup_fr","talkingpoints_fr","thedevilsandthedetails_fr","jobjob_fr","thepollmine_fr","weaponsdrawn_fr"
+                ],
+                ["jpp1_es","jpp2_es","jpp3_es","jpp4_es","jpp5_es","jpp6_es","jpp7_es","jpp8_es","jpp9_es","jpstarter_es","fbxl_es","quip_es","quip2int_es","df2_es","uyw_es","wtd_es","rttg_es"]
+            ],
+            "description": "List of patchs id in the category. It can be a game patch or a pack patch",
+            "type": "array",
+            "items": {
+                "description": "Patch id",
+                "type": "string"
+            }
+        }
+    },
+    "required": [
+        "id",
+        "name",
+        "smallDescription",
+        "patchs"
+    ]
+}

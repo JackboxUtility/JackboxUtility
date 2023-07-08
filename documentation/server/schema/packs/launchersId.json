@@ -1,0 +1,24 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id":"packs/launchersId.json",
+    "title":"LaunchersId",
+    "type": "object",
+    "examples":[
+        {
+            "steam":"331670",
+            "epic":"Feverfew"
+        }
+    ],
+    "properties": {
+        "steam": {
+            "examples": ["331670"],
+            "description": "Steam id of the game",
+            "type": "string"
+        },
+        "epic": {
+            "examples": ["Feverfew"],
+            "description": "Epic id of the game",
+            "type": "string"
+        }
+    }
+}

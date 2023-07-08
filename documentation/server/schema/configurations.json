@@ -1,0 +1,70 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "configurations.json",
+    "title": "Configuration",
+    "description": "The configuration for the server.",
+    "type": "object",
+    "properties": {
+      "LAUNCHER": {
+        "type": "object",
+        "description": "The configuration for the launcher.",
+        "properties": {
+          "HIDE_DUBBED": {
+            "type": "boolean",
+            "description": "Whether to hide dubbed category from the launcher part.",
+            "examples": [
+              true
+            ]
+          }
+        },
+        "required": []
+      },
+      "MAIN": {
+        "type": "object",
+        "description": "The main app configurations.",
+        "properties": {
+          "HIDE_PATCHER": {
+            "type": "boolean",
+            "description": "Hide the patcher part of the app",
+            "examples": [
+              true
+            ]
+          }
+        },
+        "required": []
+      },
+      "SERVER_INFORMATION": {
+        "type": "object",
+        "description": "The configuration for the server information.",
+        "properties": {
+          "SHOW_PATREONS_SUBSCRIBERS": {
+            "type": "boolean",
+            "description": "Whether to show the list of Patreon subscribers on the server information page.",
+            "examples": [
+              true
+            ]
+          },
+          "PATREONS_SUBSCRIBERS": {
+            "type": "array",
+            "description": "The list of Patreon subscribers to display on the server information page.",
+            "items": {
+              "type": "string",
+              "examples": [
+                "Jakob Bysewski",
+                "Sturmkraehe",
+                "Angie",
+                "DanielM",
+                "Scooty",
+                "Steini225",
+                "Nuggelz",
+                "Just a Yoshi",
+                "Joshua Seipel"
+              ]
+            }
+          }
+        },
+        "required": []
+      }
+    },
+    "required": []
+  }

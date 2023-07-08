@@ -21,16 +21,19 @@ jobs:
       run: |
          DATE=$(date +%s)
          VERSION=$(more pubspec.yaml | grep version: | cut -d ' ' -f2)
-         echo "version=${VERSION}_beta_${DATE}" >> $GITHUB_OUTPUT
+         echo "version=${VERSION}-beta-${DATE}" >> $GITHUB_OUTPUT
  build_windows:
    runs-on: windows-latest
    needs: retrievingVersion
    steps:
      - uses: actions/checkout@v3
      - uses: subosito/flutter-action@v2
+       with:
+        flutter-version: '3.10.0'
+        channel: 'stable'
      - name: Build windows
        working-directory: ./jackbox_patcher
-       run: flutter build windows
+       run: flutter build windows --build-name ${{ needs.retrievingVersion.outputs.version }} -t ./lib/main_beta.dart
      - uses: actions/upload-artifact@v3
        with:
           name: build_windows
@@ -42,15 +45,39 @@ jobs:
      - uses: actions/checkout@v3
      - run: |
         sudo apt-get update -y
+        sudo apt install libmpv-dev mpv
         sudo apt-get install -y ninja-build libgtk-3-dev
+        sudo apt-get install -y libunwind-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libgstreamer-plugins-bad1.0-dev gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav gstreamer1.0-tools gstreamer1.0-x gstreamer1.0-alsa gstreamer1.0-gl gstreamer1.0-gtk3 gstreamer1.0-qt5 gstreamer1.0-pulseaudio
      - uses: subosito/flutter-action@v2
+       with:
+        flutter-version: '3.10.0'
+        channel: 'stable'
      - name: Build linux
        working-directory: ./jackbox_patcher
-       run: flutter build linux
+       run: flutter build linux --build-name ${{ needs.retrievingVersion.outputs.version }} -t ./lib/main_beta.dart
      - uses: actions/upload-artifact@v3
        with:
           name: build_linux
           path: ./jackbox_patcher/build/linux/x64/release/bundle
+ build_macos:
+   runs-on: macos-latest
+   needs: retrievingVersion
+   steps:
+     - uses: actions/checkout@v3
+     - uses: subosito/flutter-action@v2
+       with:
+        flutter-version: '3.10.0'
+        channel: 'stable'
+     - name: Build Macos
+       working-directory: ./jackbox_patcher
+       run: flutter build macos --build-name ${{ needs.retrievingVersion.outputs.version }} -t ./lib/main_beta.dart
+     - run: |
+        mkdir ./jackbox_patcher/build/macosbuildresult
+        mv ./jackbox_patcher/build/macos/Build/Products/Release/jackbox_patcher.app ./jackbox_patcher/build/macosbuildresult
+     - uses: actions/upload-artifact@v3
+       with:
+          name: build_macos
+          path: ./jackbox_patcher/build/macosbuildresult
  upload:
     runs-on: ubuntu-latest
     needs: 

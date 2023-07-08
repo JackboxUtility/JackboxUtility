@@ -1,0 +1,78 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "AlexisL61",
+      "name": "Alexis",
+      "avatar_url": "https://avatars.githubusercontent.com/u/30233189?v=4",
+      "profile": "https://github.com/AlexisL61",
+      "contributions": [
+        "code",
+        "translation"
+      ]
+    },
+    {
+      "login": "MeDustyy",
+      "name": "Oleksandr",
+      "avatar_url": "https://avatars.githubusercontent.com/u/58863601?v=4",
+      "profile": "http://t.me/MeDustyy",
+      "contributions": [
+        "translation",
+        "bug",
+        "ideas"
+      ]
+    },
+    {
+      "login": "AkiraArtuhaxis",
+      "name": "Akira896",
+      "avatar_url": "https://avatars.githubusercontent.com/u/93792993?v=4",
+      "profile": "https://github.com/AkiraArtuhaxis",
+      "contributions": [
+        "ideas",
+        "bug",
+        "translation"
+      ]
+    },
+    {
+      "login": "DerErizzle",
+      "name": "Eric",
+      "avatar_url": "https://avatars.githubusercontent.com/u/43215958?v=4",
+      "profile": "http://twitch.tv/Erizzle",
+      "contributions": [
+        "ideas",
+        "bug",
+        "translation"
+      ]
+    },
+    {
+      "login": "VladGraund",
+      "name": "Vladyslav Kulybaba",
+      "avatar_url": "https://avatars.githubusercontent.com/u/106146104?v=4",
+      "profile": "https://github.com/VladGraund",
+      "contributions": [
+        "translation"
+      ]
+    },
+    {
+      "login": "Forseti6676",
+      "name": "Maxi",
+      "avatar_url": "https://avatars.githubusercontent.com/u/97843472?v=4",
+      "profile": "https://github.com/Forseti6676",
+      "contributions": [
+        "translation"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "skipCi": true,
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "projectName": "JackboxUtility",
+  "projectOwner": "AlexisL61",
+  "commitType": "docs"
+}
