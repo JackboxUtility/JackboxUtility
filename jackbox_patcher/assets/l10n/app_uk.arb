@@ -272,7 +272,7 @@
     "settings_discord_rich_presence_description": "Буде транслювати вашу активність у застосунку в Discord. Працює лише при відкритому Discord'і",
     "settings_audio_category": "Звуки",
     "settings_sfx_title": "Звуки у застосунку",
-    "settings_sfx_description": "Додаткові звукоі ефекти у застосунку",
+    "settings_sfx_description": "Додаткові звукові ефекти у застосунку",
     "settings_app_saves_category": "Пам'ять застосунка",
     "settings_app_reset_stars_title": "Скинути зірки",
     "settings_app_reset_stars_description": "Скинути усі зірки, які ви поставили іграм",

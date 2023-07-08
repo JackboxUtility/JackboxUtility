@@ -40,14 +40,12 @@ git clone https://github.com/AlexisL61/JackboxUtility.git
 
 Launch the app:
 ```
-flutter run
+flutter run --flavor beta -t ./lib/main_beta.dart
 ```
 
 Build the app:
 ```
-flutter build windows
-OR
-flutter build linux
+flutter build -t ./lib/main_beta.dart <OS>
 ```
 
 ## Contributors
