@@ -314,13 +314,13 @@
     "filter_moderation_censoring": "Модерація й цензура",
     "filter_dubbed": "Озвучено",
     "filter_translated": "Перекладено",
-    "game_translation_translated_description_en": "EN:These games are translated in French, Italian, German and Spanish by Jackbox Games.",
-    "game_translation_not_available_description_en": "EN:These games are only available in English.",
-    "filter_players_number": "EN:Player count",
-    "special_thanks": "EN:Special Thanks",
-    "stream_friendly_tooltip": "EN:If you can play this game through a stream, that being in a streaming platform or sharing your screen through Discord, Zoom, Meet, etc.",
-    "family_friendly_tooltip": "EN:If this game can be played with all the family (children included).",
-    "moderation_tooltip": "EN:If this game has a moderation system (accepts, rejects or censors player input on-screen).",
-    "audience_tooltip": "EN:If this game accepts audience members (up to 10.000, unless mentioned otherwise) to play along after players have joined.",
-    "subtitles_tooltip": "EN:If this game has subtitles to be displayed on-screen."
+    "game_translation_translated_description_en": "Ці ігри перекладені французькою, італійською, німецькою та іспанською мовами компанією Jackbox Games.",
+    "game_translation_not_available_description_en": "Ці ігри доступні лише англійською мовою.",
+    "filter_players_number": "Кількість гравців",
+    "special_thanks":"Окрема подяка",
+    "stream_friendly_tooltip":"Показує чи можна грати у цю гру за допомогою трансляції, чи то стрімінговій платформі, чи то через Discord, Zoom, Meet тощо",
+    "family_friendly_tooltip":"Показує чи можна грати у цю гру всією сім'єю (включно з дітьми)",
+    "moderation_tooltip":"Показує чи має ця гра систему модерації (приймання/відхилення/цензурування надісланого гравцями вмісту)",
+    "audience_tooltip":"Показує чи можуть до цієї гри приєднуватися глядачі (до 10 000 глядачів, якщо не вказано інакше)",
+    "subtitles_tooltip":"Показує чи має ця гра можливість показу субтитрів на екрані"
 }
