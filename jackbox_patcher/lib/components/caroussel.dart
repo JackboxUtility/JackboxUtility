@@ -69,8 +69,10 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
 
   void controlPlayerState() {
     if (hasVideo) {
-      if (!UserData().settings.isAudioActivated) VideoService.player.setVolume(0);
-      completedStream = VideoService.player.stream.completed.listen((bool ended) {
+      if (!UserData().settings.isAudioActivated)
+        VideoService.player.setVolume(0);
+      completedStream =
+          VideoService.player.stream.completed.listen((bool ended) {
         if (ended) {
           print("ENDED");
           VideoService.player.play();
@@ -129,8 +131,7 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
             Spacer()
           ],
         ),
-        fullscreen: const MaterialDesktopVideoControlsThemeData(
-        ),
+        fullscreen: const MaterialDesktopVideoControlsThemeData(),
         child: ClipRRect(
             borderRadius: BorderRadius.circular(8.0),
             child: SizedBox(
@@ -152,17 +153,23 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
                                       fit: BoxFit.fitWidth,
                                     )
                                   : (isVideoLoaded
-                                      ? Video(
-                                          key: Key(widget.images[0]),
-                                          controller: controller,
-                                          controls: (VideoState? state) {
-                                            if (state != null) {
-                                              return AdaptiveVideoControls(
-                                                  state);
-                                            } else {
-                                              return SizedBox.shrink();
-                                            }
-                                          })
+                                      ? GestureDetector(
+                                          onTap: () {
+                                            print("PAUSE");
+                                            VideoService.playPause();
+                                          },
+                                          child: Video(
+                                              key: Key(widget.images[0]),
+                                              controller: controller,
+                                              controls: (VideoState? state) {
+                                                if (state != null) {
+                                                  return AdaptiveVideoControls(
+                                                      state);
+                                                } else {
+                                                  return SizedBox.shrink();
+                                                }
+                                              }),
+                                        )
                                       : Container(
                                           color: Colors.black,
                                           child: Center(
@@ -240,7 +247,25 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
                                                 }),
                                             child: const Icon(FluentIcons
                                                 .chevron_left_small)),
-                                        const Expanded(child: SizedBox()),
+                                        Expanded(
+                                            child: Column(
+                                                  children: [
+                                                    Expanded(
+                                                      child:  GestureDetector(
+                                              behavior: HitTestBehavior.translucent,
+                                                onTap: () {
+                                                  if (isAVideo(widget
+                                                      .images[imageIndex])) {
+                                                    VideoService.playPause();
+                                                  }
+                                                }, 
+                                                child:Container(
+                                                          width: double.maxFinite,
+                                                          height: double.maxFinite ),
+                                                    )),
+                                                    SizedBox(height: 80,)
+                                                  ],
+                                                )),
                                         GestureDetector(
                                             onTap: () => setState(() {
                                                   imageIndex = (imageIndex +
