@@ -504,27 +504,26 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
     late Function() functionToLaunch;
     if (currentGame.loader != null) {
       functionToLaunch = launchGameFunction;
-    }else{
+    } else {
       functionToLaunch = launchPackFunction;
     }
-      return FilledButton(
-          style: ButtonStyle(backgroundColor: ButtonState.all(Colors.green)),
-          onPressed: launchingStatus == "WAITING" ? functionToLaunch : null,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(FluentIcons.play_solid, color: Colors.white),
-              const SizedBox(width: 10),
-              Text(
-                  launchingStatus == "WAITING"
-                      ? TranslationsHelper().appLocalizations!.launch_game
-                      : (launchingStatus == "LAUNCHING"
-                          ? TranslationsHelper().appLocalizations!.launching
-                          : TranslationsHelper().appLocalizations!.launched),
-                  style: const TextStyle(color: Colors.white)),
-            ],
-          ));
-    
+    return FilledButton(
+        style: ButtonStyle(backgroundColor: ButtonState.all(Colors.green)),
+        onPressed: launchingStatus == "WAITING" ? functionToLaunch : null,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(FluentIcons.play_solid, color: Colors.white),
+            const SizedBox(width: 10),
+            Text(
+                launchingStatus == "WAITING"
+                    ? TranslationsHelper().appLocalizations!.launch_game
+                    : (launchingStatus == "LAUNCHING"
+                        ? TranslationsHelper().appLocalizations!.launching
+                        : TranslationsHelper().appLocalizations!.launched),
+                style: const TextStyle(color: Colors.white)),
+          ],
+        ));
   }
 
   void launchGameFunction() async {
@@ -714,6 +713,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
     return GestureDetector(
         onTap: () {
           if (isLink) {
+            VideoService.pause();
             SFXService().playSFX(SFX.OPEN_GAME_INFO_TAB);
             Navigator.pushNamed(context, "/search", arguments: [
               filter,
