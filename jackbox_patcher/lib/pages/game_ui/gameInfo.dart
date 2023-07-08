@@ -100,7 +100,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
   @override
   Widget build(BuildContext context) {
     return ClosableRouteWithEsc(
-        pressingSpacePauseVideo:true,
+        pressingSpacePauseVideo: true,
         closeSFX: true,
         leftEvent: () => _openPreviousGame(),
         rightEvent: () => _openNextGame(),
@@ -275,21 +275,24 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            SizedBox(
-                child: AssetCarousselWidget(
-                    key: carousselKey, images: currentGame.game.info.images)),
-            SizedBox(height: 20),
-            MarkdownBody(
-              data: currentGame.game.info.description,
-              onTapLink: (text, href, title) {
-                launchUrl(Uri.parse(href!));
-              },
-            ),
-            SizedBox(height: 20),
-            SpecialGameAllInfoWidget(gameInfo: currentGame.game.info),
-            SizedBox(height: 20),
-          ])),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                SizedBox(
+                    child: AssetCarousselWidget(
+                        key: carousselKey,
+                        images: currentGame.game.info.images)),
+                SizedBox(height: 20),
+                MarkdownBody(
+                  data: currentGame.game.info.description,
+                  onTapLink: (text, href, title) {
+                    launchUrl(Uri.parse(href!));
+                  },
+                ),
+                SizedBox(height: 20),
+                SpecialGameAllInfoWidget(gameInfo: currentGame.game.info),
+                SizedBox(height: 20),
+              ])),
           const SizedBox(
             width: 40,
           ),
@@ -498,10 +501,15 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
   }
 
   Widget _buildLauncherButton() {
+    late Function() functionToLaunch;
     if (currentGame.loader != null) {
+      functionToLaunch = launchGameFunction;
+    }else{
+      functionToLaunch = launchPackFunction;
+    }
       return FilledButton(
           style: ButtonStyle(backgroundColor: ButtonState.all(Colors.green)),
-          onPressed: launchingStatus == "WAITING" ? launchGameFunction : null,
+          onPressed: launchingStatus == "WAITING" ? functionToLaunch : null,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -516,25 +524,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                   style: const TextStyle(color: Colors.white)),
             ],
           ));
-    } else {
-      return FilledButton(
-          style: ButtonStyle(backgroundColor: ButtonState.all(Colors.green)),
-          onPressed: launchingStatus == "WAITING" ? launchPackFunction : null,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(FluentIcons.play, color: Colors.white),
-              const SizedBox(width: 10),
-              Text(
-                  launchingStatus == "WAITING"
-                      ? TranslationsHelper().appLocalizations!.launch_pack
-                      : (launchingStatus == "LAUNCHING"
-                          ? TranslationsHelper().appLocalizations!.launching
-                          : TranslationsHelper().appLocalizations!.launched),
-                  style: const TextStyle(color: Colors.white)),
-            ],
-          ));
-    }
+    
   }
 
   void launchGameFunction() async {
