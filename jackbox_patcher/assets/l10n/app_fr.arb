@@ -313,5 +313,14 @@
     "filter_censoring": "Censure",
     "filter_moderation_censoring": "Mod. et Censure",
     "filter_dubbed": "Doublé",
-    "filter_translated": "Traduit"
+    "filter_translated": "Traduit",
+    "game_translation_translated_description_en": "Ces jeux sont traduits en Français, Italien, Allemand et Espagnol par Jackbox Games.",
+    "game_translation_not_available_description_en": "Ces jeux sont seulement disponibles en Anglais.",
+    "filter_players_number": "Nombre de joueurs",
+    "special_thanks": "Remerciements",
+    "stream_friendly_tooltip": "Si il est possible de jouer à ce jeu avec un stream sur une plateforme de streaming ou en partageant son écran sur Discord, Zoom, Meet, etc.",
+    "family_friendly_tooltip": "Si ce jeu convient à toute la famille (enfants inclus).",
+    "moderation_tooltip": "Si ce jeu a un système de modération (censure, etc.)",
+    "audience_tooltip": "Si ce jeu accepte une audience jouant avec les joueurs en jeu.",
+    "subtitles_tooltip": "Si ce jeu a des sous-titres."
 }
