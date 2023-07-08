@@ -13,7 +13,8 @@ typedef SpecialGameInfo = ({
   IconData icon,
   String Function(JackboxGameInfo) subname,
   Color Function(JackboxGameInfo) color,
-  String? Function(JackboxGameInfo) description
+  String? Function(JackboxGameInfo) description,
+  String tooltip
 });
 
 class SpecialGameAllInfoWidget extends StatelessWidget {
@@ -30,6 +31,7 @@ class SpecialGameAllInfoWidget extends StatelessWidget {
     (
       name: TranslationsHelper().appLocalizations!.family_friendly,
       icon: FontAwesomeIcons.child,
+      tooltip:TranslationsHelper().appLocalizations!.family_friendly_tooltip,
       subname: (JackboxGameInfo gI){
         switch (gI.familyFriendly){
           case GameInfoFamilyFriendly.OPTIONAL:
@@ -57,6 +59,7 @@ class SpecialGameAllInfoWidget extends StatelessWidget {
     (
       name: TranslationsHelper().appLocalizations!.audience,
       icon: FontAwesomeIcons.userPlus,
+      tooltip:TranslationsHelper().appLocalizations!.audience_tooltip,
       subname: (JackboxGameInfo gI){
         return "";
       },
@@ -74,6 +77,7 @@ class SpecialGameAllInfoWidget extends StatelessWidget {
     (
       name: TranslationsHelper().appLocalizations!.subtitles,
       icon: FontAwesomeIcons.closedCaptioning,
+      tooltip:TranslationsHelper().appLocalizations!.subtitles_tooltip,
       subname: (JackboxGameInfo gI){
         return "";
       },
@@ -91,6 +95,7 @@ class SpecialGameAllInfoWidget extends StatelessWidget {
     (
       name: TranslationsHelper().appLocalizations!.stream_friendly,
       icon: FluentIcons.screen_cast,
+      tooltip:TranslationsHelper().appLocalizations!.stream_friendly_tooltip,
       subname: (JackboxGameInfo gI){
         return "";
       },
@@ -113,6 +118,7 @@ class SpecialGameAllInfoWidget extends StatelessWidget {
     (
       name: TranslationsHelper().appLocalizations!.moderation,
       icon: FontAwesomeIcons.userShield,
+      tooltip:TranslationsHelper().appLocalizations!.moderation_tooltip,
       subname: (JackboxGameInfo gI){
         return "";
       },
@@ -173,7 +179,10 @@ class SpecialGameInfoWidget extends StatelessWidget {
                 child: Padding(
                     padding: const EdgeInsets.all(10),
                     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                      Row(
+                      Tooltip(
+      style: const TooltipThemeData(waitDuration: Duration(milliseconds: 500), showDuration: Duration(seconds: 0)),
+                        message: specialGameInfo.tooltip,
+                        child:Row(
                         children: [
                           Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -192,7 +201,7 @@ class SpecialGameInfoWidget extends StatelessWidget {
                           SizedBox(width: 6),
                           Text(specialGameInfo.subname(gameInfo)),
                         ],
-                      ),
+                      )),
                       if (specialGameInfo.description(gameInfo) != null)
                         Padding(
                             padding: const EdgeInsets.all(8.0),

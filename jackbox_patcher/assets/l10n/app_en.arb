@@ -390,5 +390,11 @@
     "filter_dubbed":"Dubbed",
     "filter_translated":"Translated",
 
-    "special_thanks":"Special Thanks"
+    "special_thanks":"Special Thanks",
+
+    "stream_friendly_tooltip":"If you can play this game with the viewers on your stream",
+    "family_friendly_tooltip":"If this game can be played with all the family (children included)",
+    "moderation_tooltip":"If this game has a moderation system",
+    "audience_tooltip":"If the game accept players to play as an audience",
+    "subtitles_tooltip":"If this game has subtitles"
 }
