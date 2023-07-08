@@ -432,7 +432,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                                 cacheHeight: 28,
                               ),
                               SizedBox(width: 10),
-                              Text("Epic games"),
+                              Text("Epic Games"),
                             ],
                           ),
                           onPressed: () {
@@ -451,7 +451,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                               children: [
                                 Icon(FontAwesomeIcons.boxOpen),
                                 SizedBox(width: 10),
-                                Text("Jackbox games store"),
+                                Text("Jackbox Games Store"),
                               ],
                             ),
                             onPressed: () {

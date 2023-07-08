@@ -51,7 +51,7 @@ enum GameInfoTranslation {
     String languageKey = APIService().cachedSelectedServer!.languages[0];
     switch (this) {
       case GameInfoTranslation.NATIVELY_TRANSLATED:
-        return languageKey == "en"? "These games are translated in other languages by Jackbox Games": TranslationsHelper()
+        return languageKey == "en"? TranslationsHelper().appLocalizations!.game_translation_translated_description_en:  TranslationsHelper()
             .appLocalizations!
             .game_translation_translated_description(
                 LanguageService().getLanguageName(languageKey));
@@ -65,7 +65,7 @@ enum GameInfoTranslation {
             .appLocalizations!
             .game_community_dubbed_description;
       case GameInfoTranslation.ENGLISH:
-        return TranslationsHelper()
+        return languageKey == "en"? TranslationsHelper().appLocalizations!.game_translation_not_available_description_en: TranslationsHelper()
             .appLocalizations!
             .game_translation_not_available_description(
                 LanguageService().getLanguageName(languageKey));

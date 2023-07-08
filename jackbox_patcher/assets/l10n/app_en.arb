@@ -118,6 +118,7 @@
             }
         }
     },
+    "game_translation_translated_description_en":"These games are translated in French, Italian, German and Spanish by Jackbox Games.",
     "game_translation_community_translated":"Translated by the Community",
     "game_translation_community_translated_description":"These games are translated by the community.",
     "game_translation_not_available":"In English",
@@ -130,6 +131,7 @@
             }
         }
     },
+    "game_translation_not_available_description_en":"These games are only available in English.",
 
     "downloading":"Downloading",
     "starting":"Starting",
