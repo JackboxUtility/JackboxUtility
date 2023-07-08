@@ -722,7 +722,11 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
               description,
               null,
               widget.showAllPacks
-            ]);
+            ]).then((value) {
+              setState(() {
+                carousselKey = UniqueKey();
+              });
+            });
           }
         },
         child: Padding(
