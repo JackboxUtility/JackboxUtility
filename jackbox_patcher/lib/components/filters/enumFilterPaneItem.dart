@@ -12,7 +12,7 @@ class EnumFilterPaneItem extends PaneItemHeader {
       required this.onChanged,
       required this.onActivationChanged,
       required this.defaultValue,
-      required this.availableValues, 
+      required this.availableValues,
       required this.activated})
       : super(
             header: EnumFilterPaneItemTitle(
@@ -21,7 +21,7 @@ class EnumFilterPaneItem extends PaneItemHeader {
                 onChanged: onChanged,
                 onActivationChanged: onActivationChanged,
                 defaultValue: defaultValue,
-                availableValues: availableValues, 
+                availableValues: availableValues,
                 activated: activated));
 
   final IconData icon;
@@ -41,7 +41,7 @@ class EnumFilterPaneItemTitle extends StatefulWidget {
       required this.onChanged,
       required this.onActivationChanged,
       required this.defaultValue,
-      required this.availableValues, 
+      required this.availableValues,
       required this.activated})
       : super(key: key);
 
@@ -73,10 +73,10 @@ class _EnumFilterPaneItemTitleState extends State<EnumFilterPaneItemTitle> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height:33,
+      height: 33,
       child: Row(mainAxisSize: MainAxisSize.min, children: [
         MouseRegion(
-          onEnter: (PointerEnterEvent e){
+          onEnter: (PointerEnterEvent e) {
             SFXService().playSFX(SFX.HOVER_OVER_STAR_OR_FILTER);
           },
           child: Checkbox(
@@ -90,32 +90,46 @@ class _EnumFilterPaneItemTitleState extends State<EnumFilterPaneItemTitle> {
               }),
         ),
         SizedBox(width: 8),
-        Icon(widget.icon, color: activated ? null : const Color.fromARGB(255, 130, 130, 130)),
+        Icon(widget.icon,
+            color: activated ? null : const Color.fromARGB(255, 130, 130, 130)),
         SizedBox(width: 10),
         Text(widget.name,
-            style: TextStyle(color: activated ? null : const Color.fromARGB(255, 130, 130, 130))),
+            style: TextStyle(
+                color: activated
+                    ? null
+                    : const Color.fromARGB(255, 130, 130, 130))),
         Spacer(),
-        widget.availableValues.length>1? ComboBox(
-          elevation: 0,
-         items: widget.availableValues
-                .map((e) => ComboBoxItem(value: e, child: Row(children: [
-                   Container(
-                    width:10,
-                    height:10,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: e.color)),
-                  SizedBox(width: 10),
-                   Text(e.name)])))
-                .toList(),
-            onChanged: activated? (FilterValue? value) {
-              widget.onChanged(value!);
-              setState(() {
-                currentValue = value;
-              });
-              SFXService().playSFX(SFX.CLICK);
-            }:null,
-            value: currentValue):Container()
+        widget.availableValues.length > 1
+            ? ComboBox(
+                onTap: () {
+                  SFXService().playSFX(SFX.FILTER_UP);
+                },
+                elevation: 0,
+                items: widget.availableValues
+                    .map((e) => ComboBoxItem(
+                        value: e,
+                        child: Row(children: [
+                          Container(
+                              width: 10,
+                              height: 10,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: e.color)),
+                          SizedBox(width: 10),
+                          Text(e.name)
+                        ])))
+                    .toList(),
+                onChanged: activated
+                    ? (FilterValue? value) {
+                        widget.onChanged(value!);
+                        setState(() {
+                          currentValue = value;
+                        });
+                        SFXService().playSFX(SFX.CLICK);
+                      }
+                    : null,
+                value: currentValue)
+            : Container()
       ]),
     );
   }
