@@ -23,10 +23,16 @@ void main() async {
   DiscordRPC.initialize();
   FlutterError.onError = (details) {
     FlutterError.presentError(details);
-    JULogger().e(details.toString(), details.exception.toString(), details.stack);
+    bool ifIsOverflowError =
+        details.exceptionAsString().contains("A RenderFlex overflowed by");
+      JULogger()
+          .e(details.toString(), details.exception.toString(), details.stack);
   };
   PlatformDispatcher.instance.onError = (error, stack) {
-    JULogger().e(error.toString(),"",stack);
+     bool ifIsOverflowError =
+        error.toString().contains("A RenderFlex overflowed by");
+
+    if (!ifIsOverflowError) JULogger().e(error.toString(), "", stack);
     return true;
   };
   runApp(FlavorBanner(color: Colors.orange, child: const MyApp()));
