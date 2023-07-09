@@ -46,8 +46,14 @@ class InitialLoad {
       await _loadPacks();
       await _loadBlurHashes();
       await _loadServerConfigurations();
+
+      // Changing locale
       TranslationsHelper().changeLocale(
           Locale(APIService().cachedSelectedServer!.languages[0]));
+
+      // Reloading every tips with the new language
+      UserData().tips.init();
+
       if (UserData().settings.isDiscordRPCActivated) {
         DiscordService().init();
       }
@@ -152,7 +158,9 @@ class InitialLoad {
       for (var fix in pack.fixes) {
         if (fix.getInstalledStatus() ==
                 UserInstalledPatchStatus.NOT_INSTALLED &&
-            UserData().getFixPromptDiscard(fix) == false && await pack.getPathStatus() == "FOUND" && pack.owned) {
+            UserData().getFixPromptDiscard(fix) == false &&
+            await pack.getPathStatus() == "FOUND" &&
+            pack.owned) {
           fixesNotInstalled.add((fix: fix, pack: pack));
         }
       }

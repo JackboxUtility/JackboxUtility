@@ -97,7 +97,7 @@
     "game_type_coop_description":"In these games, players must work together to win.",
     "game_type_versus":"Free For All",
     "game_type_versus_description":"In these games, each player plays for himself and must beat the other players.",
-    "game_type_team":"Team",
+    "game_type_team":"Teams",
     "game_type_team_description":"In these games, players are divided into teams and must work together to win.",
 
     "game_translation_translated":"Officially Translated in {language}",
@@ -302,7 +302,7 @@
     "fixes_available":"YDKJ Vol. 6 Fix",
     "fixes_available_description":"You Don't Know Jack Vol. 6 The Lost Gold was detected as one of the installed games. This game normally doesn't work on Windows 10/11 and Linux. Would you like to download and install a patch that fixes it? You can always install it in its respective game info tab.",
 
-    "filter_players_number": "Player count",
+    "filter_players_number": "Player Count",
     "family_friendly":"Family-Friendly",
     "optional":"Optional",
     "subtitles":"Subtitles",
