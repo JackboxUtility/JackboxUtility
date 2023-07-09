@@ -316,7 +316,7 @@
     "filter_translated": "Traducido",
     "game_translation_translated_description_en": "Estos juegos están traducidos en francés, italiano, alemán y español por Jackbox Games.",
     "game_translation_not_available_description_en": "Estos juegos solo están disponibles en inglés.",
-    "filter_players_number": "EN:Player count",
+    "filter_players_number": "Número de jugadores",
     "special_thanks": "Agradecimientos especiales",
     "stream_friendly_tooltip": "Si puedes jugar este juego en un stream, ya sea en una plataforma de streaming o compartiendo tu pantalla a través de Discord, Zoom, Meet, etc.",
     "family_friendly_tooltip": "Si este juego se puede jugar con toda la familia (incluyendo niños).",
