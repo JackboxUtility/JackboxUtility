@@ -15,7 +15,8 @@ class JULogger extends Logger {
   // Build internal
   JULogger._internal()
       : super(
-            filter: ProductionFilter(),
+        printer: HybridPrinter(SimplePrinter(printTime:true), error: PrettyPrinter(printTime:true, noBoxingByDefault: true)),
+            filter: ProductionFilter(), 
             level: kReleaseMode ? Level.error : Level.debug,
             output: kReleaseMode
                 ? FileOutput(file: File("./logs.txt"))

@@ -50,10 +50,10 @@ class InitialLoad {
       // Changing locale
       TranslationsHelper().changeLocale(
           Locale(APIService().cachedSelectedServer!.languages[0]));
-      
+
       // Reloading every tips with the new language
       UserData().tips.init();
-      
+
       if (UserData().settings.isDiscordRPCActivated) {
         DiscordService().init();
       }
