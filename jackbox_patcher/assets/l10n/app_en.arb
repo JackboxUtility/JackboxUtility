@@ -97,7 +97,7 @@
     "game_type_coop_description":"In these games, players must work together to win.",
     "game_type_versus":"Free For All",
     "game_type_versus_description":"In these games, each player plays for himself and must beat the other players.",
-    "game_type_team":"Team",
+    "game_type_team":"Teams",
     "game_type_team_description":"In these games, players are divided into teams and must work together to win.",
 
     "game_translation_translated":"Officially Translated in {language}",

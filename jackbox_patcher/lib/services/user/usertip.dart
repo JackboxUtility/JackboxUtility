@@ -12,6 +12,7 @@ class UserTips {
   UserTips({required this.preferences});
 
   void init() {
+    availableTips.clear();
     availableTips.add(Tip(
         id: TipAvailable.LAUNCHER_ON_STARTUP,
         title: TranslationsHelper().appLocalizations!.open_launcher_on_startup_title_tip,
