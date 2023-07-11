@@ -1,11 +1,12 @@
 import 'dart:ui';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:jackbox_patcher/app_configuration.dart';
 
 /// Translations helper class used to access translations from anywhere (without the context)
 class TranslationsHelper {
-  static List<String> availableLanguages = ["en", "fr", "es", "de", "uk"];
-  static Locale currentLanguage = Locale("en", "US");
+  static List<String> availableLanguages = APP_LANGUAGES;
+  static Locale currentLanguage = const Locale(DEFAULT_APP_LANGUAGE);
   static final TranslationsHelper _instance = TranslationsHelper._internal();
 
   factory TranslationsHelper() {
@@ -17,8 +18,8 @@ class TranslationsHelper {
       currentLanguage = locale;
       appLocalizations = lookupAppLocalizations(locale);
     }else{
-      currentLanguage = Locale("en", "US");
-      appLocalizations = lookupAppLocalizations(Locale("en", "US"));
+      currentLanguage = const Locale(DEFAULT_APP_LANGUAGE);
+      appLocalizations = lookupAppLocalizations(const Locale(DEFAULT_APP_LANGUAGE));
     }
   }
 

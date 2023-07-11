@@ -10,17 +10,9 @@ import 'package:logger/logger.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:window_manager/window_manager.dart';
 
-void main() async {
-  FlavorConfig(name: "BETA", color: Colors.orange, location: BannerLocation.topEnd, variables: {
-    "masterServerUrl":
-        'https://raw.githubusercontent.com/AlexisL61/JackboxUtility/dev/servers.json'
-  });
+import 'app_configuration.dart';
 
-  WidgetsFlutterBinding.ensureInitialized();
-  await windowManager.ensureInitialized();
-  if (!Platform.isLinux)
-    MediaKit.ensureInitialized();
-  DiscordRPC.initialize();
+void initRetrievingErrors(){
   FlutterError.onError = (details) {
     FlutterError.presentError(details);
     bool ifIsOverflowError =
@@ -35,5 +27,19 @@ void main() async {
     if (!ifIsOverflowError) JULogger().e(error.toString(), "", stack);
     return true;
   };
+}
+
+void main() async {
+  FlavorConfig(name: "BETA", color: Colors.orange, location: BannerLocation.topEnd, variables: {
+    "masterServerUrl":MAIN_SERVER_URL["BETA_SERVER_URL"]
+  });
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await windowManager.ensureInitialized();
+  if (!Platform.isLinux)
+    MediaKit.ensureInitialized();
+  DiscordRPC.initialize();
+  initRetrievingErrors();
+  
   runApp(FlavorBanner(color: Colors.orange, child: const MyApp()));
 }

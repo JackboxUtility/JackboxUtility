@@ -1,4 +1,5 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:jackbox_patcher/app_configuration.dart';
 import 'package:jackbox_patcher/pages/mainContainer.dart';
 import 'package:jackbox_patcher/pages/settings/menu.dart';
 import 'package:jackbox_patcher/pages/search_ui/searchGames.dart';
@@ -30,13 +31,7 @@ class MyApp extends StatelessWidget {
         FluentLocalizations.delegate,
         AppLocalizations.delegate,
       ],
-      supportedLocales: const [
-        Locale("en"),
-        Locale("fr"),
-        Locale("de"),
-        Locale("es"),
-        Locale("uk")
-      ],
+      supportedLocales: List.generate(APP_LANGUAGES.length, (index) => Locale(APP_LANGUAGES[index])),
       initialRoute: '/',
       routes: {
         // When navigating to the "/" route, build the FirstScreen widget.

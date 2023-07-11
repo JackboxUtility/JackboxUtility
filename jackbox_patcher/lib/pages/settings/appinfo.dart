@@ -1,5 +1,6 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:jackbox_patcher/app_configuration.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -89,7 +90,7 @@ class _AppInfoWidgetState extends State<AppInfoWidget> {
                 ]),
                 onPressed: () async {
                   await launchUrl(
-                      Uri.parse("https://github.com/AlexisL61/JackboxUtility"));
+                      Uri.parse(APP_LINKS["GITHUB"]!));
                 }),
             const SizedBox(width: 12),
             HyperlinkButton(
@@ -101,7 +102,7 @@ class _AppInfoWidgetState extends State<AppInfoWidget> {
                   Text("Discord")
                 ]),
                 onPressed: () async {
-                  await launchUrl(Uri.parse("https://discord.gg/cYdJkZwCk3"));
+                  await launchUrl(Uri.parse(APP_LINKS["DISCORD"]!));
                 })
           ]),
           const SizedBox(height: 12),
