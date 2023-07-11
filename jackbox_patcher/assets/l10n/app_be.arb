@@ -1,0 +1,404 @@
+{
+    "close":"Закрыць",
+     "cancel":"Адмена",
+     "page_continue":"Працягнуць",
+     "confirm":"Пацвердзіць",
+     "quit":"закрыць",
+     "yes":"Так",
+     "no":"Не",
+     "ok":"ОК",
+
+
+     "jackbox_utility":"Jackbox Utility",
+     "launch_search_game":"Запусціць / Шукаць Гульні",
+     "patch_a_game":"Патчыць Гульні",
+     "settings":"Налады",
+     "notifications":"Апавяшчэнні",
+
+     "installing_a_patch":"Усталёўваны Патч",
+     "installing_a_patch_description":"Вы ўсталюеце патч. Гэта дзеянне незваротнае.",
+     "installing_a_patch_end":"Усталяванне скончана",
+     "can_close_popup":"Вы можаце зачыніць гэтае акно",
+
+     "patch_unavailable":"Патч недаступны",
+
+     "patch_installed": "{count, plural, one {Патч усталяваны} other {Патчаў ўсталявана}}",
+    "@patch_installed":{
+        "placeholders":{
+            "count":{
+                "type":"num",
+                "example":"1"
+            }
+        }
+    },
+
+    "patch_outdated": "{count, plural, one {Абнавіць патч} other {Абнавіць патчы}}",
+    "@patch_outdated":{
+        "placeholders":{
+            "count":{
+                "type":"num",
+                "example":"1"
+            }
+        }
+    },
+
+    "patch_not_installed": "{count, plural, one {Усталяваць патч} other {Усталяваць патчы}}",
+    "@patch_not_installed":{
+        "placeholders":{
+            "count":{
+                "type":"num",
+                "example":"1"
+            }
+        }
+    },
+
+    "delete_version":"Выдаленне версіі",
+     "delete_version_description":"Калі вам трэба скінуць гульню, вы можаце выдаліць дадзеную версію гульні. Пасля гэтага вы зможаце пераўсталяваць патчы.",
+     "description":"Апісанне",
+     "patch_modification":"Мадыфікацыя патча",
+     "patch_modification_description":"Гэты патч змяняе гульню наступным чынам:",
+      "patch_modification_content_website":"Мадыфікацыя тэкставага кантэнту кліента jackbox (даступна толькі на {website})",
+      "patch_modification_content_text":"Падтрымка гульні ў гульні з кантэнтам",
+      "patch_modification_content_internal":"Мадыфікацыя ўнутраных файлаў гульні (малюнкі, тэксты...)",
+      "patch_modification_content_subtitles":"Мадыфікацыя субтытраў гульні",
+      "@patch_modification_content_website":{
+        "placeholders":{
+            "website":{
+                "type":"String",
+                "example":"burs.ml"
+            }
+        }
+    },
+   "patch_modification_content_audios":"Мадыфікацыя гуку гульні",
+     "version":"Версія",
+     "authors":"Аўтар(ы)",
+     "small_information":"Інфармацыя",
+     "more_informations":"Больш Інфармацыі",
+     "launch_game":"Запусціць гульню",
+     "launch_game_fast_launcher":"Запусціць гульню (Хуткі запуск)",
+     "launch_game_fast_launcher_description":"Запускае гульню ў рэжыме хуткага запуску, які дазваляе прапусціць уступны ролік пакета і выбар гульні. Даступна толькі для некаторых гульняў.",
+     "launch_pack":"Запусціць гульню",
+     "launch_pack_description":"Запусціць гульню без змен",
+     "launch_informations":"Запуск Інфармацыі",
+     "launching":"Запускаем...",
+     "launched":"Запушчана!",
+     "path_not_found":"Шлях не знойдзены",
+     "path_not_found_small_description":"Шлях да гульні не знойдзены.",
+    "path_not_found_description": "Шлях да гульні не знойдзены. Праверце, што гульня ўсталявана і што шлях да яе паказаны правільна.",
+     "path_inexistant": "Шлях не знойдзены",
+     "path_inexistant_small_description": "Вы не дадалі шлях да пака",
+  "path_inexistant_description": "Вы не дадалі шлях да паку. Вы можаце зрабіць гэта ў наладах",
+
+     "pack_path":"Шлях да гульні",
+
+     "owned_packs":"Устаноўленыя Гульні",
+     "add_pack":"Дадаць гульню",
+     "choose_pack":"Выбраць гульню",
+
+     "game_type_coop":"Каоп",
+     "game_type_coop_description":"У гэтых гульнях, players must work together to win.",
+     "game_type_versus":"Free For All",
+     "game_type_versus_description":"У гэтых гульнях, кожны гулец гуляе за сябе і павінен перамагчы астатніх.",
+     "game_type_team":"Каманды",
+     "game_type_team_description":"У гэтых гульнях, гульцы падзелены на розныя каманды і павінны працаваць разам каб перамагчы.",
+
+     "game_translation_translated":"Афіцыйна перакладзена на {language} мову",
+    "@game_translation_translated":{
+        "placeholders":{
+            "language":{
+                "type":"String",
+                "example":"французскую"
+            }
+        }
+    },
+  "game_translation_translated_description":"Гэтыя гульні афіцыйна перакладзены на {language} мову.",
+     "@game_translation_translated_description":{
+         "placeholders":{
+             "language":{
+                 "type":"String",
+                 "example":"французскую"
+             }
+         }
+     },
+     "game_translation_translated_description_en":"Гэтыя гульні перакладзены на Французскі , Італьянскі, Нямецкі і Іспанскі камандай Jackbox Games.",
+     "game_translation_community_translated":"Перакладзена супольнасцю",
+     "game_translation_community_translated_description":"Гэтыя гульні перакладзены супольнасцю.",
+     "game_translation_not_available":"На англійскай",
+     "game_translation_not_available_description":"Гэтыя гульні не перакладзены на {language} мову.",
+     "@game_translation_not_available_description":{
+         "placeholders":{
+             "language":{
+                 "type":"String",
+                 "example":"французскую"
+             }
+         }
+     },
+     "game_translation_not_available_description_en":"Гэтыя гульні даступныя толькі на ангельскай.",
+
+     "downloading":"Загрузка",
+     "starting":"Пачатак",
+     "extracting":"Распакоўка",
+     "finalizing":"Завяршэнне",
+     "unknown_error":"Невядомая Памылка",
+     "contact_error":"Звяжыцеся з Alexisl61 у Discord (на ангельскай мове)",
+
+     "game_patch_unavailable":"Патч недаступны",
+     "game_patch_available":"Патч даступны",
+     "game_patch_installed":"У вас усталявана апошняя версія патча",
+     "game_patch_outdated":"Абнаўленне да патча даступна",
+
+     "players":"гульцоў",
+
+     "search_game":"Знайсці гульню",
+     "search":"Пошук",
+     "all_games":"Усе гульні",
+     "all_games_description":"Знаходзьце ўсе Jackbox гульні ў адным месцы.",
+     "search_by_pack":"Знайсці па паку",
+     "search_by_type":"Знайсці па тыпе",
+     "search_by_translation":"Знайсьці па перакладзе",
+     "search_by_tags":"Знайсці па тэгу",
+
+     "select_server_subtitle":"Абярыце адзін з даступных сервераў",
+     "select_server_button":"Выбраць",
+
+     "connected_to_server":"Падлучэнне да сервера {server}",
+     "@connected_to_server":{
+         "placeholders":{
+             "server":{
+                 "type":"String",
+                 "example":"Jackbox France"
+             }
+         }
+     },
+     "connected_to_server_change":"Змяніць",
+     "connection_to_server_failed":"Падлучэнне да сервера перарвана.",
+     "connection_to_main_server_failed":"Падключэнне да ўсіх сервераў перарвана.",
+
+     "quit_while_downloading_title":"Усталяванне",
+     "quit_while_downloading_description":"Цяпер адбываецца ўстаноўка, вы ўпэўнены, што хочаце выйсці?",
+
+     "automatic_game_finder_title":"Аўтаматычны пошук гульні",
+     "automatic_game_finder_description":"Jackbox Utility можа знайсці ўсталяваныя гульні выкарыстоўваючы Steam і Epic Games.\nВы хочаце выкарыстоўваць гэтую функцыю?",
+     "automatic_game_finder_in_progress":"Пошук гульняў, калі ласка пачакайце",
+     "automatic_game_finder_finish": "{count, plural, =0 {Гульняў не знойдзена} one {Гульняў знойдзена: 1} other {Гульняў знойдзена: {count}}}",
+     "@automatic_game_finder_finish":{
+         "placeholders":{
+             "count":{
+                 "type":"num",
+                 "example":"1"
+             }
+         }
+     },
+
+     "automatic_server_finder_found":"Сервер знойдзены",
+     "automatic_server_finder_found_description":"Сервер {server} быў абраны на аснове вашай мовы.",
+     "@automatic_server_finder_found_description":{
+         "placeholders":{
+             "server":{
+                 "type":"String",
+                 "example":"Jackbox France"
+             }
+         }
+     },
+     "show_all_packs":"Паказаць не набытыя гульні",
+     "show_owned_packs_only":"Паказаць набытыя гульні",
+
+     "all_patches":"Усе патчы",
+
+     "error_happened":"Адбылася памылка",
+
+     "jackbox_utility_description":"Прыкладанне з адкрытым зыходным кодам для загрузкі патчаў і запуску гульняў Jackbox.",
+
+     "server_information":"Пра сервер",
+     "selected_server":"Вылучаны сервер",
+     "change_server":"Змяніць сервер",
+
+     "app_information":"Аб дадатку",
+
+     "automatic_game_finder_button":"Знайсці ўсталяваныя гульні",
+
+     "games_available": "{count, plural, =0 {Няма даступных гульняў} one {Гульняў даступна: 1} other {Гульняў даступна: {count}}}",
+    "@games_available":{
+        "placeholders":{
+            "count":{
+                "type":"num",
+                "example":"1"
+            }
+        }
+    },
+
+    "author":"Аўтар",
+     "contributors":"Удзельнікі",
+
+     "in_language":"На {language} мове",
+     "@in_language":{
+         "placeholders":{
+             "language":{
+                 "type":"String",
+                 "example":"французскай"
+             }
+         }
+     },
+     "in_language_description":"Гэтыя гульні даступныя на {language} мове (афіцыйна або перакладзены супольнасцю.)",
+     "@in_language_description":{
+         "placeholders":{
+             "language":{
+                 "type":"String",
+                 "example":"французскай"
+             }
+         }
+     },
+     "game_community_dubbed":"Агучана супольнасцю",
+     "game_community_dubbed_description":"Гэтыя гульні агучаныя супольнасцю.",
+
+     "game_dubbed":"Агучана на {language} мове",
+     "@game_dubbed":{
+         "placeholders":{
+             "language":{
+                 "type":"String",
+                 "example":"французскай"
+             }
+         }
+     },
+     "game_dubbed_description":"Гэтыя гульні агучаныя супольнасьцю або Jackbox.",
+
+     "no_game_in_this_category_title":"У гэтай катэгорыі няма гульняў",
+     "no_game_in_this_category_description":"У гэтай катэгорыі няма гульняў. Дадайце яшчэ гульняў у секцыі Налад.",
+
+     "select_game_location":"Абярыце шлях да {game}",
+     "@select_game_location":{
+         "placeholders":{
+             "game": {
+                 "type":"String",
+                 "example":"The Jackbox Party Pack 1"
+             }
+         }
+     },
+
+     "download_error":"Памылка загрузкі",
+     "download_error_description":"Адбылася памылка падчас загрузкі гульні. Калі ласка, пераканайцеся, што ваша інтэрнэт злучэнне працуе карэктна.",
+
+     "extracting_error":"Памылка распакавання",
+     "extracting_error_description":"Адбылася памылка падчас распакавання гульні.
+
+     "game_reset": "Скід гульні",
+     "game_reset_description": "Гэта прывядзе да праверкі ўсіх файлаў гэтай гульні. Калі вы ўсталявалі які-небудзь патч, ён будзе выдалены з вашай гульні. Вы ўпэўненыя, што жадаеце працягнуць?",
+
+
+     "small_description":"Апісанне",
+
+     "patreon_subscribers":"Падпісчыкі Patreon",
+
+     "audience":"Гледачы",
+
+     "confirmation":"Пацвярджэнне",
+     "confirmation_description":"Вы сапраўды жадаеце {action}? Гэта дзеянне незваротна.",
+     "@confirmation_description":{
+         "placeholders":{
+             "action":{
+                 "type":"String",
+                 "example":"прыбраць усе зоркі"
+             }
+         }
+     },
+    "fix":"Фікс",
+     "fixes_available":"Фікс YDKJ Vol. 6",
+     "fixes_available_description":"You Don't Know Jack Vol. 6 The Lost Gold была выяўлена як адна з устаноўленых гульняў. Гэтая гульня звычайна не працуе на Windows 10/11 і Linux. Вы хочаце спампаваць і ўсталяваць які выпраўляе гэта патч? Вы заўсёды можаце ўсталяваць яго на адпаведнай укладцы інфармацыі аб гульні.",
+
+     "filter_players_number": "Коль-ць Гульцоў",
+     "family_friendly":"Сямейны Рэжым",
+     "optional":"Апцыянальна",
+     "subtitles":"Субтытры",
+     "stream_friendly":"Для стрымераў",
+     "moderation":"Мадэрацыя",
+     "randomize_button_text":"Давайце іншую!",
+     "feeling_lucky":"Мне павязе",
+     "sort_by":"Сартаваць па {type}",
+     "@sort_by":{
+         "placeholders":{
+             "type":{
+                 "type":"String",
+                 "example":"назве"
+             }
+         }
+     },
+     "filter": "Фільтр",
+     "show_games_hidden": "Паказаць гульні, якія вы схавалі",
+     "hide_games_hidden": "Схаваць схаваныя гульні",
+     "max_playtime": "Максімальны час гульні",
+     "search_by_ranking": "Пошук па рэйтынгу",
+     "random_game": "Выпадковая гульня",
+     "personal_ranking": "Асабісты рэйтынг",
+     "ranked_by_stars": "Ранжыраванне па зорках",
+     "games_ranked_by_stars_from_personal_ranking":"Games ranked by stars from your personal ranking.",
+     "unranked": "Без рэйтынгу",
+
+     "app_behavior": "Паводзіны прыкладанняў",
+
+
+    "settings_app_startup_category": "Запуск прыкладанняў",
+     "settings_app_startup_title": "Адкрываць лаўнчар пры запуску прыкладання",
+     "settings_app_startup_description": "Адкрываць спіс гульняў пры адкрыцці прыкладання",
+     "settings_discord_rich_presence_category": "Налады Discord Rich Presence",
+     "settings_discord_rich_presence_title": "Discord Rich Presence",
+     "settings_discord_rich_presence_description": "Паказвае, у што вы гуляеце ў Discord. Гэта будзе працаваць толькі ў тым выпадку, калі ў вас адкрыты Discord.",
+     "settings_discord_rich_presence_buttons_title": "Паказваць кнопкі падтрымкі",
+     "settings_discord_rich_presence_buttons_description": "Паказвае кнопкі спасылак на GitHub і Discord прыкладанні ў вашым Discord Rich Presence.",
+     "settings_audio_category": "Аўдыё",
+     "settings_sfx_title": "Уключыць SFX",
+     "settings_sfx_description": "Уключае гукавыя эфекты ў дадатку",
+     "settings_app_saves_category": "Захавання прыкладанняў",
+     "settings_app_reset_stars_title": "Скінуць зоркі",
+     "settings_app_reset_stars_description": "Скідае ўсе зоркі для кожнай гульні",
+     "settings_app_reset_stars_button_text": "Скінуць зоркі",
+     "settings_app_reset_stars_action": "Скінуць усе зоркі для кожнай гульні",
+     "settings_app_reset_hidden_title": "Скінуць схаваныя гульні",
+     "settings_app_reset_hidden_description": "Скінуць усе схаваныя гульні да бачных",
+     "settings_app_reset_hidden_button_text": "Скінуць схаваныя гульні",
+     "settings_app_reset_hidden_action": "Скінуць усе схаваныя гульні на бачныя",
+
+     "rich_presence_application_start_details": "Толькі што запусціў дадатак",
+     "rich_presence_application_start_state": "У меню",
+     "rich_presence_game_menu_details": "Выбар гульні",
+     "rich_presence_game_menu_state": "У спісе гульняў",
+     "rich_presence_game_information_details": "Чытанне інфармацыі аб гульні",
+     "rich_presence_game_information_state": "Выбар гульні",
+     "rich_presence_patcher_details": "Патчыць гульню",
+     "rich_presence_patcher_state": "У спісе патчаў",
+     "rich_presence_settings_details": "Настройка прыкладання",
+     "rich_presence_settings_state": "У наладах",
+
+     "open_launcher_on_startup_title_tip": "Адкрываць лаўнчар пры запуску",
+     "open_launcher_on_startup_description_tip": "Прылада можа запускацца на гэтым экране пры аўтаматычным запуску. Ці вы хочаце актываваць гэтую функцыю? (Гэта заўсёды можна змяніць у наладах)",
+    "minutes":"минут",
+
+    "translation":"Пераклад",
+
+     "using_beta_version_text": "Вы выкарыстоўваеце бэта-версію прыкладання. Калі ў вас узнікнуць якія-небудзь праблемы, паведаміце аб іх на серверы Discord або ў рэпазітары Github.",
+
+     "pack":"Пак",
+     "stars":"Зорак",
+     "name":"Назва",
+     "players_number":"Колькасць Гульцоў",
+     "donate":"Донат",
+     "installed_version":"Усталяваная Версія",
+
+     "filter_available":"Даступна",
+     "filter_fully_playable":"Цалкам Гуляемы",
+     "filter_midly_playable":"Амаль Гуляем",
+     "filter_playable":"Гуляемы",
+     "filter_full_moderation":"Поўная Мадэрацыя",
+     "filter_censoring":"Цэнзура",
+     "filter_moderation_censoring":"Мадэрацыя і Цэнзура",
+     "filter_dubbed":"Агучана",
+     "filter_translated":"Перакладзена",
+
+     "special_thanks":"Асобнае Дзякуй",
+
+    "stream_friendly_tooltip": "Калі вы можаце гуляць у гэтую гульню праз стрым, гэта значыць на стрымінгавай платформе або дзяліцца сваім экранам праз Discord, Zoom, Meet і г.д.",
+     "family_friendly_tooltip": "Калі ў гэтую гульню можна гуляць усёй сям'ёй (уключаючы дзяцей)",
+     "moderation_tooltip": "Ці ёсць у гэтай гульні сістэма мадэрацыі (прымае, адхіляе або цэнзуруе экранныя паведамленні гульцоў)",
+     "audience_tooltip": "Ці прымае гульня гледачоў (да 10.000, калі не пазначана іншае) для ўдзелу ў гульні пасля таго, як да яе далучыліся гульцы.",
+     "subtitles_tooltip": "Калі ў гэтай гульні ёсць субтытры, якія павінны адлюстроўвацца на экране."
+}
+
