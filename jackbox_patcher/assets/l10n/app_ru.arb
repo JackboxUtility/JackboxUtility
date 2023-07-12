@@ -1,0 +1,404 @@
+{
+    "close":"Закрыть",
+    "cancel":"Отмена",
+    "page_continue":"Продолжить",
+    "confirm":"Подтвердить",
+    "quit":"закрыть",
+    "yes":"Да",
+    "no":"Нет",
+    "ok":"ОК",
+
+    "jackbox_utility":"Jackbox Utility",
+    "launch_search_game":"Запустить / Искать Игры",
+    "patch_a_game":"Патчить Игры",
+    "settings":"Настройки",
+    "notifications":"Уведомления",
+
+    "installing_a_patch":"Устанавливаем Патч",
+    "installing_a_patch_description":"Вы установите патч. Это действие необратимо.",
+    "installing_a_patch_end":"Установка Завершена",
+    "can_close_popup":"Вы можете закрыть это окно",
+
+    "patch_unavailable":"Патч недоступен",
+
+    "patch_installed": "{count, plural, one {Патч установлен} other {Патчи установлены}}",
+    "@patch_installed":{
+        "placeholders":{
+            "count":{
+                "type":"num",
+                "example":"1"
+            }
+        }
+    },
+
+    "patch_outdated": "{count, plural, one {Update patch} other {Update patches}}",
+    "@patch_outdated":{
+        "placeholders":{
+            "count":{
+                "type":"num",
+                "example":"1"
+            }
+        }
+    },
+
+    "patch_not_installed": "{count, plural, one {Install the patch} other {Install patches}}",
+    "@patch_not_installed":{
+        "placeholders":{
+            "count":{
+                "type":"num",
+                "example":"1"
+            }
+        }
+    },
+
+    "delete_version":"Удаление версии",
+    "delete_version_description":"Если вам надо сбросить игру, вы можете удалить данную версию игры. После этого вы сможете переустановить патчи.",
+    "description":"Описание",
+    "patch_modification":"Модификация патча",
+    "patch_modification_description":"This patch changes the game in the following way:",
+    "patch_modification_content_text":"Modification of the game's text content",
+    "patch_modification_content_internal":"Modification of the internal files of the game (images, texts...)",
+    "patch_modification_content_subtitles":"Modification of the game's subtitles",
+    "patch_modification_content_website":"Модификация текстового контента клиента jackbox (доступно только на {website})",
+    "@patch_modification_content_website":{
+        "placeholders":{
+            "website":{
+                "type":"String",
+                "example":"jackbox.pro"
+            }
+        }
+    },
+    "patch_modification_content_audios":"Модификация звука игры",
+    "version":"Версия",
+    "authors":"Автор(ы)",
+    "small_information":"Информация",
+    "more_informations":"Больше Информации",
+    "launch_game":"Запустить игру",
+    "launch_game_fast_launcher":"Запустить игру (Быстрый запуск)",
+    "launch_game_fast_launcher_description":"Запускает игру в режиме быстрого запуска, который позволяет пропустить вступительный ролик пакета и выбор игры. Доступно только для некоторых игр.",
+    "launch_pack":"Запустить игру",
+    "launch_pack_description":"Запустить игру без изменений",
+    "launch_informations":"Запуск Информации",
+    "launching":"Запускаем...",
+    "launched":"Запущено!",
+    "path_not_found":"Путь не найден",
+    "path_not_found_small_description":"Путь к игре не найден.",
+   "path_not_found_description": "Путь к игре не найден. Проверьте, что игра установлена и что путь к ней указан правильно.",
+    "path_inexistant": "Путь не найден",
+    "path_inexistant_small_description": "Вы не добавили путь к пакету",
+    "path_inexistant_description": "Вы не добавили путь в пакет. Вы можете сделать это в настройках",
+
+    "pack_path":"Путь к игре",
+
+    "owned_packs":"Установленные Игры",
+    "add_pack":"Добавить игру",
+    "choose_pack":"Выбрать игру",
+
+    "game_type_coop":"Кооп",
+    "game_type_coop_description":"В этих играх, players must work together to win.",
+    "game_type_versus":"Free For All",
+    "game_type_versus_description":"В этих играх, каждый игрок играет за себя и должен победить остальных.",
+    "game_type_team":"Команды",
+    "game_type_team_description":"В этих играх, игроки поделены на разные команды и должны работать вместе чтобы победить.",
+
+    "game_translation_translated":"Официально переведено на {language}",
+    "@game_translation_translated":{
+        "placeholders":{
+            "language":{
+                "type":"String",
+                "example":"французский"
+            }
+        }
+    },
+    "game_translation_translated_description":"Эти игры официально переведены на {language}.",
+    "@game_translation_translated_description":{
+        "placeholders":{
+            "language":{
+                "type":"String",
+                "example":"французский"
+            }
+        }
+    },
+    "game_translation_translated_description_en":"Эти игры переведены на Французский , Итальянский, Немецкий и Испанский командой Jackbox Games.",
+    "game_translation_community_translated":"Переведено сообществом",
+    "game_translation_community_translated_description":"Эти игры переведены сообществом.",
+    "game_translation_not_available":"На английском",
+    "game_translation_not_available_description":"Эти игры не переведены на {language}.",
+    "@game_translation_not_available_description":{
+        "placeholders":{
+            "language":{
+                "type":"String",
+                "example":"французский"
+            }
+        }
+    },
+    "game_translation_not_available_description_en":"Эти игры доступны только на английском.",
+
+    "downloading":"Загрузка",
+    "starting":"Начало",
+    "extracting":"Распаковка",
+    "finalizing":"Завершение",
+    "unknown_error":"Неизвестная Ошибка",
+    "contact_error":"Свяжитесь с Alexisl61 в Discord (на английском)",
+
+    "game_patch_unavailable":"Патч недоступен",
+    "game_patch_available":"Патч доступен",
+    "game_patch_installed":"У вас установлена последняя версия патча",
+    "game_patch_outdated":"Обновление к патчу доступно",
+
+    "players":"игроков",
+
+    "search_game":"Найти игру",
+    "search":"Поиск",
+    "all_games":"Все игры",
+    "all_games_description": "Найдите все игры Jackbox в одном месте",
+    "search_by_pack":"Найти по паку",
+    "search_by_type":"Найти по типу",
+    "search_by_translation":"Найти по переводу",
+    "search_by_tags":"Найти по тегу",
+
+    "select_server_subtitle":"Выберите один из доступных серверов",
+    "select_server_button":"Выбрать",
+
+    "connected_to_server":"Подключение к серверу {server}",
+    "@connected_to_server":{
+        "placeholders":{
+            "server":{
+                "type":"String",
+                "example":"Jackbox France"
+            }
+        }
+    },
+    "connected_to_server_change":"Сменить",
+    "connection_to_server_failed":"Подключение к серверу прервано.",
+    "connection_to_main_server_failed":"Подключение ко всем серверам прервано.",
+
+    "quit_while_downloading_title":"Установка",
+    "quit_while_downloading_description":"Сейчас происходит установка, вы уверены, что хотите выйти?",
+
+    "automatic_game_finder_title":"Автоматический поиск игры",
+    "automatic_game_finder_description":"Jackbox Utility может найти установленные игры используя Steam и Epic Games.\nВы хотите использовать эту функцию?",
+    "automatic_game_finder_in_progress":"Поиск игр, пожалуйста подождите",
+    "automatic_game_finder_finish": "{count, plural, =0 {Игр не найдено} one {Игр найдено: 1} other {Игр найдено: {count}}}",
+    "@automatic_game_finder_finish":{
+        "placeholders":{
+            "count":{
+                "type":"num",
+                "example":"1"
+            }
+        }
+    },
+
+    "automatic_server_finder_found":"Сервер найден",
+    "automatic_server_finder_found_description":"Сервер {server} был выбран на основе вашего языка.",
+    "@automatic_server_finder_found_description":{
+        "placeholders":{
+            "server":{
+                "type":"String",
+                "example":"Jackbox France"
+            }
+        }
+    },
+    "show_all_packs":"Показать не приобретённые игры",
+    "show_owned_packs_only":"Показать приобретённые игры",
+
+    "all_patches":"Все патчи",
+
+    "error_happened":"Произошла ошибка",
+
+    "jackbox_utility_description":"Приложение с открытым исходным кодом для загрузки патчей и запуска игр Jackbox.",
+
+    "server_information":"О сервере",
+    "selected_server":"Выбранный сервер",
+    "change_server":"Сменить сервер",
+
+    "app_information":"О приложении",
+
+    "automatic_game_finder_button":"Найти установленные игры",
+
+    "games_available": "{count, plural, =0 {Нет доступных игр} one {Игр доступно: 1} other {Игр доступно: {count}}}",
+    "@games_available":{
+        "placeholders":{
+            "count":{
+                "type":"num",
+                "example":"1"
+            }
+        }
+    },
+
+    "author":"Автор",
+    "contributors":"Участники", 
+
+    "in_language":"На {language} языке",
+    "@in_language":{
+        "placeholders":{
+            "language":{
+                "type":"String",
+                "example":"Французском"
+            }
+        }
+    },
+    "in_language_description":"Эти игры доступны на {language} языке (официально или переведены сообществом.)",
+    "@in_language_description":{
+        "placeholders":{
+            "language":{
+                "type":"String",
+                "example":"Французском"
+            }
+        }
+    },
+    "game_community_dubbed":"Озвучено сообществом",
+    "game_community_dubbed_description":"Эти игры озвучены сообществом.",
+
+    "game_dubbed":"Озвучено на {language} языке",
+    "@game_dubbed":{
+        "placeholders":{
+            "language":{
+                "type":"String",
+                "example":"Французском"
+            }
+        } 
+    },
+    "game_dubbed_description":"Эти игру озвучены сообщестом или Jackbox.",
+
+    "no_game_in_this_category_title":"В данной категории нет игр",
+    "no_game_in_this_category_description":"В этой категории нет игр. Добавьте ещё игр в секции Настроек.",
+
+    "select_game_location":"Выберите путь к {game}",
+    "@select_game_location":{
+        "placeholders":{
+            "game":{
+                "type":"String",
+                "example":"The Jackbox Party Pack 1"
+            }
+        }
+    },
+
+    "download_error":"Ошибка загрузки",
+    "download_error_description":"Произошла ошибка во время загрузки игры. Пожалуйста удостоверьтесь, что ваше интернет соединение работает корректно.",
+
+    "extracting_error":"Ошибка распаковки",
+    "extracting_error_description":"Произошла ошибка во время распаковки игры. Проверьте, достаточно ли у вас свободного места в памяти, и повторите попытку.",
+
+    "game_reset": "Сброс игры",
+    "game_reset_description": "Это приведет к проверке всех файлов этой игры. Если вы установили какой-либо патч, он будет удален из вашей игры. Вы уверены, что хотите продолжить?",
+
+    "small_description":"Описание",
+
+    "patreon_subscribers":"Подписчики Patreon",
+
+    "audience":"Зрители",
+
+    "confirmation":"Подтверждение",
+    "confirmation_description":"Вы точно хотите {action}? Это действие необратимо.",
+    "@confirmation_description":{
+        "placeholders":{
+            "action":{
+                "type":"String",
+                "example":"убрать все звёзды"
+            }
+        }
+    },
+    "fix":"Фикс",
+    "fixes_available":"Фикс YDKJ Vol. 6",
+    "fixes_available_description":"You Don't Know Jack Vol. 6 The Lost Gold была обнаружена как одна из установленных игр. Эта игра обычно не работает на Windows 10/11 и Linux. Вы хотите скачать и установить исправляющий это патч? Вы всегда можете установить его на соответствующей вкладке информации об игре.",
+
+    "filter_players_number": "Кол-во Игроков",
+    "family_friendly":"Семейный Режим",
+    "optional":"Опционально",
+    "subtitles":"Субтитры",
+    "stream_friendly":"Для Стримеров",
+    "moderation":"Модерация",
+    "randomize_button_text":"Давайте другую!",
+    "feeling_lucky":"Мне повезёт",
+    "sort_by":"Сортировать по {type}",
+    "@sort_by":{
+        "placeholders":{
+            "type":{
+                "type":"String",
+                "example":"названию"
+            }
+        }
+    },
+    "filter": "Фильтр",
+    "show_games_hidden": "Показать игры, которые вы скрыли",
+    "hide_games_hidden": "Скрыть скрытые игры",
+    "max_playtime": "Максимальное время игры",
+    "search_by_ranking": "Поиск по рейтингу",
+    "random_game": "Случайная игра",
+    "personal_ranking": "Личный рейтинг",
+    "ranked_by_stars": "Ранжирование по звездам",
+    "games_ranked_by_stars_from_personal_ranking":"Games ranked by stars from your personal ranking.",
+    "unranked": "Без рейтинга",
+
+    "app_behavior": "Поведение приложений",
+
+
+   "settings_app_startup_category": "Запуск приложений",
+    "settings_app_startup_title": "Открывать лаунчер при запуске приложения",
+    "settings_app_startup_description": "Открывать список игр при открытии приложения",
+    "settings_discord_rich_presence_category": "Настройки Discord Rich Presence",
+    "settings_discord_rich_presence_title": "Discord Rich Presence",
+    "settings_discord_rich_presence_description": "Показывает, во что вы играете в Discord. Это будет работать только в том случае, если у вас открыт Discord.",
+    "settings_discord_rich_presence_buttons_title": "Показывать кнопки поддержки",
+    "settings_discord_rich_presence_buttons_description": "Показывает кнопки ссылок на GitHub и Discord приложения в вашем Discord Rich Presence.",
+    "settings_audio_category": "Аудио",
+    "settings_sfx_title": "Включить SFX",
+    "settings_sfx_description": "Включает звуковые эффекты в приложении",
+    "settings_app_saves_category": "Сохранения приложений",
+    "settings_app_reset_stars_title": "Сбросить звезды",
+    "settings_app_reset_stars_description": "Сбрасывает все звезды для каждой игры",
+    "settings_app_reset_stars_button_text": "Сбросить звезды",
+    "settings_app_reset_stars_action": "Сбросить все звезды для каждой игры",
+    "settings_app_reset_hidden_title": "Сбросить скрытые игры",
+    "settings_app_reset_hidden_description": "Сбросить все скрытые игры до видимых",
+    "settings_app_reset_hidden_button_text": "Сбросить скрытые игры",
+    "settings_app_reset_hidden_action": "Сбросить все скрытые игры на видимые",
+
+    "rich_presence_application_start_details": "Только что запустил приложение",
+    "rich_presence_application_start_state": "В меню",
+    "rich_presence_game_menu_details": "Выбор игры",
+    "rich_presence_game_menu_state": "В списке игр",
+    "rich_presence_game_information_details": "Чтение информации об игре",
+    "rich_presence_game_information_state": "Выбор игры",
+    "rich_presence_patcher_details": "Патчить игру",
+    "rich_presence_patcher_state": "В списке патчей",
+    "rich_presence_settings_details": "Настройка приложения",
+    "rich_presence_settings_state": "В настройках",
+
+    "open_launcher_on_startup_title_tip": "Открывать лаунчер при запуске",
+    "open_launcher_on_startup_description_tip": "Приложение может запускаться на этом экране при автоматическом запуске. Хотите ли вы активировать эту функцию? (Это всегда можно изменить в настройках)",
+
+
+    "minutes":"минут",
+
+    "translation":"Перевод",
+
+    "using_beta_version_text": "Вы используете бета-версию приложения. Если у вас возникнут какие-либо проблемы, сообщите о них на сервере Discord или в репозитории Github.",
+
+    "pack":"Пак",
+    "stars":"Звёзд",
+    "name":"Название",
+    "players_number":"Количество Игроков",
+    "donate":"Донат",
+    "installed_version":"Установленная Версия",
+
+    "filter_available":"Доступно",
+    "filter_fully_playable":"Полностью Играемо",
+    "filter_midly_playable":"Почти Играемо",
+    "filter_playable":"Играемо",
+    "filter_full_moderation":"Полная Модерация",
+    "filter_censoring":"Цензура",
+    "filter_moderation_censoring":"Модерация и Цензура",
+    "filter_dubbed":"Озвучено",
+    "filter_translated":"Переведено",
+
+    "special_thanks":"Отдельное Спасибо",
+
+   "stream_friendly_tooltip": "Если вы можете играть в эту игру через стрим, то есть на стриминговой платформе или делиться своим экраном через Discord, Zoom, Meet и т.д.",
+    "family_friendly_tooltip": "Если в эту игру можно играть всей семьей (включая детей)",
+    "moderation_tooltip": "Есть ли в этой игре система модерации (принимает, отклоняет или цензурирует экранные сообщения игроков)",
+    "audience_tooltip": "Принимает ли игра зрителей (до 10.000, если не указано иное) для участия в игре после того, как к ней присоединились игроки.",
+    "subtitles_tooltip": "Если в этой игре есть субтитры, которые должны отображаться на экране."
+}
+
