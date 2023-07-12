@@ -55,10 +55,10 @@
     "delete_version_description":"Если вам надо сбросить игру, вы можете удалить данную версию игры. После этого вы сможете переустановить патчи.",
     "description":"Описание",
     "patch_modification":"Модификация патча",
-    "patch_modification_description":"This patch changes the game in the following way:",
-    "patch_modification_content_text":"Modification of the game's text content",
-    "patch_modification_content_internal":"Modification of the internal files of the game (images, texts...)",
-    "patch_modification_content_subtitles":"Modification of the game's subtitles",
+    "patch_modification_description":"Этот патч изменяет игру следующим образом:",
+     "patch_modification_content_text":"Изменение текстового содержимого игры",
+     "patch_modification_content_internal":"Модификация внутренних файлов игры (изображения, тексты...)",
+     "patch_modification_content_subtitles":"Изменение субтитров в игре",
     "patch_modification_content_website":"Модификация текстового контента клиента jackbox (доступно только на {website})",
     "@patch_modification_content_website":{
         "placeholders":{
