@@ -1,5 +1,5 @@
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 [![Discord](https://img.shields.io/discord/1108095925366308954?color=%235865F2&label=discord&logo=discord&style=flat-square)](https://discord.gg/jUQzjjaxQP)
 ![GitHub release](https://img.shields.io/github/v/release/AlexisL61/JackboxUtility?style=flat-square)
@@ -73,6 +73,9 @@ flutter build -t ./lib/main_beta.dart <OS>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/VladGraund"><img src="https://avatars.githubusercontent.com/u/106146104?v=4?s=100" width="100px;" alt="Vladyslav Kulybaba"/><br /><sub><b>Vladyslav Kulybaba</b></sub></a><br /><a href="#translation-VladGraund" title="Translation">🌍</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Forseti6676"><img src="https://avatars.githubusercontent.com/u/97843472?v=4?s=100" width="100px;" alt="Maxi"/><br /><sub><b>Maxi</b></sub></a><br /><a href="#translation-Forseti6676" title="Translation">🌍</a></td>
       <td align="center" valign="top" width="14.28%"><a href="http://github.com/burandby"><img src="https://avatars.githubusercontent.com/u/48630651?v=4?s=100" width="100px;" alt="BurAndBY"/><br /><sub><b>BurAndBY</b></sub></a><br /><a href="#translation-BurAndBY" title="Translation">🌍</a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/puskanyaww"><img src="https://avatars.githubusercontent.com/u/113018112?v=4?s=100" width="100px;" alt="puskanyaww"/><br /><sub><b>puskanyaww</b></sub></a><br /><a href="#translation-puskanyaww" title="Translation">🌍</a></td>
     </tr>
   </tbody>
 </table>
