@@ -16,8 +16,9 @@ With this app, you will be able to download translation patches for your Jackbox
 **<img src="https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/de.svg" width="12" height="12" /> German**, 
 **<img src="https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/es.svg" width="12" height="12" /> Spanish**, 
 **<img src="https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/ua.svg" width="12" height="12" /> Ukrainian**,
-**<img src="https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/es-ct.svg" width="12" height="12" /> Catalan** and
-**<img src="https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/by.svg" width="12" height="12" /> Belarusian** servers
+**<img src="https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/es-ct.svg" width="12" height="12" /> Catalan**,
+**<img src="https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/by.svg" width="12" height="12" /> Belarusian** and
+**<img src="https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/ru.svg" width="12" height="12" /> Russian** servers
 - Detect automatically your installed games
 - Download translation patches for your games
 - Launch the games directly, skipping the intros and menus entirely
