@@ -21,9 +21,13 @@ import '../../model/usermodel/userjackboxpackpatch.dart';
 import '../windowManager/windowsManagerService.dart';
 
 class InitialLoad {
-  static Future<void> init(BuildContext context, bool isFirstTimeOpening,
-      bool automaticallyChooseBestServer) async {
+  static Future<void> init(
+      BuildContext context,
+      bool isFirstTimeOpening,
+      bool automaticallyChooseBestServer,
+      Function({int? step, double? percent}) callback) async {
     bool automaticGameFindNotificationAvailable = false;
+    callback(step: 1, percent: 0.0);
     if (isFirstTimeOpening) {
       await windowManager.setPreventClose(true);
       await UserData().init();
@@ -39,13 +43,17 @@ class InitialLoad {
         automaticGameFindNotificationAvailable = true;
       }
     }
+    callback(step: 2, percent: 0);
     try {
       await _loadSettings();
       await _loadInfo();
       await _loadWelcome();
-      await _loadPacks();
+      await _loadPacks((double percent) {
+        callback(step: 2, percent: percent);
+      });
       await _loadBlurHashes();
       await _loadServerConfigurations();
+      callback(step: 3, percent: 0);
 
       // Changing locale
       TranslationsHelper().changeLocale(
@@ -62,20 +70,19 @@ class InitialLoad {
                   .assetLink(APIService().cachedSelectedServer!.image))
               .image,
           context);
+      callback(step: 3, percent: 50);
       _precacheImages(context);
       if (isFirstTimeOpening) {
         await _launchAutomaticGameFinder(
             context, automaticGameFindNotificationAvailable);
       }
       await detectFixesAvailable(context);
+      callback(step: 3, percent: 100);
       if (isFirstTimeOpening &&
           UserData().settings.isOpenLauncherOnStartupActivated) {
         openLauncher(context);
       }
     } catch (e) {
-      InfoBarService.showError(context,
-          TranslationsHelper().appLocalizations!.connection_to_server_failed,
-          duration: const Duration(minutes: 5));
       rethrow;
     }
   }
@@ -121,8 +128,8 @@ class InitialLoad {
     await UserData().syncWelcomeMessage();
   }
 
-  static Future<void> _loadPacks() async {
-    await UserData().syncPacks();
+  static Future<void> _loadPacks(Function(double) callback) async {
+    await UserData().syncPacks(callback);
   }
 
   static Future<void> _loadBlurHashes() async {

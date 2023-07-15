@@ -68,7 +68,8 @@ class APIService {
     baseAssets = endpoints.assetsEndpoint;
   }
 
-  Future<void> recoverPacksAndTags() async {
+  Future<void> recoverPacksAndTags(
+      Function(double) percentDone) async {
     final rawData =
         await getRequest(Uri.parse('$baseEndpoint${APIEndpoints.PACKS.path}'));
     final Map<String, dynamic> data = jsonDecode(rawData);
@@ -82,16 +83,21 @@ class APIService {
             .map<PatchCategory>((category) => PatchCategory.fromJson(category))
             .toList()
         : [];
-    await applyExternalConfiguration();
+    percentDone(100 / (cachedPacks.length + 1));
+    await applyExternalConfiguration(percentDone);
   }
 
-  Future<void> applyExternalConfiguration() async {
+  Future<void> applyExternalConfiguration(
+      Function(double percent) percentDone) async {
+    int totalPacksDone = 0;
+    int totalPacks = 0;
     List<Future> futures = [];
     for (JackboxPack pack in cachedPacks) {
       for (JackboxPackPatch patch in pack.patches) {
         if (patch.configuration != null) {
           if (patch.configuration!.versionOrigin ==
               OnlineVersionOrigin.REPO_FILE) {
+                totalPacks++;
             final rawData =
                 getRequest(Uri.parse(patch.configuration!.versionFile));
             rawData.then((retrievedData) {
@@ -99,6 +105,8 @@ class APIService {
               patch.latestVersion = data[patch.configuration!.versionProperty]
                   .replaceAll("Build:", "")
                   .trim();
+              totalPacksDone++;
+              percentDone( totalPacksDone / totalPacks * 100);
             });
             futures.add(rawData);
           }
@@ -108,6 +116,7 @@ class APIService {
         if (patch.configuration != null) {
           if (patch.configuration!.versionOrigin ==
               OnlineVersionOrigin.REPO_FILE) {
+                totalPacks++;
             final rawData =
                 getRequest(Uri.parse(patch.configuration!.versionFile));
             rawData.then((retrievedData) {
@@ -115,6 +124,8 @@ class APIService {
               patch.latestVersion = data[patch.configuration!.versionProperty]
                   .replaceAll("Build:", "")
                   .trim();
+              totalPacksDone++;
+              percentDone( totalPacksDone / totalPacks * 100);
             });
             futures.add(rawData);
           }

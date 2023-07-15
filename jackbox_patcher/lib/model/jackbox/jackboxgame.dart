@@ -5,13 +5,10 @@ import 'package:jackbox_patcher/model/gametag.dart';
 import 'package:jackbox_patcher/model/jackbox/gameinfo/familyfriendly.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxpack.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxgamepatch.dart';
-import 'package:jackbox_patcher/services/api/api_service.dart';
-import 'package:jackbox_patcher/services/translations/language_service.dart';
 import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 
 import '../usermodel/userjackboxgame.dart';
-import '../usermodel/userjackboxpack.dart';
 import 'gameinfo/moderation.dart';
 import 'gameinfo/streamfriendly.dart';
 import 'gameinfo/translation.dart';

@@ -2,6 +2,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_flavor/flutter_flavor.dart';
 import 'package:jackbox_patcher/components/dialogs/leaveApplicationDialog.dart';
+import 'package:jackbox_patcher/pages/loadingContainer.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/device/device.dart';
 import 'package:jackbox_patcher/services/downloader/downloader_service.dart';
@@ -30,6 +31,10 @@ class MainContainer extends StatefulWidget {
 class _MainContainerState extends State<MainContainer> with WindowListener {
   bool isFirstTimeOpening = true;
   bool _loaded = false;
+  int loadingStep = 0;
+  double loadingPercent = 0;
+  double oldLoadingPercent = 0;
+  bool loadingException = false;
 
   double calculatePadding() {
     if (MediaQuery.of(context).size.width > 1000) {
@@ -47,6 +52,25 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
     super.initState();
   }
 
+  void updateLoading({int? step, double? percent}) {
+    if (step != null && percent != null) {
+      oldLoadingPercent = loadingPercent;
+      setState(() {
+        loadingStep = step;
+        loadingPercent = percent;
+      });
+    }
+  }
+
+  void tryAgain() {
+    _load(true);
+  }
+
+  void serverChange() {
+    UserData().setSelectedServer(null);
+    _load(false);
+  }
+
   @override
   Widget build(BuildContext context) {
     return NavigationView(
@@ -62,12 +86,23 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
           height: MediaQuery.of(context).size.height,
           color: const Color.fromARGB(1, 32, 32, 32).withOpacity(0.98),
         ),
-        Column(children: [
-          const Spacer(),
-          _buildUpper(),
-          _buildLower(),
-          const Spacer(),
-        ]),
+        _loaded
+            ? Column(children: [
+                const Spacer(),
+                _buildUpper(),
+                _buildLower(),
+                const Spacer(),
+              ])
+            : LoadingContainer(
+                step: (
+                  percent: loadingPercent,
+                  step: loadingStep,
+                  oldPercent: oldLoadingPercent
+                ),
+                exceptionReceived: loadingException,
+                onTryAgainPressed: tryAgain,
+                onServerChangePressed: serverChange,
+              ),
         if (FlavorConfig.instance.name == "BETA")
           Positioned(
               bottom: 0,
@@ -76,7 +111,9 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
               child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    TranslationsHelper().appLocalizations!.using_beta_version_text,
+                    TranslationsHelper()
+                        .appLocalizations!
+                        .using_beta_version_text,
                     style: TextStyle(color: Colors.white.withOpacity(0.7)),
                     textAlign: TextAlign.center,
                   )))
@@ -90,10 +127,7 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
       const SizedBox(
         height: 30,
       ),
-      _loaded
-          ? _buildMenu()
-          : LottieBuilder.asset("assets/lotties/QuiplashOutput.json",
-              width: 200, height: 200),
+      _buildMenu(),
       const SizedBox(
         height: 30,
       ),
@@ -243,41 +277,41 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
     return Column(children: [
       ClipRRect(
           borderRadius: BorderRadius.circular(8.0),
-          child: _loaded
-              ? Image.network(
-                  APIService()
-                      .assetLink(APIService().cachedSelectedServer!.image),
-                  height: 100)
-              : Image.asset(
-                  "assets/logo.png",
-                  height: 100,
-                )),
-      Text(
-          _loaded
-              ? APIService().cachedSelectedServer!.name
-              : TranslationsHelper().appLocalizations!.jackbox_utility,
+          child: Image.network(
+              APIService().assetLink(APIService().cachedSelectedServer!.image),
+              height: 100)),
+      Text(APIService().cachedSelectedServer!.name,
           style: FluentTheme.of(context).typography.titleLarge)
     ]);
   }
 
   Widget _buildLower() {
-    return _loaded
-        ? Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: NotificationCaroussel(
-              news: APIService().cachedNews,
-            ),
-          )
-        : Container();
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: NotificationCaroussel(
+        news: APIService().cachedNews,
+      ),
+    );
   }
 
   void _load(bool automaticallyChooseBestServer) async {
-    await InitialLoad.init(
-        context, isFirstTimeOpening, automaticallyChooseBestServer);
-    isFirstTimeOpening = false;
+    loadingException = false;
     setState(() {
-      _loaded = true;
+      
     });
+    try {
+      await InitialLoad.init(context, isFirstTimeOpening,
+          automaticallyChooseBestServer, updateLoading);
+      isFirstTimeOpening = false;
+      Future.delayed(const Duration(milliseconds: 200), () {
+        setState(() {
+          _loaded = true;
+        });
+      });
+    } catch (e) {
+      loadingException = true;
+      setState(() {});
+    }
   }
 
   @override

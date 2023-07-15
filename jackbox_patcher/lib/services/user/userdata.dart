@@ -48,8 +48,8 @@ class UserData {
   /// Sync every pack on the server.
   ///
   /// Every pack available will be added to the list of packs (UserData().packs).
-  Future<void> syncPacks() async {
-    await APIService().recoverPacksAndTags();
+  Future<void> syncPacks(Function (double) callback) async {
+    await APIService().recoverPacksAndTags((callback));
     List<JackboxPack> networkPacks = APIService().getPacks();
     for (var pack in networkPacks) {
       // Load the pack loader

@@ -41,6 +41,7 @@ class _GameInfoRouteState extends State<GameInfoRoute> {
   void initState() {
     // TODO: implement initState
     SFXService().playSFX(SFX.OPEN_GAME_INFO_TAB);
+    super.initState();
   }
 
   @override
@@ -794,11 +795,9 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
   }
 
   Widget _buildGameFixes() {
-    String pathStatus = "";
     return FutureBuilder(
         future: widget.pack.getPathStatus(),
         builder: (context, snapshot) {
-          print(snapshot.data);
           if (snapshot.hasData &&
               snapshot.data == "FOUND" &&
               widget.pack.owned) {
