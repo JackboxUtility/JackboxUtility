@@ -145,7 +145,7 @@ class _LoadingContainerState extends State<LoadingContainer> {
           height: 20,
         ),
         FilledButton(
-            child: Text("Try again"),
+            child: Text("Try again", style: TextStyle(fontWeight: FontWeight.bold)),
             onPressed: () {
               widget.onTryAgainPressed();
             }),
