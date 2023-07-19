@@ -123,6 +123,51 @@ class _SelectServerPageState extends State<SelectServerPage> {
             ])));
   }
 
+  Widget _buildAddServerCard(){
+    return Container(
+        child: Stack(
+      clipBehavior: Clip.none,
+      children: [
+        Container(
+            height: 200,
+            margin: const EdgeInsets.only(top: 25),
+            child: ClipRRect(
+                borderRadius: BorderRadius.circular(8.0),
+                child: Acrylic(
+                    shadowColor: const Color.fromARGB(255, 48, 48, 48),
+                    blurAmount: 1,
+                    tintAlpha: 1,
+                    tint: const Color.fromARGB(255, 48, 48, 48),
+                    child: Stack(children: [
+                      Container(
+                          padding: const EdgeInsets.only(bottom: 12),
+                          margin: const EdgeInsets.only(top: 50),
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                    child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 12),
+                                  child: Column(children: [
+                                    Text("Custom server",
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(fontSize: 25)),
+                                    const SizedBox(height: 10),
+                                    Text(
+                                      "Add your own server to the list",
+                                    ),
+                                    Expanded(child: Container()),
+                                    //_buildRowButtons(server)
+                                  ]),
+                                ))
+                              ])),
+                    ])))),
+        //_buildServerImage(server),
+      ],
+    ));
+  }
+
   Widget _buildRowButtons(PatchServer server) {
     return Row(children: [
       Expanded(
