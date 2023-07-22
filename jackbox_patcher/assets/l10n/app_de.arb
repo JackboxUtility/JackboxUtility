@@ -91,7 +91,7 @@
     "placeholders": {
       "language": {
         "type": "String",
-        "example": "French"
+        "example": "Deutsch"
       }
     }
   },
@@ -100,7 +100,7 @@
     "placeholders": {
       "language": {
         "type": "String",
-        "example": "French"
+        "example": "Deutsch"
       }
     }
   },
@@ -112,7 +112,7 @@
     "placeholders": {
       "language": {
         "type": "String",
-        "example": "French"
+        "example": "Deutsch"
       }
     }
   },
@@ -121,7 +121,7 @@
   "extracting": "Entpacke Patch...",
   "finalizing": "Fast fertig...",
   "unknown_error": "Unbekannter Fehler",
-  "contact_error": "Melde dich bitte bei Erizzle#0001 auf Discord",
+  "contact_error": "Melde dich bitte bei Erizzle auf Discord",
   "game_patch_unavailable": "Patch nicht verfügbar",
   "game_patch_available": "Ein Patch ist verfügbar",
   "game_patch_installed": "Der Patch ist auf dem neusten Stand",
@@ -204,7 +204,7 @@
       }
     }
   },
-  "in_language_description": "Diese Spiele sind verfügbar auf {language} (nativ oder durch die Community)",
+  "in_language_description": "Diese Spiele sind auf {language} verfügbar (nativ oder durch die Community)",
   "@in_language_description": {
     "placeholders": {
       "language": {
@@ -243,8 +243,8 @@
   "confirmation": "Bestätigung",
   "confirmation_description": "Möchtest du wirklich {action}? Diese Aktion kann nicht rückgängig gemacht werden.",
   "fix": "Fix",
-  "fixes_available": "Fixe verfügbar",
-  "fixes_available_description": "Für deine Spiele sind mehrere Fixe zum Download verfügbar. Möchtest du sie jetzt herunterladen?",
+  "fixes_available": "Fixes verfügbar",
+  "fixes_available_description": "Für deine Spiele sind mehrere Fixes zum Download verfügbar. Möchtest du sie jetzt herunterladen?",
   "family_friendly": "Familienfreundlich",
   "optional": "Optional",
   "subtitles": "Untertitel",
@@ -323,18 +323,18 @@
   "moderation_tooltip": "Inwiefern dieses Spiel ein Moderationssystem hat (über das Spielereingaben auf dem Bildschirm akzeptiert, abgelehnt oder zensiert werden können).",
   "audience_tooltip": "Inwiefern dieses Spiel Publikumsmitgliedern (üblicherweise bis zu 10.000) erlaubt, nach dem Beitritt der Spieler mitzuspielen.",
   "subtitles_tooltip": "Ob das Spiel Untertitel hat, die auf dem Bildschirm angezeigt werden.",
-  "select_server_loading": "EN:Loading servers...",
-  "custom_server_title": "EN:Custom Server",
-  "custom_server_description": "EN:Use a link to connect to a custom server.",
-  "custom_server_error": "EN:Failed to recover server from link.",
-  "custom_server_warning": "EN:If someone asked you to add a link there, it's likely a scam. Do not continue If you don't trust the owner of this server.",
-  "custom_server_add_question": "EN:Do you want to use this server?",
-  "custom_server_link": "EN:Custom server link",
-  "loading_initialization_failed": "EN:Failed to initialize the app.",
-  "loading_connection_failed": "EN:Failed to connect to the server.",
-  "loading_save_failed": "EN:Failed to retrieve your saves.",
-  "loading_open_issue_discord": "EN:Please open an issue on GitHub or report it on Discord.",
-  "loading_check_internet_connection": "EN:Please check your internet connection and try again.",
-  "custom_server_explanation": "EN:Use a link to the info.json file of a custom server to connect to it.",
-  "loading_try_again": "EN:Try Again"
+  "select_server_loading": "Lade Server...",
+  "custom_server_title": "Eigener Server",
+  "custom_server_description": "Benutze deinen Link, um einen eigenen Server zu verbinden.",
+  "custom_server_error": "Der Server konnte nicht durch den Link hinzugefügt werden.",
+  "custom_server_warning": "Sollte dich jemand gebeten haben, hier einen Link einzufügen, handelt es sich wahrscheinlich um einen böswilligen Angriff / Scam. Füge nur Server von vertrauenswürdigen Personen hinzu.",
+  "custom_server_add_question": "Möchtest du diesen Server benutzen?",
+  "custom_server_link": "Eigener Link zum Server",
+  "loading_initialization_failed": "App konnte nicht gestartet werden.",
+  "loading_connection_failed": "Die Verbindung zum Server ist fehlgeschlagen.",
+  "loading_save_failed": "Deine Speicherdaten konnten nicht gelesen werden.",
+  "loading_open_issue_discord": "Bitte melde diesen Fehler auf Discord oder GitHub.",
+  "loading_check_internet_connection": "Bitte überprüfe deine Internetverbindung und versuche es nochmal.",
+  "custom_server_explanation": "Nutze einen Direktlink zur info.json Datei deines eigenen Servers, um ihn zu verbinden.",
+  "loading_try_again": "Nochmal versuchen"
 }
