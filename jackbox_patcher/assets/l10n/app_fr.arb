@@ -335,6 +335,6 @@
   "loading_save_failed": "Erreur lors de la récupération des sauvegardes.",
   "loading_open_issue_discord": "Ouvrez une issue sur GitHub ou parlez-en sur notre serveur discord.",
   "loading_check_internet_connection": "Vérifiez votre connexion à internet et rééssayez.",
-  "custom_server_explanation": "EN:Use a link to the info.json file of a custom server to connect to it.",
-  "loading_try_again": "EN:Try Again"
+  "custom_server_explanation": "Utiliser un lien direct vers le fichier info.json du serveur personnalisé auquel vous souhaitez vous connecter.",
+  "loading_try_again": "Rééssayer"
 }
