@@ -203,14 +203,16 @@ class APIService {
 
   // Download game patch
   Future<String> downloadPatch(
-      String patchUri, void Function(double, double) progressCallback) async {
+      String patchUri, void Function(double, double) progressCallback, CancelToken cancelToken) async {
     Dio dio = Dio();
     final response = await dio.downloadUri(
         Uri.parse(APIService().assetLink(patchUri)),
         "./downloads/tmp.${patchUri.split(".").last}",
+        cancelToken: cancelToken,
         options: Options(), onReceiveProgress: (received, total) {
       progressCallback(received.toInt().toDouble(), total.toInt().toDouble());
     });
+    
     if (response.statusCode == 200) {
       return "./downloads/tmp.${patchUri.split(".").last}";
     } else {
