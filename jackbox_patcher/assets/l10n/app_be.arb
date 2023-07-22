@@ -358,7 +358,7 @@
   "loading_connection_failed": "Не атрымалася злучыцца з серверам.",
   "loading_save_failed": "Не ўдалося атрымаць захаваныя файлы.",
   "loading_open_issue_discord": "Калі ласка, адкрыйце праблему на GitHub або паведаміце пра яе на Discord.",
-  "loading_check_internet_connection": "Калі ласка, праверце падключэнне да Інтэрнэту і паўтарыце спробу."
+  "loading_check_internet_connection": "Калі ласка, праверце падключэнне да Інтэрнэту і паўтарыце спробу.",
   "custom_server_explanation": "Выкарыстоўвайце спасылку на файл info.json карыстальніцкага сервера, каб падключыцца да яго.",
   "loading_try_again": "Паўтарыць спробу"
 }
