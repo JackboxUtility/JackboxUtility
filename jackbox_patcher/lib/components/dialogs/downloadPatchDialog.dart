@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpackpatch.dart';
 import 'package:windows_taskbar/windows_taskbar.dart';
@@ -22,6 +23,8 @@ class _DownloadPatchDialogComponentState
   String status = "";
   String substatus = "";
   double progression = 0;
+  CancelToken cancelToken = CancelToken();
+  bool downloadCancelled = false;
 
   int downloadingProgress = 0;
   int currentPatchDownloading = 0;
@@ -36,19 +39,21 @@ class _DownloadPatchDialogComponentState
     downloadingProgress = 1;
     setState(() {});
     for (var patch in widget.patchs) {
-      await patch.downloadPatch(widget.localPaths[currentPatchDownloading],
-          (stat, substat, progress) async {
-        status = stat;
-        substatus = substat;
-        if (progression.toInt() != progress.toInt()) {
-          WindowsTaskbar.setProgress(
-              progress.toInt() + (currentPatchDownloading) * 100,
-              100 * widget.patchs.length);
-        }
-        progression = progress;
-        setState(() {});
-      });
-      currentPatchDownloading++;
+      if (!downloadCancelled) {
+        await patch.downloadPatch(widget.localPaths[currentPatchDownloading],
+            (stat, substat, progress) async {
+          status = stat;
+          substatus = substat;
+          if (progression.toInt() != progress.toInt()) {
+            WindowsTaskbar.setProgress(
+                progress.toInt() + (currentPatchDownloading) * 100,
+                100 * widget.patchs.length);
+          }
+          progression = progress;
+          setState(() {});
+        }, cancelToken);
+        currentPatchDownloading++;
+      }
     }
     downloadingProgress = 2;
     setState(() {});
@@ -109,12 +114,16 @@ class _DownloadPatchDialogComponentState
                 Text(status, style: const TextStyle(fontSize: 20)),
                 Text(substatus, style: const TextStyle(fontSize: 16)),
               ]))),
-      actions: progression == 0
+      actions: progression == 0 || status!= TranslationsHelper().appLocalizations!.extracting
           ? [
               HyperlinkButton(
                 onPressed: () {
                   WindowsTaskbar.setProgressMode(
                       TaskbarProgressMode.noProgress);
+                  if (progression != 0) {
+                    cancelToken.cancel();
+                    downloadCancelled = true;
+                  }
                   Navigator.pop(context);
                   downloadingProgress = 0;
                   setState(() {});
@@ -122,7 +131,7 @@ class _DownloadPatchDialogComponentState
                 child: Text(TranslationsHelper().appLocalizations!.cancel),
               ),
             ]
-          : [],
+          : null,
     );
   }
 

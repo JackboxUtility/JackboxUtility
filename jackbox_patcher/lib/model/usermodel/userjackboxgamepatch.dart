@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
@@ -42,8 +43,8 @@ class UserJackboxGamePatch {
   }
 
   Future<void> downloadPatch(String patchUri,
-      void Function(String, String, double) callback) async {
-    await DownloaderService.downloadPatch(patchUri, patch.patchPath!, callback);
+      void Function(String, String, double) callback, CancelToken cancelToken) async {
+    await DownloaderService.downloadPatch(patchUri, patch.patchPath!, callback, cancelToken);
     installedVersion = patch.latestVersion;
       await UserData().savePatch(this);
   }
