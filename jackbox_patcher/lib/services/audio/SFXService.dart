@@ -27,6 +27,9 @@ class SFXService {
     ),
     (highPriority: SFX.GAME_LAUNCHED, lowPriority: SFX.CLOSE_GAME_INFO_TAB),
     (highPriority: SFX.CLOSE_GAME_INFO_TAB, lowPriority: SFX.HOVER_OVER_BANNER),
+    (highPriority: SFX.OPEN_GAME_INFO_TAB, lowPriority: SFX.HOVER_OVER_STAR_OR_FILTER),
+    (highPriority: SFX.OPEN_GAME_INFO_TAB, lowPriority: SFX.OPEN_GAME_LIST),
+    (highPriority: SFX.OPEN_GAME_INFO_TAB, lowPriority: SFX.CLOSE_GAME_INFO_TAB)
   ];
   SFX? lastPlayedSFX;
   bool isCurrentlyPlaying = false;

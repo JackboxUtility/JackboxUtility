@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jackbox_patcher/model/patchserver.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/error/error.dart';
@@ -184,7 +185,7 @@ class _SelectServerPageState extends State<SelectServerPage> {
                             ))
                           ])),
                 ))),
-        //_buildAddServerImage(),
+        _buildAddServerImage(),
       ],
     ));
   }
@@ -195,9 +196,7 @@ class _SelectServerPageState extends State<SelectServerPage> {
         child: Padding(
             padding: const EdgeInsets.all(8),
             child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              ClipRRect(
-                  borderRadius: BorderRadius.circular(8.0),
-                  child: Container(child: Icon(FluentIcons.add)))
+                  Container(child: Icon(FontAwesomeIcons.gear, size: 34,), margin: EdgeInsets.only(top:24),)
             ])));
   }
 
