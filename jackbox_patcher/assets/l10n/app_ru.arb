@@ -359,6 +359,6 @@
   "loading_save_failed": "Не удалось получить ваши сохранения.",
   "loading_open_issue_discord": "Пожалуйста, откройте проблему на GitHub или сообщите о ней в Discord.",
   "loading_check_internet_connection": "Пожалуйста, проверьте подключение к Интернету и повторите попытку."
-  "custom_server_explanation": "EN:Use a link to the info.json file of a custom server to connect to it.",
-  "loading_try_again": "EN:Try Again"
+  "custom_server_explanation": "Используйте ссылку на файл info.json пользовательского сервера, чтобы подключиться к нему.",
+  "loading_try_again": "Попробовать еще раз"
 }
