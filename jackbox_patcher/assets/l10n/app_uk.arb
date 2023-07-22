@@ -334,5 +334,7 @@
   "loading_connection_failed": "EN:Failed to connect to the server.",
   "loading_save_failed": "EN:Failed to retrieve your saves.",
   "loading_open_issue_discord": "EN:Please open an issue on GitHub or report it on Discord.",
-  "loading_check_internet_connection": "EN:Please check your internet connection and try again."
+  "loading_check_internet_connection": "EN:Please check your internet connection and try again.",
+  "custom_server_explanation": "EN:Use a link to the info.json file of a custom server to connect to it.",
+  "loading_try_again": "EN:Try Again"
 }
