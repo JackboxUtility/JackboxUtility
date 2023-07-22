@@ -46,6 +46,20 @@ class APIService {
     cachedNews = [];
   }
 
+  Future<PatchServer?> recoverServerFromLink(String serverLink) async {
+    JULogger().i("Recovering server from link");
+    try {
+      final serverInfo = await getRequest(Uri.parse(serverLink));
+      final Map<String, dynamic> data = jsonDecode(serverInfo);
+      final PatchServer patchServer = PatchServer.fromJson(serverLink, data);
+      return patchServer;
+    } catch (e) {
+      JULogger().e("Failed to recover server from link");
+      JULogger().e(e.toString());
+      return null;
+    }
+  }
+
   Future<void> recoverAvailableServers() async {
     JULogger().i("Recovering available servers");
     resetCache();
@@ -68,8 +82,7 @@ class APIService {
     baseAssets = endpoints.assetsEndpoint;
   }
 
-  Future<void> recoverPacksAndTags(
-      Function(double) percentDone) async {
+  Future<void> recoverPacksAndTags(Function(double) percentDone) async {
     final rawData =
         await getRequest(Uri.parse('$baseEndpoint${APIEndpoints.PACKS.path}'));
     final Map<String, dynamic> data = jsonDecode(rawData);
@@ -97,7 +110,7 @@ class APIService {
         if (patch.configuration != null) {
           if (patch.configuration!.versionOrigin ==
               OnlineVersionOrigin.REPO_FILE) {
-                totalPacks++;
+            totalPacks++;
             final rawData =
                 getRequest(Uri.parse(patch.configuration!.versionFile));
             rawData.then((retrievedData) {
@@ -106,7 +119,7 @@ class APIService {
                   .replaceAll("Build:", "")
                   .trim();
               totalPacksDone++;
-              percentDone( totalPacksDone / totalPacks * 100);
+              percentDone(totalPacksDone / totalPacks * 100);
             });
             futures.add(rawData);
           }
@@ -116,7 +129,7 @@ class APIService {
         if (patch.configuration != null) {
           if (patch.configuration!.versionOrigin ==
               OnlineVersionOrigin.REPO_FILE) {
-                totalPacks++;
+            totalPacks++;
             final rawData =
                 getRequest(Uri.parse(patch.configuration!.versionFile));
             rawData.then((retrievedData) {
@@ -125,7 +138,7 @@ class APIService {
                   .replaceAll("Build:", "")
                   .trim();
               totalPacksDone++;
-              percentDone( totalPacksDone / totalPacks * 100);
+              percentDone(totalPacksDone / totalPacks * 100);
             });
             futures.add(rawData);
           }

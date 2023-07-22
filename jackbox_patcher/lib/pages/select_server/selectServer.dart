@@ -5,7 +5,9 @@ import 'package:jackbox_patcher/model/patchserver.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/error/error.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
+import 'package:lottie/lottie.dart';
 
+import '../../components/dialogs/customServerDialog.dart';
 import '../../services/translations/translationsHelper.dart';
 
 class SelectServerPage extends StatefulWidget {
@@ -50,16 +52,28 @@ class _SelectServerPageState extends State<SelectServerPage> {
               style: FluentTheme.of(context).typography.title),
         ]),
         const SizedBox(height: 20),
-        Padding(
+        servers.length != 0? Padding(
             padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
             child: StaggeredGrid.count(
                 mainAxisSpacing: 20,
                 crossAxisSpacing: 20,
                 crossAxisCount: 4,
-                children: List.generate(servers.length,
-                    (index) => _buildServerCard(servers[index]))))
+                children: List.generate(
+                    servers.length, (index) => _buildServerCard(servers[index]))
+                  ..add(_buildAddServerCard()))): _buildLoadingServers(),
       ],
     ));
+  }
+
+  Widget _buildLoadingServers() {
+    return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+      SizedBox(height: 20),
+      LottieBuilder.asset("assets/lotties/QuiplashOutput.json",
+                  width: 120, height: 120, fit: BoxFit.fitWidth),
+      Text(
+        "Loading servers...", textAlign: TextAlign.center, style: FluentTheme.of(context).typography.subtitle,
+      )
+    ]);
   }
 
   Widget _buildServerCard(PatchServer server) {
@@ -123,7 +137,7 @@ class _SelectServerPageState extends State<SelectServerPage> {
             ])));
   }
 
-  Widget _buildAddServerCard(){
+  Widget _buildAddServerCard() {
     return Container(
         child: Stack(
       clipBehavior: Clip.none,
@@ -134,38 +148,70 @@ class _SelectServerPageState extends State<SelectServerPage> {
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(8.0),
                 child: Acrylic(
-                    shadowColor: const Color.fromARGB(255, 48, 48, 48),
-                    blurAmount: 1,
-                    tintAlpha: 1,
-                    tint: const Color.fromARGB(255, 48, 48, 48),
-                    child: Stack(children: [
-                      Container(
-                          padding: const EdgeInsets.only(bottom: 12),
-                          margin: const EdgeInsets.only(top: 50),
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Expanded(
-                                    child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 12),
-                                  child: Column(children: [
-                                    Text("Custom server",
-                                        overflow: TextOverflow.ellipsis,
-                                        style: const TextStyle(fontSize: 25)),
-                                    const SizedBox(height: 10),
-                                    Text(
-                                      "Add your own server to the list",
-                                    ),
-                                    Expanded(child: Container()),
-                                    //_buildRowButtons(server)
-                                  ]),
-                                ))
-                              ])),
-                    ])))),
-        //_buildServerImage(server),
+                  shadowColor: const Color.fromARGB(255, 48, 48, 48),
+                  blurAmount: 1,
+                  tintAlpha: 1,
+                  tint: Color.fromARGB(255, 35, 35, 35),
+                  shape: const RoundedRectangleBorder(
+                    side: BorderSide(
+                        color: Color.fromARGB(255, 48, 48, 48),
+                        width: 2,
+                        style: BorderStyle.solid),
+                    borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                  ),
+                  child: Container(
+                      padding: const EdgeInsets.only(bottom: 12),
+                      margin: const EdgeInsets.only(top: 50),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                                child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 12),
+                              child: Column(children: [
+                                Text("Custom server",
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(fontSize: 25)),
+                                const SizedBox(height: 10),
+                                Text(
+                                  "Add your own server to the list",
+                                ),
+                                Expanded(child: Container()),
+                                _buildAddServerRowButtons()
+                              ]),
+                            ))
+                          ])),
+                ))),
+        //_buildAddServerImage(),
       ],
     ));
+  }
+
+  Widget _buildAddServerImage() {
+    return SizedBox(
+        height: 75,
+        child: Padding(
+            padding: const EdgeInsets.all(8),
+            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              ClipRRect(
+                  borderRadius: BorderRadius.circular(8.0),
+                  child: Container(child: Icon(FluentIcons.add)))
+            ])));
+  }
+
+  Widget _buildAddServerRowButtons() {
+    return Row(children: [
+      Expanded(
+          child: Button(
+              onPressed: () async {
+                showDialog(
+                    context: context,
+                    builder: (context) => CustomServerDialog());
+              },
+              child: Text(
+                  TranslationsHelper().appLocalizations!.select_server_button)))
+    ]);
   }
 
   Widget _buildRowButtons(PatchServer server) {
