@@ -41,7 +41,7 @@ class _CustomServerDialogState extends State<CustomServerDialog> {
               Text(
                   TranslationsHelper()
                       .appLocalizations!
-                      .custom_server_description),
+                      .custom_server_explanation),
               SizedBox(height: 20),
               TextBox(
                 placeholder: TranslationsHelper()

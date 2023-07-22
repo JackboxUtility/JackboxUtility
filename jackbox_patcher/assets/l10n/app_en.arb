@@ -401,6 +401,7 @@
 
     "custom_server_title":"Custom Server",
     "custom_server_description":"Use a link to connect to a custom server.",
+    "custom_server_explanation":"Use a link to the info.json file of a custom server to connect to it.",
     "custom_server_error":"Failed to recover server from link.",
     "custom_server_warning":"If someone asked you to add a link there, it's likely a scam. Do not continue If you don't trust the owner of this server.",
     "custom_server_add_question":"Do you want to use this server?",
@@ -410,6 +411,6 @@
     "loading_connection_failed":"Failed to connect to the server.",
     "loading_save_failed":"Failed to retrieve your saves.",
     "loading_open_issue_discord":"Please open an issue on GitHub or report it on Discord.",
-    "loading_check_internet_connection":"Please check your internet connection and try again."
-
+    "loading_check_internet_connection":"Please check your internet connection and try again.",
+    "loading_try_again":"Try Again"
 }
