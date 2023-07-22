@@ -17,5 +17,5 @@ for (var language of languages){
     for (var key in notTranslated[language]){
         json[notTranslated[language][key]] = "EN:"+english[notTranslated[language][key]]
     }
-    fs.writeFileSync("app_"+language + ".arb", JSON.stringify(json))
+    fs.writeFileSync("app_"+language + ".arb", JSON.stringify(json, null, 2))
 }

@@ -1,1 +1,338 @@
-{"close":"Закрити","cancel":"Скасувати","page_continue":"Продовжити","confirm":"Підтвердити","quit":"Вийти","jackbox_utility":"Jackbox Utility","launch_search_game":"Лаунчер / Пошук","patch_a_game":"Патчер","settings":"Налаштування","notifications":"Сповіщення","installing_a_patch":"Встановлення патча","installing_a_patch_description":"Ви встановлюєте патч. Ця дія є незворотною.","installing_a_patch_end":"Встановлення завершено","can_close_popup":"Ви можете закрити це вікно","patch_unavailable":"Патч недоступний","patch_installed":"{count, plural, one {Патч встановлено} other {Патчі встановлено}}","@patch_installed":{"placeholders":{"count":{"type":"num","example":"1"}}},"patch_outdated":"{count, plural, one {Оновити патч} other {Оновити патчі}}","@patch_outdated":{"placeholders":{"count":{"type":"num","example":"1"}}},"patch_not_installed":"{count, plural, one {Встановити патч} other {Встановити патчі}}","@patch_not_installed":{"placeholders":{"count":{"type":"num","example":"1"}}},"delete_version":"Видалення версії","delete_version_description":"Якщо ви відновили файли, ви можете видалити встановлену версію цієї гри. Це дозволить вам перевстановити патчі.","description":"Опис","patch_modification":"Модифікації патча","patch_modification_description":"Цей патч змінює гру наступним чином:","patch_modification_content_text":"Модифікація текстового наповнення гри","patch_modification_content_internal":"Модифікація внутрішніх файлів гри (зображень, текстів...)","patch_modification_content_subtitles":"Модифікація субтитрів до гри","patch_modification_content_website":"Модифікація текстового наповнення клієнта Jackbox (лише на {website})","@patch_modification_content_website":{"placeholders":{"website":{"type":"String","example":"jackbox.tv"}}},"patch_modification_content_audios":"Модифікація звукового супроводу гри","version":"Версія","authors":"Автор(и)","small_information":"Інфо","more_informations":"Більше інформації","launch_game":"Запустити гру","launch_game_fast_launcher":"Запустити гру (швидкий запуск)","launch_game_fast_launcher_description":"Запускає гру у режимі швидкого запуску, що пропускає вступне відео та вибір ігор. Доступно лише для кількох ігор.","launch_pack":"Запустити збірку","launch_pack_description":"Запускає збірку стандартним способом","launch_informations":"Інформація про запуск","launching":"Запуск...","launched":"Запущено!","path_not_found":"Шлях не знайдено","path_not_found_small_description":"Шлях до гри не знайдено.","path_not_found_description":"Шлях до гри не знайдено. Будь ласка, перевірте, чи встановлено гру та чи правильно вказано шлях до неї.","path_inexistant":"Шляху не існує","path_inexistant_small_description":"Шлях до гри відсутній.","path_inexistant_description":"Шлях до гри відсутній. Будь ласка, вкажіть шлях у налаштуваннях.","pack_path":"Шлях до гри","owned_packs":"Встановлені ігри","add_pack":"Додати гру","choose_pack":"Оберіть гру","game_type_coop":"Кооперативні","game_type_coop_description":"У цих іграх гравці повинні працювати разом, щоб перемогти","game_type_versus":"Кожен сам за себе","game_type_versus_description":"У цих іграх кожен гравець грає сам за себе та повинен перемогти інших гравців","game_type_team":"Командні","game_type_team_description":"У цих іграх гравці діляться на команди та повинні працювати разом, щоб перемогти","game_translation_translated":"Офіційний переклад","@game_translation_translated":{"placeholders":{"language":{"type":"String","example":"українська"}}},"game_translation_translated_description":"У цих іграх присутня {language}, офіційний переклад","@game_translation_translated_description":{"placeholders":{"language":{"type":"String","example":"українська"}}},"game_translation_community_translated":"Переклад від спільноти","game_translation_community_translated_description":"У цих іграх присутня {language}, переклад від спільноти","game_translation_not_available":"Без перекладу","game_translation_not_available_description":"У цих іграх наразі відсутня {language}","@game_translation_not_available_description":{"placeholders":{"language":{"type":"String","example":"українська"}}},"downloading":"Завантаження","starting":"Початок роботи","extracting":"Витягування","finalizing":"Завершення роботи","unknown_error":"Невідома помилка","contact_error":"Запитайте про вашу помилку на Discord-сервері (discord.gg/jUQzjjaxQP)","game_patch_unavailable":"Патч недоступний","game_patch_available":"Патч доступний","game_patch_installed":"Патч актуальний","game_patch_outdated":"Для цього патча доступне оновлення","players":"гравців","search_game":"Пошук гри","search":"Пошук","all_games":"Усі ігри","all_games_description":"Знайдіть усі ігри Jackbox Games у одному місці","search_by_pack":"Пошук за збіркою","search_by_type":"Пошук за типом","search_by_translation":"Пошук за перекладом","search_by_tags":"Пошук за тегами","select_server_subtitle":"Оберіть один з доступних серверів","select_server_button":"Обрати","connected_to_server":"Під'єднано до сервера «{server}»","@connected_to_server":{"placeholders":{"server":{"type":"String","example":"Назва серверу"}}},"connected_to_server_change":"Змінити","connection_to_server_failed":"Не вдалося з'єднатися з сервером","connection_to_main_server_failed":"Помилка під час отримання даних про доступні сервери","quit_while_downloading_title":"Завантаження триває","quit_while_downloading_description":"Завантаження триває, ви впевнені, що хочете вийти зараз?","automatic_game_finder_title":"Автоматичне виявлення","automatic_game_finder_description":"Jackbox Utility може виявити встановлену гру на цьому комп'ютері за допомогою Steam та Epic Games.\nБажаєте скористатися цією функцією?","automatic_game_finder_in_progress":"Виявлення ігор, будь ласка, зачекайте","automatic_game_finder_finish":"{count, plural, =0 {Ігор не виявлено} one {Виявлено 1 гру} few {Виявлено {count} гри} other {Виявлено {count} ігор}}","@automatic_game_finder_finish":{"placeholders":{"count":{"type":"num","example":"1"}}},"automatic_server_finder_found":"Сервер знайдено","automatic_server_finder_found_description":"На основі вашої мови було обрано сервер «{server}»","@automatic_server_finder_found_description":{"placeholders":{"server":{"type":"String","example":"Назва серверу"}}},"show_all_packs":"Показати усі ігри","show_owned_packs_only":"Показати лише встановлені ігри","all_patches":"Усі патчі","error_happened":"Виникла помилка","jackbox_utility_description":"Застосунок з відкритим вихідним кодом для встановлення патчів та запуску ігор від Jackbox Games","server_information":"Інформація про сервер","selected_server":"Обраний сервер","change_server":"Змінити сервер","app_information":"Інформація про застосунок","automatic_game_finder_button":"Автоматичне виявлення","games_available":"{count, plural, =0 {Немає доступних ігор} one {Доступна 1 гра} few {Доступно {count} гри} other {Доступно {count} ігор}}","@games_available":{"placeholders":{"count":{"type":"num","example":"1"}}},"author":"Головний розробник","contributors":"Співавтори","in_language":"Присутня {language}","@in_language":{"placeholders":{"language":{"type":"String","example":"українська"}}},"in_language_description":"У цих іграх присутня {language}","@in_language_description":{"placeholders":{"language":{"type":"String","example":"українська"}}},"game_community_dubbed":"Озвучення від спільноти","game_community_dubbed_description":"У цих іграх присутнє озвучення від спільноти","no_game_in_this_category_title":"У цій категорії немає ігор","no_game_in_this_category_description":"У цій категорії немає жодної гри. Спробуйте змінити категорію чи додати необхідну гру у налаштуваннях .","select_game_location":"Оберіть папку з {game}","@select_game_location":{"placeholders":{"game":{"type":"String","example":"The Jackbox Party Pack 1"}}},"download_error":"Помилка під час завантаження","download_error_description":"Під час завантаження гри виникла помилка. Будь ласка, перевірте ваше підключення до Інтернету і спробуйте ще раз.","extracting_error":"Помилка під час розпакування","extracting_error_description":"Під час розпакування гри виникла помилка. Будь ласка, перевірте, чи достатньо у вас вільного місця на диску і спробуйте ще раз.","game_reset":"Відновити гру","game_reset_description":"Ця дія перевірить всі файли гри. Якщо ви встановили якийсь патч, його буде видалено. Ви впевнені, що хочете продовжити?","small_description":"Опис","patreon_subscribers":"Патрони","yes":"Так","no":"Ні","ok":"Гаразд","game_dubbed":"Присутня {language} озвучка","game_dubbed_description":"У цих іграх присутнє озвучення","audience":"Глядачі","confirmation":"Підтвердження","confirmation_description":"Ви дійсно бажаєте {action}? Цю дію неможливо скасувати.","fix":"Виправлення","fixes_available":"Виправлення доступне","fixes_available_description":"Доступно кілька виправлень для ваших ігор. Бажаєте їх завантажити?","family_friendly":"Для сім'ї","optional":"Необов'язково","subtitles":"Субтитри","stream_friendly":"Для трансляцій","moderation":"Модерація","randomize_button_text":"Спробуємо ще раз","feeling_lucky":"Мені мощастить","sort_by":"Сортувати за {type}","filter":"Фільтри","show_games_hidden":"Показати приховані ігри","hide_games_hidden":"Приховати приховані ігри","max_playtime":"Максимальний час гри (хв)","search_by_ranking":"Пошук за рейтингом","random_game":"Випадкова гра","personal_ranking":"Особистий рейтинг","ranked_by_stars":"Ваші зірки","games_ranked_by_stars_from_personal_ranking":"Ігри посортовані за зірками, які ви їм виставили","unranked":"Без рейтингу","app_behavior":"Поведінка застосунка","settings_app_startup_category":"Запуск застосунка","settings_app_startup_title":"Відкривати лаунчер при запуску застосунка","settings_app_startup_description":"Список ігор буде вмикатися одразу при запуску застосунка, пропускаючи головне меню","settings_discord_rich_presence_category":"Параметри Discord Rich Presence","settings_discord_rich_presence_title":"Discord Rich Presence","settings_discord_rich_presence_description":"Буде транслювати вашу активність у застосунку в Discord. Працює лише при відкритому Discord'і","settings_audio_category":"Звуки","settings_sfx_title":"Звуки у застосунку","settings_sfx_description":"Додаткові звукові ефекти у застосунку","settings_app_saves_category":"Пам'ять застосунка","settings_app_reset_stars_title":"Скинути зірки","settings_app_reset_stars_description":"Скинути усі зірки, які ви поставили іграм","settings_app_reset_stars_button_text":"Скинути зірки","settings_app_reset_stars_action":"скинути усі зірки, які ви поставили іграм","settings_app_reset_hidden_title":"Скинути приховані ігри","settings_app_reset_hidden_description":"Скинути видимість усіх ігор, які ви приховали","settings_app_reset_hidden_button_text":"Скинути приховані ігри","settings_app_reset_hidden_action":"скинути видимість усіх ігор, які ви приховали","rich_presence_application_start_details":"Щойно запустив застосунок","rich_presence_application_start_state":"У меню","rich_presence_game_menu_details":"Обирає гру","rich_presence_game_menu_state":"У списку ігор","rich_presence_game_information_details":"Читає інформацію про гру","rich_presence_game_information_state":"Обирає гру","rich_presence_patcher_details":"Встановлює патч на гру","rich_presence_patcher_state":"У списку патчів","rich_presence_settings_details":"Налаштовує застосунок","rich_presence_settings_state":"У налаштуваннях","open_launcher_on_startup_title_tip":"Відкривати лаунчер при запуску застосунка","open_launcher_on_startup_description_tip":"Застосунок може автоматично запускатися одразу на цьому екрані. Бажаєте активувати цю функцію? (Це завжди можна змінити в налаштуваннях)","minutes":"хвилин","translation":"Переклад","using_beta_version_text":"Ви використовуєте бета-версію. Якщо у вас виникнуть проблеми, будь ласка, повідомте про них на Discord-сервері чи у GitHub-репозиторії.","pack":"збіркою","stars":"зірками","name":"назвою","players_number":"к-тю гравців","donate":"Підтримати","installed_version":"Встановлена версія","settings_discord_rich_presence_buttons_title":"Кнопки з посиланнями","settings_discord_rich_presence_buttons_description":"Біля вашої активності у Discord з'являться кнопки з посиланнями на GitHub та Discord-сервер Jackbox Utility","filter_available":"Доступно","filter_fully_playable":"Повністю","filter_midly_playable":"Частково","filter_playable":"Так","filter_full_moderation":"Повна модерація","filter_censoring":"Цензура","filter_moderation_censoring":"Модерація й цензура","filter_dubbed":"Озвучено","filter_translated":"Перекладено","game_translation_translated_description_en":"Ці ігри перекладені французькою, італійською, німецькою та іспанською мовами компанією Jackbox Games.","game_translation_not_available_description_en":"Ці ігри доступні лише англійською мовою.","filter_players_number":"Кількість гравців","special_thanks":"Окрема подяка","stream_friendly_tooltip":"Показує чи можна грати у цю гру за допомогою трансляції, чи то стрімінговій платформі, чи то через Discord, Zoom, Meet тощо","family_friendly_tooltip":"Показує чи можна грати у цю гру всією сім'єю (включно з дітьми)","moderation_tooltip":"Показує чи має ця гра систему модерації (приймання/відхилення/цензурування надісланого гравцями вмісту)","audience_tooltip":"Показує чи можуть до цієї гри приєднуватися глядачі (до 10 000 глядачів, якщо не вказано інакше)","subtitles_tooltip":"Показує чи має ця гра можливість показу субтитрів на екрані","select_server_loading":"EN:Loading servers...","custom_server_title":"EN:Custom Server","custom_server_description":"EN:Use a link to connect to a custom server.","custom_server_error":"EN:Failed to recover server from link.","custom_server_warning":"EN:If someone asked you to add a link there, it's likely a scam. Do not continue If you don't trust the owner of this server.","custom_server_add_question":"EN:Do you want to use this server?","custom_server_link":"EN:Custom server link","loading_initialization_failed":"EN:Failed to initialize the app.","loading_connection_failed":"EN:Failed to connect to the server.","loading_save_failed":"EN:Failed to retrieve your saves.","loading_open_issue_discord":"EN:Please open an issue on GitHub or report it on Discord.","loading_check_internet_connection":"EN:Please check your internet connection and try again."}
+{
+  "close": "Закрити",
+  "cancel": "Скасувати",
+  "page_continue": "Продовжити",
+  "confirm": "Підтвердити",
+  "quit": "Вийти",
+  "jackbox_utility": "Jackbox Utility",
+  "launch_search_game": "Лаунчер / Пошук",
+  "patch_a_game": "Патчер",
+  "settings": "Налаштування",
+  "notifications": "Сповіщення",
+  "installing_a_patch": "Встановлення патча",
+  "installing_a_patch_description": "Ви встановлюєте патч. Ця дія є незворотною.",
+  "installing_a_patch_end": "Встановлення завершено",
+  "can_close_popup": "Ви можете закрити це вікно",
+  "patch_unavailable": "Патч недоступний",
+  "patch_installed": "{count, plural, one {Патч встановлено} other {Патчі встановлено}}",
+  "@patch_installed": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "example": "1"
+      }
+    }
+  },
+  "patch_outdated": "{count, plural, one {Оновити патч} other {Оновити патчі}}",
+  "@patch_outdated": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "example": "1"
+      }
+    }
+  },
+  "patch_not_installed": "{count, plural, one {Встановити патч} other {Встановити патчі}}",
+  "@patch_not_installed": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "example": "1"
+      }
+    }
+  },
+  "delete_version": "Видалення версії",
+  "delete_version_description": "Якщо ви відновили файли, ви можете видалити встановлену версію цієї гри. Це дозволить вам перевстановити патчі.",
+  "description": "Опис",
+  "patch_modification": "Модифікації патча",
+  "patch_modification_description": "Цей патч змінює гру наступним чином:",
+  "patch_modification_content_text": "Модифікація текстового наповнення гри",
+  "patch_modification_content_internal": "Модифікація внутрішніх файлів гри (зображень, текстів...)",
+  "patch_modification_content_subtitles": "Модифікація субтитрів до гри",
+  "patch_modification_content_website": "Модифікація текстового наповнення клієнта Jackbox (лише на {website})",
+  "@patch_modification_content_website": {
+    "placeholders": {
+      "website": {
+        "type": "String",
+        "example": "jackbox.tv"
+      }
+    }
+  },
+  "patch_modification_content_audios": "Модифікація звукового супроводу гри",
+  "version": "Версія",
+  "authors": "Автор(и)",
+  "small_information": "Інфо",
+  "more_informations": "Більше інформації",
+  "launch_game": "Запустити гру",
+  "launch_game_fast_launcher": "Запустити гру (швидкий запуск)",
+  "launch_game_fast_launcher_description": "Запускає гру у режимі швидкого запуску, що пропускає вступне відео та вибір ігор. Доступно лише для кількох ігор.",
+  "launch_pack": "Запустити збірку",
+  "launch_pack_description": "Запускає збірку стандартним способом",
+  "launch_informations": "Інформація про запуск",
+  "launching": "Запуск...",
+  "launched": "Запущено!",
+  "path_not_found": "Шлях не знайдено",
+  "path_not_found_small_description": "Шлях до гри не знайдено.",
+  "path_not_found_description": "Шлях до гри не знайдено. Будь ласка, перевірте, чи встановлено гру та чи правильно вказано шлях до неї.",
+  "path_inexistant": "Шляху не існує",
+  "path_inexistant_small_description": "Шлях до гри відсутній.",
+  "path_inexistant_description": "Шлях до гри відсутній. Будь ласка, вкажіть шлях у налаштуваннях.",
+  "pack_path": "Шлях до гри",
+  "owned_packs": "Встановлені ігри",
+  "add_pack": "Додати гру",
+  "choose_pack": "Оберіть гру",
+  "game_type_coop": "Кооперативні",
+  "game_type_coop_description": "У цих іграх гравці повинні працювати разом, щоб перемогти",
+  "game_type_versus": "Кожен сам за себе",
+  "game_type_versus_description": "У цих іграх кожен гравець грає сам за себе та повинен перемогти інших гравців",
+  "game_type_team": "Командні",
+  "game_type_team_description": "У цих іграх гравці діляться на команди та повинні працювати разом, щоб перемогти",
+  "game_translation_translated": "Офіційний переклад",
+  "@game_translation_translated": {
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "example": "українська"
+      }
+    }
+  },
+  "game_translation_translated_description": "У цих іграх присутня {language}, офіційний переклад",
+  "@game_translation_translated_description": {
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "example": "українська"
+      }
+    }
+  },
+  "game_translation_community_translated": "Переклад від спільноти",
+  "game_translation_community_translated_description": "У цих іграх присутня {language}, переклад від спільноти",
+  "game_translation_not_available": "Без перекладу",
+  "game_translation_not_available_description": "У цих іграх наразі відсутня {language}",
+  "@game_translation_not_available_description": {
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "example": "українська"
+      }
+    }
+  },
+  "downloading": "Завантаження",
+  "starting": "Початок роботи",
+  "extracting": "Витягування",
+  "finalizing": "Завершення роботи",
+  "unknown_error": "Невідома помилка",
+  "contact_error": "Запитайте про вашу помилку на Discord-сервері (discord.gg/jUQzjjaxQP)",
+  "game_patch_unavailable": "Патч недоступний",
+  "game_patch_available": "Патч доступний",
+  "game_patch_installed": "Патч актуальний",
+  "game_patch_outdated": "Для цього патча доступне оновлення",
+  "players": "гравців",
+  "search_game": "Пошук гри",
+  "search": "Пошук",
+  "all_games": "Усі ігри",
+  "all_games_description": "Знайдіть усі ігри Jackbox Games у одному місці",
+  "search_by_pack": "Пошук за збіркою",
+  "search_by_type": "Пошук за типом",
+  "search_by_translation": "Пошук за перекладом",
+  "search_by_tags": "Пошук за тегами",
+  "select_server_subtitle": "Оберіть один з доступних серверів",
+  "select_server_button": "Обрати",
+  "connected_to_server": "Під'єднано до сервера «{server}»",
+  "@connected_to_server": {
+    "placeholders": {
+      "server": {
+        "type": "String",
+        "example": "Назва серверу"
+      }
+    }
+  },
+  "connected_to_server_change": "Змінити",
+  "connection_to_server_failed": "Не вдалося з'єднатися з сервером",
+  "connection_to_main_server_failed": "Помилка під час отримання даних про доступні сервери",
+  "quit_while_downloading_title": "Завантаження триває",
+  "quit_while_downloading_description": "Завантаження триває, ви впевнені, що хочете вийти зараз?",
+  "automatic_game_finder_title": "Автоматичне виявлення",
+  "automatic_game_finder_description": "Jackbox Utility може виявити встановлену гру на цьому комп'ютері за допомогою Steam та Epic Games.\nБажаєте скористатися цією функцією?",
+  "automatic_game_finder_in_progress": "Виявлення ігор, будь ласка, зачекайте",
+  "automatic_game_finder_finish": "{count, plural, =0 {Ігор не виявлено} one {Виявлено 1 гру} few {Виявлено {count} гри} other {Виявлено {count} ігор}}",
+  "@automatic_game_finder_finish": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "example": "1"
+      }
+    }
+  },
+  "automatic_server_finder_found": "Сервер знайдено",
+  "automatic_server_finder_found_description": "На основі вашої мови було обрано сервер «{server}»",
+  "@automatic_server_finder_found_description": {
+    "placeholders": {
+      "server": {
+        "type": "String",
+        "example": "Назва серверу"
+      }
+    }
+  },
+  "show_all_packs": "Показати усі ігри",
+  "show_owned_packs_only": "Показати лише встановлені ігри",
+  "all_patches": "Усі патчі",
+  "error_happened": "Виникла помилка",
+  "jackbox_utility_description": "Застосунок з відкритим вихідним кодом для встановлення патчів та запуску ігор від Jackbox Games",
+  "server_information": "Інформація про сервер",
+  "selected_server": "Обраний сервер",
+  "change_server": "Змінити сервер",
+  "app_information": "Інформація про застосунок",
+  "automatic_game_finder_button": "Автоматичне виявлення",
+  "games_available": "{count, plural, =0 {Немає доступних ігор} one {Доступна 1 гра} few {Доступно {count} гри} other {Доступно {count} ігор}}",
+  "@games_available": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "example": "1"
+      }
+    }
+  },
+  "author": "Головний розробник",
+  "contributors": "Співавтори",
+  "in_language": "Присутня {language}",
+  "@in_language": {
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "example": "українська"
+      }
+    }
+  },
+  "in_language_description": "У цих іграх присутня {language}",
+  "@in_language_description": {
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "example": "українська"
+      }
+    }
+  },
+  "game_community_dubbed": "Озвучення від спільноти",
+  "game_community_dubbed_description": "У цих іграх присутнє озвучення від спільноти",
+  "no_game_in_this_category_title": "У цій категорії немає ігор",
+  "no_game_in_this_category_description": "У цій категорії немає жодної гри. Спробуйте змінити категорію чи додати необхідну гру у налаштуваннях .",
+  "select_game_location": "Оберіть папку з {game}",
+  "@select_game_location": {
+    "placeholders": {
+      "game": {
+        "type": "String",
+        "example": "The Jackbox Party Pack 1"
+      }
+    }
+  },
+  "download_error": "Помилка під час завантаження",
+  "download_error_description": "Під час завантаження гри виникла помилка. Будь ласка, перевірте ваше підключення до Інтернету і спробуйте ще раз.",
+  "extracting_error": "Помилка під час розпакування",
+  "extracting_error_description": "Під час розпакування гри виникла помилка. Будь ласка, перевірте, чи достатньо у вас вільного місця на диску і спробуйте ще раз.",
+  "game_reset": "Відновити гру",
+  "game_reset_description": "Ця дія перевірить всі файли гри. Якщо ви встановили якийсь патч, його буде видалено. Ви впевнені, що хочете продовжити?",
+  "small_description": "Опис",
+  "patreon_subscribers": "Патрони",
+  "yes": "Так",
+  "no": "Ні",
+  "ok": "Гаразд",
+  "game_dubbed": "Присутня {language} озвучка",
+  "game_dubbed_description": "У цих іграх присутнє озвучення",
+  "audience": "Глядачі",
+  "confirmation": "Підтвердження",
+  "confirmation_description": "Ви дійсно бажаєте {action}? Цю дію неможливо скасувати.",
+  "fix": "Виправлення",
+  "fixes_available": "Виправлення доступне",
+  "fixes_available_description": "Доступно кілька виправлень для ваших ігор. Бажаєте їх завантажити?",
+  "family_friendly": "Для сім'ї",
+  "optional": "Необов'язково",
+  "subtitles": "Субтитри",
+  "stream_friendly": "Для трансляцій",
+  "moderation": "Модерація",
+  "randomize_button_text": "Спробуємо ще раз",
+  "feeling_lucky": "Мені мощастить",
+  "sort_by": "Сортувати за {type}",
+  "filter": "Фільтри",
+  "show_games_hidden": "Показати приховані ігри",
+  "hide_games_hidden": "Приховати приховані ігри",
+  "max_playtime": "Максимальний час гри (хв)",
+  "search_by_ranking": "Пошук за рейтингом",
+  "random_game": "Випадкова гра",
+  "personal_ranking": "Особистий рейтинг",
+  "ranked_by_stars": "Ваші зірки",
+  "games_ranked_by_stars_from_personal_ranking": "Ігри посортовані за зірками, які ви їм виставили",
+  "unranked": "Без рейтингу",
+  "app_behavior": "Поведінка застосунка",
+  "settings_app_startup_category": "Запуск застосунка",
+  "settings_app_startup_title": "Відкривати лаунчер при запуску застосунка",
+  "settings_app_startup_description": "Список ігор буде вмикатися одразу при запуску застосунка, пропускаючи головне меню",
+  "settings_discord_rich_presence_category": "Параметри Discord Rich Presence",
+  "settings_discord_rich_presence_title": "Discord Rich Presence",
+  "settings_discord_rich_presence_description": "Буде транслювати вашу активність у застосунку в Discord. Працює лише при відкритому Discord'і",
+  "settings_audio_category": "Звуки",
+  "settings_sfx_title": "Звуки у застосунку",
+  "settings_sfx_description": "Додаткові звукові ефекти у застосунку",
+  "settings_app_saves_category": "Пам'ять застосунка",
+  "settings_app_reset_stars_title": "Скинути зірки",
+  "settings_app_reset_stars_description": "Скинути усі зірки, які ви поставили іграм",
+  "settings_app_reset_stars_button_text": "Скинути зірки",
+  "settings_app_reset_stars_action": "скинути усі зірки, які ви поставили іграм",
+  "settings_app_reset_hidden_title": "Скинути приховані ігри",
+  "settings_app_reset_hidden_description": "Скинути видимість усіх ігор, які ви приховали",
+  "settings_app_reset_hidden_button_text": "Скинути приховані ігри",
+  "settings_app_reset_hidden_action": "скинути видимість усіх ігор, які ви приховали",
+  "rich_presence_application_start_details": "Щойно запустив застосунок",
+  "rich_presence_application_start_state": "У меню",
+  "rich_presence_game_menu_details": "Обирає гру",
+  "rich_presence_game_menu_state": "У списку ігор",
+  "rich_presence_game_information_details": "Читає інформацію про гру",
+  "rich_presence_game_information_state": "Обирає гру",
+  "rich_presence_patcher_details": "Встановлює патч на гру",
+  "rich_presence_patcher_state": "У списку патчів",
+  "rich_presence_settings_details": "Налаштовує застосунок",
+  "rich_presence_settings_state": "У налаштуваннях",
+  "open_launcher_on_startup_title_tip": "Відкривати лаунчер при запуску застосунка",
+  "open_launcher_on_startup_description_tip": "Застосунок може автоматично запускатися одразу на цьому екрані. Бажаєте активувати цю функцію? (Це завжди можна змінити в налаштуваннях)",
+  "minutes": "хвилин",
+  "translation": "Переклад",
+  "using_beta_version_text": "Ви використовуєте бета-версію. Якщо у вас виникнуть проблеми, будь ласка, повідомте про них на Discord-сервері чи у GitHub-репозиторії.",
+  "pack": "збіркою",
+  "stars": "зірками",
+  "name": "назвою",
+  "players_number": "к-тю гравців",
+  "donate": "Підтримати",
+  "installed_version": "Встановлена версія",
+  "settings_discord_rich_presence_buttons_title": "Кнопки з посиланнями",
+  "settings_discord_rich_presence_buttons_description": "Біля вашої активності у Discord з'являться кнопки з посиланнями на GitHub та Discord-сервер Jackbox Utility",
+  "filter_available": "Доступно",
+  "filter_fully_playable": "Повністю",
+  "filter_midly_playable": "Частково",
+  "filter_playable": "Так",
+  "filter_full_moderation": "Повна модерація",
+  "filter_censoring": "Цензура",
+  "filter_moderation_censoring": "Модерація й цензура",
+  "filter_dubbed": "Озвучено",
+  "filter_translated": "Перекладено",
+  "game_translation_translated_description_en": "Ці ігри перекладені французькою, італійською, німецькою та іспанською мовами компанією Jackbox Games.",
+  "game_translation_not_available_description_en": "Ці ігри доступні лише англійською мовою.",
+  "filter_players_number": "Кількість гравців",
+  "special_thanks": "Окрема подяка",
+  "stream_friendly_tooltip": "Показує чи можна грати у цю гру за допомогою трансляції, чи то стрімінговій платформі, чи то через Discord, Zoom, Meet тощо",
+  "family_friendly_tooltip": "Показує чи можна грати у цю гру всією сім'єю (включно з дітьми)",
+  "moderation_tooltip": "Показує чи має ця гра систему модерації (приймання/відхилення/цензурування надісланого гравцями вмісту)",
+  "audience_tooltip": "Показує чи можуть до цієї гри приєднуватися глядачі (до 10 000 глядачів, якщо не вказано інакше)",
+  "subtitles_tooltip": "Показує чи має ця гра можливість показу субтитрів на екрані",
+  "select_server_loading": "EN:Loading servers...",
+  "custom_server_title": "EN:Custom Server",
+  "custom_server_description": "EN:Use a link to connect to a custom server.",
+  "custom_server_error": "EN:Failed to recover server from link.",
+  "custom_server_warning": "EN:If someone asked you to add a link there, it's likely a scam. Do not continue If you don't trust the owner of this server.",
+  "custom_server_add_question": "EN:Do you want to use this server?",
+  "custom_server_link": "EN:Custom server link",
+  "loading_initialization_failed": "EN:Failed to initialize the app.",
+  "loading_connection_failed": "EN:Failed to connect to the server.",
+  "loading_save_failed": "EN:Failed to retrieve your saves.",
+  "loading_open_issue_discord": "EN:Please open an issue on GitHub or report it on Discord.",
+  "loading_check_internet_connection": "EN:Please check your internet connection and try again."
+}
