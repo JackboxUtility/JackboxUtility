@@ -73,7 +73,6 @@ class DownloaderService {
     Process process = await Process.start("unzip", ["-o", filePath, "-d", uri]);
     int currentFiles = 0;
     process.stdout.listen((data) {
-      print(data);
       currentFiles += utf8.decode(data).split("\n").length - 1;
       callback(TranslationsHelper().appLocalizations!.extracting,
           "$currentFiles/$files", 75 + ((currentFiles / files) * 25));

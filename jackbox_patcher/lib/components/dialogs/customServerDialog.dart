@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/model/patchserver.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
+import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
 
 import '../../services/error/error.dart';
 import '../../services/user/userdata.dart';
@@ -33,27 +34,32 @@ class _CustomServerDialogState extends State<CustomServerDialog> {
 
   Widget buildInputContentDialog() {
     return ContentDialog(
-        title: Text("Custom server"),
+        title: Text(TranslationsHelper().appLocalizations!.custom_server_title),
         content: SizedBox(
             height: 120,
-            child: Column(children: [
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(
-                  "Paste a direct link to the info.json file of the server you want to add"),
+                  TranslationsHelper()
+                      .appLocalizations!
+                      .custom_server_description),
               SizedBox(height: 20),
               TextBox(
+                placeholder: TranslationsHelper()
+                    .appLocalizations!
+                    .custom_server_link,
                 controller: input,
               ),
             ])),
         actions: [
           Button(
-              child: Text("Cancel"),
+              child: Text(TranslationsHelper().appLocalizations!.cancel),
               onPressed: !isLoading
                   ? () {
                       Navigator.pop(context);
                     }
                   : null),
           Button(
-            child: Text("Add"),
+            child: Text(TranslationsHelper().appLocalizations!.confirm),
             onPressed: !isLoading
                 ? () async {
                     setState(() {
@@ -63,7 +69,7 @@ class _CustomServerDialogState extends State<CustomServerDialog> {
                         await APIService().recoverServerFromLink(input.text);
                     if (recoveredServer == null) {
                       InfoBarService.showError(
-                          context, "Failed to recover server from link");
+                          context, TranslationsHelper().appLocalizations!.custom_server_error);
                       setState(() {
                         isLoading = false;
                       });
@@ -83,14 +89,16 @@ class _CustomServerDialogState extends State<CustomServerDialog> {
 
   Widget buildConfirmContentDialog(){
     return ContentDialog(
-        title: Text("Custom server"),
+        title: Text(TranslationsHelper().appLocalizations!.custom_server_title),
         content: SizedBox(
             height: 300,
             child: Column(children: [
-              InfoBar(title: Text("If someone asked you to add a link there, it's likely a scam. Do not continue If you don't trust the owner of this server."), severity:InfoBarSeverity.warning ),
+              InfoBar(title: Text(TranslationsHelper().appLocalizations!.custom_server_warning), severity:InfoBarSeverity.warning ),
               SizedBox(height: 20),
               Text(
-                  "Do you want to add this server to your list ?"),
+                  TranslationsHelper()
+                      .appLocalizations!
+                      .custom_server_add_question),
               SizedBox(height: 20),SizedBox(
         height: 75,
         child: Padding(
@@ -108,14 +116,14 @@ class _CustomServerDialogState extends State<CustomServerDialog> {
             ])),
         actions: [
           Button(
-              child: Text("Cancel"),
+              child: Text(TranslationsHelper().appLocalizations!.cancel),
               onPressed: !isLoading
                   ? () {
                 Navigator.pop(context);
               }
                   : null),
           Button(
-            child: Text("Add"),
+            child: Text(TranslationsHelper().appLocalizations!.confirm),
             onPressed: !isLoading
                 ? () async {
               setState(() {

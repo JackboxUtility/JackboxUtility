@@ -20,7 +20,6 @@ class WindowManagerService {
       Future.delayed(Duration(milliseconds: 200), () async {
         if (lastWindowInformations.maximized) {
           await windowManager.maximize();
-          print("maximized");
         } else {
           await windowManager.setBounds(Rect.fromLTWH(
               lastWindowInformations.x.toDouble(),

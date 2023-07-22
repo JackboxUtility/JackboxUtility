@@ -51,7 +51,6 @@ class AutomaticGameFinderService {
       final epicLocation = _getEpicLocation();
       if (epicLocation != null) {
         List<dynamic> epicApps = await _getEpicInstalledApps(epicLocation);
-        print("Installed apps");
         numberGamesFound = await _linkEpicAppsWithPacks(epicApps, packs);
       }
     }
@@ -94,7 +93,6 @@ class AutomaticGameFinderService {
           .toList();
       folderWithApps[line.split('"')[3].replaceAll("\\\\", "\\")] =
           thisFolderApps;
-      print(thisFolderApps);
     }
     return folderWithApps;
   }
@@ -144,7 +142,6 @@ class AutomaticGameFinderService {
   }
 
   static String? _getEpicLocation() {
-    print("Epic games location");
     try {
       final key = Registry.openPath(RegistryHive.localMachine,
           path: 'SOFTWARE\\WOW6432Node\\Epic Games\\EpicGamesLauncher');
@@ -157,22 +154,17 @@ class AutomaticGameFinderService {
 
   static Future<List<dynamic>> _getEpicInstalledApps(
       String epicLocation) async {
-    print("Epic games apps");
     final file = File(
         "$epicLocation\\..\\..\\UnrealEngineLauncher\\LauncherInstalled.dat");
-    print("File found");
     String fileData = await file.readAsString();
-    print(fileData);
     List<dynamic> installationList =
         jsonDecode(fileData)["InstallationList"] as List<dynamic>;
-    print(installationList);
     return installationList;
   }
 
   static Future<int> _linkEpicAppsWithPacks(
       List<dynamic> apps, List<UserJackboxPack> packs) async {
     int numberGamesFound = 0;
-    print("Linking");
     for (UserJackboxPack userPack in packs) {
       if (userPack.pack.launchersId != null &&
           userPack.pack.launchersId!.epic != null) {

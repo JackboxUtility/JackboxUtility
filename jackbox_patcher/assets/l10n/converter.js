@@ -3,7 +3,7 @@
 // If you are in this file, you probably want to run this command: node converter.js
 // And if you are in this file and you want to translate the app in another language, join our discord !
 
-var languages = ["fr","es","de","uk"]
+var languages = ["fr","es","de","uk","be","ca","ru"]
 var fs = require("fs")
 var englishFile = "app_en.arb"
 var english = JSON.parse(fs.readFileSync(englishFile))

@@ -39,7 +39,6 @@ class UserJackboxPackPatch {
         return UserInstalledPatchStatus.NOT_INSTALLED;
       }
     } else {
-      print("INEXISTANT");
       return UserInstalledPatchStatus.INEXISTANT;
     }
   }

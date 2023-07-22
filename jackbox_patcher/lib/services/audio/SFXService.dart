@@ -47,14 +47,11 @@ class SFXService {
   }
 
   Future<void> playSFX(SFX sfx) async {
-    print("Playing sfx: " + sfx.toString());
-    print(player.state.toString());
     if (isCurrentlyPlaying) {
       if (sfxPriority.any((element) =>
           element.lowPriority == sfx &&
           lastPlayedSFX != null &&
           element.highPriority == lastPlayedSFX)) {
-        print("IS RETURNING");
         return;
       }
     }

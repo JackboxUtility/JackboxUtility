@@ -144,7 +144,6 @@ class InitialLoad {
       context, bool showNotification) async {
     int gamesFound =
         await AutomaticGameFinderService.findGames(UserData().packs);
-    print(gamesFound);
     if (gamesFound > 0) {
       UserData().updateDownloadedPackPatchVersion();
     }

@@ -2,6 +2,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jackbox_patcher/app_configuration.dart';
 import 'package:jackbox_patcher/components/title.dart';
+import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class LoadingContainer extends StatefulWidget {
@@ -91,7 +92,6 @@ class _LoadingContainerState extends State<LoadingContainer> {
                   : (widget.step.step > step ? 100 : widget.step.percent),
             ),
             builder: (context, double progress, w) {
-              print(widget.exceptionReceived && widget.step.step == step);
               return widget.exceptionReceived && widget.step.step == step
                   ? ProgressRing(
                       strokeWidth: 3,
@@ -204,16 +204,16 @@ class _LoadingContainerState extends State<LoadingContainer> {
 
     switch (widget.step.step) {
       case 1:
-        mainMessage = "Failed to initialize the app";
-        subMessage = "Please open an issue on GitHub or report it on Discord";
+        mainMessage = TranslationsHelper().appLocalizations!.loading_initialization_failed;
+        subMessage = TranslationsHelper().appLocalizations!.loading_open_issue_discord;
         break;
       case 2:
-        mainMessage = "Failed to connect to the server";
-        subMessage = "Please check your internet connection and try again";
+        mainMessage = TranslationsHelper().appLocalizations!.loading_connection_failed;
+        subMessage = TranslationsHelper().appLocalizations!.loading_check_internet_connection;
         break;
       case 3:
-        mainMessage = "Failed to retrieve your saves";
-        subMessage = "Please open an issue on GitHub or report it on Discord";
+        mainMessage = TranslationsHelper().appLocalizations!.loading_save_failed;
+        subMessage = TranslationsHelper().appLocalizations!.loading_open_issue_discord;
         break;
     }
 

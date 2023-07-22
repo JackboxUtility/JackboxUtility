@@ -24,7 +24,6 @@ class PatchServer {
       required this.links });
 
   factory PatchServer.fromJson(String url, Map<String, dynamic> json) {
-    print(json["languages"]);
     return PatchServer(
       id: json['id'],
       name: json['name'],

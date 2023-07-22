@@ -100,7 +100,6 @@ class JackboxGameInfo {
 
   factory JackboxGameInfo.fromJson(
       String gameId, Map<String, dynamic> json) {
-    //print(json);
     return JackboxGameInfo(
       internalGameId: gameId,
       tagline: json['tagline'],

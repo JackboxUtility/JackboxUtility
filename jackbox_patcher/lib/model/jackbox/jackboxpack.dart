@@ -122,7 +122,6 @@ class LaunchersId {
   LaunchersId({required this.steam, required this.epic});
 
   factory LaunchersId.fromJson(Map<String, dynamic> json) {
-    print("launcherId");
     return LaunchersId(steam: json['steam'], epic: json['epic']);
   }
 }
@@ -155,7 +154,6 @@ class PackConfiguration {
       required this.versionProperty});
 
   factory PackConfiguration.fromJson(Map<String, dynamic> json) {
-    print(json);
     return PackConfiguration(
         versionOrigin: LocalVersionOrigin.fromString(json['version_origin']),
         versionFile: json['version_file'],

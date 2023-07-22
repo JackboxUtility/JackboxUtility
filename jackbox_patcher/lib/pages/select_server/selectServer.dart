@@ -71,7 +71,7 @@ class _SelectServerPageState extends State<SelectServerPage> {
       LottieBuilder.asset("assets/lotties/QuiplashOutput.json",
                   width: 120, height: 120, fit: BoxFit.fitWidth),
       Text(
-        "Loading servers...", textAlign: TextAlign.center, style: FluentTheme.of(context).typography.subtitle,
+        TranslationsHelper().appLocalizations!.select_server_loading, textAlign: TextAlign.center, style: FluentTheme.of(context).typography.subtitle,
       )
     ]);
   }
@@ -170,12 +170,13 @@ class _SelectServerPageState extends State<SelectServerPage> {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 12),
                               child: Column(children: [
-                                Text("Custom server",
+                                Text(TranslationsHelper().appLocalizations!.custom_server_title,
                                     overflow: TextOverflow.ellipsis,
                                     style: const TextStyle(fontSize: 25)),
                                 const SizedBox(height: 10),
                                 Text(
-                                  "Add your own server to the list",
+                                  TranslationsHelper().appLocalizations!.custom_server_description,
+                                  textAlign: TextAlign.center,
                                 ),
                                 Expanded(child: Container()),
                                 _buildAddServerRowButtons()
