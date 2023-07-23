@@ -361,8 +361,8 @@
   "loading_check_internet_connection": "Пожалуйста, проверьте подключение к Интернету и повторите попытку.",
   "custom_server_explanation": "Используйте ссылку на файл info.json пользовательского сервера, чтобы подключиться к нему.",
   "loading_try_again": "Попробовать еще раз",
-  "settings_anonymous_data_title": "EN:Anonymous data collection",
-  "settings_anonymous_data_description": "EN:Help us improve the app by sending anonymous data about your usage of the app.",
-  "privacy_info": "EN:Privacy notice",
-  "privacy_description": "EN:This app is collecting anonymous statistics to improve the app. You can disable this in the settings."
-}
+  "settings_anonymous_data_title": "Анонимный сбор данных",
+  "settings_anonymous_data_description": "Помогите нам улучшить приложение, отправив анонимные данные о том, как вы используете приложение.",
+  "privacy_info": "Примечание о конфиденциальности",
+  "privacy_description": "Это приложение собирает анонимную статистику для улучшения приложения. Вы можете отключить это в настройках."
+ }
