@@ -412,5 +412,11 @@
     "loading_save_failed":"Failed to retrieve your saves.",
     "loading_open_issue_discord":"Please open an issue on GitHub or report it on Discord.",
     "loading_check_internet_connection":"Please check your internet connection and try again.",
-    "loading_try_again":"Try Again"
+    "loading_try_again":"Try Again",
+
+    "settings_anonymous_data_title":"Anonymous data collection",
+    "settings_anonymous_data_description":"Help us improve the app by sending anonymous data about your usage of the app.",
+
+    "privacy_info":"Privacy notice",
+    "privacy_description":"This app is collecting anonymous statistics to improve the app. You can disable this in the settings."
 }

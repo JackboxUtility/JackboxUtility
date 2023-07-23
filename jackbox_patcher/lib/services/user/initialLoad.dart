@@ -88,6 +88,11 @@ class InitialLoad {
           UserData().settings.isOpenLauncherOnStartupActivated) {
         openLauncher(context);
       }
+
+      if (UserData().isFirstTimeEverOpeningTheApp()){
+        UserData().setFirstTimeEverOpeningTheApp(false);
+        setIsFirstTimeOpening(context);
+      }
     } catch (e) {
       rethrow;
     }
@@ -144,6 +149,13 @@ class InitialLoad {
 
   static Future<void> _loadServerConfigurations() async {
     await APIService().recoverConfigurations();
+  }
+
+  static void setIsFirstTimeOpening(context){
+    InfoBarService.showInfo(
+            context,
+            TranslationsHelper().appLocalizations!.privacy_info, 
+            TranslationsHelper().appLocalizations!.privacy_description);
   }
 
   static Future<void> _launchAutomaticGameFinder(
