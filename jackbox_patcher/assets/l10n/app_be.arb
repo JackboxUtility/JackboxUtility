@@ -361,8 +361,8 @@
   "loading_check_internet_connection": "Калі ласка, праверце падключэнне да Інтэрнэту і паўтарыце спробу.",
   "custom_server_explanation": "Выкарыстоўвайце спасылку на файл info.json карыстальніцкага сервера, каб падключыцца да яго.",
   "loading_try_again": "Паўтарыць спробу",
-  "settings_anonymous_data_title": "EN:Anonymous data collection",
-  "settings_anonymous_data_description": "EN:Help us improve the app by sending anonymous data about your usage of the app.",
-  "privacy_info": "EN:Privacy notice",
-  "privacy_description": "EN:This app is collecting anonymous statistics to improve the app. You can disable this in the settings."
-}
+  "settings_anonymous_data_title": "EN:Ананімны збор дадзеных",
+  "settings_anonymous_data_description": "EN:Дапамажыце нам палепшыць праграму, дасылаючы ананімныя даныя аб выкарыстанні вамі праграмы.",
+  "privacy_info": "EN:Паведамленне аб прыватнасці",
+  "privacy_description": "EN: Гэта праграма збірае ананімную статыстыку для паляпшэння праграмы. Вы можаце адключыць гэта ў наладах."
+ }
