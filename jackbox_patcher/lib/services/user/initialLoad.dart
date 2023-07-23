@@ -10,6 +10,7 @@ import 'package:jackbox_patcher/services/automaticGameFinder/AutomaticGameFinder
 import 'package:jackbox_patcher/services/discord/DiscordService.dart';
 import 'package:jackbox_patcher/services/downloader/precache_service.dart';
 import 'package:jackbox_patcher/services/error/error.dart';
+import 'package:jackbox_patcher/services/statistics/statisticsSender.dart';
 import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 import 'package:window_manager/window_manager.dart';
@@ -61,6 +62,11 @@ class InitialLoad {
 
       // Reloading every tips with the new language
       UserData().tips.init();
+
+      // Sending anonymous statistics
+      if (isFirstTimeOpening){
+        StatisticsSender.sendOpenApp();
+      }
 
       if (UserData().settings.isDiscordRPCActivated) {
         DiscordService().init();

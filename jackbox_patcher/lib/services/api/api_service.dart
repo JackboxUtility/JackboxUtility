@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter_flavor/flutter_flavor.dart';
 import 'package:http/http.dart' as http;
+import 'package:jackbox_patcher/app_configuration.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxgame.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxpackpatch.dart';
 import 'package:jackbox_patcher/model/misc/urlblurhash.dart';
@@ -15,10 +16,12 @@ import '../../model/gametag.dart';
 import '../../model/jackbox/jackboxpack.dart';
 import '../../model/patchsCategory.dart';
 import 'api_endpoints.dart';
+import 'api_statistics_endpoints.dart';
 
 class APIService {
   static final APIService _instance = APIService._internal();
   String masterServer = FlavorConfig.instance.variables["masterServerUrl"];
+  String masterStatisticsServer = STATISTICS_SERVER_URL;
   String? baseEndpoint;
   String? baseAssets;
 
@@ -268,5 +271,13 @@ class APIService {
     } else {
       return null;
     }
+  }
+
+  // Statistics
+  Future<void> sendAppOpenData(String serverName, String serverUrl) async{
+    await http.post(Uri.parse('$masterStatisticsServer${APIStatisticsEndpoints.APP_OPEN.path}'),headers:null, body:{
+      "serverName": serverName,
+      "serverURL": serverUrl
+    });
   }
 }
