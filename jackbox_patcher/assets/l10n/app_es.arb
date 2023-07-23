@@ -337,8 +337,8 @@
   "loading_check_internet_connection": "Comprueba tu conexión a Internet e inténtalo de nuevo.",
   "custom_server_explanation": "Usa un enlace al archivo info.json de un servidor personalizado para conectarse a él.",
   "loading_try_again": "Intentar otra vez",
-  "settings_anonymous_data_title": "EN:Anonymous data collection",
-  "settings_anonymous_data_description": "EN:Help us improve the app by sending anonymous data about your usage of the app.",
-  "privacy_info": "EN:Privacy notice",
-  "privacy_description": "EN:This app is collecting anonymous statistics to improve the app. You can disable this in the settings."
+  "settings_anonymous_data_title": "Recopilación de datos anónimos",
+  "settings_anonymous_data_description": "Ayúdanos a mejorar la aplicación enviando datos anónimos sobre tu uso de la aplicación.",
+  "privacy_info": "Aviso de privacidad",
+  "privacy_description": "Esta aplicación recopila estadísticas anónimas para mejorar la aplicación. Puedes deshabilitar esto en la sección de Ajustes."
 }
