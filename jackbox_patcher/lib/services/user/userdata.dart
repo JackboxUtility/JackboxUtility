@@ -293,6 +293,14 @@ class UserData {
     await preferences.setInt("last_window_y", windowInformation.y);
   }
 
+  bool isFirstTimeEverOpeningTheApp(){
+    return preferences.getBool("first_time_opening_app") ?? true;
+  }
+
+  void setFirstTimeEverOpeningTheApp(bool value){
+    preferences.setBool("first_time_opening_app", value);
+  }
+
   void resetStars() {
     for (var pack in packs) {
       for (var game in pack.games) {

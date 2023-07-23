@@ -17,7 +17,9 @@ class InfoBarService {
   static showInfo(BuildContext context, String title, String content,
       {Duration duration = const Duration(seconds: 10)}) {
     displayInfoBar(context, builder: (context, close) {
-      return InfoBar(
+      return
+        Container(
+          child: InfoBar(
           style: InfoBarThemeData(
             decoration: (severity) {
               return BoxDecoration(
@@ -30,7 +32,7 @@ class InfoBarService {
           isLong: true,
           severity: InfoBarSeverity.info,
           title: Text(title),
-          content: Text(content));
+          content: Text(content)));
     }, duration: duration);
   }
 }

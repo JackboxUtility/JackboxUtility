@@ -336,5 +336,9 @@
   "loading_open_issue_discord": "Ouvrez une issue sur GitHub ou parlez-en sur notre serveur discord.",
   "loading_check_internet_connection": "Vérifiez votre connexion à internet et rééssayez.",
   "custom_server_explanation": "Utiliser un lien direct vers le fichier info.json du serveur personnalisé auquel vous souhaitez vous connecter.",
-  "loading_try_again": "Rééssayer"
+  "loading_try_again": "Rééssayer",
+  "settings_anonymous_data_title": "Collecte de données anonymes",
+  "settings_anonymous_data_description": "Aidez-nous à améliorer l'application en envoyant des données anonymes de votre utilisation",
+  "privacy_info": "Confidentialité",
+  "privacy_description": "L'application collecte des statistiques anonymes pour améliorer l'application. Ceci est désactivable dans les paramètres."
 }

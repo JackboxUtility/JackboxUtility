@@ -360,5 +360,9 @@
   "loading_open_issue_discord": "Пожалуйста, откройте проблему на GitHub или сообщите о ней в Discord.",
   "loading_check_internet_connection": "Пожалуйста, проверьте подключение к Интернету и повторите попытку.",
   "custom_server_explanation": "Используйте ссылку на файл info.json пользовательского сервера, чтобы подключиться к нему.",
-  "loading_try_again": "Попробовать еще раз"
+  "loading_try_again": "Попробовать еще раз",
+  "settings_anonymous_data_title": "EN:Anonymous data collection",
+  "settings_anonymous_data_description": "EN:Help us improve the app by sending anonymous data about your usage of the app.",
+  "privacy_info": "EN:Privacy notice",
+  "privacy_description": "EN:This app is collecting anonymous statistics to improve the app. You can disable this in the settings."
 }
