@@ -39,7 +39,11 @@ After downloading the auto-updater or any release of the application, all you ne
 
 ### Tutorial
 
-In French: https://github.com/AlexisL61/JackboxUtility/wiki/Tutoriel-d'installation-de-Jackbox-Utility
+<https://github.com/AlexisL61/JackboxUtility/wiki/Installation>
+
+## Privacy
+
+The app is collecting anonymous data to improve the app. This can be disable in the settings. You can find what data we are collecting and how they are used in the [Privacy informations page](https://github.com/AlexisL61/JackboxUtility/wiki/Privacy).
 
 ## Contribution
 
