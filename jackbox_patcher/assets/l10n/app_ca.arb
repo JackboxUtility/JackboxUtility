@@ -337,8 +337,8 @@
   "loading_check_internet_connection": "Comprova la teva connexió a Internet i torna-ho a intentar.",
   "custom_server_explanation": "Fes servir un enllaç al fitxer info.json d'un servidor personalitzat per connectar-t'hi.",
   "loading_try_again": "Torna-ho a intentar",
-  "settings_anonymous_data_title": "EN:Anonymous data collection",
-  "settings_anonymous_data_description": "EN:Help us improve the app by sending anonymous data about your usage of the app.",
-  "privacy_info": "EN:Privacy notice",
-  "privacy_description": "EN:This app is collecting anonymous statistics to improve the app. You can disable this in the settings."
+  "settings_anonymous_data_title": "Recopilació de dades anònimes",
+  "settings_anonymous_data_description": "Ajuda'ns a millorar l'app enviant-nos dades anònimes d'ús.",
+  "privacy_info": "Avís de privacitat",
+  "privacy_description": "Aquesta app recopila dades anònimes per millorar el seu funcionament. Pots desactivar-ho a les opcions."
 }
