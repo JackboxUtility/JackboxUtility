@@ -48,8 +48,8 @@ class UserData {
   /// Sync every pack on the server.
   ///
   /// Every pack available will be added to the list of packs (UserData().packs).
-  Future<void> syncPacks() async {
-    await APIService().recoverPacksAndTags();
+  Future<void> syncPacks(Function (double) callback) async {
+    await APIService().recoverPacksAndTags((callback));
     List<JackboxPack> networkPacks = APIService().getPacks();
     for (var pack in networkPacks) {
       // Load the pack loader
@@ -291,6 +291,14 @@ class UserData {
     await preferences.setInt("last_window_height", windowInformation.height);
     await preferences.setInt("last_window_x", windowInformation.x);
     await preferences.setInt("last_window_y", windowInformation.y);
+  }
+
+  bool isFirstTimeEverOpeningTheApp(){
+    return preferences.getBool("first_time_opening_app") ?? true;
+  }
+
+  void setFirstTimeEverOpeningTheApp(bool value){
+    preferences.setBool("first_time_opening_app", value);
   }
 
   void resetStars() {

@@ -74,7 +74,6 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
       completedStream =
           VideoService.player.stream.completed.listen((bool ended) {
         if (ended) {
-          print("ENDED");
           VideoService.player.play();
         }
       });
@@ -155,7 +154,6 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
                                   : (isVideoLoaded
                                       ? GestureDetector(
                                           onTap: () {
-                                            print("PAUSE");
                                             VideoService.playPause();
                                           },
                                           child: Video(

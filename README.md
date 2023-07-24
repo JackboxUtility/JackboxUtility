@@ -1,5 +1,5 @@
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 [![Discord](https://img.shields.io/discord/1108095925366308954?color=%235865F2&label=discord&logo=discord&style=flat-square)](https://discord.gg/jUQzjjaxQP)
 ![GitHub release](https://img.shields.io/github/v/release/AlexisL61/JackboxUtility?style=flat-square)
@@ -15,8 +15,10 @@ With this app, you will be able to download translation patches for your Jackbox
 **<img src="https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/fr.svg" width="12" height="12" /> French**, 
 **<img src="https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/de.svg" width="12" height="12" /> German**, 
 **<img src="https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/es.svg" width="12" height="12" /> Spanish**, 
-**<img src="https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/ua.svg" width="12" height="12" /> Ukrainian** and
-**<img src="https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/es-ct.svg" width="12" height="12" /> Catalan** servers
+**<img src="https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/ua.svg" width="12" height="12" /> Ukrainian**,
+**<img src="https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/es-ct.svg" width="12" height="12" /> Catalan**,
+**<img src="https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/by.svg" width="12" height="12" /> Belarusian** and
+**<img src="https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/ru.svg" width="12" height="12" /> Russian** servers
 - Detect automatically your installed games
 - Download translation patches for your games
 - Launch the games directly, skipping the intros and menus entirely
@@ -37,7 +39,11 @@ After downloading the auto-updater or any release of the application, all you ne
 
 ### Tutorial
 
-In French: https://github.com/AlexisL61/JackboxUtility/wiki/Tutoriel-d'installation-de-Jackbox-Utility
+<https://github.com/AlexisL61/JackboxUtility/wiki/Installation>
+
+## Privacy
+
+The app is collecting anonymous data to improve the app. This can be disable in the settings. You can find what data we are collecting and how they are used in the [Privacy informations page](https://github.com/AlexisL61/JackboxUtility/wiki/Privacy).
 
 ## Contribution
 
@@ -70,6 +76,10 @@ flutter build -t ./lib/main_beta.dart <OS>
       <td align="center" valign="top" width="14.28%"><a href="http://twitch.tv/Erizzle"><img src="https://avatars.githubusercontent.com/u/43215958?v=4?s=100" width="100px;" alt="Eric"/><br /><sub><b>Eric</b></sub></a><br /><a href="#ideas-DerErizzle" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/AlexisL61/JackboxUtility/issues?q=author%3ADerErizzle" title="Bug reports">🐛</a> <a href="#translation-DerErizzle" title="Translation">🌍</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/VladGraund"><img src="https://avatars.githubusercontent.com/u/106146104?v=4?s=100" width="100px;" alt="Vladyslav Kulybaba"/><br /><sub><b>Vladyslav Kulybaba</b></sub></a><br /><a href="#translation-VladGraund" title="Translation">🌍</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Forseti6676"><img src="https://avatars.githubusercontent.com/u/97843472?v=4?s=100" width="100px;" alt="Maxi"/><br /><sub><b>Maxi</b></sub></a><br /><a href="#translation-Forseti6676" title="Translation">🌍</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://github.com/burandby"><img src="https://avatars.githubusercontent.com/u/48630651?v=4?s=100" width="100px;" alt="BurAndBY"/><br /><sub><b>BurAndBY</b></sub></a><br /><a href="#translation-BurAndBY" title="Translation">🌍</a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/puskanyaww"><img src="https://avatars.githubusercontent.com/u/113018112?v=4?s=100" width="100px;" alt="puskanyaww"/><br /><sub><b>puskanyaww</b></sub></a><br /><a href="#translation-puskanyaww" title="Translation">🌍</a></td>
     </tr>
   </tbody>
 </table>

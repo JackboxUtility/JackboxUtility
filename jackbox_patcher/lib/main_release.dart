@@ -6,7 +6,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_flavor/flutter_flavor.dart';
 import 'package:jackbox_patcher/app_configuration.dart';
 import 'package:jackbox_patcher/main.dart';
-import 'package:logger/logger.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -15,8 +14,6 @@ import 'services/logger/logger.dart';
 void initRetrievingErrors(){
   FlutterError.onError = (details) {
     FlutterError.presentError(details);
-    bool ifIsOverflowError =
-        details.exceptionAsString().contains("A RenderFlex overflowed by");
       JULogger()
           .e(details.toString(), details.exception.toString(), details.stack);
   };

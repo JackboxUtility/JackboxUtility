@@ -96,7 +96,6 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
   }
 
   _buildPaneItems() {
-    print(APIService().cachedCategories.length);
     items = [];
     _selectedView = 0;
     items.add(PaneItem(

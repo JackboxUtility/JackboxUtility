@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter_flavor/flutter_flavor.dart';
 import 'package:http/http.dart' as http;
+import 'package:jackbox_patcher/app_configuration.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxgame.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxpackpatch.dart';
 import 'package:jackbox_patcher/model/misc/urlblurhash.dart';
@@ -15,10 +16,12 @@ import '../../model/gametag.dart';
 import '../../model/jackbox/jackboxpack.dart';
 import '../../model/patchsCategory.dart';
 import 'api_endpoints.dart';
+import 'api_statistics_endpoints.dart';
 
 class APIService {
   static final APIService _instance = APIService._internal();
   String masterServer = FlavorConfig.instance.variables["masterServerUrl"];
+  String masterStatisticsServer = STATISTICS_SERVER_URL;
   String? baseEndpoint;
   String? baseAssets;
 
@@ -46,6 +49,20 @@ class APIService {
     cachedNews = [];
   }
 
+  Future<PatchServer?> recoverServerFromLink(String serverLink) async {
+    JULogger().i("Recovering server from link");
+    try {
+      final serverInfo = await getRequest(Uri.parse(serverLink));
+      final Map<String, dynamic> data = jsonDecode(serverInfo);
+      final PatchServer patchServer = PatchServer.fromJson(serverLink, data);
+      return patchServer;
+    } catch (e) {
+      JULogger().e("Failed to recover server from link");
+      JULogger().e(e.toString());
+      return null;
+    }
+  }
+
   Future<void> recoverAvailableServers() async {
     JULogger().i("Recovering available servers");
     resetCache();
@@ -68,7 +85,7 @@ class APIService {
     baseAssets = endpoints.assetsEndpoint;
   }
 
-  Future<void> recoverPacksAndTags() async {
+  Future<void> recoverPacksAndTags(Function(double) percentDone) async {
     final rawData =
         await getRequest(Uri.parse('$baseEndpoint${APIEndpoints.PACKS.path}'));
     final Map<String, dynamic> data = jsonDecode(rawData);
@@ -82,16 +99,21 @@ class APIService {
             .map<PatchCategory>((category) => PatchCategory.fromJson(category))
             .toList()
         : [];
-    await applyExternalConfiguration();
+    percentDone(100 / (cachedPacks.length + 1));
+    await applyExternalConfiguration(percentDone);
   }
 
-  Future<void> applyExternalConfiguration() async {
+  Future<void> applyExternalConfiguration(
+      Function(double percent) percentDone) async {
+    int totalPacksDone = 0;
+    int totalPacks = 0;
     List<Future> futures = [];
     for (JackboxPack pack in cachedPacks) {
       for (JackboxPackPatch patch in pack.patches) {
         if (patch.configuration != null) {
           if (patch.configuration!.versionOrigin ==
               OnlineVersionOrigin.REPO_FILE) {
+            totalPacks++;
             final rawData =
                 getRequest(Uri.parse(patch.configuration!.versionFile));
             rawData.then((retrievedData) {
@@ -99,6 +121,8 @@ class APIService {
               patch.latestVersion = data[patch.configuration!.versionProperty]
                   .replaceAll("Build:", "")
                   .trim();
+              totalPacksDone++;
+              percentDone(totalPacksDone / totalPacks * 100);
             });
             futures.add(rawData);
           }
@@ -108,6 +132,7 @@ class APIService {
         if (patch.configuration != null) {
           if (patch.configuration!.versionOrigin ==
               OnlineVersionOrigin.REPO_FILE) {
+            totalPacks++;
             final rawData =
                 getRequest(Uri.parse(patch.configuration!.versionFile));
             rawData.then((retrievedData) {
@@ -115,6 +140,8 @@ class APIService {
               patch.latestVersion = data[patch.configuration!.versionProperty]
                   .replaceAll("Build:", "")
                   .trim();
+              totalPacksDone++;
+              percentDone(totalPacksDone / totalPacks * 100);
             });
             futures.add(rawData);
           }
@@ -179,14 +206,16 @@ class APIService {
 
   // Download game patch
   Future<String> downloadPatch(
-      String patchUri, void Function(double, double) progressCallback) async {
+      String patchUri, void Function(double, double) progressCallback, CancelToken cancelToken) async {
     Dio dio = Dio();
     final response = await dio.downloadUri(
         Uri.parse(APIService().assetLink(patchUri)),
         "./downloads/tmp.${patchUri.split(".").last}",
+        cancelToken: cancelToken,
         options: Options(), onReceiveProgress: (received, total) {
       progressCallback(received.toInt().toDouble(), total.toInt().toDouble());
     });
+    
     if (response.statusCode == 200) {
       return "./downloads/tmp.${patchUri.split(".").last}";
     } else {
@@ -242,5 +271,13 @@ class APIService {
     } else {
       return null;
     }
+  }
+
+  // Statistics
+  Future<void> sendAppOpenData(String serverName, String serverUrl) async{
+    await http.post(Uri.parse('$masterStatisticsServer${APIStatisticsEndpoints.APP_OPEN.path}'),headers:null, body:{
+      "serverName": serverName,
+      "serverURL": serverUrl
+    });
   }
 }

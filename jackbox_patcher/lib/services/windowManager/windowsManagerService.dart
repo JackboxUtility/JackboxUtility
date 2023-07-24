@@ -11,19 +11,13 @@ class WindowManagerService {
       JULogger().d("Updating screen size from last opening");
       WindowInformation lastWindowInformations =
           UserData().getLastWindowInformations();
-      if (lastWindowInformations.x < 0) {
-        lastWindowInformations.x = 0;
+      if (lastWindowInformations.x < 0 ||
+          lastWindowInformations.y < 0 ||
+          lastWindowInformations.width < 300 ||
+          lastWindowInformations.height < 100) {
+        lastWindowInformations.maximized = true;
       }
-      if (lastWindowInformations.y < 0) {
-        lastWindowInformations.y = 0;
-      }
-      if (lastWindowInformations.width < 100) {
-        lastWindowInformations.width = 1300;
-      }
-      if (lastWindowInformations.height < 100) {
-        lastWindowInformations.height = 750;
-      }
-      Future.delayed(Duration(milliseconds: 100), () async {
+      Future.delayed(Duration(milliseconds: 200), () async {
         if (lastWindowInformations.maximized) {
           await windowManager.maximize();
         } else {

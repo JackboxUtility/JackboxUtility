@@ -75,8 +75,6 @@ class PatchCategory {
 
   List<PackAvailablePatchs> getAvailablePatchs() {
     List<PackAvailablePatchs> availablePatchs = [];
-    print(packPatches);
-    print(gamePatches);
     for (UserJackboxPackPatch packPatch in packPatches) {
       UserJackboxPack pack = packPatch.getPack();
       if (availablePatchs
@@ -101,7 +99,6 @@ class PatchCategory {
           .firstWhere((element) => element.pack.pack.id == pack.pack.id);
       packAvailablePatchs.gamePatchs.add(gamePatch);
     }
-    print(availablePatchs);
     return availablePatchs;
   }
 }

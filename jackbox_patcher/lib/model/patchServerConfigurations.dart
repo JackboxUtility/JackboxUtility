@@ -4,7 +4,6 @@ class PatchServerConfigurations {
   PatchServerConfigurations({required this.configurations});
 
   factory PatchServerConfigurations.fromJson(Map<String, dynamic> json) {
-    print(json);
     return PatchServerConfigurations(
         configurations: json);
   }

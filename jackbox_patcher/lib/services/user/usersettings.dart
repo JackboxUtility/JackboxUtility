@@ -33,4 +33,10 @@ class UserSettings {
   Future<void> setAudio(bool activation) async {
     await preferences.setBool("audio", activation);
   }
+
+  bool get isAnonymousDataActivated => preferences.getBool("anonymous_data") ?? true;
+
+  Future<void> setAnonymousData(bool activation) async {
+    await preferences.setBool("anonymous_data", activation);
+  }
 }

@@ -14,7 +14,9 @@ const Map<String, String> APP_LINKS = {
   "DISCORD": "https://discord.gg/cYdJkZwCk3"
 };
 
-const List<String> APP_LANGUAGES = ["en", "fr", "de", "es", "uk", "be"];
+const List<String> APP_LANGUAGES = ["en", "fr", "de", "es", "uk", "be","ca","ru"];
 const String DEFAULT_APP_LANGUAGE = "en";
 
 const String LOGS_OUTPUT = "./logs.txt";
+
+const String STATISTICS_SERVER_URL = "https://stats.jackboxutility.com";

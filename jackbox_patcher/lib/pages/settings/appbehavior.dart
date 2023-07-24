@@ -79,6 +79,17 @@ class _AppBehaviorSettingsState extends State<AppBehaviorSettings> {
                   isChecked: UserData().settings.isDiscordRPCActivated,
                   setter: UserData().settings.setDiscordRPC,
                   parentReload: () => setState(() {})),
+              const SizedBox(height: 10),
+              BooleanSetting(
+                  title: TranslationsHelper()
+                      .appLocalizations!
+                      .settings_anonymous_data_title, 
+                  description: TranslationsHelper()
+                      .appLocalizations!
+                      .settings_anonymous_data_description,
+                  isChecked: UserData().settings.isAnonymousDataActivated,
+                  setter: UserData().settings.setAnonymousData,
+                  parentReload: () => setState(() {})),
               // const SizedBox(height: 10),
               // BooleanSetting(
               //     title: TranslationsHelper()

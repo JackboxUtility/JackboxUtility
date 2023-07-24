@@ -218,8 +218,6 @@ class _PackInCategoryCardState extends State<PackInCategoryCard> {
 
   @override
   void initState() {
-    print(widget.data.pack.pack.name);
-    print(widget.data.packPatchs.length);
     //_loadBackgroundColor();
     super.initState();
   }

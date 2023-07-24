@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:jackbox_patcher/services/logger/logger.dart';
 
 import '../api/api_service.dart';
@@ -11,7 +12,7 @@ class DownloaderService {
 
   /// Downloads a patch from [patchUrl] and extracts it to [uri]
   static Future<void> downloadPatch(String uri, String patchUrl,
-      void Function(String, String, double) callback) async {
+      void Function(String, String, double) callback, CancelToken cancelToken) async {
     JULogger().i("Downloading patch from $patchUrl to $uri");
     isDownloading = true;
     String filePath = "";
@@ -24,7 +25,7 @@ class DownloaderService {
             TranslationsHelper().appLocalizations!.downloading,
             "${progress ~/ 1000000} MB / ${max ~/ 1000000} MB",
             (progress / max) * 75);
-      });
+      }, cancelToken);
     } catch (e) {
       callback(TranslationsHelper().appLocalizations!.download_error,
           TranslationsHelper().appLocalizations!.download_error_description, 0);
@@ -72,7 +73,6 @@ class DownloaderService {
     Process process = await Process.start("unzip", ["-o", filePath, "-d", uri]);
     int currentFiles = 0;
     process.stdout.listen((data) {
-      print(data);
       currentFiles += utf8.decode(data).split("\n").length - 1;
       callback(TranslationsHelper().appLocalizations!.extracting,
           "$currentFiles/$files", 75 + ((currentFiles / files) * 25));
