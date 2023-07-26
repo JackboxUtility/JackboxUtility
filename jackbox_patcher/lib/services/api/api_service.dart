@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_flavor/flutter_flavor.dart';
 import 'package:http/http.dart' as http;
 import 'package:jackbox_patcher/app_configuration.dart';
+import 'package:jackbox_patcher/model/customServerComponent/customServerComponent.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxgame.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxpackpatch.dart';
 import 'package:jackbox_patcher/model/misc/urlblurhash.dart';
@@ -17,6 +18,8 @@ import '../../model/jackbox/jackboxpack.dart';
 import '../../model/patchsCategory.dart';
 import 'api_endpoints.dart';
 import 'api_statistics_endpoints.dart';
+
+typedef serverMessageType = ({CustomServerComponent? menuComponent, List<({CustomServerComponent component, String patchId})> patchesComponent});
 
 class APIService {
   static final APIService _instance = APIService._internal();
@@ -33,6 +36,7 @@ class APIService {
   List<News> cachedNews = [];
   List<UrlBlurHash> cachedBlurHashes = [];
   PatchServerConfigurations? cachedConfigurations;
+  serverMessageType? cachedServerMessage;
 
   factory APIService() {
     return _instance;
