@@ -1,6 +1,5 @@
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:jackbox_patcher/components/customServerComponent/customServerComponentWidgetFactory.dart';
-import 'package:jackbox_patcher/model/customServerComponent/TextServerComponent.dart';
+import 'package:jackbox_patcher/model/customServerComponent/textServerComponent.dart';
 
 class TextServerComponentWidget extends StatefulWidget {
   TextServerComponentWidget({Key? key, required this.component})

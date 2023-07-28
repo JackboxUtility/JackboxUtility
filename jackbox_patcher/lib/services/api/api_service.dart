@@ -19,7 +19,11 @@ import '../../model/patchsCategory.dart';
 import 'api_endpoints.dart';
 import 'api_statistics_endpoints.dart';
 
-typedef serverMessageType = ({CustomServerComponent? menuComponent, List<({CustomServerComponent component, String patchId})> patchesComponent});
+typedef serverMessageType = ({
+  CustomServerComponent? menuComponent,
+  List<({CustomServerComponent component, String patchId})>? patchesComponent,
+  List<({CustomServerComponent component, String gameId})>? gamesComponent
+});
 
 class APIService {
   static final APIService _instance = APIService._internal();
@@ -186,6 +190,23 @@ class APIService {
     }
   }
 
+  Future<void> recoverCustomComponent() async {
+    try {
+      final rawData = await getRequest(
+          Uri.parse('$baseEndpoint${APIEndpoints.MESSAGES.path}'));
+      final Map<String, dynamic> data = jsonDecode(rawData);
+      cachedServerMessage = (
+        menuComponent: data["menuComponent"] != null
+            ? CustomServerComponent.buildServerComponent(data["menuComponent"])
+            : null,
+        gamesComponent: null,
+        patchesComponent: null
+      );
+    } catch (e) {
+      cachedServerMessage = null;
+    }
+  }
+
   // Get packs
   List<JackboxPack> getPacks() {
     return cachedPacks;
@@ -210,7 +231,9 @@ class APIService {
 
   // Download game patch
   Future<String> downloadPatch(
-      String patchUri, void Function(double, double) progressCallback, CancelToken cancelToken) async {
+      String patchUri,
+      void Function(double, double) progressCallback,
+      CancelToken cancelToken) async {
     Dio dio = Dio();
     final response = await dio.downloadUri(
         Uri.parse(APIService().assetLink(patchUri)),
@@ -219,7 +242,7 @@ class APIService {
         options: Options(), onReceiveProgress: (received, total) {
       progressCallback(received.toInt().toDouble(), total.toInt().toDouble());
     });
-    
+
     if (response.statusCode == 200) {
       return "./downloads/tmp.${patchUri.split(".").last}";
     } else {
@@ -278,10 +301,11 @@ class APIService {
   }
 
   // Statistics
-  Future<void> sendAppOpenData(String serverName, String serverUrl) async{
-    await http.post(Uri.parse('$masterStatisticsServer${APIStatisticsEndpoints.APP_OPEN.path}'),headers:null, body:{
-      "serverName": serverName,
-      "serverURL": serverUrl
-    });
+  Future<void> sendAppOpenData(String serverName, String serverUrl) async {
+    await http.post(
+        Uri.parse(
+            '$masterStatisticsServer${APIStatisticsEndpoints.APP_OPEN.path}'),
+        headers: null,
+        body: {"serverName": serverName, "serverURL": serverUrl});
   }
 }

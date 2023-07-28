@@ -54,6 +54,7 @@ class InitialLoad {
       });
       await _loadBlurHashes();
       await _loadServerConfigurations();
+      await _loadServerCustomComponent();
       callback(step: 3, percent: 0);
 
       // Changing locale
@@ -64,7 +65,7 @@ class InitialLoad {
       UserData().tips.init();
 
       // Sending anonymous statistics
-      if (isFirstTimeOpening){
+      if (isFirstTimeOpening) {
         StatisticsSender.sendOpenApp();
       }
 
@@ -89,7 +90,7 @@ class InitialLoad {
         openLauncher(context);
       }
 
-      if (UserData().isFirstTimeEverOpeningTheApp()){
+      if (UserData().isFirstTimeEverOpeningTheApp()) {
         UserData().setFirstTimeEverOpeningTheApp(false);
         setIsFirstTimeOpening(context);
       }
@@ -151,11 +152,15 @@ class InitialLoad {
     await APIService().recoverConfigurations();
   }
 
-  static void setIsFirstTimeOpening(context){
+  static Future<void> _loadServerCustomComponent() async {
+    await APIService().recoverCustomComponent();
+  }
+
+  static void setIsFirstTimeOpening(context) {
     InfoBarService.showInfo(
-            context,
-            TranslationsHelper().appLocalizations!.privacy_info, 
-            TranslationsHelper().appLocalizations!.privacy_description);
+        context,
+        TranslationsHelper().appLocalizations!.privacy_info,
+        TranslationsHelper().appLocalizations!.privacy_description);
   }
 
   static Future<void> _launchAutomaticGameFinder(

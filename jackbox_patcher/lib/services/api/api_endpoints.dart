@@ -2,7 +2,8 @@ enum APIEndpoints {
   PACKS,
   WELCOME,
   BLUR_HASHES,
-  CONFIGURATIONS
+  CONFIGURATIONS,
+  MESSAGES
 }
 
 extension APIEndpointsExtension on APIEndpoints {
@@ -16,6 +17,8 @@ extension APIEndpointsExtension on APIEndpoints {
         return '/blurHashes.json';
       case APIEndpoints.CONFIGURATIONS:
         return '/configurations.json';
+      case APIEndpoints.MESSAGES:
+        return '/messages.json';
     }
   }
 }
