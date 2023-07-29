@@ -40,7 +40,7 @@ class _ServerInfoWidgetState extends State<ServerInfoWidget> {
                   child: Text(
                       TranslationsHelper().appLocalizations!.change_server),
                   onPressed: () async {
-                    UserData().setSelectedServer(null);
+                    await UserData().setSelectedServer(null);
                     Navigator.of(context).pop();
                   })
             ]),
