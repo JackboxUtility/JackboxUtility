@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:jackbox_patcher/components/customServerComponent/customServerComponentWidgetFactory.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgamepatch.dart';
@@ -122,9 +123,27 @@ class _PatcherPackWidgetState extends State<PatcherPackWidget> {
         const SizedBox(
           height: 20,
         ),
-        _buildPathMessage()
+        _buildPathMessage(), 
+        if (patchesComponentExist())
+          Column(
+            children: [
+              const SizedBox(height: 20),
+              CustomServerComponentWidgetFactory(component: APIService().cachedServerMessage!.patchesComponent!.where((element) => element.packId == widget.userPack.pack.id).first.component)
+            ],
+          )
       ],
     );
+  }
+
+   bool patchesComponentExist() {
+    return APIService().cachedServerMessage != null &&
+        APIService().cachedServerMessage!.patchesComponent != null &&
+        APIService()
+                .cachedServerMessage!
+                .patchesComponent!
+                .where((element) => element.packId == widget.userPack.pack.id)
+                .length >
+            0;
   }
 
   Widget _buildPathMessage() {

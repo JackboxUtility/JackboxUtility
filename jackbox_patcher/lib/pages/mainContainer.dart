@@ -1,6 +1,7 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_flavor/flutter_flavor.dart';
+import 'package:jackbox_patcher/components/customServerComponent/customServerComponentWidgetFactory.dart';
 import 'package:jackbox_patcher/components/dialogs/leaveApplicationDialog.dart';
 import 'package:jackbox_patcher/pages/loadingContainer.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
@@ -10,7 +11,6 @@ import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
 import 'package:jackbox_patcher/services/user/initialLoad.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 import 'package:jackbox_patcher/services/windowManager/windowsManagerService.dart';
-import 'package:lottie/lottie.dart';
 import 'package:window_manager/window_manager.dart';
 
 import '../components/notificationsCaroussel.dart';
@@ -48,8 +48,22 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
   void initState() {
     windowManager.addListener(this);
     TranslationsHelper().changeLocale(Locale("en"));
+    APIService().internalCache.addListener(updateCustomServerComponent);
     _load(true);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    
+    APIService().internalCache.removeListener(updateCustomServerComponent);
+    super.dispose();
+  }
+
+  void updateCustomServerComponent(){
+    setState(() {
+      
+    });
   }
 
   void updateLoading({int? step, double? percent}) {
@@ -250,10 +264,12 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
                                         style: const TextStyle(
                                             color: Colors.white))
                                   ]))))
-                  : const SizedBox(height: 0)
+                  : const SizedBox(height: 0),
+                  if (APIService().cachedServerMessage != null && APIService().cachedServerMessage!.menuComponent != null)
+                    Container(margin: EdgeInsets.only(top:50), child: CustomServerComponentWidgetFactory(component: APIService().cachedServerMessage!.menuComponent!))
             ])));
   }
-
+ 
   Widget _buildConnectedServer() {
     return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
       Text(TranslationsHelper()
