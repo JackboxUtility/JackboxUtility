@@ -17,7 +17,8 @@ class _ColumnServerComponentWidgetState
   @override
   Widget build(BuildContext context) {
     return Text(
-      widget.component.text
+      widget.component.text, 
+      style: FluentTheme.of(context).typography.bodyLarge!
     );
   }
 }

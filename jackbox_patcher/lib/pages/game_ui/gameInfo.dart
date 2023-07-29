@@ -6,9 +6,11 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jackbox_patcher/components/blurhashimage.dart';
 import 'package:jackbox_patcher/components/caroussel.dart';
+import 'package:jackbox_patcher/components/customServerComponent/customServerComponentWidgetFactory.dart';
 import 'package:jackbox_patcher/components/dialogs/downloadPatchDialog.dart';
 import 'package:jackbox_patcher/components/fixes/gameFixAvailable.dart';
 import 'package:jackbox_patcher/components/starsRate.dart';
+import 'package:jackbox_patcher/model/customServerComponent/customServerComponent.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxgame.dart';
 import 'package:jackbox_patcher/model/misc/audio/SFXEnum.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgamepatch.dart';
@@ -95,7 +97,20 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
     currentGame = widget.game;
     currentPack = widget.pack;
     DiscordService().launchGameInfoPresence(currentGame.game.name);
+    APIService().internalCache.addListener(updateCustomServerComponent);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    APIService().internalCache.removeListener(updateCustomServerComponent);
+    super.dispose();
+  }
+
+  void updateCustomServerComponent(){
+    setState(() {
+      
+    });
   }
 
   @override
@@ -300,6 +315,11 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
           Column(children: [
             _buildPlayPanel(),
             const SizedBox(height: 20),
+            if (gamesComponentExist())
+              Column(children: [
+                _buildServerComponentPanel(),
+                const SizedBox(height: 20)
+              ]),
             buildStarsNumberPanel(),
             const SizedBox(height: 20),
             _buildGameTags(),
@@ -310,6 +330,40 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
         ],
       ),
     );
+  }
+
+  bool gamesComponentExist() {
+    print(APIService().cachedServerMessage!);
+    return APIService().cachedServerMessage != null &&
+        APIService().cachedServerMessage!.gamesComponent != null &&
+        APIService()
+                .cachedServerMessage!
+                .gamesComponent!
+                .where((element) => element.gameId == currentGame.game.id)
+                .length >
+            0;
+  }
+
+  Widget _buildServerComponentPanel() {
+    CustomServerComponent component = APIService()
+        .cachedServerMessage!
+        .gamesComponent!
+        .where((element) => element.gameId == currentGame.game.id)
+        .first
+        .component;
+    return ClipRRect(
+        borderRadius: BorderRadius.circular(8.0),
+        child: Acrylic(
+            shadowColor: backgroundColor,
+            blurAmount: 1,
+            tintAlpha: 1,
+            tint: const Color.fromARGB(255, 48, 48, 48),
+            child: SizedBox(
+                width: 300,
+                child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: CustomServerComponentWidgetFactory(
+                        component: component)))));
   }
 
   Widget _buildPlayPanel() {

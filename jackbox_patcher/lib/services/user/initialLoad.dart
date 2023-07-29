@@ -6,6 +6,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/model/patchserver.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
+import 'package:jackbox_patcher/services/api/automatic_reload.dart';
 import 'package:jackbox_patcher/services/automaticGameFinder/AutomaticGameFinder.dart';
 import 'package:jackbox_patcher/services/discord/DiscordService.dart';
 import 'package:jackbox_patcher/services/downloader/precache_service.dart';
@@ -82,6 +83,7 @@ class InitialLoad {
       if (isFirstTimeOpening) {
         await _launchAutomaticGameFinder(
             context, automaticGameFindNotificationAvailable);
+        AutomaticReload.startAutomaticReload();
       }
       await detectFixesAvailable(context);
       callback(step: 3, percent: 100);

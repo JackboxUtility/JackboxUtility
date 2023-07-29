@@ -11,7 +11,6 @@ import '../../services/translations/translationsHelper.dart';
 import '../../services/user/userdata.dart';
 import 'packContainer.dart';
 
-
 class PatcherMenuWidget extends StatefulWidget {
   const PatcherMenuWidget({Key? key}) : super(key: key);
 
@@ -27,7 +26,24 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
   @override
   void initState() {
     DiscordService().launchPatchingPresence();
+    APIService().internalCache.addListener(_updateAfterPacksChange);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    APIService().internalCache.removeListener(_updateAfterPacksChange);
+    super.dispose();
+  }
+
+  void _updateAfterPacksChange() {
+    items = [];
+    int _tempSelectedView = _selectedView;
+    _buildPaneItems();
+    _selectedView = _tempSelectedView;
+    setState(() {
+
+    });
   }
 
   @override

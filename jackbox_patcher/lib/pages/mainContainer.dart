@@ -11,7 +11,6 @@ import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
 import 'package:jackbox_patcher/services/user/initialLoad.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 import 'package:jackbox_patcher/services/windowManager/windowsManagerService.dart';
-import 'package:lottie/lottie.dart';
 import 'package:window_manager/window_manager.dart';
 
 import '../components/notificationsCaroussel.dart';
@@ -49,8 +48,22 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
   void initState() {
     windowManager.addListener(this);
     TranslationsHelper().changeLocale(Locale("en"));
+    APIService().internalCache.addListener(updateCustomServerComponent);
     _load(true);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    
+    APIService().internalCache.removeListener(updateCustomServerComponent);
+    super.dispose();
+  }
+
+  void updateCustomServerComponent(){
+    setState(() {
+      
+    });
   }
 
   void updateLoading({int? step, double? percent}) {

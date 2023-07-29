@@ -4,8 +4,11 @@ import 'package:jackbox_patcher/components/customServerComponent/containerServer
 import 'package:jackbox_patcher/components/customServerComponent/textServerComponentWidget.dart';
 import 'package:jackbox_patcher/model/customServerComponent/columnServerComponent.dart';
 import 'package:jackbox_patcher/model/customServerComponent/containerServerComponent.dart';
+import 'package:jackbox_patcher/model/customServerComponent/countdownServerComponent.dart';
 import 'package:jackbox_patcher/model/customServerComponent/customServerComponent.dart';
 import 'package:jackbox_patcher/model/customServerComponent/textServerComponent.dart';
+
+import 'countdownServerComponentWidget.dart';
 
 class CustomServerComponentWidgetFactory extends StatefulWidget {
   CustomServerComponentWidgetFactory({Key? key, required this.component})
@@ -31,6 +34,12 @@ class _CustomServerComponentWidgetFactoryState
       return TextServerComponentWidget(
           component: widget.component as TextServerComponent);
     }
+
+    if (widget.component is CountdownServerComponent) {
+      return CountdownServerComponentWidget(
+          component: widget.component as CountdownServerComponent);
+    }
+
     return ContainerServerComponentWidget(
         component: widget.component as ContainerServerComponent);
   }
