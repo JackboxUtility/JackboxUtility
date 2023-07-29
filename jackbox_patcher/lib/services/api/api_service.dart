@@ -94,13 +94,11 @@ class APIService {
   Future<void> recoverServerInfo(String serverLink) async {
     JULogger().i("Recovering server info");
     final rawData = await getRequest(Uri.parse(serverLink));
-    if (!rawData.sameAsCached) {
       final Map<String, dynamic> data = jsonDecode(rawData.data);
       cachedSelectedServer = PatchServer.fromJson(serverLink, data);
       final endpoints = await cachedSelectedServer!.getVersionUrl();
       baseEndpoint = endpoints.apiEndpoint;
       baseAssets = endpoints.assetsEndpoint;
-    }
   }
 
   Future<bool> recoverPacksAndTags(Function(double) percentDone) async {
@@ -224,14 +222,14 @@ class APIService {
         final Map<String, dynamic> data = jsonDecode(rawData.data);
         List<dynamic>? rawGamesComponent = data["gamesComponent"];
         List<dynamic>? rawPatchesComponent = data["patchesComponent"];
-        List<({CustomServerComponent component, String gameId})> gamesComponent =
-            [];
-        List<({CustomServerComponent component, String packId})> patchesComponent =
-            [];
+        List<({CustomServerComponent component, String gameId})>
+            gamesComponent = [];
+        List<({CustomServerComponent component, String packId})>
+            patchesComponent = [];
         if (rawGamesComponent != null) {
           for (dynamic rawGameComponent in rawGamesComponent) {
             gamesComponent.add((
-            component: CustomServerComponent.buildServerComponent(
+              component: CustomServerComponent.buildServerComponent(
                   rawGameComponent["component"]),
               gameId: rawGameComponent["gameId"]
             ));
@@ -240,7 +238,7 @@ class APIService {
         if (rawPatchesComponent != null) {
           for (dynamic rawPatchComponent in rawPatchesComponent) {
             patchesComponent.add((
-            component: CustomServerComponent.buildServerComponent(
+              component: CustomServerComponent.buildServerComponent(
                   rawPatchComponent["component"]),
               packId: rawPatchComponent["packId"]
             ));
