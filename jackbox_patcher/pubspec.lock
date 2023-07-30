@@ -169,6 +169,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.1"
+  crc32_checksum:
+    dependency: "direct main"
+    description:
+      name: crc32_checksum
+      sha256: "441f25dde171ea68e03554f566564c1ada6696a1b805aec2adc127f2c0da1bab"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.2"
   crypto:
     dependency: transitive
     description:

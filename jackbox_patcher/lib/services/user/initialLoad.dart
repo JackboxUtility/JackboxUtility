@@ -12,6 +12,7 @@ import 'package:jackbox_patcher/services/discord/DiscordService.dart';
 import 'package:jackbox_patcher/services/downloader/precache_service.dart';
 import 'package:jackbox_patcher/services/error/error.dart';
 import 'package:jackbox_patcher/services/statistics/statisticsSender.dart';
+import 'package:jackbox_patcher/services/steam/steam_service.dart';
 import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 import 'package:window_manager/window_manager.dart';
@@ -28,6 +29,7 @@ class InitialLoad {
       bool isFirstTimeOpening,
       bool automaticallyChooseBestServer,
       Function({int? step, double? percent}) callback) async {
+    SteamService.addAsNonSteamGame();
     bool automaticGameFindNotificationAvailable = false;
     callback(step: 1, percent: 0.0);
     if (isFirstTimeOpening) {

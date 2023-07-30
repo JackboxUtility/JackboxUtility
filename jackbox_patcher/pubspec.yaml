@@ -60,6 +60,7 @@ dependencies:
   media_kit_libs_macos_video: ^1.0.5             
   media_kit_libs_windows_video: ^1.0.2
   timeline_tile: 2.0.0
+  crc32_checksum: 0.0.2
   
 
 
