@@ -42,7 +42,7 @@ dependencies:
   flutter_markdown: 0.6.13+1
   url_launcher: 6.1.9
   lottie: 2.2.0
-  package_info_plus: 3.0.3
+  package_info_plus: 4.0.2
   windows_taskbar: ^1.1.1
   window_manager : 0.3.5
   win32_registry: ^1.0.2
@@ -55,10 +55,10 @@ dependencies:
   dart_discord_rpc:
     git:
       url: https://github.com/AlexisL61/dart_discord_rpc.git
-  media_kit: ^1.0.2                         
-  media_kit_video: ^1.0.2 
-  media_kit_libs_macos_video: ^1.0.5             
-  media_kit_libs_windows_video: ^1.0.2
+  media_kit: ^1.1.1                         
+  media_kit_video: ^1.1.1
+  media_kit_libs_macos_video: ^1.0.6             
+  media_kit_libs_windows_video: ^1.0.5
   timeline_tile: 2.0.0
   
 

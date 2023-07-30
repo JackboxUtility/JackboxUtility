@@ -152,11 +152,7 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
                                       fit: BoxFit.fitWidth,
                                     )
                                   : (isVideoLoaded
-                                      ? GestureDetector(
-                                          onTap: () {
-                                            VideoService.playPause();
-                                          },
-                                          child: Video(
+                                      ? Video(
                                               key: Key(widget.images[0]),
                                               controller: controller,
                                               controls: (VideoState? state) {
@@ -166,8 +162,8 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
                                                 } else {
                                                   return SizedBox.shrink();
                                                 }
-                                              }),
-                                        )
+                                              })
+                                        
                                       : Container(
                                           color: Colors.black,
                                           child: Center(
