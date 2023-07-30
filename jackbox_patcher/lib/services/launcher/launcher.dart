@@ -1,11 +1,14 @@
 import 'dart:io';
 
 import 'package:archive/archive_io.dart';
+import 'package:dart_discord_rpc/generated/bindings.dart';
 import 'package:jackbox_patcher/model/misc/launchers.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
 import 'package:jackbox_patcher/services/audio/SFXService.dart';
+import 'package:jackbox_patcher/services/discord/DiscordService.dart';
+import 'package:jackbox_patcher/services/launcher/processHelper.dart';
 import 'package:jackbox_patcher/services/logger/logger.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -20,7 +23,6 @@ class Launcher {
     if (pack.path == null) {
       throw Exception("Pack path is null");
     } else {
-      
       SFXService().playSFX(SFX.GAME_LAUNCHED);
       // If the loader is not already installed or need update, download it
       if (pack.loader != null) {
@@ -49,6 +51,7 @@ class Launcher {
         await Process.run("${pack.path!}/${pack.pack.executable}", [],
             workingDirectory: pack.path);
       }
+      checkLaunchedPack(pack);
     }
   }
 
@@ -61,7 +64,7 @@ class Launcher {
       if (game.loader == null) {
         return await launchPack(pack);
       }
-      
+
       SFXService().playSFX(SFX.GAME_LAUNCHED);
       // If the original loader is not already installed or need update, download it
       if (pack.loader != null) {
@@ -101,6 +104,7 @@ class Launcher {
             workingDirectory: pack.path);
       }
       _openedLaunchers.add(pack);
+      checkLaunchedPack(pack);
     }
   }
 
@@ -110,6 +114,44 @@ class Launcher {
       String packFolder = pack.path!;
       await extractFileToDisk(pack.loader!.path!, packFolder);
     }
-    ;
+  }
+
+  // This function will check if a pack is still launched and will update the Discord Rich Presence system
+  static Future<void> checkLaunchedPack(UserJackboxPack pack) async {
+    String commandToRun = "";
+    List<String> arguments = [];
+    if (Platform.isWindows) {
+      commandToRun = "tasklist";
+      arguments = ["/FO", "LIST"];
+    } else if (Platform.isMacOS) {
+      commandToRun = "ps -ax";
+    } else if (Platform.isLinux) {
+      commandToRun = "ps -A";
+    }
+    if (commandToRun != "") {
+      // Checking if the pack is launched
+      bool packIsLaunched = false;
+      while (!packIsLaunched) {
+        await Future.delayed(Duration(seconds: 5));
+        String result =
+            await ProcessHelper.runAndGetOutput(commandToRun, arguments);
+        if (result.contains(pack.pack.executable!)) {
+          packIsLaunched = true;
+        }
+      }
+      JULogger().i("Pack ${pack.pack.name} is launched");
+      // Updating Discord Rich Presence while the pack is launched
+      while (packIsLaunched) {
+        JULogger().i("Updating Discord Rich Presence");
+        DiscordService().launchPackLaunchedPresence(pack);
+        await Future.delayed(Duration(seconds: 20));
+        String result = await ProcessHelper.runAndGetOutput(commandToRun, arguments);
+        if (!result.contains(pack.pack.executable!)) {
+          packIsLaunched = false;
+        }
+      }
+      DiscordService().launchOldPresence();
+      JULogger().i("Pack ${pack.pack.name} is not launched anymore");
+    }
   }
 }
