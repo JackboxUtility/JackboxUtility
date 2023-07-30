@@ -107,10 +107,10 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
     super.dispose();
   }
 
-  void updateCustomServerComponent(){
-    setState(() {
-      
-    });
+  void updateCustomServerComponent() {
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   @override

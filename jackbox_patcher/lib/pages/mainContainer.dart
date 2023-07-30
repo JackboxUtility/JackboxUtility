@@ -55,15 +55,14 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
 
   @override
   void dispose() {
-    
     APIService().internalCache.removeListener(updateCustomServerComponent);
     super.dispose();
   }
 
-  void updateCustomServerComponent(){
-    setState(() {
-      
-    });
+  void updateCustomServerComponent() {
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   void updateLoading({int? step, double? percent}) {
@@ -265,11 +264,16 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
                                             color: Colors.white))
                                   ]))))
                   : const SizedBox(height: 0),
-                  if (APIService().cachedServerMessage != null && APIService().cachedServerMessage!.menuComponent != null)
-                    Container(margin: EdgeInsets.only(top:50), child: CustomServerComponentWidgetFactory(component: APIService().cachedServerMessage!.menuComponent!))
+              if (APIService().cachedServerMessage != null &&
+                  APIService().cachedServerMessage!.menuComponent != null)
+                Container(
+                    margin: EdgeInsets.only(top: 50),
+                    child: CustomServerComponentWidgetFactory(
+                        component:
+                            APIService().cachedServerMessage!.menuComponent!))
             ])));
   }
- 
+
   Widget _buildConnectedServer() {
     return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
       Text(TranslationsHelper()
@@ -312,9 +316,7 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
 
   void _load(bool automaticallyChooseBestServer) async {
     loadingException = false;
-    setState(() {
-      
-    });
+    setState(() {});
     try {
       await InitialLoad.init(context, isFirstTimeOpening,
           automaticallyChooseBestServer, updateLoading);

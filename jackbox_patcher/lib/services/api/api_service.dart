@@ -122,14 +122,16 @@ class APIService {
       await applyExternalConfiguration(percentDone);
       return true;
     } else {
-      return false;
+      bool somethingHasChanged = await applyExternalConfiguration(percentDone);
+      return somethingHasChanged;
     }
   }
 
-  Future<void> applyExternalConfiguration(
+  Future<bool> applyExternalConfiguration(
       Function(double percent) percentDone) async {
     int totalPacksDone = 0;
     int totalPacks = 0;
+    bool somethingHasChanged = false;
     List<Future> futures = [];
     for (JackboxPack pack in cachedPacks) {
       for (JackboxPackPatch patch in pack.patches) {
@@ -140,6 +142,9 @@ class APIService {
             final rawData =
                 getRequest(Uri.parse(patch.configuration!.versionFile));
             rawData.then((retrievedData) {
+              if (!retrievedData.sameAsCached) {
+                somethingHasChanged = true;
+              }
               final Map<String, dynamic> data = jsonDecode(retrievedData.data);
               patch.latestVersion = data[patch.configuration!.versionProperty]
                   .replaceAll("Build:", "")
@@ -160,6 +165,9 @@ class APIService {
                 getRequest(Uri.parse(patch.configuration!.versionFile));
 
             rawData.then((retrievedData) {
+              if (!retrievedData.sameAsCached) {
+                somethingHasChanged = true;
+              }
               final Map<String, dynamic> data = jsonDecode(retrievedData.data);
               patch.latestVersion = data[patch.configuration!.versionProperty]
                   .replaceAll("Build:", "")
@@ -173,6 +181,7 @@ class APIService {
       }
     }
     await Future.wait(futures);
+    return somethingHasChanged;
   }
 
   Future<void> recoverNewsAndLinks() async {

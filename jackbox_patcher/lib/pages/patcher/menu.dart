@@ -37,13 +37,13 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
   }
 
   void _updateAfterPacksChange() {
-    items = [];
-    int _tempSelectedView = _selectedView;
-    _buildPaneItems();
-    _selectedView = _tempSelectedView;
-    setState(() {
-
-    });
+    if (mounted) {
+      items = [];
+      int _tempSelectedView = _selectedView;
+      _buildPaneItems();
+      _selectedView = _tempSelectedView;
+      setState(() {});
+    }
   }
 
   @override
