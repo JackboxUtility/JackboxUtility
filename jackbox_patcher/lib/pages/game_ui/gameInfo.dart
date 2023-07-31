@@ -333,7 +333,6 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
   }
 
   bool gamesComponentExist() {
-    print(APIService().cachedServerMessage!);
     return APIService().cachedServerMessage != null &&
         APIService().cachedServerMessage!.gamesComponent != null &&
         APIService()
