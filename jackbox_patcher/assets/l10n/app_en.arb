@@ -419,13 +419,8 @@
     "settings_anonymous_data_description":"Help us improve the app by sending anonymous data about your usage of the app.",
 
     "privacy_info":"Privacy notice",
-<<<<<<< HEAD
     "privacy_description":"This app is collecting anonymous statistics to improve the app. You can disable this in the settings.",
 
     "hidden_button_tooltip":"Click to hide this game from the game list.",
     "hidden_button_hidden_tooltip":"Click to unhide this game from the game list."
 }
-=======
-    "privacy_description":"This app is collecting anonymous statistics to improve the app. You can disable this in the settings."
-}
->>>>>>> c3e7bed12d340981a2fb3adee334bbd29a177b02
