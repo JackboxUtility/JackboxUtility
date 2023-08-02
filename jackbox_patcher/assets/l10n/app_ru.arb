@@ -365,5 +365,7 @@
   "settings_anonymous_data_description": "Помогите нам улучшить приложение, отправив анонимные данные о том, как вы используете приложение.",
   "privacy_info": "Примечание о конфиденциальности",
   "privacy_description": "Это приложение собирает анонимную статистику для улучшения приложения. Вы можете отключить это в настройках.",
-  "rich_presence_in_game_details": "EN:In game"
+  "rich_presence_in_game_details": "EN:In game",
+  "hidden_button_tooltip": "EN:Click to hide this game from the game list.",
+  "hidden_button_hidden_tooltip": "EN:Click to unhide this game from the game list."
 }

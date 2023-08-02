@@ -532,23 +532,28 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
             children: [
               Expanded(child: _buildLauncherButton()),
               const SizedBox(width: 10),
-              IconButton(
-                icon: SizedBox(
-                    width: 16,
-                    height: 16,
-                    child: Icon(
-                        currentGame.hidden
-                            ? FontAwesomeIcons.eyeSlash
-                            : FontAwesomeIcons.eye,
-                        key: UniqueKey(),
-                        size: currentGame.hidden ? 15 : 16)),
-                onPressed: () {
-                  SFXService().playSFX(SFX.CLICK);
-                  currentGame.hidden = !currentGame.hidden;
-                  setState(() {});
-                },
-                style:
-                    ButtonStyle(backgroundColor: ButtonState.all(Colors.blue)),
+              Tooltip (
+                message: currentGame.hidden?
+                  TranslationsHelper().appLocalizations!.hidden_button_hidden_tooltip:
+                  TranslationsHelper().appLocalizations!.hidden_button_tooltip,
+                child:IconButton(
+                  icon: SizedBox(
+                      width: 16,
+                      height: 16,
+                      child: Icon(
+                          currentGame.hidden
+                              ? FontAwesomeIcons.eyeSlash
+                              : FontAwesomeIcons.eye,
+                          key: UniqueKey(),
+                          size: currentGame.hidden ? 15 : 16)),
+                  onPressed: () {
+                    SFXService().playSFX(SFX.CLICK);
+                    currentGame.hidden = !currentGame.hidden;
+                    setState(() {});
+                  },
+                  style:
+                      ButtonStyle(backgroundColor: ButtonState.all(Colors.blue)),
+                )
               )
             ],
           );

@@ -341,5 +341,7 @@
   "settings_anonymous_data_description": "Допоможіть покращити застосунок, надсилаючи анонімні дані про те, як ви його використовуєте",
   "privacy_info": "Приватність",
   "privacy_description": "Цей застосунок збирає анонімну статистику для його покращення. Ви можете вимкнути це у налаштуваннях.",
-  "rich_presence_in_game_details": "EN:In game"
+  "rich_presence_in_game_details": "EN:In game",
+  "hidden_button_tooltip": "EN:Click to hide this game from the game list.",
+  "hidden_button_hidden_tooltip": "EN:Click to unhide this game from the game list."
 }

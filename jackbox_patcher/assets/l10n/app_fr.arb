@@ -341,5 +341,7 @@
   "settings_anonymous_data_description": "Aidez-nous à améliorer l'application en envoyant des données anonymes de votre utilisation",
   "privacy_info": "Confidentialité",
   "privacy_description": "L'application collecte des statistiques anonymes pour améliorer l'application. Ceci est désactivable dans les paramètres.",
-  "rich_presence_in_game_details": "EN:In game"
+  "rich_presence_in_game_details": "En jeu",
+  "hidden_button_tooltip": "Cliquer pour cacher ce jeu dans la liste de jeu.",
+  "hidden_button_hidden_tooltip": "Cliquer pour montrer ce jeu dans la liste de jeu."
 }

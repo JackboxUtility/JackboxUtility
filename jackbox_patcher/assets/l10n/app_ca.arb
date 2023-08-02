@@ -341,5 +341,7 @@
   "settings_anonymous_data_description": "Ajuda'ns a millorar l'app enviant-nos dades anònimes d'ús.",
   "privacy_info": "Avís de privacitat",
   "privacy_description": "Aquesta app recopila dades anònimes per millorar el seu funcionament. Pots desactivar-ho a les opcions.",
-  "rich_presence_in_game_details": "EN:In game"
+  "rich_presence_in_game_details": "EN:In game",
+  "hidden_button_tooltip": "EN:Click to hide this game from the game list.",
+  "hidden_button_hidden_tooltip": "EN:Click to unhide this game from the game list."
 }
