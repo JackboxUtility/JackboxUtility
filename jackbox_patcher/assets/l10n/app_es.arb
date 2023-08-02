@@ -340,5 +340,6 @@
   "settings_anonymous_data_title": "Recopilación de datos anónimos",
   "settings_anonymous_data_description": "Ayúdanos a mejorar la aplicación enviando datos anónimos sobre tu uso de la aplicación.",
   "privacy_info": "Aviso de privacidad",
-  "privacy_description": "Esta aplicación recopila estadísticas anónimas para mejorar la aplicación. Puedes deshabilitar esto en la sección de Ajustes."
+  "privacy_description": "Esta aplicación recopila estadísticas anónimas para mejorar la aplicación. Puedes deshabilitar esto en la sección de Ajustes.",
+  "rich_presence_in_game_details": "EN:In game"
 }

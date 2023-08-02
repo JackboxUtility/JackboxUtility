@@ -340,5 +340,6 @@
   "settings_anonymous_data_title": "Recopilació de dades anònimes",
   "settings_anonymous_data_description": "Ajuda'ns a millorar l'app enviant-nos dades anònimes d'ús.",
   "privacy_info": "Avís de privacitat",
-  "privacy_description": "Aquesta app recopila dades anònimes per millorar el seu funcionament. Pots desactivar-ho a les opcions."
+  "privacy_description": "Aquesta app recopila dades anònimes per millorar el seu funcionament. Pots desactivar-ho a les opcions.",
+  "rich_presence_in_game_details": "EN:In game"
 }

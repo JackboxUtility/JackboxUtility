@@ -340,5 +340,6 @@
   "settings_anonymous_data_title": "Collecte de données anonymes",
   "settings_anonymous_data_description": "Aidez-nous à améliorer l'application en envoyant des données anonymes de votre utilisation",
   "privacy_info": "Confidentialité",
-  "privacy_description": "L'application collecte des statistiques anonymes pour améliorer l'application. Ceci est désactivable dans les paramètres."
+  "privacy_description": "L'application collecte des statistiques anonymes pour améliorer l'application. Ceci est désactivable dans les paramètres.",
+  "rich_presence_in_game_details": "EN:In game"
 }
