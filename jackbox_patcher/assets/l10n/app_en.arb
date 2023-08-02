@@ -364,7 +364,7 @@
     "rich_presence_patcher_state":"In the Patch List",
     "rich_presence_settings_details":"Tweaking the App",
     "rich_presence_settings_state":"In the Settings",
-    "rich_presence_in_game_details":"In game",
+    "rich_presence_in_game_details":"In-game",
 
     "open_launcher_on_startup_title_tip":"Open Launcher on Startup",
     "open_launcher_on_startup_description_tip":"The app can launch on this screen when you start it automatically. Do you want to activate this feature? (This can always be changed in the settings.)",
