@@ -266,7 +266,7 @@
   "app_behavior": "Поведінка застосунка",
   "settings_app_startup_category": "Запуск застосунка",
   "settings_app_startup_title": "Відкривати лаунчер при запуску застосунка",
-  "settings_app_startup_description": "Список ігор буде вмикатися одразу при запуску застосунка, пропускаючи головне меню",
+  "settings_app_startup_description": "При запуску застосунок буде оминати головне меню та одразу відкривати лаунчер",
   "settings_discord_rich_presence_category": "Параметри Discord Rich Presence",
   "settings_discord_rich_presence_title": "Discord Rich Presence",
   "settings_discord_rich_presence_description": "Буде транслювати вашу активність у застосунку в Discord. Працює лише при відкритому Discord'і",
@@ -285,11 +285,11 @@
   "rich_presence_application_start_details": "Щойно запустив застосунок",
   "rich_presence_application_start_state": "У меню",
   "rich_presence_game_menu_details": "Обирає гру",
-  "rich_presence_game_menu_state": "У списку ігор",
+  "rich_presence_game_menu_state": "У лаунчері",
   "rich_presence_game_information_details": "Читає інформацію про гру",
   "rich_presence_game_information_state": "Обирає гру",
   "rich_presence_patcher_details": "Встановлює патч на гру",
-  "rich_presence_patcher_state": "У списку патчів",
+  "rich_presence_patcher_state": "У лаунчері",
   "rich_presence_settings_details": "Налаштовує застосунок",
   "rich_presence_settings_state": "У налаштуваннях",
   "open_launcher_on_startup_title_tip": "Відкривати лаунчер при запуску застосунка",
@@ -342,6 +342,6 @@
   "privacy_info": "Приватність",
   "privacy_description": "Цей застосунок збирає анонімну статистику для його покращення. Ви можете вимкнути це у налаштуваннях.",
   "rich_presence_in_game_details": "У грі",
-  "hidden_button_tooltip": "EN:Click to hide this game from the game list.",
-  "hidden_button_hidden_tooltip": "EN:Click to unhide this game from the game list."
+  "hidden_button_tooltip": "Приховати цю гру з лаунчера.",
+  "hidden_button_hidden_tooltip": "Показувати цю гру в лаунчері."
 }
