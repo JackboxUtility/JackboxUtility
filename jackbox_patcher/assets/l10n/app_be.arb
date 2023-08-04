@@ -580,8 +580,8 @@
   "@privacy_description": {},
   "rich_presence_in_game_details": "У гульне",
   "@rich_presence_in_game_details": {},
-  "hidden_button_tooltip": "EN:Click to hide this game from the game list.",
+  "hidden_button_tooltip": "Націсніце, каб cхаваць гульню ў спісе гульняў.",
   "@hidden_button_tooltip": {},
-  "hidden_button_hidden_tooltip": "EN:Click to unhide this game from the game list.",
+  "hidden_button_hidden_tooltip": "Націсніце, каб паказаць гульню ў спісе гульняў.",
   "@hidden_button_hidden_tooltip": {}
 }
