@@ -580,8 +580,8 @@
   "@privacy_description": {},
   "rich_presence_in_game_details": "В игре",
   "@rich_presence_in_game_details": {},
-  "hidden_button_tooltip": "EN:Click to hide this game from the game list.",
+  "hidden_button_tooltip": "Нажмите чтобы спрятать игру из списка игр.",
   "@hidden_button_tooltip": {},
-  "hidden_button_hidden_tooltip": "EN:Click to unhide this game from the game list.",
+  "hidden_button_hidden_tooltip": "Нажмите чтобы показать игру в списке игр.",
   "@hidden_button_hidden_tooltip": {}
 }
