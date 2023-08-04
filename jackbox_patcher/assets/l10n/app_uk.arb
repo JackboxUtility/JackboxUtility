@@ -413,7 +413,7 @@
   "@settings_discord_rich_presence_category": {},
   "settings_discord_rich_presence_title": "Discord Rich Presence",
   "@settings_discord_rich_presence_title": {},
-  "settings_discord_rich_presence_description": "Ваша активність у застосунку буде транслюватися в Discord. Працює лише при відкритому Discord'і.",
+  "settings_discord_rich_presence_description": "Ваша активність у застосунку та іграх показуватиметься у вашому профілі в Discord.",
   "@settings_discord_rich_presence_description": {},
   "settings_audio_category": "Звуки",
   "@settings_audio_category": {},
