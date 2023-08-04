@@ -1,1 +1,22 @@
-{}
+{
+  "no": "Nei",
+  "@no": {},
+  "cancel": "Avbryt",
+  "@cancel": {},
+  "page_continue": "Fortsett",
+  "@page_continue": {},
+  "yes": "Ja",
+  "@yes": {},
+  "notifications": "Merknader",
+  "@notifications": {},
+  "ok": "OK",
+  "@ok": {},
+  "settings": "Innstillinger",
+  "@settings": {},
+  "close": "Lukk",
+  "@close": {},
+  "confirm": "Bekreft",
+  "@confirm": {},
+  "quit": "avslutt",
+  "@quit": {}
+}
