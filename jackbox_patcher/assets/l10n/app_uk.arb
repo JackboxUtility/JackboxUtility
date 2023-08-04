@@ -68,7 +68,7 @@
   "@patch_modification_description": {},
   "patch_modification_content_text": "Модифікація текстового наповнення гри",
   "@patch_modification_content_text": {},
-  "patch_modification_content_internal": "Модифікація внутрішніх файлів гри (зображень, текстів...)",
+  "patch_modification_content_internal": "Модифікація внутрішніх файлів гри (зображень, текстів тощо)",
   "@patch_modification_content_internal": {},
   "patch_modification_content_subtitles": "Модифікація субтитрів до гри",
   "@patch_modification_content_subtitles": {},
@@ -129,15 +129,15 @@
   "@choose_pack": {},
   "game_type_coop": "Кооперативні",
   "@game_type_coop": {},
-  "game_type_coop_description": "У цих іграх гравці повинні працювати разом, щоб перемогти",
+  "game_type_coop_description": "У цих іграх гравці повинні працювати разом, щоб перемогти.",
   "@game_type_coop_description": {},
   "game_type_versus": "Кожен сам за себе",
   "@game_type_versus": {},
-  "game_type_versus_description": "У цих іграх кожен гравець грає сам за себе та повинен перемогти інших гравців",
+  "game_type_versus_description": "У цих іграх кожен гравець грає сам за себе та повинен перемогти інших гравців.",
   "@game_type_versus_description": {},
   "game_type_team": "Командні",
   "@game_type_team": {},
-  "game_type_team_description": "У цих іграх гравці діляться на команди та повинні працювати разом, щоб перемогти",
+  "game_type_team_description": "У цих іграх гравці діляться на команди та повинні працювати разом, щоб перемогти.",
   "@game_type_team_description": {},
   "game_translation_translated": "Офіційний переклад",
   "@game_translation_translated": {
@@ -148,7 +148,7 @@
       }
     }
   },
-  "game_translation_translated_description": "У цих іграх присутня {language}, офіційний переклад",
+  "game_translation_translated_description": "У цих іграх присутня {language}, офіційний переклад.",
   "@game_translation_translated_description": {
     "placeholders": {
       "language": {
@@ -159,11 +159,11 @@
   },
   "game_translation_community_translated": "Переклад від спільноти",
   "@game_translation_community_translated": {},
-  "game_translation_community_translated_description": "У цих іграх присутня {language}, переклад від спільноти",
+  "game_translation_community_translated_description": "У цих іграх присутня {language}, переклад від спільноти.",
   "@game_translation_community_translated_description": {},
   "game_translation_not_available": "Без перекладу",
   "@game_translation_not_available": {},
-  "game_translation_not_available_description": "У цих іграх наразі відсутня {language}",
+  "game_translation_not_available_description": "У цих іграх наразі відсутня {language}.",
   "@game_translation_not_available_description": {
     "placeholders": {
       "language": {
@@ -200,7 +200,7 @@
   "@search": {},
   "all_games": "Усі ігри",
   "@all_games": {},
-  "all_games_description": "Знайдіть усі ігри Jackbox Games у одному місці",
+  "all_games_description": "Знайдіть усі ігри Jackbox Games в одному місці.",
   "@all_games_description": {},
   "search_by_pack": "Пошук за збіркою",
   "@search_by_pack": {},
@@ -227,7 +227,7 @@
   "@connected_to_server_change": {},
   "connection_to_server_failed": "Не вдалося з'єднатися з сервером",
   "@connection_to_server_failed": {},
-  "connection_to_main_server_failed": "Помилка під час отримання даних про доступні сервери",
+  "connection_to_main_server_failed": "Помилка під час отримання даних про доступні сервери.",
   "@connection_to_main_server_failed": {},
   "quit_while_downloading_title": "Завантаження триває",
   "@quit_while_downloading_title": {},
@@ -250,7 +250,7 @@
   },
   "automatic_server_finder_found": "Сервер знайдено",
   "@automatic_server_finder_found": {},
-  "automatic_server_finder_found_description": "На основі вашої мови було обрано сервер «{server}»",
+  "automatic_server_finder_found_description": "На основі вашої мови було обрано сервер «{server}».",
   "@automatic_server_finder_found_description": {
     "placeholders": {
       "server": {
@@ -267,7 +267,7 @@
   "@all_patches": {},
   "error_happened": "Виникла помилка",
   "@error_happened": {},
-  "jackbox_utility_description": "Застосунок з відкритим вихідним кодом для встановлення патчів та запуску ігор від Jackbox Games",
+  "jackbox_utility_description": "Застосунок з відкритим вихідним кодом для встановлення патчів та запуску ігор від Jackbox Games.",
   "@jackbox_utility_description": {},
   "server_information": "Інформація про сервер",
   "@server_information": {},
@@ -301,7 +301,7 @@
       }
     }
   },
-  "in_language_description": "У цих іграх присутня {language}",
+  "in_language_description": "У цих іграх присутня {language}.",
   "@in_language_description": {
     "placeholders": {
       "language": {
@@ -312,11 +312,11 @@
   },
   "game_community_dubbed": "Озвучення від спільноти",
   "@game_community_dubbed": {},
-  "game_community_dubbed_description": "У цих іграх присутнє озвучення від спільноти",
+  "game_community_dubbed_description": "У цих іграх присутнє озвучення від спільноти.",
   "@game_community_dubbed_description": {},
   "no_game_in_this_category_title": "У цій категорії немає ігор",
   "@no_game_in_this_category_title": {},
-  "no_game_in_this_category_description": "У цій категорії немає жодної гри. Спробуйте змінити категорію чи додати необхідну гру у налаштуваннях .",
+  "no_game_in_this_category_description": "У цій категорії немає жодної гри. Спробуйте змінити категорію чи додати необхідну гру у налаштуваннях.",
   "@no_game_in_this_category_description": {},
   "select_game_location": "Оберіть папку з {game}",
   "@select_game_location": {
@@ -351,7 +351,7 @@
   "@ok": {},
   "game_dubbed": "Присутня {language} озвучка",
   "@game_dubbed": {},
-  "game_dubbed_description": "У цих іграх присутнє озвучення",
+  "game_dubbed_description": "У цих іграх присутнє озвучення.",
   "@game_dubbed_description": {},
   "audience": "Глядачі",
   "@audience": {},
@@ -375,9 +375,9 @@
   "@stream_friendly": {},
   "moderation": "Модерація",
   "@moderation": {},
-  "randomize_button_text": "Спробуємо ще раз",
+  "randomize_button_text": "Спробуймо ще раз!",
   "@randomize_button_text": {},
-  "feeling_lucky": "Мені мощастить",
+  "feeling_lucky": "Мені пощастить",
   "@feeling_lucky": {},
   "sort_by": "Сортувати за {type}",
   "@sort_by": {},
@@ -407,19 +407,19 @@
   "@settings_app_startup_category": {},
   "settings_app_startup_title": "Відкривати лаунчер при запуску застосунка",
   "@settings_app_startup_title": {},
-  "settings_app_startup_description": "При запуску застосунок буде оминати головне меню та одразу відкривати лаунчер",
+  "settings_app_startup_description": "При запуску застосунок буде оминати головне меню та одразу відкривати лаунчер.",
   "@settings_app_startup_description": {},
   "settings_discord_rich_presence_category": "Параметри Discord Rich Presence",
   "@settings_discord_rich_presence_category": {},
   "settings_discord_rich_presence_title": "Discord Rich Presence",
   "@settings_discord_rich_presence_title": {},
-  "settings_discord_rich_presence_description": "Буде транслювати вашу активність у застосунку в Discord. Працює лише при відкритому Discord'і",
+  "settings_discord_rich_presence_description": "Ваша активність у застосунку та іграх показуватиметься у вашому профілі в Discord.",
   "@settings_discord_rich_presence_description": {},
   "settings_audio_category": "Звуки",
   "@settings_audio_category": {},
   "settings_sfx_title": "Звуки у застосунку",
   "@settings_sfx_title": {},
-  "settings_sfx_description": "Додаткові звукові ефекти у застосунку",
+  "settings_sfx_description": "Додаткові звукові ефекти у застосунку.",
   "@settings_sfx_description": {},
   "settings_app_saves_category": "Пам'ять застосунка",
   "@settings_app_saves_category": {},
@@ -483,7 +483,7 @@
   "@installed_version": {},
   "settings_discord_rich_presence_buttons_title": "Кнопки з посиланнями",
   "@settings_discord_rich_presence_buttons_title": {},
-  "settings_discord_rich_presence_buttons_description": "Біля вашої активності у Discord з'являться кнопки з посиланнями на GitHub та Discord-сервер Jackbox Utility",
+  "settings_discord_rich_presence_buttons_description": "Біля вашої активності у Discord з'являться кнопки з посиланнями на GitHub та Discord-сервер Jackbox Utility.",
   "@settings_discord_rich_presence_buttons_description": {},
   "filter_available": "Доступно",
   "@filter_available": {},
