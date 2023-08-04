@@ -5,6 +5,7 @@
 ![GitHub release](https://img.shields.io/github/v/release/AlexisL61/JackboxUtility?style=flat-square)
 [![App downloads](https://img.shields.io/github/downloads/AlexisL61/JackboxUtility/latest/total?label=latest%20downloads&style=flat-square)](https://github.com/AlexisL61/JackboxUtility/releases/latest)
 [![Updater downloads](https://img.shields.io/github/downloads/AlexisL61/JackboxUtilityUpdater/total?label=updater%20downloads&style=flat-square)](https://github.com/AlexisL61/JackboxUtilityUpdater/releases)
+[![Weblate translation](https://hosted.weblate.org/widgets/jackboxutility/?component=jackboxutility_app#svg)](https://hosted.weblate.org/projects/jackboxutility/jackboxutility_app/)
 
 <p align="center"><img src="https://raw.githubusercontent.com/MeDustyy/JackboxUtility/91974b98e0c1aaeae8ae7fe93495914885cf2a26/Banner.png"></p>
 With this app, you will be able to download translation patches for your Jackbox games. You also have the ability to launch your Jackbox games, where all your Jackbox games are listed.
@@ -44,6 +45,10 @@ After downloading the auto-updater or any release of the application, all you ne
 ## Privacy
 
 The app is collecting anonymous data to improve the app. This can be disable in the settings. You can find what data we are collecting and how they are used in the [Privacy informations page](https://github.com/AlexisL61/JackboxUtility/wiki/Privacy).
+
+## Translations
+
+We are using [weblate](https://hosted.weblate.org/) to translate the app. You can help us translate it by going on this link : <https://hosted.weblate.org/projects/jackboxutility/jackboxutility_app/>
 
 ## Contribution
 
