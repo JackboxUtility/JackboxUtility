@@ -33,7 +33,7 @@ class _CountdownServerComponentWidgetState
   }
 
   String buildCountdown() {
-    Duration duration = DateTime.parse(widget.component.endTime).difference(DateTime.now().toUtc());
+    Duration duration = DateTime.parse(widget.component.endTime).difference(DateTime.now());
     if (duration.isNegative) {
       return widget.component.endText;
     }
