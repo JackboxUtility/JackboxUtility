@@ -7,6 +7,9 @@
         {
             "name": "jackbox_patcher",
             "cwd": "jackbox_patcher",
+            "args": [
+                "--flavor beta -t ./lib/main_beta.dart"
+            ],
             "request": "launch",
             "type": "dart"
         },

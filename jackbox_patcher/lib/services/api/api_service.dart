@@ -4,12 +4,15 @@ import 'package:dio/dio.dart';
 import 'package:flutter_flavor/flutter_flavor.dart';
 import 'package:http/http.dart' as http;
 import 'package:jackbox_patcher/app_configuration.dart';
+import 'package:jackbox_patcher/model/customServerComponent/columnServerComponent.dart';
+import 'package:jackbox_patcher/model/customServerComponent/customServerComponent.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxgame.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxpackpatch.dart';
 import 'package:jackbox_patcher/model/misc/urlblurhash.dart';
 import 'package:jackbox_patcher/model/news.dart';
 import 'package:jackbox_patcher/model/patchServerConfigurations.dart';
 import 'package:jackbox_patcher/model/patchserver.dart';
+import 'package:jackbox_patcher/services/api/listenable_cache.dart';
 import 'package:jackbox_patcher/services/logger/logger.dart';
 
 import '../../model/gametag.dart';
@@ -18,12 +21,20 @@ import '../../model/patchsCategory.dart';
 import 'api_endpoints.dart';
 import 'api_statistics_endpoints.dart';
 
+typedef serverMessageType = ({
+  CustomServerComponent? menuComponent,
+  List<({CustomServerComponent component, String packId})>? patchesComponent,
+  List<({CustomServerComponent component, String gameId})>? gamesComponent
+});
+
 class APIService {
   static final APIService _instance = APIService._internal();
   String masterServer = FlavorConfig.instance.variables["masterServerUrl"];
   String masterStatisticsServer = STATISTICS_SERVER_URL;
   String? baseEndpoint;
   String? baseAssets;
+
+  ListenableCache<String> internalCache = ListenableCache<String>();
 
   List<PatchServer> cachedServers = [];
   PatchServer? cachedSelectedServer;
@@ -33,6 +44,7 @@ class APIService {
   List<News> cachedNews = [];
   List<UrlBlurHash> cachedBlurHashes = [];
   PatchServerConfigurations? cachedConfigurations;
+  serverMessageType? cachedServerMessage;
 
   factory APIService() {
     return _instance;
@@ -47,13 +59,14 @@ class APIService {
     cachedPacks = [];
     cachedTags = [];
     cachedNews = [];
+    internalCache.clear();
   }
 
   Future<PatchServer?> recoverServerFromLink(String serverLink) async {
     JULogger().i("Recovering server from link");
     try {
       final serverInfo = await getRequest(Uri.parse(serverLink));
-      final Map<String, dynamic> data = jsonDecode(serverInfo);
+      final Map<String, dynamic> data = jsonDecode(serverInfo.data);
       final PatchServer patchServer = PatchServer.fromJson(serverLink, data);
       return patchServer;
     } catch (e) {
@@ -67,46 +80,58 @@ class APIService {
     JULogger().i("Recovering available servers");
     resetCache();
     final data = await getRequest(Uri.parse(masterServer));
-    final List<dynamic> availableServers = jsonDecode(data);
-    for (var server in availableServers) {
-      final serverInfo = await getRequest(Uri.parse(server));
-      final Map<String, dynamic> data = jsonDecode(serverInfo);
-      cachedServers.add(PatchServer.fromJson(server, data));
+
+    if (!data.sameAsCached) {
+      final List<dynamic> availableServers = jsonDecode(data.data);
+      for (var server in availableServers) {
+        final serverInfo = await getRequest(Uri.parse(server));
+        final Map<String, dynamic> data = jsonDecode(serverInfo.data);
+        cachedServers.add(PatchServer.fromJson(server, data));
+      }
     }
   }
 
   Future<void> recoverServerInfo(String serverLink) async {
     JULogger().i("Recovering server info");
     final rawData = await getRequest(Uri.parse(serverLink));
-    final Map<String, dynamic> data = jsonDecode(rawData);
-    cachedSelectedServer = PatchServer.fromJson(serverLink, data);
-    final endpoints = await cachedSelectedServer!.getVersionUrl();
-    baseEndpoint = endpoints.apiEndpoint;
-    baseAssets = endpoints.assetsEndpoint;
+      final Map<String, dynamic> data = jsonDecode(rawData.data);
+      cachedSelectedServer = PatchServer.fromJson(serverLink, data);
+      final endpoints = await cachedSelectedServer!.getVersionUrl();
+      baseEndpoint = endpoints.apiEndpoint;
+      baseAssets = endpoints.assetsEndpoint;
   }
 
-  Future<void> recoverPacksAndTags(Function(double) percentDone) async {
+  Future<bool> recoverPacksAndTags(Function(double) percentDone) async {
     final rawData =
         await getRequest(Uri.parse('$baseEndpoint${APIEndpoints.PACKS.path}'));
-    final Map<String, dynamic> data = jsonDecode(rawData);
-    cachedTags =
-        data["tags"].map<GameTag>((tag) => GameTag.fromJson(tag)).toList();
-    cachedPacks = data["packs"]
-        .map<JackboxPack>((pack) => JackboxPack.fromJson(pack))
-        .toList();
-    cachedCategories = data["patchsCategories"] != null
-        ? data["patchsCategories"]
-            .map<PatchCategory>((category) => PatchCategory.fromJson(category))
-            .toList()
-        : [];
-    percentDone(100 / (cachedPacks.length + 1));
-    await applyExternalConfiguration(percentDone);
+
+    if (!rawData.sameAsCached) {
+      final Map<String, dynamic> data = jsonDecode(rawData.data);
+      cachedTags =
+          data["tags"].map<GameTag>((tag) => GameTag.fromJson(tag)).toList();
+      cachedPacks = data["packs"]
+          .map<JackboxPack>((pack) => JackboxPack.fromJson(pack))
+          .toList();
+      cachedCategories = data["patchsCategories"] != null
+          ? data["patchsCategories"]
+              .map<PatchCategory>(
+                  (category) => PatchCategory.fromJson(category))
+              .toList()
+          : [];
+      percentDone(100 / (cachedPacks.length + 1));
+      await applyExternalConfiguration(percentDone);
+      return true;
+    } else {
+      bool somethingHasChanged = await applyExternalConfiguration(percentDone);
+      return somethingHasChanged;
+    }
   }
 
-  Future<void> applyExternalConfiguration(
+  Future<bool> applyExternalConfiguration(
       Function(double percent) percentDone) async {
     int totalPacksDone = 0;
     int totalPacks = 0;
+    bool somethingHasChanged = false;
     List<Future> futures = [];
     for (JackboxPack pack in cachedPacks) {
       for (JackboxPackPatch patch in pack.patches) {
@@ -117,7 +142,10 @@ class APIService {
             final rawData =
                 getRequest(Uri.parse(patch.configuration!.versionFile));
             rawData.then((retrievedData) {
-              final Map<String, dynamic> data = jsonDecode(retrievedData);
+              if (!retrievedData.sameAsCached) {
+                somethingHasChanged = true;
+              }
+              final Map<String, dynamic> data = jsonDecode(retrievedData.data);
               patch.latestVersion = data[patch.configuration!.versionProperty]
                   .replaceAll("Build:", "")
                   .trim();
@@ -135,8 +163,12 @@ class APIService {
             totalPacks++;
             final rawData =
                 getRequest(Uri.parse(patch.configuration!.versionFile));
+
             rawData.then((retrievedData) {
-              final Map<String, dynamic> data = jsonDecode(retrievedData);
+              if (!retrievedData.sameAsCached) {
+                somethingHasChanged = true;
+              }
+              final Map<String, dynamic> data = jsonDecode(retrievedData.data);
               patch.latestVersion = data[patch.configuration!.versionProperty]
                   .replaceAll("Build:", "")
                   .trim();
@@ -149,22 +181,29 @@ class APIService {
       }
     }
     await Future.wait(futures);
+    return somethingHasChanged;
   }
 
   Future<void> recoverNewsAndLinks() async {
     final rawData = await getRequest(
         Uri.parse('$baseEndpoint${APIEndpoints.WELCOME.path}'));
-    final Map<dynamic, dynamic> welcome = jsonDecode(rawData);
-    cachedNews =
-        welcome["news"].map<News>((news) => News.fromJson(news)).toList();
+
+    if (!rawData.sameAsCached) {
+      final Map<dynamic, dynamic> welcome = jsonDecode(rawData.data);
+      cachedNews =
+          welcome["news"].map<News>((news) => News.fromJson(news)).toList();
+      internalCache.notifyListeners();
+    }
   }
 
   Future<void> recoverBlurHashes() async {
     final rawData = await getRequest(
         Uri.parse('$baseEndpoint${APIEndpoints.BLUR_HASHES.path}'));
-    final List<dynamic> data = jsonDecode(rawData);
-    cachedBlurHashes =
-        data.map<UrlBlurHash>((tag) => UrlBlurHash.fromJson(tag)).toList();
+    if (!rawData.sameAsCached) {
+      final List<dynamic> data = jsonDecode(rawData.data);
+      cachedBlurHashes =
+          data.map<UrlBlurHash>((tag) => UrlBlurHash.fromJson(tag)).toList();
+    }
   }
 
   Future<void> recoverConfigurations() async {
@@ -172,13 +211,60 @@ class APIService {
       final rawData = await getRequest(
           Uri.parse('$baseEndpoint${APIEndpoints.CONFIGURATIONS.path}'));
       try {
-        final Map<String, dynamic> data = jsonDecode(rawData);
-        cachedConfigurations = PatchServerConfigurations.fromJson(data);
+        if (!rawData.sameAsCached) {
+          final Map<String, dynamic> data = jsonDecode(rawData.data);
+          cachedConfigurations = PatchServerConfigurations.fromJson(data);
+        }
       } catch (e) {
         cachedConfigurations = PatchServerConfigurations.fromJson({});
       }
     } catch (e) {
       cachedConfigurations = PatchServerConfigurations.fromJson({});
+    }
+  }
+
+  Future<void> recoverCustomComponent() async {
+    try {
+      final rawData = await getRequest(
+          Uri.parse('$baseEndpoint${APIEndpoints.MESSAGES.path}'));
+      if (!rawData.sameAsCached) {
+        final Map<String, dynamic> data = jsonDecode(rawData.data);
+        List<dynamic>? rawGamesComponent = data["gamesComponent"];
+        List<dynamic>? rawPatchesComponent = data["patchesComponent"];
+        List<({CustomServerComponent component, String gameId})>
+            gamesComponent = [];
+        List<({CustomServerComponent component, String packId})>
+            patchesComponent = [];
+        if (rawGamesComponent != null) {
+          for (dynamic rawGameComponent in rawGamesComponent) {
+            gamesComponent.add((
+              component: CustomServerComponent.buildServerComponent(
+                  rawGameComponent["component"]),
+              gameId: rawGameComponent["gameId"]
+            ));
+          }
+        }
+        if (rawPatchesComponent != null) {
+          for (dynamic rawPatchComponent in rawPatchesComponent) {
+            patchesComponent.add((
+              component: CustomServerComponent.buildServerComponent(
+                  rawPatchComponent["component"]),
+              packId: rawPatchComponent["packId"]
+            ));
+          }
+        }
+        cachedServerMessage = (
+          menuComponent: data["menuComponent"] != null
+              ? CustomServerComponent.buildServerComponent(
+                  data["menuComponent"])
+              : null,
+          gamesComponent: gamesComponent,
+          patchesComponent: patchesComponent
+        );
+        internalCache.notifyListeners();
+      }
+    } catch (e) {
+      cachedServerMessage = null;
     }
   }
 
@@ -193,11 +279,21 @@ class APIService {
   }
 
   // Send get request
-  Future<String> getRequest(Uri uri) async {
+  Future<({String data, bool sameAsCached})> getRequest(Uri uri) async {
     JULogger().i("Sending GET request to $uri");
     http.Response response = await http.get(uri);
     if (response.statusCode == 200) {
-      return response.body;
+      if (!internalCache.exists(uri.toString())) {
+        internalCache.set(uri.toString(), response.body);
+        return (data: response.body, sameAsCached: false);
+      } else {
+        if (internalCache.get(uri.toString()) != response.body) {
+          internalCache.set(uri.toString(), response.body);
+          return (data: response.body, sameAsCached: false);
+        } else {
+          return (data: response.body, sameAsCached: true);
+        }
+      }
     } else {
       JULogger().e("Failed to send GET request to $uri");
       throw Exception("Failed to send GET request to $uri");
@@ -206,7 +302,9 @@ class APIService {
 
   // Download game patch
   Future<String> downloadPatch(
-      String patchUri, void Function(double, double) progressCallback, CancelToken cancelToken) async {
+      String patchUri,
+      void Function(double, double) progressCallback,
+      CancelToken cancelToken) async {
     Dio dio = Dio();
     final response = await dio.downloadUri(
         Uri.parse(APIService().assetLink(patchUri)),
@@ -215,7 +313,7 @@ class APIService {
         options: Options(), onReceiveProgress: (received, total) {
       progressCallback(received.toInt().toDouble(), total.toInt().toDouble());
     });
-    
+
     if (response.statusCode == 200) {
       return "./downloads/tmp.${patchUri.split(".").last}";
     } else {
@@ -274,10 +372,11 @@ class APIService {
   }
 
   // Statistics
-  Future<void> sendAppOpenData(String serverName, String serverUrl) async{
-    await http.post(Uri.parse('$masterStatisticsServer${APIStatisticsEndpoints.APP_OPEN.path}'),headers:null, body:{
-      "serverName": serverName,
-      "serverURL": serverUrl
-    });
+  Future<void> sendAppOpenData(String serverName, String serverUrl) async {
+    await http.post(
+        Uri.parse(
+            '$masterStatisticsServer${APIStatisticsEndpoints.APP_OPEN.path}'),
+        headers: null,
+        body: {"serverName": serverName, "serverURL": serverUrl});
   }
 }

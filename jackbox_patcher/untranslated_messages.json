@@ -1,1 +1,36 @@
-{}
+{
+  "be": [
+    "hidden_button_tooltip",
+    "hidden_button_hidden_tooltip"
+  ],
+
+  "ca": [
+    "hidden_button_tooltip",
+    "hidden_button_hidden_tooltip"
+  ],
+
+  "de": [
+    "hidden_button_tooltip",
+    "hidden_button_hidden_tooltip"
+  ],
+
+  "es": [
+    "hidden_button_tooltip",
+    "hidden_button_hidden_tooltip"
+  ],
+
+  "fr": [
+    "hidden_button_tooltip",
+    "hidden_button_hidden_tooltip"
+  ],
+
+  "ru": [
+    "hidden_button_tooltip",
+    "hidden_button_hidden_tooltip"
+  ],
+
+  "uk": [
+    "hidden_button_tooltip",
+    "hidden_button_hidden_tooltip"
+  ]
+}

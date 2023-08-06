@@ -6,6 +6,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/model/patchserver.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/services/api/api_service.dart';
+import 'package:jackbox_patcher/services/api/automatic_reload.dart';
 import 'package:jackbox_patcher/services/automaticGameFinder/AutomaticGameFinder.dart';
 import 'package:jackbox_patcher/services/discord/DiscordService.dart';
 import 'package:jackbox_patcher/services/downloader/precache_service.dart';
@@ -54,6 +55,7 @@ class InitialLoad {
       });
       await _loadBlurHashes();
       await _loadServerConfigurations();
+      await _loadServerCustomComponent();
       callback(step: 3, percent: 0);
 
       // Changing locale
@@ -64,7 +66,7 @@ class InitialLoad {
       UserData().tips.init();
 
       // Sending anonymous statistics
-      if (isFirstTimeOpening){
+      if (isFirstTimeOpening) {
         StatisticsSender.sendOpenApp();
       }
 
@@ -81,6 +83,7 @@ class InitialLoad {
       if (isFirstTimeOpening) {
         await _launchAutomaticGameFinder(
             context, automaticGameFindNotificationAvailable);
+        AutomaticReload.startAutomaticReload();
       }
       await detectFixesAvailable(context);
       callback(step: 3, percent: 100);
@@ -89,7 +92,7 @@ class InitialLoad {
         openLauncher(context);
       }
 
-      if (UserData().isFirstTimeEverOpeningTheApp()){
+      if (UserData().isFirstTimeEverOpeningTheApp()) {
         UserData().setFirstTimeEverOpeningTheApp(false);
         setIsFirstTimeOpening(context);
       }
@@ -151,11 +154,15 @@ class InitialLoad {
     await APIService().recoverConfigurations();
   }
 
-  static void setIsFirstTimeOpening(context){
+  static Future<void> _loadServerCustomComponent() async {
+    await APIService().recoverCustomComponent();
+  }
+
+  static void setIsFirstTimeOpening(context) {
     InfoBarService.showInfo(
-            context,
-            TranslationsHelper().appLocalizations!.privacy_info, 
-            TranslationsHelper().appLocalizations!.privacy_description);
+        context,
+        TranslationsHelper().appLocalizations!.privacy_info,
+        TranslationsHelper().appLocalizations!.privacy_description);
   }
 
   static Future<void> _launchAutomaticGameFinder(

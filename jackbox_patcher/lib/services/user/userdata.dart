@@ -48,107 +48,112 @@ class UserData {
   /// Sync every pack on the server.
   ///
   /// Every pack available will be added to the list of packs (UserData().packs).
-  Future<void> syncPacks(Function (double) callback) async {
-    await APIService().recoverPacksAndTags((callback));
-    List<JackboxPack> networkPacks = APIService().getPacks();
-    for (var pack in networkPacks) {
-      // Load the pack loader
-      UserJackboxLoader? loader;
-      if (pack.loader != null) {
-        loader = UserJackboxLoader(
-            loader: pack.loader!,
-            path: preferences.getString("${pack.id}_loader_path"),
-            version: preferences.getString("${pack.id}_loader_version"));
-      }
-
-      final String? packPath = preferences.getString("${pack.id}_path");
-      final bool packOwned = preferences.getBool("${pack.id}_owned") ?? false;
-      final LauncherType packOrigin = LauncherType.fromName(
-          preferences.getString("${pack.id}_origin") ?? "");
-      UserJackboxPack userPack = UserJackboxPack(
-          pack: pack,
-          loader: loader,
-          path: packPath,
-          owned: packOwned,
-          origin: packOrigin);
-      packs.add(userPack);
-
-      // Load every games in the pack
-      for (var game in pack.games) {
-        UserJackboxLoader? gameLoader;
-        if (game.loader != null) {
-          gameLoader = UserJackboxLoader(
-              loader: game.loader!,
-              path: preferences.getString("${game.id}_loader_path"),
-              version: preferences.getString("${game.id}_loader_version"));
+  Future<void> syncPacks(Function(double) callback) async {
+    bool somethingChanged = await APIService().recoverPacksAndTags((callback));
+    if (somethingChanged) {
+      packs = [];
+      List<JackboxPack> networkPacks = APIService().getPacks();
+      for (var pack in networkPacks) {
+        // Load the pack loader
+        UserJackboxLoader? loader;
+        if (pack.loader != null) {
+          loader = UserJackboxLoader(
+              loader: pack.loader!,
+              path: preferences.getString("${pack.id}_loader_path"),
+              version: preferences.getString("${pack.id}_loader_version"));
         }
 
-        UserJackboxGame currentGame = UserJackboxGame(
-            game: game,
-            stars: preferences.getInt("${game.id}_stars") ?? 0,
-            hidden: preferences.getBool("${game.id}_hidden") ?? false,
-            loader: gameLoader);
-        userPack.games.add(currentGame);
-        for (var patch in game.patches) {
-          final String? patchVersionInstalled =
-              preferences.getString("${patch.id}_version");
-          currentGame.patches.add(UserJackboxGamePatch(
+        final String? packPath = preferences.getString("${pack.id}_path");
+        final bool packOwned = preferences.getBool("${pack.id}_owned") ?? false;
+        final LauncherType packOrigin = LauncherType.fromName(
+            preferences.getString("${pack.id}_origin") ?? "");
+        UserJackboxPack userPack = UserJackboxPack(
+            pack: pack,
+            loader: loader,
+            path: packPath,
+            owned: packOwned,
+            origin: packOrigin);
+        packs.add(userPack);
+
+        // Load every games in the pack
+        for (var game in pack.games) {
+          UserJackboxLoader? gameLoader;
+          if (game.loader != null) {
+            gameLoader = UserJackboxLoader(
+                loader: game.loader!,
+                path: preferences.getString("${game.id}_loader_path"),
+                version: preferences.getString("${game.id}_loader_version"));
+          }
+
+          UserJackboxGame currentGame = UserJackboxGame(
+              game: game,
+              stars: preferences.getInt("${game.id}_stars") ?? 0,
+              hidden: preferences.getBool("${game.id}_hidden") ?? false,
+              loader: gameLoader);
+          userPack.games.add(currentGame);
+          for (var patch in game.patches) {
+            final String? patchVersionInstalled =
+                preferences.getString("${patch.id}_version");
+            currentGame.patches.add(UserJackboxGamePatch(
+                patch: patch, installedVersion: patchVersionInstalled));
+          }
+        }
+
+        // Load every patches in the pack
+        for (var patch in pack.patches) {
+          final String? patchVersionInstalled;
+          if (pack.configuration != null && userPack.path != null) {
+            File configurationFile =
+                File("${userPack.path!}/${pack.configuration!.versionFile}");
+            if (configurationFile.existsSync()) {
+              patchVersionInstalled =
+                  jsonDecode(configurationFile.readAsStringSync())[
+                          pack.configuration!.versionProperty]
+                      .replaceAll("Build:", "")
+                      .trim();
+            } else {
+              patchVersionInstalled = null;
+            }
+          } else {
+            patchVersionInstalled = null;
+          }
+          userPack.patches.add(UserJackboxPackPatch(
+              patch: patch, installedVersion: patchVersionInstalled));
+        }
+
+        // Do the same for the fixes
+        for (var patch in pack.fixes) {
+          final String? patchVersionInstalled;
+          if (pack.configuration != null && userPack.path != null) {
+            File configurationFile =
+                File("${userPack.path!}/${pack.configuration!.versionFile}");
+            if (configurationFile.existsSync()) {
+              patchVersionInstalled =
+                  jsonDecode(configurationFile.readAsStringSync())[
+                          pack.configuration!.versionProperty]
+                      .replaceAll("Build:", "")
+                      .trim();
+            } else {
+              patchVersionInstalled = null;
+            }
+          } else {
+            patchVersionInstalled = null;
+          }
+          userPack.fixes.add(UserJackboxPackPatch(
               patch: patch, installedVersion: patchVersionInstalled));
         }
       }
 
-      // Load every patches in the pack
-      for (var patch in pack.patches) {
-        final String? patchVersionInstalled;
-        if (pack.configuration != null && userPack.path != null) {
-          File configurationFile =
-              File("${userPack.path!}/${pack.configuration!.versionFile}");
-          if (configurationFile.existsSync()) {
-            patchVersionInstalled =
-                jsonDecode(configurationFile.readAsStringSync())[
-                        pack.configuration!.versionProperty]
-                    .replaceAll("Build:", "")
-                    .trim();
-          } else {
-            patchVersionInstalled = null;
-          }
-        } else {
-          patchVersionInstalled = null;
-        }
-        userPack.patches.add(UserJackboxPackPatch(
-            patch: patch, installedVersion: patchVersionInstalled));
+      for (var element in APIService().cachedCategories) {
+        element.addPatchs(packs);
       }
-
-      // Do the same for the fixes
-       for (var patch in pack.fixes) {
-        final String? patchVersionInstalled;
-        if (pack.configuration != null && userPack.path != null) {
-          File configurationFile =
-              File("${userPack.path!}/${pack.configuration!.versionFile}");
-          if (configurationFile.existsSync()) {
-            patchVersionInstalled =
-                jsonDecode(configurationFile.readAsStringSync())[
-                        pack.configuration!.versionProperty]
-                    .replaceAll("Build:", "")
-                    .trim();
-          } else {
-            patchVersionInstalled = null;
-          }
-        } else {
-          patchVersionInstalled = null;
-        }
-        userPack.fixes.add(UserJackboxPackPatch(
-            patch: patch, installedVersion: patchVersionInstalled));
-      }
-    }
-
-    for (var element in APIService().cachedCategories) {
-      element.addPatchs(packs);
+      APIService().internalCache.notifyListeners();
     }
   }
 
-  void updateDownloadedPackPatchVersion(){
-    List<UserJackboxPack> availablePacks = packs.where((element) => element.owned).toList();
+  void updateDownloadedPackPatchVersion() {
+    List<UserJackboxPack> availablePacks =
+        packs.where((element) => element.owned).toList();
     for (var pack in availablePacks) {
       for (var patch in pack.patches) {
         if (pack.pack.configuration != null && pack.path != null) {
@@ -201,8 +206,8 @@ class UserData {
     }
     await preferences.setBool("${pack.pack.id}_owned", pack.owned);
     if (pack.origin != null) {
-    await preferences.setString(
-        "${pack.pack.id}_origin", pack.origin!.toName());
+      await preferences.setString(
+          "${pack.pack.id}_origin", pack.origin!.toName());
     } else {
       await preferences.remove("${pack.pack.id}_origin");
     }
@@ -256,11 +261,11 @@ class UserData {
     return preferences.getString("selected_server");
   }
 
-  bool getFixPromptDiscard(UserJackboxPackPatch fix){
+  bool getFixPromptDiscard(UserJackboxPackPatch fix) {
     return preferences.getBool("${fix.patch.id}_fix_prompt_discard") ?? false;
   }
 
-  void setFixPromptDiscard(UserJackboxPackPatch fix, bool value){
+  void setFixPromptDiscard(UserJackboxPackPatch fix, bool value) {
     preferences.setBool("${fix.patch.id}_fix_prompt_discard", value);
   }
 
@@ -293,11 +298,11 @@ class UserData {
     await preferences.setInt("last_window_y", windowInformation.y);
   }
 
-  bool isFirstTimeEverOpeningTheApp(){
+  bool isFirstTimeEverOpeningTheApp() {
     return preferences.getBool("first_time_opening_app") ?? true;
   }
 
-  void setFirstTimeEverOpeningTheApp(bool value){
+  void setFirstTimeEverOpeningTheApp(bool value) {
     preferences.setBool("first_time_opening_app", value);
   }
 
