@@ -6,6 +6,6 @@ class CountdownServerComponent extends CustomServerComponent {
   CountdownServerComponent({required Map<String, dynamic> json})
       : super(json: json) {
     endText = json['endText'];
-    endTime = DateTime.parse(json['endTime']).toUtc();
+    endTime = DateTime.parse(json['endTime']+"Z").toUtc();
   }
 }
