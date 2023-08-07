@@ -288,9 +288,9 @@
       }
     }
   },
-  "author": "Головний розробник",
+  "author": "Розробник",
   "@author": {},
-  "contributors": "Співавтори",
+  "contributors": "Контриб'ютори",
   "@contributors": {},
   "in_language": "Присутня {language}",
   "@in_language": {
@@ -375,7 +375,7 @@
   "@stream_friendly": {},
   "moderation": "Модерація",
   "@moderation": {},
-  "randomize_button_text": "Спробуймо ще раз!",
+  "randomize_button_text": "Прокрутімо ще раз!",
   "@randomize_button_text": {},
   "feeling_lucky": "Мені пощастить",
   "@feeling_lucky": {},
