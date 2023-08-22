@@ -19,8 +19,16 @@ class AutomaticGameFinderService {
     }
     try {
       int gameFound = 0;
-      gameFound += await _findSteamGames(packs);
-      gameFound += await _findEpicGamesGames(packs);
+      try {
+        gameFound += await _findSteamGames(packs);
+      }catch(e){
+        JULogger().e(e.toString());
+      }
+      try {
+        gameFound += await _findEpicGamesGames(packs);
+      }catch(e){
+        JULogger().e(e.toString());
+      }
       return gameFound;
     } catch (e) {
       JULogger().e(e.toString());
