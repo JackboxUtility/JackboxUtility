@@ -245,7 +245,7 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
                             width: calculatePadding() -
                                 (widget.comeFromGame ? 40 : 0)),
                       ]))),
-          if (widget.linkedPack != null)
+          if (widget.linkedPack != null && widget.linkedPack!.owned)
             Positioned(
                 top: 20,
                 right: 60,
