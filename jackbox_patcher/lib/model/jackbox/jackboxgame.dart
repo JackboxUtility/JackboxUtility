@@ -5,6 +5,9 @@ import 'package:jackbox_patcher/model/gametag.dart';
 import 'package:jackbox_patcher/model/jackbox/gameinfo/familyfriendly.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxpack.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxgamepatch.dart';
+import 'package:jackbox_patcher/model/jackbox/jackboxpackpatch.dart';
+import 'package:jackbox_patcher/model/usermodel/userjackboxpackpatch.dart';
+import 'package:jackbox_patcher/services/games/GamesService.dart';
 import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 
@@ -98,8 +101,7 @@ class JackboxGameInfo {
     required this.subtitles,
   });
 
-  factory JackboxGameInfo.fromJson(
-      String gameId, Map<String, dynamic> json) {
+  factory JackboxGameInfo.fromJson(String gameId, Map<String, dynamic> json) {
     return JackboxGameInfo(
       internalGameId: gameId,
       tagline: json['tagline'],
@@ -107,8 +109,7 @@ class JackboxGameInfo {
       smallDescription: json['small_description'],
       length: json['length'],
       type: JackboxGameType.fromString(json['type']),
-      internalTranslation:
-          GameInfoTranslation.fromString(json['translation']),
+      internalTranslation: GameInfoTranslation.fromString(json['translation']),
       images:
           (json['images'] as List<dynamic>).map((e) => e.toString()).toList(),
       tags: json['tags'] != null
@@ -132,22 +133,18 @@ class JackboxGameInfo {
   }
 
   get translation {
-    if (internalTranslation == GameInfoTranslation.COMMUNITY_TRANSLATED || internalTranslation == GameInfoTranslation.NATIVELY_TRANSLATED) {
-      UserJackboxGame? correspondingUserGame;
-      for (var pack in UserData().packs) {
-        for (var game in pack.games) {
-          if (game.game.id == this.internalGameId) {
-            correspondingUserGame = game;
-            break;
-          }
-        }
-      }
+    if (internalTranslation == GameInfoTranslation.COMMUNITY_TRANSLATED ||
+        internalTranslation == GameInfoTranslation.NATIVELY_TRANSLATED) {
+      UserJackboxGame? correspondingUserGame =
+          GamesService().getUserJackboxGameById(this.internalGameId);
       if (correspondingUserGame == null) {
         return internalTranslation;
       }
-      PatchInformation? installedPatch = correspondingUserGame.getInstalledPatch();
-      if (installedPatch!=null && installedPatch.patchType!.audios) {
-        return GameInfoTranslation.COMMUNITY_DUBBED;
+      for (UserJackboxPackPatch patch in correspondingUserGame.getUserJackboxPack().patches){
+        JackboxPackPatchComponent? component = patch.patch.getComponentByGameId(this.internalGameId);
+        if (component != null && component.patchType!.audios){
+          return GameInfoTranslation.COMMUNITY_TRANSLATED;
+        }
       }
     }
     return internalTranslation;

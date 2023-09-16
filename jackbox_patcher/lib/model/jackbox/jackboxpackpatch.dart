@@ -39,6 +39,12 @@ class JackboxPackPatch {
               .map((x) => JackboxPackPatchComponent.fromJson(x))),
     );
   }
+
+  JackboxPackPatchComponent? getComponentByGameId(String id){
+    List<JackboxPackPatchComponent> componentsFound = components.where((element) => element.linkedGame == id).toList();
+    if (componentsFound.isNotEmpty) return componentsFound.first;
+    return null;
+  }
 }
 
 class JackboxPackPatchComponent extends PatchInformation {
