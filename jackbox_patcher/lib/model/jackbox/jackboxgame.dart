@@ -143,7 +143,7 @@ class JackboxGameInfo {
       for (UserJackboxPackPatch patch in correspondingUserGame.getUserJackboxPack().patches){
         JackboxPackPatchComponent? component = patch.patch.getComponentByGameId(this.internalGameId);
         if (component != null && component.patchType!.audios){
-          return GameInfoTranslation.COMMUNITY_TRANSLATED;
+          return GameInfoTranslation.COMMUNITY_DUBBED;
         }
       }
     }
