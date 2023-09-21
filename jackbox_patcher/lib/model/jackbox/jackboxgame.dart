@@ -63,7 +63,6 @@ class JackboxGameInfo {
   final String tagline;
   final String description;
   final String smallDescription;
-  final String length;
   final JackboxGameType type;
   final GameInfoTranslation internalTranslation;
   final List<GameTag> tags;
@@ -84,7 +83,6 @@ class JackboxGameInfo {
     required this.tagline,
     required this.smallDescription,
     required this.description,
-    required this.length,
     required this.type,
     required this.internalTranslation,
     required this.tags,
@@ -107,7 +105,6 @@ class JackboxGameInfo {
       tagline: json['tagline'],
       description: json['description'],
       smallDescription: json['small_description'],
-      length: json['length'],
       type: JackboxGameType.fromString(json['type']),
       internalTranslation: GameInfoTranslation.fromString(json['translation']),
       images:
