@@ -32,6 +32,19 @@
             "description": "Name of the patch",
             "type": "string"
         },
+        "devices": {
+            "type": "array",
+            "items": {
+                "type": "string",
+                "examples": [
+                    [
+                        "windows",
+                        "mac",
+                        "linux"
+                    ]
+                ]
+            }
+        },
         "small_description": {
             "examples": [
                 "Pack 100% traducido.\nEarwax: Sonidos Raros cuenta con doblaje latino."
