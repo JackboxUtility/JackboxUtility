@@ -32,7 +32,7 @@
             "description": "Name of the patch",
             "type": "string"
         },
-        "devices": {
+        "supported_platforms": {
             "type": "array",
             "items": {
                 "type": "string",

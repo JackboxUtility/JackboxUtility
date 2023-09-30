@@ -3,6 +3,7 @@ import '../base/patchinformation.dart';
 class JackboxGamePatch extends PatchInformation{
   final String latestVersion;
   final String? patchPath;
+  final List<String> supportedPlatforms;
 
   JackboxGamePatch({
     required super.id,
@@ -12,7 +13,8 @@ class JackboxGamePatch extends PatchInformation{
     required this.patchPath,
     required super.patchType,
     required super.authors,
-    required super.smallDescription
+    required super.smallDescription,
+    required this.supportedPlatforms,
   });
 
   factory JackboxGamePatch.fromJson(Map<String, dynamic> json) {
@@ -27,6 +29,8 @@ class JackboxGamePatch extends PatchInformation{
           : PatchType.fromJson(json['patch_type']),
       authors: json['authors'],
       smallDescription: json['small_description'],
+      supportedPlatforms: json['supported_platforms'] == null 
+          ? [ "windows","linux"] : List<String>.from(json['supported_platforms'])
     );
   }
 }
