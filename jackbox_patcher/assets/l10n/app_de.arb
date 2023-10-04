@@ -316,7 +316,7 @@
   "@game_community_dubbed_description": {},
   "no_game_in_this_category_title": "Kein Spiel in dieser Kategorie",
   "@no_game_in_this_category_title": {},
-  "no_game_in_this_category_description": "In dieser Kategorie besitzt du keine Spiele. Wenn du in den Einstellungen weitere Packs hinzufügst, werden sie dir hier angezeigt.",
+  "no_game_in_this_category_description": "In dieser Kategorie besitzt du keine Spiele. Wenn du in den Einstellungen weitere hinzufügst, werden sie dir hier angezeigt.",
   "@no_game_in_this_category_description": {},
   "select_game_location": "Wähle den Speicherort von {game}",
   "@select_game_location": {
