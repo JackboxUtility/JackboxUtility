@@ -45,7 +45,7 @@
       }
     }
   },
-  "patch_not_installed": "{count, plural, one {Den Patch installieren} other {Die Patches installieren}}",
+  "patch_not_installed": "{count, plural, one {Patch installieren} other {Patches installieren}}",
   "@patch_not_installed": {
     "placeholders": {
       "count": {
@@ -117,7 +117,7 @@
   "@path_inexistant_small_description": {},
   "path_inexistant_description": "Du hast den Pfad noch nicht zum Spiel hinzugefügt. Dies ist in den Optionen möglich.",
   "@path_inexistant_description": {},
-  "pack_path": "Spiel-Pfad",
+  "pack_path": "Spielpfad",
   "@pack_path": {},
   "owned_packs": "Spiele im Besitz",
   "@owned_packs": {},
@@ -131,11 +131,11 @@
   "@game_type_coop_description": {},
   "game_type_versus": "Gegeneinander",
   "@game_type_versus": {},
-  "game_type_versus_description": "In diesen Spielen treten die Spieler gegeneinander an und versuchen, selber zu gewinnen.",
+  "game_type_versus_description": "Bei diesen Spielen treten die Spieler gegeneinander an und versuchen, selber zu gewinnen.",
   "@game_type_versus_description": {},
   "game_type_team": "Team",
   "@game_type_team": {},
-  "game_type_team_description": "In diesen Spielen werden die Spieler in Teams aufgeteilt und müssen zusammenarbeiten, um zu gewinnen.",
+  "game_type_team_description": "Bei diesen Spielen werden die Spieler in Teams aufgeteilt und müssen zusammenarbeiten, um zu gewinnen.",
   "@game_type_team_description": {},
   "game_translation_translated": "Offiziell übersetzt auf {language}",
   "@game_translation_translated": {
@@ -229,7 +229,7 @@
   "@connection_to_main_server_failed": {},
   "quit_while_downloading_title": "Ein Download ist aktiv",
   "@quit_while_downloading_title": {},
-  "quit_while_downloading_description": "Ein Download ist zurzeit aktiv, bist du sicher, dass du die App schließen möchtest?",
+  "quit_while_downloading_description": "Ein Download ist zurzeit aktiv. Bist du sicher, dass du die App schließen möchtest?",
   "@quit_while_downloading_description": {},
   "quit": "Beenden",
   "@quit": {},
@@ -237,7 +237,7 @@
   "@automatic_game_finder_title": {},
   "automatic_game_finder_description": "Jackbox Utility kann installierte Spiele über Steam und Epic Games automatisch für dich erkennen.\nMöchtest du diese Funktion nutzen?",
   "@automatic_game_finder_description": {},
-  "automatic_game_finder_in_progress": "Spiele werden abgerufen. Bitte warte kurz",
+  "automatic_game_finder_in_progress": "Spiele werden abgerufen. Bitte warte kurz.",
   "@automatic_game_finder_in_progress": {},
   "automatic_game_finder_finish": "{count, plural, =0 {Kein Spiel gefunden} one {1 Spiel gefunden} other {{count} Spiele gefunden}}",
   "@automatic_game_finder_finish": {
@@ -316,7 +316,7 @@
   "@game_community_dubbed_description": {},
   "no_game_in_this_category_title": "Kein Spiel in dieser Kategorie",
   "@no_game_in_this_category_title": {},
-  "no_game_in_this_category_description": "In dieser Kategorie besitzt du keine Spiele. Wenn du in den Einstellungen welche hinzufügst, werden sie dir hier angezeigt.",
+  "no_game_in_this_category_description": "In dieser Kategorie besitzt du keine Spiele. Wenn du in den Einstellungen weitere Packs hinzufügst, werden sie dir hier angezeigt.",
   "@no_game_in_this_category_description": {},
   "select_game_location": "Wähle den Speicherort von {game}",
   "@select_game_location": {
@@ -461,7 +461,7 @@
   "@rich_presence_settings_state": {},
   "open_launcher_on_startup_title_tip": "Launcher beim App-Start öffnen",
   "@open_launcher_on_startup_title_tip": {},
-  "open_launcher_on_startup_description_tip": "Die App kann beim Öffnen automatisch auf diesem Bildschirm starten. Möchtest du diese Funktion aktivieren? (Dies kann jederzeit in den Optionen geändert werden)",
+  "open_launcher_on_startup_description_tip": "Die App kann beim Öffnen automatisch auf diesem Bildschirm starten. Möchtest du diese Funktion aktivieren? (Dies kann jederzeit in den Optionen geändert werden.)",
   "@open_launcher_on_startup_description_tip": {},
   "minutes": "Minuten",
   "@minutes": {},
@@ -545,7 +545,7 @@
   "@loading_open_issue_discord": {},
   "loading_check_internet_connection": "Bitte überprüfe deine Internetverbindung und versuche es nochmal.",
   "@loading_check_internet_connection": {},
-  "custom_server_explanation": "Nutze einen Direktlink zur info.json Datei deines eigenen Servers, um ihn zu verbinden.",
+  "custom_server_explanation": "Nutze einen Direktlink zur info.json-Datei deines eigenen Servers, um ihn zu verbinden.",
   "@custom_server_explanation": {},
   "loading_try_again": "Nochmal versuchen",
   "@loading_try_again": {},
@@ -559,8 +559,8 @@
   "@privacy_description": {},
   "rich_presence_in_game_details": "Im Spiel",
   "@rich_presence_in_game_details": {},
-  "hidden_button_tooltip": "Klicken, um dieses Spiel aus der Spieleliste auszublenden.",
+  "hidden_button_tooltip": "Klicke, um dieses Spiel aus der Spieleliste auszublenden.",
   "@hidden_button_tooltip": {},
-  "hidden_button_hidden_tooltip": "Klicken, um dieses Spiel in der Spieleliste wieder anzuzeigen.",
+  "hidden_button_hidden_tooltip": "Klicke, um dieses Spiel in der Spieleliste wieder anzuzeigen.",
   "@hidden_button_hidden_tooltip": {}
 }
