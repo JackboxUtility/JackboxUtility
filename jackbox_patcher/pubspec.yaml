@@ -60,6 +60,7 @@ dependencies:
   media_kit_libs_macos_video: ^1.1.3            
   media_kit_libs_windows_video: ^1.0.7
   timeline_tile: 2.0.0
+  shelf: 1.4.1
   
 
 

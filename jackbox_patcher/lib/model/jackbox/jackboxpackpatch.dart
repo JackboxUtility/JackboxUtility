@@ -1,5 +1,5 @@
 import 'package:jackbox_patcher/model/jackbox/jackboxgame.dart';
-import 'package:jackbox_patcher/services/api/api_service.dart';
+import 'package:jackbox_patcher/services/api_utility/api_service.dart';
 
 import '../base/patchinformation.dart';
 import 'jackboxpack.dart';

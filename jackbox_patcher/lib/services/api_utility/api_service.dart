@@ -12,7 +12,7 @@ import 'package:jackbox_patcher/model/misc/urlblurhash.dart';
 import 'package:jackbox_patcher/model/news.dart';
 import 'package:jackbox_patcher/model/patchServerConfigurations.dart';
 import 'package:jackbox_patcher/model/patchserver.dart';
-import 'package:jackbox_patcher/services/api/listenable_cache.dart';
+import 'package:jackbox_patcher/services/api_utility/listenable_cache.dart';
 import 'package:jackbox_patcher/services/logger/logger.dart';
 
 import '../../model/gametag.dart';
