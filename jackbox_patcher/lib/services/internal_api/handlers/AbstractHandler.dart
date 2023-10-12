@@ -1,10 +1,45 @@
+import 'package:jackbox_patcher/services/internal_api/RestApiRouter.dart';
 import 'package:jackbox_patcher/services/internal_api/Scopes.dart';
+import 'package:jackbox_patcher/services/internal_api/Token.dart';
 import 'package:shelf/shelf.dart';
 
-class AbstractHandler {
-  List<RestApiScopes> scopes = [];
+enum RestApiMethods {
+  GET,
+  POST,
+  PUT,
+  DELETE
+}
 
-  Future<Response> handle(Request req) async {
-    throw UnimplementedError();
+class AbstractHandler {
+  List<RestApiScopes> scopes = [RestApiScopes.GAMES];
+  RestApiMethods method = RestApiMethods.GET;
+  String url = "/";
+
+  AbstractHandler({required this.scopes, required this.method, required this.url});
+
+  Response? hasAccess(Request request) {
+    if (scopes.isEmpty) {
+      return null;
+    }
+    String? token = request.headers['Authorization'];
+    if (token == null) {
+      return Response.forbidden("No token provided");
+    }
+    ExtensionToken? tokenFound = RestApiRouter().getToken(token);
+    if (tokenFound == null) {
+      return Response.forbidden("Invalid token");
+    }
+    for (RestApiScopes scope in scopes) {
+      if (!tokenFound.scopes.contains(scope)) {
+        return Response.forbidden("Invalid scope");
+      }
+    }
+    return null;
+  }
+
+  Function get handle {
+    return (Request req) {
+      return Response.notFound("Not found");
+    };
   }
 }

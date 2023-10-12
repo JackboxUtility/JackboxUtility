@@ -61,6 +61,8 @@ dependencies:
   media_kit_libs_windows_video: ^1.0.7
   timeline_tile: 2.0.0
   shelf: 1.4.1
+  shelf_router: 1.1.4
+  crypto: 3.0.3
   
 
 
