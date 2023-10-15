@@ -4,7 +4,7 @@ import 'package:jackbox_patcher/services/crypto/CryptoService.dart';
 import 'package:jackbox_patcher/services/internal_api/RestApiRouter.dart';
 import 'package:jackbox_patcher/services/internal_api/Scopes.dart';
 import 'package:jackbox_patcher/services/internal_api/Token.dart';
-import 'package:jackbox_patcher/services/internal_api/handlers/AbstractHandler.dart';
+import 'package:jackbox_patcher/services/internal_api/api_handlers/AbstractHandler.dart';
 import 'package:shelf/shelf.dart';
 
 class RegisterHandler extends AbstractHandler {
