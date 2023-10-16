@@ -101,6 +101,19 @@ class UserJackboxPack {
     origin = launcher;
     UserData().savePack(this);
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'pack': pack.toJson(),
+      'games': games.map((e) => e.toJson()).toList(),
+      'fixes': fixes.map((e) => e.toJson()).toList(),
+      'patches': patches.map((e) => e.toJson()).toList(),
+      'loader': loader?.toJson(),
+      'path': path,
+      'owned': owned,
+      'origin': origin?.name,
+    };
+  }
 }
 
 class UserJackboxLoader {
@@ -117,4 +130,12 @@ class UserJackboxLoader {
     required this.path,
     required this.version,
   });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'loader': loader?.toJson(),
+      'path': path,
+      'version': version,
+    };
+  }
 }

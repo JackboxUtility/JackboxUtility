@@ -1,22 +1,27 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:jackbox_patcher/services/crypto/CryptoService.dart';
+import 'package:jackbox_patcher/services/internal_api/Scopes.dart';
 import 'package:jackbox_patcher/services/internal_api/Token.dart';
 import 'package:jackbox_patcher/services/internal_api/api_handlers/AbstractHandler.dart';
 import 'package:jackbox_patcher/services/internal_api/api_handlers/PingHandler.dart';
 import 'package:jackbox_patcher/services/internal_api/api_handlers/RegisterHandler.dart';
-import 'package:jackbox_patcher/services/internal_api/ws_handlers/AbstractWsHandler.dart';
+import 'package:jackbox_patcher/services/internal_api/ws/ExtensionWebsocket.dart';
+import 'package:jackbox_patcher/services/internal_api/ws_message/AbstractWsMessage.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;
 import 'package:shelf_router/shelf_router.dart';
 import 'package:shelf_web_socket/shelf_web_socket.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 class RestApiRouter {
   static final List<AbstractHandler> _httpHandlers = [
     PingHandler(),
     RegisterHandler()
   ];
-  static final List<AbstractWsHandler> _wsHandlers = [];
+
+  static final List<ExtensionWebsocket> _wsChannels = [];
 
   List<ExtensionToken> tokens = [];
 
@@ -39,24 +44,24 @@ class RestApiRouter {
     for (AbstractHandler handler in _httpHandlers) {
       switch (handler.method) {
         case RestApiMethods.GET:
-          httpApp.get(handler.url, handler.handle);
+          httpApp.get("/api${handler.url}", handler.handle);
           break;
         case RestApiMethods.POST:
-          httpApp.post(handler.url, handler.handle);
+          httpApp.post("/api${handler.url}", handler.handle);
           break;
         case RestApiMethods.PUT:
-          httpApp.put(handler.url, handler.handle);
+          httpApp.put("/api${handler.url}", handler.handle);
           break;
         case RestApiMethods.DELETE:
-          httpApp.delete(handler.url, handler.handle);
+          httpApp.delete("/api${handler.url}", handler.handle);
           break;
       }
     }
 
     // Adding ws handlers
-    httpApp.add("GET", "/ws", webSocketHandler((ws) {
+    httpApp.add("GET", "/ws", webSocketHandler((WebSocketChannel ws) {
       ws.stream.listen((message) {
-        ws.sink.add('echo: $message');
+        _handleWsRequest(ws, message);
       });
     }));
 
@@ -75,6 +80,28 @@ class RestApiRouter {
       return null;
     } else {
       return tokensFound[0];
+    }
+  }
+
+  void _handleWsRequest(WebSocketChannel ws, String message) {
+    try {
+      final convertedMessage = jsonDecode(message);
+      if (convertedMessage["token"] != null) {
+        final token = getToken(convertedMessage["token"]);
+        if (token != null) {
+          _wsChannels.add(ExtensionWebsocket(ws, token));
+        }
+      }
+    } catch (e){
+      print(e);
+    }
+  }
+
+  void sendMessage(AbstractWsMessage message) {
+    for (ExtensionWebsocket channel in _wsChannels) {
+      if (channel.token.scopes.contains(message.scope)) {
+        channel.send(jsonEncode(message.toJson()));
+      }
     }
   }
 }

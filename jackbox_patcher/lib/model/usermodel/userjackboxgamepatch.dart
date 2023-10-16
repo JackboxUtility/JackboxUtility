@@ -53,6 +53,13 @@ class UserJackboxGamePatch {
     installedVersion = null;
     await UserData().savePatch(this);
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "patch": patch.toJson(),
+      "installedVersion": installedVersion,
+    };
+  }
 }
 
 enum UserInstalledPatchStatus {

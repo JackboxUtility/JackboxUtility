@@ -83,4 +83,14 @@ class UserJackboxGame {
   int get stars {
     return _stars;
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "id": game.id,
+      "patches": List<dynamic>.from(patches.map((x) => x.toJson())),
+      "stars": _stars,
+      "hidden": _hidden,
+      "loader": loader?.toJson(),
+    };
+  }
 }
