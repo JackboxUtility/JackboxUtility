@@ -1,12 +1,12 @@
 import 'package:jackbox_patcher/model/jackbox/jackboxgame.dart';
-import 'package:jackbox_patcher/services/internal_api/Scopes.dart';
+import 'package:jackbox_patcher/services/internal_api/RestApiScopes.dart';
 import 'package:jackbox_patcher/services/internal_api/ws_message/AbstractWsMessage.dart';
 
 class GamePageOpenWsMessage extends AbstractWsMessage {
   JackboxGame game;
 
   GamePageOpenWsMessage(this.game)
-      : super("game_page_open", RestApiScopes.GAMES);
+      : super("game_page_open", RestApiScopes.NAVIGATION);
 
   @override
   Map<String, dynamic> toJson() {

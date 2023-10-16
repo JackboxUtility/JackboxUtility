@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter_flavor/flutter_flavor.dart';
 import 'package:http/http.dart' as http;
 import 'package:jackbox_patcher/app_configuration.dart';
-import 'package:jackbox_patcher/model/customServerComponent/columnServerComponent.dart';
 import 'package:jackbox_patcher/model/customServerComponent/customServerComponent.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxgame.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxpackpatch.dart';

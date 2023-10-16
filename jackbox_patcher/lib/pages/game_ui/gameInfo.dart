@@ -19,7 +19,6 @@ import 'package:jackbox_patcher/services/audio/SFXService.dart';
 import 'package:jackbox_patcher/services/discord/DiscordService.dart';
 import 'package:jackbox_patcher/services/error/error.dart';
 import 'package:jackbox_patcher/services/internal_api/RestApiRouter.dart';
-import 'package:jackbox_patcher/services/internal_api/Scopes.dart';
 import 'package:jackbox_patcher/services/internal_api/ws_message/GameOpenWsMessage.dart';
 import 'package:jackbox_patcher/services/launcher/launcher.dart';
 import 'package:jackbox_patcher/services/video/videoService.dart';

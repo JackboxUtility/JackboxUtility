@@ -11,6 +11,7 @@ import 'package:jackbox_patcher/services/automaticGameFinder/AutomaticGameFinder
 import 'package:jackbox_patcher/services/discord/DiscordService.dart';
 import 'package:jackbox_patcher/services/downloader/precache_service.dart';
 import 'package:jackbox_patcher/services/error/error.dart';
+import 'package:jackbox_patcher/services/internal_api/RestApiRouter.dart';
 import 'package:jackbox_patcher/services/statistics/statisticsSender.dart';
 import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
@@ -34,6 +35,9 @@ class InitialLoad {
       await windowManager.setPreventClose(true);
       await UserData().init();
       WindowManagerService.updateScreenSizeFromLastOpening();
+      
+      /// Give context to the RestApi so it can ask the user if he wants to accept an app
+      RestApiRouter().context = context;
     }
     UserData().packs = [];
     APIService().resetCache();

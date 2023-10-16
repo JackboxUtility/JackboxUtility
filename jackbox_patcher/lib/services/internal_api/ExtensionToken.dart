@@ -1,4 +1,4 @@
-import 'package:jackbox_patcher/services/internal_api/Scopes.dart';
+import 'package:jackbox_patcher/services/internal_api/RestApiScopes.dart';
 
 class ExtensionToken {
   String token;

@@ -1,11 +1,10 @@
 import 'dart:convert';
-import 'dart:io';
 
+import 'package:fluent_ui/fluent_ui.dart' as fluent_ui;
 import 'package:jackbox_patcher/services/crypto/CryptoService.dart';
-import 'package:jackbox_patcher/services/internal_api/Scopes.dart';
-import 'package:jackbox_patcher/services/internal_api/Token.dart';
+import 'package:jackbox_patcher/services/internal_api/ExtensionToken.dart';
 import 'package:jackbox_patcher/services/internal_api/api_handlers/AbstractHandler.dart';
-import 'package:jackbox_patcher/services/internal_api/api_handlers/PingHandler.dart';
+import 'package:jackbox_patcher/services/internal_api/api_handlers/StatusHandler.dart';
 import 'package:jackbox_patcher/services/internal_api/api_handlers/RegisterHandler.dart';
 import 'package:jackbox_patcher/services/internal_api/ws/ExtensionWebsocket.dart';
 import 'package:jackbox_patcher/services/internal_api/ws_message/AbstractWsMessage.dart';
@@ -17,13 +16,15 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 
 class RestApiRouter {
   static final List<AbstractHandler> _httpHandlers = [
-    PingHandler(),
+    StatusHandler(),
     RegisterHandler()
   ];
 
   static final List<ExtensionWebsocket> _wsChannels = [];
 
   List<ExtensionToken> tokens = [];
+
+  fluent_ui.BuildContext? context = null;
 
   static final RestApiRouter _singleton = RestApiRouter._internal();
 
@@ -90,9 +91,10 @@ class RestApiRouter {
         final token = getToken(convertedMessage["token"]);
         if (token != null) {
           _wsChannels.add(ExtensionWebsocket(ws, token));
+          ws.sink.add(jsonEncode({"status": "ok"}));
         }
       }
-    } catch (e){
+    } catch (e) {
       print(e);
     }
   }

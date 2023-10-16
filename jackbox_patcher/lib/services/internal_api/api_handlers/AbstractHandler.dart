@@ -1,21 +1,17 @@
 import 'package:jackbox_patcher/services/internal_api/RestApiRouter.dart';
-import 'package:jackbox_patcher/services/internal_api/Scopes.dart';
-import 'package:jackbox_patcher/services/internal_api/Token.dart';
+import 'package:jackbox_patcher/services/internal_api/RestApiScopes.dart';
+import 'package:jackbox_patcher/services/internal_api/ExtensionToken.dart';
 import 'package:shelf/shelf.dart';
 
-enum RestApiMethods {
-  GET,
-  POST,
-  PUT,
-  DELETE
-}
+enum RestApiMethods { GET, POST, PUT, DELETE }
 
 class AbstractHandler {
-  List<RestApiScopes> scopes = [RestApiScopes.GAMES];
+  List<RestApiScopes> scopes = [RestApiScopes.NAVIGATION];
   RestApiMethods method = RestApiMethods.GET;
   String url = "/";
 
-  AbstractHandler({required this.scopes, required this.method, required this.url});
+  AbstractHandler(
+      {required this.scopes, required this.method, required this.url});
 
   Response? hasAccess(Request request) {
     if (scopes.isEmpty) {

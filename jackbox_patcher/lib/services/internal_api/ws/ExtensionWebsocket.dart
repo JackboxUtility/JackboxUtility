@@ -1,5 +1,5 @@
 
-import 'package:jackbox_patcher/services/internal_api/Token.dart';
+import 'package:jackbox_patcher/services/internal_api/ExtensionToken.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 class ExtensionWebsocket {
