@@ -51,7 +51,8 @@ class UserJackboxPack {
     } else {
       if (await folder.exists() &&
           (pack.executable == null ||
-              (await File("${folder.path}/${pack.executable!}").exists()) || (origin != null && origin == LauncherType.STEAM))) {
+              (await File("${folder.path}/${pack.executable!}").exists()) ||
+              (origin != null && origin == LauncherType.STEAM))) {
         return "FOUND";
       } else {
         return "NOT_FOUND";
@@ -102,6 +103,15 @@ class UserJackboxPack {
     UserData().savePack(this);
   }
 
+  UserJackboxGame? getGameById(String gameId) {
+    for (UserJackboxGame game in games) {
+      if (game.game.id == gameId) {
+        return game;
+      }
+    }
+    return null;
+  }
+
   Map<String, dynamic> toJson() {
     return {
       'pack': pack.toJson(),
@@ -137,5 +147,17 @@ class UserJackboxLoader {
       'path': path,
       'version': version,
     };
+  }
+}
+
+extension UserJackboxPackList on List<UserJackboxPack> {
+  UserJackboxGame? getGameById(String id) {
+    for (UserJackboxPack pack in this) {
+      UserJackboxGame? game = pack.getGameById(id);
+      if (game != null) {
+        return game;
+      }
+    }
+    return null;
   }
 }

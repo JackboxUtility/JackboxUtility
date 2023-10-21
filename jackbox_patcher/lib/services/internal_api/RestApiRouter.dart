@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:fluent_ui/fluent_ui.dart' as fluent_ui;
+import 'package:jackbox_patcher/app_configuration.dart';
 import 'package:jackbox_patcher/services/crypto/CryptoService.dart';
 import 'package:jackbox_patcher/services/internal_api/ExtensionToken.dart';
 import 'package:jackbox_patcher/services/internal_api/api_handlers/AbstractHandler.dart';
@@ -14,10 +15,13 @@ import 'package:shelf_router/shelf_router.dart';
 import 'package:shelf_web_socket/shelf_web_socket.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
+import 'api_handlers/OpenGameHandler.dart';
+
 class RestApiRouter {
   static final List<AbstractHandler> _httpHandlers = [
     StatusHandler(),
-    RegisterHandler()
+    RegisterHandler(),
+    OpenGameHandler()
   ];
 
   static final List<ExtensionWebsocket> _wsChannels = [];
@@ -66,7 +70,7 @@ class RestApiRouter {
       });
     }));
 
-    await shelf_io.serve(httpApp, '127.0.0.1', 8080, shared: true);
+    await shelf_io.serve(httpApp, '127.0.0.1', REST_API_PORT, shared: true);
   }
 
   static Future<Response> _echoRequest(Request request) async {

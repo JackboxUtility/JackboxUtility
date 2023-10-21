@@ -43,7 +43,7 @@ class RegisterHandler extends AbstractHandler {
       String generatedToken = CryptoService.generateRandomToken(256);
       RestApiRouter().tokens.add(ExtensionToken(
           token: CryptoService.sha256Encrypt(generatedToken),
-          scopes: [RestApiScopes.NAVIGATION]));
+          scopes: scopes));
       return Response.ok(jsonEncode({"token": generatedToken}));
     };
   }
@@ -55,6 +55,7 @@ class RegisterHandler extends AbstractHandler {
       print(RestApiScopes.values);
       scopes.add(RestApiScopes.values.firstWhere((e) => e.id == scope));
     }
+    print(scopes);
     return scopes;
   }
 }

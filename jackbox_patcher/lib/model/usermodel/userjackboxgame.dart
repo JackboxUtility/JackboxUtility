@@ -27,7 +27,7 @@ class UserJackboxGame {
   /// Retrieving the installed patch for this game
   ///
   PatchInformation? getInstalledPatch() {
-    UserJackboxPack pack = getUserJackboxPack();
+    UserJackboxPack pack = getPack();
     UserJackboxPackPatch? installedPatch = pack.getInstalledPackPatch();
     if (installedPatch != null &&
         installedPatch.patch.components
@@ -49,7 +49,7 @@ class UserJackboxGame {
     return null;
   }
 
-  UserJackboxPack getUserJackboxPack() {
+  UserJackboxPack getPack() {
     return UserData().packs.firstWhere((pack) =>
         pack.games.where((packGame) => packGame.game.id == game.id).isNotEmpty);
   }

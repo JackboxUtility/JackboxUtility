@@ -7,6 +7,9 @@ import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/services/api_utility/api_service.dart';
 import 'package:jackbox_patcher/services/audio/SFXService.dart';
 import 'package:jackbox_patcher/services/discord/DiscordService.dart';
+import 'package:jackbox_patcher/services/internal_api/RestApiRouter.dart';
+import 'package:jackbox_patcher/services/internal_api/ws_message/GameCloseWsMessage.dart';
+import 'package:jackbox_patcher/services/internal_api/ws_message/GameOpenWsMessage.dart';
 import 'package:jackbox_patcher/services/launcher/processHelper.dart';
 import 'package:jackbox_patcher/services/logger/logger.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -103,7 +106,10 @@ class Launcher {
             workingDirectory: pack.path);
       }
       _openedLaunchers.add(pack);
-      checkLaunchedPack(pack);
+      checkLaunchedPack(
+        pack,
+        game
+      );
     }
   }
 
@@ -116,7 +122,8 @@ class Launcher {
   }
 
   // This function will check if a pack is still launched and will update the Discord Rich Presence system
-  static Future<void> checkLaunchedPack(UserJackboxPack pack) async {
+  static Future<void> checkLaunchedPack(UserJackboxPack pack,
+      [UserJackboxGame? game]) async {
     String commandToRun = "";
     List<String> arguments = [];
     if (Platform.isWindows) {
@@ -139,15 +146,23 @@ class Launcher {
         }
       }
       JULogger().i("Pack ${pack.pack.name} is launched");
+
+      if (game != null) {
+        RestApiRouter().sendMessage(GameOpenWsMessage(game.game));
+      }
       // Updating Discord Rich Presence while the pack is launched
       while (packIsLaunched) {
         JULogger().i("Updating Discord Rich Presence");
         DiscordService().launchPackLaunchedPresence(pack);
         await Future.delayed(Duration(seconds: 20));
-        String result = await ProcessHelper.runAndGetOutput(commandToRun, arguments);
+        String result =
+            await ProcessHelper.runAndGetOutput(commandToRun, arguments);
         if (!result.contains(pack.pack.executable!)) {
           packIsLaunched = false;
         }
+      }
+      if (game != null) {
+        RestApiRouter().sendMessage(GameCloseWsMessage(game.game));
       }
       DiscordService().launchOldPresence();
       JULogger().i("Pack ${pack.pack.name} is not launched anymore");

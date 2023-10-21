@@ -147,16 +147,18 @@ class JackboxGameInfo {
       if (correspondingUserGame == null) {
         return internalTranslation;
       }
-      for (UserJackboxPackPatch patch in correspondingUserGame.getUserJackboxPack().patches){
-        JackboxPackPatchComponent? component = patch.patch.getComponentByGameId(this.internalGameId);
-        if (component != null && component.patchType!.audios){
+      for (UserJackboxPackPatch patch
+          in correspondingUserGame.getPack().patches) {
+        JackboxPackPatchComponent? component =
+            patch.patch.getComponentByGameId(this.internalGameId);
+        if (component != null && component.patchType!.audios) {
           return GameInfoTranslation.COMMUNITY_DUBBED;
         }
       }
     }
     return internalTranslation;
   }
-  
+
   Map<String, dynamic> toJson() {
     return {
       "tagline": tagline,
@@ -195,7 +197,7 @@ class JackboxGameMinMaxInfo {
       max: json['max'],
     );
   }
-  
+
   Map<String, dynamic> toJson() {
     return {
       "min": min,
