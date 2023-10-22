@@ -6,7 +6,7 @@ import 'package:jackbox_patcher/services/discord/DiscordService.dart';
 
 import '../../components/closableRouteWithEsc.dart';
 import '../../model/usermodel/userjackboxpack.dart';
-import '../../services/api/api_service.dart';
+import '../../services/api_utility/api_service.dart';
 import '../../services/translations/translationsHelper.dart';
 import '../../services/user/userdata.dart';
 import 'packContainer.dart';

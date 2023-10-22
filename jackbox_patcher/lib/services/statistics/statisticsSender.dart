@@ -1,4 +1,4 @@
-import 'package:jackbox_patcher/services/api/api_service.dart';
+import 'package:jackbox_patcher/services/api_utility/api_service.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 
 import '../../model/patchserver.dart';

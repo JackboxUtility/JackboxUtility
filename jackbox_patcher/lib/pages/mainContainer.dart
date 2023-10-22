@@ -4,7 +4,7 @@ import 'package:flutter_flavor/flutter_flavor.dart';
 import 'package:jackbox_patcher/components/customServerComponent/customServerComponentWidgetFactory.dart';
 import 'package:jackbox_patcher/components/dialogs/leaveApplicationDialog.dart';
 import 'package:jackbox_patcher/pages/loadingContainer.dart';
-import 'package:jackbox_patcher/services/api/api_service.dart';
+import 'package:jackbox_patcher/services/api_utility/api_service.dart';
 import 'package:jackbox_patcher/services/device/device.dart';
 import 'package:jackbox_patcher/services/downloader/downloader_service.dart';
 import 'package:jackbox_patcher/services/translations/translationsHelper.dart';

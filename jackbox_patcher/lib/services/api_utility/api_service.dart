@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter_flavor/flutter_flavor.dart';
 import 'package:http/http.dart' as http;
 import 'package:jackbox_patcher/app_configuration.dart';
-import 'package:jackbox_patcher/model/customServerComponent/columnServerComponent.dart';
 import 'package:jackbox_patcher/model/customServerComponent/customServerComponent.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxgame.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxpackpatch.dart';
@@ -12,7 +11,7 @@ import 'package:jackbox_patcher/model/misc/urlblurhash.dart';
 import 'package:jackbox_patcher/model/news.dart';
 import 'package:jackbox_patcher/model/patchServerConfigurations.dart';
 import 'package:jackbox_patcher/model/patchserver.dart';
-import 'package:jackbox_patcher/services/api/listenable_cache.dart';
+import 'package:jackbox_patcher/services/api_utility/listenable_cache.dart';
 import 'package:jackbox_patcher/services/logger/logger.dart';
 
 import '../../model/gametag.dart';

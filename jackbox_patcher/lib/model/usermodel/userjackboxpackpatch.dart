@@ -64,4 +64,11 @@ class UserJackboxPackPatch {
           .isNotEmpty);
     }
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "patch": patch.toJson(),
+      "installed_version": installedVersion,
+    };
+  }
 }

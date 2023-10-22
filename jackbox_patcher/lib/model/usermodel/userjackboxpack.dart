@@ -51,7 +51,8 @@ class UserJackboxPack {
     } else {
       if (await folder.exists() &&
           (pack.executable == null ||
-              (await File("${folder.path}/${pack.executable!}").exists()) || (origin != null && origin == LauncherType.STEAM))) {
+              (await File("${folder.path}/${pack.executable!}").exists()) ||
+              (origin != null && origin == LauncherType.STEAM))) {
         return "FOUND";
       } else {
         return "NOT_FOUND";
@@ -101,6 +102,28 @@ class UserJackboxPack {
     origin = launcher;
     UserData().savePack(this);
   }
+
+  UserJackboxGame? getGameById(String gameId) {
+    for (UserJackboxGame game in games) {
+      if (game.game.id == gameId) {
+        return game;
+      }
+    }
+    return null;
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'pack': pack.toJson(),
+      'games': games.map((e) => e.toJson()).toList(),
+      'fixes': fixes.map((e) => e.toJson()).toList(),
+      'patches': patches.map((e) => e.toJson()).toList(),
+      'loader': loader?.toJson(),
+      'path': path,
+      'owned': owned,
+      'origin': origin?.name,
+    };
+  }
 }
 
 class UserJackboxLoader {
@@ -117,4 +140,24 @@ class UserJackboxLoader {
     required this.path,
     required this.version,
   });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'loader': loader?.toJson(),
+      'path': path,
+      'version': version,
+    };
+  }
+}
+
+extension UserJackboxPackList on List<UserJackboxPack> {
+  UserJackboxGame? getGameById(String id) {
+    for (UserJackboxPack pack in this) {
+      UserJackboxGame? game = pack.getGameById(id);
+      if (game != null) {
+        return game;
+      }
+    }
+    return null;
+  }
 }

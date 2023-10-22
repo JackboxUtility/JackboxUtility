@@ -41,4 +41,14 @@ class PatchType {
       audios: json['audios'],
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'game_text': gameText,
+      'game_assets': gameAssets,
+      'game_subtitles': gameSubtitles,
+      'website': website,
+      'audios': audios,
+    };
+  }
 }

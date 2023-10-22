@@ -5,7 +5,7 @@ import 'package:jackbox_patcher/model/misc/audio/SFXEnum.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/pages/search_ui/searchGames.dart';
-import 'package:jackbox_patcher/services/api/api_service.dart';
+import 'package:jackbox_patcher/services/api_utility/api_service.dart';
 import 'package:jackbox_patcher/services/audio/SFXService.dart';
 import 'package:jackbox_patcher/services/launcher/launcher.dart';
 
@@ -44,8 +44,8 @@ class _RandomGameWidgetState extends State<RandomGameWidget> {
               right: 0,
               bottom: 0,
               child: CachedNetworkImage(
-                imageUrl: APIService().assetLink(
-                    selectedGame!.getUserJackboxPack().pack.background),
+                imageUrl: APIService()
+                    .assetLink(selectedGame!.getPack().pack.background),
                 fit: BoxFit.cover,
               ),
             ),
@@ -88,7 +88,7 @@ class _RandomGameWidgetState extends State<RandomGameWidget> {
                           height:
                               MediaQuery.of(context).size.height * animation,
                           child: SearchGameGameWidget(
-                              pack: selectedGame!.getUserJackboxPack(),
+                              pack: selectedGame!.getPack(),
                               game: selectedGame!,
                               showAllPacks: false));
                     }),
@@ -196,7 +196,7 @@ class _RandomGameWidgetState extends State<RandomGameWidget> {
   void _launchRandomGame() {
     UserJackboxGame randomGame = GamesService().chooseRandomGame(
         (UserJackboxPack pack, UserJackboxGame game) =>
-            widget.filter(pack, game) && game.getUserJackboxPack().owned);
-    Launcher.launchGame(randomGame.getUserJackboxPack(), randomGame);
+            widget.filter(pack, game) && game.getPack().owned);
+    Launcher.launchGame(randomGame.getPack(), randomGame);
   }
 }

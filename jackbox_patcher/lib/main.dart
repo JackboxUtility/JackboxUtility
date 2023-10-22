@@ -5,7 +5,7 @@ import 'package:jackbox_patcher/pages/settings/menu.dart';
 import 'package:jackbox_patcher/pages/search_ui/searchGames.dart';
 import 'package:jackbox_patcher/pages/search_ui/searchGamesMenu.dart';
 import 'package:jackbox_patcher/pages/select_server/selectServer.dart';
-import 'package:jackbox_patcher/services/api/api_service.dart';
+import 'package:jackbox_patcher/services/api_utility/api_service.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'pages/game_ui/gameInfo.dart';

@@ -102,6 +102,24 @@ class JackboxPack {
       }
     }
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'description': description,
+      'icon': icon,
+      'loader': loader?.toJson(),
+      'launchers_id': launchersId?.toJson(),
+      'background': background,
+      'games': games.map((e) => e.toJson()).toList(),
+      'fixes': fixes.map((e) => e.toJson()).toList(),
+      'patchs': patches.map((e) => e.toJson()).toList(),
+      'configuration': configuration?.toJson(),
+      'executables': executable,
+      'store_links': storeLinks?.toJson()
+    };
+  }
 }
 
 class JackboxLoader {
@@ -113,6 +131,13 @@ class JackboxLoader {
   factory JackboxLoader.fromJson(Map<String, dynamic> json) {
     return JackboxLoader(path: json['path'], version: json['version']);
   }
+  
+  Map<String, dynamic> toJson() {
+    return {
+      'path': path,
+      'version': version,
+    };
+  }
 }
 
 class LaunchersId {
@@ -123,6 +148,13 @@ class LaunchersId {
 
   factory LaunchersId.fromJson(Map<String, dynamic> json) {
     return LaunchersId(steam: json['steam'], epic: json['epic']);
+  }
+  
+  Map<String, dynamic> toJson() {
+    return {
+      'steam': steam,
+      'epic': epic,
+    };
   }
 }
 
@@ -140,6 +172,14 @@ class StoreLinks {
         jackboxGamesStore: json['jackbox_games_store'] != null
             ? json["jackbox_games_store"]
             : null);
+  }
+  
+  Map<String, dynamic> toJson() {
+    return {
+      'steam': steam,
+      'epic': epic,
+      'jackbox_games_store': jackboxGamesStore,
+    };
   }
 }
 
@@ -159,6 +199,14 @@ class PackConfiguration {
         versionFile: json['version_file'],
         versionProperty: json['version_property']);
   }
+  
+  Map<String, dynamic> toJson() {
+    return {
+      'version_origin': versionOrigin.toString(),
+      'version_file': versionFile,
+      'version_property': versionProperty,
+    };
+  }
 }
 
 enum LocalVersionOrigin {
@@ -173,6 +221,15 @@ enum LocalVersionOrigin {
         return LocalVersionOrigin.GAME_FILE;
       default:
         throw Exception("Invalid VersionOrigin");
+    }
+  }
+
+  String toString() {
+    switch (this) {
+      case LocalVersionOrigin.APP:
+        return "app";
+      case LocalVersionOrigin.GAME_FILE:
+        return "game_file";
     }
   }
 }
