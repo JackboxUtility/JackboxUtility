@@ -5,6 +5,7 @@ import 'package:jackbox_patcher/app_configuration.dart';
 import 'package:jackbox_patcher/services/crypto/CryptoService.dart';
 import 'package:jackbox_patcher/services/internal_api/ExtensionToken.dart';
 import 'package:jackbox_patcher/services/internal_api/api_handlers/AbstractHandler.dart';
+import 'package:jackbox_patcher/services/internal_api/api_handlers/GetGamesHandler.dart';
 import 'package:jackbox_patcher/services/internal_api/api_handlers/StatusHandler.dart';
 import 'package:jackbox_patcher/services/internal_api/api_handlers/RegisterHandler.dart';
 import 'package:jackbox_patcher/services/internal_api/ws/ExtensionWebsocket.dart';
@@ -21,7 +22,8 @@ class RestApiRouter {
   static final List<AbstractHandler> _httpHandlers = [
     StatusHandler(),
     RegisterHandler(),
-    OpenGameHandler()
+    OpenGameHandler(),
+    GetGamesHandler()
   ];
 
   static final List<ExtensionWebsocket> _wsChannels = [];
@@ -91,6 +93,7 @@ class RestApiRouter {
   void _handleWsRequest(WebSocketChannel ws, String message) {
     try {
       final convertedMessage = jsonDecode(message);
+      print(message);
       if (convertedMessage["token"] != null) {
         final token = getToken(convertedMessage["token"]);
         if (token != null) {

@@ -13,7 +13,7 @@ import 'package:window_manager/window_manager.dart';
 
 class RegisterHandler extends AbstractHandler {
   RegisterHandler()
-      : super(url: "/register", method: RestApiMethods.GET, scopes: []);
+      : super(url: "/register", method: RestApiMethods.POST, scopes: []);
 
   @override
   Function get handle {

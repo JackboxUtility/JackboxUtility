@@ -6,7 +6,7 @@ import 'package:shelf/shelf.dart';
 enum RestApiMethods { GET, POST, PUT, DELETE }
 
 class AbstractHandler {
-  List<RestApiScopes> scopes = [RestApiScopes.NAVIGATION];
+  List<RestApiScopes> scopes = [];
   RestApiMethods method = RestApiMethods.GET;
   String url = "/";
 

@@ -202,7 +202,7 @@ class PackConfiguration {
   
   Map<String, dynamic> toJson() {
     return {
-      'version_origin': versionOrigin,
+      'version_origin': versionOrigin.toString(),
       'version_file': versionFile,
       'version_property': versionProperty,
     };
@@ -221,6 +221,15 @@ enum LocalVersionOrigin {
         return LocalVersionOrigin.GAME_FILE;
       default:
         throw Exception("Invalid VersionOrigin");
+    }
+  }
+
+  String toString() {
+    switch (this) {
+      case LocalVersionOrigin.APP:
+        return "app";
+      case LocalVersionOrigin.GAME_FILE:
+        return "game_file";
     }
   }
 }
