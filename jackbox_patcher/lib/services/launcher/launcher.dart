@@ -132,7 +132,7 @@ class Launcher {
     } else if (Platform.isMacOS) {
       commandToRun = "ps -ax";
     } else if (Platform.isLinux) {
-      commandToRun = "ps -A";
+      commandToRun = "ps aux";
     }
     if (commandToRun != "") {
       // Checking if the pack is launched
