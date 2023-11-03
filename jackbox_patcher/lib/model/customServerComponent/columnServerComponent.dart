@@ -8,6 +8,5 @@ class ColumnServerComponent extends CustomServerComponent {
     for (var child in json["children"]) {
       children.add(CustomServerComponent.buildServerComponent(child));
     }
-    print(children);
   }
 }

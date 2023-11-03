@@ -26,8 +26,6 @@ class AbstractHandler {
       return Response.forbidden("Invalid token");
     }
     for (RestApiScopes scope in scopes) {
-      print(scope);
-      print(tokenFound.scopes);
       if (!tokenFound.scopes.contains(scope)) {
         return Response.forbidden("Invalid scope");
       }
