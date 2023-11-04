@@ -33,4 +33,17 @@ class JackboxGamePatch extends PatchInformation{
           ? [ "windows","linux"] : List<String>.from(json['supported_platforms'])
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "id": id,
+      "name": name,
+      "description": description,
+      "version": latestVersion,
+      "patch_path": patchPath,
+      "patch_type": patchType?.toJson(),
+      "authors": authors,
+      "small_description": smallDescription,
+    };
+  }
 }

@@ -1,6 +1,5 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:jackbox_patcher/model/base/patchinformation.dart';
 import 'package:jackbox_patcher/model/gametag.dart';
 import 'package:jackbox_patcher/model/jackbox/gameinfo/familyfriendly.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxpack.dart';
@@ -9,7 +8,6 @@ import 'package:jackbox_patcher/model/jackbox/jackboxpackpatch.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpackpatch.dart';
 import 'package:jackbox_patcher/services/games/GamesService.dart';
 import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
-import 'package:jackbox_patcher/services/user/userdata.dart';
 
 import '../usermodel/userjackboxgame.dart';
 import 'gameinfo/moderation.dart';
@@ -55,6 +53,18 @@ class JackboxGame {
 
   String get filteredName {
     return this.name.replaceAll(RegExp("[^a-zA-Z0-9 ]"), "");
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "id": id,
+      "name": name,
+      "background": background,
+      "loader": loader?.toJson(),
+      "path": path,
+      "patchs": patches.map((e) => e.toJson()).toList(),
+      "game_info": info.toJson(),
+    };
   }
 }
 
@@ -137,14 +147,38 @@ class JackboxGameInfo {
       if (correspondingUserGame == null) {
         return internalTranslation;
       }
-      for (UserJackboxPackPatch patch in correspondingUserGame.getUserJackboxPack().patches){
-        JackboxPackPatchComponent? component = patch.patch.getComponentByGameId(this.internalGameId);
-        if (component != null && component.patchType!.audios){
+      for (UserJackboxPackPatch patch
+          in correspondingUserGame.getPack().patches) {
+        JackboxPackPatchComponent? component =
+            patch.patch.getComponentByGameId(this.internalGameId);
+        if (component != null && component.patchType!.audios) {
           return GameInfoTranslation.COMMUNITY_DUBBED;
         }
       }
     }
     return internalTranslation;
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "tagline": tagline,
+      "description": description,
+      "small_description": smallDescription,
+      "type": type.toString().split('.').last,
+      "translation": internalTranslation.toString().split('.').last,
+      "tags": tags.map((e) => e.id).toList(),
+      "images": images,
+      "players": players.toJson(),
+      "playtime": playtime.toJson(),
+      "family_friendly": familyFriendly.name,
+      "audience": audience,
+      "audience_description": audienceDescription,
+      "stream_friendly": streamFriendly.name,
+      "stream_friendly_description": streamFriendlyDescription,
+      "moderation": moderation.name,
+      "moderation_description": moderationDescription,
+      "subtitles": subtitles,
+    };
   }
 }
 
@@ -162,6 +196,13 @@ class JackboxGameMinMaxInfo {
       min: json['min'],
       max: json['max'],
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "min": min,
+      "max": max,
+    };
   }
 }
 

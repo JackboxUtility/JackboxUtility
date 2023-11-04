@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:jackbox_patcher/model/jackbox/jackboxpack.dart';
 import 'package:jackbox_patcher/model/misc/windowInformation.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgamepatch.dart';
-import 'package:jackbox_patcher/services/api/api_service.dart';
+import 'package:jackbox_patcher/services/api_utility/api_service.dart';
 import 'package:jackbox_patcher/services/user/usergamelist.dart';
 import 'package:jackbox_patcher/services/user/usersettings.dart';
 import 'package:jackbox_patcher/services/user/usertip.dart';
@@ -320,5 +320,12 @@ class UserData {
         game.hidden = false;
       }
     }
+  }
+
+  UserJackboxPack? getUserPackById(String id) {
+    if (packs.where((element) => element.pack.id == id).length == 0) {
+      return null;
+    }
+    return packs.firstWhere((element) => element.pack.id == id);
   }
 }

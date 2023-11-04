@@ -12,7 +12,7 @@ import 'package:palette_generator/palette_generator.dart';
 
 import '../../model/usermodel/userjackboxgame.dart';
 import '../../model/usermodel/userjackboxpack.dart';
-import '../../services/api/api_service.dart';
+import '../../services/api_utility/api_service.dart';
 import '../../services/translations/translationsHelper.dart';
 
 void _openPatchInfo(context, dynamic data, JackboxGame? relatedGame) {

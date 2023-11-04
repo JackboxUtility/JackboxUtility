@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:jackbox_patcher/model/misc/urlblurhash.dart';
-import 'package:jackbox_patcher/services/api/api_service.dart';
+import 'package:jackbox_patcher/services/api_utility/api_service.dart';
 
 class BlurHashImage extends StatefulWidget {
   const BlurHashImage(

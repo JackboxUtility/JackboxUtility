@@ -5,7 +5,7 @@ import 'package:jackbox_patcher/model/patchserver.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../services/api/api_service.dart';
+import '../../services/api_utility/api_service.dart';
 import '../../services/translations/translationsHelper.dart';
 
 class ServerInfoWidget extends StatefulWidget {

@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:jackbox_patcher/services/logger/logger.dart';
 
-import '../api/api_service.dart';
+import '../api_utility/api_service.dart';
 import '../translations/translationsHelper.dart';
 
 class DownloaderService {

@@ -5,12 +5,13 @@ import 'dart:io';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/model/patchserver.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
-import 'package:jackbox_patcher/services/api/api_service.dart';
-import 'package:jackbox_patcher/services/api/automatic_reload.dart';
+import 'package:jackbox_patcher/services/api_utility/api_service.dart';
+import 'package:jackbox_patcher/services/api_utility/automatic_reload.dart';
 import 'package:jackbox_patcher/services/automaticGameFinder/AutomaticGameFinder.dart';
 import 'package:jackbox_patcher/services/discord/DiscordService.dart';
 import 'package:jackbox_patcher/services/downloader/precache_service.dart';
 import 'package:jackbox_patcher/services/error/error.dart';
+import 'package:jackbox_patcher/services/internal_api/RestApiRouter.dart';
 import 'package:jackbox_patcher/services/statistics/statisticsSender.dart';
 import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
@@ -34,6 +35,9 @@ class InitialLoad {
       await windowManager.setPreventClose(true);
       await UserData().init();
       WindowManagerService.updateScreenSizeFromLastOpening();
+      
+      /// Give context to the RestApi so it can ask the user if he wants to accept an app
+      RestApiRouter().context = context;
     }
     UserData().packs = [];
     APIService().resetCache();
