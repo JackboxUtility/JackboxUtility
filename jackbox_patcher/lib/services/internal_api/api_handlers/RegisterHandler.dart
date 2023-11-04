@@ -51,11 +51,8 @@ class RegisterHandler extends AbstractHandler {
   List<RestApiScopes> scopesFromJson(json) {
     List<RestApiScopes> scopes = [];
     for (String scope in json) {
-      print(scope);
-      print(RestApiScopes.values);
       scopes.add(RestApiScopes.values.firstWhere((e) => e.id == scope));
     }
-    print(scopes);
     return scopes;
   }
 }

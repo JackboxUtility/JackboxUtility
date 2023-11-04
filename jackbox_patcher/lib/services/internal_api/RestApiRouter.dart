@@ -93,7 +93,6 @@ class RestApiRouter {
   void _handleWsRequest(WebSocketChannel ws, String message) {
     try {
       final convertedMessage = jsonDecode(message);
-      print(message);
       if (convertedMessage["token"] != null) {
         final token = getToken(convertedMessage["token"]);
         if (token != null) {
@@ -102,7 +101,6 @@ class RestApiRouter {
         }
       }
     } catch (e) {
-      print(e);
     }
   }
 

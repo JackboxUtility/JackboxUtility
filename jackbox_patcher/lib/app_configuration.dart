@@ -35,4 +35,4 @@ const List<String> STEAM_LINUX_LOCATIONS = [
   "/.var/app/com.valvesoftware.Steam/.steam/steam/steamapps/"
 ];
 
-const int REST_API_PORT = 8080;
+const int REST_API_PORT = 6480;
