@@ -5,6 +5,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_flavor/flutter_flavor.dart';
 import 'package:jackbox_patcher/main.dart';
+import 'package:jackbox_patcher/services/arguments_handler/ArgumentsHandler.dart';
 import 'package:jackbox_patcher/services/internal_api/RestApiRouter.dart';
 import 'package:jackbox_patcher/services/logger/logger.dart';
 import 'package:media_kit/media_kit.dart';
@@ -27,7 +28,7 @@ void initRetrievingErrors() {
   };
 }
 
-void main() async {
+void main(List<String> arguments) async {
   FlavorConfig(
       name: "BETA",
       color: Colors.orange,
@@ -39,6 +40,10 @@ void main() async {
   if (!Platform.isLinux) MediaKit.ensureInitialized();
   DiscordRPC.initialize();
   initRetrievingErrors();
+
+  if (await ArgumentsHandler().handle(arguments)) {
+    exit(0);
+  }
 
   RestApiRouter().startRouter();
 

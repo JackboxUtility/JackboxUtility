@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:archive/archive_io.dart';
+import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/model/misc/launchers.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
@@ -12,6 +13,7 @@ import 'package:jackbox_patcher/services/internal_api/ws_message/GameCloseWsMess
 import 'package:jackbox_patcher/services/internal_api/ws_message/GameOpenWsMessage.dart';
 import 'package:jackbox_patcher/services/launcher/processHelper.dart';
 import 'package:jackbox_patcher/services/logger/logger.dart';
+import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../model/misc/audio/SFXEnum.dart';
@@ -20,12 +22,54 @@ import '../user/userdata.dart';
 class Launcher {
   static List<UserJackboxPack> _openedLaunchers = [];
 
+  static Future<bool> _initForRawLaunch() async {
+    TranslationsHelper().changeLocale(Locale("en"));
+    await UserData().init();
+    String? selectedServer = UserData().getSelectedServer();
+    if (selectedServer == null) {
+      return false;
+    }
+    await APIService().recoverServerInfo(selectedServer);
+    await UserData().syncPacks((p0) => null);
+    return true;
+  }
+
+  /// Launch pack already saved into the [UserData]
+  static Future<bool> launchRawPack(String pack) async {
+    if (await _initForRawLaunch() == false) {
+      return false;
+    }
+    // Checking if the pack is owned
+    UserJackboxPack? packFound = UserData().packs.getPackById(pack);
+    if (packFound == null) {
+      return false;
+    }
+    await launchPack(packFound, true);
+    return true;
+  }
+
+  /// Launch game already saved into the [UserData]
+  static Future<bool> launchRawGame(String game) async {
+    if (await _initForRawLaunch() == false) {
+      return false;
+    }
+    // Checking if the game is owned
+    UserJackboxGame? gameFound = UserData().packs.getGameById(game);
+    if (gameFound == null) {
+      return false;
+    }
+    UserJackboxPack packFound = gameFound.getPack();
+    await launchGame(packFound, gameFound);
+    return true;
+  }
+
   /// This function will launch the [pack]
-  static Future<void> launchPack(UserJackboxPack pack) async {
+  static Future<void> launchPack(UserJackboxPack pack,
+      [bool windowLess = false]) async {
     if (pack.path == null) {
       throw Exception("Pack path is null");
     } else {
-      SFXService().playSFX(SFX.GAME_LAUNCHED);
+      if (!windowLess) SFXService().playSFX(SFX.GAME_LAUNCHED);
       // If the loader is not already installed or need update, download it
       if (pack.loader != null) {
         if (pack.loader!.path == null ||
@@ -64,7 +108,7 @@ class Launcher {
       throw Exception("Pack path is null");
     } else {
       if (game.loader == null) {
-        return await launchPack(pack);
+        return await launchPack(pack, false);
       }
 
       SFXService().playSFX(SFX.GAME_LAUNCHED);
@@ -106,10 +150,7 @@ class Launcher {
             workingDirectory: pack.path);
       }
       _openedLaunchers.add(pack);
-      checkLaunchedPack(
-        pack,
-        game
-      );
+      checkLaunchedPack(pack, game);
     }
   }
 

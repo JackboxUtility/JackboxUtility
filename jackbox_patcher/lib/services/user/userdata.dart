@@ -321,4 +321,11 @@ class UserData {
       }
     }
   }
+
+  UserJackboxPack? getUserPackById(String id) {
+    if (packs.where((element) => element.pack.id == id).length == 0) {
+      return null;
+    }
+    return packs.firstWhere((element) => element.pack.id == id);
+  }
 }

@@ -160,4 +160,13 @@ extension UserJackboxPackList on List<UserJackboxPack> {
     }
     return null;
   }
+
+  UserJackboxPack? getPackById(String id) {
+    for (UserJackboxPack pack in this) {
+      if (pack.pack.id == id) {
+        return pack;
+      }
+    }
+    return null;
+  }
 }
