@@ -5,7 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jackbox_patcher/model/misc/sortOrder.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
-import 'package:jackbox_patcher/services/api/api_service.dart';
+import 'package:jackbox_patcher/services/api_utility/api_service.dart';
 import 'package:jackbox_patcher/services/audio/SFXService.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 
@@ -245,7 +245,7 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
                             width: calculatePadding() -
                                 (widget.comeFromGame ? 40 : 0)),
                       ]))),
-          if (widget.linkedPack != null)
+          if (widget.linkedPack != null && widget.linkedPack!.owned)
             Positioned(
                 top: 20,
                 right: 60,
@@ -520,8 +520,6 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                   builder:
                       (BuildContext context, double opacity, Widget? child) {
                     return GestureDetector(
-                        onSecondaryTap: () =>
-                            Launcher.launchGame(widget.pack, widget.game),
                         onTap: () async {
                           await Navigator.pushNamed(context, "/game",
                               arguments: [

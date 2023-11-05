@@ -1,5 +1,5 @@
 import 'package:jackbox_patcher/model/jackbox/jackboxgame.dart';
-import 'package:jackbox_patcher/services/api/api_service.dart';
+import 'package:jackbox_patcher/services/api_utility/api_service.dart';
 
 import '../base/patchinformation.dart';
 import 'jackboxpack.dart';
@@ -39,6 +39,24 @@ class JackboxPackPatch {
               .map((x) => JackboxPackPatchComponent.fromJson(x))),
     );
   }
+
+  JackboxPackPatchComponent? getComponentByGameId(String id){
+    List<JackboxPackPatchComponent> componentsFound = components.where((element) => element.linkedGame == id).toList();
+    if (componentsFound.isNotEmpty) return componentsFound.first;
+    return null;
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "id": id,
+      "name": name,
+      "small_description": smallDescription,
+      "version": latestVersion,
+      "patch_path": patchPath,
+      "configuration": configuration?.toJson(),
+      "components": List<dynamic>.from(components.map((x) => x.toJson())),
+    };
+  }
 }
 
 class JackboxPackPatchComponent extends PatchInformation {
@@ -76,6 +94,18 @@ class JackboxPackPatchComponent extends PatchInformation {
     }
     return null;
   }
+  
+  Map<String, dynamic> toJson() {
+    return {
+      "id": id,
+      "linked_game": linkedGame,
+      "name": name,
+      "description": description,
+      "authors": authors,
+      "small_description": smallDescription,
+      "patch_type": patchType?.toJson(),
+    };
+  }
 }
 
 class PatchConfiguration {
@@ -93,6 +123,14 @@ class PatchConfiguration {
         versionOrigin: OnlineVersionOrigin.fromString(json['version_origin']),
         versionFile: json['version_file'],
         versionProperty: json['version_property']);
+  }
+  
+  Map<String, dynamic> toJson() {
+    return {
+      'version_origin': versionOrigin.toString().split(".").last.toLowerCase(),
+      'version_file': versionFile,
+      'version_property': versionProperty,
+    };
   }
 }
 

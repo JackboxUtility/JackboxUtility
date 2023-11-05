@@ -29,4 +29,17 @@ class JackboxGamePatch extends PatchInformation{
       smallDescription: json['small_description'],
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "id": id,
+      "name": name,
+      "description": description,
+      "version": latestVersion,
+      "patch_path": patchPath,
+      "patch_type": patchType?.toJson(),
+      "authors": authors,
+      "small_description": smallDescription,
+    };
+  }
 }

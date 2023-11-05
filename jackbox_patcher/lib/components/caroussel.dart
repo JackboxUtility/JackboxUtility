@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/components/blurhashimage.dart';
-import 'package:jackbox_patcher/services/api/api_service.dart';
+import 'package:jackbox_patcher/services/api_utility/api_service.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
 import 'package:jackbox_patcher/services/video/videoService.dart';
 import 'package:media_kit/media_kit.dart';

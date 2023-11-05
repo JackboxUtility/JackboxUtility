@@ -1,5 +1,5 @@
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:jackbox_patcher/services/api/api_service.dart';
+import 'package:jackbox_patcher/services/api_utility/api_service.dart';
 import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
 
 import '../../../services/translations/language_service.dart';

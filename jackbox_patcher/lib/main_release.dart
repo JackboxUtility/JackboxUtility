@@ -6,19 +6,20 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_flavor/flutter_flavor.dart';
 import 'package:jackbox_patcher/app_configuration.dart';
 import 'package:jackbox_patcher/main.dart';
+import 'package:jackbox_patcher/services/arguments_handler/ArgumentsHandler.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:window_manager/window_manager.dart';
 
 import 'services/logger/logger.dart';
 
-void initRetrievingErrors(){
+void initRetrievingErrors() {
   FlutterError.onError = (details) {
     FlutterError.presentError(details);
-      JULogger()
-          .e(details.toString(), details.exception.toString(), details.stack);
+    JULogger()
+        .e(details.toString(), details.exception.toString(), details.stack);
   };
   PlatformDispatcher.instance.onError = (error, stack) {
-     bool ifIsOverflowError =
+    bool ifIsOverflowError =
         error.toString().contains("A RenderFlex overflowed by");
 
     if (!ifIsOverflowError) JULogger().e(error.toString(), "", stack);
@@ -26,16 +27,21 @@ void initRetrievingErrors(){
   };
 }
 
-void main() async {
-  FlavorConfig(name: "RELEASE", color: Colors.orange, variables: {
-    "masterServerUrl":MAIN_SERVER_URL["RELEASE_SERVER_URL"]
-  });
+void main(List<String> arguments) async {
+  FlavorConfig(
+      name: "RELEASE",
+      color: Colors.orange,
+      variables: {"masterServerUrl": MAIN_SERVER_URL["RELEASE_SERVER_URL"]});
 
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
   if (!Platform.isLinux) MediaKit.ensureInitialized();
   DiscordRPC.initialize();
-  
+
+  if (await ArgumentsHandler().handle(arguments)) {
+    exit(0);
+  }
+
   initRetrievingErrors();
   runApp(const MyApp());
 }

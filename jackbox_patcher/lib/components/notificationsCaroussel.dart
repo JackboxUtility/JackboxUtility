@@ -3,7 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/components/dialogs/newsReadingDialog.dart';
 import 'package:jackbox_patcher/model/news.dart';
-import 'package:jackbox_patcher/services/api/api_service.dart';
+import 'package:jackbox_patcher/services/api_utility/api_service.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 

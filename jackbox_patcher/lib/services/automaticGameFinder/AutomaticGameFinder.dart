@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:jackbox_patcher/app_configuration.dart';
 import 'package:jackbox_patcher/model/misc/launchers.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/services/logger/logger.dart';
@@ -21,12 +22,12 @@ class AutomaticGameFinderService {
       int gameFound = 0;
       try {
         gameFound += await _findSteamGames(packs);
-      }catch(e){
+      } catch (e) {
         JULogger().e(e.toString());
       }
       try {
         gameFound += await _findEpicGamesGames(packs);
-      }catch(e){
+      } catch (e) {
         JULogger().e(e.toString());
       }
       return gameFound;
@@ -42,7 +43,13 @@ class AutomaticGameFinderService {
     if (Platform.isWindows) {
       steamLocation = _getSteamLocation();
     } else {
-      steamLocation = Platform.environment["HOME"]! + "/.steam/steam";
+      for (String location in STEAM_LINUX_LOCATIONS) {
+        if (await Directory(Platform.environment["HOME"]! + "$location")
+            .exists()) {
+          steamLocation = Platform.environment["HOME"]! + "$location";
+          break;
+        }
+      }
     }
     if (steamLocation != null) {
       Map<String, List<String>> steamFolderWithAppId =

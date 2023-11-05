@@ -1,12 +1,13 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:jackbox_patcher/model/base/patchinformation.dart';
 import 'package:jackbox_patcher/model/gametag.dart';
 import 'package:jackbox_patcher/model/jackbox/gameinfo/familyfriendly.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxpack.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxgamepatch.dart';
+import 'package:jackbox_patcher/model/jackbox/jackboxpackpatch.dart';
+import 'package:jackbox_patcher/model/usermodel/userjackboxpackpatch.dart';
+import 'package:jackbox_patcher/services/games/GamesService.dart';
 import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
-import 'package:jackbox_patcher/services/user/userdata.dart';
 
 import '../usermodel/userjackboxgame.dart';
 import 'gameinfo/moderation.dart';
@@ -53,6 +54,18 @@ class JackboxGame {
   String get filteredName {
     return this.name.replaceAll(RegExp("[^a-zA-Z0-9 ]"), "");
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "id": id,
+      "name": name,
+      "background": background,
+      "loader": loader?.toJson(),
+      "path": path,
+      "patchs": patches.map((e) => e.toJson()).toList(),
+      "game_info": info.toJson(),
+    };
+  }
 }
 
 class JackboxGameInfo {
@@ -60,7 +73,6 @@ class JackboxGameInfo {
   final String tagline;
   final String description;
   final String smallDescription;
-  final String length;
   final JackboxGameType type;
   final GameInfoTranslation internalTranslation;
   final List<GameTag> tags;
@@ -81,7 +93,6 @@ class JackboxGameInfo {
     required this.tagline,
     required this.smallDescription,
     required this.description,
-    required this.length,
     required this.type,
     required this.internalTranslation,
     required this.tags,
@@ -98,17 +109,14 @@ class JackboxGameInfo {
     required this.subtitles,
   });
 
-  factory JackboxGameInfo.fromJson(
-      String gameId, Map<String, dynamic> json) {
+  factory JackboxGameInfo.fromJson(String gameId, Map<String, dynamic> json) {
     return JackboxGameInfo(
       internalGameId: gameId,
       tagline: json['tagline'],
       description: json['description'],
       smallDescription: json['small_description'],
-      length: json['length'],
       type: JackboxGameType.fromString(json['type']),
-      internalTranslation:
-          GameInfoTranslation.fromString(json['translation']),
+      internalTranslation: GameInfoTranslation.fromString(json['translation']),
       images:
           (json['images'] as List<dynamic>).map((e) => e.toString()).toList(),
       tags: json['tags'] != null
@@ -132,25 +140,45 @@ class JackboxGameInfo {
   }
 
   get translation {
-    if (internalTranslation == GameInfoTranslation.COMMUNITY_TRANSLATED || internalTranslation == GameInfoTranslation.NATIVELY_TRANSLATED) {
-      UserJackboxGame? correspondingUserGame;
-      for (var pack in UserData().packs) {
-        for (var game in pack.games) {
-          if (game.game.id == this.internalGameId) {
-            correspondingUserGame = game;
-            break;
-          }
-        }
-      }
+    if (internalTranslation == GameInfoTranslation.COMMUNITY_TRANSLATED ||
+        internalTranslation == GameInfoTranslation.NATIVELY_TRANSLATED) {
+      UserJackboxGame? correspondingUserGame =
+          GamesService().getUserJackboxGameById(this.internalGameId);
       if (correspondingUserGame == null) {
         return internalTranslation;
       }
-      PatchInformation? installedPatch = correspondingUserGame.getInstalledPatch();
-      if (installedPatch!=null && installedPatch.patchType!.audios) {
-        return GameInfoTranslation.COMMUNITY_DUBBED;
+      for (UserJackboxPackPatch patch
+          in correspondingUserGame.getPack().patches) {
+        JackboxPackPatchComponent? component =
+            patch.patch.getComponentByGameId(this.internalGameId);
+        if (component != null && component.patchType!.audios) {
+          return GameInfoTranslation.COMMUNITY_DUBBED;
+        }
       }
     }
     return internalTranslation;
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "tagline": tagline,
+      "description": description,
+      "small_description": smallDescription,
+      "type": type.toString().split('.').last,
+      "translation": internalTranslation.toString().split('.').last,
+      "tags": tags.map((e) => e.id).toList(),
+      "images": images,
+      "players": players.toJson(),
+      "playtime": playtime.toJson(),
+      "family_friendly": familyFriendly.name,
+      "audience": audience,
+      "audience_description": audienceDescription,
+      "stream_friendly": streamFriendly.name,
+      "stream_friendly_description": streamFriendlyDescription,
+      "moderation": moderation.name,
+      "moderation_description": moderationDescription,
+      "subtitles": subtitles,
+    };
   }
 }
 
@@ -168,6 +196,13 @@ class JackboxGameMinMaxInfo {
       min: json['min'],
       max: json['max'],
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "min": min,
+      "max": max,
+    };
   }
 }
 

@@ -9,7 +9,7 @@ import 'package:palette_generator/palette_generator.dart';
 import '../../components/dialogs/downloadPatchDialog.dart';
 import '../../model/usermodel/userjackboxgamepatch.dart';
 
-import '../../services/api/api_service.dart';
+import '../../services/api_utility/api_service.dart';
 import '../../services/translations/translationsHelper.dart';
 
 class CategoryPackPatch extends StatefulWidget {
