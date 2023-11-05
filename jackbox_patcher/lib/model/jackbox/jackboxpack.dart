@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:jackbox_patcher/model/enums/platforms.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxpackpatch.dart';
 
 import 'jackboxgame.dart';
@@ -34,11 +35,7 @@ class JackboxPack {
       required this.storeLinks});
 
   factory JackboxPack.fromJson(Map<String, dynamic> json) {
-    List<JackboxPackPatch> patches = json['patchs'] != null
-        ? (json['patchs'] as List<dynamic>)
-            .map((e) => JackboxPackPatch.fromJson(e))
-            .toList()
-        : [];
+    List<JackboxPackPatch> patches = _getPackPatchesFromJson(json);
 
     return JackboxPack(
         id: json['id'],
@@ -53,8 +50,7 @@ class JackboxPack {
             : null,
         background: json['background'],
         games: (json['games'] as List<dynamic>)
-            .map((e) => JackboxGame.fromJson(
-                e))
+            .map((e) => JackboxGame.fromJson(e))
             .toList(),
         fixes: json["fixes"] != null
             ? (json['fixes'] as List<dynamic>)
@@ -69,6 +65,19 @@ class JackboxPack {
         storeLinks: json['store_links'] != null
             ? StoreLinks.fromJson(json['store_links'])
             : null);
+  }
+
+  static List<JackboxPackPatch> _getPackPatchesFromJson(
+      Map<String, dynamic> json) {
+    List<JackboxPackPatch> patches = json['patchs'] != null
+        ? (json['patchs'] as List<dynamic>)
+            .map((e) => JackboxPackPatch.fromJson(e))
+            .toList()
+        : [];
+    patches = patches
+        .where((element) => element.supportedPlatforms.currentPlatformInclude())
+        .toList();
+    return patches;
   }
 
   static isGameDubbedByPackPatch(
@@ -131,7 +140,7 @@ class JackboxLoader {
   factory JackboxLoader.fromJson(Map<String, dynamic> json) {
     return JackboxLoader(path: json['path'], version: json['version']);
   }
-  
+
   Map<String, dynamic> toJson() {
     return {
       'path': path,
@@ -149,7 +158,7 @@ class LaunchersId {
   factory LaunchersId.fromJson(Map<String, dynamic> json) {
     return LaunchersId(steam: json['steam'], epic: json['epic']);
   }
-  
+
   Map<String, dynamic> toJson() {
     return {
       'steam': steam,
@@ -173,7 +182,7 @@ class StoreLinks {
             ? json["jackbox_games_store"]
             : null);
   }
-  
+
   Map<String, dynamic> toJson() {
     return {
       'steam': steam,
@@ -199,7 +208,7 @@ class PackConfiguration {
         versionFile: json['version_file'],
         versionProperty: json['version_property']);
   }
-  
+
   Map<String, dynamic> toJson() {
     return {
       'version_origin': versionOrigin.toString(),

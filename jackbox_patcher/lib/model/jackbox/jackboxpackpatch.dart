@@ -1,5 +1,4 @@
-import 'dart:io';
-
+import 'package:jackbox_patcher/model/enums/platforms.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxgame.dart';
 import 'package:jackbox_patcher/services/api_utility/api_service.dart';
 
@@ -14,7 +13,7 @@ class JackboxPackPatch {
   final String patchPath;
   final PatchConfiguration? configuration;
   final List<JackboxPackPatchComponent> components;
-  final List<String> supportedPlatforms;
+  final List<AppPlatform> supportedPlatforms;
 
   JackboxPackPatch({
     required this.id,
@@ -43,8 +42,10 @@ class JackboxPackPatch {
           ? []
           : List<JackboxPackPatchComponent>.from(json['components']
               .map((x) => JackboxPackPatchComponent.fromJson(x))),
-      supportedPlatforms: json['supported_platforms'] == null 
-          ? [ "windows","linux"] : List<String>.from(json['supported_platforms'])
+      supportedPlatforms: json['supported_platforms'] == null
+          ? [AppPlatform.LINUX, AppPlatform.WINDOWS]
+          : List<AppPlatform>.from(json['supported_platforms']
+              .map((x) => AppPlatformExtension.fromString(x))),
     );
   }
 
@@ -103,7 +104,7 @@ class JackboxPackPatchComponent extends PatchInformation {
     }
     return null;
   }
-  
+
   Map<String, dynamic> toJson() {
     return {
       "id": id,
@@ -133,7 +134,7 @@ class PatchConfiguration {
         versionFile: json['version_file'],
         versionProperty: json['version_property']);
   }
-  
+
   Map<String, dynamic> toJson() {
     return {
       'version_origin': versionOrigin.toString().split(".").last.toLowerCase(),
