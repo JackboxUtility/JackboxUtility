@@ -1,5 +1,5 @@
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-9-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 [![Discord](https://img.shields.io/discord/1108095925366308954?color=%235865F2&label=discord&logo=discord&style=flat-square)](https://discord.gg/jUQzjjaxQP)
 ![GitHub release](https://img.shields.io/github/v/release/AlexisL61/JackboxUtility?style=flat-square)
@@ -85,6 +85,7 @@ flutter build -t ./lib/main_beta.dart <OS>
     </tr>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/puskanyaww"><img src="https://avatars.githubusercontent.com/u/113018112?v=4?s=100" width="100px;" alt="puskanyaww"/><br /><sub><b>puskanyaww</b></sub></a><br /><a href="#translation-puskanyaww" title="Translation">🌍</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://ytube101.com"><img src="https://avatars.githubusercontent.com/u/76653533?v=4?s=100" width="100px;" alt="YouTube 101"/><br /><sub><b>YouTube 101</b></sub></a><br /><a href="#translation-YouTube-101" title="Translation">🌍</a></td>
     </tr>
   </tbody>
 </table>
