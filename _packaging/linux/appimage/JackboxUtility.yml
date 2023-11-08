@@ -3,12 +3,11 @@ app: jackbox_patcher
 version: ${VERSION}
 
 ingredients:
-  dist: hirsute
+  dist: jammy
   sources: 
-    - deb http://archive.ubuntu.com/ubuntu/ hirsute main restricted universe multiverse
+    - deb http://archive.ubuntu.com/ubuntu/ jammy main restricted universe multiverse
   packages:
     - libmpv-dev
-    - libmpv1
     - mpv
   script:
     - mkdir app_data
