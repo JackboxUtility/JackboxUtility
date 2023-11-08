@@ -1,0 +1,12 @@
+app: jackbox_patcher
+
+version: ${VERSION}
+
+ingredients:
+  dist: hirsute
+  sources: 
+    - deb http://archive.ubuntu.com/ubuntu/ hirsute main restricted universe multiverse
+  packages:
+    - libmpv-dev
+    - libmpv1
+    - mpv
