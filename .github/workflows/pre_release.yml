@@ -55,6 +55,9 @@ jobs:
      - name: Build linux
        working-directory: ./jackbox_patcher
        run: flutter build linux --build-name ${{ needs.retrievingVersion.outputs.version }} -t ./lib/main_beta.dart
+     - name: chmod AppImage pkg2appimage
+       working-directory: ./_packaging/linux/appimage
+       run: chmod u+x ./pkg2appimage--x86_64.AppImage
      - name: Package linux
        working-directory: ./_packaging/linux/appimage
        run: ./pkg2appimage--x86_64.AppImage ./JackboxUtility.yml
