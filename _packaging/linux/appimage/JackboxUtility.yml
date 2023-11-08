@@ -10,3 +10,23 @@ ingredients:
     - libmpv-dev
     - libmpv1
     - mpv
+  script:
+    - mkdir app_data
+    - cp -r ../../../../jackbox_patcher/build/linux/x64/release/bundle/ ./app_data/
+    - cp -r ../../../../jackbox_patcher/assets/logo.png ./
+    - chmod u+x ./app_data/bundle/JackboxUtility
+
+
+script:
+  - mv ../app_data/bundle/* ./usr/bin
+  - cat > JackboxUtility.desktop <<EOF
+  - [Desktop Entry]
+  - Type=Application
+  - Name=JackboxUtility
+  - Icon=logo
+  - Exec=./JackboxUtility
+  - Categories=GNOME;GTK;Network;WebBrowser;
+  - MimeType=text/html;text/xml;application/xhtml+xml;
+  - StartupNotify=true
+  - EOF
+  - cp ../logo.png ./
