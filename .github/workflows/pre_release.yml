@@ -39,7 +39,7 @@ jobs:
           name: build_windows
           path: ./jackbox_patcher/build/windows/runner/Release
  build_linux:
-   runs-on: ubuntu-latest
+   runs-on: ubuntu-20.04
    needs: retrievingVersion
    steps:
      - uses: actions/checkout@v3
