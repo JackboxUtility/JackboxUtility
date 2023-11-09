@@ -54,15 +54,9 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
   void checkingIfHasVideo() {
     for (var i = 0; i < widget.images.length; i++) {
       if (isAVideo(widget.images[i])) {
-        if (Platform.isLinux) {
-          hasVideo = false;
-          widget.images.removeAt(i);
-          i--;
-        } else {
-          hasVideo = true;
-          controller = VideoController(VideoService.player);
-          break;
-        }
+        hasVideo = true;
+        controller = VideoController(VideoService.player);
+        break;
       }
     }
   }
