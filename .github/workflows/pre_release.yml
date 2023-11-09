@@ -63,7 +63,10 @@ jobs:
         sudo mv appimage-builder-x86_64.AppImage /usr/local/bin/appimage-builder
      - name: Package linux
        working-directory: ./_packaging/linux/appimage
-       run: /usr/local/bin/appimage-builder --recipe ./AppImageBuilder.yml
+       run: |
+        mkdir AppDir
+        cp -r ../../../jackbox_patcher/build/linux/x64/release/bundle/* AppDir
+        /usr/local/bin/appimage-builder --recipe ./AppImageBuilder.yml
      - name: Move into out
         working-directory: ./_packaging/linux/appimage
         run: | 
