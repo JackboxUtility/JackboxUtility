@@ -36,6 +36,8 @@ AppDir:
         jammy main
     include:
     - libc6:amd64
+    - libmpv-dev 
+    - mpv
   files:
     include: []
     exclude:
