@@ -68,8 +68,8 @@ jobs:
         cp -r ../../../jackbox_patcher/build/linux/x64/release/bundle/* AppDir
         /usr/local/bin/appimage-builder --recipe ./AppImageBuilder.yml
      - name: Move into out
-        working-directory: ./_packaging/linux/appimage
-        run: | 
+       working-directory: ./_packaging/linux/appimage
+       run: | 
           mkdir out
           mv ./JackboxUtility-latest-x86_64.AppImage ./out/JackboxUtility.AppImage
      - uses: actions/upload-artifact@v3
