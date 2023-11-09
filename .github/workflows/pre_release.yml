@@ -56,12 +56,19 @@ jobs:
      - name: Build linux
        working-directory: ./jackbox_patcher
        run: flutter build linux --build-name ${{ needs.retrievingVersion.outputs.version }} -t ./lib/main_beta.dart
-     - name: chmod AppImage pkg2appimage
-       working-directory: ./_packaging/linux/appimage
-       run: chmod u+x ./pkg2appimage--x86_64.AppImage
+     - name: Install appimage-builder
+       run: |
+        wget -O appimage-builder-x86_64.AppImage https://github.com/AppImageCrafters/appimage-builder/releases/download/v1.1.0/appimage-builder-1.1.0-x86_64.AppImage
+        chmod +x appimage-builder-x86_64.AppImage
+        sudo mv appimage-builder-x86_64.AppImage /usr/local/bin/appimage-builder
      - name: Package linux
        working-directory: ./_packaging/linux/appimage
-       run: ./pkg2appimage--x86_64.AppImage ./JackboxUtility.yml
+       run: /usr/local/bin/appimage-builder --recipe ./AppImageBuilder.yml
+     - name: Move into out
+        working-directory: ./_packaging/linux/appimage
+        run: | 
+          mkdir out
+          mv ./JackboxUtility-latest-x86_64.AppImage ./out/JackboxUtility.AppImage
      - uses: actions/upload-artifact@v3
        with:
           name: build_linux

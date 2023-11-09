@@ -37,7 +37,7 @@ void main(List<String> arguments) async {
 
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
-  if (!Platform.isLinux) MediaKit.ensureInitialized();
+  MediaKit.ensureInitialized();
   DiscordRPC.initialize();
   initRetrievingErrors();
 
