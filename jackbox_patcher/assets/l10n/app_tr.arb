@@ -24,7 +24,7 @@
   "@family_friendly": {},
   "rich_presence_game_information_details": "Bir Oyun Hakkında Bilgileri Okuyor",
   "@rich_presence_game_information_details": {},
-  "patch_a_game": "",
+  "patch_a_game": "Oyun Yamaları",
   "@patch_a_game": {},
   "custom_server_title": "Özel Sunucu",
   "@custom_server_title": {},
@@ -322,5 +322,266 @@
   "subtitles": "Altyazılar",
   "@subtitles": {},
   "settings_app_reset_stars_action": "her oyun için yıldızları sıfırlar",
-  "@settings_app_reset_stars_action": {}
+  "@settings_app_reset_stars_action": {},
+  "game_translation_translated_description_en": "Bu oyunlar, Jackbox Games tarafından Fransızca, İtalyanca, Almanca ve İspanyolca dillerine çevrildi.",
+  "@game_translation_translated_description_en": {},
+  "patch_modification_content_subtitles": "Oyunun altyazılarının modifikasyonu",
+  "@patch_modification_content_subtitles": {},
+  "quit_while_downloading_description": "Bir indirme işlemi devam ediyor. Şimdi çıkmak istediğinizden emin misiniz?",
+  "@quit_while_downloading_description": {},
+  "privacy_info": "Gizlilik notu",
+  "@privacy_info": {},
+  "installing_a_patch_end": "Yükleme Tamamlandı",
+  "@installing_a_patch_end": {},
+  "patch_outdated": "{count, plural, one {Yamayı güncelle} other {Yamaları güncelle}}",
+  "@patch_outdated": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "example": "1"
+      }
+    }
+  },
+  "selected_server": "Seçilmiş Sunucu",
+  "@selected_server": {},
+  "automatic_game_finder_title": "Otomatik Oyun Bulucu",
+  "@automatic_game_finder_title": {},
+  "jackbox_utility": "Jackbox İzlencesi",
+  "@jackbox_utility": {},
+  "search_game": "Bir Oyun Ara",
+  "@search_game": {},
+  "launching": "Çalıştırılıyor...",
+  "@launching": {},
+  "path_inexistant_description": "Paketi konumlara eklemediniz. Bunu ayarlarda yapabilirsiniz.",
+  "@path_inexistant_description": {},
+  "game_type_versus_description": "Bu oyunlarda, her oyuncu kendisi için oynar ve diğer oyuncuları yenmesi gerekmektedir.",
+  "@game_type_versus_description": {},
+  "select_server_loading": "Sunucular Yükleniyor...",
+  "@select_server_loading": {},
+  "hidden_button_tooltip": "Bu oyunu listeden gizlemek için tıklayın.",
+  "@hidden_button_tooltip": {},
+  "launch_pack_description": "Paketi normal bir şekilde çalıştırır",
+  "@launch_pack_description": {},
+  "path_not_found_description": "Oyun dosyasının konumu bulunamadı. Lütfen oyunun yüklü olduğunu ve dosya yolunun doğru olduğunu kontrol edin.",
+  "@path_not_found_description": {},
+  "fixes_available_description": "Jack'i Bilmiyorsun Vol.6 Kayıp Altın yüklenmiş bir oyun olarak tespit edildi. Bu oyun normalde Windows 10/11 ve Linux işletim sistemlerine çalışmıyor. Bu sorunu düzelten yamayı indirip yüklemek istiyor musunuz? Her zaman belirtilen oyunun menüsünde yamayı yükleyebilirsiniz.",
+  "@fixes_available_description": {},
+  "fixes_available": "Jack'i Bilmiyorsun Vol. 6 Düzeltmesi",
+  "@fixes_available": {},
+  "path_not_found": "Dosya Konumu Bulunamadı",
+  "@path_not_found": {},
+  "automatic_game_finder_description": "Jackbox İzlencesi, Steam ve Epic Games kullanılarak bu bilgisayarda yüklenen oyunları bulabilir.\nBu özelliği kullanmak ister misiniz?",
+  "@automatic_game_finder_description": {},
+  "pack_path": "Oyun konumu",
+  "@pack_path": {},
+  "all_games": "Tüm Oyunlar",
+  "@all_games": {},
+  "connection_to_main_server_failed": "Mevcut sunucuları listelerken bir hata oluştu.",
+  "@connection_to_main_server_failed": {},
+  "can_close_popup": "Bu mesaj kutusunu kapatabilirsiniz",
+  "@can_close_popup": {},
+  "patch_installed": "{count, plural, one {Yama indirildi} other {Yama indirildi}}",
+  "@patch_installed": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "example": "1"
+      }
+    }
+  },
+  "players": "oyuncular",
+  "@players": {},
+  "authors": "Yazarlar",
+  "@authors": {},
+  "patch_not_installed": "{count, plural, one {Yamayı indir} other {Yamaları indir}}",
+  "@patch_not_installed": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "example": "1"
+      }
+    }
+  },
+  "ranked_by_stars": "Yıldızlarla Sıralama",
+  "@ranked_by_stars": {},
+  "quit_while_downloading_title": "İndirme Devam Ediyor",
+  "@quit_while_downloading_title": {},
+  "patch_unavailable": "Yama Mevcut Değil",
+  "@patch_unavailable": {},
+  "path_not_found_small_description": "Oyun dosyasının konumu bulunamadı.",
+  "@path_not_found_small_description": {},
+  "description": "Açıklama",
+  "@description": {},
+  "launch_game_fast_launcher": "Oyunu Çalıştır (Hızlı Çalıştırıcı)",
+  "@launch_game_fast_launcher": {},
+  "game_type_coop": "Kooperatif",
+  "@game_type_coop": {},
+  "installing_a_patch_description": "Bu yamayı yükleyeceksiniz. Bu işlem geri alınamaz.",
+  "@installing_a_patch_description": {},
+  "game_translation_translated": "Resmi Olarak {language} Diline Çevrildi",
+  "@game_translation_translated": {
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "example": "French"
+      }
+    }
+  },
+  "patch_modification_content_text": "Oyunun metin içeriği modifikasyonu",
+  "@patch_modification_content_text": {},
+  "game_type_coop_description": "Bu oyunlarda oyuncular, kazanmak için hep beraber çalışırlar.",
+  "@game_type_coop_description": {},
+  "patch_modification_description": "Bu yamanın, oyununuza yapacağı değişiklikler:",
+  "@patch_modification_description": {},
+  "patch_modification_content_website": "Jackbox kumandasının metinsel modifikasyonu (yalnızda {website} adresinde mevcuttur)",
+  "@patch_modification_content_website": {
+    "placeholders": {
+      "website": {
+        "type": "String",
+        "example": "laboxdejack.fr"
+      }
+    }
+  },
+  "small_information": "Bilgi",
+  "@small_information": {},
+  "search_by_tags": "Etiket Olarak Ara",
+  "@search_by_tags": {},
+  "games_ranked_by_stars_from_personal_ranking": "Kişisel puanlarınızda verilen yıldızlara göre sıralanan oyunlar.",
+  "@games_ranked_by_stars_from_personal_ranking": {},
+  "automatic_server_finder_found": "Sunucu Bulundu",
+  "@automatic_server_finder_found": {},
+  "version": "Sürüm",
+  "@version": {},
+  "game_type_team": "Takımlı",
+  "@game_type_team": {},
+  "launch_game_fast_launcher_description": "Oyunu hızlı çalıştırıcı moduyla çalıştırır ve seçtiğiniz oyunun intro videosunu ve paket seçimini atlamanıza izin verir. Sadece bazı oyunlar için mevcuttur.",
+  "@launch_game_fast_launcher_description": {},
+  "sort_by": "{type} ile Sırala",
+  "@sort_by": {
+    "placeholders": {
+      "type": {
+        "type": "String",
+        "example": "Name"
+      }
+    }
+  },
+  "jackbox_utility_description": "Jackbox oyunlarının yamalarını indiren ve çalıştıran bir açık kaynak uygulaması.",
+  "@jackbox_utility_description": {},
+  "game_type_versus": "Kendi Başına",
+  "@game_type_versus": {},
+  "game_translation_translated_description": "Bu oyunlar {language} diline resmi olarak çevrildi.",
+  "@game_translation_translated_description": {
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "example": "French"
+      }
+    }
+  },
+  "settings_anonymous_data_title": "Anonim veri toplaması",
+  "@settings_anonymous_data_title": {},
+  "unknown_error": "Bilinmeyen Hata",
+  "@unknown_error": {},
+  "installing_a_patch": "Yama Yüklemesi",
+  "@installing_a_patch": {},
+  "launch_game": "Oyunu Çalıştır",
+  "@launch_game": {},
+  "launched": "Çalıştırıldı!",
+  "@launched": {},
+  "unranked": "Puanlanmamış",
+  "@unranked": {},
+  "automatic_game_finder_finish": "{count, plural, =0 {Oyun Bulunamadı} one {1 oyun bulundu} other {{count} oyun bulundu}}",
+  "@automatic_game_finder_finish": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "example": "1"
+      }
+    }
+  },
+  "search_by_translation": "Çeviri Olarak Ara",
+  "@search_by_translation": {},
+  "search_by_ranking": "Puanlama ile Sırala",
+  "@search_by_ranking": {},
+  "game_patch_unavailable": "Yama mevcut değil",
+  "@game_patch_unavailable": {},
+  "connection_to_server_failed": "Sunucuya Bağlanma Başarısız Oldu",
+  "@connection_to_server_failed": {},
+  "settings_anonymous_data_description": "Bu uygulamanın kullanımını anonim olarak göndererek bu uygulamayı daha iyi hale getirmemize yardım edin.",
+  "@settings_anonymous_data_description": {},
+  "patch_modification": "Yama modifikasyonu",
+  "@patch_modification": {},
+  "game_patch_available": "Bir yama mevcut",
+  "@game_patch_available": {},
+  "select_server_subtitle": "Mevcut olan sunuculardan birini seçin",
+  "@select_server_subtitle": {},
+  "personal_ranking": "Kişisel Puanlama",
+  "@personal_ranking": {},
+  "launch_pack": "Oyunu Çalıştır",
+  "@launch_pack": {},
+  "hidden_button_hidden_tooltip": "Bu oyunu listede göstermek için tıklayın.",
+  "@hidden_button_hidden_tooltip": {},
+  "all_games_description": "Bütün Jackbox oyunlarını tek yerde bulun.",
+  "@all_games_description": {},
+  "automatic_server_finder_found_description": "{server} sunucusu, dilinize göre seçildi.",
+  "@automatic_server_finder_found_description": {
+    "placeholders": {
+      "server": {
+        "type": "String",
+        "example": "Jackbox France"
+      }
+    }
+  },
+  "contact_error": "Discord üzerinden Alexis61 ile iletişime geçin (İngilizce görüşmeniz önerilir)",
+  "@contact_error": {},
+  "path_inexistant_small_description": "Paketi konumlara eklemediniz.",
+  "@path_inexistant_small_description": {},
+  "error_happened": "Bir hata oluştu",
+  "@error_happened": {},
+  "search": "Ara",
+  "@search": {},
+  "launch_informations": "Çalıştırma Bilgisi",
+  "@launch_informations": {},
+  "server_information": "Sunucu Bilgisi",
+  "@server_information": {},
+  "delete_version": "Sürümü Sil",
+  "@delete_version": {},
+  "patch_modification_content_audios": "Oyun sesinin modifikasyonu",
+  "@patch_modification_content_audios": {},
+  "patch_modification_content_internal": "Oyunun iç dosyalarının (görüntü, metin...) modifikasyonu",
+  "@patch_modification_content_internal": {},
+  "all_patches": "Tüm yamalar",
+  "@all_patches": {},
+  "path_inexistant": "Dosya Konumu Yok",
+  "@path_inexistant": {},
+  "search_by_pack": "Paket Olarak Ara",
+  "@search_by_pack": {},
+  "game_patch_installed": "Yama güncel",
+  "@game_patch_installed": {},
+  "owned_packs": "Sahip Olunan Oyunlar",
+  "@owned_packs": {},
+  "automatic_game_finder_in_progress": "Oyunlar bulunuyor, lütfen bekleyin",
+  "@automatic_game_finder_in_progress": {},
+  "add_pack": "Oyun Ekle",
+  "@add_pack": {},
+  "search_by_type": "Tür Olarak Ara",
+  "@search_by_type": {},
+  "delete_version_description": "Eğer oyununuzu sıfırladıysanız, bu oyunun yüklenmiş sürümünü silebilirsiniz. Bu size yamaları yeniden indirmenize izin verir.",
+  "@delete_version_description": {},
+  "show_owned_packs_only": "Sadece Sahip Olduğum Oyunları Göster",
+  "@show_owned_packs_only": {},
+  "choose_pack": "Oyun Seç",
+  "@choose_pack": {},
+  "game_type_team_description": "Bu oyunlarda, oyuncular takımlara ayrılıp kazanmak için beraber çalışırlar.",
+  "@game_type_team_description": {},
+  "game_patch_outdated": "Bu yama için bir güncelleme mevcuttur",
+  "@game_patch_outdated": {},
+  "show_all_packs": "Sahip Olmadığım Oyunları Göster",
+  "@show_all_packs": {},
+  "privacy_description": "Bu uygulamayı iyileştirme sebebiyle, bu uygulama anonim istatistik topluyor. Bunu ayarlarda devre dışı bırakabilirsiniz.",
+  "@privacy_description": {},
+  "more_informations": "Daha Fazla Bilgi",
+  "@more_informations": {},
+  "select_server_button": "Seç",
+  "@select_server_button": {}
 }
