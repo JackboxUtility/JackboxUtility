@@ -28,7 +28,7 @@ jobs:
       id: previousTag
       run: |
         echo "$(git --no-pager tag --sort=creatordate --merged main | grep -v beta)"
-        name=$(git --no-pager tag --sort=creatordate --merged main | grep -v beta | tail -2 | head -1)
+        name=$(git --no-pager tag --sort=creatordate --merged main | grep -v beta | tail -1 | head -1)
         echo "previousTag: $name"
         echo "previousTag=$name" >> $GITHUB_ENV
         echo "previousTag=$name" >> $GITHUB_OUTPUT
