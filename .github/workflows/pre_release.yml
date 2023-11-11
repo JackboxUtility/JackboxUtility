@@ -71,14 +71,10 @@ jobs:
        working-directory: ./_packaging/linux/appimage
        run: | 
           mkdir out
-          mv ./JackboxUtility-latest-x86_64.AppImage ./out/JackboxUtility.AppImage
+          mv ./JackboxUtility-latest-x86_64.AppImage ./out/jackbox_patcher
      - uses: actions/upload-artifact@v3
        with:
           name: build_linux
-          path: ./jackbox_patcher/build/linux/x64/release/bundle
-     - uses: actions/upload-artifact@v3
-       with:
-          name: build_linux_appimage
           path: ./_packaging/linux/appimage/out
  build_macos:
    runs-on: macos-latest
