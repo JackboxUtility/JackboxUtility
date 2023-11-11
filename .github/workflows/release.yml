@@ -79,6 +79,12 @@ jobs:
       - build_linux
       - retrievingVersion
     steps: 
+      - name: Conventional Changelog Action
+        id: changelog
+        uses: TriPSs/conventional-changelog-action@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          output-file: "false"
       - run: mkdir -p dist
       - uses: actions/download-artifact@master
         with:
@@ -98,10 +104,12 @@ jobs:
           zip -r ../../JackboxUtility_Linux.zip *
       - name: Upload release onto Github
         uses: ncipollo/release-action@v1
+        if: ${{ steps.changelog.outputs.skipped == 'false' }}
         with:
          artifacts: 'JackboxUtility_Windows.zip,JackboxUtility_Linux.zip'
          token: ${{ secrets.GITHUB_TOKEN }}
          tag: ${{ needs.retrievingVersion.outputs.version }}
+         body: ${{ steps.changelog.outputs.clean_changelog }}
          prerelease: false
          allowUpdates: true
   
