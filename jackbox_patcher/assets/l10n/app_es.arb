@@ -186,7 +186,7 @@
   "@game_patch_unavailable": {},
   "game_patch_available": "Un parche está disponible",
   "@game_patch_available": {},
-  "game_patch_installed": "Este parche está acutalizado",
+  "game_patch_installed": "Este parche está actualizado",
   "@game_patch_installed": {},
   "game_patch_outdated": "Hay una actualización disponible para este parche",
   "@game_patch_outdated": {},
@@ -561,6 +561,6 @@
   "@rich_presence_in_game_details": {},
   "hidden_button_tooltip": "Haz clic para ocultar este juego de la lista de juegos.",
   "@hidden_button_tooltip": {},
-  "hidden_button_hidden_tooltip": "Haz clic para mostrar este juego de la lista de juegos.",
+  "hidden_button_hidden_tooltip": "Haz clic para mostrar este juego en la lista de juegos.",
   "@hidden_button_hidden_tooltip": {}
 }
