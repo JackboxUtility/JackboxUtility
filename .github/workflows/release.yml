@@ -93,6 +93,7 @@ jobs:
         id: "tag_create"
         with:
           tag: ${{ needs.retrievingVersion.outputs.version }}
+          message: "Release ${{ needs.retrievingVersion.outputs.version }}"
       - name: Update CHANGELOG
         id: changelog
         uses: requarks/changelog-action@v1
