@@ -81,16 +81,25 @@ jobs:
       - retrievingVersion
     steps: 
       - uses: actions/checkout@v3
-      - name: Conventional Changelog Action
-        id: changelog
-        uses: TriPSs/conventional-changelog-action@v3
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          output-file: "false"
-          version-file: ./jackbox_patcher/pubspec.yaml
-          version-path: version
-          skip-version-file: "true"
-          git-branch: dev
+          ref: dev
+      - name: Get previous tag
+        id: previousTag
+        run: |
+          name=$(git --no-pager tag --sort=creatordate --merged ${{ github.ref_name }} | grep -v beta | tail -1 | head -1)
+          echo "previousTag: $name"
+          echo "previousTag=$name" >> $GITHUB_ENV
+      - uses: rickstaa/action-create-tag@v1
+        id: "tag_create"
+        with:
+          tag: ${{ needs.retrievingVersion.outputs.version }}
+      - name: Update CHANGELOG
+        id: changelog
+        uses: requarks/changelog-action@v1
+        with:
+          token: ${{ github.token }}
+          fromTag: ${{ needs.retrievingVersion.outputs.version }}
+          toTag: ${{ env.previousTag }}
       - run: mkdir -p dist
       - uses: actions/download-artifact@master
         with:
@@ -115,7 +124,13 @@ jobs:
          artifacts: 'JackboxUtility_Windows.zip,JackboxUtility_Linux.zip'
          token: ${{ secrets.GITHUB_TOKEN }}
          tag: ${{ needs.retrievingVersion.outputs.version }}
-         body: ${{ steps.changelog.outputs.clean_changelog }}
+         body: ${{ steps.changelog.outputs.changes }}
          prerelease: false
          allowUpdates: true
+      - name: Commit CHANGELOG.md
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          branch: main
+          commit_message: 'docs: update CHANGELOG.md for ${{ needs.retrievingVersion.outputs.version }} [skip ci]'
+          file_pattern: CHANGELOG.md
   
