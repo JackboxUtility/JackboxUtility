@@ -19,6 +19,7 @@ jobs:
       run: |
          VERSION=$(more pubspec.yaml | grep version: | cut -d ' ' -f2)
          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+         echo "VERSION=${VERSION}" >> $GITHUB_ENV
     - uses: rickstaa/action-create-tag@v1
       id: "tag_create"
       with:
