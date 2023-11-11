@@ -26,7 +26,7 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
   bool isVideoLoaded = false;
   TweenAnimationBuilder<double>? tweenAnimationBuilder;
 
-  late StreamSubscription<bool> completedStream;
+  StreamSubscription<bool>? completedStream;
   late StreamSubscription<bool> bufferingStream;
   late StreamSubscription<Duration> positionStream;
 
@@ -44,7 +44,7 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
 
   @override
   void dispose() {
-    completedStream.cancel();
+    completedStream?.cancel();
     positionStream.cancel();
     bufferingStream.cancel();
     super.dispose();

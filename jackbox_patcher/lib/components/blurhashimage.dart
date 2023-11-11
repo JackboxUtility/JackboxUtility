@@ -31,8 +31,10 @@ class _BlurHashImageState extends State<BlurHashImage> {
 
   Future<void> _retrieveBlurHash() async {
     blurHash = APIService().getBlurHash(widget.url);
-    blurHashRetrieved = true;
-    setState(() {});
+    if (blurHash != null && blurHash!.blurHash != null){
+      blurHashRetrieved = true;
+      setState(() {});
+    }
   }
 
   int _getDecodingWidth() {
