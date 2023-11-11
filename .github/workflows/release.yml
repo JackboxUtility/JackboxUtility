@@ -22,8 +22,8 @@ jobs:
     - uses: rickstaa/action-create-tag@v1
       id: "tag_create"
       with:
-        tag: ${{ env.version }}
-        message: "Release ${{ env.version }}"
+        tag: ${{ env.VERSION }}
+        message: "Release ${{ env.VERSION }}"
  build_windows:
    runs-on: windows-latest
    needs: retrievingVersion
