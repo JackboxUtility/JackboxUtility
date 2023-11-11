@@ -1,6 +1,5 @@
 import 'package:jackbox_patcher/services/arguments_handler/handlers/AbstractArgumentHandler.dart';
 import 'package:jackbox_patcher/services/arguments_handler/handlers/LaunchGameHandler.dart';
-import 'package:jackbox_patcher/services/internal_api/api_handlers/AbstractHandler.dart';
 
 class ArgumentsHandler {
   static List<AbstractArgumentHandler> handlers = [LaunchGameHandler()];

@@ -52,10 +52,26 @@ jobs:
      - name: Build linux
        working-directory: ./jackbox_patcher
        run: flutter build linux --build-name ${{ needs.retrievingVersion.outputs.version }} -t ./lib/main_release.dart
+     - name: Install appimage-builder
+       run: |
+        wget -O appimage-builder-x86_64.AppImage https://github.com/AppImageCrafters/appimage-builder/releases/download/v1.1.0/appimage-builder-1.1.0-x86_64.AppImage
+        chmod +x appimage-builder-x86_64.AppImage
+        sudo mv appimage-builder-x86_64.AppImage /usr/local/bin/appimage-builder
+     - name: Package linux
+       working-directory: ./_packaging/linux/appimage
+       run: |
+        mkdir AppDir
+        cp -r ../../../jackbox_patcher/build/linux/x64/release/bundle/* AppDir
+        /usr/local/bin/appimage-builder --recipe ./AppImageBuilder.yml --skip-tests
+     - name: Move into out
+       working-directory: ./_packaging/linux/appimage
+       run: | 
+          mkdir out
+          mv ./JackboxUtility-latest-x86_64.AppImage ./out/jackbox_patcher
      - uses: actions/upload-artifact@v3
        with:
           name: build_linux
-          path: ./jackbox_patcher/build/linux/x64/release/bundle
+          path: ./_packaging/linux/appimage/out
  upload:
     runs-on: ubuntu-latest
     needs: 
@@ -63,6 +79,12 @@ jobs:
       - build_linux
       - retrievingVersion
     steps: 
+      - name: Conventional Changelog Action
+        id: changelog
+        uses: TriPSs/conventional-changelog-action@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          output-file: "false"
       - run: mkdir -p dist
       - uses: actions/download-artifact@master
         with:
@@ -82,10 +104,12 @@ jobs:
           zip -r ../../JackboxUtility_Linux.zip *
       - name: Upload release onto Github
         uses: ncipollo/release-action@v1
+        if: ${{ steps.changelog.outputs.skipped == 'false' }}
         with:
          artifacts: 'JackboxUtility_Windows.zip,JackboxUtility_Linux.zip'
          token: ${{ secrets.GITHUB_TOKEN }}
          tag: ${{ needs.retrievingVersion.outputs.version }}
+         body: ${{ steps.changelog.outputs.clean_changelog }}
          prerelease: false
          allowUpdates: true
   

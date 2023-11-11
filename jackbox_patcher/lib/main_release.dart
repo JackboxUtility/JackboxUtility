@@ -8,6 +8,7 @@ import 'package:jackbox_patcher/app_configuration.dart';
 import 'package:jackbox_patcher/main.dart';
 import 'package:jackbox_patcher/services/arguments_handler/ArgumentsHandler.dart';
 import 'package:media_kit/media_kit.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:window_manager/window_manager.dart';
 
 import 'services/logger/logger.dart';
@@ -35,13 +36,20 @@ void main(List<String> arguments) async {
 
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
-  if (!Platform.isLinux) MediaKit.ensureInitialized();
+  MediaKit.ensureInitialized();
   DiscordRPC.initialize();
 
   if (await ArgumentsHandler().handle(arguments)) {
     exit(0);
   }
-
   initRetrievingErrors();
-  runApp(const MyApp());
+  await SentryFlutter.init(
+    (options) {
+      options.environment = "production";
+      options.dsn =
+          'https://bc7660c906ba4f24ad2e37530bfa4c39@o518501.ingest.sentry.io/4504978536988672';
+    },
+    // Init your App.
+    appRunner: () => runApp(MyApp()),
+  );
 }

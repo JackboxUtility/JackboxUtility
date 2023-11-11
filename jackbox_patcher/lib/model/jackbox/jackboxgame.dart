@@ -35,9 +35,11 @@ class JackboxGame {
 
   factory JackboxGame.fromJson(Map<String, dynamic> json) {
     List<JackboxGamePatch> patches = [];
-    patches = (json['patchs'] as List<dynamic>)
-        .map((e) => JackboxGamePatch.fromJson(e))
-        .toList();
+    if (json['patchs'] != null) {
+      patches = (json['patchs'] as List<dynamic>)
+          .map((e) => JackboxGamePatch.fromJson(e))
+          .toList();
+    }
     return JackboxGame(
       id: json['id'],
       name: json['name'],

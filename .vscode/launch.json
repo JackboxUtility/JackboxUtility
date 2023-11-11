@@ -8,10 +8,11 @@
             "name": "jackbox_patcher",
             "cwd": "jackbox_patcher",
             "args": [
-                "--flavor beta -t ./lib/main_beta.dart"
+                "--flavor beta"
             ],
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "program": "./lib/main_beta.dart"
         },
         {
             "name": "jackbox_patcher (profile mode)",
