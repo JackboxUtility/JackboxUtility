@@ -130,7 +130,6 @@ jobs:
           zip -r ../../JackboxUtility_Linux.zip *
       - name: Upload release onto Github
         uses: ncipollo/release-action@v1
-        if: ${{ steps.changelog.outputs.skipped == 'false' }}
         with:
          artifacts: 'JackboxUtility_Windows.zip,JackboxUtility_Linux.zip'
          token: ${{ secrets.GITHUB_TOKEN }}
