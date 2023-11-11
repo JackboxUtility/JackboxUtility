@@ -19,6 +19,11 @@ jobs:
       run: |
          VERSION=$(more pubspec.yaml | grep version: | cut -d ' ' -f2)
          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+    - uses: rickstaa/action-create-tag@v1
+      id: "tag_create"
+      with:
+        tag: ${{ env.version }}
+        message: "Release ${{ env.version }}"
  build_windows:
    runs-on: windows-latest
    needs: retrievingVersion
@@ -89,11 +94,6 @@ jobs:
           name=$(git --no-pager tag --sort=creatordate --merged ${{ github.ref_name }} | grep -v beta | tail -1 | head -1)
           echo "previousTag: $name"
           echo "previousTag=$name" >> $GITHUB_ENV
-      - uses: rickstaa/action-create-tag@v1
-        id: "tag_create"
-        with:
-          tag: ${{ needs.retrievingVersion.outputs.version }}
-          message: "Release ${{ needs.retrievingVersion.outputs.version }}"
       - name: Update CHANGELOG
         id: changelog
         uses: requarks/changelog-action@v1
