@@ -25,6 +25,7 @@ jobs:
       with:
         tag: ${{ env.VERSION }}
         message: "Release ${{ env.VERSION }}"
+        tag_exists_error: "false"
  build_windows:
    runs-on: windows-latest
    needs: retrievingVersion
