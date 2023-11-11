@@ -47,9 +47,11 @@ class _DownloadPatchDialogComponentState
           status = stat;
           substatus = substat;
           if (progression.toInt() != progress.toInt()) {
-            WindowsTaskbar.setProgress(
-                progress.toInt() + (currentPatchDownloading) * 100,
-                100 * widget.patchs.length);
+            if (Platform.isWindows) {
+              WindowsTaskbar.setProgress(
+                  progress.toInt() + (currentPatchDownloading) * 100,
+                  100 * widget.patchs.length);
+            }
           }
           progression = progress;
           setState(() {});
