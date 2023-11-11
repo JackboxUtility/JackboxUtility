@@ -89,6 +89,8 @@ jobs:
           output-file: "false"
           version-file: ./jackbox_patcher/pubspec.yaml
           version-path: version
+          skip-version-file: "true"
+          git-branch: dev
       - run: mkdir -p dist
       - uses: actions/download-artifact@master
         with:
