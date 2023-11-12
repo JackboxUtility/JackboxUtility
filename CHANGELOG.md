@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.6+1] - 2023-11-12
+### :bug: Bug Fixes
+- [`28a8324`](https://github.com/AlexisL61/JackboxUtility/commit/28a8324736f3e135ce644654971abf66891b7f72) - **internal**: :bug: Internal bug fixes *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+
+
 ## [1.3.6] - 2023-11-11
 ### :sparkles: New Features
 - [`2fe6ec2`](https://github.com/AlexisL61/JackboxUtility/commit/2fe6ec2ac6ba577ea139e15ced3eaef8f8432346) - **translation**: Translations update from Hosted Weblate *(PR [#348](https://github.com/AlexisL61/JackboxUtility/pull/348) by [@weblate](https://github.com/weblate))*
@@ -17,3 +22,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 [1.3.6]: https://github.com/AlexisL61/JackboxUtility/compare/1.3.5+1...1.3.6
+[1.3.6+1]: https://github.com/AlexisL61/JackboxUtility/compare/1.3.6...1.3.6+1
