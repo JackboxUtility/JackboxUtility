@@ -14,6 +14,9 @@ jobs:
       previousTag: ${{ steps.previousTag.outputs.previousTag }}
   steps:
     - uses: actions/checkout@v3
+      with: 
+        fetch-tags: true
+        fetch-depth: 0
     - name: Expose git commit data
       uses: rlespinasse/git-commit-data-action@v1
     - name: Retrieve Release Version
