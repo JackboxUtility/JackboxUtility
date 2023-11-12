@@ -26,6 +26,7 @@ jobs:
          DATE=$(date +%s)
          VERSION=$(more pubspec.yaml | grep version: | cut -d ' ' -f2)
          echo "version=${VERSION}-beta-${DATE}" >> $GITHUB_OUTPUT
+         echo "VERSION=${VERSION}" >> $GITHUB_ENV
     - name: Get previous tag
       id: previousTag
       run: |
