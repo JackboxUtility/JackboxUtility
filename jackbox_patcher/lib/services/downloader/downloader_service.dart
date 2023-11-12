@@ -93,9 +93,13 @@ class DownloaderService {
     int currentFiles = 0;
     process.stdout.listen((data) {});
     process.stderr.listen((data) {
-      currentFiles += utf8.decode(data).split("\n").length - 1;
-      callback(TranslationsHelper().appLocalizations!.extracting,
-          "$currentFiles/$files", 75 + ((currentFiles / files) * 25));
+      try {
+        currentFiles += utf8.decode(data).split("\n").length - 1;
+        callback(TranslationsHelper().appLocalizations!.extracting,
+            "$currentFiles/$files", 75 + ((currentFiles / files) * 25));
+      }catch(e){
+        JULogger().e(e);
+      }
     });
     await process.exitCode;
     return;

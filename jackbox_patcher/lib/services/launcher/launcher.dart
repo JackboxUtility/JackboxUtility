@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:archive/archive_io.dart';
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:jackbox_patcher/model/misc/launchers.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/services/api_utility/api_service.dart';
@@ -11,16 +10,24 @@ import 'package:jackbox_patcher/services/discord/DiscordService.dart';
 import 'package:jackbox_patcher/services/internal_api/RestApiRouter.dart';
 import 'package:jackbox_patcher/services/internal_api/ws_message/GameCloseWsMessage.dart';
 import 'package:jackbox_patcher/services/internal_api/ws_message/GameOpenWsMessage.dart';
+import 'package:jackbox_patcher/services/launcher/launchers/AbstractPackLauncher.dart';
+import 'package:jackbox_patcher/services/launcher/launchers/EpicPackLauncher.dart';
+import 'package:jackbox_patcher/services/launcher/launchers/NativePackLauncher.dart';
+import 'package:jackbox_patcher/services/launcher/launchers/SteamPackLauncher.dart';
 import 'package:jackbox_patcher/services/launcher/processHelper.dart';
 import 'package:jackbox_patcher/services/logger/logger.dart';
 import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../model/misc/audio/SFXEnum.dart';
 import '../user/userdata.dart';
 
 class Launcher {
-  static List<UserJackboxPack> _openedLaunchers = [];
+  static final List<UserJackboxPack> _openedPacks = [];
+  static final List<AbstractPackLauncher> _availablePackLaunchers = [
+    SteamPackLauncher(),
+    EpicPackLauncher(),
+    NativePackLauncher()
+  ];
 
   static Future<bool> _initForRawLaunch() async {
     TranslationsHelper().changeLocale(Locale("en"));
@@ -83,20 +90,7 @@ class Launcher {
         String packFolder = pack.path!;
         await extractFileToDisk(pack.loader!.path!, packFolder);
       }
-      if (pack.origin != null &&
-          pack.origin == LauncherType.STEAM &&
-          pack.pack.launchersId != null &&
-          pack.pack.launchersId!.steam != null) {
-        try {
-          await launchUrl(
-              Uri.parse("steam://rungameid/${pack.pack.launchersId!.steam!}"));
-        } catch (e) {
-          JULogger().e(e);
-        }
-      } else {
-        await Process.run("${pack.path!}/${pack.pack.executable}", [],
-            workingDirectory: pack.path);
-      }
+      await handlePackLaunch(pack);
       checkLaunchedPack(pack);
     }
   }
@@ -139,23 +133,23 @@ class Launcher {
       // Extracting into game file
       String packFolder = pack.path!;
       await extractFileToDisk(game.loader!.path!, packFolder);
-      if (pack.origin != null &&
-          pack.origin == LauncherType.STEAM &&
-          pack.pack.launchersId != null &&
-          pack.pack.launchersId!.steam != null) {
-        await launchUrl(
-            Uri.parse("steam://rungameid/${pack.pack.launchersId!.steam!}"));
-      } else {
-        await Process.run("${pack.path!}/${pack.pack.executable}", [],
-            workingDirectory: pack.path);
-      }
-      _openedLaunchers.add(pack);
+      await handlePackLaunch(pack);
+      _openedPacks.add(pack);
       checkLaunchedPack(pack, game);
     }
   }
 
+  static Future<void> handlePackLaunch(UserJackboxPack pack) async {
+    for (AbstractPackLauncher launcher in _availablePackLaunchers) {
+      if (launcher.willHandleRequest(pack)) {
+        await launcher.launch(pack);
+        return;
+      }
+    }
+  }
+
   static Future<void> restoreOldLaunchers() async {
-    for (UserJackboxPack pack in _openedLaunchers) {
+    for (UserJackboxPack pack in _openedPacks) {
       // Extracting back files
       String packFolder = pack.path!;
       await extractFileToDisk(pack.loader!.path!, packFolder);

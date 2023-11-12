@@ -188,6 +188,7 @@ class AutomaticGameFinderService {
             numberGamesFound++;
             await userPack.setOwned(true);
             await userPack.setPath(app["InstallLocation"]!);
+            await userPack.setLauncher(LauncherType.EPIC);
           }
         }
       }
