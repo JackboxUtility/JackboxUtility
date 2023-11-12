@@ -3,6 +3,7 @@
     "conventionalCommits.scopes": [
         "bump",
         "internal",
-        "launcher"
+        "launcher",
+        "game-finder"
     ]
 }

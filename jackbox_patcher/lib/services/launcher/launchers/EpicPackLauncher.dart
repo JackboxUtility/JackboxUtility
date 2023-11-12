@@ -6,8 +6,8 @@ import 'package:url_launcher/url_launcher.dart';
 class EpicPackLauncher implements AbstractPackLauncher {
   @override
   Future<void> launch(UserJackboxPack userPack) async {
-    await launchUrl(
-            Uri.parse("com.epicgames.launcher://apps/${userPack.pack.launchersId!.epic!}?action=launch&silent=true"));
+    await launchUrl(Uri.parse(
+        "com.epicgames.launcher://apps/${userPack.pack.launchersId!.epic!}?action=launch&silent=true"));
   }
 
   @override
