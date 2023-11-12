@@ -2,6 +2,7 @@
     "cmake.sourceDirectory": "D:/Developpement/Dart/Flutter/JackboxPatcher/jackbox_patcher/windows/flutter",
     "conventionalCommits.scopes": [
         "bump",
-        "internal"
+        "internal",
+        "launcher"
     ]
 }

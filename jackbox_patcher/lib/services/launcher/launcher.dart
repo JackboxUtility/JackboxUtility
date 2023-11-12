@@ -11,6 +11,7 @@ import 'package:jackbox_patcher/services/internal_api/RestApiRouter.dart';
 import 'package:jackbox_patcher/services/internal_api/ws_message/GameCloseWsMessage.dart';
 import 'package:jackbox_patcher/services/internal_api/ws_message/GameOpenWsMessage.dart';
 import 'package:jackbox_patcher/services/launcher/launchers/AbstractPackLauncher.dart';
+import 'package:jackbox_patcher/services/launcher/launchers/EpicPackLauncher.dart';
 import 'package:jackbox_patcher/services/launcher/launchers/NativePackLauncher.dart';
 import 'package:jackbox_patcher/services/launcher/launchers/SteamPackLauncher.dart';
 import 'package:jackbox_patcher/services/launcher/processHelper.dart';
@@ -23,7 +24,8 @@ import '../user/userdata.dart';
 class Launcher {
   static final List<UserJackboxPack> _openedPacks = [];
   static final List<AbstractPackLauncher> _availablePackLaunchers = [
-    SteamPackLauncher(), 
+    SteamPackLauncher(),
+    EpicPackLauncher(),
     NativePackLauncher()
   ];
 
