@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.6+2] - 2023-11-12
+### :sparkles: New Features
+- [`215a491`](https://github.com/AlexisL61/JackboxUtility/commit/215a49187359214b1e85f82f36779314af224169) - **launcher**: :sparkles: Add url launcher for epic *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+
+### :bug: Bug Fixes
+- [`b9bcbce`](https://github.com/AlexisL61/JackboxUtility/commit/b9bcbce1834b4280676125096e5044117ae71b2c) - **game-finder**: :bug: Fix Epic games not being tag with the good launcher *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`6b80966`](https://github.com/AlexisL61/JackboxUtility/commit/6b8096660aef5134c34063d2f5b030f3063944d8) - **internal**: :bug: Fix internal bugs *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+
+### :recycle: Refactors
+- [`d8b5f45`](https://github.com/AlexisL61/JackboxUtility/commit/d8b5f45815fc1396ca27cca1d5bb30f23b8edf15) - :recycle: Refactor pack launcher before adding Epic Games launcher *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+
+
 ## [1.3.6+1] - 2023-11-12
 ### :bug: Bug Fixes
 - [`28a8324`](https://github.com/AlexisL61/JackboxUtility/commit/28a8324736f3e135ce644654971abf66891b7f72) - **internal**: :bug: Internal bug fixes *(commit by [@AlexisL61](https://github.com/AlexisL61))*
@@ -23,3 +35,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 [1.3.6]: https://github.com/AlexisL61/JackboxUtility/compare/1.3.5+1...1.3.6
 [1.3.6+1]: https://github.com/AlexisL61/JackboxUtility/compare/1.3.6...1.3.6+1
+[1.3.6+2]: https://github.com/AlexisL61/JackboxUtility/compare/1.3.6+1...1.3.6+2
