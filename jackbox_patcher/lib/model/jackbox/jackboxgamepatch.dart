@@ -32,7 +32,7 @@ class JackboxGamePatch extends PatchInformation {
       authors: json['authors'],
       smallDescription: json['small_description'],
       supportedPlatforms: json['supported_platforms'] == null
-          ? [AppPlatform.LINUX, AppPlatform.WINDOWS]
+          ? [AppPlatform.LINUX, AppPlatform.WINDOWS, AppPlatform.MAC]
           : List<AppPlatform>.from(json['supported_platforms']
               .map((x) => AppPlatformExtension.fromString(x))),
     );
