@@ -9,6 +9,7 @@ import 'package:jackbox_patcher/services/arguments_handler/ArgumentsHandler.dart
 import 'package:jackbox_patcher/services/internal_api/RestApiRouter.dart';
 import 'package:jackbox_patcher/services/logger/logger.dart';
 import 'package:media_kit/media_kit.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:window_manager/window_manager.dart';
 
 import 'app_configuration.dart';
@@ -37,15 +38,29 @@ void main(List<String> arguments) async {
 
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
-  if (!Platform.isLinux) MediaKit.ensureInitialized();
+  MediaKit.ensureInitialized();
   DiscordRPC.initialize();
-  initRetrievingErrors();
 
   if (await ArgumentsHandler().handle(arguments)) {
     exit(0);
   }
 
   RestApiRouter().startRouter();
+  initRetrievingErrors();
 
-  runApp(FlavorBanner(color: Colors.orange, child: const MyApp()));
+  if (kDebugMode){
+    runApp(FlavorBanner(color: Colors.orange, child: const MyApp()));
+  }else{
+    await SentryFlutter.init(
+      (options) {
+        options.environment = "debug";
+        options.dsn =
+            'https://bc7660c906ba4f24ad2e37530bfa4c39@o518501.ingest.sentry.io/4504978536988672';
+      },
+      // Init your App.
+      appRunner: () => runApp(FlavorBanner(color: Colors.orange, child: const MyApp())),
+    );
+
+  }
+
 }

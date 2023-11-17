@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpackpatch.dart';
@@ -45,9 +47,11 @@ class _DownloadPatchDialogComponentState
           status = stat;
           substatus = substat;
           if (progression.toInt() != progress.toInt()) {
-            WindowsTaskbar.setProgress(
-                progress.toInt() + (currentPatchDownloading) * 100,
-                100 * widget.patchs.length);
+            if (Platform.isWindows) {
+              WindowsTaskbar.setProgress(
+                  progress.toInt() + (currentPatchDownloading) * 100,
+                  100 * widget.patchs.length);
+            }
           }
           progression = progress;
           setState(() {});
@@ -114,12 +118,15 @@ class _DownloadPatchDialogComponentState
                 Text(status, style: const TextStyle(fontSize: 20)),
                 Text(substatus, style: const TextStyle(fontSize: 16)),
               ]))),
-      actions: progression == 0 || status!= TranslationsHelper().appLocalizations!.extracting
+      actions: progression == 0 ||
+              status != TranslationsHelper().appLocalizations!.extracting
           ? [
               HyperlinkButton(
                 onPressed: () {
-                  WindowsTaskbar.setProgressMode(
-                      TaskbarProgressMode.noProgress);
+                  if (Platform.isWindows) {
+                    WindowsTaskbar.setProgressMode(
+                        TaskbarProgressMode.noProgress);
+                  }
                   if (progression != 0) {
                     cancelToken.cancel();
                     downloadCancelled = true;
@@ -140,7 +147,9 @@ class _DownloadPatchDialogComponentState
       actions: [
         HyperlinkButton(
           onPressed: () {
-            WindowsTaskbar.setProgressMode(TaskbarProgressMode.noProgress);
+            if (Platform.isWindows) {
+              WindowsTaskbar.setProgressMode(TaskbarProgressMode.noProgress);
+            }
             Navigator.pop(context);
             downloadingProgress = 0;
             setState(() {});

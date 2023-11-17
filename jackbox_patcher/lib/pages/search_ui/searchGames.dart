@@ -520,8 +520,6 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                   builder:
                       (BuildContext context, double opacity, Widget? child) {
                     return GestureDetector(
-                        onSecondaryTap: () =>
-                            Launcher.launchGame(widget.pack, widget.game),
                         onTap: () async {
                           await Navigator.pushNamed(context, "/game",
                               arguments: [
