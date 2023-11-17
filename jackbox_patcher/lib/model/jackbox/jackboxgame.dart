@@ -53,7 +53,8 @@ class JackboxGame {
     return this.name.replaceAll(RegExp("[^a-zA-Z0-9 ]"), "");
   }
 
-  static List<JackboxGamePatch> _getGamePatchesFromJson(Map<String, dynamic> json) {
+  static List<JackboxGamePatch> _getGamePatchesFromJson(
+      Map<String, dynamic> json) {
     List<JackboxGamePatch> patches = json['patchs'] != null
         ? (json['patchs'] as List<dynamic>)
             .map((e) => JackboxGamePatch.fromJson(e))

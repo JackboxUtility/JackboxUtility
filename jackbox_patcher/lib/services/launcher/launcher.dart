@@ -87,8 +87,7 @@ class Launcher {
           pack.loader!.version = pack.pack.loader!.version;
           await UserData().savePack(pack);
         }
-        String packFolder = pack.path!;
-        await extractFileToDisk(pack.loader!.path!, packFolder);
+        await extractPackLoader(pack);
       }
       await handlePackLaunch(pack);
       checkLaunchedPack(pack);
@@ -116,8 +115,7 @@ class Launcher {
           pack.loader!.version = pack.pack.loader!.version;
           await UserData().savePack(pack);
         }
-        String packFolder = pack.path!;
-        await extractFileToDisk(pack.loader!.path!, packFolder);
+        await extractPackLoader(pack);
       }
 
       // If the loader is not already installed or need update, download it
@@ -131,8 +129,7 @@ class Launcher {
       }
 
       // Extracting into game file
-      String packFolder = pack.path!;
-      await extractFileToDisk(game.loader!.path!, packFolder);
+      await extractGameLoader(pack, game);
       await handlePackLaunch(pack);
       _openedPacks.add(pack);
       checkLaunchedPack(pack, game);
@@ -151,8 +148,27 @@ class Launcher {
   static Future<void> restoreOldLaunchers() async {
     for (UserJackboxPack pack in _openedPacks) {
       // Extracting back files
+      await extractPackLoader(pack);
+    }
+  }
+
+  static Future<void> extractPackLoader(UserJackboxPack pack) async {
+    if (pack.loader != null) {
       String packFolder = pack.path!;
+      if (pack.pack.resourceLocation != null) {
+        packFolder = packFolder + "/" + pack.pack.resourceLocation!;
+      }
       await extractFileToDisk(pack.loader!.path!, packFolder);
+    }
+  }
+
+  static Future<void> extractGameLoader(UserJackboxPack pack, UserJackboxGame game) async {
+    if (pack.loader != null) {
+      String packFolder = pack.path!;
+      if (pack.pack.resourceLocation != null) {
+        packFolder = packFolder + "/" + pack.pack.resourceLocation!;
+      }
+      await extractFileToDisk(game.loader!.path!, packFolder);
     }
   }
 

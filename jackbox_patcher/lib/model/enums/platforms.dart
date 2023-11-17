@@ -32,6 +32,19 @@ extension AppPlatformExtension on AppPlatform {
         return AppPlatform.WINDOWS;
     }
   }
+
+  static AppPlatform currentPlatform(){
+    if (Platform.isWindows) {
+      return AppPlatform.WINDOWS;
+    } else if (Platform.isMacOS) {
+      return AppPlatform.MAC;
+    } else if (Platform.isLinux) {
+      return AppPlatform.LINUX;
+    } else {
+      return AppPlatform.WINDOWS;
+    }
+  
+  }
 }
 
 extension AppPlatformList on List<AppPlatform> {

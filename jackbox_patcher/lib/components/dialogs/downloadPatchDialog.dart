@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:jackbox_patcher/model/usermodel/interface/InstallablePatch.dart';
+import 'package:jackbox_patcher/model/usermodel/userjackboxgamepatch.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpackpatch.dart';
 import 'package:windows_taskbar/windows_taskbar.dart';
 
@@ -13,7 +15,7 @@ class DownloadPatchDialogComponent extends StatefulWidget {
       : super(key: key);
 
   final List<String> localPaths;
-  final List<dynamic> patchs;
+  final List<InstallablePatch> patchs;
 
   @override
   State<DownloadPatchDialogComponent> createState() =>
@@ -91,6 +93,7 @@ class _DownloadPatchDialogComponentState
 
   ContentDialog buildDownloadingPatchDialog(
       String status, String substatus, double progression) {
+    InstallablePatch currentPatch = widget.patchs[currentPatchDownloading];
     return ContentDialog(
       title: Text(TranslationsHelper().appLocalizations!.installing_a_patch),
       content: SizedBox(
@@ -103,16 +106,17 @@ class _DownloadPatchDialogComponentState
                 ProgressRing(value: progression),
                 const SizedBox(height: 10),
                 Text(
+                    // ignore: prefer_interpolation_to_compose_strings
                     "[${currentPatchDownloading + 1}/${widget.patchs.length}] " +
-                        (widget.patchs[currentPatchDownloading]
-                                is UserJackboxPackPatch
-                            ? widget.patchs[currentPatchDownloading]
-                                .getPack()
-                                .pack
-                                .name
-                            : widget.patchs[currentPatchDownloading]
+                        (currentPatch
+                                is UserJackboxGamePatch
+                            ? (currentPatch as UserJackboxGamePatch)
                                 .getGame()
                                 .game
+                                .name
+                            : currentPatch
+                                .getPack()
+                                .pack
                                 .name),
                     style: const TextStyle(fontSize: 20)),
                 Text(status, style: const TextStyle(fontSize: 20)),

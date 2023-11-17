@@ -18,6 +18,7 @@ class JackboxPack {
   final String background;
   final String? executable;
   final StoreLinks? storeLinks;
+  final String? resourceLocation;
 
   JackboxPack(
       {required this.id,
@@ -32,7 +33,8 @@ class JackboxPack {
       required this.patches,
       required this.configuration,
       required this.executable,
-      required this.storeLinks});
+      required this.storeLinks,
+      required this.resourceLocation});
 
   factory JackboxPack.fromJson(Map<String, dynamic> json) {
     List<JackboxPackPatch> patches = _getPackPatchesFromJson(json);
@@ -64,7 +66,9 @@ class JackboxPack {
         executable: JackboxPack.generateExecutableFromJson(json['executables']),
         storeLinks: json['store_links'] != null
             ? StoreLinks.fromJson(json['store_links'])
-            : null);
+            : null,
+        resourceLocation:
+            getDeviceGamePathOverride(json['resource_location']));
   }
 
   static List<JackboxPackPatch> _getPackPatchesFromJson(
@@ -110,6 +114,14 @@ class JackboxPack {
         }
       }
     }
+  }
+
+  static String? getDeviceGamePathOverride(Map<String, String>? overrides) {
+    if (overrides != null &&
+        overrides.containsKey(AppPlatformExtension.currentPlatform().name)) {
+      return overrides[AppPlatformExtension.currentPlatform().name];
+    }
+    return null;
   }
 
   Map<String, dynamic> toJson() {

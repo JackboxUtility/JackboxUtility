@@ -4,6 +4,7 @@
         "bump",
         "internal",
         "launcher",
-        "game-finder"
+        "game-finder",
+        "mac"
     ]
 }
