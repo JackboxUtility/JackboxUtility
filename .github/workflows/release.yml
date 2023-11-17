@@ -89,7 +89,7 @@ jobs:
        working-directory: ./_packaging/linux/appimage
        run: | 
           mkdir out
-          mv ./JackboxUtility-latest-x86_64.AppImage ./out/jackbox_patcher
+          mv ./JackboxUtility-latest-x86_64.AppImage ./out/JackboxUtility
      - uses: actions/upload-artifact@v3
        with:
           name: build_linux
