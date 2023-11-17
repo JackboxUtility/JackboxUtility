@@ -1,12 +1,12 @@
 import 'dart:io';
 
-import 'package:archive/archive_io.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/services/api_utility/api_service.dart';
 import 'package:jackbox_patcher/services/audio/SFXService.dart';
 import 'package:jackbox_patcher/services/discord/DiscordService.dart';
+import 'package:jackbox_patcher/services/downloader/downloader_service.dart';
 import 'package:jackbox_patcher/services/internal_api/RestApiRouter.dart';
 import 'package:jackbox_patcher/services/internal_api/ws_message/GameCloseWsMessage.dart';
 import 'package:jackbox_patcher/services/internal_api/ws_message/GameOpenWsMessage.dart';
@@ -158,7 +158,7 @@ class Launcher {
       if (pack.pack.resourceLocation != null) {
         packFolder = packFolder + "/" + pack.pack.resourceLocation!;
       }
-      await extractFileToDisk(pack.loader!.path!, packFolder);
+      await DownloaderService.extractFileToDisk(pack.loader!.path!, packFolder, (p1, p2, p3) {});
     }
   }
 
@@ -168,7 +168,7 @@ class Launcher {
       if (pack.pack.resourceLocation != null) {
         packFolder = packFolder + "/" + pack.pack.resourceLocation!;
       }
-      await extractFileToDisk(game.loader!.path!, packFolder);
+      await DownloaderService.extractFileToDisk(game.loader!.path!, packFolder, (p1, p2, p3) {});
     }
   }
 
