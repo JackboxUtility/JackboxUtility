@@ -1,12 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxpackpatch.dart';
+import 'package:jackbox_patcher/model/usermodel/interface/InstallablePatch.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgamepatch.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 
 import '../../services/downloader/downloader_service.dart';
 import '../../services/user/userdata.dart';
 
-class UserJackboxPackPatch {
+class UserJackboxPackPatch extends InstallablePatch {
   final JackboxPackPatch patch;
   String? installedVersion;
 
@@ -45,7 +46,11 @@ class UserJackboxPackPatch {
 
   Future<void> downloadPatch(
       String patchUri, void Function(String, String, double) callback, CancelToken cancelToken) async {
-    await DownloaderService.downloadPatch(patchUri, patch.patchPath, callback, cancelToken);
+    String patchUriWithOverride = patchUri;
+    if (getPack().pack.resourceLocation != null){
+      patchUriWithOverride = "$patchUriWithOverride/${getPack().pack.resourceLocation!}";
+    }
+    await DownloaderService.downloadPatch(patchUriWithOverride, patch.patchPath, callback, cancelToken);
     installedVersion = patch.latestVersion;
   }
 
