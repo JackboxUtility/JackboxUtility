@@ -75,6 +75,10 @@ jobs:
      - name: Build linux
        working-directory: ./jackbox_patcher
        run: flutter build linux --build-name ${{ needs.retrievingVersion.outputs.version }} -t ./lib/main_beta.dart
+     - uses: actions/upload-artifact@v3
+       with:
+          name: build_linux_light
+          path: ./jackbox_patcher/build/linux/x64/release/bundle
      - name: Install appimage-builder
        run: |
         wget -O appimage-builder-x86_64.AppImage https://github.com/AppImageCrafters/appimage-builder/releases/download/v1.1.0/appimage-builder-1.1.0-x86_64.AppImage
@@ -140,6 +144,10 @@ jobs:
         with:
           name: build_linux
           path: dist/JackboxUtility_Linux
+      - uses: actions/download-artifact@master
+        with:
+          name: build_linux_light
+          path: dist/JackboxUtility_Linux_Light
       - name: Zipping windows release
         working-directory: dist/JackboxUtility_Windows
         run: |
@@ -148,6 +156,10 @@ jobs:
         working-directory: dist/JackboxUtility_Linux
         run: |
           zip -r ../../JackboxUtility_Linux.zip *
+      - name: Zipping linux light release
+        working-directory: dist/JackboxUtility_Linux_Light
+        run: |
+          zip -r ../../JackboxUtility_Linux_Light.zip *
       - name: Upload release onto Github
         uses: ncipollo/release-action@v1
         with:
