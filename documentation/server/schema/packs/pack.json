@@ -19,7 +19,7 @@
                 "windows": {
                     "type": "string"
                 },
-                "macos": {
+                "mac": {
                     "type": "string"
                 },
                 "linux": {
