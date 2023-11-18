@@ -163,7 +163,7 @@ jobs:
       - name: Upload release onto Github
         uses: ncipollo/release-action@v1
         with:
-         artifacts: 'JackboxUtility_Windows.zip,JackboxUtility_Linux.zip'
+         artifacts: 'JackboxUtility_Windows.zip,JackboxUtility_Linux.zip,JackboxUtility_Linux_Light.zip'
          token: ${{ secrets.GITHUB_TOKEN }}
          tag: ${{ needs.retrievingVersion.outputs.version }}
          body: ${{ steps.changelog.outputs.changes }}
