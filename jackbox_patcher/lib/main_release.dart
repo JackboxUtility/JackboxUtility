@@ -33,7 +33,7 @@ void main(List<String> arguments) async {
   FlavorConfig(
       name: "RELEASE",
       color: Colors.orange,
-      variables: {"masterServerUrl": MAIN_SERVER_URL["RELEASE_SERVER_URL"]});*
+      variables: {"masterServerUrl": MAIN_SERVER_URL["RELEASE_SERVER_URL"]});
       
   await InitialLoad.preInit();
 
