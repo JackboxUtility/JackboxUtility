@@ -5,6 +5,7 @@
         "internal",
         "launcher",
         "game-finder",
-        "mac"
+        "mac",
+        "linux"
     ]
 }

@@ -1,17 +1,25 @@
+import 'dart:io';
+
 import 'package:media_kit/media_kit.dart';
 
 class VideoService {
   static Player player = Player();
 
   static void pause() {
-    player.pause();
+    if (!Platform.isLinux) {
+      player.pause();
+    }
   }
 
-  static void playPause(){
-    player.playOrPause();
+  static void playPause() {
+    if (!Platform.isLinux) {
+      player.playOrPause();
+    }
   }
 
   static void stop() {
-    player.stop();
+    if (!Platform.isLinux) {
+      player.stop();
+    }
   }
 }
