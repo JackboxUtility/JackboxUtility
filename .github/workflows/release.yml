@@ -71,29 +71,18 @@ jobs:
        with:
         flutter-version: '3.13.4'
         channel: 'stable'
+     - name: Remove media_kit_libs for linux
+       working-directory: ./jackbox_patcher
+       run: |
+        mv ./pubspec.yaml pubspec_old.yaml
+        cat ./pubspec_old.yaml | grep -v media_kit_libs > ./pubspec.yaml
      - name: Build linux
        working-directory: ./jackbox_patcher
        run: flutter build linux --build-name ${{ needs.retrievingVersion.outputs.version }} -t ./lib/main_release.dart
-     - name: Install appimage-builder
-       run: |
-        wget -O appimage-builder-x86_64.AppImage https://github.com/AppImageCrafters/appimage-builder/releases/download/v1.1.0/appimage-builder-1.1.0-x86_64.AppImage
-        chmod +x appimage-builder-x86_64.AppImage
-        sudo mv appimage-builder-x86_64.AppImage /usr/local/bin/appimage-builder
-     - name: Package linux
-       working-directory: ./_packaging/linux/appimage
-       run: |
-        mkdir AppDir
-        cp -r ../../../jackbox_patcher/build/linux/x64/release/bundle/* AppDir
-        /usr/local/bin/appimage-builder --recipe ./AppImageBuilder.yml --skip-tests
-     - name: Move into out
-       working-directory: ./_packaging/linux/appimage
-       run: | 
-          mkdir out
-          mv ./JackboxUtility-latest-x86_64.AppImage ./out/JackboxUtility
      - uses: actions/upload-artifact@v3
        with:
           name: build_linux
-          path: ./_packaging/linux/appimage/out
+          path: ./jackbox_patcher/build/linux/x64/release/bundle
  upload:
     runs-on: ubuntu-latest
     needs: 

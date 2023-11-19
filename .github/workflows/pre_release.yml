@@ -72,9 +72,18 @@ jobs:
        with:
         flutter-version: '3.13.4'
         channel: 'stable'
+     - name: Remove media_kit_libs for linux
+       working-directory: ./jackbox_patcher
+       run: |
+        mv ./pubspec.yaml pubspec_old.yaml
+        cat ./pubspec_old.yaml | grep -v media_kit_libs > ./pubspec.yaml
      - name: Build linux
        working-directory: ./jackbox_patcher
        run: flutter build linux --build-name ${{ needs.retrievingVersion.outputs.version }} -t ./lib/main_beta.dart
+     - uses: actions/upload-artifact@v3
+       with:
+          name: build_linux_light
+          path: ./jackbox_patcher/build/linux/x64/release/bundle
      - name: Install appimage-builder
        run: |
         wget -O appimage-builder-x86_64.AppImage https://github.com/AppImageCrafters/appimage-builder/releases/download/v1.1.0/appimage-builder-1.1.0-x86_64.AppImage
@@ -110,6 +119,7 @@ jobs:
      - run: |
         mkdir ./jackbox_patcher/build/macosbuildresult
         mv ./jackbox_patcher/build/macos/Build/Products/Release/jackbox_patcher.app ./jackbox_patcher/build/macosbuildresult
+        chmod +x ./jackbox_patcher/build/macosbuildresult/jackbox_patcher.app/Contents/MacOS/jackbox_patcher
      - uses: actions/upload-artifact@v3
        with:
           name: build_macos
@@ -140,6 +150,10 @@ jobs:
         with:
           name: build_linux
           path: dist/JackboxUtility_Linux
+      - uses: actions/download-artifact@master
+        with:
+          name: build_linux_light
+          path: dist/JackboxUtility_Linux_Light
       - name: Zipping windows release
         working-directory: dist/JackboxUtility_Windows
         run: |
@@ -148,10 +162,14 @@ jobs:
         working-directory: dist/JackboxUtility_Linux
         run: |
           zip -r ../../JackboxUtility_Linux.zip *
+      - name: Zipping linux light release
+        working-directory: dist/JackboxUtility_Linux_Light
+        run: |
+          zip -r ../../JackboxUtility_Linux_Light.zip *
       - name: Upload release onto Github
         uses: ncipollo/release-action@v1
         with:
-         artifacts: 'JackboxUtility_Windows.zip,JackboxUtility_Linux.zip'
+         artifacts: 'JackboxUtility_Windows.zip,JackboxUtility_Linux.zip,JackboxUtility_Linux_Light.zip'
          token: ${{ secrets.GITHUB_TOKEN }}
          tag: ${{ needs.retrievingVersion.outputs.version }}
          body: ${{ steps.changelog.outputs.changes }}

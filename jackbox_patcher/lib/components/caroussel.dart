@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/components/blurhashimage.dart';
@@ -53,9 +54,15 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
   void checkingIfHasVideo() {
     for (var i = 0; i < widget.images.length; i++) {
       if (isAVideo(widget.images[i])) {
-        hasVideo = true;
-        controller = VideoController(VideoService.player);
-        break;
+        if (Platform.isLinux) {
+          hasVideo = false;
+          widget.images.removeAt(i);
+          i--;
+        } else {
+          hasVideo = true;
+          controller = VideoController(VideoService.player);
+          break;
+        }
       }
     }
   }

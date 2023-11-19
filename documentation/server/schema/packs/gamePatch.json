@@ -37,6 +37,19 @@
             "description": "The name of the game patch",
             "type": "string"
         },
+        "supported_platforms": {
+            "type": "array",
+            "items": {
+                "type": "string",
+                "examples": [
+                    [
+                        "windows",
+                        "mac",
+                        "linux"
+                    ]
+                ]
+            }
+        },
         "small_description": {
             "examples": [
                 "[PREVIEW] Traduction du jeu en Français"

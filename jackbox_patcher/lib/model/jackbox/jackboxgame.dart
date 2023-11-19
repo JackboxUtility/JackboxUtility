@@ -1,5 +1,6 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:jackbox_patcher/model/enums/platforms.dart';
 import 'package:jackbox_patcher/model/gametag.dart';
 import 'package:jackbox_patcher/model/jackbox/gameinfo/familyfriendly.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxpack.dart';
@@ -34,12 +35,7 @@ class JackboxGame {
   });
 
   factory JackboxGame.fromJson(Map<String, dynamic> json) {
-    List<JackboxGamePatch> patches = [];
-    if (json['patchs'] != null) {
-      patches = (json['patchs'] as List<dynamic>)
-          .map((e) => JackboxGamePatch.fromJson(e))
-          .toList();
-    }
+    List<JackboxGamePatch> patches = _getGamePatchesFromJson(json);
     return JackboxGame(
       id: json['id'],
       name: json['name'],
@@ -55,6 +51,19 @@ class JackboxGame {
 
   String get filteredName {
     return this.name.replaceAll(RegExp("[^a-zA-Z0-9 ]"), "");
+  }
+
+  static List<JackboxGamePatch> _getGamePatchesFromJson(
+      Map<String, dynamic> json) {
+    List<JackboxGamePatch> patches = json['patchs'] != null
+        ? (json['patchs'] as List<dynamic>)
+            .map((e) => JackboxGamePatch.fromJson(e))
+            .toList()
+        : [];
+    patches = patches
+        .where((element) => element.supportedPlatforms.currentPlatformInclude())
+        .toList();
+    return patches;
   }
 
   Map<String, dynamic> toJson() {

@@ -1,8 +1,11 @@
+import 'package:jackbox_patcher/model/enums/platforms.dart';
+
 import '../base/patchinformation.dart';
 
-class JackboxGamePatch extends PatchInformation{
+class JackboxGamePatch extends PatchInformation {
   final String latestVersion;
   final String? patchPath;
+  final List<AppPlatform> supportedPlatforms;
 
   JackboxGamePatch({
     required super.id,
@@ -12,7 +15,8 @@ class JackboxGamePatch extends PatchInformation{
     required this.patchPath,
     required super.patchType,
     required super.authors,
-    required super.smallDescription
+    required super.smallDescription,
+    required this.supportedPlatforms,
   });
 
   factory JackboxGamePatch.fromJson(Map<String, dynamic> json) {
@@ -27,6 +31,10 @@ class JackboxGamePatch extends PatchInformation{
           : PatchType.fromJson(json['patch_type']),
       authors: json['authors'],
       smallDescription: json['small_description'],
+      supportedPlatforms: json['supported_platforms'] == null
+          ? [AppPlatform.LINUX, AppPlatform.WINDOWS, AppPlatform.MAC]
+          : List<AppPlatform>.from(json['supported_platforms']
+              .map((x) => AppPlatformExtension.fromString(x))),
     );
   }
 
