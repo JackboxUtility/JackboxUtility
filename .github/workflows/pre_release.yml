@@ -72,6 +72,9 @@ jobs:
        with:
         flutter-version: '3.13.4'
         channel: 'stable'
+     - name: Remove media_kit_libs for linux
+       working-directory: ./jackbox_patcher
+       run:  cat ./pubspec.yaml | grep -v media_kit_libs >> ./pubspec.yaml
      - name: Build linux
        working-directory: ./jackbox_patcher
        run: flutter build linux --build-name ${{ needs.retrievingVersion.outputs.version }} -t ./lib/main_beta.dart
