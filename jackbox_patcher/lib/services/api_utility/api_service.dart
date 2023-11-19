@@ -12,6 +12,7 @@ import 'package:jackbox_patcher/model/news.dart';
 import 'package:jackbox_patcher/model/patchServerConfigurations.dart';
 import 'package:jackbox_patcher/model/patchserver.dart';
 import 'package:jackbox_patcher/services/api_utility/listenable_cache.dart';
+import 'package:jackbox_patcher/services/files/folderService.dart';
 import 'package:jackbox_patcher/services/logger/logger.dart';
 
 import '../../model/gametag.dart';
@@ -93,11 +94,11 @@ class APIService {
   Future<void> recoverServerInfo(String serverLink) async {
     JULogger().i("Recovering server info");
     final rawData = await getRequest(Uri.parse(serverLink));
-      final Map<String, dynamic> data = jsonDecode(rawData.data);
-      cachedSelectedServer = PatchServer.fromJson(serverLink, data);
-      final endpoints = await cachedSelectedServer!.getVersionUrl();
-      baseEndpoint = endpoints.apiEndpoint;
-      baseAssets = endpoints.assetsEndpoint;
+    final Map<String, dynamic> data = jsonDecode(rawData.data);
+    cachedSelectedServer = PatchServer.fromJson(serverLink, data);
+    final endpoints = await cachedSelectedServer!.getVersionUrl();
+    baseEndpoint = endpoints.apiEndpoint;
+    baseAssets = endpoints.assetsEndpoint;
   }
 
   Future<bool> recoverPacksAndTags(Function(double) percentDone) async {
@@ -307,14 +308,14 @@ class APIService {
     Dio dio = Dio();
     final response = await dio.downloadUri(
         Uri.parse(APIService().assetLink(patchUri)),
-        "./downloads/tmp.${patchUri.split(".").last}",
+        FolderService().downloadPath + "/tmp.${patchUri.split(".").last}",
         cancelToken: cancelToken,
         options: Options(), onReceiveProgress: (received, total) {
       progressCallback(received.toInt().toDouble(), total.toInt().toDouble());
     });
 
     if (response.statusCode == 200) {
-      return "./downloads/tmp.${patchUri.split(".").last}";
+      return FolderService().downloadPath + "/tmp.${patchUri.split(".").last}";
     } else {
       throw Exception('Failed to download patch');
     }
@@ -325,12 +326,12 @@ class APIService {
     Dio dio = Dio();
     final response = await dio.downloadUri(
         Uri.parse('$baseAssets/${pack.loader!.path}'),
-        "./downloads/loader/${pack.id}/default.zip",
+        FolderService().downloadPath + "/loader/${pack.id}/default.zip",
         onReceiveProgress: (received, total) {
       progressCallback(received.toDouble(), total.toDouble());
     });
     if (response.statusCode == 200) {
-      return "./downloads/loader/${pack.id}/default.zip";
+      return FolderService().downloadPath + "loader/${pack.id}/default.zip";
     } else {
       throw Exception('Failed to download patch');
     }
@@ -341,12 +342,12 @@ class APIService {
     Dio dio = Dio();
     final response = await dio.downloadUri(
         Uri.parse('$baseAssets/${game.loader!.path}'),
-        "./downloads/loader/${pack.id}/${game.id}.zip",
+        FolderService().downloadPath + "/loader/${pack.id}/${game.id}.zip",
         onReceiveProgress: (received, total) {
       progressCallback(received.toDouble(), total.toDouble());
     });
     if (response.statusCode == 200) {
-      return "./downloads/loader/${pack.id}/${game.id}.zip";
+      return FolderService().downloadPath + "/loader/${pack.id}/${game.id}.zip";
     } else {
       throw Exception('Failed to download patch');
     }

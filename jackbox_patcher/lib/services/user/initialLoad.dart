@@ -12,6 +12,7 @@ import 'package:jackbox_patcher/services/automaticGameFinder/AutomaticGameFinder
 import 'package:jackbox_patcher/services/discord/DiscordService.dart';
 import 'package:jackbox_patcher/services/downloader/precache_service.dart';
 import 'package:jackbox_patcher/services/error/error.dart';
+import 'package:jackbox_patcher/services/files/folderService.dart';
 import 'package:jackbox_patcher/services/internal_api/RestApiRouter.dart';
 import 'package:jackbox_patcher/services/statistics/statisticsSender.dart';
 import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
@@ -46,6 +47,7 @@ class InitialLoad {
     callback(step: 1, percent: 0.0);
     if (isFirstTimeOpening) {
       await windowManager.setPreventClose(true);
+      await FolderService().init();
       await UserData().init();
       WindowManagerService.updateScreenSizeFromLastOpening();
 

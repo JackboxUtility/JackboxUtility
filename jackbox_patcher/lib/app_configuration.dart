@@ -26,8 +26,6 @@ const List<String> APP_LANGUAGES = [
 ];
 const String DEFAULT_APP_LANGUAGE = "en";
 
-const String LOGS_OUTPUT = "./logs.txt";
-
 const String STATISTICS_SERVER_URL = "https://stats.jackboxutility.com";
 
 const List<String> STEAM_LINUX_LOCATIONS = [
