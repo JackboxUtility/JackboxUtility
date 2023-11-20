@@ -30,7 +30,7 @@ class InitialLoad {
   static Future<void> preInit() async {
     WidgetsFlutterBinding.ensureInitialized();
     await windowManager.ensureInitialized();
-    if (!Platform.isLinux) {
+    if (Platform.isWindows) {
       MediaKit.ensureInitialized();
     }
     if (!Platform.isMacOS) {

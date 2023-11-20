@@ -6,19 +6,19 @@ class VideoService {
   static Player player = Player();
 
   static void pause() {
-    if (!Platform.isLinux) {
+    if (Platform.isWindows) {
       player.pause();
     }
   }
 
   static void playPause() {
-    if (!Platform.isLinux) {
+    if (Platform.isWindows) {
       player.playOrPause();
     }
   }
 
   static void stop() {
-    if (!Platform.isLinux) {
+    if (Platform.isWindows) {
       player.stop();
     }
   }
