@@ -22,7 +22,8 @@ const List<String> APP_LANGUAGES = [
   "uk",
   "be",
   "ca",
-  "ru"
+  "ru",
+  "tr"
 ];
 const String DEFAULT_APP_LANGUAGE = "en";
 
