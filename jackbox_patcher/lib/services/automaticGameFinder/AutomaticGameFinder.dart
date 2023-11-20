@@ -57,7 +57,7 @@ class AutomaticGameFinderService {
         steamLocation = "~/Library/Application Support/Steam";
       }
     }
-    JULogger.i("Steam location: $steamLocation")
+    JULogger.i("Steam location: $steamLocation");
     if (steamLocation != null) {
       Map<String, List<String>> steamFolderWithAppId =
           _getSteamFoldersWithAppId(steamLocation);
