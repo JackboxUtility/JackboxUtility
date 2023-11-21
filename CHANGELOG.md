@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.6+5] - 2023-11-21
+### :sparkles: New Features
+- [`941071e`](https://github.com/JackboxUtility/JackboxUtility/commit/941071eff0261a9d4bd11924bce7473484d51b9f) - **translation**: :sparkles: Add TR to languages *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+
+### :bug: Bug Fixes
+- [`5678281`](https://github.com/JackboxUtility/JackboxUtility/commit/56782816e59e6ebe54b64b71c13c86033c29e253) - **mac**: :fire: Remove MediaKit from MacOS *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`aaad00f`](https://github.com/JackboxUtility/JackboxUtility/commit/aaad00f8df581539eeef2eb3bba02ea49499f9f3) - :loud_sound: Change logs level for debug *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`156d8ff`](https://github.com/JackboxUtility/JackboxUtility/commit/156d8fffa2f2c66b7d1b01d1408066a13ad81478) - **mac**: :bug: Creating storage folders *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`3948d43`](https://github.com/JackboxUtility/JackboxUtility/commit/3948d43f723e66c8f212983587898603c6b17760) - **mac**: :bug: Fix resource_location wrong type *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+
+
 ## [1.3.6+4] - 2023-11-19
 ### :sparkles: New Features
 - [`277fc17`](https://github.com/JackboxUtility/JackboxUtility/commit/277fc179513a7b616a228ef263c651529137a2aa) - **mac**: :sparkles: Add resource path for mac *(commit by [@AlexisL61](https://github.com/AlexisL61))*
@@ -55,3 +66,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [1.3.6+1]: https://github.com/AlexisL61/JackboxUtility/compare/1.3.6...1.3.6+1
 [1.3.6+2]: https://github.com/AlexisL61/JackboxUtility/compare/1.3.6+1...1.3.6+2
 [1.3.6+4]: https://github.com/JackboxUtility/JackboxUtility/compare/1.3.6+3...1.3.6+4
+[1.3.6+5]: https://github.com/JackboxUtility/JackboxUtility/compare/1.3.6+4...1.3.6+5
