@@ -39,6 +39,7 @@ class AutomaticGameFinderService {
   }
 
   static Future<int> _findSteamGames(List<UserJackboxPack> packs) async {
+    JULogger().i("Looking for Steam games");
     int numberGamesFound = 0;
     String? steamLocation;
     if (Platform.isWindows) {
@@ -56,11 +57,15 @@ class AutomaticGameFinderService {
         steamLocation = "~/Library/Application Support/Steam";
       }
     }
+    JULogger().i("Steam location: $steamLocation");
     if (steamLocation != null) {
       Map<String, List<String>> steamFolderWithAppId =
           _getSteamFoldersWithAppId(steamLocation);
+      JULogger().i("Looking for Steam games");
+      JULogger().i("Steam folders: $steamFolderWithAppId");
       numberGamesFound =
           await _linkSteamFolderWithPack(steamFolderWithAppId, packs);
+      JULogger().i("Steam games found: $numberGamesFound");
     }
     return numberGamesFound;
   }

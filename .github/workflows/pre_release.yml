@@ -113,6 +113,11 @@ jobs:
        with:
         flutter-version: '3.13.4'
         channel: 'stable'
+     - name: Remove media_kit_libs for macos
+       working-directory: ./jackbox_patcher
+       run: |
+        mv ./pubspec.yaml pubspec_old.yaml
+        cat ./pubspec_old.yaml | grep -v media_kit_libs > ./pubspec.yaml
      - name: Build Macos
        working-directory: ./jackbox_patcher
        run: flutter build macos --build-name ${{ needs.retrievingVersion.outputs.version }} -t ./lib/main_beta.dart

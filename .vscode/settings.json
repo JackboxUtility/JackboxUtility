@@ -6,6 +6,7 @@
         "launcher",
         "game-finder",
         "mac",
-        "linux"
+        "linux",
+        "translation"
     ]
 }

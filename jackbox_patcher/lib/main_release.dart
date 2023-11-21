@@ -7,6 +7,7 @@ import 'package:jackbox_patcher/app_configuration.dart';
 import 'package:jackbox_patcher/main.dart';
 import 'package:jackbox_patcher/services/arguments_handler/ArgumentsHandler.dart';
 import 'package:jackbox_patcher/services/user/initialLoad.dart';
+import 'package:logger/logger.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 import 'services/logger/logger.dart';
@@ -30,7 +31,8 @@ void main(List<String> arguments) async {
   FlavorConfig(
       name: "RELEASE",
       color: Colors.orange,
-      variables: {"masterServerUrl": MAIN_SERVER_URL["RELEASE_SERVER_URL"]});
+      variables: {"masterServerUrl": MAIN_SERVER_URL["RELEASE_SERVER_URL"], 
+      "loggerLevel": Level.error});
       
   await InitialLoad.preInit();
 

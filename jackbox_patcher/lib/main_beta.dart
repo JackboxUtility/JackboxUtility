@@ -8,6 +8,7 @@ import 'package:jackbox_patcher/services/arguments_handler/ArgumentsHandler.dart
 import 'package:jackbox_patcher/services/internal_api/RestApiRouter.dart';
 import 'package:jackbox_patcher/services/logger/logger.dart';
 import 'package:jackbox_patcher/services/user/initialLoad.dart';
+import 'package:logger/logger.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 import 'app_configuration.dart';
@@ -32,7 +33,8 @@ void main(List<String> arguments) async {
       name: "BETA",
       color: Colors.orange,
       location: BannerLocation.topEnd,
-      variables: {"masterServerUrl": MAIN_SERVER_URL["BETA_SERVER_URL"]});
+      variables: {"masterServerUrl": MAIN_SERVER_URL["BETA_SERVER_URL"], 
+      "loggerLevel": Level.debug});
 
   await InitialLoad.preInit();
 

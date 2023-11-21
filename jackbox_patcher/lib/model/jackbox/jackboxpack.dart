@@ -116,7 +116,7 @@ class JackboxPack {
     }
   }
 
-  static String? getDeviceGamePathOverride(Map<String, String>? overrides) {
+  static String? getDeviceGamePathOverride(Map<String, dynamic>? overrides) {
     if (overrides != null &&
         overrides.containsKey(AppPlatformExtension.currentPlatform().name)) {
       return overrides[AppPlatformExtension.currentPlatform().name];

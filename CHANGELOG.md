@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.6+4] - 2023-11-19
+### :sparkles: New Features
+- [`277fc17`](https://github.com/JackboxUtility/JackboxUtility/commit/277fc179513a7b616a228ef263c651529137a2aa) - **mac**: :sparkles: Add resource path for mac *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`b871606`](https://github.com/JackboxUtility/JackboxUtility/commit/b87160688c3324fa80a41d26d78ccf09c11d8f1a) - **mac**: :label: Add MacOs to default supported_platforms *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`ec4a82f`](https://github.com/JackboxUtility/JackboxUtility/commit/ec4a82f1a2dba22863197d85ceae9afe3ae2d772) - **mac**: :sparkles: Change doc storage *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`64756e0`](https://github.com/JackboxUtility/JackboxUtility/commit/64756e0358c646405ce397309561a9c6ce5b3df0) - **mac**: :sparkles: Add steam location *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+
+### :bug: Bug Fixes
+- [`8955d4f`](https://github.com/JackboxUtility/JackboxUtility/commit/8955d4f38d507c828940008b3135eef1ed007d7b) - **linux**: :rewind: Delete usage of media_kit on linux *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`87773da`](https://github.com/JackboxUtility/JackboxUtility/commit/87773dac484e688c019c049aa24ed77df8b992e1) - **mac**: :bug: Remove discord rpc use for mac *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+
+### :zap: Performance Improvements
+- [`fec9687`](https://github.com/JackboxUtility/JackboxUtility/commit/fec9687e3574d3177a4bfe51d8aa642b5eb8fd54) - :zap: Improve game launch time *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+
+### :wrench: Chores
+- [`7da480a`](https://github.com/JackboxUtility/JackboxUtility/commit/7da480ad870f6f8b9d8cafa581dcd6604469d58a) - **server**: :wrench: Add TUSA server *(commit by [@DragonFest7](https://github.com/DragonFest7))*
+
+
 ## [1.3.6+2] - 2023-11-12
 ### :sparkles: New Features
 - [`215a491`](https://github.com/AlexisL61/JackboxUtility/commit/215a49187359214b1e85f82f36779314af224169) - **launcher**: :sparkles: Add url launcher for epic *(commit by [@AlexisL61](https://github.com/AlexisL61))*
@@ -36,3 +54,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [1.3.6]: https://github.com/AlexisL61/JackboxUtility/compare/1.3.5+1...1.3.6
 [1.3.6+1]: https://github.com/AlexisL61/JackboxUtility/compare/1.3.6...1.3.6+1
 [1.3.6+2]: https://github.com/AlexisL61/JackboxUtility/compare/1.3.6+1...1.3.6+2
+[1.3.6+4]: https://github.com/JackboxUtility/JackboxUtility/compare/1.3.6+3...1.3.6+4
