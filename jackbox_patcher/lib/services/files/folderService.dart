@@ -37,7 +37,7 @@ class FolderService {
       }
     }
     if (!await File(directory.path + "/Logs/log.txt").exists()){
-      await File(directory.path + "/Logs/log.txt").create()
+      await File(directory.path + "/Logs/log.txt").create();
     }
   }
 
