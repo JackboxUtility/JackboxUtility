@@ -56,6 +56,7 @@ jobs:
        with:
           name: build_windows
           path: ./jackbox_patcher/build/windows/runner/Release
+          
  build_linux:
    runs-on: ubuntu-latest
    needs: retrievingVersion
