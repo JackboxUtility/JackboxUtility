@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:dart_discord_rpc/dart_discord_rpc.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/model/patchserver.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
@@ -11,10 +12,12 @@ import 'package:jackbox_patcher/services/automaticGameFinder/AutomaticGameFinder
 import 'package:jackbox_patcher/services/discord/DiscordService.dart';
 import 'package:jackbox_patcher/services/downloader/precache_service.dart';
 import 'package:jackbox_patcher/services/error/error.dart';
+import 'package:jackbox_patcher/services/files/folderService.dart';
 import 'package:jackbox_patcher/services/internal_api/RestApiRouter.dart';
 import 'package:jackbox_patcher/services/statistics/statisticsSender.dart';
 import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
 import 'package:jackbox_patcher/services/user/userdata.dart';
+import 'package:media_kit/media_kit.dart';
 import 'package:window_manager/window_manager.dart';
 
 import '../../components/dialogs/downloadPatchDialog.dart';
@@ -24,6 +27,17 @@ import '../../model/usermodel/userjackboxpackpatch.dart';
 import '../windowManager/windowsManagerService.dart';
 
 class InitialLoad {
+  static Future<void> preInit() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    await windowManager.ensureInitialized();
+    if (Platform.isWindows) {
+      MediaKit.ensureInitialized();
+    }
+    if (!Platform.isMacOS) {
+      DiscordRPC.initialize();
+    }
+  }
+
   static Future<void> init(
       BuildContext context,
       bool isFirstTimeOpening,
@@ -33,9 +47,10 @@ class InitialLoad {
     callback(step: 1, percent: 0.0);
     if (isFirstTimeOpening) {
       await windowManager.setPreventClose(true);
+      await FolderService().init();
       await UserData().init();
       WindowManagerService.updateScreenSizeFromLastOpening();
-      
+
       /// Give context to the RestApi so it can ask the user if he wants to accept an app
       RestApiRouter().context = context;
     }

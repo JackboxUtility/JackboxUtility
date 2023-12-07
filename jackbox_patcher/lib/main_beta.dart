@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:dart_discord_rpc/dart_discord_rpc_native.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_flavor/flutter_flavor.dart';
@@ -8,8 +7,9 @@ import 'package:jackbox_patcher/main.dart';
 import 'package:jackbox_patcher/services/arguments_handler/ArgumentsHandler.dart';
 import 'package:jackbox_patcher/services/internal_api/RestApiRouter.dart';
 import 'package:jackbox_patcher/services/logger/logger.dart';
-import 'package:media_kit/media_kit.dart';
-import 'package:window_manager/window_manager.dart';
+import 'package:jackbox_patcher/services/user/initialLoad.dart';
+import 'package:logger/logger.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 import 'app_configuration.dart';
 
@@ -33,19 +33,30 @@ void main(List<String> arguments) async {
       name: "BETA",
       color: Colors.orange,
       location: BannerLocation.topEnd,
-      variables: {"masterServerUrl": MAIN_SERVER_URL["BETA_SERVER_URL"]});
+      variables: {"masterServerUrl": MAIN_SERVER_URL["BETA_SERVER_URL"], 
+      "loggerLevel": Level.debug});
 
-  WidgetsFlutterBinding.ensureInitialized();
-  await windowManager.ensureInitialized();
-  if (!Platform.isLinux) MediaKit.ensureInitialized();
-  DiscordRPC.initialize();
-  initRetrievingErrors();
+  await InitialLoad.preInit();
 
   if (await ArgumentsHandler().handle(arguments)) {
     exit(0);
   }
 
   RestApiRouter().startRouter();
+  initRetrievingErrors();
 
-  runApp(FlavorBanner(color: Colors.orange, child: const MyApp()));
+  if (kDebugMode) {
+    runApp(FlavorBanner(color: Colors.orange, child: const MyApp()));
+  } else {
+    await SentryFlutter.init(
+      (options) {
+        options.environment = "debug";
+        options.dsn =
+            'https://bc7660c906ba4f24ad2e37530bfa4c39@o518501.ingest.sentry.io/4504978536988672';
+      },
+      // Init your App.
+      appRunner: () =>
+          runApp(FlavorBanner(color: Colors.orange, child: const MyApp())),
+    );
+  }
 }

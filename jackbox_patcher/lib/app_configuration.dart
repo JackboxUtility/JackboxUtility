@@ -22,11 +22,10 @@ const List<String> APP_LANGUAGES = [
   "uk",
   "be",
   "ca",
-  "ru"
+  "ru",
+  "tr"
 ];
 const String DEFAULT_APP_LANGUAGE = "en";
-
-const String LOGS_OUTPUT = "./logs.txt";
 
 const String STATISTICS_SERVER_URL = "https://stats.jackboxutility.com";
 

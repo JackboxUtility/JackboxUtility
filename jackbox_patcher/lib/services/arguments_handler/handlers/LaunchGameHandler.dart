@@ -1,5 +1,4 @@
 import 'package:jackbox_patcher/services/arguments_handler/handlers/AbstractArgumentHandler.dart';
-import 'package:jackbox_patcher/services/internal_api/api_handlers/AbstractHandler.dart';
 import 'package:jackbox_patcher/services/launcher/launcher.dart';
 
 class LaunchGameHandler extends AbstractArgumentHandler {

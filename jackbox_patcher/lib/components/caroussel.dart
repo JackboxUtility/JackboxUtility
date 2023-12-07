@@ -27,9 +27,9 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
   bool isVideoLoaded = false;
   TweenAnimationBuilder<double>? tweenAnimationBuilder;
 
-  late StreamSubscription<bool> completedStream;
-  late StreamSubscription<bool> bufferingStream;
-  late StreamSubscription<Duration> positionStream;
+  StreamSubscription<bool>? completedStream;
+  StreamSubscription<bool>? bufferingStream;
+  StreamSubscription<Duration>? positionStream;
 
   // Create a [Player] to control playback.
   // Create a [VideoController] to handle video output from [Player].
@@ -45,16 +45,16 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
 
   @override
   void dispose() {
-    completedStream.cancel();
-    positionStream.cancel();
-    bufferingStream.cancel();
+    completedStream?.cancel();
+    positionStream?.cancel();
+    bufferingStream?.cancel();
     super.dispose();
   }
 
   void checkingIfHasVideo() {
     for (var i = 0; i < widget.images.length; i++) {
       if (isAVideo(widget.images[i])) {
-        if (Platform.isLinux) {
+        if (Platform.isLinux || Platform.isMacOS) {
           hasVideo = false;
           widget.images.removeAt(i);
           i--;

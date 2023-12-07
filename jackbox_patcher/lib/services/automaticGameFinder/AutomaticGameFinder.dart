@@ -5,6 +5,7 @@ import 'package:jackbox_patcher/app_configuration.dart';
 import 'package:jackbox_patcher/model/misc/launchers.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/services/logger/logger.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:win32_registry/win32_registry.dart';
 
 /// This service is used to automatically find games installed on the user's computer
@@ -38,24 +39,33 @@ class AutomaticGameFinderService {
   }
 
   static Future<int> _findSteamGames(List<UserJackboxPack> packs) async {
+    JULogger().i("Looking for Steam games");
     int numberGamesFound = 0;
     String? steamLocation;
     if (Platform.isWindows) {
       steamLocation = _getSteamLocation();
     } else {
-      for (String location in STEAM_LINUX_LOCATIONS) {
-        if (await Directory(Platform.environment["HOME"]! + "$location")
-            .exists()) {
-          steamLocation = Platform.environment["HOME"]! + "$location";
-          break;
+      if (Platform.isLinux){
+        for (String location in STEAM_LINUX_LOCATIONS) {
+          if (await Directory(Platform.environment["HOME"]! + "$location")
+              .exists()) {
+            steamLocation = Platform.environment["HOME"]! + "$location";
+            break;
+          }
         }
+      }else{
+        steamLocation = "~/Library/Application Support/Steam";
       }
     }
+    JULogger().i("Steam location: $steamLocation");
     if (steamLocation != null) {
       Map<String, List<String>> steamFolderWithAppId =
           _getSteamFoldersWithAppId(steamLocation);
+      JULogger().i("Looking for Steam games");
+      JULogger().i("Steam folders: $steamFolderWithAppId");
       numberGamesFound =
           await _linkSteamFolderWithPack(steamFolderWithAppId, packs);
+      JULogger().i("Steam games found: $numberGamesFound");
     }
     return numberGamesFound;
   }
@@ -188,6 +198,7 @@ class AutomaticGameFinderService {
             numberGamesFound++;
             await userPack.setOwned(true);
             await userPack.setPath(app["InstallLocation"]!);
+            await userPack.setLauncher(LauncherType.EPIC);
           }
         }
       }

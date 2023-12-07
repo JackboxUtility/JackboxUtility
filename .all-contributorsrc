@@ -84,6 +84,15 @@
       "contributions": [
         "translation"
       ]
+    },
+    {
+      "login": "YouTube-101",
+      "name": "YouTube 101",
+      "avatar_url": "https://avatars.githubusercontent.com/u/76653533?v=4",
+      "profile": "https://ytube101.com",
+      "contributions": [
+        "translation"
+      ]
     }
   ],
   "contributorsPerLine": 7,

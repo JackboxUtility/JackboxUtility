@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dart_discord_rpc/dart_discord_rpc.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
 import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
@@ -15,6 +17,7 @@ class DiscordService {
   DiscordService._internal();
 
   void init() {
+    if (Platform.isMacOS) return;
     rpc = DiscordRPC(applicationId: "1112049780777037855");
     rpc!.start(autoRegister: true);
     launchMenuPresence();
@@ -22,6 +25,7 @@ class DiscordService {
 
   void updatePresence(String? details, String? state, String? largeImageKey,
       String? largeImageText, String? smallImageKey, String? smallImageText) {
+    if (Platform.isMacOS) return;
     if (rpc != null) {
       if (currentPresence.details != details ||
           currentPresence.state != state ||
@@ -116,6 +120,7 @@ class DiscordService {
   }
 
   void stopRichPresence() {
+    if (Platform.isMacOS) return;
     rpc!.clearPresence();
     rpc!.shutDown();
   }

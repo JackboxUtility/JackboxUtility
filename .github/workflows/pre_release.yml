@@ -11,8 +11,12 @@ jobs:
   runs-on: ubuntu-latest
   outputs:
       version: ${{ steps.versionstep.outputs.version }}
+      previousTag: ${{ steps.previousTag.outputs.previousTag }}
   steps:
     - uses: actions/checkout@v3
+      with: 
+        fetch-tags: true
+        fetch-depth: 0
     - name: Expose git commit data
       uses: rlespinasse/git-commit-data-action@v1
     - name: Retrieve Release Version
@@ -22,6 +26,21 @@ jobs:
          DATE=$(date +%s)
          VERSION=$(more pubspec.yaml | grep version: | cut -d ' ' -f2)
          echo "version=${VERSION}-beta-${DATE}" >> $GITHUB_OUTPUT
+         echo "VERSION=${VERSION}-beta-${DATE}" >> $GITHUB_ENV
+    - name: Get previous tag
+      id: previousTag
+      run: |
+        name=$(git --no-pager tag --sort=creatordate | tail -1 | head -1)
+        echo "previousTag: $name"
+        echo "previousTag=$name" >> $GITHUB_ENV
+        echo "previousTag=$name" >> $GITHUB_OUTPUT
+    - uses: rickstaa/action-create-tag@v1
+      id: "tag_create"
+      with:
+        tag: ${{ env.VERSION }}
+        message: "Release ${{ env.VERSION }}"
+        tag_exists_error: "false"
+        no_verify_tag: "true"
  build_windows:
    runs-on: windows-latest
    needs: retrievingVersion
@@ -39,7 +58,7 @@ jobs:
           name: build_windows
           path: ./jackbox_patcher/build/windows/runner/Release
  build_linux:
-   runs-on: ubuntu-latest
+   runs-on: ubuntu-20.04
    needs: retrievingVersion
    steps:
      - uses: actions/checkout@v3
@@ -48,17 +67,43 @@ jobs:
         sudo apt install libmpv-dev mpv
         sudo apt-get install -y ninja-build libgtk-3-dev
         sudo apt-get install -y libunwind-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libgstreamer-plugins-bad1.0-dev gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav gstreamer1.0-tools gstreamer1.0-x gstreamer1.0-alsa gstreamer1.0-gl gstreamer1.0-gtk3 gstreamer1.0-qt5 gstreamer1.0-pulseaudio
+        sudo apt-get install fuse libfuse2
      - uses: subosito/flutter-action@v2
        with:
         flutter-version: '3.13.4'
         channel: 'stable'
+     - name: Remove media_kit_libs for linux
+       working-directory: ./jackbox_patcher
+       run: |
+        mv ./pubspec.yaml pubspec_old.yaml
+        cat ./pubspec_old.yaml | grep -v media_kit_libs > ./pubspec.yaml
      - name: Build linux
        working-directory: ./jackbox_patcher
        run: flutter build linux --build-name ${{ needs.retrievingVersion.outputs.version }} -t ./lib/main_beta.dart
      - uses: actions/upload-artifact@v3
        with:
-          name: build_linux
+          name: build_linux_light
           path: ./jackbox_patcher/build/linux/x64/release/bundle
+     - name: Install appimage-builder
+       run: |
+        wget -O appimage-builder-x86_64.AppImage https://github.com/AppImageCrafters/appimage-builder/releases/download/v1.1.0/appimage-builder-1.1.0-x86_64.AppImage
+        chmod +x appimage-builder-x86_64.AppImage
+        sudo mv appimage-builder-x86_64.AppImage /usr/local/bin/appimage-builder
+     - name: Package linux
+       working-directory: ./_packaging/linux/appimage
+       run: |
+        mkdir AppDir
+        cp -r ../../../jackbox_patcher/build/linux/x64/release/bundle/* AppDir
+        /usr/local/bin/appimage-builder --recipe ./AppImageBuilder.yml --skip-tests
+     - name: Move into out
+       working-directory: ./_packaging/linux/appimage
+       run: | 
+          mkdir out
+          mv ./JackboxUtility-latest-x86_64.AppImage ./out/JackboxUtility
+     - uses: actions/upload-artifact@v3
+       with:
+          name: build_linux
+          path: ./_packaging/linux/appimage/out
  build_macos:
    runs-on: macos-latest
    needs: retrievingVersion
@@ -68,12 +113,18 @@ jobs:
        with:
         flutter-version: '3.13.4'
         channel: 'stable'
+     - name: Remove media_kit_libs for macos
+       working-directory: ./jackbox_patcher
+       run: |
+        mv ./pubspec.yaml pubspec_old.yaml
+        cat ./pubspec_old.yaml | grep -v media_kit_libs > ./pubspec.yaml
      - name: Build Macos
        working-directory: ./jackbox_patcher
        run: flutter build macos --build-name ${{ needs.retrievingVersion.outputs.version }} -t ./lib/main_beta.dart
      - run: |
         mkdir ./jackbox_patcher/build/macosbuildresult
         mv ./jackbox_patcher/build/macos/Build/Products/Release/jackbox_patcher.app ./jackbox_patcher/build/macosbuildresult
+        chmod +x ./jackbox_patcher/build/macosbuildresult/jackbox_patcher.app/Contents/MacOS/jackbox_patcher
      - uses: actions/upload-artifact@v3
        with:
           name: build_macos
@@ -85,6 +136,16 @@ jobs:
       - build_linux
       - retrievingVersion
     steps: 
+      - uses: actions/checkout@v3
+        with:
+          ref: dev
+      - name: Update CHANGELOG
+        id: changelog
+        uses: requarks/changelog-action@v1
+        with:
+          token: ${{ github.token }}
+          fromTag: ${{ needs.retrievingVersion.outputs.version }}
+          toTag: ${{ needs.retrievingVersion.outputs.previousTag }}
       - run: mkdir -p dist
       - uses: actions/download-artifact@master
         with:
@@ -94,6 +155,10 @@ jobs:
         with:
           name: build_linux
           path: dist/JackboxUtility_Linux
+      - uses: actions/download-artifact@master
+        with:
+          name: build_linux_light
+          path: dist/JackboxUtility_Linux_Light
       - name: Zipping windows release
         working-directory: dist/JackboxUtility_Windows
         run: |
@@ -102,12 +167,17 @@ jobs:
         working-directory: dist/JackboxUtility_Linux
         run: |
           zip -r ../../JackboxUtility_Linux.zip *
+      - name: Zipping linux light release
+        working-directory: dist/JackboxUtility_Linux_Light
+        run: |
+          zip -r ../../JackboxUtility_Linux_Light.zip *
       - name: Upload release onto Github
         uses: ncipollo/release-action@v1
         with:
-         artifacts: 'JackboxUtility_Windows.zip,JackboxUtility_Linux.zip'
+         artifacts: 'JackboxUtility_Windows.zip,JackboxUtility_Linux.zip,JackboxUtility_Linux_Light.zip'
          token: ${{ secrets.GITHUB_TOKEN }}
          tag: ${{ needs.retrievingVersion.outputs.version }}
+         body: ${{ steps.changelog.outputs.changes }}
          prerelease: true
          allowUpdates: true
   

@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:jackbox_patcher/model/patchsCategory.dart';
+import 'package:jackbox_patcher/model/usermodel/interface/InstallablePatch.dart';
 import 'package:palette_generator/palette_generator.dart';
 
 import '../../components/dialogs/downloadPatchDialog.dart';
@@ -30,7 +31,7 @@ class CategoryPackPatch extends StatefulWidget {
 class _CategoryPackPatchState extends State<CategoryPackPatch> {
   String buttonText = "";
   bool installButtonDisabled = false;
-  List<dynamic> installablePatchs = [];
+  List<InstallablePatch> installablePatchs = [];
   List<String> installablePatchPaths = [];
 
   @override

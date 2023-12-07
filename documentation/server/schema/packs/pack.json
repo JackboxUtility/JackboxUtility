@@ -12,6 +12,21 @@
             "description": "The unique identifier for a pack",
             "type": "string"
         },
+        "resource_location": {
+            "type": "object",
+            "description": "Override the game path for this pack",
+            "properties": {
+                "windows": {
+                    "type": "string"
+                },
+                "mac": {
+                    "type": "string"
+                },
+                "linux": {
+                    "type": "string"
+                }
+            }
+        },
         "name": {
             "examples": [
                 "The Jackbox Party Pack 2"
