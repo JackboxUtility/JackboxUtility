@@ -89,6 +89,7 @@ class _RandomGameWidgetState extends State<RandomGameWidget> {
                           height:
                               MediaQuery.of(context).size.height * animation,
                           child: SearchGameGameWidget(
+                              disableHero: true,
                               pack: selectedGame!.getPack(),
                               game: selectedGame!,
                               showAllPacks: false));
