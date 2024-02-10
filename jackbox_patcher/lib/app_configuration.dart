@@ -31,7 +31,8 @@ const String STATISTICS_SERVER_URL = "https://stats.jackboxutility.com";
 
 const List<String> STEAM_LINUX_LOCATIONS = [
   "/.steam/steam",
-  "/.var/app/com.valvesoftware.Steam/.steam/steam/steamapps/"
+  "/.var/app/com.valvesoftware.Steam/.steam/steam",
+  "/.var/app/com.valvesoftware.Steam/.local/share/Steam"
 ];
 
 const int REST_API_PORT = 6480;
