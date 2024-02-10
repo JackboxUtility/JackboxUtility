@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.7] - 2024-02-10
+### :sparkles: New Features
+- [`64a5c9d`](https://github.com/JackboxUtility/JackboxUtility/commit/64a5c9d36af16912f0027825576cd3581f4985b0) - Add animations on item sort *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`c996451`](https://github.com/JackboxUtility/JackboxUtility/commit/c9964515185e48c6c599d0f24ed628a13d41502f) - **patch**: Add multiple zip downloading in the same patch *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+
+### :bug: Bug Fixes
+- [`8828334`](https://github.com/JackboxUtility/JackboxUtility/commit/8828334ad279c9c673332e5a8498983c43f2ecdc) - Create default log file *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`f036438`](https://github.com/JackboxUtility/JackboxUtility/commit/f0364387e74b74ed4d3484a06dda5dbe5fac76b2) - Create default log file *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+
+### :wrench: Chores
+- [`311977b`](https://github.com/JackboxUtility/JackboxUtility/commit/311977b0e79ea3cfe17c9d8877d66a9aaca09e01) - Update version *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+
+
 ## [1.3.6+6] - 2023-12-06
 ### :bug: Bug Fixes
 - [`2151333`](https://github.com/JackboxUtility/JackboxUtility/commit/2151333e7ed2752c5ad0a018c0a437325d79f22c) - Fix linux build not starting *(commit by [@AlexisL61](https://github.com/AlexisL61))*
@@ -73,3 +86,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [1.3.6+4]: https://github.com/JackboxUtility/JackboxUtility/compare/1.3.6+3...1.3.6+4
 [1.3.6+5]: https://github.com/JackboxUtility/JackboxUtility/compare/1.3.6+4...1.3.6+5
 [1.3.6+6]: https://github.com/JackboxUtility/JackboxUtility/compare/1.3.6+5...1.3.6+6
+[1.3.7]: https://github.com/JackboxUtility/JackboxUtility/compare/1.3.6+6...1.3.7

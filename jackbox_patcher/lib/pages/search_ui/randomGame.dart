@@ -8,6 +8,7 @@ import 'package:jackbox_patcher/pages/search_ui/searchGames.dart';
 import 'package:jackbox_patcher/services/api_utility/api_service.dart';
 import 'package:jackbox_patcher/services/audio/SFXService.dart';
 import 'package:jackbox_patcher/services/launcher/launcher.dart';
+import 'package:local_hero/local_hero.dart';
 
 import '../../services/games/GamesService.dart';
 import '../../services/translations/translationsHelper.dart';
@@ -36,7 +37,7 @@ class _RandomGameWidgetState extends State<RandomGameWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return selectedGame != null
+    return LocalHeroScope(duration: Duration.zero, child: selectedGame != null
         ? Stack(children: [
             Positioned(
               top: 0,
@@ -174,7 +175,7 @@ class _RandomGameWidgetState extends State<RandomGameWidget> {
               style:
                   TextStyle(fontSize: 14, color: Colors.white.withOpacity(0.8)),
             ),
-          ]);
+          ]));
   }
 
   void _selectRandomGame() async {

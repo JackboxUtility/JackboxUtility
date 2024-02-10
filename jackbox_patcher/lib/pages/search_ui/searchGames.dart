@@ -310,7 +310,7 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
         }
         return Padding(
             padding: EdgeInsets.symmetric(horizontal: calculatePadding()),
-            child: Column(key: key, children: widgetsWithSeparators));
+            child: LocalHeroScope(child:Column(key: key, children: widgetsWithSeparators)));
       }
       return Padding(
           padding: EdgeInsets.symmetric(horizontal: calculatePadding()),
