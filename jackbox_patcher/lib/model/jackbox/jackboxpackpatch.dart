@@ -1,6 +1,7 @@
 import 'package:jackbox_patcher/model/enums/platforms.dart';
 import 'package:jackbox_patcher/model/jackbox/jackboxgame.dart';
 import 'package:jackbox_patcher/services/api_utility/api_service.dart';
+import 'package:jackbox_patcher/services/logger/logger.dart';
 
 import '../base/patchinformation.dart';
 import 'jackboxpack.dart';
@@ -10,7 +11,7 @@ class JackboxPackPatch {
   final String name;
   final String smallDescription;
   String latestVersion;
-  final String patchPath;
+  final List<String> patchPaths;
   final PatchConfiguration? configuration;
   final List<JackboxPackPatchComponent> components;
   final List<AppPlatform> supportedPlatforms;
@@ -20,13 +21,26 @@ class JackboxPackPatch {
     required this.name,
     required this.smallDescription,
     required this.latestVersion,
-    required this.patchPath,
+    required this.patchPaths,
     required this.configuration,
     required this.components,
     required this.supportedPlatforms,
   });
 
   factory JackboxPackPatch.fromJson(Map<String, dynamic> json) {
+    List<String> patchPaths = [];
+    if (json['patch_paths'] is List) {
+      for (var path in json['patch_paths']) {
+        patchPaths.add(path);
+      }
+    }else{
+      if (json['patch_path'] is String) {
+        patchPaths.add(json['patch_path']);
+      }
+    }
+
+    JULogger().i("PatchPaths: $patchPaths");
+
     return JackboxPackPatch(
       id: json['id'],
       name: json['name'],
@@ -34,7 +48,7 @@ class JackboxPackPatch {
       latestVersion: json['version'] != null
           ? json['version'].replaceAll("Build:", "").trim()
           : "",
-      patchPath: json['patch_path'],
+      patchPaths: patchPaths,
       configuration: json['configuration'] == null
           ? null
           : PatchConfiguration.fromJson(json['configuration']),
@@ -62,7 +76,7 @@ class JackboxPackPatch {
       "name": name,
       "small_description": smallDescription,
       "version": latestVersion,
-      "patch_path": patchPath,
+      "patch_paths": patchPaths,
       "configuration": configuration?.toJson(),
       "components": List<dynamic>.from(components.map((x) => x.toJson())),
     };

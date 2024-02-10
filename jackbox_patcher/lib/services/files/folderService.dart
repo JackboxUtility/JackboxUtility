@@ -36,6 +36,9 @@ class FolderService {
         await Directory(directory.path + path).create();
       }
     }
+    if (!await File(directory.path + "/Logs/log.txt").exists()){
+      await File(directory.path + "/Logs/log.txt").create();
+    }
   }
 
   Future<String> getDownloadPath() async {

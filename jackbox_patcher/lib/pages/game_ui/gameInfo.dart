@@ -383,7 +383,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                   children: [
                     AspectRatio(
                       aspectRatio: 2.17,
-                      child: CachedNetworkImage(
+                      child: Hero(tag: currentGame.game.id+"_image", child: CachedNetworkImage(
                         width: 300,
                         colorBlendMode:
                             !currentPack.owned ? BlendMode.saturation : null,
@@ -392,7 +392,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> {
                             APIService().assetLink(currentGame.game.background),
                         fit: BoxFit.fitWidth,
                       ),
-                    ),
+                    )),
                     Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 10),
