@@ -331,7 +331,7 @@ class APIService {
       progressCallback(received.toDouble(), total.toDouble());
     });
     if (response.statusCode == 200) {
-      return FolderService().downloadPath + "loader/${pack.id}/default.zip";
+      return FolderService().downloadPath + "/loader/${pack.id}/default.zip";
     } else {
       throw Exception('Failed to download patch');
     }
