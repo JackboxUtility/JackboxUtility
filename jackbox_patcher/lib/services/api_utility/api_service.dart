@@ -84,9 +84,14 @@ class APIService {
     if (!data.sameAsCached) {
       final List<dynamic> availableServers = jsonDecode(data.data);
       for (var server in availableServers) {
-        final serverInfo = await getRequest(Uri.parse(server));
-        final Map<String, dynamic> data = jsonDecode(serverInfo.data);
-        cachedServers.add(PatchServer.fromJson(server, data));
+        try {
+          final serverInfo = await getRequest(Uri.parse(server));
+          final Map<String, dynamic> data = jsonDecode(serverInfo.data);
+          cachedServers.add(PatchServer.fromJson(server, data));
+        } catch (e) {
+          JULogger().e("Failed to recover server from link");
+          JULogger().e(e.toString());
+        }
       }
     }
   }
