@@ -310,13 +310,11 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
         }
         return Padding(
             padding: EdgeInsets.symmetric(horizontal: calculatePadding()),
-            child: LocalHeroScope(curve: Curves.easeOut, child: Column(key: key, children: widgetsWithSeparators)));
+            child: Column(key: key, children: widgetsWithSeparators));
       }
       return Padding(
           padding: EdgeInsets.symmetric(horizontal: calculatePadding()),
-          child: LocalHeroScope(
-              curve: Curves.easeOut,
-              child: StaggeredGrid.count(
+          child: StaggeredGrid.count(
                   key: key,
                   mainAxisSpacing: 20,
                   crossAxisSpacing: 20,
@@ -341,7 +339,7 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
                               widget.parentReload!();
                             }
                           }))
-                      .toList())));
+                      .toList()));
     } else {
       return Column(children: [
         const SizedBox(height: 50),
@@ -511,17 +509,14 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                             smallInfoVisible = false;
                           }),
                           child: Stack(fit: StackFit.expand, children: [
-                            LocalHero(
-                                enabled: widget.disableHero != null ? !widget.disableHero! : true,
-                                tag: widget.game.game.id + "_local_image",
-                                child: Hero(
+                            Hero(
                                     tag: widget.game.game.id + "_image",
                                     child: CachedNetworkImage(
                                       colorBlendMode: !widget.pack.owned ? BlendMode.saturation : null,
                                       color: !widget.pack.owned ? Colors.black : null,
                                       imageUrl: APIService().assetLink(widget.game.game.background),
                                       fit: BoxFit.cover,
-                                    ))),
+                                    )),
                             Container(
                                 decoration: BoxDecoration(
                                     gradient: LinearGradient(
