@@ -37,7 +37,7 @@ class _RandomGameWidgetState extends State<RandomGameWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return LocalHeroScope(duration: Duration.zero, child: selectedGame != null
+    return selectedGame != null
         ? Stack(children: [
             Positioned(
               top: 0,
@@ -89,6 +89,7 @@ class _RandomGameWidgetState extends State<RandomGameWidget> {
                           height:
                               MediaQuery.of(context).size.height * animation,
                           child: SearchGameGameWidget(
+                              disableHero: true,
                               pack: selectedGame!.getPack(),
                               game: selectedGame!,
                               showAllPacks: false));
@@ -175,7 +176,7 @@ class _RandomGameWidgetState extends State<RandomGameWidget> {
               style:
                   TextStyle(fontSize: 14, color: Colors.white.withOpacity(0.8)),
             ),
-          ]));
+          ]);
   }
 
   void _selectRandomGame() async {

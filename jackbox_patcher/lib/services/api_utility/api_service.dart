@@ -84,9 +84,14 @@ class APIService {
     if (!data.sameAsCached) {
       final List<dynamic> availableServers = jsonDecode(data.data);
       for (var server in availableServers) {
-        final serverInfo = await getRequest(Uri.parse(server));
-        final Map<String, dynamic> data = jsonDecode(serverInfo.data);
-        cachedServers.add(PatchServer.fromJson(server, data));
+        try {
+          final serverInfo = await getRequest(Uri.parse(server));
+          final Map<String, dynamic> data = jsonDecode(serverInfo.data);
+          cachedServers.add(PatchServer.fromJson(server, data));
+        } catch (e) {
+          JULogger().e("Failed to recover server from link");
+          JULogger().e(e.toString());
+        }
       }
     }
   }
@@ -331,7 +336,7 @@ class APIService {
       progressCallback(received.toDouble(), total.toDouble());
     });
     if (response.statusCode == 200) {
-      return FolderService().downloadPath + "loader/${pack.id}/default.zip";
+      return FolderService().downloadPath + "/loader/${pack.id}/default.zip";
     } else {
       throw Exception('Failed to download patch');
     }
