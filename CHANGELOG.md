@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.7+2] - 2024-04-12
+### :bug: Bug Fixes
+- [`d223353`](https://github.com/JackboxUtility/JackboxUtility/commit/d223353d75fef0986856b98622160ed137a926cf) - Fix random game too slow *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`2f5b721`](https://github.com/JackboxUtility/JackboxUtility/commit/2f5b72147bfeecab494ca9699bb89c4b5ae32824) - Remove temporary turkish server *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`ad87498`](https://github.com/JackboxUtility/JackboxUtility/commit/ad87498a39ac068eef6aaf064da934d40f1226cf) - Add back turkish server *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`d4bb958`](https://github.com/JackboxUtility/JackboxUtility/commit/d4bb958485882356aa3457f7a1cdc488ac659eff) - Add back turkish server *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`a5a356e`](https://github.com/JackboxUtility/JackboxUtility/commit/a5a356e57047d77fc206226c7d53eb96a5458db4) - Remove turkish server *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`99dc4c6`](https://github.com/JackboxUtility/JackboxUtility/commit/99dc4c6f4f4391203a45b2a76169e47f56f80a36) - Remove turkish server *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`0839d24`](https://github.com/JackboxUtility/JackboxUtility/commit/0839d24e8338a0e757dc54a61c3131a26f52a154) - Loaders should replaced themselves without problem now *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`ebb26e2`](https://github.com/JackboxUtility/JackboxUtility/commit/ebb26e28b17f943c1b766e7dff4b0bffe5c02a7a) - Remove LocalHero from game images *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`5401738`](https://github.com/JackboxUtility/JackboxUtility/commit/5401738b09dc8912ba8d8318feab0858ee3f49e1) - Unavailable server will not crash the app anymore *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`5ec8d98`](https://github.com/JackboxUtility/JackboxUtility/commit/5ec8d98a67c377d827270643ddf84161a44455dc) - Fix spanish and english strings *(commit by [@weblate](https://github.com/weblate))*
+
+### :wrench: Chores
+- [`744e11d`](https://github.com/JackboxUtility/JackboxUtility/commit/744e11d3a70c3084760a19dcfb06ffc4b2dace7f) - Add back turkish server *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`52aa6b2`](https://github.com/JackboxUtility/JackboxUtility/commit/52aa6b2eff670de365dc3e78b5971248686383b3) - Add back turkish server *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+
+
 ## [1.3.7+1] - 2024-02-10
 ### :bug: Bug Fixes
 - [`911d4b3`](https://github.com/JackboxUtility/JackboxUtility/commit/911d4b3cbcf2ddfc28369cdcee9aee702809ccf1) - Fix games not appearing (random and rank) *(commit by [@AlexisL61](https://github.com/AlexisL61))*
@@ -93,3 +111,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [1.3.6+6]: https://github.com/JackboxUtility/JackboxUtility/compare/1.3.6+5...1.3.6+6
 [1.3.7]: https://github.com/JackboxUtility/JackboxUtility/compare/1.3.6+6...1.3.7
 [1.3.7+1]: https://github.com/JackboxUtility/JackboxUtility/compare/1.3.7...1.3.7+1
+[1.3.7+2]: https://github.com/JackboxUtility/JackboxUtility/compare/1.3.7+1...1.3.7+2
