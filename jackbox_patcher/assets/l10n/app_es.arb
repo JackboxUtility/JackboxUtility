@@ -269,7 +269,7 @@
   "@error_happened": {},
   "jackbox_utility_description": "Una aplicación open-source para descargar parches y ejecutar los juegos de Jackbox.",
   "@jackbox_utility_description": {},
-  "server_information": "Información del servidor (Idioma)",
+  "server_information": "Información del servidor (idioma)",
   "@server_information": {},
   "selected_server": "Servidor seleccionado",
   "@selected_server": {},
