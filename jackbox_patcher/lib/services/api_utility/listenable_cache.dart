@@ -28,7 +28,6 @@ class ListenableCache<T> extends Listenable {
   }
 
   void notifyListeners() {
-    JULogger().i("SOMETHING HAS CHANGED");
     for (var listener in _listeners) {
       listener();
     }
