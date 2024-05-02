@@ -13,7 +13,7 @@ class DownloaderService {
   /// Downloads a patch from [patchUrl] and extracts it to [uri]
   static Future<void> downloadPatch(String uri, String patchUrl,
       void Function(String, String, double) callback, CancelToken cancelToken) async {
-    JULogger().i("Downloading patch from $patchUrl to $uri");
+    JULogger().i("[DownloaderService] Downloading patch from $patchUrl to $uri");
     isDownloading = true;
     String filePath = "";
     try {
@@ -29,12 +29,12 @@ class DownloaderService {
     } catch (e) {
       callback(TranslationsHelper().appLocalizations!.download_error,
           TranslationsHelper().appLocalizations!.download_error_description, 0);
-      JULogger().e(e);
+      JULogger().e("[DownloaderService] $e");
       isDownloading = false;
       rethrow;
     }
     try {
-      JULogger().i("Extracting patch from $filePath to $uri");
+      JULogger().i("[DownloaderService] Extracting patch from $filePath to $uri");
       callback(TranslationsHelper().appLocalizations!.extracting, "", 75);
 
       await extractFileToDisk(filePath, uri, callback);
@@ -45,7 +45,7 @@ class DownloaderService {
           TranslationsHelper().appLocalizations!.extracting_error,
           TranslationsHelper().appLocalizations!.extracting_error_description,
           0);
-      JULogger().e(e);
+      JULogger().e("[DownloaderService] $e");
       isDownloading = false;
       rethrow;
     }
@@ -98,7 +98,7 @@ class DownloaderService {
         callback(TranslationsHelper().appLocalizations!.extracting,
             "$currentFiles/$files", 75 + ((currentFiles / files) * 25));
       }catch(e){
-        JULogger().e(e);
+        JULogger().e("[DownloaderService] $e");
       }
     });
     await process.exitCode;

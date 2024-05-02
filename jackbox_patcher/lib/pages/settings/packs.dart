@@ -364,7 +364,6 @@ class _PackInParametersWidgetState extends State<PackInParametersWidget> {
                                           .select_game_location(
                                               widget.pack.pack.name),
                                       lockParentWindow: true);
-                              JULogger().i(path);
                               if (path != null) {
                                 pathController.text = path;
                                 widget.pack.setPath(path);

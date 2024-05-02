@@ -39,8 +39,6 @@ class JackboxPackPatch {
       }
     }
 
-    JULogger().i("PatchPaths: $patchPaths");
-
     return JackboxPackPatch(
       id: json['id'],
       name: json['name'],

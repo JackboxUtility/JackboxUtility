@@ -19,7 +19,7 @@ class PrecacheService {
     try {
       await precachePackImages(context);
     } catch (e) {
-      JULogger().e(e.toString());
+      JULogger().e("[PrecacheService] $e");
       rethrow;
     }
   }

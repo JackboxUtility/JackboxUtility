@@ -196,14 +196,14 @@ class Launcher {
           packIsLaunched = true;
         }
       }
-      JULogger().i("Pack ${pack.pack.name} is launched");
+      JULogger().i("[LAUNCHER] Pack ${pack.pack.name} is launched");
 
       if (game != null) {
         RestApiRouter().sendMessage(GameOpenWsMessage(game.game));
       }
       // Updating Discord Rich Presence while the pack is launched
       while (packIsLaunched) {
-        JULogger().i("Updating Discord Rich Presence");
+        JULogger().i("[LAUNCHER] Updating Discord Rich Presence");
         DiscordService().launchPackLaunchedPresence(pack);
         await Future.delayed(Duration(seconds: 20));
         String result =
@@ -216,7 +216,7 @@ class Launcher {
         RestApiRouter().sendMessage(GameCloseWsMessage(game.game));
       }
       DiscordService().launchOldPresence();
-      JULogger().i("Pack ${pack.pack.name} is not launched anymore");
+      JULogger().i("[LAUNCHER] Pack ${pack.pack.name} is not launched anymore");
     }
   }
 }

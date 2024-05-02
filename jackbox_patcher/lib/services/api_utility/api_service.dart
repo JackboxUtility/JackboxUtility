@@ -54,7 +54,6 @@ class APIService {
   APIService._internal();
 
   void resetCache() {
-    JULogger().i("Resetting cache");
     cachedServers = [];
     cachedPacks = [];
     cachedTags = [];
@@ -63,21 +62,21 @@ class APIService {
   }
 
   Future<PatchServer?> recoverServerFromLink(String serverLink) async {
-    JULogger().i("Recovering server from link");
+    JULogger().i("[API Service] Recovering server from link");
     try {
       final serverInfo = await getRequest(Uri.parse(serverLink));
       final Map<String, dynamic> data = jsonDecode(serverInfo.data);
       final PatchServer patchServer = PatchServer.fromJson(serverLink, data);
       return patchServer;
     } catch (e) {
-      JULogger().e("Failed to recover server from link");
-      JULogger().e(e.toString());
+      JULogger().e("[API Service] Failed to recover server from link");
+      JULogger().e("[API Service] $e");
       return null;
     }
   }
 
   Future<void> recoverAvailableServers() async {
-    JULogger().i("Recovering available servers");
+    JULogger().i("[API Service] Recovering available servers");
     resetCache();
     final data = await getRequest(Uri.parse(masterServer));
 
@@ -89,15 +88,15 @@ class APIService {
           final Map<String, dynamic> data = jsonDecode(serverInfo.data);
           cachedServers.add(PatchServer.fromJson(server, data));
         } catch (e) {
-          JULogger().e("Failed to recover server from link");
-          JULogger().e(e.toString());
+          JULogger().e("[API Service] Failed to recover server from link");
+          JULogger().e("[API Service] $e");
         }
       }
     }
   }
 
   Future<void> recoverServerInfo(String serverLink) async {
-    JULogger().i("Recovering server info");
+    JULogger().i("[API Service] Recovering server info");
     final rawData = await getRequest(Uri.parse(serverLink));
     final Map<String, dynamic> data = jsonDecode(rawData.data);
     cachedSelectedServer = PatchServer.fromJson(serverLink, data);
@@ -285,7 +284,7 @@ class APIService {
 
   // Send get request
   Future<({String data, bool sameAsCached})> getRequest(Uri uri) async {
-    JULogger().i("Sending GET request to $uri");
+    JULogger().i("[API Service] Sending GET request to $uri");
     http.Response response = await http.get(uri);
     if (response.statusCode == 200) {
       if (!internalCache.exists(uri.toString())) {
@@ -300,7 +299,7 @@ class APIService {
         }
       }
     } else {
-      JULogger().e("Failed to send GET request to $uri");
+      JULogger().e("[API Service] Failed to send GET request to $uri");
       throw Exception("Failed to send GET request to $uri");
     }
   }

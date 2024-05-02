@@ -8,7 +8,7 @@ import 'package:window_manager/window_manager.dart';
 class WindowManagerService {
   static Future<void> updateScreenSizeFromLastOpening() async {
     try {
-      JULogger().d("Updating screen size from last opening");
+      JULogger().d("[WINDOWS MANAGER] Updating screen size from last opening");
       WindowInformation lastWindowInformations =
           UserData().getLastWindowInformations();
       if (lastWindowInformations.x < 0 ||
@@ -29,7 +29,7 @@ class WindowManagerService {
         }
       });
     } catch (e) {
-      JULogger().e(e.toString());
+      JULogger().e("[WINDOWS MANAGER] $e");
     }
   }
 

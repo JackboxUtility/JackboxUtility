@@ -24,33 +24,32 @@ class AutomaticGameFinderService {
       try {
         gameFound += await _findSteamGames(packs);
       } catch (e) {
-        JULogger().e(e.toString());
+        JULogger().e("[AutomaticGameFinderService] $e");
       }
       try {
         gameFound += await _findEpicGamesGames(packs);
       } catch (e) {
-        JULogger().e(e.toString());
+        JULogger().e("[AutomaticGameFinderService] $e");
       }
       return gameFound;
     } catch (e) {
-      JULogger().e(e.toString());
+      JULogger().e("[AutomaticGameFinderService] $e");
       rethrow;
     }
   }
 
   static Future<int> _findSteamGames(List<UserJackboxPack> packs) async {
-    JULogger().i("Looking for Steam games");
+    JULogger().i("[AutomaticGameFinderService] Looking for Steam games");
     int numberGamesFound = 0;
     String? steamLocation = await _getSteamLocation();
-    JULogger().i("Steam location: $steamLocation");
+    JULogger().i("[AutomaticGameFinderService] Steam location: $steamLocation");
     if (steamLocation != null) {
       Map<String, List<String>> steamFolderWithAppId =
           _getSteamFoldersWithAppId(steamLocation);
-      JULogger().i("Looking for Steam games");
-      JULogger().i("Steam folders: $steamFolderWithAppId");
+      JULogger().i("[AutomaticGameFinderService] Steam folders: $steamFolderWithAppId");
       numberGamesFound =
           await _linkSteamFolderWithPack(steamFolderWithAppId, packs);
-      JULogger().i("Steam games found: $numberGamesFound");
+      JULogger().i("[AutomaticGameFinderService] Steam games found: $numberGamesFound");
     }
     return numberGamesFound;
   }
@@ -85,10 +84,10 @@ class AutomaticGameFinderService {
       final appSupportDir = await getApplicationSupportDirectory();
       return "${appSupportDir.parent.path}/Steam";
     } catch (e) {
-      JULogger().e(e.toString());
+      JULogger().e("[AutomaticGameFinderService] $e");
     }
     JULogger().i(
-        "Failed to get Steam location from Application Support directory. Trying HOME environment variable...");
+        "[AutomaticGameFinderService] Failed to get Steam location from Application Support directory. Trying HOME environment variable...");
     if (Platform.environment.containsKey("HOME")) {
       return "${Platform.environment["HOME"]}/Library/Application Support/Steam";
     }
