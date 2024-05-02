@@ -41,22 +41,7 @@ class AutomaticGameFinderService {
   static Future<int> _findSteamGames(List<UserJackboxPack> packs) async {
     JULogger().i("Looking for Steam games");
     int numberGamesFound = 0;
-    String? steamLocation;
-    if (Platform.isWindows) {
-      steamLocation = _getSteamLocation();
-    } else {
-      if (Platform.isLinux){
-        for (String location in STEAM_LINUX_LOCATIONS) {
-          if (await Directory(Platform.environment["HOME"]! + "$location")
-              .exists()) {
-            steamLocation = Platform.environment["HOME"]! + "$location";
-            break;
-          }
-        }
-      }else{
-        steamLocation = "~/Library/Application Support/Steam";
-      }
-    }
+    String? steamLocation = await _getSteamLocation();
     JULogger().i("Steam location: $steamLocation");
     if (steamLocation != null) {
       Map<String, List<String>> steamFolderWithAppId =
@@ -82,7 +67,35 @@ class AutomaticGameFinderService {
     return numberGamesFound;
   }
 
-  static String? _getSteamLocation() {
+  static Future<String?> _getSteamLocation() async {
+    switch (Platform.operatingSystem) {
+      case "windows":
+        return _getSteamLocationWindows();
+      case "macos":
+        return _getSteamLocationMacos();
+      case "linux":
+        return _getSteamLocationLinux();
+      default:
+        return null;
+    }
+  }
+
+  static Future<String?> _getSteamLocationMacos() async {
+    try {
+      final appSupportDir = await getApplicationSupportDirectory();
+      return "${appSupportDir.parent.path}/Steam";
+    } catch (e) {
+      JULogger().e(e.toString());
+    }
+    JULogger().i(
+        "Failed to get Steam location from Application Support directory. Trying HOME environment variable...");
+    if (Platform.environment.containsKey("HOME")) {
+      return "${Platform.environment["HOME"]}/Library/Application Support/Steam";
+    }
+    return null;
+  }
+
+  static Future<String?> _getSteamLocationWindows() async {
     try {
       final key = Registry.openPath(RegistryHive.localMachine,
           path: 'SOFTWARE\\WOW6432Node\\Valve\\Steam');
@@ -91,6 +104,16 @@ class AutomaticGameFinderService {
     } catch (e) {
       return null;
     }
+  }
+
+  static Future<String?> _getSteamLocationLinux() async {
+    for (String location in STEAM_LINUX_LOCATIONS) {
+      if (await Directory("${Platform.environment["HOME"]!}$location")
+          .exists()) {
+        return "${Platform.environment["HOME"]!}$location";
+      }
+    }
+    return null;
   }
 
   static Map<String, List<String>> _getSteamFoldersWithAppId(
