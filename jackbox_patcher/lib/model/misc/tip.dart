@@ -1,8 +1,8 @@
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
-import 'package:jackbox_patcher/services/user/userdata.dart';
+import 'package:jackbox_patcher/services/translations/translations_helper.dart';
+import 'package:jackbox_patcher/services/user/user_data.dart';
 
-import '../../components/dialogs/tipDialog.dart';
+import '../../components/dialogs/tip_dialog.dart';
 
 enum TipAvailable {
   LAUNCHER_ON_STARTUP

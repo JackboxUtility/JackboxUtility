@@ -1,15 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:jackbox_patcher/pages/patcher/categoryPackPatch.dart';
-import 'package:jackbox_patcher/services/discord/DiscordService.dart';
+import 'package:jackbox_patcher/pages/patcher/category_pack_patch.dart';
+import 'package:jackbox_patcher/services/discord/discord_service.dart';
 
-import '../../components/closableRouteWithEsc.dart';
-import '../../model/usermodel/userjackboxpack.dart';
+import '../../components/closable_route_with_esc.dart';
+import '../../model/user_model/user_jackbox_pack.dart';
 import '../../services/api_utility/api_service.dart';
-import '../../services/translations/translationsHelper.dart';
-import '../../services/user/userdata.dart';
-import 'packContainer.dart';
+import '../../services/translations/translations_helper.dart';
+import '../../services/user/user_data.dart';
+import 'pack_container.dart';
 
 class PatcherMenuWidget extends StatefulWidget {
   const PatcherMenuWidget({Key? key}) : super(key: key);

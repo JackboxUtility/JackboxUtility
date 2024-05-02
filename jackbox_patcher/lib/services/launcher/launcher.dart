@@ -1,25 +1,25 @@
 import 'dart:io';
 
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:jackbox_patcher/model/usermodel/userjackboxgame.dart';
-import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
+import 'package:jackbox_patcher/model/user_model/user_jackbox_game.dart';
+import 'package:jackbox_patcher/model/user_model/user_jackbox_pack.dart';
 import 'package:jackbox_patcher/services/api_utility/api_service.dart';
-import 'package:jackbox_patcher/services/audio/SFXService.dart';
-import 'package:jackbox_patcher/services/discord/DiscordService.dart';
+import 'package:jackbox_patcher/services/audio/sfx_service.dart';
+import 'package:jackbox_patcher/services/discord/discord_service.dart';
 import 'package:jackbox_patcher/services/downloader/downloader_service.dart';
-import 'package:jackbox_patcher/services/internal_api/RestApiRouter.dart';
-import 'package:jackbox_patcher/services/internal_api/ws_message/GameCloseWsMessage.dart';
-import 'package:jackbox_patcher/services/internal_api/ws_message/GameOpenWsMessage.dart';
-import 'package:jackbox_patcher/services/launcher/launchers/AbstractPackLauncher.dart';
-import 'package:jackbox_patcher/services/launcher/launchers/EpicPackLauncher.dart';
-import 'package:jackbox_patcher/services/launcher/launchers/NativePackLauncher.dart';
-import 'package:jackbox_patcher/services/launcher/launchers/SteamPackLauncher.dart';
-import 'package:jackbox_patcher/services/launcher/processHelper.dart';
+import 'package:jackbox_patcher/services/internal_api/rest_api_router.dart';
+import 'package:jackbox_patcher/services/internal_api/ws_message/game_close_ws_message.dart';
+import 'package:jackbox_patcher/services/internal_api/ws_message/game_open_ws_message.dart';
+import 'package:jackbox_patcher/services/launcher/launchers/abstract_pack_launcher.dart';
+import 'package:jackbox_patcher/services/launcher/launchers/epic_pack_launcher.dart';
+import 'package:jackbox_patcher/services/launcher/launchers/native_pack_launcher.dart';
+import 'package:jackbox_patcher/services/launcher/launchers/steam_pack_launcher.dart';
+import 'package:jackbox_patcher/services/launcher/process_helper.dart';
 import 'package:jackbox_patcher/services/logger/logger.dart';
-import 'package:jackbox_patcher/services/translations/translationsHelper.dart';
+import 'package:jackbox_patcher/services/translations/translations_helper.dart';
 
 import '../../model/misc/audio/SFXEnum.dart';
-import '../user/userdata.dart';
+import '../user/user_data.dart';
 
 class Launcher {
   static final List<UserJackboxPack> _openedPacks = [];

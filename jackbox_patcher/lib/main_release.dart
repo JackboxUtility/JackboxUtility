@@ -5,8 +5,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_flavor/flutter_flavor.dart';
 import 'package:jackbox_patcher/app_configuration.dart';
 import 'package:jackbox_patcher/main.dart';
-import 'package:jackbox_patcher/services/arguments_handler/ArgumentsHandler.dart';
-import 'package:jackbox_patcher/services/user/initialLoad.dart';
+import 'package:jackbox_patcher/services/arguments_handler/arguments_handler.dart';
+import 'package:jackbox_patcher/services/user/initial_load.dart';
 import 'package:logger/logger.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 

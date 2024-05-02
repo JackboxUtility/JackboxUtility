@@ -2,10 +2,10 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:jackbox_patcher/components/blurhashimage.dart';
+import 'package:jackbox_patcher/components/blurhash_image.dart';
 import 'package:jackbox_patcher/services/api_utility/api_service.dart';
-import 'package:jackbox_patcher/services/user/userdata.dart';
-import 'package:jackbox_patcher/services/video/videoService.dart';
+import 'package:jackbox_patcher/services/user/user_data.dart';
+import 'package:jackbox_patcher/services/video/video_service.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:media_kit_video/media_kit_video.dart';
 

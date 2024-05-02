@@ -1,14 +1,14 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/app_configuration.dart';
-import 'package:jackbox_patcher/pages/mainContainer.dart';
+import 'package:jackbox_patcher/pages/main_container.dart';
 import 'package:jackbox_patcher/pages/settings/menu.dart';
-import 'package:jackbox_patcher/pages/search_ui/searchGames.dart';
-import 'package:jackbox_patcher/pages/search_ui/searchGamesMenu.dart';
-import 'package:jackbox_patcher/pages/select_server/selectServer.dart';
+import 'package:jackbox_patcher/pages/search_ui/search_games.dart';
+import 'package:jackbox_patcher/pages/search_ui/search_games_menu.dart';
+import 'package:jackbox_patcher/pages/select_server/select_server.dart';
 import 'package:jackbox_patcher/services/api_utility/api_service.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'pages/game_ui/gameInfo.dart';
+import 'pages/game_ui/gameinfo.dart';
 import 'pages/settings/packs.dart';
 import 'pages/patcher/menu.dart';
 
