@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/model/usermodel/interface/InstallablePatch.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgamepatch.dart';
-import 'package:jackbox_patcher/model/usermodel/userjackboxpackpatch.dart';
 import 'package:windows_taskbar/windows_taskbar.dart';
 
 import '../../services/translations/translationsHelper.dart';

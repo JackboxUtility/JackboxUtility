@@ -3,7 +3,6 @@ import 'package:jackbox_patcher/model/jackbox/jackboxpackpatch.dart';
 import 'package:jackbox_patcher/model/usermodel/interface/InstallablePatch.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgamepatch.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
-import 'package:jackbox_patcher/services/logger/logger.dart';
 
 import '../../services/downloader/downloader_service.dart';
 import '../../services/user/userdata.dart';

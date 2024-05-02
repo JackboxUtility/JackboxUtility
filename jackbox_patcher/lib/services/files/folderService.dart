@@ -1,7 +1,5 @@
 import 'dart:io';
 
-import 'package:jackbox_patcher/model/enums/platforms.dart';
-
 import 'package:path_provider/path_provider.dart';
 
 class FolderService {

@@ -11,7 +11,7 @@ import 'package:jackbox_patcher/components/dialogs/downloadPatchDialog.dart';
 import 'package:jackbox_patcher/components/fixes/gameFixAvailable.dart';
 import 'package:jackbox_patcher/components/starsRate.dart';
 import 'package:jackbox_patcher/model/customServerComponent/customServerComponent.dart';
-import 'package:jackbox_patcher/model/jackbox/jackboxgame.dart';
+import 'package:jackbox_patcher/model/jackbox/gameinfo/jackboxgame.dart';
 import 'package:jackbox_patcher/model/misc/audio/SFXEnum.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxgamepatch.dart';
 import 'package:jackbox_patcher/model/usermodel/userjackboxpackpatch.dart';

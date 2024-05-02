@@ -8,7 +8,6 @@ import 'package:jackbox_patcher/pages/search_ui/searchGames.dart';
 import 'package:jackbox_patcher/services/api_utility/api_service.dart';
 import 'package:jackbox_patcher/services/audio/SFXService.dart';
 import 'package:jackbox_patcher/services/launcher/launcher.dart';
-import 'package:local_hero/local_hero.dart';
 
 import '../../services/games/GamesService.dart';
 import '../../services/translations/translationsHelper.dart';

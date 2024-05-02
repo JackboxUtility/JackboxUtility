@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_flavor/flutter_flavor.dart';
-import 'package:jackbox_patcher/app_configuration.dart';
 import 'package:jackbox_patcher/services/files/folderService.dart';
 import 'package:logger/logger.dart';
 

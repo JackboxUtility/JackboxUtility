@@ -5,7 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jackbox_patcher/components/closableRouteWithEsc.dart';
 import 'package:jackbox_patcher/components/filters/intFilterPaneItem.dart';
 import 'package:jackbox_patcher/components/starsRate.dart';
-import 'package:jackbox_patcher/model/jackbox/jackboxgame.dart';
+import 'package:jackbox_patcher/model/jackbox/gameinfo/jackbox_game_type.dart';
 import 'package:jackbox_patcher/model/misc/audio/SFXEnum.dart';
 import 'package:jackbox_patcher/model/misc/filterEnum.dart';
 import 'package:jackbox_patcher/model/misc/tip.dart';
