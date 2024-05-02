@@ -2,9 +2,9 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jackbox_patcher/model/jackbox/gameinfo/familyfriendly.dart';
+import 'package:jackbox_patcher/model/jackbox/gameinfo/jackboxgame.dart';
 import 'package:jackbox_patcher/model/jackbox/gameinfo/moderation.dart';
 import 'package:jackbox_patcher/model/jackbox/gameinfo/streamfriendly.dart';
-import 'package:jackbox_patcher/model/jackbox/jackboxgame.dart';
 
 import '../../services/translations/translationsHelper.dart';
 
