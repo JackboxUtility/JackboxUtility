@@ -57,6 +57,7 @@ dependencies:
       url: https://github.com/AlexisL61/dart_discord_rpc.git
   media_kit: ^1.1.10                        
   media_kit_video: ^1.2.4
+  media_kit_libs_video: ^1.0.4
   timeline_tile: 2.0.0
   shelf: 1.4.1
   shelf_router: 1.1.4
