@@ -1,6 +1,6 @@
 import 'package:fluent_ui/fluent_ui.dart';
 
-import '../translations/translationsHelper.dart';
+import '../translations/translations_helper.dart';
 
 class InfoBarService {
   static showError(BuildContext context, String errorMessage,

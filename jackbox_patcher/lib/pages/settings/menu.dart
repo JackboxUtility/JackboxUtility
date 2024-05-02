@@ -1,13 +1,13 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:jackbox_patcher/pages/settings/appbehavior.dart';
-import 'package:jackbox_patcher/pages/settings/appinfo.dart';
+import 'package:jackbox_patcher/pages/settings/app_behavior.dart';
+import 'package:jackbox_patcher/pages/settings/app_info.dart';
 import 'package:jackbox_patcher/pages/settings/packs.dart';
-import 'package:jackbox_patcher/pages/settings/serverinfo.dart';
-import 'package:jackbox_patcher/services/discord/DiscordService.dart';
+import 'package:jackbox_patcher/pages/settings/server_info.dart';
+import 'package:jackbox_patcher/services/discord/discord_service.dart';
 
-import '../../components/closableRouteWithEsc.dart';
-import '../../services/translations/translationsHelper.dart';
+import '../../components/closable_route_with_esc.dart';
+import '../../services/translations/translations_helper.dart';
 
 class ParametersRoute extends StatefulWidget {
   const ParametersRoute({Key? key}) : super(key: key);

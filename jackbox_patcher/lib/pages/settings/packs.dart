@@ -1,18 +1,18 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:jackbox_patcher/components/dialogs/resetPackDialog.dart';
+import 'package:jackbox_patcher/components/dialogs/reset_pack_dialog.dart';
 import 'package:jackbox_patcher/model/misc/launchers.dart';
-import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
+import 'package:jackbox_patcher/model/user_model/user_jackbox_pack.dart';
 import 'package:jackbox_patcher/services/api_utility/api_service.dart';
 import 'package:jackbox_patcher/services/logger/logger.dart';
-import 'package:jackbox_patcher/services/user/userdata.dart';
+import 'package:jackbox_patcher/services/user/user_data.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-import '../../components/closableRouteWithEsc.dart';
-import '../../services/automaticGameFinder/AutomaticGameFinder.dart';
+import '../../components/closable_route_with_esc.dart';
+import '../../services/automatic_game_finder/automatic_game_finder.dart';
 import '../../services/error/error.dart';
-import '../../services/translations/translationsHelper.dart';
+import '../../services/translations/translations_helper.dart';
 
 class ParametersPackRoute extends StatefulWidget {
   const ParametersPackRoute({Key? key}) : super(key: key);

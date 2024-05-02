@@ -1,9 +1,9 @@
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:jackbox_patcher/model/usermodel/userjackboxpack.dart';
+import 'package:jackbox_patcher/model/user_model/user_jackbox_pack.dart';
 import 'package:jackbox_patcher/services/api_utility/api_service.dart';
 import 'package:jackbox_patcher/services/logger/logger.dart';
 
-import '../user/userdata.dart';
+import '../user/user_data.dart';
 
 class PrecacheService {
   static final PrecacheService _instance = PrecacheService._internal();

@@ -1,6 +1,6 @@
 import 'package:fluent_ui/fluent_ui.dart';
 
-import '../services/translations/translationsHelper.dart';
+import '../services/translations/translations_helper.dart';
 
 class JackboxUtilityTitleWithIcon extends StatefulWidget {
   JackboxUtilityTitleWithIcon({Key? key}) : super(key: key);

@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:jackbox_patcher/services/api_utility/api_service.dart';
-import 'package:jackbox_patcher/services/user/userdata.dart';
+import 'package:jackbox_patcher/services/user/user_data.dart';
 
 class AutomaticReload {
   static startAutomaticReload() {
