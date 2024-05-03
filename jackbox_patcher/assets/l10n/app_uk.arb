@@ -269,7 +269,7 @@
   "@error_happened": {},
   "jackbox_utility_description": "Застосунок з відкритим вихідним кодом для встановлення патчів та запуску ігор від Jackbox Games.",
   "@jackbox_utility_description": {},
-  "server_information": "Інформація про сервер",
+  "server_information": "Інформація про сервер (мову)",
   "@server_information": {},
   "selected_server": "Обраний сервер",
   "@selected_server": {},
