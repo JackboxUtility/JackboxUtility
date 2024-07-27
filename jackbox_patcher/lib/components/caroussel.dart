@@ -1,16 +1,16 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/components/blurhash_image.dart';
 import 'package:jackbox_patcher/services/api_utility/api_service.dart';
 import 'package:jackbox_patcher/services/user/user_data.dart';
 import 'package:jackbox_patcher/services/video/video_service.dart';
+import 'package:media_kit/media_kit.dart';
+import 'package:media_kit_video/media_kit_video.dart';
 
 class AssetCarousselWidget extends StatefulWidget {
   const AssetCarousselWidget({Key? key, required this.images})
       : super(key: key);
-
   final List<String> images;
   @override
   State<AssetCarousselWidget> createState() => _AssetCarousselWidgetState();
@@ -24,20 +24,18 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
   bool isVideoFullScreen = false;
   bool isVideoLoaded = false;
   TweenAnimationBuilder<double>? tweenAnimationBuilder;
-
   StreamSubscription<bool>? completedStream;
   StreamSubscription<bool>? bufferingStream;
   StreamSubscription<Duration>? positionStream;
 
   // Create a [Player] to control playback.
   // Create a [VideoController] to handle video output from [Player].
-  // late VideoController controller;
+  late VideoController controller;
 
   @override
   void initState() {
     super.initState();
     checkingIfHasVideo();
-
     startVideo().then((a) => controlPlayerState());
   }
 
@@ -57,8 +55,8 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
           widget.images.removeAt(i);
           i--;
         } else {
-          hasVideo = false;
-          // controller = VideoController(VideoService.player);
+          hasVideo = true;
+          controller = VideoController(VideoService.player);
           break;
         }
       }
@@ -66,14 +64,70 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
   }
 
   void controlPlayerState() {
+    if (hasVideo) {
+      if (!UserData().settings.isAudioActivated)
+        VideoService.player.setVolume(0);
+      completedStream =
+          VideoService.player.stream.completed.listen((bool ended) {
+        if (ended) {
+          VideoService.player.play();
+        }
+      });
+      positionStream = VideoService.player.stream.position.listen((event) {
+        if (event.inMilliseconds >= 1 &&
+            !isVideoLoaded &&
+            VideoService.player.state.playing) {
+          setState(() {
+            isVideoLoaded = true;
+          });
+        }
+      });
+      bufferingStream = VideoService.player.stream.buffering.listen((event) {
+        if (event) {
+          setState(() {
+            isVideoLoaded = false;
+          });
+        }
+      });
+    }
   }
 
   Future<void> startVideo() async {
+    if (hasVideo) {
+      if (isAVideo(widget.images[imageIndex])) {
+        setState(() {
+          isVideoLoaded = false;
+          changingImage = true;
+        });
+        await VideoService.player.stop();
+        await VideoService.player.seek(const Duration(milliseconds: 0));
+        await VideoService.player.open(
+          Media(APIService().assetLink(widget.images[imageIndex])),
+        );
+      } else {
+        VideoService.player.stop();
+      }
+    } else {
+      VideoService.stop();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
+    return MaterialDesktopVideoControlsTheme(
+        normal: const MaterialDesktopVideoControlsThemeData(
+          toggleFullscreenOnDoublePress: false,
+          bottomButtonBar: const [
+            MaterialDesktopSkipPreviousButton(),
+            MaterialDesktopPlayOrPauseButton(),
+            MaterialDesktopSkipNextButton(),
+            MaterialDesktopVolumeButton(),
+            MaterialDesktopPositionIndicator(),
+            Spacer()
+          ],
+        ),
+        fullscreen: const MaterialDesktopVideoControlsThemeData(),
+        child: ClipRRect(
             borderRadius: BorderRadius.circular(8.0),
             child: SizedBox(
                 width: double.maxFinite,
@@ -88,11 +142,31 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
                                   moveButtonVisible = false;
                                 }),
                             child: Stack(children: [
-                              BlurHashImage(
+                              !isAVideo(widget.images[imageIndex])
+                                  ? BlurHashImage(
                                       url: widget.images[imageIndex],
                                       fit: BoxFit.fitWidth,
                                     )
-                                  ,
+                                  : (isVideoLoaded
+                                      ? Video(
+                                          key: Key(widget.images[0]),
+                                          controller: controller,
+                                          controls: (VideoState? state) {
+                                            if (state != null) {
+                                              return AdaptiveVideoControls(
+                                                  state);
+                                            } else {
+                                              return SizedBox.shrink();
+                                            }
+                                          })
+                                      : Container(
+                                          color: Colors.black,
+                                          child: Center(
+                                            child: ProgressRing(
+                                              activeColor: Colors.white,
+                                            ),
+                                          ),
+                                        )),
                               tweenAnimationBuilder = TweenAnimationBuilder<
                                       double>(
                                   onEnd: () {
@@ -164,23 +238,26 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
                                                 .chevron_left_small)),
                                         Expanded(
                                             child: Column(
-                                                  children: [
-                                                    Expanded(
-                                                      child:  GestureDetector(
-                                              behavior: HitTestBehavior.translucent,
-                                                onTap: () {
-                                                  if (isAVideo(widget
-                                                      .images[imageIndex])) {
-                                                    VideoService.playPause();
-                                                  }
-                                                }, 
-                                                child:Container(
-                                                          width: double.maxFinite,
-                                                          height: double.maxFinite ),
-                                                    )),
-                                                    SizedBox(height: 80,)
-                                                  ],
-                                                )),
+                                          children: [
+                                            Expanded(
+                                                child: GestureDetector(
+                                              behavior:
+                                                  HitTestBehavior.translucent,
+                                              onTap: () {
+                                                if (isAVideo(widget
+                                                    .images[imageIndex])) {
+                                                  VideoService.playPause();
+                                                }
+                                              },
+                                              child: Container(
+                                                  width: double.maxFinite,
+                                                  height: double.maxFinite),
+                                            )),
+                                            SizedBox(
+                                              height: 80,
+                                            )
+                                          ],
+                                        )),
                                         GestureDetector(
                                             onTap: () => setState(() {
                                                   imageIndex = (imageIndex +
@@ -197,7 +274,7 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
                                       ],
                                     ))
                                   : Container()
-                            ]))))));
+                            ])))))));
   }
 
   bool isAVideo(String url) => url.contains(".mp4");
