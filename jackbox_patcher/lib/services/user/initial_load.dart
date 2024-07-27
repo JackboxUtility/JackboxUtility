@@ -17,7 +17,6 @@ import 'package:jackbox_patcher/services/internal_api/rest_api_router.dart';
 import 'package:jackbox_patcher/services/statistics/statistics_sender.dart';
 import 'package:jackbox_patcher/services/translations/translations_helper.dart';
 import 'package:jackbox_patcher/services/user/user_data.dart';
-import 'package:media_kit/media_kit.dart';
 import 'package:window_manager/window_manager.dart';
 
 import '../../components/dialogs/download_patch_dialog.dart';
@@ -31,7 +30,7 @@ class InitialLoad {
     WidgetsFlutterBinding.ensureInitialized();
     await windowManager.ensureInitialized();
     if (Platform.isWindows) {
-      MediaKit.ensureInitialized();
+      //MediaKit.ensureInitialized();
     }
     if (!Platform.isMacOS) {
       DiscordRPC.initialize();
