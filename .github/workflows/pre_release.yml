@@ -76,7 +76,7 @@ jobs:
        working-directory: ./jackbox_patcher
        run: |
         mv ./pubspec.yaml pubspec_old.yaml
-        cat ./pubspec_old.yaml | grep -v media_kit_libs > ./pubspec.yaml
+        cat ./pubspec_old.yaml | grep -v DELETE_IF_LINUX > ./pubspec.yaml
      - name: Build linux
        working-directory: ./jackbox_patcher
        run: flutter build linux --build-name ${{ needs.retrievingVersion.outputs.version }} -t ./lib/main_beta.dart

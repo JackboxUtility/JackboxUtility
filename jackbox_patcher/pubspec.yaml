@@ -55,9 +55,21 @@ dependencies:
   dart_discord_rpc:
     git:
       url: https://github.com/AlexisL61/dart_discord_rpc.git
-  media_kit: ^1.1.10                        
-  media_kit_video: ^1.2.4
-  media_kit_libs_video: ^1.0.4
+  media_kit:
+    git:
+      url: https://github.com/media-kit/media-kit.git
+      ref: main
+      path: ./media_kit
+  media_kit_video:
+    git:
+      url: https://github.com/media-kit/media-kit.git
+      ref: main
+      path: ./media_kit_video
+  media_kit_libs_video: # DELETE_IF_LINUX
+    git: # DELETE_IF_LINUX
+      url: https://github.com/media-kit/media-kit.git # DELETE_IF_LINUX
+      ref: main # DELETE_IF_LINUX
+      path: ./libs/universal/media_kit_libs_video # DELETE_IF_LINUX
   timeline_tile: 2.0.0
   shelf: 1.4.1
   shelf_router: 1.1.4
@@ -66,6 +78,28 @@ dependencies:
   sentry_flutter: 7.12.0
   path_provider: 2.1.1
   local_hero:
+
+dependency_overrides:
+  media_kit:
+    git:
+      url: https://github.com/media-kit/media-kit.git
+      ref: main
+      path: ./media_kit
+  media_kit_video:
+    git:
+      url: https://github.com/media-kit/media-kit.git
+      ref: main
+      path: ./media_kit_video
+  media_kit_libs_video: # DELETE_IF_LINUX
+    git: # DELETE_IF_LINUX
+      url: https://github.com/media-kit/media-kit.git # DELETE_IF_LINUX
+      ref: main # DELETE_IF_LINUX
+      path: ./libs/universal/media_kit_libs_video # DELETE_IF_LINUX
+  media_kit_native_event_loop:
+    git:
+      url: https://github.com/media-kit/media-kit.git
+      ref: main
+      path: ./media_kit_native_event_loop
   
 
 
