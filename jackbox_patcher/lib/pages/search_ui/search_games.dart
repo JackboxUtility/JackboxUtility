@@ -500,8 +500,8 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                         child: MouseRegion(
                           onEnter: (a) => setState(() {
                             isFirstTime = false;
-                            smallInfoVisible = true;
-                            SFXService().playSFX(SFX.HOVER_OVER_BANNER);
+                            // smallInfoVisible = true;
+                            // SFXService().playSFX(SFX.HOVER_OVER_BANNER);
                           }),
                           onExit: (a) => setState(() {
                             isFirstTime = false;
