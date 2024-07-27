@@ -178,7 +178,7 @@ packages:
     source: hosted
     version: "3.0.3"
   cupertino_icons:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       name: cupertino_icons
       sha256: e35129dc44c9118cee2a5603506d823bab99c68393879edb440e0090d07586be
@@ -296,7 +296,7 @@ packages:
     source: hosted
     version: "2.0.1"
   flutter_localizations:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description: flutter
     source: sdk
     version: "0.0.0"
@@ -375,7 +375,7 @@ packages:
     source: hosted
     version: "4.0.17"
   intl:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       name: intl
       sha256: d6f56758b7d3014a48af9701c085700aac781a92a87a62b1333b46d8879661cf
@@ -489,10 +489,11 @@ packages:
   media_kit:
     dependency: "direct main"
     description:
-      name: media_kit
-      sha256: "3289062540e3b8b9746e5c50d95bd78a9289826b7227e253dff806d002b9e67a"
-      url: "https://pub.dev"
-    source: hosted
+      path: media_kit
+      ref: main
+      resolved-ref: "50c510d018cc5286eb6730f3ea165290f19dc5f6"
+      url: "https://github.com/media-kit/media-kit.git"
+    source: git
     version: "1.1.10+1"
   media_kit_libs_android_video:
     dependency: transitive
@@ -529,10 +530,11 @@ packages:
   media_kit_libs_video:
     dependency: "direct main"
     description:
-      name: media_kit_libs_video
-      sha256: "3688e0c31482074578652bf038ce6301a5d21e1eda6b54fc3117ffeb4bdba067"
-      url: "https://pub.dev"
-    source: hosted
+      path: "libs/universal/media_kit_libs_video"
+      ref: main
+      resolved-ref: "50c510d018cc5286eb6730f3ea165290f19dc5f6"
+      url: "https://github.com/media-kit/media-kit.git"
+    source: git
     version: "1.0.4"
   media_kit_libs_windows_video:
     dependency: transitive
@@ -543,20 +545,22 @@ packages:
     source: hosted
     version: "1.0.9"
   media_kit_native_event_loop:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
-      name: media_kit_native_event_loop
-      sha256: a605cf185499d14d58935b8784955a92a4bf0ff4e19a23de3d17a9106303930e
-      url: "https://pub.dev"
-    source: hosted
+      path: media_kit_native_event_loop
+      ref: main
+      resolved-ref: "50c510d018cc5286eb6730f3ea165290f19dc5f6"
+      url: "https://github.com/media-kit/media-kit.git"
+    source: git
     version: "1.0.8"
   media_kit_video:
     dependency: "direct main"
     description:
-      name: media_kit_video
-      sha256: c048d11a19e379aebbe810647636e3fc6d18374637e2ae12def4ff8a4b99a882
-      url: "https://pub.dev"
-    source: hosted
+      path: media_kit_video
+      ref: main
+      resolved-ref: "50c510d018cc5286eb6730f3ea165290f19dc5f6"
+      url: "https://github.com/media-kit/media-kit.git"
+    source: git
     version: "1.2.4"
   meta:
     dependency: transitive
