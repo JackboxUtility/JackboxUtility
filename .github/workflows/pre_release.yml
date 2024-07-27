@@ -56,7 +56,7 @@ jobs:
      - uses: actions/upload-artifact@v3
        with:
           name: build_windows
-          path: ./jackbox_patcher/build/windows/runner/Release
+          path: ./jackbox_patcher/build/windows/x64/runner/Release
  build_linux:
    runs-on: ubuntu-20.04
    needs: retrievingVersion
