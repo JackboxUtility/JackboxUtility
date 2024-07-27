@@ -483,8 +483,8 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
               borderRadius: BorderRadius.circular(8.0),
               child: TweenAnimationBuilder<double>(
                   tween: Tween<double>(
-                    begin: isFirstTime ? 0 : (smallInfoVisible ? 0 : 1),
-                    end: isFirstTime ? 0 : (smallInfoVisible ? 1 : 0),
+                    begin: isFirstTime ? 1 : (smallInfoVisible ? 0 : 1),
+                    end: isFirstTime ? 1 : (smallInfoVisible ? 1 : 0),
                   ),
                   duration: const Duration(milliseconds: 200),
                   builder: (BuildContext context, double opacity, Widget? child) {
