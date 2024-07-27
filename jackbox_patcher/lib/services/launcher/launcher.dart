@@ -77,18 +77,19 @@ class Launcher {
       throw Exception("Pack path is null");
     } else {
       if (!windowLess) SFXService().playSFX(SFX.GAME_LAUNCHED);
+      
       // If the loader is not already installed or need update, download it
-      if (pack.loader != null) {
-        if (pack.loader!.path == null ||
-            pack.loader!.version != pack.pack.loader!.version ||
-            !File(pack.loader!.path!).existsSync()) {
-          pack.loader!.path =
-              await APIService().downloadPackLoader(pack.pack, (p0, p1) {});
-          pack.loader!.version = pack.pack.loader!.version;
-          await UserData().savePack(pack);
-        }
-        await extractPackLoader(pack);
-      }
+      // if (pack.loader != null) {
+      //   if (pack.loader!.path == null ||
+      //       pack.loader!.version != pack.pack.loader!.version ||
+      //       !File(pack.loader!.path!).existsSync()) {
+      //     pack.loader!.path =
+      //         await APIService().downloadPackLoader(pack.pack, (p0, p1) {});
+      //     pack.loader!.version = pack.pack.loader!.version;
+      //     await UserData().savePack(pack);
+      //   }
+      //   await extractPackLoader(pack);
+      // }
       await handlePackLaunch(pack);
       checkLaunchedPack(pack);
     }
