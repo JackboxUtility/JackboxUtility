@@ -52,11 +52,11 @@ jobs:
         channel: 'stable'
      - name: Build windows
        working-directory: ./jackbox_patcher
-       run: flutter build windows --build-name ${{ needs.retrievingVersion.outputs.version }} -t ./lib/main_beta.dart
+       run: flutter build windows --debug --build-name ${{ needs.retrievingVersion.outputs.version }} -t ./lib/main_beta.dart
      - uses: actions/upload-artifact@v3
        with:
           name: build_windows
-          path: ./jackbox_patcher/build/windows/x64/runner/Release
+          path: ./jackbox_patcher/build/windows/x64/runner/Debug
  build_linux:
    runs-on: ubuntu-20.04
    needs: retrievingVersion
