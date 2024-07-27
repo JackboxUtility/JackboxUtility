@@ -127,7 +127,8 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
                 Expanded(
                     child: CachedNetworkImage(
                   imageUrl: widget.linkedPack != null
-                      ? APIService().assetLink(widget.linkedPack!.pack.background)
+                      ? APIService()
+                          .assetLink(widget.linkedPack!.pack.background)
                       : APIService().getDefaultBackground(),
                   height: 200,
                   fit: BoxFit.fitWidth,
@@ -143,7 +144,10 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
                       gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [Color.fromRGBO(20, 20, 20, 0), Color.fromRGBO(32, 32, 32, 1)],
+                    colors: [
+                      Color.fromRGBO(20, 20, 20, 0),
+                      Color.fromRGBO(32, 32, 32, 1)
+                    ],
                   )))),
           Positioned(
               bottom: 0,
@@ -151,86 +155,104 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
               right: 0,
               child: SizedBox(
                   height: 100,
-                  child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    SizedBox(width: calculatePadding() - (widget.comeFromGame ? 40 : 0)),
-                    widget.comeFromGame
-                        ? Container(
-                            margin: EdgeInsets.only(top: 44),
-                            child: GestureDetector(
-                                child: const Icon(FluentIcons.chevron_left),
-                                onTap: () {
-                                  SFXService().playSFX(SFX.CLOSE_GAME_INFO_TAB);
-                                  Navigator.pop(context);
-                                }),
-                          )
-                        : Container(),
-                    widget.comeFromGame ? const SizedBox(width: 20) : Container(),
-                    Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            widget.name!,
-                            style: const TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            widget.description!,
-                            style: const TextStyle(color: Colors.white, fontSize: 15),
-                          )
-                        ]),
-                    Spacer(),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                  child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          children: [
-                            MouseRegion(
+                        SizedBox(
+                            width: calculatePadding() -
+                                (widget.comeFromGame ? 40 : 0)),
+                        widget.comeFromGame
+                            ? Container(
+                                margin: EdgeInsets.only(top: 44),
                                 child: GestureDetector(
-                                    child: Icon(sortAscending ? FontAwesomeIcons.sortDown : FontAwesomeIcons.sortUp),
+                                    child: const Icon(FluentIcons.chevron_left),
                                     onTap: () {
+                                      SFXService()
+                                          .playSFX(SFX.CLOSE_GAME_INFO_TAB);
+                                      Navigator.pop(context);
+                                    }),
+                              )
+                            : Container(),
+                        widget.comeFromGame
+                            ? const SizedBox(width: 20)
+                            : Container(),
+                        Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                widget.name!,
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                widget.description!,
+                                style: const TextStyle(
+                                    color: Colors.white, fontSize: 15),
+                              )
+                            ]),
+                        Spacer(),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Row(
+                              children: [
+                                MouseRegion(
+                                    child: GestureDetector(
+                                        child: Icon(sortAscending
+                                            ? FontAwesomeIcons.sortDown
+                                            : FontAwesomeIcons.sortUp),
+                                        onTap: () {
+                                          SFXService().playSFX(SFX.CLICK);
+                                          key = UniqueKey();
+                                          setState(() =>
+                                              sortAscending = !sortAscending);
+                                        }),
+                                    cursor: SystemMouseCursors.click),
+                                const SizedBox(width: 10),
+                                ComboBox<SortOrder>(
+                                    onTap: () {
+                                      SFXService().playSFX(SFX.FILTER_UP);
+                                    },
+                                    popupColor: Colors.black,
+                                    elevation: 0,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                    value: sortOrder,
+                                    items: List.generate(
+                                        SortOrder.values.length,
+                                        (index) => ComboBoxItem(
+                                              child: Text(TranslationsHelper()
+                                                  .appLocalizations!
+                                                  .sort_by(SortOrder
+                                                      .values[index].name)),
+                                              value: SortOrder.values[index],
+                                            )),
+                                    onChanged: (value) {
                                       SFXService().playSFX(SFX.CLICK);
                                       key = UniqueKey();
-                                      setState(() => sortAscending = !sortAscending);
+                                      setState(() => sortOrder = value!);
+                                      UserData().gameList.saveSort(value!);
                                     }),
-                                cursor: SystemMouseCursors.click),
-                            const SizedBox(width: 10),
-                            ComboBox<SortOrder>(
-                                onTap: () {
-                                  SFXService().playSFX(SFX.FILTER_UP);
-                                },
-                                popupColor: Colors.black,
-                                elevation: 0,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                ),
-                                value: sortOrder,
-                                items: List.generate(
-                                    SortOrder.values.length,
-                                    (index) => ComboBoxItem(
-                                          child: Text(TranslationsHelper()
-                                              .appLocalizations!
-                                              .sort_by(SortOrder.values[index].name)),
-                                          value: SortOrder.values[index],
-                                        )),
-                                onChanged: (value) {
-                                  SFXService().playSFX(SFX.CLICK);
-                                  key = UniqueKey();
-                                  setState(() => sortOrder = value!);
-                                  UserData().gameList.saveSort(value!);
-                                }),
+                              ],
+                            ),
+                            SizedBox(height: 10),
                           ],
                         ),
-                        SizedBox(height: 10),
-                      ],
-                    ),
-                    SizedBox(width: calculatePadding() - (widget.comeFromGame ? 40 : 0)),
-                  ]))),
+                        SizedBox(
+                            width: calculatePadding() -
+                                (widget.comeFromGame ? 40 : 0)),
+                      ]))),
           if (widget.linkedPack != null && widget.linkedPack!.owned)
             Positioned(
                 top: 20,
                 right: 60,
                 child: IconButton(
-                    style: ButtonStyle(backgroundColor: ButtonState.all(Colors.green)),
+                    style: ButtonStyle(
+                        backgroundColor: ButtonState.all(Colors.green)),
                     onPressed: () async {
                       Launcher.launchPack(widget.linkedPack!);
                     },
@@ -244,11 +266,16 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
   List<Map<String, Object>> getFilteredGames() {
     List<Map<String, Object>> games = [];
     for (var element in UserData().packs) {
-      if (element.games.any((game) => widget.filter(element, game)) && (widget.showAllPacks || element.owned)) {
+      if (element.games.any((game) => widget.filter(element, game)) &&
+          (widget.showAllPacks || element.owned)) {
         for (var game in element.games) {
           if (widget.filter(element, game)) {
             if (widget.separators != null) {
-              games.add({"game": game, "pack": element, "separator": widget.separatorFilter!(element, game)});
+              games.add({
+                "game": game,
+                "pack": element,
+                "separator": widget.separatorFilter!(element, game)
+              });
             } else {
               games.add({"game": game, "pack": element});
             }
@@ -291,8 +318,10 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
                           allAvailableGames: List.generate(
                               gamesWithSeparator.length,
                               (index) => (
-                                    g: gamesWithSeparator[index]["game"] as UserJackboxGame,
-                                    p: gamesWithSeparator[index]["pack"] as UserJackboxPack
+                                    g: gamesWithSeparator[index]["game"]
+                                        as UserJackboxGame,
+                                    p: gamesWithSeparator[index]["pack"]
+                                        as UserJackboxPack
                                   )),
                           parentReload: () {
                             setState(() {
@@ -314,31 +343,31 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
       return Padding(
           padding: EdgeInsets.symmetric(horizontal: calculatePadding()),
           child: StaggeredGrid.count(
-                  key: key,
-                  mainAxisSpacing: 20,
-                  crossAxisSpacing: 20,
-                  crossAxisCount: _getGamesByGrid(),
-                  children: games
-                      .map((game) => SearchGameGameWidget(
-                          pack: game["pack"] as UserJackboxPack,
-                          game: game["game"] as UserJackboxGame,
-                          showAllPacks: widget.showAllPacks,
-                          allAvailableGames: List.generate(
-                              games.length,
-                              (index) => (
-                                    g: games[index]["game"] as UserJackboxGame,
-                                    p: games[index]["pack"] as UserJackboxPack
-                                  )),
-                          parentReload: () {
-                            setState(() {
-                              key = UniqueKey();
-                            });
+              key: key,
+              mainAxisSpacing: 20,
+              crossAxisSpacing: 20,
+              crossAxisCount: _getGamesByGrid(),
+              children: games
+                  .map((game) => SearchGameGameWidget(
+                      pack: game["pack"] as UserJackboxPack,
+                      game: game["game"] as UserJackboxGame,
+                      showAllPacks: widget.showAllPacks,
+                      allAvailableGames: List.generate(
+                          games.length,
+                          (index) => (
+                                g: games[index]["game"] as UserJackboxGame,
+                                p: games[index]["pack"] as UserJackboxPack
+                              )),
+                      parentReload: () {
+                        setState(() {
+                          key = UniqueKey();
+                        });
 
-                            if (widget.parentReload != null) {
-                              widget.parentReload!();
-                            }
-                          }))
-                      .toList()));
+                        if (widget.parentReload != null) {
+                          widget.parentReload!();
+                        }
+                      }))
+                  .toList()));
     } else {
       return Column(children: [
         const SizedBox(height: 50),
@@ -352,7 +381,9 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
           style: const TextStyle(fontSize: 20),
         ),
         Text(
-          TranslationsHelper().appLocalizations!.no_game_in_this_category_description,
+          TranslationsHelper()
+              .appLocalizations!
+              .no_game_in_this_category_description,
           style: TextStyle(fontSize: 14, color: Colors.white.withOpacity(0.8)),
         ),
       ]);
@@ -384,8 +415,10 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
         break;
       case SortOrder.PLAYERS_NUMBER:
         gamesToSort.sort(((a, b) {
-          int firstGameMax = (b["game"] as UserJackboxGame).game.info.players.max;
-          int secondGameMax = (a["game"] as UserJackboxGame).game.info.players.max;
+          int firstGameMax =
+              (b["game"] as UserJackboxGame).game.info.players.max;
+          int secondGameMax =
+              (a["game"] as UserJackboxGame).game.info.players.max;
           if (firstGameMax != secondGameMax) {
             return firstGameMax.compareTo((secondGameMax));
           } else {
@@ -441,8 +474,8 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
                       pack: pack,
                       game: game,
                       showAllPacks: widget.showAllPacks,
-                      allAvailableGames:
-                          List.generate(pack.pack.games.length, (index) => (g: pack.games[index], p: pack)),
+                      allAvailableGames: List.generate(pack.pack.games.length,
+                          (index) => (g: pack.games[index], p: pack)),
                     ))
                 .toList()));
   }
@@ -472,141 +505,158 @@ class SearchGameGameWidget extends StatefulWidget {
 class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
   bool isFirstTime = true;
   bool smallInfoVisible = false;
+  double opacity = 0;
   @override
   Widget build(BuildContext context) {
     var gameInfo = widget.game.game.info;
     return MouseRegion(
         cursor: SystemMouseCursors.click,
         child: AspectRatio(
-          aspectRatio: 2.17,
-          child: ClipRRect(
+            aspectRatio: 2.17,
+            child: ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
-              child: TweenAnimationBuilder<double>(
-                  tween: Tween<double>(
-                    begin: isFirstTime ? 1 : (smallInfoVisible ? 0 : 1),
-                    end: isFirstTime ? 1 : (smallInfoVisible ? 1 : 0),
-                  ),
-                  duration: const Duration(milliseconds: 200),
-                  builder: (BuildContext context, double opacity, Widget? child) {
-                    return GestureDetector(
-                        onTap: () async {
-                          await Navigator.pushNamed(context, "/game",
-                              arguments: [widget.pack, widget.game, widget.showAllPacks, widget.allAvailableGames]);
-                          if (widget.parentReload != null) {
-                            widget.parentReload!();
-                          }
-                          _startDiscordrichPresence();
-                        },
-                        child: MouseRegion(
-                          onEnter: (a) => setState(() {
-                            isFirstTime = false;
-                            // smallInfoVisible = true;
-                            // SFXService().playSFX(SFX.HOVER_OVER_BANNER);
-                          }),
-                          onExit: (a) => setState(() {
-                            isFirstTime = false;
-                            smallInfoVisible = false;
-                          }),
-                          child: Stack(fit: StackFit.expand, children: [
-                            Hero(
-                                    tag: widget.game.game.id + "_image",
-                                    child: CachedNetworkImage(
-                                      colorBlendMode: !widget.pack.owned ? BlendMode.saturation : null,
-                                      color: !widget.pack.owned ? Colors.black : null,
-                                      imageUrl: APIService().assetLink(widget.game.game.background),
-                                      fit: BoxFit.cover,
-                                    )),
-                            Container(
-                                decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                        begin: Alignment.topCenter,
-                                        end: Alignment.bottomCenter,
-                                        colors: [
-                                  Colors.black.withOpacity(opacity / 2),
-                                  Colors.black.withOpacity(opacity)
-                                ]))),
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 8, left: 8),
-                              child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(widget.game.game.name,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            overflow: TextOverflow.ellipsis,
-                                            fontSize: 14.5,
-                                            color: Colors.white.withOpacity(opacity))),
-                                    Text(gameInfo.tagline,
-                                        style: TextStyle(
-                                            overflow: TextOverflow.ellipsis, color: Colors.white.withOpacity(opacity))),
-                                    const SizedBox(height: 10),
-                                    Row(
-                                      crossAxisAlignment: CrossAxisAlignment.end,
+              child: GestureDetector(
+                  onTap: () async {
+                    await Navigator.pushNamed(context, "/game", arguments: [
+                      widget.pack,
+                      widget.game,
+                      widget.showAllPacks,
+                      widget.allAvailableGames
+                    ]);
+                    if (widget.parentReload != null) {
+                      widget.parentReload!();
+                    }
+                    _startDiscordrichPresence();
+                  },
+                  child: MouseRegion(
+                    onEnter: (a) => setState(() {
+                      isFirstTime = false;
+                      opacity = 1;
+                      SFXService().playSFX(SFX.HOVER_OVER_BANNER);
+                    }),
+                    onExit: (a) => setState(() {
+                      isFirstTime = false;
+                      opacity = 0;
+                    }),
+                    child: Stack(fit: StackFit.expand, children: [
+                      Hero(
+                          tag: widget.game.game.id + "_image",
+                          child: CachedNetworkImage(
+                            colorBlendMode: !widget.pack.owned
+                                ? BlendMode.saturation
+                                : null,
+                            color: !widget.pack.owned ? Colors.black : null,
+                            imageUrl: APIService()
+                                .assetLink(widget.game.game.background),
+                            fit: BoxFit.cover,
+                          )),
+                      Container(
+                          decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [
+                            Colors.black.withOpacity(opacity / 2),
+                            Colors.black.withOpacity(opacity)
+                          ]))),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 8, left: 8),
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(widget.game.game.name,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      overflow: TextOverflow.ellipsis,
+                                      fontSize: 14.5,
+                                      color:
+                                          Colors.white.withOpacity(opacity))),
+                              Text(gameInfo.tagline,
+                                  style: TextStyle(
+                                      overflow: TextOverflow.ellipsis,
+                                      color:
+                                          Colors.white.withOpacity(opacity))),
+                              const SizedBox(height: 10),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        Column(
-                                            mainAxisAlignment: MainAxisAlignment.end,
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Row(children: [
-                                                Icon(
-                                                  FluentIcons.people,
-                                                  color: Colors.white.withOpacity(opacity),
-                                                ),
-                                                const SizedBox(width: 10),
-                                                Text(
-                                                    "${gameInfo.players.min} - ${gameInfo.players.max} ${TranslationsHelper().appLocalizations!.players}",
-                                                    style: TextStyle(color: Colors.white.withOpacity(opacity)))
-                                              ]),
-                                              Row(children: [
-                                                Icon(
-                                                  FluentIcons.clock,
-                                                  color: Colors.white.withOpacity(opacity),
-                                                ),
-                                                const SizedBox(width: 10),
-                                                Text(
-                                                    gameInfo.playtime.min.toString() +
-                                                        " - " +
-                                                        gameInfo.playtime.max.toString() +
-                                                        " " +
-                                                        TranslationsHelper().appLocalizations!.minutes,
-                                                    style: TextStyle(
-                                                        overflow: TextOverflow.ellipsis,
-                                                        color: Colors.white.withOpacity(opacity)))
-                                              ]),
-                                              SizedBox(height: 4),
-                                              Opacity(
-                                                  opacity: opacity,
-                                                  child: StarsRateWidget(
-                                                    key: UniqueKey(),
-                                                    color: Colors.white,
-                                                    defaultStars: widget.game.stars,
-                                                    readOnly: true,
-                                                  )),
-                                            ]),
-                                        Spacer(),
-                                        if (widget.pack.owned)
-                                          Opacity(
-                                              opacity: opacity,
-                                              child: Padding(
-                                                  padding: EdgeInsets.only(right: 8),
-                                                  child: Button(
-                                                    style: ButtonStyle(
-                                                      backgroundColor: ButtonState.all<Color>(Colors.green),
-                                                    ),
-                                                    child: Icon(FontAwesomeIcons.play),
-                                                    onPressed: () {
-                                                      Launcher.launchGame(widget.pack, widget.game);
-                                                    },
-                                                  ))),
-                                      ],
-                                    )
-                                  ]),
-                            ),
-                          ]),
-                        ));
-                  })),
-        ));
+                                        Row(children: [
+                                          Icon(
+                                            FluentIcons.people,
+                                            color: Colors.white
+                                                .withOpacity(opacity),
+                                          ),
+                                          const SizedBox(width: 10),
+                                          Text(
+                                              "${gameInfo.players.min} - ${gameInfo.players.max} ${TranslationsHelper().appLocalizations!.players}",
+                                              style: TextStyle(
+                                                  color: Colors.white
+                                                      .withOpacity(opacity)))
+                                        ]),
+                                        Row(children: [
+                                          Icon(
+                                            FluentIcons.clock,
+                                            color: Colors.white
+                                                .withOpacity(opacity),
+                                          ),
+                                          const SizedBox(width: 10),
+                                          Text(
+                                              gameInfo.playtime.min.toString() +
+                                                  " - " +
+                                                  gameInfo.playtime.max
+                                                      .toString() +
+                                                  " " +
+                                                  TranslationsHelper()
+                                                      .appLocalizations!
+                                                      .minutes,
+                                              style: TextStyle(
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  color: Colors.white
+                                                      .withOpacity(opacity)))
+                                        ]),
+                                        SizedBox(height: 4),
+                                        Opacity(
+                                            opacity: opacity,
+                                            child: StarsRateWidget(
+                                              key: UniqueKey(),
+                                              color: Colors.white,
+                                              defaultStars: widget.game.stars,
+                                              readOnly: true,
+                                            )),
+                                      ]),
+                                  Spacer(),
+                                  if (widget.pack.owned)
+                                    Opacity(
+                                        opacity: opacity,
+                                        child: Padding(
+                                            padding: EdgeInsets.only(right: 8),
+                                            child: Button(
+                                              style: ButtonStyle(
+                                                backgroundColor:
+                                                    ButtonState.all<Color>(
+                                                        Colors.green),
+                                              ),
+                                              child:
+                                                  Icon(FontAwesomeIcons.play),
+                                              onPressed: () {
+                                                Launcher.launchGame(
+                                                    widget.pack, widget.game);
+                                              },
+                                            ))),
+                                ],
+                              )
+                            ]),
+                      ),
+                    ]),
+                  )),
+            )));
   }
 
   void _startDiscordrichPresence() {
