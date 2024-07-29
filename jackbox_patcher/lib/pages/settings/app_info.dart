@@ -108,9 +108,9 @@ class _AppInfoWidgetState extends State<AppInfoWidget> {
           const SizedBox(height: 12),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             HyperlinkButton(
-                style: ButtonStyle(
-                    border:
-                        ButtonState.all(BorderSide(color: Colors.red.lighter))),
+                 style: ButtonStyle(
+                     border:
+                         ButtonState.all(BorderSide(color: Colors.red.lighter))),
                 child: Row(children: [
                   FaIcon(FontAwesomeIcons.heart, color: Colors.red.lighter),
                   SizedBox(
