@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:jackbox_patcher/model/jackbox/jackbox_game.dart';
 import 'package:jackbox_patcher/model/user_model/user_jackbox_game.dart';
 import 'package:jackbox_patcher/model/user_model/user_jackbox_pack.dart';
 import 'package:jackbox_patcher/services/api_utility/api_service.dart';
@@ -78,17 +79,17 @@ class Launcher {
     } else {
       if (!windowLess) SFXService().playSFX(SFX.GAME_LAUNCHED);
       // If the loader is not already installed or need update, download it
-      if (pack.loader != null) {
-        if (pack.loader!.path == null ||
-            pack.loader!.version != pack.pack.loader!.version ||
-            !File(pack.loader!.path!).existsSync()) {
-          pack.loader!.path =
-              await APIService().downloadPackLoader(pack.pack, (p0, p1) {});
-          pack.loader!.version = pack.pack.loader!.version;
-          await UserData().savePack(pack);
-        }
-        await extractPackLoader(pack);
-      }
+      // if (pack.loader != null) {
+      //   if (pack.loader!.path == null ||
+      //       pack.loader!.version != pack.pack.loader!.version ||
+      //       !File(pack.loader!.path!).existsSync()) {
+      //     pack.loader!.path =
+      //         await APIService().downloadPackLoader(pack.pack, (p0, p1) {});
+      //     pack.loader!.version = pack.pack.loader!.version;
+      //     await UserData().savePack(pack);
+      //   }
+      //   await extractPackLoader(pack);
+      // }
       await handlePackLaunch(pack);
       checkLaunchedPack(pack);
     }
@@ -105,41 +106,42 @@ class Launcher {
       }
 
       SFXService().playSFX(SFX.GAME_LAUNCHED);
-      // If the original loader is not already installed or need update, download it
-      if (pack.loader != null) {
-        if (pack.loader!.path == null ||
-            pack.loader!.version != pack.pack.loader!.version ||
-            !File(pack.loader!.path!).existsSync()) {
-          pack.loader!.path =
-              await APIService().downloadPackLoader(pack.pack, (p0, p1) {});
-          pack.loader!.version = pack.pack.loader!.version;
-          await UserData().savePack(pack);
-        }
-        await extractPackLoader(pack);
-      }
+      // // If the original loader is not already installed or need update, download it
+      // if (pack.loader != null) {
+      //   if (pack.loader!.path == null ||
+      //       pack.loader!.version != pack.pack.loader!.version ||
+      //       !File(pack.loader!.path!).existsSync()) {
+      //     pack.loader!.path =
+      //         await APIService().downloadPackLoader(pack.pack, (p0, p1) {});
+      //     pack.loader!.version = pack.pack.loader!.version;
+      //     await UserData().savePack(pack);
+      //   }
+      //   await extractPackLoader(pack);
+      // }
 
-      // If the loader is not already installed or need update, download it
-      if (game.loader!.path == null ||
-          game.loader!.version != game.game.loader!.version ||
-          !File(game.loader!.path!).existsSync()) {
-        game.loader!.path = await APIService()
-            .downloadGameLoader(pack.pack, game.game, (p0, p1) {});
-        game.loader!.version = pack.pack.loader!.version;
-        await UserData().savePack(pack);
-      }
+      // // If the loader is not already installed or need update, download it
+      // if (game.loader!.path == null ||
+      //     game.loader!.version != game.game.loader!.version ||
+      //     !File(game.loader!.path!).existsSync()) {
+      //   game.loader!.path = await APIService()
+      //       .downloadGameLoader(pack.pack, game.game, (p0, p1) {});
+      //   game.loader!.version = pack.pack.loader!.version;
+      //   await UserData().savePack(pack);
+      // }
 
       // Extracting into game file
-      await extractGameLoader(pack, game);
-      await handlePackLaunch(pack);
-      _openedPacks.add(pack);
+      // await extractGameLoader(pack, game);
+      await handlePackLaunch(pack, game: game.game);
+      // _openedPacks.add(pack);
       checkLaunchedPack(pack, game);
     }
   }
 
-  static Future<void> handlePackLaunch(UserJackboxPack pack) async {
+  static Future<void> handlePackLaunch(UserJackboxPack pack,
+      {JackboxGame? game = null}) async {
     for (AbstractPackLauncher launcher in _availablePackLaunchers) {
       if (launcher.willHandleRequest(pack)) {
-        await launcher.launch(pack);
+        await launcher.launch(pack, game: game);
         return;
       }
     }
@@ -158,17 +160,20 @@ class Launcher {
       if (pack.pack.resourceLocation != null) {
         packFolder = packFolder + "/" + pack.pack.resourceLocation!;
       }
-      await DownloaderService.extractFileToDisk(pack.loader!.path!, packFolder, (p1, p2, p3) {});
+      await DownloaderService.extractFileToDisk(
+          pack.loader!.path!, packFolder, (p1, p2, p3) {});
     }
   }
 
-  static Future<void> extractGameLoader(UserJackboxPack pack, UserJackboxGame game) async {
+  static Future<void> extractGameLoader(
+      UserJackboxPack pack, UserJackboxGame game) async {
     if (pack.loader != null) {
       String packFolder = pack.path!;
       if (pack.pack.resourceLocation != null) {
         packFolder = packFolder + "/" + pack.pack.resourceLocation!;
       }
-      await DownloaderService.extractFileToDisk(game.loader!.path!, packFolder, (p1, p2, p3) {});
+      await DownloaderService.extractFileToDisk(
+          game.loader!.path!, packFolder, (p1, p2, p3) {});
     }
   }
 
