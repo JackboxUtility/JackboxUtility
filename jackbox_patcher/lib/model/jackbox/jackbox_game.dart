@@ -8,6 +8,7 @@ class JackboxGame {
   final String name;
   final String background;
   final JackboxLoader? loader;
+  final String? internalName;
   final String? path;
   final List<JackboxGamePatch> patches;
   final JackboxGameInfo info;
@@ -17,6 +18,7 @@ class JackboxGame {
     required this.name,
     required this.background,
     required this.loader,
+    required this.internalName,
     required this.path,
     required this.patches,
     required this.info,
@@ -31,6 +33,7 @@ class JackboxGame {
       loader: json['loader'] != null
           ? JackboxLoader.fromJson(json['loader'])
           : null,
+      internalName: json['internal_name'],
       path: json['path'],
       patches: patches,
       info: JackboxGameInfo.fromJson(json["id"], json['game_info']),
@@ -60,6 +63,7 @@ class JackboxGame {
       "name": name,
       "background": background,
       "loader": loader?.toJson(),
+      "internalName": internalName,
       "path": path,
       "patchs": patches.map((e) => e.toJson()).toList(),
       "game_info": info.toJson(),
