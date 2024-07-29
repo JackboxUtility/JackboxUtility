@@ -10,11 +10,11 @@ class SteamPackLauncher implements AbstractPackLauncher {
       {JackboxGame? game = null}) async {
     String parameters = "";
     if (game != null && game.internalName != null) {
-      parameters = "/-launchTo games%2F${game.internalName}%2F${game.internalName}.swf";
+      parameters =
+          "/-launchTo games%2F${game.internalName}%2F${game.internalName}.swf";
     }
-    print("steam://run/${userPack.pack.launchersId!.steam!}/$parameters");
-    await launchUrl(
-        Uri.parse("steam://run/${userPack.pack.launchersId!.steam!}/$parameters"));
+    await launchUrl(Uri.parse(
+        "steam://run/${userPack.pack.launchersId!.steam!}/$parameters"));
   }
 
   @override
