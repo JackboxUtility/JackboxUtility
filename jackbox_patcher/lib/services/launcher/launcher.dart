@@ -101,9 +101,6 @@ class Launcher {
     if (pack.path == null) {
       throw Exception("Pack path is null");
     } else {
-      if (game.loader == null) {
-        return await launchPack(pack, false);
-      }
 
       SFXService().playSFX(SFX.GAME_LAUNCHED);
       // // If the original loader is not already installed or need update, download it
