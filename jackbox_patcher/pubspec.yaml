@@ -55,9 +55,6 @@ dependencies:
   dart_discord_rpc:
     git:
       url: https://github.com/AlexisL61/dart_discord_rpc.git
-  media_kit: ^1.1.10                        
-  media_kit_video: ^1.2.4
-  media_kit_libs_video: ^1.0.4
   timeline_tile: 2.0.0
   shelf: 1.4.1
   shelf_router: 1.1.4
@@ -66,8 +63,6 @@ dependencies:
   sentry_flutter: 7.12.0
   path_provider: 2.1.1
   local_hero:
-  
-
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
