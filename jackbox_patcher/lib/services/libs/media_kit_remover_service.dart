@@ -82,9 +82,9 @@ class MediaKitRemover {
     bool fileRemoved = false;
     if (Platform.isWindows) {
       for (String file in filesToRemove) {
-        if (await File(file).exists()) {
+        if (await File("./app/"+file).exists()) {
           try {
-            await File(file).delete();
+            await File("./app/"+file).delete();
             fileRemoved = true;
           } catch (e) {
             JULogger().e("Failed to remove file: $file", e);
