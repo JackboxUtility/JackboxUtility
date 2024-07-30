@@ -27,4 +27,8 @@ class SteamPackLauncher implements AbstractPackLauncher {
     }
     return false;
   }
+
+  bool useLoader() {
+    return false;
+  }
 }

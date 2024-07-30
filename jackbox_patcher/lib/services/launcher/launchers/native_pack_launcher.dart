@@ -16,4 +16,8 @@ class NativePackLauncher implements AbstractPackLauncher {
   bool willHandleRequest(UserJackboxPack userPack) {
     return true;
   }
+
+  bool useLoader() {
+    return true;
+  }
 }

@@ -78,18 +78,21 @@ class Launcher {
       throw Exception("Pack path is null");
     } else {
       if (!windowLess) SFXService().playSFX(SFX.GAME_LAUNCHED);
-      // If the loader is not already installed or need update, download it
-      // if (pack.loader != null) {
-      //   if (pack.loader!.path == null ||
-      //       pack.loader!.version != pack.pack.loader!.version ||
-      //       !File(pack.loader!.path!).existsSync()) {
-      //     pack.loader!.path =
-      //         await APIService().downloadPackLoader(pack.pack, (p0, p1) {});
-      //     pack.loader!.version = pack.pack.loader!.version;
-      //     await UserData().savePack(pack);
-      //   }
-      //   await extractPackLoader(pack);
-      // }
+
+      if (getLauncherForPack(pack).useLoader()) {
+        //If the loader is not already installed or need update, download it
+        if (pack.loader != null) {
+          if (pack.loader!.path == null ||
+              pack.loader!.version != pack.pack.loader!.version ||
+              !File(pack.loader!.path!).existsSync()) {
+            pack.loader!.path =
+                await APIService().downloadPackLoader(pack.pack, (p0, p1) {});
+            pack.loader!.version = pack.pack.loader!.version;
+            await UserData().savePack(pack);
+          }
+          await extractPackLoader(pack);
+        }
+      }
       await handlePackLaunch(pack);
       checkLaunchedPack(pack);
     }
@@ -101,37 +104,50 @@ class Launcher {
     if (pack.path == null) {
       throw Exception("Pack path is null");
     } else {
-
       SFXService().playSFX(SFX.GAME_LAUNCHED);
-      // // If the original loader is not already installed or need update, download it
-      // if (pack.loader != null) {
-      //   if (pack.loader!.path == null ||
-      //       pack.loader!.version != pack.pack.loader!.version ||
-      //       !File(pack.loader!.path!).existsSync()) {
-      //     pack.loader!.path =
-      //         await APIService().downloadPackLoader(pack.pack, (p0, p1) {});
-      //     pack.loader!.version = pack.pack.loader!.version;
-      //     await UserData().savePack(pack);
-      //   }
-      //   await extractPackLoader(pack);
-      // }
+      if (getLauncherForPack(pack).useLoader()) {
+        if (game.loader == null) {
+          return await launchPack(pack, false);
+        }
 
-      // // If the loader is not already installed or need update, download it
-      // if (game.loader!.path == null ||
-      //     game.loader!.version != game.game.loader!.version ||
-      //     !File(game.loader!.path!).existsSync()) {
-      //   game.loader!.path = await APIService()
-      //       .downloadGameLoader(pack.pack, game.game, (p0, p1) {});
-      //   game.loader!.version = pack.pack.loader!.version;
-      //   await UserData().savePack(pack);
-      // }
+        // If the original loader is not already installed or need update, download it
+        if (pack.loader != null) {
+          if (pack.loader!.path == null ||
+              pack.loader!.version != pack.pack.loader!.version ||
+              !File(pack.loader!.path!).existsSync()) {
+            pack.loader!.path =
+                await APIService().downloadPackLoader(pack.pack, (p0, p1) {});
+            pack.loader!.version = pack.pack.loader!.version;
+            await UserData().savePack(pack);
+          }
+          await extractPackLoader(pack);
+        }
 
-      // Extracting into game file
-      // await extractGameLoader(pack, game);
+        // If the loader is not already installed or need update, download it
+        if (game.loader!.path == null ||
+            game.loader!.version != game.game.loader!.version ||
+            !File(game.loader!.path!).existsSync()) {
+          game.loader!.path = await APIService()
+              .downloadGameLoader(pack.pack, game.game, (p0, p1) {});
+          game.loader!.version = pack.pack.loader!.version;
+          await UserData().savePack(pack);
+        }
+
+        await extractGameLoader(pack, game);
+        _openedPacks.add(pack);
+      }
       await handlePackLaunch(pack, game: game.game);
-      // _openedPacks.add(pack);
       checkLaunchedPack(pack, game);
     }
+  }
+
+  static AbstractPackLauncher getLauncherForPack(UserJackboxPack pack) {
+    for (AbstractPackLauncher launcher in _availablePackLaunchers) {
+      if (launcher.willHandleRequest(pack)) {
+        return launcher;
+      }
+    }
+    throw Exception("No launcher found for pack ${pack.pack.name}");
   }
 
   static Future<void> handlePackLaunch(UserJackboxPack pack,
