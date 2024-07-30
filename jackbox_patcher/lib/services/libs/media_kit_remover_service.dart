@@ -1,6 +1,9 @@
 import 'dart:ffi';
 import 'dart:io';
 
+import 'package:jackbox_patcher/services/logger/logger.dart';
+import 'package:logger/logger.dart';
+
 class MediaKitRemover {
   static List<String> filesToRemove = [
     "api-ms-win-core-console-l1-1-0.dll",
@@ -80,8 +83,12 @@ class MediaKitRemover {
     if (Platform.isWindows) {
       for (String file in filesToRemove) {
         if (await File(file).exists()) {
-          await File("./" + file).delete();
-          fileRemoved = true;
+          try {
+            await File(file).delete();
+            fileRemoved = true;
+          } catch (e) {
+            JULogger().e("Failed to remove file: $file", e);
+          }
         }
       }
     }
@@ -92,7 +99,7 @@ class MediaKitRemover {
 
   static Future<void> restartUtility() async {
     if (Platform.isWindows) {
-      await Process.run("./jackbox_patcher.exe", []);
+      await Process.run("./app/jackbox_patcher.exe", []);
       exit(0);
     }
   }
