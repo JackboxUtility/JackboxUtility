@@ -22,4 +22,8 @@ class EpicPackLauncher implements AbstractPackLauncher {
     }
     return false;
   }
+
+  bool useLoader() {
+    return true;
+  }
 }

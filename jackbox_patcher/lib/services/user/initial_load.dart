@@ -14,6 +14,7 @@ import 'package:jackbox_patcher/services/downloader/precache_service.dart';
 import 'package:jackbox_patcher/services/error/error.dart';
 import 'package:jackbox_patcher/services/files/folder_service.dart';
 import 'package:jackbox_patcher/services/internal_api/rest_api_router.dart';
+import 'package:jackbox_patcher/services/libs/media_kit_remover_service.dart';
 import 'package:jackbox_patcher/services/statistics/statistics_sender.dart';
 import 'package:jackbox_patcher/services/translations/translations_helper.dart';
 import 'package:jackbox_patcher/services/user/user_data.dart';
@@ -46,6 +47,7 @@ class InitialLoad {
     callback(step: 1, percent: 0.0);
     if (isFirstTimeOpening) {
       await windowManager.setPreventClose(true);
+      await MediaKitRemover.removeMediaKit();
       await FolderService().init();
       await UserData().init();
       WindowManagerService.updateScreenSizeFromLastOpening();
