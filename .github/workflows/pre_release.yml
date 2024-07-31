@@ -53,6 +53,11 @@ jobs:
      - name: Build windows
        working-directory: ./jackbox_patcher
        run: flutter build windows --build-name ${{ needs.retrievingVersion.outputs.version }} -t ./lib/main_beta.dart
+     - name: Build media_kit_remover tool
+       working-directory: ./tools/media_kit_remover
+       run: |
+        mkdir ../../jackbox_patcher/build/windows/runner/Release/tools/
+        dart compile exe --target-os windows ./bin/media_kit_remover.dart -o ../../jackbox_patcher/build/windows/runner/Release/tools/media_kit_remover.exe
      - uses: actions/upload-artifact@v3
        with:
           name: build_windows
