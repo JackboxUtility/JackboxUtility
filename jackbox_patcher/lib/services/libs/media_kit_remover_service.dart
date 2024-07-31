@@ -87,8 +87,9 @@ class MediaKitRemover {
         }
       }
       if (fileFound) {
-        await Process.run("./app/tools/media_kit_remover.exe",
+        Process.run("./app/tools/media_kit_remover.exe",
             ["./app", "./app/jackbox_utility.exe"]);
+        await Future.delayed(Duration(seconds: 1));
         exit(0);
       }
     }
