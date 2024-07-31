@@ -1,8 +1,6 @@
-import 'dart:ffi';
-import 'dart:io';
+// Tools used to remove media_kit on windows platform
 
-import 'package:jackbox_patcher/services/logger/logger.dart';
-import 'package:logger/logger.dart';
+import 'dart:io';
 
 class MediaKitRemover {
   static List<String> filesToRemove = [
@@ -78,19 +76,30 @@ class MediaKitRemover {
     "zlib.dll"
   ];
 
-  static Future<void> removeMediaKit() async {
-    bool fileFound = false;
+  static Future<void> removeMediaKit(
+      String fileLocation, String utilityLocation) async {
+    await Future.delayed(Duration(seconds: 3));
+
     if (Platform.isWindows) {
       for (String file in filesToRemove) {
-        if (await File("./app/" + file).exists()) {
-          fileFound = true;
+        print("File to remove $file");
+        if (await File("${fileLocation}/" + file).exists()) {
+          try {
+            await File("${fileLocation}/" + file).delete();
+            print("File deleted: $file");
+          } catch (e) {
+            print("Error deleting file: $file");
+          }
         }
       }
-      if (fileFound) {
-        await Process.run("./app/tools/media_kit_remover.exe",
-            ["./app", "./app/jackbox_utility.exe"]);
-        exit(0);
-      }
+    }
+    restartUtility(utilityLocation);
+  }
+
+  static Future<void> restartUtility(String utilityLocation) async {
+    if (Platform.isWindows) {
+      await Process.run(utilityLocation, []);
+      exit(0);
     }
   }
 }
