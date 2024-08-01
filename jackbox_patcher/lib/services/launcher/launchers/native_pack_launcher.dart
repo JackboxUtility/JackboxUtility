@@ -8,7 +8,12 @@ class NativePackLauncher implements AbstractPackLauncher {
   @override
   Future<void> launch(UserJackboxPack userPack,
       {JackboxGame? game = null}) async {
-    await Process.run("${userPack.path!}/${userPack.pack.executable}", [],
+    String parameters = "";
+    if (game != null && game.internalName != null && !useLoader(game)) {
+      parameters =
+          " -launchTo games%2F${game.internalName}%2F${game.internalName}.swf -jbg.config isBundle=false";
+    }
+    await Process.run("${userPack.path!}/${userPack.pack.executable}$parameters", [],
         workingDirectory: userPack.path);
   }
 
@@ -17,7 +22,10 @@ class NativePackLauncher implements AbstractPackLauncher {
     return true;
   }
 
-  bool useLoader() {
+  bool useLoader(JackboxGame? game) {
+    if (game != null) {
+      return game.launchWithLoaders.native;
+    }
     return true;
   }
 }

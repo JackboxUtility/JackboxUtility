@@ -5,7 +5,6 @@ import 'package:jackbox_patcher/components/dialogs/reset_pack_dialog.dart';
 import 'package:jackbox_patcher/model/misc/launchers.dart';
 import 'package:jackbox_patcher/model/user_model/user_jackbox_pack.dart';
 import 'package:jackbox_patcher/services/api_utility/api_service.dart';
-import 'package:jackbox_patcher/services/logger/logger.dart';
 import 'package:jackbox_patcher/services/user/user_data.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 

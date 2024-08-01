@@ -8,8 +8,13 @@ class EpicPackLauncher implements AbstractPackLauncher {
   @override
   Future<void> launch(UserJackboxPack userPack,
       {JackboxGame? game = null}) async {
+    String parameters = "";
+    if (game != null && game.internalName != null && !useLoader(game)) {
+      parameters =
+          " -launchTo games%2F${game.internalName}%2F${game.internalName}.swf -jbg.config isBundle=false";
+    }
     await launchUrl(Uri.parse(
-        "com.epicgames.launcher://apps/${userPack.pack.launchersId!.epic!}?action=launch&silent=true"));
+        "com.epicgames.launcher://apps/${userPack.pack.launchersId!.epic!}?action=launch&silent=true${parameters}"));
   }
 
   @override
@@ -23,7 +28,10 @@ class EpicPackLauncher implements AbstractPackLauncher {
     return false;
   }
 
-  bool useLoader() {
+  bool useLoader(JackboxGame? game) {
+    if (game != null) {
+      return game.launchWithLoaders.epicGames;
+    }
     return true;
   }
 }

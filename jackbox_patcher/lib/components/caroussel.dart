@@ -3,8 +3,6 @@ import 'dart:io';
 
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/components/blurhash_image.dart';
-import 'package:jackbox_patcher/services/api_utility/api_service.dart';
-import 'package:jackbox_patcher/services/user/user_data.dart';
 import 'package:jackbox_patcher/services/video/video_service.dart';
 
 class AssetCarousselWidget extends StatefulWidget {

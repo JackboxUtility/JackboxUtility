@@ -1,7 +1,6 @@
 import 'package:jackbox_patcher/model/enums/platforms.dart';
 import 'package:jackbox_patcher/model/jackbox/jackbox_game.dart';
 import 'package:jackbox_patcher/services/api_utility/api_service.dart';
-import 'package:jackbox_patcher/services/logger/logger.dart';
 
 import '../base/patch_information.dart';
 import 'jackbox_pack.dart';

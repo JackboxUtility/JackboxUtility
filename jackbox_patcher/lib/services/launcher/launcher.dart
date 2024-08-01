@@ -79,7 +79,7 @@ class Launcher {
     } else {
       if (!windowLess) SFXService().playSFX(SFX.GAME_LAUNCHED);
 
-      if (getLauncherForPack(pack).useLoader()) {
+      if (getLauncherForPack(pack).useLoader(null)) {
         //If the loader is not already installed or need update, download it
         if (pack.loader != null) {
           if (pack.loader!.path == null ||
@@ -105,7 +105,7 @@ class Launcher {
       throw Exception("Pack path is null");
     } else {
       SFXService().playSFX(SFX.GAME_LAUNCHED);
-      if (getLauncherForPack(pack).useLoader()) {
+      if (getLauncherForPack(pack).useLoader(game.game)) {
         if (game.loader == null) {
           return await launchPack(pack, false);
         }
