@@ -1,5 +1,4 @@
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:jackbox_patcher/services/logger/logger.dart';
 
 class ListenableCache<T> extends Listenable {
   List<VoidCallback> _listeners = [];

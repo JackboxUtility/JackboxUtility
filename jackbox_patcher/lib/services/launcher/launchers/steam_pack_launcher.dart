@@ -9,9 +9,9 @@ class SteamPackLauncher implements AbstractPackLauncher {
   Future<void> launch(UserJackboxPack userPack,
       {JackboxGame? game = null}) async {
     String parameters = "";
-    if (game != null && game.internalName != null) {
+    if (game != null && game.internalName != null && !useLoader(game)) {
       parameters =
-          "/-launchTo games%2F${game.internalName}%2F${game.internalName}.swf";
+          "/-launchTo games%2F${game.internalName}%2F${game.internalName}.swf -jbg.config isBundle=false";
     }
     await launchUrl(Uri.parse(
         "steam://run/${userPack.pack.launchersId!.steam!}/$parameters"));
@@ -28,7 +28,10 @@ class SteamPackLauncher implements AbstractPackLauncher {
     return false;
   }
 
-  bool useLoader() {
+  bool useLoader(JackboxGame? game) {
+    if (game != null) {
+      return game.launchWithLoaders.steam;
+    }
     return false;
   }
 }

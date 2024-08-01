@@ -12,6 +12,7 @@ class JackboxGame {
   final String? path;
   final List<JackboxGamePatch> patches;
   final JackboxGameInfo info;
+  final LaunchWithLoaders launchWithLoaders;
 
   JackboxGame({
     required this.id,
@@ -22,6 +23,7 @@ class JackboxGame {
     required this.path,
     required this.patches,
     required this.info,
+    required this.launchWithLoaders,
   });
 
   factory JackboxGame.fromJson(Map<String, dynamic> json) {
@@ -37,6 +39,9 @@ class JackboxGame {
       path: json['path'],
       patches: patches,
       info: JackboxGameInfo.fromJson(json["id"], json['game_info']),
+      launchWithLoaders: json['launch_with_loaders'] != null
+          ? LaunchWithLoaders.fromJson(json['launch_with_loaders'])
+          : LaunchWithLoaders(steam: false, epicGames: true, native: true),
     );
   }
 
@@ -63,10 +68,31 @@ class JackboxGame {
       "name": name,
       "background": background,
       "loader": loader?.toJson(),
-      "internalName": internalName,
+      "internal_name": internalName,
       "path": path,
       "patchs": patches.map((e) => e.toJson()).toList(),
       "game_info": info.toJson(),
+
     };
+  }
+}
+
+class LaunchWithLoaders {
+  final bool steam;
+  final bool epicGames;
+  final bool native;
+
+  LaunchWithLoaders({
+    required this.steam,
+    required this.epicGames,
+    required this.native,
+  });
+
+  factory LaunchWithLoaders.fromJson(Map<String, dynamic> json) {
+    return LaunchWithLoaders(
+      steam: json['steam'] ?? false,
+      epicGames: json['epic_games'] ?? true,
+      native: json['native'] ?? true,
+    );
   }
 }

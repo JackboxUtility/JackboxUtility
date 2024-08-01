@@ -5,5 +5,5 @@ abstract class AbstractPackLauncher {
   bool willHandleRequest(UserJackboxPack userPack);
   Future<void> launch(UserJackboxPack userPack, {JackboxGame? game = null});
 
-  bool useLoader();
+  bool useLoader(JackboxGame? game);
 }
