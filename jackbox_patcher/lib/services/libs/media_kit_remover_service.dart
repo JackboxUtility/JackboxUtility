@@ -1,8 +1,8 @@
 import 'dart:ffi';
 import 'dart:io';
 
-import 'package:jackbox_patcher/services/logger/logger.dart';
-import 'package:logger/logger.dart';
+import 'package:flutter/material.dart';
+import 'package:jackbox_patcher/components/dialogs/media_kit_remover_dialog.dart';
 
 class MediaKitRemover {
   static List<String> filesToRemove = [
@@ -78,7 +78,7 @@ class MediaKitRemover {
     "zlib.dll"
   ];
 
-  static Future<void> removeMediaKit() async {
+  static Future<void> removeMediaKit(BuildContext context) async {
     bool fileFound = false;
     if (Platform.isWindows) {
       for (String file in filesToRemove) {
@@ -87,6 +87,7 @@ class MediaKitRemover {
         }
       }
       if (fileFound) {
+        await showDialog(context: context, builder: (context) => MediaKitRemoverDialog(), barrierDismissible: false);
         Process.run("./app/tools/media_kit_remover.exe",
             ["./app", "./app/jackbox_patcher.exe"]);
         await Future.delayed(Duration(seconds: 1));
