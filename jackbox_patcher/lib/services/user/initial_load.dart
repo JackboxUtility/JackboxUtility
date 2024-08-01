@@ -46,7 +46,7 @@ class InitialLoad {
     bool automaticGameFindNotificationAvailable = false;
     callback(step: 1, percent: 0.0);
     if (isFirstTimeOpening) {
-      await MediaKitRemover.removeMediaKit();
+      await MediaKitRemover.removeMediaKit(context);
       await windowManager.setPreventClose(true);
       await FolderService().init();
       await UserData().init();
