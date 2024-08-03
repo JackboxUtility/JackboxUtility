@@ -314,7 +314,8 @@ class APIService {
         Uri.parse(APIService().assetLink(patchUri)),
         FolderService().downloadPath + "/tmp.${patchUri.split(".").last}",
         cancelToken: cancelToken,
-        options: Options(), onReceiveProgress: (received, total) {
+        options: Options(),
+        onReceiveProgress: (received, total) {
       progressCallback(received.toInt().toDouble(), total.toInt().toDouble());
     });
 

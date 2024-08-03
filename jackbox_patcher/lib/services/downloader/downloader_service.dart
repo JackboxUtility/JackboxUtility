@@ -27,8 +27,6 @@ class DownloaderService {
             (progress / max) * 75);
       }, cancelToken);
     } catch (e) {
-      callback(TranslationsHelper().appLocalizations!.download_error,
-          TranslationsHelper().appLocalizations!.download_error_description, 0);
       JULogger().e("[DownloaderService] $e");
       isDownloading = false;
       rethrow;
@@ -40,11 +38,6 @@ class DownloaderService {
       await extractFileToDisk(filePath, uri, callback);
       callback(TranslationsHelper().appLocalizations!.finalizing, "", 100);
     } catch (e) {
-      
-      callback(
-          TranslationsHelper().appLocalizations!.extracting_error,
-          TranslationsHelper().appLocalizations!.extracting_error_description,
-          0);
       JULogger().e("[DownloaderService] $e");
       isDownloading = false;
       rethrow;
