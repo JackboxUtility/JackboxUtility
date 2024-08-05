@@ -6,19 +6,25 @@ class MediaKitRemoverDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ContentDialog(
-      content: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Image.asset('assets/images/gene.png', width: 100),
-          SizedBox(height: 20),
-          Text('JackboxUtility needs to do some changes to its files to work properly. The changes will be done automatically and the app will restart.'),
-          SizedBox(height: 10),
-          Text('It should take less than 10 seconds.'),
-        ],
+      content: SizedBox(
+        height: 240,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset('assets/images/gene.png', width: 100),
+            const SizedBox(height: 20),
+            const Text(
+              'JackboxUtility needs to do some changes to its files to work properly. The changes will be done automatically and the app will restart.',
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 10),
+            const Text('It should take less than 10 seconds.'),
+          ],
+        ),
       ),
       actions: [
         HyperlinkButton(
-          child: Text('Restart'),
+          child: const Text('Restart'),
           onPressed: () {
             Navigator.pop(context);
           },

@@ -2,9 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:jackbox_patcher/components/dialogs/media_kit_remover_dialog.dart';
+import 'package:jackbox_patcher/model/base/extensions/list_extensions.dart';
+import 'package:jackbox_patcher/model/base/extensions/null_extensions.dart';
 
 class MediaKitRemover {
-  static List<String> filesToRemove = [
+  static final List<String> appPath = ["./app", "."];
+
+  static final List<String> filesToRemove = [
     "api-ms-win-core-console-l1-1-0.dll",
     "api-ms-win-core-console-l1-2-0.dll",
     "api-ms-win-core-datetime-l1-1-0.dll",
@@ -78,20 +82,32 @@ class MediaKitRemover {
   ];
 
   static Future<void> removeMediaKit(BuildContext context) async {
-    bool fileFound = false;
-    if (Platform.isWindows) {
-      for (String file in filesToRemove) {
-        if (await File("./app/" + file).exists()) {
-          fileFound = true;
+    // Check if any of the files to remove are present in all the app paths available
+    String? path = await appPath.firstWhereOrNull((element) async {
+      return (await filesToRemove.firstWhereOrNull((file) async {
+            return await (File("$element/$file").exists());
+          })) !=
+          null;
+    });
+
+    try {
+      await path.let((path) async {
+        // Checking if media_kit_remover.exe is present
+        if (File("$path/tools/media_kit_remover.exe").existsSync()) {
+          // Showing the dialog to remove media kit
+          await showDialog(
+              context: context,
+              builder: (context) => const MediaKitRemoverDialog(),
+              barrierDismissible: false);
+
+          Process.run("$path/tools/media_kit_remover.exe",
+              [path, "$path/jackbox_patcher.exe"]);
+          await Future.delayed(Duration(seconds: 1));
+          exit(0);
         }
-      }
-      if (fileFound) {
-        await showDialog(context: context, builder: (context) => MediaKitRemoverDialog(), barrierDismissible: false);
-        Process.run("./app/tools/media_kit_remover.exe",
-            ["./app", "./app/jackbox_patcher.exe"]);
-        await Future.delayed(Duration(seconds: 1));
-        exit(0);
-      }
+      });
+    } catch (e) {
+      print(e);
     }
   }
 }
