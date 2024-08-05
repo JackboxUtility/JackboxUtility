@@ -93,6 +93,15 @@
       "contributions": [
         "translation"
       ]
+    },
+    {
+      "login": "Merthan",
+      "name": "Merthan Erdem",
+      "avatar_url": "https://avatars.githubusercontent.com/u/27968148?v=4",
+      "profile": "https://github.com/Merthan",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
@@ -100,6 +109,6 @@
   "repoType": "github",
   "repoHost": "https://github.com",
   "projectName": "JackboxUtility",
-  "projectOwner": "AlexisL61",
+  "projectOwner": "JackboxUtility",
   "commitType": "docs"
 }
