@@ -4,6 +4,8 @@ import 'package:jackbox_patcher/model/misc/audio/SFXEnum.dart';
 import 'package:jackbox_patcher/services/audio/sfx_service.dart';
 import 'package:jackbox_patcher/services/video/video_service.dart';
 
+import 'mouse_back_button_recognizer.dart';
+
 class ClosableRouteWithEsc extends StatefulWidget {
   ClosableRouteWithEsc(
       {Key? key,
@@ -27,20 +29,28 @@ class ClosableRouteWithEsc extends StatefulWidget {
 }
 
 class _ClosableRouteWithEscState extends State<ClosableRouteWithEsc> {
+  bool _handleNavigateBack(BuildContext context) {
+    if (Navigator.of(context).canPop()) {
+      if (widget.stopVideo) {
+        VideoService.stop();
+      }
+      if (widget.closeSFX) {
+        SFXService().playSFX(SFX.CLOSE_GAME_INFO_TAB);
+      }
+      Navigator.of(context).pop();
+      return true;
+    }
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Focus(
       autofocus: true,
       onKey: (node, event) {
-        if (event.isKeyPressed(LogicalKeyboardKey.escape)) {
-          if (Navigator.of(context).canPop()) {
-            if (widget.stopVideo) {
-              VideoService.stop();
-            }
-            if (widget.closeSFX) {
-              SFXService().playSFX(SFX.CLOSE_GAME_INFO_TAB);
-            }
-            Navigator.of(context).pop();
+        if (event.isKeyPressed(LogicalKeyboardKey.escape) ||
+            event.isKeyPressed(LogicalKeyboardKey.backspace)) {
+          if (_handleNavigateBack(context)) {
             return KeyEventResult.handled;
           }
         }
@@ -64,7 +74,17 @@ class _ClosableRouteWithEscState extends State<ClosableRouteWithEsc> {
         }
         return KeyEventResult.ignored;
       },
-      child: widget.child,
+      child: RawGestureDetector(
+        gestures: <Type, GestureRecognizerFactory>{
+          MouseBackButtonRecognizer:
+              GestureRecognizerFactoryWithHandlers<MouseBackButtonRecognizer>(
+            () => MouseBackButtonRecognizer(),
+            (instance) =>
+                instance.onTapDown = (details) => _handleNavigateBack(context),
+          ),
+        },
+        child: widget.child,
+      ),
     );
   }
 }
