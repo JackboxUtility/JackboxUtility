@@ -46,11 +46,11 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
 
   @override
   void initState() {
+    super.initState();
     windowManager.addListener(this);
     TranslationsHelper().changeLocale(Locale("en"));
     APIService().internalCache.addListener(updateCustomServerComponent);
     _load(true);
-    super.initState();
   }
 
   @override
