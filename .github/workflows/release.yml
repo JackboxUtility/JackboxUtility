@@ -47,11 +47,16 @@ jobs:
      - uses: actions/checkout@v3
      - uses: subosito/flutter-action@v2
        with:
-        flutter-version: '3.13.4'
+        flutter-version: '3.22.2'
         channel: 'stable'
      - name: Build windows
        working-directory: ./jackbox_patcher
        run: flutter build windows --build-name ${{ needs.retrievingVersion.outputs.version }} -t ./lib/main_release.dart
+     - name: Build media_kit_remover tool
+       working-directory: ./tools/media_kit_remover
+       run: |
+        mkdir ../../jackbox_patcher/build/windows/runner/Release/tools/
+        dart compile exe --target-os windows ./bin/media_kit_remover.dart -o ../../jackbox_patcher/build/windows/runner/Release/tools/media_kit_remover.exe
      - uses: actions/upload-artifact@v3
        with:
           name: build_windows
@@ -70,7 +75,7 @@ jobs:
         sudo apt-get install fuse libfuse2
      - uses: subosito/flutter-action@v2
        with:
-        flutter-version: '3.13.4'
+        flutter-version: '3.22.2'
         channel: 'stable'
      - name: Remove media_kit_libs for linux
        working-directory: ./jackbox_patcher
