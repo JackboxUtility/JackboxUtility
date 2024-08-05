@@ -279,7 +279,7 @@
   "@error_happened": {},
   "jackbox_utility_description": "Приложение с открытым исходным кодом для загрузки патчей и запуска игр Jackbox.",
   "@jackbox_utility_description": {},
-  "server_information": "О сервере",
+  "server_information": "О сервере (Язык)",
   "@server_information": {},
   "selected_server": "Выбранный сервер",
   "@selected_server": {},
