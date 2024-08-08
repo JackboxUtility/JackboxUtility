@@ -102,6 +102,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "jWalker92",
+      "name": "jWalker92",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4966636?v=4",
+      "profile": "https://github.com/jWalker92",
+      "contributions": [
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
