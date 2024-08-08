@@ -42,7 +42,7 @@ jobs:
         tag_exists_error: "false"
         no_verify_tag: "true"
  build_windows:
-   runs-on: windows-2019
+   runs-on: windows-latest
    needs: retrievingVersion
    steps:
      - uses: actions/checkout@v3
