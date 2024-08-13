@@ -4,6 +4,61 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.0] - 2024-08-05
+### :sparkles: New Features
+- [`9255ba2`](https://github.com/JackboxUtility/JackboxUtility/commit/9255ba29fabfc6ba8411af9f92dfdbcd344835a8) - Remove media kit *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`80dbf2e`](https://github.com/JackboxUtility/JackboxUtility/commit/80dbf2e6d7535209248e31ea85873e20958bf778) - Launch from uri steam *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`755234c`](https://github.com/JackboxUtility/JackboxUtility/commit/755234c8ab56531f2ce9af7d3ffd1abbd4231fb7) - Add media_kit remover + add back loaders for EGS *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`d773f9b`](https://github.com/JackboxUtility/JackboxUtility/commit/d773f9b155d4f1fcad21cd699310551655ef95b1) - Add media kit remover tool *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`e942390`](https://github.com/JackboxUtility/JackboxUtility/commit/e942390d01311d8987f7d564f29893a514484f92) - Set mediakit remover before prevent close *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`fea8687`](https://github.com/JackboxUtility/JackboxUtility/commit/fea86871d9ff74e20a3db83b96a8f024bd1ae5e7) - Add dialog for media_kit_remover *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`963b941`](https://github.com/JackboxUtility/JackboxUtility/commit/963b941a41522c8c6f52844a90f309cf242133e8) - Add launch with loaders *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`eb287c6`](https://github.com/JackboxUtility/JackboxUtility/commit/eb287c694fa26dc30f83d80b79f18473072bd548) - Show error on download error + retry *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`f900deb`](https://github.com/JackboxUtility/JackboxUtility/commit/f900debb14a8791baeed0ec2ef4a27aee38762fc) - Mouse Back Button and Backspace Key Support to Close Screen *(commit by [@Merthan](https://github.com/Merthan))*
+- [`bde81c6`](https://github.com/JackboxUtility/JackboxUtility/commit/bde81c6bd57fa9482b63f4c4a34f1df9a3e7bbce) - Remove media kit *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`6952468`](https://github.com/JackboxUtility/JackboxUtility/commit/69524687524b7e865a6bb3a0a710cda0f4e54880) - Launch from uri steam *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`7bb6666`](https://github.com/JackboxUtility/JackboxUtility/commit/7bb6666149935b5d8709f34a65e07c0af4d4f27c) - Add media_kit remover + add back loaders for EGS *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`be5b00f`](https://github.com/JackboxUtility/JackboxUtility/commit/be5b00fd115714b2b7a3a2e0d56965525ad34bd2) - Add media kit remover tool *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`a5fa626`](https://github.com/JackboxUtility/JackboxUtility/commit/a5fa6266e54906e3d1f91b5e88c4af584d8c39a6) - Set mediakit remover before prevent close *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`5a59633`](https://github.com/JackboxUtility/JackboxUtility/commit/5a59633eedb32e2103e0f90b4483ccde5430489b) - Add dialog for media_kit_remover *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`9281470`](https://github.com/JackboxUtility/JackboxUtility/commit/9281470842ff2904a20a4f21bdaa396af14e7333) - Add launch with loaders *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`e2c8fca`](https://github.com/JackboxUtility/JackboxUtility/commit/e2c8fcaf1afff7dd1ce5e350a34514fd99c24269) - Show error on download error + retry *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`333ff9a`](https://github.com/JackboxUtility/JackboxUtility/commit/333ff9ad71c650a24f3689aea8304b869fdc27e4) - Mouse Back Button and Backspace Key Support to Close Screen *(commit by [@Merthan](https://github.com/Merthan))*
+
+### :bug: Bug Fixes
+- [`25a719f`](https://github.com/JackboxUtility/JackboxUtility/commit/25a719fccc2adb80a2059a954444011675ec041d) - Add back media_kit_libs_video *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`9ac6771`](https://github.com/JackboxUtility/JackboxUtility/commit/9ac6771a8b6d5fc18972de6394578b4c3a47e36b) - Rollback audio players version *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`d27d4c9`](https://github.com/JackboxUtility/JackboxUtility/commit/d27d4c9ffac525c030bc7d0ab62cbcd7e174355c) - Fix game launch on steam *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`8dd1338`](https://github.com/JackboxUtility/JackboxUtility/commit/8dd1338d6029666f6ff99869ddc270a954e13ee5) - Use app instead of ./ *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`c4ae0e9`](https://github.com/JackboxUtility/JackboxUtility/commit/c4ae0e90808fd8aa3aaac1cf5efc24d975a7f563) - Add app to files *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`dcff3ab`](https://github.com/JackboxUtility/JackboxUtility/commit/dcff3ab40b8e5914f3bf9b07db40f67210759e25) - Delete tool lib *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`4626378`](https://github.com/JackboxUtility/JackboxUtility/commit/4626378988a59ed1bbab358d7a160f21ba4e3916) - Exit without waiting the end of process *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`4699b92`](https://github.com/JackboxUtility/JackboxUtility/commit/4699b922bf1a39f1aa556a518957458f6906e22c) - open jackbox_patcher instead of jackbox_utility *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`26776a7`](https://github.com/JackboxUtility/JackboxUtility/commit/26776a79078deac71cd3aae98f41b74eb5b3fbf9) - Add back media_kit_libs_video *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`5fe3381`](https://github.com/JackboxUtility/JackboxUtility/commit/5fe33812ef2e605ce38532f8d7ee6c79a7db4827) - Rollback audio players version *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`c6c59cf`](https://github.com/JackboxUtility/JackboxUtility/commit/c6c59cfc0b04e92d51b0848745c54f5225b1c7e3) - Fix game launch on steam *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`5041618`](https://github.com/JackboxUtility/JackboxUtility/commit/5041618143e8f4de2dafadeaadc9dbabb3b5602d) - Use app instead of ./ *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`9e0c6f1`](https://github.com/JackboxUtility/JackboxUtility/commit/9e0c6f15b8d54ff64f5974374954d54de17aee7d) - Add app to files *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`7b02b8f`](https://github.com/JackboxUtility/JackboxUtility/commit/7b02b8f5670477e9ee89556081540358372fab20) - Delete tool lib *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`32b3413`](https://github.com/JackboxUtility/JackboxUtility/commit/32b3413e3ab96c4464fc1bd6c06d990f3157e3f6) - Exit without waiting the end of process *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`cb8e554`](https://github.com/JackboxUtility/JackboxUtility/commit/cb8e554a4537b41f02f33e56beea7bdb0f0f57c4) - open jackbox_patcher instead of jackbox_utility *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`5be8479`](https://github.com/JackboxUtility/JackboxUtility/commit/5be8479cab67c3ccd36cb3f32d80bed89ca5be42) - Revert changelog *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+
+### :recycle: Refactors
+- [`c72f7e2`](https://github.com/JackboxUtility/JackboxUtility/commit/c72f7e27936cd7c6ccf349a1c65d020b9eff27e3) - Separate classes and remove unused imports *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`4f1272e`](https://github.com/JackboxUtility/JackboxUtility/commit/4f1272eb21076b968c9342c091972eda30355bc2) - Use conventional flutter name for files *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`b70e3da`](https://github.com/JackboxUtility/JackboxUtility/commit/b70e3daa8ae5a53aee3d762ddbf5cfd8fa408675) - **logs**: Add class to logs *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`b734109`](https://github.com/JackboxUtility/JackboxUtility/commit/b73410946f9257219cb09a2fc93df4ef163eed01) - Refactor MediaKitRemoverDialog *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`7bc535b`](https://github.com/JackboxUtility/JackboxUtility/commit/7bc535ba3d87cb03622b858f39e2610c2f7e4d7f) - Separate classes and remove unused imports *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`01056a7`](https://github.com/JackboxUtility/JackboxUtility/commit/01056a7dc3367a6176a8483b29bd15528a6c5711) - Use conventional flutter name for files *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`d5bb8ea`](https://github.com/JackboxUtility/JackboxUtility/commit/d5bb8eaef303e186ad82ed941f7d4671cb67f722) - **logs**: Add class to logs *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`868b0dd`](https://github.com/JackboxUtility/JackboxUtility/commit/868b0dd92b6866dd19e0527dc57b4973ee4c9457) - Refactor MediaKitRemoverDialog *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+
+### :wrench: Chores
+- [`9cdde36`](https://github.com/JackboxUtility/JackboxUtility/commit/9cdde36b51de2f40e29c8b22210e721f1e301907) - Update translations *(commit by [@weblate](https://github.com/weblate))*
+- [`fcd8fad`](https://github.com/JackboxUtility/JackboxUtility/commit/fcd8fadb633739b4cf20d4cc92589bd4532157b4) - Update translations *(commit by [@weblate](https://github.com/weblate))*
+
+
 ## [1.3.7+2] - 2024-04-12
 ### :bug: Bug Fixes
 - [`d223353`](https://github.com/JackboxUtility/JackboxUtility/commit/d223353d75fef0986856b98622160ed137a926cf) - Fix random game too slow *(commit by [@AlexisL61](https://github.com/AlexisL61))*
@@ -112,3 +167,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [1.3.7]: https://github.com/JackboxUtility/JackboxUtility/compare/1.3.6+6...1.3.7
 [1.3.7+1]: https://github.com/JackboxUtility/JackboxUtility/compare/1.3.7...1.3.7+1
 [1.3.7+2]: https://github.com/JackboxUtility/JackboxUtility/compare/1.3.7+1...1.3.7+2
+[1.4.0]: https://github.com/JackboxUtility/JackboxUtility/compare/1.3.7+2...1.4.0
