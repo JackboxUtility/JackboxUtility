@@ -15,15 +15,15 @@ class LauncherProperty {
     if (data is String) {
       return LauncherProperty.fromDefault(data);
     } else {
-      return LauncherProperty.fromJson(data as Map<String, String>);
+      return LauncherProperty.fromJson(data);
     }
   }
 
-  factory LauncherProperty.fromJson(Map<String, String> json, {String defaultValue = ""}) {
+  factory LauncherProperty.fromJson(Map<String, dynamic> json, {String defaultValue = ""}) {
     return LauncherProperty(
-      steamValue: json['steam'] ?? defaultValue,
-      epicValue: json['epic_games'] ?? defaultValue,
-      unknownValue: json['native'] ?? defaultValue,
+      steamValue: json['steam'] != null ? json['steam'] as String : defaultValue,
+      epicValue: json['epic_games'] != null ? json['epic_games'] as String : defaultValue,
+      unknownValue: json['native'] != null ? json['native'] as String : defaultValue,
     );
   }
 
