@@ -6,8 +6,7 @@ import 'package:jackbox_patcher/components/blurhash_image.dart';
 import 'package:jackbox_patcher/services/video/video_service.dart';
 
 class AssetCarousselWidget extends StatefulWidget {
-  const AssetCarousselWidget({Key? key, required this.images})
-      : super(key: key);
+  const AssetCarousselWidget({Key? key, required this.images}) : super(key: key);
 
   final List<String> images;
   @override
@@ -46,7 +45,7 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
   void checkingIfHasVideo() {
     for (var i = 0; i < widget.images.length; i++) {
       if (isAVideo(widget.images[i])) {
-        if (Platform.isLinux || Platform.isMacOS) {
+        if (Platform.isLinux || Platform.isMacOS || Platform.isWindows) { // TODO : Put back video support
           hasVideo = false;
           widget.images.removeAt(i);
           i--;
@@ -58,139 +57,116 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
     }
   }
 
-  void controlPlayerState() {
-  }
+  void controlPlayerState() {}
 
-  Future<void> startVideo() async {
-    
-  }
+  Future<void> startVideo() async {}
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-            borderRadius: BorderRadius.circular(8.0),
-            child: SizedBox(
-                width: double.maxFinite,
-                child: AspectRatio(
-                    aspectRatio: 1.778,
-                    child: GestureDetector(
-                        child: MouseRegion(
-                            onEnter: (a) => setState(() {
-                                  moveButtonVisible = true;
-                                }),
-                            onExit: (a) => setState(() {
-                                  moveButtonVisible = false;
-                                }),
-                            child: Stack(children: [
-                              BlurHashImage(
-                                      url: widget.images[imageIndex],
-                                      fit: BoxFit.fitWidth,
-                                    ),
-                              tweenAnimationBuilder = TweenAnimationBuilder<
-                                      double>(
-                                  onEnd: () {
-                                    if (!moveButtonVisible &&
-                                        changingImage == false) {
-                                      setState(() {
-                                        imageIndex = (imageIndex + 1) %
-                                            widget.images.length;
-                                        changingImage = true;
-                                      });
-                                      startVideo();
-                                      if (!isAVideo(
-                                          widget.images[imageIndex])) {
-                                        Future.delayed(
-                                            const Duration(milliseconds: 1100),
-                                            () => setState(() {
-                                                  changingImage = false;
-                                                }));
-                                      }
-                                    }
-                                  },
-                                  tween: Tween<double>(
-                                    begin: moveButtonVisible || changingImage
-                                        ? 1
-                                        : 0,
-                                    end: moveButtonVisible || changingImage
-                                        ? 0
-                                        : 1,
-                                  ),
-                                  curve: Curves.easeOut,
-                                  duration: moveButtonVisible || changingImage
-                                      ? const Duration(milliseconds: 1000)
-                                      : const Duration(seconds: 6),
-                                  builder: (BuildContext context,
-                                      double widthTween, Widget? child) {
-                                    return FractionallySizedBox(
-                                        alignment: Alignment.bottomCenter,
-                                        widthFactor:
-                                            changingImage ? 1 : widthTween,
-                                        heightFactor: 1,
-                                        child: Column(
-                                          children: [
-                                            Spacer(),
-                                            Container(
-                                                height: 3,
-                                                color: Colors.blue.withOpacity(
-                                                    changingImage
-                                                        ? widthTween / 2
-                                                        : 0.5)),
-                                          ],
-                                        ));
-                                  }),
-                              moveButtonVisible
-                                  ? Center(
-                                      child: Row(
+        borderRadius: BorderRadius.circular(8.0),
+        child: SizedBox(
+            width: double.maxFinite,
+            child: AspectRatio(
+                aspectRatio: 1.778,
+                child: GestureDetector(
+                    child: MouseRegion(
+                        onEnter: (a) => setState(() {
+                              moveButtonVisible = true;
+                            }),
+                        onExit: (a) => setState(() {
+                              moveButtonVisible = false;
+                            }),
+                        child: Stack(children: [
+                          BlurHashImage(
+                            url: widget.images[imageIndex],
+                            fit: BoxFit.fitWidth,
+                          ),
+                          tweenAnimationBuilder = TweenAnimationBuilder<double>(
+                              onEnd: () {
+                                if (!moveButtonVisible && changingImage == false) {
+                                  setState(() {
+                                    imageIndex = (imageIndex + 1) % widget.images.length;
+                                    changingImage = true;
+                                  });
+                                  startVideo();
+                                  if (!isAVideo(widget.images[imageIndex])) {
+                                    Future.delayed(
+                                        const Duration(milliseconds: 1100),
+                                        () => setState(() {
+                                              changingImage = false;
+                                            }));
+                                  }
+                                }
+                              },
+                              tween: Tween<double>(
+                                begin: moveButtonVisible || changingImage ? 1 : 0,
+                                end: moveButtonVisible || changingImage ? 0 : 1,
+                              ),
+                              curve: Curves.easeOut,
+                              duration: moveButtonVisible || changingImage
+                                  ? const Duration(milliseconds: 1000)
+                                  : const Duration(seconds: 6),
+                              builder: (BuildContext context, double widthTween, Widget? child) {
+                                return FractionallySizedBox(
+                                    alignment: Alignment.bottomCenter,
+                                    widthFactor: changingImage ? 1 : widthTween,
+                                    heightFactor: 1,
+                                    child: Column(
                                       children: [
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        GestureDetector(
-                                            onTap: () => setState(() {
-                                                  imageIndex = (imageIndex -
-                                                          1) %
-                                                      (widget.images.length);
-                                                  changingImage = false;
-                                                  startVideo();
-                                                }),
-                                            child: const Icon(FluentIcons
-                                                .chevron_left_small)),
-                                        Expanded(
-                                            child: Column(
-                                                  children: [
-                                                    Expanded(
-                                                      child:  GestureDetector(
-                                              behavior: HitTestBehavior.translucent,
-                                                onTap: () {
-                                                  if (isAVideo(widget
-                                                      .images[imageIndex])) {
-                                                    VideoService.playPause();
-                                                  }
-                                                }, 
-                                                child:Container(
-                                                          width: double.maxFinite,
-                                                          height: double.maxFinite ),
-                                                    )),
-                                                    SizedBox(height: 80,)
-                                                  ],
-                                                )),
-                                        GestureDetector(
-                                            onTap: () => setState(() {
-                                                  imageIndex = (imageIndex +
-                                                          1) %
-                                                      (widget.images.length);
-                                                  changingImage = false;
-                                                  startVideo();
-                                                }),
-                                            child: const Icon(FluentIcons
-                                                .chevron_right_small)),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
+                                        Spacer(),
+                                        Container(
+                                            height: 3,
+                                            color: Colors.blue.withOpacity(changingImage ? widthTween / 2 : 0.5)),
                                       ],
-                                    ))
-                                  : Container()
-                            ]))))));
+                                    ));
+                              }),
+                          moveButtonVisible
+                              ? Center(
+                                  child: Row(
+                                  children: [
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    GestureDetector(
+                                        onTap: () => setState(() {
+                                              imageIndex = (imageIndex - 1) % (widget.images.length);
+                                              changingImage = false;
+                                              startVideo();
+                                            }),
+                                        child: const Icon(FluentIcons.chevron_left_small)),
+                                    Expanded(
+                                        child: Column(
+                                      children: [
+                                        Expanded(
+                                            child: GestureDetector(
+                                          behavior: HitTestBehavior.translucent,
+                                          onTap: () {
+                                            if (isAVideo(widget.images[imageIndex])) {
+                                              VideoService.playPause();
+                                            }
+                                          },
+                                          child: Container(width: double.maxFinite, height: double.maxFinite),
+                                        )),
+                                        SizedBox(
+                                          height: 80,
+                                        )
+                                      ],
+                                    )),
+                                    GestureDetector(
+                                        onTap: () => setState(() {
+                                              imageIndex = (imageIndex + 1) % (widget.images.length);
+                                              changingImage = false;
+                                              startVideo();
+                                            }),
+                                        child: const Icon(FluentIcons.chevron_right_small)),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                  ],
+                                ))
+                              : Container()
+                        ]))))));
   }
 
   bool isAVideo(String url) => url.contains(".mp4");

@@ -62,7 +62,6 @@ class MediaKitRemover {
     "media_kit_libs_windows_video_plugin.dll",
     "media_kit_native_event_loop.dll",
     "media_kit_video_plugin.dll",
-    "msvcp140.dll",
     "msvcp140_1.dll",
     "msvcp140_2.dll",
     "msvcp140_atomic_wait.dll",

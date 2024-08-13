@@ -57,6 +57,10 @@ jobs:
        run: |
         mkdir ../../jackbox_patcher/build/windows/x64/runner/Release/tools/
         dart compile exe --target-os windows ./bin/media_kit_remover.dart -o ../../jackbox_patcher/build/windows/x64/runner/Release/tools/media_kit_remover.exe
+     - name: Add windows dlls
+       working-directory: .
+       run: |
+        copy .\libs\windows\* .\build\windows\x64\runner\Release\
      - uses: actions/upload-artifact@v3
        with:
           name: build_windows
