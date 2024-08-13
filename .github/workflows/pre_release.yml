@@ -61,7 +61,7 @@ jobs:
      - name: Add windows dlls
        working-directory: .
        run: |
-        copy .\libs\windows\* .\build\windows\x64\runner\Release\
+        copy .\libs\windows\* .\jackbox_patcher\build\windows\x64\runner\Release\
      - uses: actions/upload-artifact@v3
        with:
           name: build_windows
