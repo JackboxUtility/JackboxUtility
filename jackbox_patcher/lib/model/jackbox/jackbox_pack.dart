@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:jackbox_patcher/model/enums/platforms.dart';
 import 'package:jackbox_patcher/model/jackbox/jackbox_pack_patch.dart';
+import 'package:jackbox_patcher/model/misc/launcher_property.dart';
 
 import 'jackbox_game.dart';
 
@@ -206,7 +207,7 @@ class StoreLinks {
 
 class PackConfiguration {
   final LocalVersionOrigin versionOrigin;
-  final String versionFile;
+  final LauncherProperty versionFile;
   final String versionProperty;
 
   PackConfiguration(
@@ -217,7 +218,9 @@ class PackConfiguration {
   factory PackConfiguration.fromJson(Map<String, dynamic> json) {
     return PackConfiguration(
         versionOrigin: LocalVersionOrigin.fromString(json['version_origin']),
-        versionFile: json['version_file'],
+        versionFile: json['version_file'] == null
+            ? LauncherProperty.fromDefault("")
+            : LauncherProperty.fromData(json['version_file']),
         versionProperty: json['version_property']);
   }
 

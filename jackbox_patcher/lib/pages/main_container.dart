@@ -107,11 +107,7 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
                 const Spacer(),
               ])
             : LoadingContainer(
-                step: (
-                  percent: loadingPercent,
-                  step: loadingStep,
-                  oldPercent: oldLoadingPercent
-                ),
+                step: (percent: loadingPercent, step: loadingStep, oldPercent: oldLoadingPercent),
                 exceptionReceived: loadingException,
                 onTryAgainPressed: tryAgain,
                 onServerChangePressed: serverChange,
@@ -124,9 +120,7 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
               child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    TranslationsHelper()
-                        .appLocalizations!
-                        .using_beta_version_text,
+                    TranslationsHelper().appLocalizations!.using_beta_version_text,
                     style: TextStyle(color: Colors.white.withOpacity(0.7)),
                     textAlign: TextAlign.center,
                   )))
@@ -159,8 +153,7 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
                   child: FilledButton(
                       style: ButtonStyle(
                           backgroundColor: ButtonState.all(Colors.green),
-                          shape: ButtonState.all(RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.0)))),
+                          shape: ButtonState.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)))),
                       onPressed: () async {
                         await Navigator.pushNamed(context, "/searchMenu");
                         DiscordService().launchMenuPresence();
@@ -168,31 +161,21 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
                       child: SizedBox(
                           width: 300,
                           height: 20,
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Icon(FluentIcons.play_solid,
-                                    color: Colors.white),
-                                const SizedBox(width: 10),
-                                Text(
-                                    TranslationsHelper()
-                                        .appLocalizations!
-                                        .launch_search_game,
-                                    style: const TextStyle(color: Colors.white))
-                              ])))),
+                          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                            const Icon(FluentIcons.play_solid, color: Colors.white),
+                            const SizedBox(width: 10),
+                            Text(TranslationsHelper().appLocalizations!.launch_search_game,
+                                style: const TextStyle(color: Colors.white))
+                          ])))),
               const SizedBox(height: 10),
               !DeviceService.isWeb() &&
-                      (APIService()
-                              .cachedConfigurations
-                              ?.getConfiguration("MAIN", "HIDE_PATCHER")) !=
-                          true
+                      (APIService().cachedConfigurations?.getConfiguration("MAIN", "HIDE_PATCHER")) != true
                   ? MouseRegion(
                       cursor: SystemMouseCursors.click,
                       child: FilledButton(
                           style: ButtonStyle(
                               backgroundColor: ButtonState.all(Colors.blue),
-                              shape: ButtonState.all(RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8.0)))),
+                              shape: ButtonState.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)))),
                           onPressed: () async {
                             await Navigator.pushNamed(context, "/patch");
                             DiscordService().launchMenuPresence();
@@ -201,32 +184,20 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
                           child: SizedBox(
                               width: 300,
                               height: 20,
-                              child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    if (UserData().gameList.patchesAvailable() >
-                                        0)
-                                      Container(
-                                        width: 10,
-                                        height: 10,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            color: Colors.red),
-                                      ),
-                                    if (UserData().gameList.patchesAvailable() >
-                                        0)
-                                      SizedBox(width: 10),
-                                    const Icon(FluentIcons.download,
-                                        color: Colors.white),
-                                    const SizedBox(width: 10),
-                                    Text(
-                                        TranslationsHelper()
-                                            .appLocalizations!
-                                            .patch_a_game,
-                                        style: const TextStyle(
-                                            color: Colors.white))
-                                  ]))))
+                              child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                                if (UserData().gameList.patchesAvailable() > 0)
+                                  Container(
+                                    width: 10,
+                                    height: 10,
+                                    decoration:
+                                        BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.red),
+                                  ),
+                                if (UserData().gameList.patchesAvailable() > 0) SizedBox(width: 10),
+                                const Icon(FluentIcons.download, color: Colors.white),
+                                const SizedBox(width: 10),
+                                Text(TranslationsHelper().appLocalizations!.patch_a_game,
+                                    style: const TextStyle(color: Colors.white))
+                              ]))))
                   : const SizedBox(height: 0),
               const SizedBox(height: 30),
               !DeviceService.isWeb()
@@ -235,11 +206,9 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
                       child: FilledButton(
                           style: ButtonStyle(
                               backgroundColor: ButtonState.all(Colors.grey),
-                              shape: ButtonState.all(RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8.0)))),
+                              shape: ButtonState.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)))),
                           onPressed: () async {
-                            await Navigator.pushNamed(context, "/settings",
-                                arguments: UserData().packs);
+                            await Navigator.pushNamed(context, "/settings", arguments: UserData().packs);
                             DiscordService().launchMenuPresence();
                             if (APIService().cachedSelectedServer != null) {
                               _loaded = false;
@@ -250,39 +219,27 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
                           child: SizedBox(
                               width: 300,
                               height: 20,
-                              child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Icon(FluentIcons.settings,
-                                        color: Colors.white),
-                                    const SizedBox(width: 10),
-                                    Text(
-                                        TranslationsHelper()
-                                            .appLocalizations!
-                                            .settings,
-                                        style: const TextStyle(
-                                            color: Colors.white))
-                                  ]))))
+                              child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                                const Icon(FluentIcons.settings, color: Colors.white),
+                                const SizedBox(width: 10),
+                                Text(TranslationsHelper().appLocalizations!.settings,
+                                    style: const TextStyle(color: Colors.white))
+                              ]))))
                   : const SizedBox(height: 0),
-              if (APIService().cachedServerMessage != null &&
-                  APIService().cachedServerMessage!.menuComponent != null)
+              if (APIService().cachedServerMessage != null && APIService().cachedServerMessage!.menuComponent != null)
                 Container(
                     margin: EdgeInsets.only(top: 50),
-                    child: CustomServerComponentWidgetFactory(
-                        component:
-                            APIService().cachedServerMessage!.menuComponent!))
+                    child:
+                        CustomServerComponentWidgetFactory(component: APIService().cachedServerMessage!.menuComponent!))
             ])));
   }
 
   Widget _buildConnectedServer() {
     return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-      Text(TranslationsHelper()
-          .appLocalizations!
-          .connected_to_server(APIService().cachedSelectedServer!.name)),
+      Text(TranslationsHelper().appLocalizations!.connected_to_server(APIService().cachedSelectedServer!.name)),
       const SizedBox(width: 10),
       GestureDetector(
-        child: Text(
-            TranslationsHelper().appLocalizations!.connected_to_server_change,
+        child: Text(TranslationsHelper().appLocalizations!.connected_to_server_change,
             style: const TextStyle(decoration: TextDecoration.underline)),
         onTap: () async {
           UserData().setSelectedServer(null);
@@ -297,11 +254,8 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
     return Column(children: [
       ClipRRect(
           borderRadius: BorderRadius.circular(8.0),
-          child: Image.network(
-              APIService().assetLink(APIService().cachedSelectedServer!.image),
-              height: 100)),
-      Text(APIService().cachedSelectedServer!.name,
-          style: FluentTheme.of(context).typography.titleLarge)
+          child: Image.network(APIService().assetLink(APIService().cachedSelectedServer!.image), height: 100)),
+      Text(APIService().cachedSelectedServer!.name, style: FluentTheme.of(context).typography.titleLarge)
     ]);
   }
 
@@ -318,8 +272,7 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
     loadingException = false;
     setState(() {});
     try {
-      await InitialLoad.init(context, isFirstTimeOpening,
-          automaticallyChooseBestServer, updateLoading);
+      await InitialLoad.init(context, isFirstTimeOpening, automaticallyChooseBestServer, updateLoading);
       isFirstTimeOpening = false;
       Future.delayed(const Duration(milliseconds: 200), () {
         setState(() {
@@ -329,6 +282,7 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
     } catch (e) {
       loadingException = true;
       setState(() {});
+      rethrow;
     }
   }
 

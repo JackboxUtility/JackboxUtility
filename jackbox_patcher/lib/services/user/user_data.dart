@@ -65,14 +65,9 @@ class UserData {
 
         final String? packPath = preferences.getString("${pack.id}_path");
         final bool packOwned = preferences.getBool("${pack.id}_owned") ?? false;
-        final LauncherType packOrigin = LauncherType.fromName(
-            preferences.getString("${pack.id}_origin") ?? "");
-        UserJackboxPack userPack = UserJackboxPack(
-            pack: pack,
-            loader: loader,
-            path: packPath,
-            owned: packOwned,
-            origin: packOrigin);
+        final LauncherType packLauncher = LauncherType.fromName(preferences.getString("${pack.id}_origin") ?? "");
+        UserJackboxPack userPack =
+            UserJackboxPack(pack: pack, loader: loader, path: packPath, owned: packOwned, origin: packLauncher);
         packs.add(userPack);
 
         // Load every games in the pack
@@ -92,55 +87,23 @@ class UserData {
               loader: gameLoader);
           userPack.games.add(currentGame);
           for (var patch in game.patches) {
-            final String? patchVersionInstalled =
-                preferences.getString("${patch.id}_version");
-            currentGame.patches.add(UserJackboxGamePatch(
-                patch: patch, installedVersion: patchVersionInstalled));
+            final String? patchVersionInstalled = preferences.getString("${patch.id}_version");
+            currentGame.patches.add(UserJackboxGamePatch(patch: patch, installedVersion: patchVersionInstalled));
           }
         }
 
+        String? patchVersionInstalled = getInstalledVersion(userPack);
+
         // Load every patches in the pack
         for (var patch in pack.patches) {
-          final String? patchVersionInstalled;
-          if (pack.configuration != null && userPack.path != null) {
-            File configurationFile =
-                File("${userPack.path!}/${pack.configuration!.versionFile}");
-            if (configurationFile.existsSync()) {
-              patchVersionInstalled =
-                  jsonDecode(configurationFile.readAsStringSync())[
-                          pack.configuration!.versionProperty]
-                      .replaceAll("Build:", "")
-                      .trim();
-            } else {
-              patchVersionInstalled = null;
-            }
-          } else {
-            patchVersionInstalled = null;
+          if (patch.supportedLaunchers.contains(userPack.origin)) {
+            userPack.patches.add(UserJackboxPackPatch(patch: patch, installedVersion: patchVersionInstalled));
           }
-          userPack.patches.add(UserJackboxPackPatch(
-              patch: patch, installedVersion: patchVersionInstalled));
         }
 
         // Do the same for the fixes
         for (var patch in pack.fixes) {
-          final String? patchVersionInstalled;
-          if (pack.configuration != null && userPack.path != null) {
-            File configurationFile =
-                File("${userPack.path!}/${pack.configuration!.versionFile}");
-            if (configurationFile.existsSync()) {
-              patchVersionInstalled =
-                  jsonDecode(configurationFile.readAsStringSync())[
-                          pack.configuration!.versionProperty]
-                      .replaceAll("Build:", "")
-                      .trim();
-            } else {
-              patchVersionInstalled = null;
-            }
-          } else {
-            patchVersionInstalled = null;
-          }
-          userPack.fixes.add(UserJackboxPackPatch(
-              patch: patch, installedVersion: patchVersionInstalled));
+          userPack.fixes.add(UserJackboxPackPatch(patch: patch, installedVersion: patchVersionInstalled));
         }
       }
 
@@ -152,44 +115,36 @@ class UserData {
   }
 
   void updateDownloadedPackPatchVersion() {
-    List<UserJackboxPack> availablePacks =
-        packs.where((element) => element.owned).toList();
+    List<UserJackboxPack> availablePacks = packs.where((element) => element.owned).toList();
     for (var pack in availablePacks) {
+      /// Get the installed version of the pack
+      String? patchVersionInstalled = getInstalledVersion(pack);
+
       for (var patch in pack.patches) {
-        if (pack.pack.configuration != null && pack.path != null) {
-          File configurationFile =
-              File("${pack.path!}/${pack.pack.configuration!.versionFile}");
-          if (configurationFile.existsSync()) {
-            patch.installedVersion =
-                jsonDecode(configurationFile.readAsStringSync())[
-                        pack.pack.configuration!.versionProperty]
-                    .replaceAll("Build:", "")
-                    .trim();
-          } else {
-            patch.installedVersion = null;
-          }
-        } else {
-          patch.installedVersion = null;
-        }
+        patch.installedVersion = patchVersionInstalled;
       }
       for (var patch in pack.fixes) {
-        if (pack.pack.configuration != null && pack.path != null) {
-          File configurationFile =
-              File("${pack.path!}/${pack.pack.configuration!.versionFile}");
-          if (configurationFile.existsSync()) {
-            patch.installedVersion =
-                jsonDecode(configurationFile.readAsStringSync())[
-                        pack.pack.configuration!.versionProperty]
-                    .replaceAll("Build:", "")
-                    .trim();
-          } else {
-            patch.installedVersion = null;
-          }
-        } else {
-          patch.installedVersion = null;
-        }
+        patch.installedVersion = patchVersionInstalled;
       }
     }
+  }
+
+  String? getInstalledVersion(UserJackboxPack userPack) {
+    String? patchVersionInstalled;
+    String versionFile = userPack.pack.configuration!.versionFile.fromLauncher(userPack.origin);
+    if (userPack.path == null) {
+      return null;
+    }
+    File configurationFile = File("${userPack.path!}/$versionFile");
+    if (configurationFile.existsSync()) {
+      patchVersionInstalled =
+          jsonDecode(configurationFile.readAsStringSync())[userPack.pack.configuration!.versionProperty]
+              .replaceAll("Build:", "")
+              .trim();
+    } else {
+      patchVersionInstalled = null;
+    }
+    return patchVersionInstalled;
   }
 
   /// Sync the welcome message from the server
@@ -206,8 +161,7 @@ class UserData {
     }
     await preferences.setBool("${pack.pack.id}_owned", pack.owned);
     if (pack.origin != null) {
-      await preferences.setString(
-          "${pack.pack.id}_origin", pack.origin!.toName());
+      await preferences.setString("${pack.pack.id}_origin", pack.origin!.toName());
     } else {
       await preferences.remove("${pack.pack.id}_origin");
     }
@@ -234,8 +188,7 @@ class UserData {
   /// Save a patch (mostly used when a patch is downloaded)
   Future<void> savePatch(UserJackboxGamePatch patch) async {
     if (patch.installedVersion != null) {
-      await preferences.setString(
-          "${patch.patch.id}_version", patch.installedVersion!);
+      await preferences.setString("${patch.patch.id}_version", patch.installedVersion!);
     } else {
       await preferences.remove("${patch.patch.id}_version");
     }
@@ -288,10 +241,8 @@ class UserData {
     }
   }
 
-  Future<void> setLastWindowInformations(
-      WindowInformation windowInformation) async {
-    await preferences.setBool(
-        "last_window_maximize", windowInformation.maximized);
+  Future<void> setLastWindowInformations(WindowInformation windowInformation) async {
+    await preferences.setBool("last_window_maximize", windowInformation.maximized);
     await preferences.setInt("last_window_width", windowInformation.width);
     await preferences.setInt("last_window_height", windowInformation.height);
     await preferences.setInt("last_window_x", windowInformation.x);
