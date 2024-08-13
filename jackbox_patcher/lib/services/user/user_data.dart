@@ -5,6 +5,7 @@ import 'package:jackbox_patcher/model/jackbox/jackbox_pack.dart';
 import 'package:jackbox_patcher/model/misc/window_information.dart';
 import 'package:jackbox_patcher/model/user_model/user_jackbox_game_patch.dart';
 import 'package:jackbox_patcher/services/api_utility/api_service.dart';
+import 'package:jackbox_patcher/services/logger/logger.dart';
 import 'package:jackbox_patcher/services/user/user_game_list.dart';
 import 'package:jackbox_patcher/services/user/user_settings.dart';
 import 'package:jackbox_patcher/services/user/user_tip.dart';
@@ -132,16 +133,21 @@ class UserData {
   String? getInstalledVersion(UserJackboxPack userPack) {
     String? patchVersionInstalled;
     String versionFile = userPack.pack.configuration!.versionFile.fromLauncher(userPack.origin);
+    JULogger().i("Version file detected for pack ${userPack.pack.name} with origin ${userPack.origin} : $versionFile");
     if (userPack.path == null) {
       return null;
+
     }
-    File configurationFile = File("${userPack.path!}/$versionFile");
+    File configurationFile = File("${userPack.path!}${Platform.pathSeparator}$versionFile");
+    JULogger().i("Configuration file path : ${userPack.path!}${Platform.pathSeparator}${configurationFile.path}");
     if (configurationFile.existsSync()) {
       patchVersionInstalled =
           jsonDecode(configurationFile.readAsStringSync())[userPack.pack.configuration!.versionProperty]
               .replaceAll("Build:", "")
               .trim();
+      JULogger().i("Version installed for pack ${userPack.pack.name} : $patchVersionInstalled");
     } else {
+      JULogger().i("Configuration file not found for pack ${userPack.pack.name}");
       patchVersionInstalled = null;
     }
     return patchVersionInstalled;
