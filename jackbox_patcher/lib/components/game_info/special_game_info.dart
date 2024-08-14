@@ -18,9 +18,7 @@ typedef SpecialGameInfo = ({
 });
 
 class SpecialGameAllInfoWidget extends StatelessWidget {
-  const SpecialGameAllInfoWidget(
-      {Key? key, required JackboxGameInfo this.gameInfo})
-      : super(key: key);
+  const SpecialGameAllInfoWidget({Key? key, required JackboxGameInfo this.gameInfo}) : super(key: key);
 
   final JackboxGameInfo gameInfo;
 
@@ -31,9 +29,9 @@ class SpecialGameAllInfoWidget extends StatelessWidget {
     (
       name: TranslationsHelper().appLocalizations!.family_friendly,
       icon: FontAwesomeIcons.child,
-      tooltip:TranslationsHelper().appLocalizations!.family_friendly_tooltip,
-      subname: (JackboxGameInfo gI){
-        switch (gI.familyFriendly){
+      tooltip: TranslationsHelper().appLocalizations!.family_friendly_tooltip,
+      subname: (JackboxGameInfo gI) {
+        switch (gI.familyFriendly) {
           case GameInfoFamilyFriendly.OPTIONAL:
             return TranslationsHelper().appLocalizations!.optional;
           default:
@@ -59,8 +57,8 @@ class SpecialGameAllInfoWidget extends StatelessWidget {
     (
       name: TranslationsHelper().appLocalizations!.audience,
       icon: FontAwesomeIcons.userPlus,
-      tooltip:TranslationsHelper().appLocalizations!.audience_tooltip,
-      subname: (JackboxGameInfo gI){
+      tooltip: TranslationsHelper().appLocalizations!.audience_tooltip,
+      subname: (JackboxGameInfo gI) {
         return "";
       },
       color: (JackboxGameInfo gI) {
@@ -73,12 +71,12 @@ class SpecialGameAllInfoWidget extends StatelessWidget {
       description: (JackboxGameInfo gI) {
         return gI.audienceDescription;
       }
-    ), 
+    ),
     (
       name: TranslationsHelper().appLocalizations!.subtitles,
       icon: FontAwesomeIcons.closedCaptioning,
-      tooltip:TranslationsHelper().appLocalizations!.subtitles_tooltip,
-      subname: (JackboxGameInfo gI){
+      tooltip: TranslationsHelper().appLocalizations!.subtitles_tooltip,
+      subname: (JackboxGameInfo gI) {
         return "";
       },
       color: (JackboxGameInfo gI) {
@@ -95,8 +93,8 @@ class SpecialGameAllInfoWidget extends StatelessWidget {
     (
       name: TranslationsHelper().appLocalizations!.stream_friendly,
       icon: FluentIcons.screen_cast,
-      tooltip:TranslationsHelper().appLocalizations!.stream_friendly_tooltip,
-      subname: (JackboxGameInfo gI){
+      tooltip: TranslationsHelper().appLocalizations!.stream_friendly_tooltip,
+      subname: (JackboxGameInfo gI) {
         return "";
       },
       color: (JackboxGameInfo gI) {
@@ -118,8 +116,8 @@ class SpecialGameAllInfoWidget extends StatelessWidget {
     (
       name: TranslationsHelper().appLocalizations!.moderation,
       icon: FontAwesomeIcons.userShield,
-      tooltip:TranslationsHelper().appLocalizations!.moderation_tooltip,
-      subname: (JackboxGameInfo gI){
+      tooltip: TranslationsHelper().appLocalizations!.moderation_tooltip,
+      subname: (JackboxGameInfo gI) {
         return "";
       },
       color: (JackboxGameInfo gI) {
@@ -143,10 +141,10 @@ class SpecialGameAllInfoWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StaggeredGrid.count(
-            mainAxisSpacing: 20,
-            crossAxisSpacing: 20,
-            crossAxisCount: 2,
-            children: [
+      mainAxisSpacing: 20,
+      crossAxisSpacing: 20,
+      crossAxisCount: 2,
+      children: [
         for (SpecialGameInfo specialGameInfo in allInfoList)
           SpecialGameInfoWidget(
             specialGameInfo: specialGameInfo,
@@ -159,9 +157,7 @@ class SpecialGameAllInfoWidget extends StatelessWidget {
 
 class SpecialGameInfoWidget extends StatelessWidget {
   const SpecialGameInfoWidget(
-      {Key? key,
-      required SpecialGameInfo this.specialGameInfo,
-      required JackboxGameInfo this.gameInfo})
+      {Key? key, required SpecialGameInfo this.specialGameInfo, required JackboxGameInfo this.gameInfo})
       : super(key: key);
 
   final SpecialGameInfo specialGameInfo;
@@ -180,32 +176,30 @@ class SpecialGameInfoWidget extends StatelessWidget {
                     padding: const EdgeInsets.all(10),
                     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                       Tooltip(
-      style: const TooltipThemeData(waitDuration: Duration(milliseconds: 500), showDuration: Duration(seconds: 0)),
-                        message: specialGameInfo.tooltip,
-                        child:Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Icon(specialGameInfo.icon),
-                          ),
-                          SizedBox(width: 6),
-                          Text(specialGameInfo.name),
-                          SizedBox(width: 4),
-                          Container(
-                            margin: EdgeInsets.only(top:2), 
-                              width: 10,
-                              height: 10,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: specialGameInfo.color(gameInfo))),
-                          SizedBox(width: 6),
-                          Text(specialGameInfo.subname(gameInfo)),
-                        ],
-                      )),
+                          style: const TooltipThemeData(
+                              waitDuration: Duration(milliseconds: 500), showDuration: Duration(seconds: 0)),
+                          message: specialGameInfo.tooltip,
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Icon(specialGameInfo.icon),
+                              ),
+                              SizedBox(width: 6),
+                              Text(specialGameInfo.name),
+                              SizedBox(width: 4),
+                              Container(
+                                  margin: EdgeInsets.only(top: 2),
+                                  width: 10,
+                                  height: 10,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10), color: specialGameInfo.color(gameInfo))),
+                              SizedBox(width: 6),
+                              Text(specialGameInfo.subname(gameInfo)),
+                            ],
+                          )),
                       if (specialGameInfo.description(gameInfo) != null)
-                        Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(specialGameInfo.description(gameInfo)!))
+                        Padding(padding: const EdgeInsets.all(8.0), child: Text(specialGameInfo.description(gameInfo)!))
                     ])))));
   }
 }

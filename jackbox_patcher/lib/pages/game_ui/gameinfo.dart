@@ -82,6 +82,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> implements EventObserve
   void initState() {
     viewModel = GameinfoViewModel(widget.game, widget.showAllPacks, widget.allAvailableGames);
     super.initState();
+    viewModel.subscribe(this);
   }
 
   @override

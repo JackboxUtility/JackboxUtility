@@ -89,6 +89,7 @@ class GameinfoViewModel extends EventViewModel {
     _restApiRouter.sendMessage(GamePageOpenWsMessage(selectedUserGame.game));
     _sfxService.playSFX(SFX.SCROLL_BETWEEN_GAME_INFO_TABS);
     launchingStatus = GameInfoLaunchingStatus.WAITING;
+    carousselKey = UniqueKey();
     notify(null);
   }
 
