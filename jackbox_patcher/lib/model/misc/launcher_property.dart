@@ -12,6 +12,7 @@ class LauncherProperty {
   }
 
   factory LauncherProperty.fromData(dynamic data) {
+    print(data);
     if (data is String) {
       return LauncherProperty.fromDefault(data);
     } else {
@@ -28,6 +29,7 @@ class LauncherProperty {
   }
 
   fromLauncher(LauncherType? packLauncher) {
+    print(packLauncher);
     switch (packLauncher) {
       case LauncherType.STEAM:
         return steamValue;

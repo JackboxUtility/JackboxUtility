@@ -10,3 +10,16 @@ extension NullExtensions<T> on T? {
     return null;
   }
 }
+
+extension NullBoolExtensions on bool? {
+  bool get isTrue => this == true;
+  bool get isFalse => this == false;
+
+  bool orFalse() {
+    return this ?? false;
+  }
+
+  bool orTrue() {
+    return this ?? true;
+  }
+}
