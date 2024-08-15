@@ -238,10 +238,10 @@ packages:
     dependency: "direct main"
     description:
       name: fluent_ui
-      sha256: b015021e7b19107ebf06277531d48fa40e450a500bad751a330ab5f94c815650
+      sha256: ae97c15cbf41594e31d9582a359b5a725cb66753bef73ed845ba534d3c7ec053
       url: "https://pub.dev"
     source: hosted
-    version: "4.7.4"
+    version: "4.9.1"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -642,10 +642,10 @@ packages:
     dependency: transitive
     description:
       name: scroll_pos
-      sha256: "4246bff3afc779d87cdf650a67d42d67ae71b23ff020d14592e6b89e28a7f9cc"
+      sha256: cebf602b2dd939de6832bb902ffefb574608d1b84f420b82b381a4007d3c1e1b
       url: "https://pub.dev"
     source: hosted
-    version: "0.4.0"
+    version: "0.5.0"
   sentry:
     dependency: transitive
     description:
@@ -989,4 +989,4 @@ packages:
     version: "3.1.2"
 sdks:
   dart: ">=3.3.0 <4.0.0"
-  flutter: ">=3.18.0-18.0.pre.54"
+  flutter: ">=3.19.0"
