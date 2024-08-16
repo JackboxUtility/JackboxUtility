@@ -562,5 +562,13 @@
   "hidden_button_tooltip": "Приховати цю гру з лаунчера",
   "@hidden_button_tooltip": {},
   "hidden_button_hidden_tooltip": "Показувати цю гру в лаунчері",
-  "@hidden_button_hidden_tooltip": {}
+  "@hidden_button_hidden_tooltip": {},
+  "patch_missing_before_launching_launch": "Запустити гру",
+  "@patch_missing_before_launching_launch": {},
+  "patch_missing_before_launching_title": "Патч відсутній",
+  "@patch_missing_before_launching_title": {},
+  "patch_missing_before_launching_description": "Для цієї гри доступний патч. Бажаєте встановити його?",
+  "@patch_missing_before_launching_description": {},
+  "patch_missing_before_launching_install": "Встановити патч",
+  "@patch_missing_before_launching_install": {}
 }
