@@ -269,7 +269,7 @@
   "@error_happened": {},
   "jackbox_utility_description": "Une application open-source pour installer des patchs et lancer des jeux Jackbox.",
   "@jackbox_utility_description": {},
-  "server_information": "Information du serveur",
+  "server_information": "Information du serveur (Langue)",
   "@server_information": {},
   "selected_server": "Serveur sélectionné",
   "@selected_server": {},
@@ -562,5 +562,13 @@
   "hidden_button_tooltip": "Cliquer pour cacher ce jeu dans la liste de jeu.",
   "@hidden_button_tooltip": {},
   "hidden_button_hidden_tooltip": "Cliquer pour montrer ce jeu dans la liste de jeu.",
-  "@hidden_button_hidden_tooltip": {}
+  "@hidden_button_hidden_tooltip": {},
+  "patch_missing_before_launching_title": "Traduction manquante",
+  "@patch_missing_before_launching_title": {},
+  "patch_missing_before_launching_description": "Ce jeu a un patch de disponible. Souhaitez-vous l'installer avant de lancer le jeu ?",
+  "@patch_missing_before_launching_description": {},
+  "patch_missing_before_launching_launch": "Lancer le jeu",
+  "@patch_missing_before_launching_launch": {},
+  "patch_missing_before_launching_install": "Installer le patch",
+  "@patch_missing_before_launching_install": {}
 }
