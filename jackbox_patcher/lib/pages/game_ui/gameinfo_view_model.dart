@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jackbox_patcher/model/base/extensions/null_extensions.dart';
+import 'package:jackbox_patcher/model/jackbox/game_info/translation.dart';
 import 'package:jackbox_patcher/model/misc/audio/SFXEnum.dart';
 import 'package:jackbox_patcher/model/user_model/user_jackbox_game.dart';
 import 'package:jackbox_patcher/model/user_model/user_jackbox_game_patch.dart';
@@ -123,7 +124,10 @@ class GameinfoViewModel extends EventViewModel {
     launchingStatus = GameInfoLaunchingStatus.LAUNCHING;
     notify(null);
     if (!force) {
-      if (selectedUserPack.getInstalledPackPatch() == null && selectedUserPack.pack.patches.isNotEmpty) {
+      if (selectedUserPack.getInstalledPackPatch() == null &&
+          selectedUserPack.pack.patches.isNotEmpty &&
+          (selectedUserGame.game.info.translation == GameInfoTranslation.COMMUNITY_TRANSLATED ||
+              selectedUserGame.game.info.translation == GameInfoTranslation.COMMUNITY_DUBBED)) {
         launchingStatus = GameInfoLaunchingStatus.WAITING;
         notify(DialogEvent(DialogEventType.PATCH_AVAILABLE));
         return;
