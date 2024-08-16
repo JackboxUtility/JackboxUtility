@@ -6,6 +6,7 @@ import 'package:jackbox_patcher/model/jackbox/jackbox_game_patch.dart';
 import 'package:jackbox_patcher/model/jackbox/jackbox_pack_patch.dart';
 import 'package:jackbox_patcher/model/user_model/user_jackbox_game_patch.dart';
 import 'package:jackbox_patcher/model/user_model/user_jackbox_pack_patch.dart';
+import 'package:jackbox_patcher/pages/game_ui/gameinfo_view_model.dart';
 import 'package:jackbox_patcher/services/error/error.dart';
 import 'package:jackbox_patcher/services/launcher/launcher.dart';
 import 'package:palette_generator/palette_generator.dart';
@@ -404,7 +405,7 @@ class _GameImageWithOpenerState extends State<GameImageWithOpener> {
                                 .catchError((e) => InfoBarService.showError(context, e.toString()));
                           },
                           onTap: () =>
-                              Navigator.pushNamed(context, "/game", arguments: [widget.pack, widget.game, true]),
+                              Navigator.pushNamed(context, "/game", arguments: [widget.pack, widget.game, true, [(g: widget.game, p: widget.pack)]]),
                           child: MouseRegion(
                               onEnter: (a) => setState(() {
                                     playButtonVisible = true;

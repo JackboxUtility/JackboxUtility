@@ -4,6 +4,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.2] - 2024-08-16
+### :sparkles: New Features
+- [`409c55e`](https://github.com/JackboxUtility/JackboxUtility/commit/409c55eb8691c470ecbc7095a91015e11f32537b) - Add supported_platforms and multi-version_file *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`1e77966`](https://github.com/JackboxUtility/JackboxUtility/commit/1e77966c47af2a70f16df5c804101856ef719ff1) - Add popup when launching a game without the patch installed *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`547eeb3`](https://github.com/JackboxUtility/JackboxUtility/commit/547eeb3c52241a4be952afa800a7a30ed8f4bfbe) - **translation**: Update translations *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+
+### :bug: Bug Fixes
+- [`f446c9e`](https://github.com/JackboxUtility/JackboxUtility/commit/f446c9e0f9bfc1e8dfd388e6a0f7bbbc05ef2d52) - Remove acrylic colors *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`0eb8245`](https://github.com/JackboxUtility/JackboxUtility/commit/0eb82459442efe66db67c02bcae102908245904a) - Use another variable name for compatibility *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`4cc9ba7`](https://github.com/JackboxUtility/JackboxUtility/commit/4cc9ba7fc1073b2664d65e446ee0d7120a9c9b16) - Fix map LauncherProperty *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`2a58889`](https://github.com/JackboxUtility/JackboxUtility/commit/2a5888970de992d6d2ed793ec542d65253ac4e1c) - Fix subscription to ViewModel *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`312e22c`](https://github.com/JackboxUtility/JackboxUtility/commit/312e22c1bae2a457b36621f1898d4158ec1b2268) - Fix ComboBox *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`1ef8771`](https://github.com/JackboxUtility/JackboxUtility/commit/1ef877121622d0f83da522cb34711d905ba27510) - Fix retry on multiple pack install *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`5d96be9`](https://github.com/JackboxUtility/JackboxUtility/commit/5d96be97607081a070f6ee020417bb8b3b36d1e7) - Limit dialog to community translated game *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+
+### :recycle: Refactors
+- [`d5bf78c`](https://github.com/JackboxUtility/JackboxUtility/commit/d5bf78ced1334a6b59736b334ee112650b0b4241) - Refactor all game info ui *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+
+### :wrench: Chores
+- [`888a0a0`](https://github.com/JackboxUtility/JackboxUtility/commit/888a0a042ed4811f2de4e41aa8525da94a3cf891) - Add logs *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`ff8bca4`](https://github.com/JackboxUtility/JackboxUtility/commit/ff8bca4eb5037a7458df6bff37fd3f076f8076e3) - Update version to 1.4.2 *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+
+
 ## [1.4.0] - 2024-08-05
 ### :sparkles: New Features
 - [`9255ba2`](https://github.com/JackboxUtility/JackboxUtility/commit/9255ba29fabfc6ba8411af9f92dfdbcd344835a8) - Remove media kit *(commit by [@AlexisL61](https://github.com/AlexisL61))*
@@ -168,3 +191,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [1.3.7+1]: https://github.com/JackboxUtility/JackboxUtility/compare/1.3.7...1.3.7+1
 [1.3.7+2]: https://github.com/JackboxUtility/JackboxUtility/compare/1.3.7+1...1.3.7+2
 [1.4.0]: https://github.com/JackboxUtility/JackboxUtility/compare/1.3.7+2...1.4.0
+[1.4.2]: https://github.com/JackboxUtility/JackboxUtility/compare/1.4.1...1.4.2
