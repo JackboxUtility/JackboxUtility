@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.2+2] - 2024-08-16
+### :bug: Bug Fixes
+- [`7f8167e`](https://github.com/JackboxUtility/JackboxUtility/commit/7f8167e74fea0c7f7801f6cb7e04ac1e309a564f) - Remove mandatory configuration *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+
+
 ## [1.4.2+1] - 2024-08-16
 ### :bug: Bug Fixes
 - [`572e35d`](https://github.com/JackboxUtility/JackboxUtility/commit/572e35d903fc32e65f7934bea0f766de920110f4) - Opening a game from the patcher *(commit by [@AlexisL61](https://github.com/AlexisL61))*
@@ -198,3 +203,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [1.4.0]: https://github.com/JackboxUtility/JackboxUtility/compare/1.3.7+2...1.4.0
 [1.4.2]: https://github.com/JackboxUtility/JackboxUtility/compare/1.4.1...1.4.2
 [1.4.2+1]: https://github.com/JackboxUtility/JackboxUtility/compare/1.4.2...1.4.2+1
+[1.4.2+2]: https://github.com/JackboxUtility/JackboxUtility/compare/1.4.2+1...1.4.2+2
