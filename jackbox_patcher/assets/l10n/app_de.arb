@@ -269,7 +269,7 @@
   "@error_happened": {},
   "jackbox_utility_description": "Eine Open-Source-App zum Herunterladen von Patches und Starten von Jackbox-Spielen",
   "@jackbox_utility_description": {},
-  "server_information": "Server-Informationen",
+  "server_information": "Server-Informationen (Sprache)",
   "@server_information": {},
   "selected_server": "Ausgewählter Server",
   "@selected_server": {},
@@ -562,5 +562,13 @@
   "hidden_button_tooltip": "Klicke, um dieses Spiel aus der Spieleliste auszublenden.",
   "@hidden_button_tooltip": {},
   "hidden_button_hidden_tooltip": "Klicke, um dieses Spiel in der Spieleliste wieder anzuzeigen.",
-  "@hidden_button_hidden_tooltip": {}
+  "@hidden_button_hidden_tooltip": {},
+  "patch_missing_before_launching_install": "Patch installieren",
+  "@patch_missing_before_launching_install": {},
+  "patch_missing_before_launching_title": "Kein Patch installiert",
+  "@patch_missing_before_launching_title": {},
+  "patch_missing_before_launching_description": "Für dieses Spiel ist ein Patch verfügbar. Möchtest du ihn installieren, bevor du es startest?",
+  "@patch_missing_before_launching_description": {},
+  "patch_missing_before_launching_launch": "Spiel starten",
+  "@patch_missing_before_launching_launch": {}
 }

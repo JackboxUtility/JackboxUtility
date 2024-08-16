@@ -562,5 +562,13 @@
   "hidden_button_tooltip": "Haz clic para ocultar este juego de la lista de juegos.",
   "@hidden_button_tooltip": {},
   "hidden_button_hidden_tooltip": "Haz clic para mostrar este juego en la lista de juegos.",
-  "@hidden_button_hidden_tooltip": {}
+  "@hidden_button_hidden_tooltip": {},
+  "patch_missing_before_launching_title": "Falta un parche",
+  "@patch_missing_before_launching_title": {},
+  "patch_missing_before_launching_install": "Instalar parche",
+  "@patch_missing_before_launching_install": {},
+  "patch_missing_before_launching_launch": "Ejecutar juego",
+  "@patch_missing_before_launching_launch": {},
+  "patch_missing_before_launching_description": "Este juego tiene un parche disponible. ¿Quieres instalarlo antes de iniciar el juego?",
+  "@patch_missing_before_launching_description": {}
 }
