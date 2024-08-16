@@ -132,6 +132,9 @@ class UserData {
 
   String? getInstalledVersion(UserJackboxPack userPack) {
     String? patchVersionInstalled;
+    if (userPack.pack.configuration == null) {
+      return null;
+    }
     String versionFile = userPack.pack.configuration!.versionFile.fromLauncher(userPack.origin);
     JULogger().i("Version file detected for pack ${userPack.pack.name} with origin ${userPack.origin} : $versionFile");
     if (userPack.path == null) {
