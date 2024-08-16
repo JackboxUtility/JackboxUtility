@@ -5,6 +5,7 @@ import 'package:jackbox_patcher/model/user_model/user_jackbox_game.dart';
 import 'package:jackbox_patcher/model/user_model/user_jackbox_game_patch.dart';
 import 'package:jackbox_patcher/model/user_model/user_jackbox_pack.dart';
 import 'package:jackbox_patcher/model/user_model/user_jackbox_pack_patch.dart';
+import 'package:jackbox_patcher/mvvm/observer.dart';
 import 'package:jackbox_patcher/mvvm/viewmodel.dart';
 import 'package:jackbox_patcher/services/api_utility/api_service.dart';
 import 'package:jackbox_patcher/services/audio/sfx_service.dart';
@@ -117,10 +118,17 @@ class GameinfoViewModel extends EventViewModel {
   }
 
   // Launch the game
-  void launchGame() {
+  void launchGame({bool force = false}) {
     VideoService.pause();
     launchingStatus = GameInfoLaunchingStatus.LAUNCHING;
     notify(null);
+    if (!force) {
+      if (selectedUserPack.getInstalledPackPatch() == null && selectedUserPack.pack.patches.isNotEmpty) {
+        launchingStatus = GameInfoLaunchingStatus.WAITING;
+        notify(DialogEvent(DialogEventType.PATCH_AVAILABLE));
+        return;
+      }
+    }
     Launcher.launchGame(selectedUserPack, selectedUserGame).then((value) {
       launchingStatus = GameInfoLaunchingStatus.LAUNCHED;
       notify(null);
@@ -156,6 +164,16 @@ class GameinfoViewModel extends EventViewModel {
         return (status: TranslationsHelper().appLocalizations!.patch_not_installed(1), isDisabled: false);
     }
   }
+}
+
+enum DialogEventType {
+  PATCH_AVAILABLE,
+}
+
+class DialogEvent extends ViewEvent {
+  final DialogEventType type;
+
+  DialogEvent(this.type) : super('');
 }
 
 /// Utility class to store a game with its parent pack

@@ -22,9 +22,7 @@ class SpecialGameAllInfoWidget extends StatelessWidget {
 
   final JackboxGameInfo gameInfo;
 
-  /**
-   * List of all special game info
-   */
+  /// List of all special game info
   static List<SpecialGameInfo> allInfoList = [
     (
       name: TranslationsHelper().appLocalizations!.family_friendly,

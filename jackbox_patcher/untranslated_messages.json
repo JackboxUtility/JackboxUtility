@@ -1,4 +1,39 @@
 {
+  "be": [
+    "patch_missing_before_launching_title",
+    "patch_missing_before_launching_description",
+    "patch_missing_before_launching_install",
+    "patch_missing_before_launching_launch"
+  ],
+
+  "ca": [
+    "patch_missing_before_launching_title",
+    "patch_missing_before_launching_description",
+    "patch_missing_before_launching_install",
+    "patch_missing_before_launching_launch"
+  ],
+
+  "de": [
+    "patch_missing_before_launching_title",
+    "patch_missing_before_launching_description",
+    "patch_missing_before_launching_install",
+    "patch_missing_before_launching_launch"
+  ],
+
+  "es": [
+    "patch_missing_before_launching_title",
+    "patch_missing_before_launching_description",
+    "patch_missing_before_launching_install",
+    "patch_missing_before_launching_launch"
+  ],
+
+  "fr": [
+    "patch_missing_before_launching_title",
+    "patch_missing_before_launching_description",
+    "patch_missing_before_launching_install",
+    "patch_missing_before_launching_launch"
+  ],
+
   "nb": [
     "jackbox_utility",
     "launch_search_game",
@@ -222,6 +257,31 @@
     "privacy_info",
     "privacy_description",
     "hidden_button_tooltip",
-    "hidden_button_hidden_tooltip"
+    "hidden_button_hidden_tooltip",
+    "patch_missing_before_launching_title",
+    "patch_missing_before_launching_description",
+    "patch_missing_before_launching_install",
+    "patch_missing_before_launching_launch"
+  ],
+
+  "ru": [
+    "patch_missing_before_launching_title",
+    "patch_missing_before_launching_description",
+    "patch_missing_before_launching_install",
+    "patch_missing_before_launching_launch"
+  ],
+
+  "tr": [
+    "patch_missing_before_launching_title",
+    "patch_missing_before_launching_description",
+    "patch_missing_before_launching_install",
+    "patch_missing_before_launching_launch"
+  ],
+
+  "uk": [
+    "patch_missing_before_launching_title",
+    "patch_missing_before_launching_description",
+    "patch_missing_before_launching_install",
+    "patch_missing_before_launching_launch"
   ]
 }

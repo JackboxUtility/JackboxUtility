@@ -8,6 +8,7 @@ import 'package:jackbox_patcher/components/blurhash_image.dart';
 import 'package:jackbox_patcher/components/caroussel.dart';
 import 'package:jackbox_patcher/components/custom_server_component/custom_server_component_widget_factory.dart';
 import 'package:jackbox_patcher/components/dialogs/download_patch_dialog.dart';
+import 'package:jackbox_patcher/components/dialogs/patch_available_dialog.dart';
 import 'package:jackbox_patcher/components/fixes/game_fix_available.dart';
 import 'package:jackbox_patcher/components/stars_rate.dart';
 import 'package:jackbox_patcher/model/base/extensions/null_extensions.dart';
@@ -40,7 +41,6 @@ class GameInfoRoute extends StatefulWidget {
 class _GameInfoRouteState extends State<GameInfoRoute> {
   @override
   void initState() {
-    // TODO: implement initState
     SFXService().playSFX(SFX.OPEN_GAME_INFO_TAB);
     super.initState();
   }
@@ -598,7 +598,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> implements EventObserve
             ])));
   }
 
-  Widget buildGameFixAvailable(UserJackboxPackPatch fix) {
+  Widget _buildGameFixAvailable(UserJackboxPackPatch fix) {
     return GameFixAvailableComponent(
       fix: fix,
       button: Row(
@@ -629,7 +629,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> implements EventObserve
               width: 300,
               child: Column(
                   children: List.generate(
-                      widget.pack.fixes.length, (index) => buildGameFixAvailable(widget.pack.fixes[index]))),
+                      widget.pack.fixes.length, (index) => _buildGameFixAvailable(widget.pack.fixes[index]))),
             );
           } else {
             return Container();
@@ -638,10 +638,21 @@ class _GameInfoWidgetState extends State<GameInfoWidget> implements EventObserve
   }
 
   @override
-  void notify(ViewEvent? event) {
+  void notify(ViewEvent? event) async {
     if (mounted) {
       if (event is InfoBarEvent) {
         InfoBarService.showError(context, event.message);
+      }
+      if (event is DialogEvent) {
+        if (event.type == DialogEventType.PATCH_AVAILABLE) {
+          bool shouldShowPatchList =
+              await showDialog(context: context, builder: (context) => PatchAvailableDialog()) as bool;
+          if (shouldShowPatchList) {
+            Navigator.pushNamed(context, "/patch");
+          } else {
+            viewModel.launchGame(force: true);
+          }
+        }
       }
       setState(() {});
     }
