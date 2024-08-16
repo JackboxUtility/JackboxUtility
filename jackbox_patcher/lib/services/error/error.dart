@@ -1,4 +1,5 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:jackbox_patcher/mvvm/observer.dart';
 
 import '../translations/translations_helper.dart';
 
@@ -35,4 +36,10 @@ class InfoBarService {
           content: Text(content)));
     }, duration: duration);
   }
+}
+
+class InfoBarEvent extends ViewEvent {
+  final String message;
+
+  InfoBarEvent(this.message) : super('');
 }

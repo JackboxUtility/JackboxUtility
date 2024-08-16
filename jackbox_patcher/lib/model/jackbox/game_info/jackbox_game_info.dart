@@ -81,7 +81,7 @@ class JackboxGameInfo {
     );
   }
 
-  get translation {
+  GameInfoTranslation get translation {
     if (internalTranslation == GameInfoTranslation.COMMUNITY_TRANSLATED ||
         internalTranslation == GameInfoTranslation.NATIVELY_TRANSLATED) {
       UserJackboxGame? correspondingUserGame =

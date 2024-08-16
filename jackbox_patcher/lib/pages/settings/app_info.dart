@@ -1,4 +1,5 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jackbox_patcher/app_configuration.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -14,8 +15,7 @@ class AppInfoWidget extends StatefulWidget {
 }
 
 class _AppInfoWidgetState extends State<AppInfoWidget> {
-  List<({String name, List<({String name, String? githubLink})> members})>
-      contributorsList = [
+  List<({String name, List<({String name, String? githubLink})> members})> contributorsList = [
     (
       name: TranslationsHelper().appLocalizations!.author,
       members: [(name: "AlexisL61", githubLink: "https://github.com/AlexisL61")]
@@ -43,8 +43,7 @@ class _AppInfoWidgetState extends State<AppInfoWidget> {
 
   @override
   void initState() {
-    PackageInfo.fromPlatform()
-        .then((value) => setState((() => version = value.version)));
+    PackageInfo.fromPlatform().then((value) => setState((() => version = value.version)));
     // TODO: implement initState
     super.initState();
   }
@@ -60,20 +59,13 @@ class _AppInfoWidgetState extends State<AppInfoWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding:
-            EdgeInsets.symmetric(vertical: 24, horizontal: calculatePadding()),
+        padding: EdgeInsets.symmetric(vertical: 24, horizontal: calculatePadding()),
         child: Column(children: [
           const Spacer(flex: 2),
-          ClipRRect(
-              borderRadius: BorderRadius.circular(8.0),
-              child: Image.asset('assets/logo.png', height: 100)),
-          Text(TranslationsHelper().appLocalizations!.jackbox_utility,
-              style: FluentTheme.of(context).typography.title),
+          ClipRRect(borderRadius: BorderRadius.circular(8.0), child: Image.asset('assets/logo.png', height: 100)),
+          Text(TranslationsHelper().appLocalizations!.jackbox_utility, style: FluentTheme.of(context).typography.title),
           const SizedBox(height: 12),
-          Text(
-              TranslationsHelper()
-                  .appLocalizations!
-                  .jackbox_utility_description,
+          Text(TranslationsHelper().appLocalizations!.jackbox_utility_description,
               style: FluentTheme.of(context).typography.body),
           const SizedBox(height: 12),
           Text("${TranslationsHelper().appLocalizations!.version} $version",
@@ -89,8 +81,7 @@ class _AppInfoWidgetState extends State<AppInfoWidget> {
                   Text("GitHub")
                 ]),
                 onPressed: () async {
-                  await launchUrl(
-                      Uri.parse(APP_LINKS["GITHUB"]!));
+                  await launchUrl(Uri.parse(APP_LINKS["GITHUB"]!));
                 }),
             const SizedBox(width: 12),
             HyperlinkButton(
@@ -108,25 +99,23 @@ class _AppInfoWidgetState extends State<AppInfoWidget> {
           const SizedBox(height: 12),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             HyperlinkButton(
-                 style: ButtonStyle(
-                     border:
-                         ButtonState.all(BorderSide(color: Colors.red.lighter))),
+                style: ButtonStyle(
+                    backgroundColor: WidgetStateProperty.all(Colors.red.lighter),
+                    foregroundColor: WidgetStateProperty.all(Colors.white)),
                 child: Row(children: [
                   FaIcon(FontAwesomeIcons.heart, color: Colors.red.lighter),
                   SizedBox(
                     width: 10,
                   ),
-                  Text(TranslationsHelper().appLocalizations!.donate,
-                      style: TextStyle(color: Colors.red.lighter))
+                  Text(TranslationsHelper().appLocalizations!.donate, style: TextStyle(color: Colors.red.lighter))
                 ]),
                 onPressed: () async {
-                  await launchUrl(
-                      Uri.parse("https://github.com/sponsors/AlexisL61"));
+                  await launchUrl(Uri.parse("https://github.com/sponsors/AlexisL61"));
                 }),
           ]),
           const Spacer(),
           _buildCollaborators(),
-          const Spacer(flex: 2) 
+          const Spacer(flex: 2)
         ]));
   }
 
@@ -137,15 +126,16 @@ class _AppInfoWidgetState extends State<AppInfoWidget> {
       children.add(Spacer());
       List<Widget> currentColumnChildren = [];
       currentColumnChildren.add(SizedBox(
-        width:180,
-        child: Text(collaboratorType.name, textAlign: TextAlign.center,)));
+          width: 180,
+          child: Text(
+            collaboratorType.name,
+            textAlign: TextAlign.center,
+          )));
       currentColumnChildren.add(SizedBox(height: 12));
       for (var member in collaboratorType.members) {
         currentColumnChildren.add(HyperlinkButton(
             child: Row(children: [
-              member.githubLink != null
-                  ? FaIcon(FontAwesomeIcons.github)
-                  : SizedBox.shrink(),
+              member.githubLink != null ? FaIcon(FontAwesomeIcons.github) : SizedBox.shrink(),
               member.githubLink != null
                   ? SizedBox(
                       width: 10,
@@ -157,14 +147,18 @@ class _AppInfoWidgetState extends State<AppInfoWidget> {
                 ? () async {
                     await launchUrl(Uri.parse(member.githubLink!));
                   }
-                : (){}));
+                : () {}));
       }
-      children.add( Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: currentColumnChildren,
+      children.add(Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: currentColumnChildren,
       ));
     }
     children.add(Spacer());
-    return Row(children: children,mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.start,);
+    return Row(
+      children: children,
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+    );
   }
 }

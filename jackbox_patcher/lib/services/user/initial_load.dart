@@ -38,10 +38,7 @@ class InitialLoad {
     }
   }
 
-  static Future<void> init(
-      BuildContext context,
-      bool isFirstTimeOpening,
-      bool automaticallyChooseBestServer,
+  static Future<void> init(BuildContext context, bool isFirstTimeOpening, bool automaticallyChooseBestServer,
       Function({int? step, double? percent}) callback) async {
     bool automaticGameFindNotificationAvailable = false;
     callback(step: 1, percent: 0.0);
@@ -79,8 +76,7 @@ class InitialLoad {
       callback(step: 3, percent: 0);
 
       // Changing locale
-      TranslationsHelper().changeLocale(
-          Locale(APIService().cachedSelectedServer!.languages[0]));
+      TranslationsHelper().changeLocale(Locale(APIService().cachedSelectedServer!.languages[0]));
 
       // Reloading every tips with the new language
       UserData().tips.init();
@@ -94,21 +90,16 @@ class InitialLoad {
         DiscordService().init();
       }
       await precacheImage(
-          Image.network(APIService()
-                  .assetLink(APIService().cachedSelectedServer!.image))
-              .image,
-          context);
+          Image.network(APIService().assetLink(APIService().cachedSelectedServer!.image)).image, context);
       callback(step: 3, percent: 50);
       _precacheImages(context);
       if (isFirstTimeOpening) {
-        await _launchAutomaticGameFinder(
-            context, automaticGameFindNotificationAvailable);
+        await _launchAutomaticGameFinder(context, automaticGameFindNotificationAvailable);
         AutomaticReload.startAutomaticReload();
       }
       await detectFixesAvailable(context);
       callback(step: 3, percent: 100);
-      if (isFirstTimeOpening &&
-          UserData().settings.isOpenLauncherOnStartupActivated) {
+      if (isFirstTimeOpening && UserData().settings.isOpenLauncherOnStartupActivated) {
         openLauncher(context);
       }
 
@@ -128,14 +119,8 @@ class InitialLoad {
     for (var server in servers) {
       if (server.languages.where((e) => locale.startsWith(e)).isNotEmpty) {
         await UserData().setSelectedServer(server.infoUrl);
-        InfoBarService.showInfo(
-            context,
-            TranslationsHelper()
-                .appLocalizations!
-                .automatic_server_finder_found,
-            TranslationsHelper()
-                .appLocalizations!
-                .automatic_server_finder_found_description(server.name));
+        InfoBarService.showInfo(context, TranslationsHelper().appLocalizations!.automatic_server_finder_found,
+            TranslationsHelper().appLocalizations!.automatic_server_finder_found_description(server.name));
         return;
       }
     }
@@ -179,36 +164,26 @@ class InitialLoad {
   }
 
   static void setIsFirstTimeOpening(context) {
-    InfoBarService.showInfo(
-        context,
-        TranslationsHelper().appLocalizations!.privacy_info,
+    InfoBarService.showInfo(context, TranslationsHelper().appLocalizations!.privacy_info,
         TranslationsHelper().appLocalizations!.privacy_description);
   }
 
-  static Future<void> _launchAutomaticGameFinder(
-      context, bool showNotification) async {
-    int gamesFound =
-        await AutomaticGameFinderService.findGames(UserData().packs);
+  static Future<void> _launchAutomaticGameFinder(context, bool showNotification) async {
+    int gamesFound = await AutomaticGameFinderService.findGames(UserData().packs);
     if (gamesFound > 0) {
       UserData().updateDownloadedPackPatchVersion();
     }
     if (showNotification && gamesFound > 0) {
-      InfoBarService.showInfo(
-          context,
-          TranslationsHelper().appLocalizations!.automatic_game_finder_title,
-          TranslationsHelper()
-              .appLocalizations!
-              .automatic_game_finder_finish(gamesFound));
+      InfoBarService.showInfo(context, TranslationsHelper().appLocalizations!.automatic_game_finder_title,
+          TranslationsHelper().appLocalizations!.automatic_game_finder_finish(gamesFound));
     }
   }
 
   static Future<void> detectFixesAvailable(context) async {
-    List<({UserJackboxPackPatch fix, UserJackboxPack pack})> fixesNotInstalled =
-        [];
+    List<({UserJackboxPackPatch fix, UserJackboxPack pack})> fixesNotInstalled = [];
     for (UserJackboxPack pack in UserData().packs) {
       for (var fix in pack.fixes) {
-        if (fix.getInstalledStatus() ==
-                UserInstalledPatchStatus.NOT_INSTALLED &&
+        if (fix.getInstalledStatus() == UserInstalledPatchStatus.NOT_INSTALLED &&
             UserData().getFixPromptDiscard(fix) == false &&
             await pack.getPathStatus() == "FOUND" &&
             pack.owned) {
@@ -222,8 +197,7 @@ class InitialLoad {
           barrierDismissible: false,
           context: context,
           builder: ((context) {
-            return FixesAvailableToDownloadDialog(
-                fixesAvailable: fixesNotInstalled);
+            return FixesAvailableToDownloadDialog(fixesAvailable: fixesNotInstalled);
           })) as bool;
       if (dataReceived) {
         List<String> localPaths = [];
@@ -237,8 +211,7 @@ class InitialLoad {
             barrierDismissible: false,
             context: context,
             builder: (context) {
-              return DownloadPatchDialogComponent(
-                  localPaths: localPaths, patchs: patchs);
+              return DownloadPatchDialogComponent(localPaths: localPaths, patchs: patchs);
             });
       } else {
         fixesNotInstalled.forEach((fix) {

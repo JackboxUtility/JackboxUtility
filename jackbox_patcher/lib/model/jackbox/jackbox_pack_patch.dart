@@ -1,5 +1,6 @@
 import 'package:jackbox_patcher/model/enums/platforms.dart';
 import 'package:jackbox_patcher/model/jackbox/jackbox_game.dart';
+import 'package:jackbox_patcher/model/misc/launchers.dart';
 import 'package:jackbox_patcher/services/api_utility/api_service.dart';
 
 import '../base/patch_information.dart';
@@ -14,6 +15,7 @@ class JackboxPackPatch {
   final PatchConfiguration? configuration;
   final List<JackboxPackPatchComponent> components;
   final List<AppPlatform> supportedPlatforms;
+  final List<LauncherType> supportedLaunchers;
 
   JackboxPackPatch({
     required this.id,
@@ -24,6 +26,7 @@ class JackboxPackPatch {
     required this.configuration,
     required this.components,
     required this.supportedPlatforms,
+    required this.supportedLaunchers,
   });
 
   factory JackboxPackPatch.fromJson(Map<String, dynamic> json) {
@@ -32,7 +35,7 @@ class JackboxPackPatch {
       for (var path in json['patch_paths']) {
         patchPaths.add(path);
       }
-    }else{
+    } else {
       if (json['patch_path'] is String) {
         patchPaths.add(json['patch_path']);
       }
@@ -42,27 +45,23 @@ class JackboxPackPatch {
       id: json['id'],
       name: json['name'],
       smallDescription: json['small_description'],
-      latestVersion: json['version'] != null
-          ? json['version'].replaceAll("Build:", "").trim()
-          : "",
+      latestVersion: json['version'] != null ? json['version'].replaceAll("Build:", "").trim() : "",
       patchPaths: patchPaths,
-      configuration: json['configuration'] == null
-          ? null
-          : PatchConfiguration.fromJson(json['configuration']),
+      configuration: json['configuration'] == null ? null : PatchConfiguration.fromJson(json['configuration']),
       components: json['components'] == null
           ? []
-          : List<JackboxPackPatchComponent>.from(json['components']
-              .map((x) => JackboxPackPatchComponent.fromJson(x))),
+          : List<JackboxPackPatchComponent>.from(json['components'].map((x) => JackboxPackPatchComponent.fromJson(x))),
       supportedPlatforms: json['supported_platforms'] == null
           ? [AppPlatform.LINUX, AppPlatform.WINDOWS]
-          : List<AppPlatform>.from(json['supported_platforms']
-              .map((x) => AppPlatformExtension.fromString(x))),
+          : List<AppPlatform>.from(json['supported_platforms'].map((x) => AppPlatformExtension.fromString(x))),
+      supportedLaunchers: json['supported_launchers'] == null
+          ? [LauncherType.EPIC, LauncherType.STEAM, LauncherType.UNKNOWN]
+          : List<LauncherType>.from(json['supported_launchers'].map((x) => LauncherType.fromName(x))),
     );
   }
 
   JackboxPackPatchComponent? getComponentByGameId(String id) {
-    List<JackboxPackPatchComponent> componentsFound =
-        components.where((element) => element.linkedGame == id).toList();
+    List<JackboxPackPatchComponent> componentsFound = components.where((element) => element.linkedGame == id).toList();
     if (componentsFound.isNotEmpty) return componentsFound.first;
     return null;
   }
@@ -101,9 +100,7 @@ class JackboxPackPatchComponent extends PatchInformation {
       description: json['description'],
       authors: json['authors'],
       smallDescription: json['small_description'],
-      patchType: json['patch_type'] == null
-          ? null
-          : PatchType.fromJson(json['patch_type']),
+      patchType: json['patch_type'] == null ? null : PatchType.fromJson(json['patch_type']),
     );
   }
 
@@ -134,10 +131,7 @@ class PatchConfiguration {
   final String versionFile;
   final String versionProperty;
 
-  PatchConfiguration(
-      {required this.versionOrigin,
-      required this.versionFile,
-      required this.versionProperty});
+  PatchConfiguration({required this.versionOrigin, required this.versionFile, required this.versionProperty});
 
   factory PatchConfiguration.fromJson(Map<String, dynamic> json) {
     return PatchConfiguration(

@@ -76,12 +76,8 @@ class _PackPatchState extends State<PackPatch> {
           Container(
               child: ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
-                  child: Acrylic(
-                    shadowColor: Colors.black,
-                    blurAmount: 1,
-                    tintAlpha: 1,
-                    tint: const Color.fromARGB(255, 48, 48, 48),
-                    child: Container(
+                  child: Container(
+                      color: Color.fromARGB(255, 43, 43, 43),
                         padding: const EdgeInsets.only(bottom: 12, top: 12),
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -122,7 +118,7 @@ class _PackPatchState extends State<PackPatch> {
                                     ]),
                               )),
                             ])),
-                  ))),
+                  )),
         ],
       )),
       const SizedBox(height: 40)

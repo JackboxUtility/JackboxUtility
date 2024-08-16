@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:jackbox_patcher/model/enums/platforms.dart';
 import 'package:jackbox_patcher/model/jackbox/jackbox_pack_patch.dart';
+import 'package:jackbox_patcher/model/misc/launcher_property.dart';
 
 import 'jackbox_game.dart';
 
@@ -44,48 +45,29 @@ class JackboxPack {
         name: json['name'],
         description: json['description'],
         icon: json['icon'],
-        loader: json['loader'] != null
-            ? JackboxLoader.fromJson(json['loader'])
-            : null,
-        launchersId: json["launchers_id"] != null
-            ? LaunchersId.fromJson(json['launchers_id'])
-            : null,
+        loader: json['loader'] != null ? JackboxLoader.fromJson(json['loader']) : null,
+        launchersId: json["launchers_id"] != null ? LaunchersId.fromJson(json['launchers_id']) : null,
         background: json['background'],
-        games: (json['games'] as List<dynamic>)
-            .map((e) => JackboxGame.fromJson(e))
-            .toList(),
+        games: (json['games'] as List<dynamic>).map((e) => JackboxGame.fromJson(e)).toList(),
         fixes: json["fixes"] != null
-            ? (json['fixes'] as List<dynamic>)
-                .map((e) => JackboxPackPatch.fromJson(e))
-                .toList()
+            ? (json['fixes'] as List<dynamic>).map((e) => JackboxPackPatch.fromJson(e)).toList()
             : [],
         patches: patches,
-        configuration: json['configuration'] != null
-            ? PackConfiguration.fromJson(json['configuration'])
-            : null,
+        configuration: json['configuration'] != null ? PackConfiguration.fromJson(json['configuration']) : null,
         executable: JackboxPack.generateExecutableFromJson(json['executables']),
-        storeLinks: json['store_links'] != null
-            ? StoreLinks.fromJson(json['store_links'])
-            : null,
-        resourceLocation:
-            getDeviceGamePathOverride(json['resource_location']));
+        storeLinks: json['store_links'] != null ? StoreLinks.fromJson(json['store_links']) : null,
+        resourceLocation: getDeviceGamePathOverride(json['resource_location']));
   }
 
-  static List<JackboxPackPatch> _getPackPatchesFromJson(
-      Map<String, dynamic> json) {
+  static List<JackboxPackPatch> _getPackPatchesFromJson(Map<String, dynamic> json) {
     List<JackboxPackPatch> patches = json['patchs'] != null
-        ? (json['patchs'] as List<dynamic>)
-            .map((e) => JackboxPackPatch.fromJson(e))
-            .toList()
+        ? (json['patchs'] as List<dynamic>).map((e) => JackboxPackPatch.fromJson(e)).toList()
         : [];
-    patches = patches
-        .where((element) => element.supportedPlatforms.currentPlatformInclude())
-        .toList();
+    patches = patches.where((element) => element.supportedPlatforms.currentPlatformInclude()).toList();
     return patches;
   }
 
-  static isGameDubbedByPackPatch(
-      List<JackboxPackPatch> patches, String gameId) {
+  static isGameDubbedByPackPatch(List<JackboxPackPatch> patches, String gameId) {
     for (var patch in patches) {
       for (var game in patch.components) {
         if (game.linkedGame == gameId && game.patchType!.audios) {
@@ -117,8 +99,7 @@ class JackboxPack {
   }
 
   static String? getDeviceGamePathOverride(Map<String, dynamic>? overrides) {
-    if (overrides != null &&
-        overrides.containsKey(AppPlatformExtension.currentPlatform().name)) {
+    if (overrides != null && overrides.containsKey(AppPlatformExtension.currentPlatform().name)) {
       return overrides[AppPlatformExtension.currentPlatform().name];
     }
     return null;
@@ -190,9 +171,7 @@ class StoreLinks {
     return StoreLinks(
         steam: json['steam'] != null ? json["steam"] : null,
         epic: json['epic'] != null ? json["epic"] : null,
-        jackboxGamesStore: json['jackbox_games_store'] != null
-            ? json["jackbox_games_store"]
-            : null);
+        jackboxGamesStore: json['jackbox_games_store'] != null ? json["jackbox_games_store"] : null);
   }
 
   Map<String, dynamic> toJson() {
@@ -206,18 +185,19 @@ class StoreLinks {
 
 class PackConfiguration {
   final LocalVersionOrigin versionOrigin;
-  final String versionFile;
+  final LauncherProperty versionFile;
   final String versionProperty;
 
-  PackConfiguration(
-      {required this.versionOrigin,
-      required this.versionFile,
-      required this.versionProperty});
+  PackConfiguration({required this.versionOrigin, required this.versionFile, required this.versionProperty});
 
   factory PackConfiguration.fromJson(Map<String, dynamic> json) {
     return PackConfiguration(
         versionOrigin: LocalVersionOrigin.fromString(json['version_origin']),
-        versionFile: json['version_file'],
+        versionFile: json['launcher_version_file'] == null
+            ? (json['version_file'] == null
+                ? LauncherProperty.fromDefault("")
+                : LauncherProperty.fromData(json['version_file']))
+            : LauncherProperty.fromData(json['launcher_version_file']),
         versionProperty: json['version_property']);
   }
 

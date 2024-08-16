@@ -52,7 +52,8 @@ class _DownloadPatchDialogComponentState
     setState(() {});
 
     try {
-      for (var patch in widget.patchs) {
+      while (currentPatchDownloading < widget.patchs.length) {
+        InstallablePatch patch = widget.patchs[currentPatchDownloading];
         if (!downloadCancelled) {
           await patch.downloadPatch(widget.localPaths[currentPatchDownloading],
               (stat, substat, progress) async {
