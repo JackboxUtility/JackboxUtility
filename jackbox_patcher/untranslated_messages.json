@@ -13,27 +13,6 @@
     "patch_missing_before_launching_launch"
   ],
 
-  "de": [
-    "patch_missing_before_launching_title",
-    "patch_missing_before_launching_description",
-    "patch_missing_before_launching_install",
-    "patch_missing_before_launching_launch"
-  ],
-
-  "es": [
-    "patch_missing_before_launching_title",
-    "patch_missing_before_launching_description",
-    "patch_missing_before_launching_install",
-    "patch_missing_before_launching_launch"
-  ],
-
-  "fr": [
-    "patch_missing_before_launching_title",
-    "patch_missing_before_launching_description",
-    "patch_missing_before_launching_install",
-    "patch_missing_before_launching_launch"
-  ],
-
   "nb": [
     "jackbox_utility",
     "launch_search_game",
@@ -272,13 +251,6 @@
   ],
 
   "tr": [
-    "patch_missing_before_launching_title",
-    "patch_missing_before_launching_description",
-    "patch_missing_before_launching_install",
-    "patch_missing_before_launching_launch"
-  ],
-
-  "uk": [
     "patch_missing_before_launching_title",
     "patch_missing_before_launching_description",
     "patch_missing_before_launching_install",
