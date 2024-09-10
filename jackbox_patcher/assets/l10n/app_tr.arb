@@ -542,7 +542,7 @@
   "@search": {},
   "launch_informations": "Çalıştırma Bilgisi",
   "@launch_informations": {},
-  "server_information": "Sunucu Bilgisi",
+  "server_information": "Sunucu Bilgisi (Dil)",
   "@server_information": {},
   "delete_version": "Sürümü Sil",
   "@delete_version": {},
@@ -583,5 +583,13 @@
   "more_informations": "Daha Fazla Bilgi",
   "@more_informations": {},
   "select_server_button": "Seç",
-  "@select_server_button": {}
+  "@select_server_button": {},
+  "patch_missing_before_launching_title": "Yama Eksik",
+  "@patch_missing_before_launching_title": {},
+  "patch_missing_before_launching_description": "Bu oyun için bir yama var. Oyunu başlatmadan önce kurmak ister misiniz?",
+  "@patch_missing_before_launching_description": {},
+  "patch_missing_before_launching_install": "Yamayı Kur",
+  "@patch_missing_before_launching_install": {},
+  "patch_missing_before_launching_launch": "Oyunu Başlat",
+  "@patch_missing_before_launching_launch": {}
 }
