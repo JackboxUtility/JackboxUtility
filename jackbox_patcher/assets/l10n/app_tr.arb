@@ -586,7 +586,7 @@
   "@select_server_button": {},
   "patch_missing_before_launching_title": "Yama Eksik",
   "@patch_missing_before_launching_title": {},
-  "patch_missing_before_launching_description": "Bu oyun için bir yama var. Oyunu başlatmadan önce kurmak ister misiniz?",
+  "patch_missing_before_launching_description": "Bu oyun için bir yama mevcut. Oyunu başlatmadan önce kurmak ister misiniz?",
   "@patch_missing_before_launching_description": {},
   "patch_missing_before_launching_install": "Yamayı Kur",
   "@patch_missing_before_launching_install": {},
