@@ -56,13 +56,11 @@ class AutomaticGameFinderService {
 
   static Future<int> _findEpicGamesGames(List<UserJackboxPack> packs) async {
     int numberGamesFound = 0;
-    if (Platform.isWindows) {
-      final epicLocation = _getEpicLocation();
+    String? epicLocation = await _getEpicLocation();
       if (epicLocation != null) {
         List<dynamic> epicApps = await _getEpicInstalledApps(epicLocation);
         numberGamesFound = await _linkEpicAppsWithPacks(epicApps, packs);
       }
-    }
     return numberGamesFound;
   }
 
@@ -188,7 +186,18 @@ class AutomaticGameFinderService {
     return numberGamesFound;
   }
 
-  static String? _getEpicLocation() {
+  static Future<String?> _getEpicLocation() async {
+    switch (Platform.operatingSystem) {
+      case "windows":
+        return _getEpicLocationWindows();
+      case "macos":
+        return _getEpicLocationMacos();
+      default:
+        return null;
+    }
+  }
+
+  static Future<String?> _getEpicLocationWindows() async {
     try {
       final key = Registry.openPath(RegistryHive.localMachine,
           path: 'SOFTWARE\\WOW6432Node\\Epic Games\\EpicGamesLauncher');
@@ -199,10 +208,29 @@ class AutomaticGameFinderService {
     }
   }
 
+  static Future<String?> _getEpicLocationMacos() async {
+    try {
+      final appSupportDir = await getApplicationSupportDirectory();
+      return "${appSupportDir.parent.path}/Epic";
+    } catch (e) {
+      JULogger().e("[AutomaticGameFinderService] $e");
+    }
+    JULogger().i(
+        "[AutomaticGameFinderService] Failed to get Epic location from Application Support directory. Trying HOME environment variable...");
+    if (Platform.environment.containsKey("HOME")) {
+      return "${Platform.environment["HOME"]}/Library/Application Support/Epic";
+    }
+    return null;
+  }
+
   static Future<List<dynamic>> _getEpicInstalledApps(
       String epicLocation) async {
-    final file = File(
-        "$epicLocation\\..\\..\\UnrealEngineLauncher\\LauncherInstalled.dat");
+    File file;
+    if (Platform.isWindows) {
+      file = File("$epicLocation\\..\\..\\UnrealEngineLauncher\\LauncherInstalled.dat");
+    } else {
+      file = File("$epicLocation/UnrealEngineLauncher/LauncherInstalled.dat");
+    }
     String fileData = await file.readAsString();
     List<dynamic> installationList =
         jsonDecode(fileData)["InstallationList"] as List<dynamic>;
