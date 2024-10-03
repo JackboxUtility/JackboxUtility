@@ -12,7 +12,7 @@ With this app, you will be able to download translation patches for your Jackbox
 
 ## Features
 
-- Includes **<img src="https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/gb.svg" width="12" height="12" /> English**, 
+- Includes **<img src="https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/gb.svg" width="12" height="12" /> English**,
 **<img src="https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/fr.svg" width="12" height="12" /> French**, 
 **<img src="https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/de.svg" width="12" height="12" /> German**, 
 **<img src="https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/es.svg" width="12" height="12" /> Spanish**, 
@@ -53,18 +53,27 @@ We are using [Weblate](https://hosted.weblate.org/) to translate the app. You ca
 
 ## Contribution
 
+### Requirements
+
+- Flutter version 3.22
+- Dart (bundled with Flutter)
+- C++ build tools
+
 Clone the repo:
-```
+
+```sh
 git clone https://github.com/AlexisL61/JackboxUtility.git
 ```
 
 Launch the app:
-```
+
+```sh
 flutter run --flavor beta -t ./lib/main_beta.dart
 ```
 
 Build the app:
-```
+
+```sh
 flutter build -t ./lib/main_beta.dart <OS>
 ```
 
