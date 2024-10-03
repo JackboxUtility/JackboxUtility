@@ -25,6 +25,7 @@ class _PackPatchState extends State<PackPatch> {
   List<Widget> gamesIncluded = [];
   String buttonText = "";
   bool installButtonDisabled = false;
+  int? downloadSize;
 
   @override
   void initState() {
@@ -63,64 +64,62 @@ class _PackPatchState extends State<PackPatch> {
                     }
                   : null,
               child: Text(buttonText)),
-              SizedBox(width: 10),
-          widget.patch.getInstalledStatus() == UserInstalledPatchStatus.INSTALLED || widget.patch.getInstalledStatus() == UserInstalledPatchStatus.INSTALLED_OUTDATED?
-            Text(TranslationsHelper().appLocalizations!.installed_version +": ${widget.patch.installedVersion}"):SizedBox.shrink(),
+          const SizedBox(width: 10),
+          widget.patch.getInstalledStatus() ==
+                      UserInstalledPatchStatus.INSTALLED ||
+                  widget.patch.getInstalledStatus() ==
+                      UserInstalledPatchStatus.INSTALLED_OUTDATED
+              ? Text(
+                  "${TranslationsHelper().appLocalizations!.installed_version}: ${widget.patch.installedVersion}")
+              : const SizedBox.shrink(),
         ],
       ),
       const SizedBox(height: 20),
-      Container(
-          child: Stack(
+      Stack(
         clipBehavior: Clip.none,
         children: [
-          Container(
-              child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8.0),
-                  child: Container(
-                      color: Color.fromARGB(255, 43, 43, 43),
-                        padding: const EdgeInsets.only(bottom: 12, top: 12),
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8.0),
+            child: Container(
+                color: const Color.fromARGB(255, 43, 43, 43),
+                padding: const EdgeInsets.only(bottom: 12, top: 12),
+                child:
+                    Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                  Expanded(
+                      child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
                             children: [
-                              Expanded(
-                                  child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 12),
-                                child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Text(widget.patch.patch.name,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: const TextStyle(
-                                                  fontSize: 25)),
-                                          const SizedBox(width: 20),
-                                          Text(
-                                              "${TranslationsHelper().appLocalizations!.version} ${widget.patch.patch.latestVersion}",
-                                              style: TextStyle(
-                                                  color: Colors.white
-                                                      .withOpacity(0.7)))
-                                        ],
-                                      ),
-                                      Text(
-                                        widget.patch.patch.smallDescription,
-                                      ),
-                                      const SizedBox(height: 10),
-                                      gamesIncluded.isNotEmpty
-                                          ? StaggeredGrid.count(
-                                              mainAxisSpacing: 20,
-                                              crossAxisSpacing: 20,
-                                              crossAxisCount: 3,
-                                              children: gamesIncluded)
-                                          : Container(),
-                                    ]),
-                              )),
-                            ])),
+                              Text(widget.patch.patch.name,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(fontSize: 25)),
+                              const SizedBox(width: 20),
+                              Text(
+                                  "${TranslationsHelper().appLocalizations!.version} ${widget.patch.patch.latestVersion}",
+                                  style: TextStyle(
+                                      color: Colors.white.withOpacity(0.7)))
+                            ],
+                          ),
+                          Text(
+                            widget.patch.patch.smallDescription,
+                          ),
+                          const SizedBox(height: 10),
+                          gamesIncluded.isNotEmpty
+                              ? StaggeredGrid.count(
+                                  mainAxisSpacing: 20,
+                                  crossAxisSpacing: 20,
+                                  crossAxisCount: 3,
+                                  children: gamesIncluded)
+                              : Container(),
+                        ]),
                   )),
+                ])),
+          ),
         ],
-      )),
+      ),
       const SizedBox(height: 40)
     ]);
   }
@@ -136,14 +135,31 @@ class _PackPatchState extends State<PackPatch> {
         installButtonDisabled = true;
         break;
       case UserInstalledPatchStatus.INSTALLED_OUTDATED:
-        buttonText = TranslationsHelper().appLocalizations!.patch_outdated(1);
+        if (downloadSize != null) {
+          buttonText =
+              "${TranslationsHelper().appLocalizations!.patch_outdated(1)} (${(downloadSize! / (1000 * 1000)).toStringAsFixed(2)} MB)";
+        } else {
+          buttonText = TranslationsHelper().appLocalizations!.patch_outdated(1);
+          widget.patch.getDownloadSize().then((patchSize) {
+            downloadSize = patchSize;
+            setState(() {});
+          }).onError((e, t) {});
+        }
         break;
       case UserInstalledPatchStatus.NOT_INSTALLED:
-        buttonText =
-            TranslationsHelper().appLocalizations!.patch_not_installed(1);
+        if (downloadSize != null) {
+          buttonText =
+              "${TranslationsHelper().appLocalizations!.patch_not_installed(1)} (${(downloadSize! / (1000 * 1000)).toStringAsFixed(2)} MB)";
+        } else {
+          buttonText =
+              TranslationsHelper().appLocalizations!.patch_not_installed(1);
+        }
+        widget.patch.getDownloadSize().then((patchSize) {
+          downloadSize = patchSize;
+          setState(() {});
+        }).onError((e, t) {});
         break;
       default:
     }
-    setState(() {});
   }
 }
