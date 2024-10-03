@@ -457,7 +457,8 @@ class APIService {
 
         Response<ResponseBody>? response =
             e.response as Response<ResponseBody>?;
-        if (response?.statusCode == 416 && resume) {
+        if (response?.statusCode == HttpStatus.requestedRangeNotSatisfiable &&
+            resume) {
           // Byte range invalid
           JULogger().e(
               "[API Service] Failed to resume download due to remote rejecting byte range (416).");
@@ -501,8 +502,7 @@ class APIService {
     if (destFile.existsSync()) {
       await destFile.delete();
     }
-    await sourceFile.copy(destFile.path);
-    await sourceFile.delete();
+    await sourceFile.rename(destFile.path);
   }
 
   String assetLink(String asset) {
