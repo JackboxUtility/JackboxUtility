@@ -16,4 +16,15 @@ extension GameInfoFamilyFriendlyExtension on GameInfoFamilyFriendly {
     }
     return GameInfoFamilyFriendly.NOT_FAMILY_FRIENDLY;
   }
+
+  String toValue() {
+    switch (this) {
+      case GameInfoFamilyFriendly.FAMILY_FRIENDLY:
+        return 'FAMILY_FRIENDLY';
+      case GameInfoFamilyFriendly.OPTIONAL:
+        return 'OPTIONAL';
+      case GameInfoFamilyFriendly.NOT_FAMILY_FRIENDLY:
+        return 'NOT_FAMILY_FRIENDLY';
+    }
+  }
 }
