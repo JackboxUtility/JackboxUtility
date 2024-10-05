@@ -55,7 +55,7 @@ We are using [Weblate](https://hosted.weblate.org/) to translate the app. You ca
 
 ### Requirements
 
-- Flutter version 3.22
+- Flutter version 3.24
 - Dart (bundled with Flutter)
 - C++ build tools
 
