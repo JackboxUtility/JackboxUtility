@@ -32,6 +32,22 @@ migrate_working_dir/
 .pub/
 /build/
 
+## NuGet related
+/_deps/
+/packages/
+
+## CMake related
+**/CMakeFiles/
+/flutter/
+/plugins/
+/runner/
+cmake_install.cmake
+CMakeCache.txt
+ALL_BUILD.vcxproj*
+INSTALL.vcxproj*
+ZERO_CHECK.vcxproj*
+jackbox_patcher.sln
+
 # Symbolication related
 app.*.symbols
 

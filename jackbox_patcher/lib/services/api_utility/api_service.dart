@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_flavor/flutter_flavor.dart';
@@ -11,6 +13,8 @@ import 'package:jackbox_patcher/model/misc/url_blur_hash.dart';
 import 'package:jackbox_patcher/model/news.dart';
 import 'package:jackbox_patcher/model/patch_server_configurations.dart';
 import 'package:jackbox_patcher/model/patch_server.dart';
+import 'package:jackbox_patcher/model/user_model/interface/installable_patch.dart';
+import 'package:jackbox_patcher/services/api_utility/dio_mixin.dart';
 import 'package:jackbox_patcher/services/api_utility/listenable_cache.dart';
 import 'package:jackbox_patcher/services/files/folder_service.dart';
 import 'package:jackbox_patcher/services/logger/logger.dart';
@@ -304,58 +308,201 @@ class APIService {
     }
   }
 
-  // Download game patch
+  // Get remote file size (bytes)
+  Future<int> fetchFileSize(String sourceUri) async {
+    JULogger().i("[API Service] Fetching file size of $sourceUri");
+    Dio dio = Dio();
+    Response rsp = await dio.head(APIService().assetLink(sourceUri));
+    return int.parse(rsp.headers.value('content-length')!);
+  }
+
+  // Download pack/game patch
   Future<String> downloadPatch(
+      InstallablePatch patch,
       String patchUri,
       void Function(double, double) progressCallback,
-      CancelToken cancelToken) async {
-    Dio dio = Dio();
-    final response = await dio.downloadUri(
-        Uri.parse(APIService().assetLink(patchUri)),
-        FolderService().downloadPath + "/tmp.${patchUri.split(".").last}",
-        cancelToken: cancelToken,
-        options: Options(),
-        onReceiveProgress: (received, total) {
-      progressCallback(received.toInt().toDouble(), total.toInt().toDouble());
-    });
+      CancelToken cancelToken,
+      bool allowResume) async {
+    JULogger().i("[API Service] Downloading patch \"${patch.getName()}\"");
+    String patchPath =
+        "${FolderService().downloadPath}/${patch.getName()}.${patchUri.split(".").last}";
 
-    if (response.statusCode == 200) {
-      return FolderService().downloadPath + "/tmp.${patchUri.split(".").last}";
-    } else {
-      throw Exception('Failed to download patch');
-    }
+    await _downloadFile(APIService().assetLink(patchUri), patchPath,
+        progressCallback: progressCallback,
+        cancelToken: cancelToken,
+        allowResume: allowResume);
+    return patchPath;
   }
 
   Future<String> downloadPackLoader(
       JackboxPack pack, void Function(double, double) progressCallback) async {
-    Dio dio = Dio();
-    final response = await dio.downloadUri(
-        Uri.parse('$baseAssets/${pack.loader!.path}'),
-        FolderService().downloadPath + "/loader/${pack.id}/default.zip",
-        onReceiveProgress: (received, total) {
-      progressCallback(received.toDouble(), total.toDouble());
-    });
-    if (response.statusCode == 200) {
-      return FolderService().downloadPath + "/loader/${pack.id}/default.zip";
-    } else {
-      throw Exception('Failed to download patch');
-    }
+    JULogger().i(
+        "[API Service] Downloading loader for pack \"${pack.name}\" (${pack.id})");
+    String packLoaderPath =
+        "${FolderService().downloadPath}/loader/${pack.id}/default.zip";
+
+    await _downloadFile("$baseAssets/${pack.loader!.path}", packLoaderPath,
+        progressCallback: progressCallback);
+    return packLoaderPath;
   }
 
   Future<String> downloadGameLoader(JackboxPack pack, JackboxGame game,
       void Function(double, double) progressCallback) async {
-    Dio dio = Dio();
-    final response = await dio.downloadUri(
-        Uri.parse('$baseAssets/${game.loader!.path}'),
-        FolderService().downloadPath + "/loader/${pack.id}/${game.id}.zip",
-        onReceiveProgress: (received, total) {
-      progressCallback(received.toDouble(), total.toDouble());
-    });
-    if (response.statusCode == 200) {
-      return FolderService().downloadPath + "/loader/${pack.id}/${game.id}.zip";
-    } else {
-      throw Exception('Failed to download patch');
+    JULogger().i(
+        "[API Service] Downloading loader for game \"${game.name}\" (${game.id}) of pack \"${pack.name}\" (${pack.id})");
+    String gameLoaderPath =
+        "${FolderService().downloadPath}/loader/${pack.id}/${game.id}.zip";
+
+    await _downloadFile("$baseAssets/${game.loader!.path}", gameLoaderPath,
+        progressCallback: progressCallback);
+    return gameLoaderPath;
+  }
+
+  /// Download an remote file to the local file system, resuming
+  /// past downloads if enabled and applicable.
+  ///
+  /// [sourceUri] Source/remote file uri
+  ///
+  /// [destPath] Local/destination file path
+  ///
+  /// [progressCallback] Progress callback (optional)
+  ///
+  /// [cancelToken] Cancel token (optional)
+  ///
+  /// [allowResume] Allow to resume download if partial content is present from previous download attempt (optional; default: `false`)
+  ///
+  /// Implementation description:
+  ///
+  /// This method uses two kinds of files to store data:
+  /// - Destination file: stores the complete content (download finished)
+  /// - Partial file: stores the partial content of previous attempts (download incomplete/ongoing)
+  ///
+  /// While the download is ongoing, the content is stored in the partial file (`.part`). If the size matches or exceeds the remote file size,
+  /// it is then transferred to the destination file (provided via parameter).
+  ///
+  /// Partial files may be kept for future calls with [allowResume] set to `true`, allowing it to resume where it left off.
+  /// Depending on the situation, this method may (un-)resume by itself, e.g. when a connection issue happens or it is in an invalid state.
+  Future<void> _downloadFile(String sourceUri, String destPath,
+      {void Function(double, double)? progressCallback,
+      CancelToken? cancelToken,
+      bool allowResume = false}) async {
+    File destFile = File(destPath);
+    File partFile = File("$destPath.part");
+
+    // Get local file size
+    int downloadedBytes = 0;
+    if (partFile.existsSync()) {
+      if (allowResume) {
+        downloadedBytes = await partFile.length();
+      } else {
+        await partFile.delete();
+      }
     }
+
+    // Get remote file size
+    int sourceBytes = await fetchFileSize(sourceUri);
+
+    // Local file size equals or exceeds remote size, meaning download is complete or invalid.
+    // Continuing would likely result in status 416 (range not satisfiable) from the remote host.
+    if (downloadedBytes >= sourceBytes) {
+      await _transferFile(partFile, destFile);
+      return;
+    }
+
+    DioForJackboxUtility dio = DioForJackboxUtility();
+    bool resume = allowResume; // Whether to actually resume the download
+
+    JULogger().i(
+        "[API Service] Downloading file $sourceUri to part file ${partFile.path}");
+    if (downloadedBytes > 0) {
+      JULogger().i("[API Service] Resuming download at byte $downloadedBytes");
+    }
+
+    // Download loop
+    do {
+      try {
+        await dio.downloadUri(Uri.parse(sourceUri), partFile.path,
+            options: Options(
+                headers: downloadedBytes > 0
+                    // Request bytes after partial content that is already present
+                    ? {"Range": "bytes=$downloadedBytes-"}
+                    // Request all bytes, starting from the beginning
+                    : {},
+                responseType: ResponseType.bytes,
+                receiveTimeout: 10000, // 10s continuously no data transmission
+                validateStatus: (status) {
+                  return status == HttpStatus.ok ||
+                      status == HttpStatus.partialContent;
+                }),
+            deleteOnError: false,
+            deleteOnCancel: true,
+            appendData: true,
+            cancelToken: cancelToken,
+            onReceiveProgress: (receivedBytes, totalBytes) {
+          if (progressCallback != null) {
+            // Dio only provides the remaining download progress stats.
+            // To make a resumed download more clear to the user, the
+            // previously read byte count is added up to the Dio stats.
+            progressCallback((downloadedBytes + receivedBytes).toDouble(),
+                (downloadedBytes + totalBytes).toDouble());
+          }
+        });
+
+        downloadedBytes = await partFile.length();
+      } on DioError catch (e) {
+        bool partFileExists = partFile.existsSync();
+        int receivedBytes =
+            partFileExists ? partFile.lengthSync() - downloadedBytes : 0;
+        downloadedBytes += receivedBytes;
+
+        Response<ResponseBody>? response =
+            e.response as Response<ResponseBody>?;
+        if (response?.statusCode == HttpStatus.requestedRangeNotSatisfiable &&
+            resume) {
+          // Byte range invalid
+          JULogger().e(
+              "[API Service] Failed to resume download due to remote rejecting byte range (416).");
+          JULogger().i(
+              "[API Service] Deleting associated files and re-downloading completely.");
+          // Try to reconnect, delete downloaded partial content and start new download
+          resume = false;
+          downloadedBytes = 0;
+          if (partFileExists) {
+            await partFile.delete();
+          }
+        } else if (e.type == DioErrorType.cancel) {
+          // Download cancelled by user
+          JULogger().i("[API Service] Download cancelled");
+          rethrow;
+        } else if (e.type == DioErrorType.other &&
+            receivedBytes > 0 &&
+            e.message.startsWith(
+                "HttpException: Connection closed while receiving data")) {
+          // Http connection close during data transfer (can happen on bad connections)
+          JULogger().w(
+              "[API Service] HTTP connection closed while receiving data; attempting to reconnect.");
+          resume = true;
+        } else if (e.type == DioErrorType.receiveTimeout && receivedBytes > 0) {
+          // No data transfer between server and client
+          JULogger().w(
+              "[API Service] Timeout while receiving data; attempting to reconnect.");
+          resume = true;
+        } else {
+          // Unexpected error
+          JULogger().e("[API Service] File download failed: $e");
+          rethrow;
+        }
+      }
+    } while (downloadedBytes < sourceBytes);
+
+    await _transferFile(partFile, destFile);
+  }
+
+  Future<void> _transferFile(File sourceFile, File destFile) async {
+    if (destFile.existsSync()) {
+      await destFile.delete();
+    }
+    await sourceFile.rename(destFile.path);
   }
 
   String assetLink(String asset) {

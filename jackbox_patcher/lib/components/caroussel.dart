@@ -6,7 +6,8 @@ import 'package:jackbox_patcher/components/blurhash_image.dart';
 import 'package:jackbox_patcher/services/video/video_service.dart';
 
 class AssetCarousselWidget extends StatefulWidget {
-  const AssetCarousselWidget({Key? key, required this.images}) : super(key: key);
+  const AssetCarousselWidget({Key? key, required this.images})
+      : super(key: key);
 
   final List<String> images;
   @override
@@ -84,40 +85,50 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
                           ),
                           tweenAnimationBuilder = TweenAnimationBuilder<double>(
                               onEnd: () {
-                                if (!moveButtonVisible && changingImage == false) {
+                                if (!moveButtonVisible &&
+                                    changingImage == false) {
                                   setState(() {
-                                    imageIndex = (imageIndex + 1) % widget.images.length;
+                                    imageIndex =
+                                        (imageIndex + 1) % widget.images.length;
                                     changingImage = true;
                                   });
                                   startVideo();
                                   if (!isAVideo(widget.images[imageIndex])) {
                                     Future.delayed(
-                                        const Duration(milliseconds: 1100),
-                                        () => setState(() {
-                                              changingImage = false;
-                                            }));
+                                        const Duration(milliseconds: 1100), () {
+                                      if (mounted) {
+                                        setState(() {
+                                          changingImage = false;
+                                        });
+                                      }
+                                    });
                                   }
                                 }
                               },
                               tween: Tween<double>(
-                                begin: moveButtonVisible || changingImage ? 1 : 0,
+                                begin:
+                                    moveButtonVisible || changingImage ? 1 : 0,
                                 end: moveButtonVisible || changingImage ? 0 : 1,
                               ),
                               curve: Curves.easeOut,
                               duration: moveButtonVisible || changingImage
                                   ? const Duration(milliseconds: 1000)
                                   : const Duration(seconds: 6),
-                              builder: (BuildContext context, double widthTween, Widget? child) {
+                              builder: (BuildContext context, double widthTween,
+                                  Widget? child) {
                                 return FractionallySizedBox(
                                     alignment: Alignment.bottomCenter,
                                     widthFactor: changingImage ? 1 : widthTween,
                                     heightFactor: 1,
                                     child: Column(
                                       children: [
-                                        Spacer(),
+                                        const Spacer(),
                                         Container(
                                             height: 3,
-                                            color: Colors.blue.withOpacity(changingImage ? widthTween / 2 : 0.5)),
+                                            color: Colors.blue.withOpacity(
+                                                changingImage
+                                                    ? widthTween / 2
+                                                    : 0.5)),
                                       ],
                                     ));
                               }),
@@ -130,11 +141,13 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
                                     ),
                                     GestureDetector(
                                         onTap: () => setState(() {
-                                              imageIndex = (imageIndex - 1) % (widget.images.length);
+                                              imageIndex = (imageIndex - 1) %
+                                                  (widget.images.length);
                                               changingImage = false;
                                               startVideo();
                                             }),
-                                        child: const Icon(FluentIcons.chevron_left_small)),
+                                        child: const Icon(
+                                            FluentIcons.chevron_left_small)),
                                     Expanded(
                                         child: Column(
                                       children: [
@@ -142,24 +155,29 @@ class _AssetCarousselWidgetState extends State<AssetCarousselWidget> {
                                             child: GestureDetector(
                                           behavior: HitTestBehavior.translucent,
                                           onTap: () {
-                                            if (isAVideo(widget.images[imageIndex])) {
+                                            if (isAVideo(
+                                                widget.images[imageIndex])) {
                                               VideoService.playPause();
                                             }
                                           },
-                                          child: Container(width: double.maxFinite, height: double.maxFinite),
+                                          child: const SizedBox(
+                                              width: double.maxFinite,
+                                              height: double.maxFinite),
                                         )),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 80,
                                         )
                                       ],
                                     )),
                                     GestureDetector(
                                         onTap: () => setState(() {
-                                              imageIndex = (imageIndex + 1) % (widget.images.length);
+                                              imageIndex = (imageIndex + 1) %
+                                                  (widget.images.length);
                                               changingImage = false;
                                               startVideo();
                                             }),
-                                        child: const Icon(FluentIcons.chevron_right_small)),
+                                        child: const Icon(
+                                            FluentIcons.chevron_right_small)),
                                     const SizedBox(
                                       width: 10,
                                     ),
