@@ -1,5 +1,5 @@
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-11-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-12-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 [![Discord](https://img.shields.io/discord/1108095925366308954?color=%235865F2&label=discord&logo=discord&style=flat-square)](https://discord.gg/jUQzjjaxQP)
 ![GitHub release](https://img.shields.io/github/v/release/AlexisL61/JackboxUtility?style=flat-square)
@@ -12,7 +12,7 @@ With this app, you will be able to download translation patches for your Jackbox
 
 ## Features
 
-- Includes **<img src="https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/gb.svg" width="12" height="12" /> English**, 
+- Includes **<img src="https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/gb.svg" width="12" height="12" /> English**,
 **<img src="https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/fr.svg" width="12" height="12" /> French**, 
 **<img src="https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/de.svg" width="12" height="12" /> German**, 
 **<img src="https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/es.svg" width="12" height="12" /> Spanish**, 
@@ -52,6 +52,12 @@ The app is collecting anonymous data to improve the app. This can be disable in 
 We are using [Weblate](https://hosted.weblate.org/) to translate the app. You can help us translate it by going on this link: <https://hosted.weblate.org/projects/jackboxutility/jackboxutility_app/>
 
 ## Contribution
+
+### Requirements
+
+- Flutter version 3.24
+- Dart (bundled with Flutter)
+- C++ build tools
 
 Clone the repo and navigate into the `jackbox_patcher` folder:
 ```
@@ -96,6 +102,7 @@ flutter build <OS> ./lib/main_release.dart
       <td align="center" valign="top" width="14.28%"><a href="https://ytube101.com"><img src="https://avatars.githubusercontent.com/u/76653533?v=4?s=100" width="100px;" alt="YouTube 101"/><br /><sub><b>YouTube 101</b></sub></a><br /><a href="#translation-YouTube-101" title="Translation">🌍</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Merthan"><img src="https://avatars.githubusercontent.com/u/27968148?v=4?s=100" width="100px;" alt="Merthan Erdem"/><br /><sub><b>Merthan Erdem</b></sub></a><br /><a href="https://github.com/JackboxUtility/JackboxUtility/commits?author=Merthan" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/jWalker92"><img src="https://avatars.githubusercontent.com/u/4966636?v=4?s=100" width="100px;" alt="jWalker92"/><br /><sub><b>jWalker92</b></sub></a><br /><a href="https://github.com/JackboxUtility/JackboxUtility/commits?author=jWalker92" title="Tests">⚠️</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/ACertainCoder"><img src="https://avatars.githubusercontent.com/u/47316898?v=4?s=100" width="100px;" alt="ACertainCoder"/><br /><sub><b>ACertainCoder</b></sub></a><br /><a href="https://github.com/JackboxUtility/JackboxUtility/commits?author=ACertainCoder" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>

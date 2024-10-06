@@ -16,4 +16,15 @@ extension GameInfoModerationExtension on GameInfoModeration {
     }
     return GameInfoModeration.NO_MODERATION;
   }
+
+  String toValue() {
+    switch (this) {
+      case GameInfoModeration.FULL_MODERATION:
+        return 'FULL_MODERATION';
+      case GameInfoModeration.CENSORING:
+        return 'CENSORING';
+      case GameInfoModeration.NO_MODERATION:
+        return 'NO_MODERATION';
+    }
+  }
 }

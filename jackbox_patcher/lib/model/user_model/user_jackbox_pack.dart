@@ -121,7 +121,7 @@ class UserJackboxPack {
       'loader': loader?.toJson(),
       'path': path,
       'owned': owned,
-      'origin': origin?.name,
+      'origin': origin?.toName(),
     };
   }
 }

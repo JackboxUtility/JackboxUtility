@@ -10,6 +10,7 @@ import '../../services/user/user_data.dart';
 class UserJackboxPackPatch extends InstallablePatch {
   final JackboxPackPatch patch;
   String? installedVersion;
+  int? downloadSize;
 
   UserJackboxPackPatch({
     required this.patch,
@@ -20,13 +21,17 @@ class UserJackboxPackPatch extends InstallablePatch {
     UserJackboxPack pack = getPack();
     String? packPath = pack.path;
     bool owned = pack.owned;
-    if (patch.latestVersion != "" && packPath != null && packPath != "" && owned) {
+    if (patch.latestVersion != "" &&
+        packPath != null &&
+        packPath != "" &&
+        owned) {
       if (installedVersion != null && installedVersion != "") {
         if (installedVersion == patch.latestVersion) {
           return UserInstalledPatchStatus.INSTALLED;
         } else {
           if (installedVersion!.split("-").length > 1 &&
-              installedVersion!.split("-")[1] == patch.latestVersion.split("-")[1]) {
+              installedVersion!.split("-")[1] ==
+                  patch.latestVersion.split("-")[1]) {
             return UserInstalledPatchStatus.INSTALLED_OUTDATED;
           } else {
             return UserInstalledPatchStatus.NOT_INSTALLED;
@@ -41,14 +46,24 @@ class UserJackboxPackPatch extends InstallablePatch {
   }
 
   /// Overrided callback to call the main callback
-  _downloadPatchCallbackMultiplePatches(void Function(String, String, double) callback, String title,
-      String description, double progression, int currentPatch) {
+  _downloadPatchCallbackMultiplePatches(
+      void Function(String, String, double?) callback,
+      String title,
+      String description,
+      double? progression,
+      int currentPatch) {
     if (patch.patchPaths.length == 1) {
       callback(title, description, progression);
     } else {
-      String titleText = "[${currentPatch + 1}/${patch.patchPaths.length}] $title";
+      String titleText =
+          "[${currentPatch + 1}/${patch.patchPaths.length}] $title";
 
-      callback(titleText, description, (progression + currentPatch * 100) / patch.patchPaths.length);
+      callback(
+          titleText,
+          description,
+          progression != null
+              ? (progression + currentPatch * 100) / patch.patchPaths.length
+              : null);
     }
   }
 
@@ -57,37 +72,55 @@ class UserJackboxPackPatch extends InstallablePatch {
   /// [patchUri] is the location of the game,
   /// [callback] is the function to call when the download is progressing (title, description, progression),
   /// [cancelToken] is the token to cancel the download
+  @override
   Future<void> downloadPatch(
-      String patchUri, void Function(String, String, double) callback, CancelToken cancelToken) async {
+      String patchUri,
+      void Function(String, String, double?) callback,
+      CancelToken cancelToken,
+      bool resume) async {
     String patchUriWithOverride = patchUri;
     if (getPack().pack.resourceLocation != null) {
-      patchUriWithOverride = "$patchUriWithOverride/${getPack().pack.resourceLocation!}";
+      patchUriWithOverride =
+          "$patchUriWithOverride/${getPack().pack.resourceLocation!}";
     }
 
     int currentPatch = 0;
 
     for (String patchPath in patch.patchPaths) {
       await DownloaderService.downloadPatch(
+          this,
           patchUriWithOverride,
           patchPath,
-          (String t, String d, double p) => _downloadPatchCallbackMultiplePatches(callback, t, d, p, currentPatch),
-          cancelToken);
+          (String t, String d, double? p) =>
+              _downloadPatchCallbackMultiplePatches(
+                  callback, t, d, p, currentPatch),
+          cancelToken,
+          resume);
       currentPatch++;
     }
     installedVersion = patch.latestVersion;
   }
 
+  // Get patch file size (bytes)
+  Future<int> getDownloadSize() async {
+    downloadSize ??= await DownloaderService.getPatchSize(patch.patchPaths[0]);
+    return Future.value(downloadSize);
+  }
+
+  @override
   UserJackboxPack getPack() {
     List<UserJackboxPack> dataFound = UserData()
         .packs
-        .where((pack) => pack.patches.where((element) => element.patch.id == patch.id).isNotEmpty)
+        .where((pack) => pack.patches
+            .where((element) => element.patch.id == patch.id)
+            .isNotEmpty)
         .toList();
-    if (dataFound.length > 0) {
+    if (dataFound.isNotEmpty) {
       return dataFound[0];
     } else {
-      return UserData()
-          .packs
-          .firstWhere((pack) => pack.fixes.where((element) => element.patch.id == patch.id).isNotEmpty);
+      return UserData().packs.firstWhere((pack) => pack.fixes
+          .where((element) => element.patch.id == patch.id)
+          .isNotEmpty);
     }
   }
 
