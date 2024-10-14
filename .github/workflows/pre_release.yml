@@ -143,6 +143,7 @@ jobs:
     needs: 
       - build_windows
       - build_linux
+      - build_macos
       - retrievingVersion
     steps: 
       - uses: actions/checkout@v3
@@ -168,6 +169,10 @@ jobs:
         with:
           name: build_linux_light
           path: dist/JackboxUtility_Linux_Light
+      - uses: actions/download-artifact@v3
+        with:
+          name: build_macos
+          path: dist/JackboxUtility_MacOS
       - name: Zipping windows release
         working-directory: dist/JackboxUtility_Windows
         run: |
@@ -180,10 +185,14 @@ jobs:
         working-directory: dist/JackboxUtility_Linux_Light
         run: |
           zip -r ../../JackboxUtility_Linux_Light.zip *
+      - name: Zipping MacOS release
+        working-directory: dist/JackboxUtility_MacOS
+        run: |
+          zip -r ../../JackboxUtility_MacOS.zip *
       - name: Upload release onto Github
         uses: ncipollo/release-action@v1
         with:
-         artifacts: 'JackboxUtility_Windows.zip,JackboxUtility_Linux.zip,JackboxUtility_Linux_Light.zip'
+         artifacts: 'JackboxUtility_Windows.zip,JackboxUtility_Linux.zip,JackboxUtility_Linux_Light.zip,JackboxUtility_MacOS.zip'
          token: ${{ secrets.GITHUB_TOKEN }}
          tag: ${{ needs.retrievingVersion.outputs.version }}
          body: ${{ steps.changelog.outputs.changes }}
