@@ -94,7 +94,10 @@ class Launcher {
         }
       }
       await handlePackLaunch(pack);
-      checkLaunchedPack(pack);
+      // discord activity sharing unavailable on macos
+      if (!Platform.isMacOS) {
+        checkLaunchedPack(pack);
+      }
     }
   }
 
@@ -137,7 +140,10 @@ class Launcher {
         _openedPacks.add(pack);
       }
       await handlePackLaunch(pack, game: game.game);
-      checkLaunchedPack(pack, game);
+      // discord activity sharing unavailable on macos
+      if (!Platform.isMacOS) {
+        checkLaunchedPack(pack);
+      }
     }
   }
 

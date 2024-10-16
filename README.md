@@ -21,10 +21,10 @@ With this app, you will be able to download translation patches for your Jackbox
 **<img src="https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/by.svg" width="12" height="12" /> Belarusian**,
 **<img src="https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/ru.svg" width="12" height="12" /> Russian** and
 **<img src="https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/tr.svg" width="12" height="12" /> Turkish** servers
-- Detect automatically your installed games
-- Download translation patches for your games
-- Launch the games directly, skipping the intros and menus entirely
-- Search the games using different tags
+- Detect your installed games automatically
+- Download and install translation patches for your games
+- Launch specific games directly, skipping the intros and menus entirely
+- Search your games using different tags
 - Set ratings to your favorite games, from 1-5 stars
 - Filter the games in many ways, like by number of players, family friendly, moderation and many more!
 - All the game tabs are packed with all the info you need
@@ -59,22 +59,26 @@ We are using [Weblate](https://hosted.weblate.org/) to translate the app. You ca
 - Dart (bundled with Flutter)
 - C++ build tools
 
-Clone the repo:
+Clone the repo and navigate into the `jackbox_patcher` folder:
+```
+git clone https://github.com/JackboxUtility/JackboxUtility.git
 
-```sh
-git clone https://github.com/AlexisL61/JackboxUtility.git
+cd jackbox_patcher/
+```
+
+Download the dependencies:
+```
+flutter pub get
 ```
 
 Launch the app:
-
-```sh
-flutter run --flavor beta -t ./lib/main_beta.dart
+```
+flutter run ./lib/main_release.dart
 ```
 
 Build the app:
-
-```sh
-flutter build -t ./lib/main_beta.dart <OS>
+```
+flutter build <OS> ./lib/main_release.dart
 ```
 
 ## Contributors

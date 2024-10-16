@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/components/dialogs/confirmation_dialog.dart';
 import 'package:jackbox_patcher/components/settings/button_setting.dart';
@@ -68,8 +70,9 @@ class _AppBehaviorSettingsState extends State<AppBehaviorSettings> {
               //         .appLocalizations!
               //         .settings_discord_rich_presence_category,
               //     style: FluentTheme.of(context).typography.title),
-              const SizedBox(height: 10),
-              BooleanSetting(
+              SizedBox(height: (Platform.isMacOS ? 0 : 10)),
+              // remove discord toggle when on mac
+              !Platform.isMacOS ? BooleanSetting(
                   title: TranslationsHelper()
                       .appLocalizations!
                       .settings_discord_rich_presence_title,
@@ -78,7 +81,7 @@ class _AppBehaviorSettingsState extends State<AppBehaviorSettings> {
                       .settings_discord_rich_presence_description,
                   isChecked: UserData().settings.isDiscordRPCActivated,
                   setter: UserData().settings.setDiscordRPC,
-                  parentReload: () => setState(() {})),
+                  parentReload: () => setState(() {})) : const SizedBox(height: 0),
               const SizedBox(height: 10),
               BooleanSetting(
                   title: TranslationsHelper()

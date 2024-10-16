@@ -44,7 +44,7 @@ dependencies:
   package_info_plus: 4.0.2
   windows_taskbar: ^1.1.1
   window_manager : 0.3.5
-  win32_registry: ^1.1.5
+  win32_registry: 1.1.5
   font_awesome_flutter: 10.4.0
   flutter_blurhash: 0.8.2
   carousel_slider: 5.0.0
@@ -59,7 +59,7 @@ dependencies:
   shelf_router: 1.1.4
   shelf_web_socket: 1.0.4
   crypto: 3.0.3
-  sentry_flutter: 7.12.0
+  sentry_flutter: 8.9.0
   path_provider: 2.1.1
   local_hero:
 

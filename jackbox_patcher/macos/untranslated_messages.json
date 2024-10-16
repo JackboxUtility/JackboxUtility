@@ -248,5 +248,12 @@
     "patch_missing_before_launching_description",
     "patch_missing_before_launching_install",
     "patch_missing_before_launching_launch"
+  ],
+
+  "tr": [
+    "patch_missing_before_launching_title",
+    "patch_missing_before_launching_description",
+    "patch_missing_before_launching_install",
+    "patch_missing_before_launching_launch"
   ]
 }

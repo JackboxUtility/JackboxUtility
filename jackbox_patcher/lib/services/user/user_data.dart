@@ -135,7 +135,13 @@ class UserData {
     if (userPack.pack.configuration == null) {
       return null;
     }
-    String versionFile = userPack.pack.configuration!.versionFile.fromLauncher(userPack.origin);
+    String versionFile;
+    if (Platform.isMacOS) {
+      //stupid mac app file structure 
+      versionFile = "${userPack.pack.name}.app/Contents/Resources/macos/${userPack.pack.configuration!.versionFile.fromLauncher(userPack.origin)}";
+    } else {
+      versionFile = userPack.pack.configuration!.versionFile.fromLauncher(userPack.origin);
+    }
     JULogger().i("Version file detected for pack ${userPack.pack.name} with origin ${userPack.origin} : $versionFile");
     if (userPack.path == null) {
       return null;
