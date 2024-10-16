@@ -132,7 +132,7 @@ jobs:
        run: flutter build macos --build-name ${{ needs.retrievingVersion.outputs.version }} -t ./lib/main_beta.dart
      - run: |
         mkdir ./jackbox_patcher/build/macosbuildresult
-        mv ./jackbox_patcher/build/macos/Build/Products/Release/jackbox_patcher.app ./jackbox_patcher/build/macosbuildresult
+        mv "./jackbox_patcher/build/macos/Build/Products/Release/Jackbox Utility.app" ./jackbox_patcher/build/macosbuildresult
         chmod +x ./jackbox_patcher/build/macosbuildresult/jackbox_patcher.app/Contents/MacOS/jackbox_patcher
      - uses: actions/upload-artifact@v3
        with:
