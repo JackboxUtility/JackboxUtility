@@ -133,7 +133,7 @@ jobs:
      - run: |
         mkdir ./jackbox_patcher/build/macosbuildresult
         mv "./jackbox_patcher/build/macos/Build/Products/Release/Jackbox Utility.app" ./jackbox_patcher/build/macosbuildresult
-        chmod +x ./jackbox_patcher/build/macosbuildresult/jackbox_patcher.app/Contents/MacOS/jackbox_patcher
+        chmod +x "./jackbox_patcher/build/macosbuildresult/Jackbox Utility.app/Contents/MacOS/Jackbox Utility"
      - uses: actions/upload-artifact@v3
        with:
           name: build_macos
