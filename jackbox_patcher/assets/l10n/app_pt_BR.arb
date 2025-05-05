@@ -57,5 +57,13 @@
         "example": "1"
       }
     }
-  }
+  },
+  "description": "Descrição",
+  "@description": {},
+  "filter_translated": "Traduzido",
+  "@filter_translated": {},
+  "special_thanks": "Agradecimentos especiais",
+  "@special_thanks": {},
+  "filter_dubbed": "Dublado",
+  "@filter_dubbed": {}
 }
