@@ -1,1 +1,147 @@
-{}
+{
+  "close": "Zamknij",
+  "@close": {},
+  "cancel": "Anuluj",
+  "@cancel": {},
+  "page_continue": "Kontynuuj",
+  "@page_continue": {},
+  "confirm": "Potwierdź",
+  "@confirm": {},
+  "quit": "Wyjdź",
+  "@quit": {},
+  "yes": "Tak",
+  "@yes": {},
+  "no": "Nie",
+  "@no": {},
+  "ok": "OK",
+  "@ok": {},
+  "jackbox_utility": "Jackbox Utility",
+  "@jackbox_utility": {},
+  "launch_search_game": "Uruchom/ Wyszukaj gry",
+  "@launch_search_game": {},
+  "settings": "Ustawienia",
+  "@settings": {},
+  "patch_a_game": "Dodaj patch'a do gry",
+  "@patch_a_game": {},
+  "notifications": "Powiadomienia",
+  "@notifications": {},
+  "installing_a_patch": "Instalowanie łatki",
+  "@installing_a_patch": {},
+  "installing_a_patch_description": "Za chwilę pobierzesz łatkę. Ta akcja jest nieodwracalna.",
+  "@installing_a_patch_description": {},
+  "installing_a_patch_end": "Instalacja ukończona",
+  "@installing_a_patch_end": {},
+  "can_close_popup": "Możesz zamknąć te okienko",
+  "@can_close_popup": {},
+  "patch_unavailable": "Łatka nie jest Dostępna",
+  "@patch_unavailable": {},
+  "game_patch_unavailable": "Łatka nie jest dostępna",
+  "@game_patch_unavailable": {},
+  "patch_installed": "{count, plural, one {Łatka zainstalowana} other {Łatki zainstalowane}}",
+  "@patch_installed": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "example": "1"
+      }
+    }
+  },
+  "patch_outdated": "{count, plural, one {Zaktualizuj łatkę} other {Zaktualizuj łatki}}",
+  "@patch_outdated": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "example": "1"
+      }
+    }
+  },
+  "version": "Wersja",
+  "@version": {},
+  "authors": "Autorzy",
+  "@authors": {},
+  "small_information": "Informacje",
+  "@small_information": {},
+  "more_informations": "Więcej informacji",
+  "@more_informations": {},
+  "launch_game": "Uruchom Grę",
+  "@launch_game": {},
+  "launch_pack": "Uruchom Paczkę",
+  "@launch_pack": {},
+  "patch_missing_before_launching_launch": "Uruchom Grę",
+  "@patch_missing_before_launching_launch": {},
+  "description": "Opis",
+  "@description": {},
+  "small_description": "Opis",
+  "@small_description": {},
+  "in_language_description": "Te gry są dostępne w {language} (albo naturalnie, albo poprzez tłumaczenie społeczności.)",
+  "@in_language_description": {
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "example": "French"
+      }
+    }
+  },
+  "in_language": "Po {language}",
+  "@in_language": {
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "example": "French"
+      }
+    }
+  },
+  "no_game_in_this_category_title": "W tej kategorii nie ma żadnej gry",
+  "@no_game_in_this_category_title": {},
+  "audience": "Publiczność",
+  "@audience": {},
+  "confirmation": "Potwierdzenie",
+  "@confirmation": {},
+  "confirmation_description": "Na pewno chcesz {action}? Tej czynności nie da się cofnąć.",
+  "@confirmation_description": {
+    "placeholders": {
+      "action": {
+        "type": "String",
+        "example": "remove all stars"
+      }
+    }
+  },
+  "fix": "Napraw",
+  "@fix": {},
+  "patch_not_installed": "{count, plural, one {Zainstaluj łatkę} other {Zainstaluj łatki}}",
+  "@patch_not_installed": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "example": "1"
+      }
+    }
+  },
+  "delete_version": "Usuwanie wersji",
+  "@delete_version": {},
+  "delete_version_description": "Jeśli zresetujesz grę, możesz usunąć zainstalowaną jej wersję. W ten sposób możesz ponownie zainstalować łatki.",
+  "@delete_version_description": {},
+  "patch_modification": "Modyfikowanie łatki",
+  "@patch_modification": {},
+  "patch_modification_description": "Ta łatka zmienia grę w następujący sposób:",
+  "@patch_modification_description": {},
+  "patch_modification_content_text": "Zmiana tekstu wewnątrz gry",
+  "@patch_modification_content_text": {},
+  "patch_modification_content_internal": "Zmiana wewnętrznych plików gry (zdjęcia, teksty...)",
+  "@patch_modification_content_internal": {},
+  "patch_modification_content_subtitles": "Zmiana napisów",
+  "@patch_modification_content_subtitles": {},
+  "patch_modification_content_website": "Zmiana tekstu wewnątrz klienta Jackbox (tylko dostępne na {website})",
+  "@patch_modification_content_website": {
+    "placeholders": {
+      "website": {
+        "type": "String",
+        "example": "laboxdejack.fr"
+      }
+    }
+  },
+  "patch_modification_content_audios": "Zmiana tekstu mówionego",
+  "@patch_modification_content_audios": {},
+  "launch_game_fast_launcher": "Uruchom grę (Szybki start)",
+  "@launch_game_fast_launcher": {}
+}
