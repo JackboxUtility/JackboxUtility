@@ -143,5 +143,49 @@
   "patch_modification_content_audios": "Zmiana tekstu mówionego",
   "@patch_modification_content_audios": {},
   "launch_game_fast_launcher": "Uruchom grę (Szybki start)",
-  "@launch_game_fast_launcher": {}
+  "@launch_game_fast_launcher": {},
+  "launch_pack_description": "Uruchamia grę normalnie",
+  "@launch_pack_description": {},
+  "launching": "Uruchamianie…",
+  "@launching": {},
+  "launched": "Uruchomiono!",
+  "@launched": {},
+  "path_not_found": "Nie znaleziono ścieżki",
+  "@path_not_found": {},
+  "game_translation_not_available_description_en": "Te gry są dostępne tylko w języku angielskim.",
+  "@game_translation_not_available_description_en": {},
+  "downloading": "Pobieranie",
+  "@downloading": {},
+  "starting": "Rozpoczęcie",
+  "@starting": {},
+  "extracting": "Wypakowywanie",
+  "@extracting": {},
+  "finalizing": "Kończenie",
+  "@finalizing": {},
+  "unknown_error": "Nieznany błąd",
+  "@unknown_error": {},
+  "game_translation_not_available": "Po angielsku",
+  "@game_translation_not_available": {},
+  "game_translation_not_available_description": "Te gry nie są przetłumaczone na {language}.",
+  "@game_translation_not_available_description": {
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "example": "French"
+      }
+    }
+  },
+  "game_translation_translated": "Oficjalnie przetłumaczone na {language}",
+  "@game_translation_translated": {
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "example": "French"
+      }
+    }
+  },
+  "game_translation_translated_description_en": "Te gry zostały przetłumaczone na francuski, włoski, niemiecki i hiszpański przez Jackbox Games.",
+  "@game_translation_translated_description_en": {},
+  "players": "gracze",
+  "@players": {}
 }
