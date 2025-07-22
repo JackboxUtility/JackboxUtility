@@ -521,7 +521,7 @@
   "@audience_tooltip": {},
   "subtitles_tooltip": "Ob das Spiel Untertitel hat, die auf dem Bildschirm angezeigt werden.",
   "@subtitles_tooltip": {},
-  "select_server_loading": "Lade Server...",
+  "select_server_loading": "Lade Server…",
   "@select_server_loading": {},
   "custom_server_title": "Eigener Server",
   "@custom_server_title": {},
