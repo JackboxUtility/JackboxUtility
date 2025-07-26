@@ -349,5 +349,26 @@
   "error_happened": "Wystąpił błąd",
   "@error_happened": {},
   "automatic_game_finder_in_progress": "Pobieranie gier, proszę czekać",
-  "@automatic_game_finder_in_progress": {}
+  "@automatic_game_finder_in_progress": {},
+  "jackbox_utility_description": "Aplikacja open-source do pobierania łatek i uruchamiania gier Jackbox.",
+  "@jackbox_utility_description": {},
+  "server_information": "Informacje dot. serwera (Język)",
+  "@server_information": {},
+  "game_community_dubbed_description": "Te gry mają dubbing zaproponowany przez społeczność.",
+  "@game_community_dubbed_description": {},
+  "game_community_dubbed": "Z dubbingiem społeczności",
+  "@game_community_dubbed": {},
+  "game_dubbed": "Z dubbingiem w {language}",
+  "@game_dubbed": {
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "example": "French"
+      }
+    }
+  },
+  "game_dubbed_description": "Te gry mają dubbing od społeczności albo od Jackbox.",
+  "@game_dubbed_description": {},
+  "no_game_in_this_category_description": "W tej kategorii nie ma gier. Spróbuj dodać ich więcej w sekcji Ustawień.",
+  "@no_game_in_this_category_description": {}
 }
