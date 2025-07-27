@@ -370,5 +370,15 @@
   "game_dubbed_description": "Te gry mają dubbing od społeczności albo od Jackbox.",
   "@game_dubbed_description": {},
   "no_game_in_this_category_description": "W tej kategorii nie ma gier. Spróbuj dodać ich więcej w sekcji Ustawień.",
-  "@no_game_in_this_category_description": {}
+  "@no_game_in_this_category_description": {},
+  "game_reset": "Zresetuj grę",
+  "@game_reset": {},
+  "filter_players_number": "Liczba graczy",
+  "@filter_players_number": {},
+  "players_number": "Liczba graczy",
+  "@players_number": {},
+  "download_error_description": "Podczas pobierania gry wystąpił błąd. Sprawdź połączenie z Internetem i spróbuj ponownie.",
+  "@download_error_description": {},
+  "extracting_error": "Błąd podczas wyodrębniania",
+  "@extracting_error": {}
 }
