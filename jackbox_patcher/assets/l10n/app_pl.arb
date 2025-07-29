@@ -380,5 +380,11 @@
   "download_error_description": "Podczas pobierania gry wystąpił błąd. Sprawdź połączenie z Internetem i spróbuj ponownie.",
   "@download_error_description": {},
   "extracting_error": "Błąd podczas wyodrębniania",
-  "@extracting_error": {}
+  "@extracting_error": {},
+  "family_friendly": "Dla wszystkich",
+  "@family_friendly": {},
+  "optional": "Opcjonalne",
+  "@optional": {},
+  "subtitles": "Napisy",
+  "@subtitles": {}
 }
