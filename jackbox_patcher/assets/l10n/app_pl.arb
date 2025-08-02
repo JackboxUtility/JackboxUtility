@@ -386,5 +386,9 @@
   "optional": "Opcjonalne",
   "@optional": {},
   "subtitles": "Napisy",
-  "@subtitles": {}
+  "@subtitles": {},
+  "fixes_available": "Dostępny fix",
+  "@fixes_available": {},
+  "randomize_button_text": "Spróbujmy jakąś inną!",
+  "@randomize_button_text": {}
 }
