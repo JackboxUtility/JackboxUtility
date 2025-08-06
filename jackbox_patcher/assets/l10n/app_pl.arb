@@ -390,5 +390,13 @@
   "fixes_available": "Dostępny fix",
   "@fixes_available": {},
   "randomize_button_text": "Spróbujmy jakąś inną!",
-  "@randomize_button_text": {}
+  "@randomize_button_text": {},
+  "filter": "Filtruj",
+  "@filter": {},
+  "show_games_hidden": "Pokaż ukryte gry",
+  "@show_games_hidden": {},
+  "hide_games_hidden": "Ukryj ukryte gry",
+  "@hide_games_hidden": {},
+  "extracting_error_description": "Podczas wyodrębniania gry wystąpił błąd. Sprawdź dostępne miejsce i spróbuj ponownie.",
+  "@extracting_error_description": {}
 }
