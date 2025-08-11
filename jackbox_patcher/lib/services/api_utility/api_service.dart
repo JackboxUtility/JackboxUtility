@@ -311,9 +311,55 @@ class APIService {
   // Get remote file size (bytes)
   Future<int> fetchFileSize(String sourceUri) async {
     JULogger().i("[API Service] Fetching file size of $sourceUri");
-    Dio dio = Dio();
-    Response rsp = await dio.head(APIService().assetLink(sourceUri));
-    return int.parse(rsp.headers.value('content-length')!);
+    final dio = Dio();
+    final url = APIService().assetLink(sourceUri);
+    try {
+      final rsp = await dio.head(
+        url,
+        options: Options(
+          followRedirects: true,
+          maxRedirects: 5,
+          validateStatus: (s) => s != null && s < 400,
+          headers: _buildDownloadHeaders(),
+        ),
+      );
+      final cl = rsp.headers.value(HttpHeaders.contentLengthHeader);
+      if (cl != null) {
+        return int.parse(cl);
+      }
+      final cr = rsp.headers.value(HttpHeaders.contentRangeHeader);
+      if (cr != null && cr.contains('/')) {
+        final total = cr.split('/').last.trim();
+        return int.parse(total);
+      }
+    } catch (e) {
+      JULogger().w("[API Service] HEAD failed for $url: $e");
+    }
+
+    // Fallback: first byte to discover total size via Content-Range
+    final rsp2 = await dio.get<List<int>>(
+      url,
+      options: Options(
+        responseType: ResponseType.bytes,
+        followRedirects: true,
+        maxRedirects: 5,
+        validateStatus: (s) => s != null && s < 400,
+        headers: {
+          ..._buildDownloadHeaders(),
+          HttpHeaders.rangeHeader: "bytes=0-0",
+        },
+      ),
+    );
+    final cr2 = rsp2.headers.value(HttpHeaders.contentRangeHeader);
+    if (cr2 != null && cr2.contains('/')) {
+      final total = cr2.split('/').last.trim();
+      return int.parse(total);
+    }
+    final cl2 = rsp2.headers.value(HttpHeaders.contentLengthHeader);
+    if (cl2 != null) {
+      return int.parse(cl2);
+    }
+    throw Exception("Unable to determine remote file size for $url");
   }
 
   // Download pack/game patch
@@ -402,8 +448,7 @@ class APIService {
     // Get remote file size
     int sourceBytes = await fetchFileSize(sourceUri);
 
-    // Local file size equals or exceeds remote size, meaning download is complete or invalid.
-    // Continuing would likely result in status 416 (range not satisfiable) from the remote host.
+    // Local file size equals or exceeds remote size
     if (downloadedBytes >= sourceBytes) {
       await _transferFile(partFile, destFile);
       return;
@@ -411,91 +456,122 @@ class APIService {
 
     DioForJackboxUtility dio = DioForJackboxUtility();
     bool resume = allowResume; // Whether to actually resume the download
+    int retryAttempts = 0;
+    const int maxRetryAttempts = 8;
 
-    JULogger().i(
-        "[API Service] Downloading file $sourceUri to part file ${partFile.path}");
+    JULogger()
+        .i("[API Service] Downloading file $sourceUri to part file ${partFile.path}");
     if (downloadedBytes > 0) {
       JULogger().i("[API Service] Resuming download at byte $downloadedBytes");
     }
 
     // Download loop
-    do {
+    while (downloadedBytes < sourceBytes) {
       try {
-        await dio.downloadUri(Uri.parse(sourceUri), partFile.path,
-            options: Options(
-                headers: downloadedBytes > 0
-                    // Request bytes after partial content that is already present
-                    ? {"Range": "bytes=$downloadedBytes-"}
-                    // Request all bytes, starting from the beginning
-                    : {},
-                responseType: ResponseType.bytes,
-                receiveTimeout: 10000, // 10s continuously no data transmission
-                validateStatus: (status) {
-                  return status == HttpStatus.ok ||
-                      status == HttpStatus.partialContent;
-                }),
-            deleteOnError: false,
-            deleteOnCancel: true,
-            appendData: true,
-            cancelToken: cancelToken,
-            onReceiveProgress: (receivedBytes, totalBytes) {
-          if (progressCallback != null) {
-            // Dio only provides the remaining download progress stats.
-            // To make a resumed download more clear to the user, the
-            // previously read byte count is added up to the Dio stats.
-            progressCallback((downloadedBytes + receivedBytes).toDouble(),
-                (downloadedBytes + totalBytes).toDouble());
-          }
-        });
+        await dio.downloadUri(
+          Uri.parse(sourceUri),
+          partFile.path,
+          options: Options(
+            headers: _buildDownloadHeaders(startAt: downloadedBytes),
+            responseType: ResponseType.bytes,
+            followRedirects: true,
+            maxRedirects: 5,
+            receiveTimeout: 60000, // 60s no data -> timeout
+            sendTimeout: 60000,
+            validateStatus: (status) {
+              return status == HttpStatus.ok ||
+                  status == HttpStatus.partialContent;
+            },
+          ),
+          deleteOnError: false,
+          deleteOnCancel: !allowResume, // keep part file if resume is allowed
+          appendData: true,
+          cancelToken: cancelToken,
+          onReceiveProgress: (receivedBytes, totalBytes) {
+            if (progressCallback != null) {
+              // Add previously downloaded bytes to make resumed progress clear
+              progressCallback((downloadedBytes + receivedBytes).toDouble(),
+                  (downloadedBytes + totalBytes).toDouble());
+            }
+          },
+        );
 
         downloadedBytes = await partFile.length();
+        retryAttempts = 0; // reset after successful chunk
       } on DioError catch (e) {
-        bool partFileExists = partFile.existsSync();
-        int receivedBytes =
-            partFileExists ? partFile.lengthSync() - downloadedBytes : 0;
-        downloadedBytes += receivedBytes;
+        final partFileExists = partFile.existsSync();
+        final previousDownloaded = downloadedBytes;
+        final nowSize =
+            partFileExists ? partFile.lengthSync() : previousDownloaded;
+        final receivedBytes = nowSize - previousDownloaded;
+        downloadedBytes = nowSize;
 
         Response<ResponseBody>? response =
             e.response as Response<ResponseBody>?;
         if (response?.statusCode == HttpStatus.requestedRangeNotSatisfiable &&
             resume) {
-          // Byte range invalid
+          // Byte range invalid -> restart clean
           JULogger().e(
               "[API Service] Failed to resume download due to remote rejecting byte range (416).");
           JULogger().i(
               "[API Service] Deleting associated files and re-downloading completely.");
-          // Try to reconnect, delete downloaded partial content and start new download
           resume = false;
           downloadedBytes = 0;
           if (partFileExists) {
             await partFile.delete();
           }
-        } else if (e.type == DioErrorType.cancel) {
+          continue;
+        }
+
+        // Transient network issues: connection closed, socket error, or timeout
+        final msg = e.message ?? e.error?.toString() ?? "";
+        final isConnectionClosed =
+            e.type == DioErrorType.other &&
+            (msg.contains("Connection closed while receiving data") ||
+                e.error is SocketException);
+        final isTimeout = e.type == DioErrorType.receiveTimeout;
+
+        if (e.type == DioErrorType.cancel) {
           // Download cancelled by user
           JULogger().i("[API Service] Download cancelled");
           rethrow;
-        } else if (e.type == DioErrorType.other &&
-            receivedBytes > 0 &&
-            e.message.startsWith(
-                "HttpException: Connection closed while receiving data")) {
-          // Http connection close during data transfer (can happen on bad connections)
+        } else if (isConnectionClosed || isTimeout) {
+          retryAttempts++;
+          if (retryAttempts > maxRetryAttempts) {
+            JULogger().e(
+                "[API Service] Maximum retry attempts reached ($maxRetryAttempts).");
+            rethrow;
+          }
+          final delaySec = retryAttempts >= 5
+              ? 30
+              : (retryAttempts == 4 ? 15 : (1 << retryAttempts)); // 2,4,8,...
           JULogger().w(
-              "[API Service] HTTP connection closed while receiving data; attempting to reconnect.");
+              "[API Service] ${isTimeout ? 'Timeout' : 'Connection closed'} while receiving data; attempting to reconnect in ${delaySec}s (retry $retryAttempts/$maxRetryAttempts).");
           resume = true;
-        } else if (e.type == DioErrorType.receiveTimeout && receivedBytes > 0) {
-          // No data transfer between server and client
-          JULogger().w(
-              "[API Service] Timeout while receiving data; attempting to reconnect.");
-          resume = true;
+          await Future.delayed(Duration(seconds: delaySec));
+          continue;
         } else {
           // Unexpected error
           JULogger().e("[API Service] File download failed: $e");
           rethrow;
         }
       }
-    } while (downloadedBytes < sourceBytes);
+    }
 
     await _transferFile(partFile, destFile);
+  }
+
+  Map<String, String> _buildDownloadHeaders({int? startAt}) {
+    final headers = <String, String>{
+      HttpHeaders.userAgentHeader: "JackboxUtility",
+      HttpHeaders.acceptHeader: "application/octet-stream",
+      HttpHeaders.acceptEncodingHeader: "identity",
+      HttpHeaders.connectionHeader: "keep-alive",
+    };
+    if (startAt != null && startAt > 0) {
+      headers[HttpHeaders.rangeHeader] = "bytes=$startAt-";
+    }
+    return headers;
   }
 
   Future<void> _transferFile(File sourceFile, File destFile) async {
