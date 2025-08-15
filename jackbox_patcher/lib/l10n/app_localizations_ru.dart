@@ -836,15 +836,15 @@ class AppLocalizationsRu extends AppLocalizations {
       'Нажмите чтобы показать игру в списке игр.';
 
   @override
-  String get patch_missing_before_launching_title => 'Patch Missing';
+  String get patch_missing_before_launching_title => 'Патч отсутствует';
 
   @override
   String get patch_missing_before_launching_description =>
-      'This game has a patch available. Do you want to install it before launching the game?';
+      'Обнаружено обновление для этой игры. Вы хотите установить его перед запуском игры?';
 
   @override
-  String get patch_missing_before_launching_install => 'Install Patch';
+  String get patch_missing_before_launching_install => 'Установить обновление';
 
   @override
-  String get patch_missing_before_launching_launch => 'Launch Game';
+  String get patch_missing_before_launching_launch => 'Запустить игру';
 }

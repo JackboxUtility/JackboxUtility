@@ -165,7 +165,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get launch_informations => 'Startinformationen';
 
   @override
-  String get launching => 'Starte...';
+  String get launching => 'Starte…';
 
   @override
   String get launched => 'Gestartet!';
@@ -321,7 +321,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get select_server_subtitle => 'Wähle einen der verfügbaren Server';
 
   @override
-  String get select_server_loading => 'Lade Server...';
+  String get select_server_loading => 'Lade Server…';
 
   @override
   String get select_server_button => 'Bestätigen';

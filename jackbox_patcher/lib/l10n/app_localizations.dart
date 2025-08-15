@@ -12,7 +12,10 @@ import 'app_localizations_en.dart';
 import 'app_localizations_es.dart';
 import 'app_localizations_fr.dart';
 import 'app_localizations_nb.dart';
+import 'app_localizations_pl.dart';
+import 'app_localizations_pt.dart';
 import 'app_localizations_ru.dart';
+import 'app_localizations_ta.dart';
 import 'app_localizations_tr.dart';
 import 'app_localizations_uk.dart';
 
@@ -109,7 +112,11 @@ abstract class AppLocalizations {
     Locale('es'),
     Locale('fr'),
     Locale('nb'),
+    Locale('pl'),
+    Locale('pt'),
+    Locale('pt', 'BR'),
     Locale('ru'),
+    Locale('ta'),
     Locale('tr'),
     Locale('uk')
   ];
@@ -363,7 +370,7 @@ abstract class AppLocalizations {
   /// No description provided for @launching.
   ///
   /// In en, this message translates to:
-  /// **'Launching...'**
+  /// **'Launching…'**
   String get launching;
 
   /// No description provided for @launched.
@@ -639,7 +646,7 @@ abstract class AppLocalizations {
   /// No description provided for @select_server_loading.
   ///
   /// In en, this message translates to:
-  /// **'Loading servers...'**
+  /// **'Loading servers…'**
   String get select_server_loading;
 
   /// No description provided for @select_server_button.
@@ -1555,7 +1562,10 @@ class _AppLocalizationsDelegate
         'es',
         'fr',
         'nb',
+        'pl',
+        'pt',
         'ru',
+        'ta',
         'tr',
         'uk'
       ].contains(locale.languageCode);
@@ -1565,6 +1575,18 @@ class _AppLocalizationsDelegate
 }
 
 AppLocalizations lookupAppLocalizations(Locale locale) {
+  // Lookup logic when language+country codes are specified.
+  switch (locale.languageCode) {
+    case 'pt':
+      {
+        switch (locale.countryCode) {
+          case 'BR':
+            return AppLocalizationsPtBr();
+        }
+        break;
+      }
+  }
+
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
     case 'be':
@@ -1581,8 +1603,14 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
       return AppLocalizationsFr();
     case 'nb':
       return AppLocalizationsNb();
+    case 'pl':
+      return AppLocalizationsPl();
+    case 'pt':
+      return AppLocalizationsPt();
     case 'ru':
       return AppLocalizationsRu();
+    case 'ta':
+      return AppLocalizationsTa();
     case 'tr':
       return AppLocalizationsTr();
     case 'uk':

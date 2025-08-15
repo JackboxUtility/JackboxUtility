@@ -17,7 +17,7 @@
   "@patch_modification_content_internal": {},
   "patch_modification_content_subtitles": "விளையாட்டின் வசன வரிகள் மாற்றம்",
   "@patch_modification_content_subtitles": {},
-  "patch_modification_content_website": "சாக் பாக்ச் கிளையண்டின் உரை உள்ளடக்கத்தை மாற்றியமைத்தல் ({வலைத்தளத்தில் மட்டுமே கிடைக்கிறது)",
+  "patch_modification_content_website": "சாக் பாக்ச் கிளையண்டின் உரை உள்ளடக்கத்தை மாற்றியமைத்தல் ({website})",
   "@patch_modification_content_website": {
     "placeholders": {
       "website": {
@@ -44,7 +44,7 @@
   "@game_translation_community_translated": {},
   "game_translation_community_translated_description": "இந்த விளையாட்டுகள் சமூகத்தால் மொழிபெயர்க்கப்பட்டுள்ளன.",
   "@game_translation_community_translated_description": {},
-  "game_translation_not_available_description": "இந்த விளையாட்டுகள் {மொழி க்கு இல் மொழிபெயர்க்கப்படவில்லை.",
+  "game_translation_not_available_description": "இந்த விளையாட்டுகள் {language}.",
   "@game_translation_not_available_description": {
     "placeholders": {
       "language": {
@@ -122,7 +122,7 @@
   "@automatic_game_finder_title": {},
   "no_game_in_this_category_description": "இந்த வகையில் எந்த விளையாட்டுகளும் இல்லை. அமைப்புகள் பிரிவில் மேலும் சேர்க்க முயற்சிக்கவும்.",
   "@no_game_in_this_category_description": {},
-  "select_game_location": "{விளையாட்டு of இன் இருப்பிடத்தைத் தேர்ந்தெடுக்கவும்",
+  "select_game_location": "விளையாட்டு of இன் இருப்பிடத்தைத் தேர்ந்தெடுக்கவும் {game}",
   "@select_game_location": {
     "placeholders": {
       "game": {
@@ -221,7 +221,7 @@
   "@can_close_popup": {},
   "patch_unavailable": "இணைப்பு கிடைக்கவில்லை",
   "@patch_unavailable": {},
-  "patch_installed": "{எண்ணிக்கை, பன்மை, ஒன்று {Patch installed} பிற {Patches installed}}",
+  "patch_installed": "{count, plural, one {Patch installed} other {Patches installed}}",
   "@patch_installed": {
     "placeholders": {
       "count": {
@@ -230,7 +230,7 @@
       }
     }
   },
-  "patch_outdated": "{எண்ணிக்கை, பன்மை, ஒன்று {Update patch} பிற {Update patches}}",
+  "patch_outdated": "{count, plural, one {Update patch} other {Update patches}}",
   "@patch_outdated": {
     "placeholders": {
       "count": {
@@ -239,7 +239,7 @@
       }
     }
   },
-  "patch_not_installed": "{எண்ணிக்கை, பன்மை, ஒன்று {Install the patch} பிற {Install patches}}}",
+  "patch_not_installed": "{count, plural, one {Install the patch} other {Install patches}}",
   "@patch_not_installed": {
     "placeholders": {
       "count": {
@@ -309,7 +309,7 @@
       }
     }
   },
-  "game_translation_translated_description": "இந்த விளையாட்டுகள் {மொழி க்கு இல் சொந்தமாக மொழிபெயர்க்கப்பட்டுள்ளன.",
+  "game_translation_translated_description": "இந்த விளையாட்டுகள் {language}.",
   "@game_translation_translated_description": {
     "placeholders": {
       "language": {
@@ -324,7 +324,7 @@
   "@automatic_game_finder_description": {},
   "automatic_game_finder_in_progress": "விளையாட்டுகளை மீட்டெடுப்பது, தயவுசெய்து காத்திருங்கள்",
   "@automatic_game_finder_in_progress": {},
-  "automatic_game_finder_finish": "{எண்ணிக்கை, பன்மை, = 0 {No game found} ஒன்று {1 game found} மற்ற {{count} விளையாட்டுகள்}}",
+  "automatic_game_finder_finish": "{count, plural, = 0 {No game found} one {1 game found} other {{count} games found}}",
   "@automatic_game_finder_finish": {
     "placeholders": {
       "count": {
@@ -335,7 +335,7 @@
   },
   "automatic_server_finder_found": "சேவையகம் காணப்பட்டது",
   "@automatic_server_finder_found": {},
-  "automatic_server_finder_found_description": "உங்கள் மொழியின் அடிப்படையில் சேவையகம் {சேவையகம் தேர்ந்தெடுக்கப்பட்டுள்ளது.",
+  "automatic_server_finder_found_description": "உங்கள் மொழியின் அடிப்படையில் சேவையகம் {server}.",
   "@automatic_server_finder_found_description": {
     "placeholders": {
       "server": {
@@ -364,7 +364,7 @@
   "@app_information": {},
   "automatic_game_finder_button": "நிறுவப்பட்ட விளையாட்டுகளை தானாக கண்டறியவும்",
   "@automatic_game_finder_button": {},
-  "games_available": "{எண்ணிக்கை, பன்மை, = 0 {No game available} ஒன்று {1 game available} மற்ற {{count} விளையாட்டுகள்}}",
+  "games_available": "{count, plural, = 0 {No game available} one {1 game available} other {{count} games available}}",
   "@games_available": {
     "placeholders": {
       "count": {
@@ -451,7 +451,7 @@
   "@randomize_button_text": {},
   "feeling_lucky": "நான் அதிர்ச்டசாலி என்று நினைக்கிறேன்",
   "@feeling_lucky": {},
-  "sort_by": "{வகை by மூலம் வரிசைப்படுத்துங்கள்",
+  "sort_by": "வகை by மூலம் வரிசைப்படுத்துங்கள் {type}",
   "@sort_by": {
     "placeholders": {
       "type": {

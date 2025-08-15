@@ -4,30 +4,30 @@ import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
 
-/// The translations for English (`en`).
-class AppLocalizationsEn extends AppLocalizations {
-  AppLocalizationsEn([String locale = 'en']) : super(locale);
+/// The translations for Polish (`pl`).
+class AppLocalizationsPl extends AppLocalizations {
+  AppLocalizationsPl([String locale = 'pl']) : super(locale);
 
   @override
-  String get close => 'Close';
+  String get close => 'Zamknij';
 
   @override
-  String get cancel => 'Cancel';
+  String get cancel => 'Anuluj';
 
   @override
-  String get page_continue => 'Continue';
+  String get page_continue => 'Kontynuuj';
 
   @override
-  String get confirm => 'Confirm';
+  String get confirm => 'Potwierdź';
 
   @override
-  String get quit => 'quit';
+  String get quit => 'Wyjdź';
 
   @override
-  String get yes => 'Yes';
+  String get yes => 'Tak';
 
   @override
-  String get no => 'No';
+  String get no => 'Nie';
 
   @override
   String get ok => 'OK';
@@ -36,40 +36,40 @@ class AppLocalizationsEn extends AppLocalizations {
   String get jackbox_utility => 'Jackbox Utility';
 
   @override
-  String get launch_search_game => 'Launch / Search Games';
+  String get launch_search_game => 'Uruchom/ Wyszukaj gry';
 
   @override
-  String get patch_a_game => 'Patch Games';
+  String get patch_a_game => 'Dodaj patch\'a do gry';
 
   @override
-  String get settings => 'Settings';
+  String get settings => 'Ustawienia';
 
   @override
-  String get notifications => 'Notifications';
+  String get notifications => 'Powiadomienia';
 
   @override
-  String get installing_a_patch => 'Installing a Patch';
+  String get installing_a_patch => 'Instalowanie łatki';
 
   @override
   String get installing_a_patch_description =>
-      'You will install the patch. This action is irreversible.';
+      'Za chwilę pobierzesz łatkę. Ta akcja jest nieodwracalna.';
 
   @override
-  String get installing_a_patch_end => 'Installation Complete';
+  String get installing_a_patch_end => 'Instalacja ukończona';
 
   @override
-  String get can_close_popup => 'You can close this pop-up';
+  String get can_close_popup => 'Możesz zamknąć te okienko';
 
   @override
-  String get patch_unavailable => 'Patch Unavailable';
+  String get patch_unavailable => 'Łatka nie jest Dostępna';
 
   @override
   String patch_installed(num count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'Patches installed',
-      one: 'Patch installed',
+      other: 'Łatki zainstalowane',
+      one: 'Łatka zainstalowana',
     );
     return '$_temp0';
   }
@@ -79,8 +79,8 @@ class AppLocalizationsEn extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'Update patches',
-      one: 'Update patch',
+      other: 'Zaktualizuj łatki',
+      one: 'Zaktualizuj łatkę',
     );
     return '$_temp0';
   }
@@ -90,490 +90,490 @@ class AppLocalizationsEn extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'Install patches',
-      one: 'Install the patch',
+      other: 'Zainstaluj łatki',
+      one: 'Zainstaluj łatkę',
     );
     return '$_temp0';
   }
 
   @override
-  String get delete_version => 'Version deletion';
+  String get delete_version => 'Usuwanie wersji';
 
   @override
   String get delete_version_description =>
-      'If you have reset your game, you can delete the installed version of this game. This will allow you to reinstall the patches.';
+      'Jeśli zresetujesz grę, możesz usunąć zainstalowaną jej wersję. W ten sposób możesz ponownie zainstalować łatki.';
 
   @override
-  String get description => 'Description';
+  String get description => 'Opis';
 
   @override
-  String get patch_modification => 'Patch modification';
+  String get patch_modification => 'Modyfikowanie łatki';
 
   @override
   String get patch_modification_description =>
-      'This patch changes the game in the following way:';
+      'Ta łatka zmienia grę w następujący sposób:';
 
   @override
-  String get patch_modification_content_text =>
-      'Modification of the game\'s text content';
+  String get patch_modification_content_text => 'Zmiana tekstu wewnątrz gry';
 
   @override
   String get patch_modification_content_internal =>
-      'Modification of the internal files of the game (images, texts...)';
+      'Zmiana wewnętrznych plików gry (zdjęcia, teksty...)';
 
   @override
-  String get patch_modification_content_subtitles =>
-      'Modification of the game\'s subtitles';
+  String get patch_modification_content_subtitles => 'Zmiana napisów';
 
   @override
   String patch_modification_content_website(String website) {
-    return 'Modification of the textual content of the jackbox client (only available on $website)';
+    return 'Zmiana tekstu wewnątrz klienta Jackbox (tylko dostępne na $website)';
   }
 
   @override
-  String get patch_modification_content_audios =>
-      'Modification of the game\'s sound';
+  String get patch_modification_content_audios => 'Zmiana tekstu mówionego';
 
   @override
-  String get version => 'Version';
+  String get version => 'Wersja';
 
   @override
-  String get authors => 'Author(s)';
+  String get authors => 'Autorzy';
 
   @override
-  String get small_information => 'Info';
+  String get small_information => 'Informacje';
 
   @override
-  String get more_informations => 'More Information';
+  String get more_informations => 'Więcej informacji';
 
   @override
-  String get launch_game => 'Launch Game';
+  String get launch_game => 'Uruchom Grę';
 
   @override
-  String get launch_game_fast_launcher => 'Launch Game (Fast Launcher)';
+  String get launch_game_fast_launcher => 'Uruchom grę (Szybki start)';
 
   @override
   String get launch_game_fast_launcher_description =>
-      'Launches the game in fast launcher mode which allows you to skip the intro video of the pack and the choice of the game. Only available for some games.';
+      'Uruchamia grę w trybie szybkiego uruchamiania, pozwalając na pominięcie całej czołówki paczki oraz wyboru gry. Jest to dostępne tylko w niektórych grach.';
 
   @override
-  String get launch_pack => 'Launch Game';
+  String get launch_pack => 'Uruchom Paczkę';
 
   @override
-  String get launch_pack_description => 'Launches the Pack normally';
+  String get launch_pack_description => 'Uruchamia grę normalnie';
 
   @override
-  String get launch_informations => 'Launch Information';
+  String get launch_informations => 'Informacje dot. uruchomienia';
 
   @override
-  String get launching => 'Launching…';
+  String get launching => 'Uruchamianie…';
 
   @override
-  String get launched => 'Launched!';
+  String get launched => 'Uruchomiono!';
 
   @override
-  String get path_not_found => 'Path Not Found';
+  String get path_not_found => 'Nie znaleziono ścieżki';
 
   @override
   String get path_not_found_small_description =>
-      'The path to the game was not found.';
+      'Ścieżka gry nie została znaleziona.';
 
   @override
   String get path_not_found_description =>
-      'The path to the game was not found. Please check that the game is installed and that the path is correct.';
+      'Ścieżka gry nie została znaleziona. Sprawdź, czy gra jest zainstalowana- oraz czy ścieżka jest poprawna.';
 
   @override
-  String get path_inexistant => 'Path inexistant';
+  String get path_inexistant => 'Ścieżka nie istnieje';
 
   @override
   String get path_inexistant_small_description =>
-      'You did not add the path to the pack.';
+      'Nie dodałeś/-aś ścieżki do tej paczki.';
 
   @override
   String get path_inexistant_description =>
-      'You did not add the path to the pack. You can do it in the settings.';
+      'Nie dodałeś/-aś ścieżki do tej paczki. Możesz to zrobić w ustawieniach.';
 
   @override
-  String get pack_path => 'Game path';
+  String get pack_path => 'Ścieżka gry';
 
   @override
-  String get owned_packs => 'Owned Games';
+  String get owned_packs => 'Posiadane gry';
 
   @override
-  String get add_pack => 'Add a Game';
+  String get add_pack => 'Dodaj grę';
 
   @override
-  String get choose_pack => 'Choose a Game';
+  String get choose_pack => 'Wybierz grę';
 
   @override
-  String get game_type_coop => 'Coop';
+  String get game_type_coop => 'Kooperacyjne';
 
   @override
   String get game_type_coop_description =>
-      'In these games, players must work together to win.';
+      'W tych grach gracze muszą pracować razem, by wygrać.';
 
   @override
-  String get game_type_versus => 'Free For All';
+  String get game_type_versus => 'Każdy przeciwko każdemu';
 
   @override
   String get game_type_versus_description =>
-      'In these games, each player plays for himself and must beat the other players.';
+      'W tych grach każdy gra na swój rachunek i musi ograć pozostałych graczy.';
 
   @override
-  String get game_type_team => 'Teams';
+  String get game_type_team => 'Drużynowe';
 
   @override
   String get game_type_team_description =>
-      'In these games, players are divided into teams and must work together to win.';
+      'W tych grach gracze są podzieleni na drużyny i muszą współpracować, aby wygrać.';
 
   @override
   String game_translation_translated(String language) {
-    return 'Officially Translated in $language';
+    return 'Oficjalnie przetłumaczone na $language';
   }
 
   @override
   String game_translation_translated_description(String language) {
-    return 'These games are translated natively into $language.';
+    return 'Te gry są natywnie dostępne w $language.';
   }
 
   @override
   String get game_translation_translated_description_en =>
-      'These games are translated in French, Italian, German and Spanish by Jackbox Games.';
+      'Te gry zostały przetłumaczone na francuski, włoski, niemiecki i hiszpański przez Jackbox Games.';
 
   @override
   String get game_translation_community_translated =>
-      'Translated by the Community';
+      'Przetłumaczone przez społeczność';
 
   @override
   String game_translation_community_translated_description(Object language) {
-    return 'These games are translated by the community.';
+    return 'Te gry zostały przetłumaczone przez społeczność.';
   }
 
   @override
-  String get game_translation_not_available => 'In English';
+  String get game_translation_not_available => 'Po angielsku';
 
   @override
   String game_translation_not_available_description(String language) {
-    return 'These games are not translated into $language.';
+    return 'Te gry nie są przetłumaczone na $language.';
   }
 
   @override
   String get game_translation_not_available_description_en =>
-      'These games are only available in English.';
+      'Te gry są dostępne tylko w języku angielskim.';
 
   @override
-  String get downloading => 'Downloading';
+  String get downloading => 'Pobieranie';
 
   @override
-  String get starting => 'Starting';
+  String get starting => 'Rozpoczęcie';
 
   @override
-  String get extracting => 'Extracting';
+  String get extracting => 'Wypakowywanie';
 
   @override
-  String get finalizing => 'Finalizing';
+  String get finalizing => 'Kończenie';
 
   @override
-  String get unknown_error => 'Unknown Error';
+  String get unknown_error => 'Nieznany błąd';
 
   @override
-  String get contact_error => 'Contact Alexisl61 on Discord';
+  String get contact_error =>
+      'Skontaktuj się z użytkownikiem marek na Discordzie';
 
   @override
-  String get game_patch_unavailable => 'Patch unavailable';
+  String get game_patch_unavailable => 'Łatka nie jest dostępna';
 
   @override
-  String get game_patch_available => 'A patch is available';
+  String get game_patch_available => 'Łatka jest dostępna';
 
   @override
-  String get game_patch_installed => 'The patch is up-to-date';
+  String get game_patch_installed => 'Ta łapka jest aktualna';
 
   @override
-  String get game_patch_outdated => 'An update is available for this patch';
+  String get game_patch_outdated => 'Dla tej łatki dostępna jest aktualizacja';
 
   @override
-  String get players => 'players';
+  String get players => 'gracze';
 
   @override
-  String get search_game => 'Search a Game';
+  String get search_game => 'Szukaj gry';
 
   @override
-  String get search => 'Search';
+  String get search => 'Szukaj';
 
   @override
-  String get all_games => 'All Games';
+  String get all_games => 'Wszystkie gry';
 
   @override
-  String get all_games_description => 'Find all Jackbox games in one place.';
+  String get all_games_description => 'Wszystkie gry Jackbox w jednym miejscu.';
 
   @override
-  String get search_by_pack => 'Search by Pack';
+  String get search_by_pack => 'Szukaj według paczki';
 
   @override
-  String get search_by_type => 'Search by Type';
+  String get search_by_type => 'Szukaj według typu';
 
   @override
-  String get search_by_translation => 'Search by Translation';
+  String get search_by_translation => 'Szukaj według statusu tłumaczenia';
 
   @override
-  String get search_by_tags => 'Search by Tags';
+  String get search_by_tags => 'Szukaj według etykiet';
 
   @override
-  String get select_server_subtitle => 'Select one of the available servers';
+  String get select_server_subtitle => 'Wybierz jeden z dostępnych serwerów';
 
   @override
-  String get select_server_loading => 'Loading servers…';
+  String get select_server_loading => 'Ładuję serwery…';
 
   @override
-  String get select_server_button => 'Select';
+  String get select_server_button => 'Wybierz';
 
   @override
   String connected_to_server(String server) {
-    return 'Connected to the server $server';
+    return 'Połączono z serwerem $server';
   }
 
   @override
-  String get connected_to_server_change => 'Change';
+  String get connected_to_server_change => 'Zmień';
 
   @override
-  String get connection_to_server_failed => 'Connection to the Server Failed';
+  String get connection_to_server_failed => 'Nie udało się połączyć z serwerem';
 
   @override
   String get connection_to_main_server_failed =>
-      'Error while retrieving available servers.';
+      'Błąd podczas pozyskiwania dostępnych serwerów.';
 
   @override
-  String get quit_while_downloading_title => 'Download in Progress';
+  String get quit_while_downloading_title => 'Pobieranie w toku';
 
   @override
   String get quit_while_downloading_description =>
-      'A download is in progress. Are you sure you want to quit now?';
+      'Pobieranie jest w trakcie. Na pewno chcesz teraz wyjść?';
 
   @override
-  String get automatic_game_finder_title => 'Automatic Game Finder';
+  String get automatic_game_finder_title => 'Znajdź gry automatycznie';
 
   @override
   String get automatic_game_finder_description =>
-      'Jackbox Utility can detect installed games on this computer using Steam and Epic Games.\nDo you want to use this feature?';
+      'Jackbox Utility może automatycznie wykryć zainstalowane gry na tym komputerze z Steam i Epic Games.\nCzy chcesz skorzystać z tej usługi?';
 
   @override
   String get automatic_game_finder_in_progress =>
-      'Retrieving games, please wait';
+      'Pobieranie gier, proszę czekać';
 
   @override
   String automatic_game_finder_finish(num count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count games found',
-      one: '1 game found',
-      zero: 'No game found',
+      other: 'Znaleziono $count gier',
+      one: 'Znaleziono 1 grę',
+      zero: 'Nie znaleziono żadnych gier',
     );
     return '$_temp0';
   }
 
   @override
-  String get automatic_server_finder_found => 'Server Found';
+  String get automatic_server_finder_found => 'Znaleziono serwer';
 
   @override
   String automatic_server_finder_found_description(String server) {
-    return 'The server $server has been chosen based on your language.';
+    return 'Serwer $server został wybrany na podstawie twojego języka.';
   }
 
   @override
-  String get show_all_packs => 'Show Unowned Games';
+  String get show_all_packs => 'Pokaż gry, których nie posiadasz';
 
   @override
-  String get show_owned_packs_only => 'Show Owned Games Only';
+  String get show_owned_packs_only => 'Pokaż tylko posiadane gry';
 
   @override
-  String get all_patches => 'All patches';
+  String get all_patches => 'Wszystkie łatki';
 
   @override
-  String get error_happened => 'An error has occurred';
+  String get error_happened => 'Wystąpił błąd';
 
   @override
   String get jackbox_utility_description =>
-      'An open-source app to download patches and launch Jackbox games.';
+      'Aplikacja open-source do pobierania łatek i uruchamiania gier Jackbox.';
 
   @override
-  String get server_information => 'Server Information (Language)';
+  String get server_information => 'Informacje dot. serwera (Język)';
 
   @override
-  String get selected_server => 'Selected Server';
+  String get selected_server => 'Wybrany serwer';
 
   @override
-  String get change_server => 'Change Server';
+  String get change_server => 'Zmień serwer';
 
   @override
-  String get app_information => 'App Information';
+  String get app_information => 'Informacje o aplikacji';
 
   @override
-  String get automatic_game_finder_button => 'Auto-detect installed games';
+  String get automatic_game_finder_button =>
+      'Automatycznie wykryj zainstalowane gry';
 
   @override
   String games_available(num count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count games available',
-      one: '1 game available',
-      zero: 'No game available',
+      other: '$count dostępne gry',
+      one: '1 dostępna gra',
+      zero: 'Brak dostępnych gier',
     );
     return '$_temp0';
   }
 
   @override
-  String get author => 'Author';
+  String get author => 'Autor';
 
   @override
-  String get contributors => 'Contributors';
+  String get contributors => 'Współtwórcy';
 
   @override
   String in_language(String language) {
-    return 'In $language';
+    return 'Po $language';
   }
 
   @override
   String in_language_description(String language) {
-    return 'These games are available in $language (natively or translated by the community.)';
+    return 'Te gry są dostępne w $language (albo naturalnie, albo poprzez tłumaczenie społeczności.)';
   }
 
   @override
-  String get game_community_dubbed => 'Community Dubbed';
+  String get game_community_dubbed => 'Z dubbingiem społeczności';
 
   @override
   String get game_community_dubbed_description =>
-      'These games are dubbed by the community.';
+      'Te gry mają dubbing zaproponowany przez społeczność.';
 
   @override
   String game_dubbed(String language) {
-    return 'Dubbed in $language';
+    return 'Z dubbingiem w $language';
   }
 
   @override
   String get game_dubbed_description =>
-      'These games are dubbed by the community or by Jackbox.';
+      'Te gry mają dubbing od społeczności albo od Jackbox.';
 
   @override
-  String get no_game_in_this_category_title => 'No games in this category';
+  String get no_game_in_this_category_title =>
+      'W tej kategorii nie ma żadnej gry';
 
   @override
   String get no_game_in_this_category_description =>
-      'There are no games in this category. Try adding more in the Settings section.';
+      'W tej kategorii nie ma gier. Spróbuj dodać ich więcej w sekcji Ustawień.';
 
   @override
   String select_game_location(String game) {
-    return 'Select the location of $game';
+    return 'Wybierz lokalizację $game';
   }
 
   @override
-  String get download_error => 'Error while downloading';
+  String get download_error => 'Błąd podczas pobierania';
 
   @override
   String get download_error_description =>
-      'An error occurred while downloading the game. Please verify your internet connection and try again.';
+      'Podczas pobierania gry wystąpił błąd. Sprawdź połączenie z Internetem i spróbuj ponownie.';
 
   @override
-  String get extracting_error => 'Error while extracting';
+  String get extracting_error => 'Błąd podczas wyodrębniania';
 
   @override
   String get extracting_error_description =>
-      'An error occurred while extracting the game. Check if you have enough storage free and try again.';
+      'Podczas wyodrębniania gry wystąpił błąd. Sprawdź dostępne miejsce i spróbuj ponownie.';
 
   @override
-  String get game_reset => 'Reset Game';
+  String get game_reset => 'Zresetuj grę';
 
   @override
   String get game_reset_description =>
-      'This will validate all the files of this game. If you installed any patch, it will be deleted from your game. Are you sure you want to continue?';
+      'Ten proces zweryfikuje wszystkie pliki gry. Jeśli zainstalowałeś/-aś jakieś łatki, zostaną one usunięte. Na pewno chcesz kontynuować?';
 
   @override
-  String get small_description => 'Description';
+  String get small_description => 'Opis';
 
   @override
-  String get patreon_subscribers => 'Patreon Subscribers';
+  String get patreon_subscribers => 'Subskrybenci z Patreona';
 
   @override
-  String get audience => 'Audience';
+  String get audience => 'Publiczność';
 
   @override
-  String get confirmation => 'Confirmation';
+  String get confirmation => 'Potwierdzenie';
 
   @override
   String confirmation_description(String action) {
-    return 'Are you sure you want to $action? This action cannot be undone.';
+    return 'Na pewno chcesz $action? Tej czynności nie da się cofnąć.';
   }
 
   @override
-  String get fix => 'Fix';
+  String get fix => 'Napraw';
 
   @override
-  String get fixes_available => 'YDKJ Vol. 6 Fix';
+  String get fixes_available => 'Dostępny fix';
 
   @override
   String get fixes_available_description =>
-      'You Don\'t Know Jack Vol. 6 The Lost Gold was detected as one of the installed games. This game normally doesn\'t work on Windows 10/11 and Linux. Would you like to download and install a patch that fixes it? You can always install it in its respective game info tab.';
+      'Dla tej gry są dostępne pliki naprawcze. Czy chcesz je zainstalować? Zawsze możesz je zainstalować z odpowiedniej zakładki gry.';
 
   @override
-  String get filter_players_number => 'Player Count';
+  String get filter_players_number => 'Liczba graczy';
 
   @override
-  String get family_friendly => 'Family-Friendly';
+  String get family_friendly => 'Dla wszystkich';
 
   @override
-  String get optional => 'Optional';
+  String get optional => 'Opcjonalne';
 
   @override
-  String get subtitles => 'Subtitles';
+  String get subtitles => 'Napisy';
 
   @override
-  String get stream_friendly => 'Stream-Friendly';
+  String get stream_friendly => 'Możliwe do streamowania';
 
   @override
-  String get moderation => 'Moderation';
+  String get moderation => 'Moderacja';
 
   @override
-  String get randomize_button_text => 'Let\'s Try Another One!';
+  String get randomize_button_text => 'Spróbujmy jakąś inną!';
 
   @override
-  String get feeling_lucky => 'I\'m Feeling Lucky';
+  String get feeling_lucky => 'Szczęśliwy traf';
 
   @override
   String sort_by(String type) {
-    return 'Sort by $type';
+    return 'Sortuj według $type';
   }
 
   @override
-  String get filter => 'Filter';
+  String get filter => 'Filtruj';
 
   @override
-  String get show_games_hidden => 'Show Games You\'ve Hidden';
+  String get show_games_hidden => 'Pokaż ukryte gry';
 
   @override
-  String get hide_games_hidden => 'Hide Games You\'ve Hidden';
+  String get hide_games_hidden => 'Ukryj ukryte gry';
 
   @override
-  String get max_playtime => 'Max Playtime';
+  String get max_playtime => 'Maksymalny czas gry';
 
   @override
-  String get search_by_ranking => 'Search by Ranking';
+  String get search_by_ranking => 'Szukaj według rankingu';
 
   @override
-  String get random_game => 'Random Game';
+  String get random_game => 'Dowolna gra';
 
   @override
-  String get personal_ranking => 'Personal Ranking';
+  String get personal_ranking => 'Osobisty ranking';
 
   @override
-  String get ranked_by_stars => 'Ranked by Stars';
+  String get ranked_by_stars => 'Sortuj według gwiazdek';
 
   @override
   String get games_ranked_by_stars_from_personal_ranking =>
-      'Games ranked by stars from your personal ranking.';
+      'Gry posortowane według gwiazdek z Twojego osobistego rankingu.';
 
   @override
-  String get unranked => 'Unranked';
+  String get unranked => 'Niesklasyfikowane';
 
   @override
   String get app_behavior => 'App Behavior';
@@ -611,23 +611,23 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings_audio_category => 'Audio';
 
   @override
-  String get settings_sfx_title => 'Enable SFX';
+  String get settings_sfx_title => 'Uruchom dźwięki';
 
   @override
-  String get settings_sfx_description => 'Enables sound effects in the app.';
+  String get settings_sfx_description => 'Uruchamia dźwięki w aplikacji.';
 
   @override
   String get settings_app_saves_category => 'App Saves';
 
   @override
-  String get settings_app_reset_stars_title => 'Reset Stars';
+  String get settings_app_reset_stars_title => 'Zresetuj gwiazdki';
 
   @override
   String get settings_app_reset_stars_description =>
       'Resets all the stars for each game.';
 
   @override
-  String get settings_app_reset_stars_button_text => 'Reset Stars';
+  String get settings_app_reset_stars_button_text => 'Zresetuj gwiazdki';
 
   @override
   String get settings_app_reset_stars_action =>
@@ -651,10 +651,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get rich_presence_application_start_details => 'Just Started the App';
 
   @override
-  String get rich_presence_application_start_state => 'In the Menu';
+  String get rich_presence_application_start_state => 'W Menu';
 
   @override
-  String get rich_presence_game_menu_details => 'Choosing a Game';
+  String get rich_presence_game_menu_details => 'Wybór Gry';
 
   @override
   String get rich_presence_game_menu_state => 'In the Games List';
@@ -664,7 +664,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Reading the Information of a Game';
 
   @override
-  String get rich_presence_game_information_state => 'Choosing a Game';
+  String get rich_presence_game_information_state => 'Wybór Gry';
 
   @override
   String get rich_presence_patcher_details => 'Patching a Game';
@@ -702,13 +702,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get pack => 'Pack';
 
   @override
-  String get stars => 'Stars';
+  String get stars => 'Gwiazdki';
 
   @override
-  String get name => 'Name';
+  String get name => 'Nazwa';
 
   @override
-  String get players_number => 'Player Count';
+  String get players_number => 'Liczba graczy';
 
   @override
   String get donate => 'Donate';
@@ -843,5 +843,5 @@ class AppLocalizationsEn extends AppLocalizations {
   String get patch_missing_before_launching_install => 'Install Patch';
 
   @override
-  String get patch_missing_before_launching_launch => 'Launch Game';
+  String get patch_missing_before_launching_launch => 'Uruchom Grę';
 }

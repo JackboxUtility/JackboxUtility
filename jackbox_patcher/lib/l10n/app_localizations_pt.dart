@@ -4,9 +4,9 @@ import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
 
-/// The translations for English (`en`).
-class AppLocalizationsEn extends AppLocalizations {
-  AppLocalizationsEn([String locale = 'en']) : super(locale);
+/// The translations for Portuguese (`pt`).
+class AppLocalizationsPt extends AppLocalizations {
+  AppLocalizationsPt([String locale = 'pt']) : super(locale);
 
   @override
   String get close => 'Close';
@@ -844,4 +844,103 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get patch_missing_before_launching_launch => 'Launch Game';
+}
+
+/// The translations for Portuguese, as used in Brazil (`pt_BR`).
+class AppLocalizationsPtBr extends AppLocalizationsPt {
+  AppLocalizationsPtBr() : super('pt_BR');
+
+  @override
+  String get close => 'Fechar';
+
+  @override
+  String get cancel => 'Cancelar';
+
+  @override
+  String get page_continue => 'Continuar';
+
+  @override
+  String get confirm => 'Confirmar';
+
+  @override
+  String get quit => 'sair';
+
+  @override
+  String get yes => 'Sim';
+
+  @override
+  String get no => 'Não';
+
+  @override
+  String get ok => 'OK';
+
+  @override
+  String get jackbox_utility => 'Jackbox Utility';
+
+  @override
+  String get settings => 'Configurações';
+
+  @override
+  String get notifications => 'Notificações';
+
+  @override
+  String get installing_a_patch => 'Instalando o Patch';
+
+  @override
+  String get installing_a_patch_description =>
+      'Você instalará o patch. Essa ação é irreversível.';
+
+  @override
+  String get can_close_popup => 'Você pode fechar este pop-up';
+
+  @override
+  String get patch_unavailable => 'Patch indisponível';
+
+  @override
+  String patch_installed(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Patches instalados',
+      one: 'Patch instalado',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String patch_outdated(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Atualizar patches',
+      one: 'Atualizar patch',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String patch_not_installed(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Instalar patches',
+      one: 'Instalar patch',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get delete_version => 'Deletar patch';
+
+  @override
+  String get description => 'Descrição';
+
+  @override
+  String get filter_dubbed => 'Dublado';
+
+  @override
+  String get filter_translated => 'Traduzido';
+
+  @override
+  String get special_thanks => 'Agradecimentos especiais';
 }

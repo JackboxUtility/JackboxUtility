@@ -166,7 +166,7 @@ class AppLocalizationsNb extends AppLocalizations {
   String get launch_informations => 'Launch Information';
 
   @override
-  String get launching => 'Launching...';
+  String get launching => 'Launching…';
 
   @override
   String get launched => 'Launched!';
@@ -322,7 +322,7 @@ class AppLocalizationsNb extends AppLocalizations {
   String get select_server_subtitle => 'Select one of the available servers';
 
   @override
-  String get select_server_loading => 'Loading servers...';
+  String get select_server_loading => 'Loading servers…';
 
   @override
   String get select_server_button => 'Select';

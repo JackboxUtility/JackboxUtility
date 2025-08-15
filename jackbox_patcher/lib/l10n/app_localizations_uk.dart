@@ -166,7 +166,7 @@ class AppLocalizationsUk extends AppLocalizations {
   String get launch_informations => 'Інформація про запуск';
 
   @override
-  String get launching => 'Запуск...';
+  String get launching => 'Запускаю…';
 
   @override
   String get launched => 'Запущено!';
@@ -321,7 +321,7 @@ class AppLocalizationsUk extends AppLocalizations {
   String get select_server_subtitle => 'Оберіть один з доступних серверів';
 
   @override
-  String get select_server_loading => 'Завантаження серверів...';
+  String get select_server_loading => 'Завантаження серверів…';
 
   @override
   String get select_server_button => 'Обрати';
