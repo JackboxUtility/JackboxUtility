@@ -35,6 +35,7 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
   double loadingPercent = 0;
   double oldLoadingPercent = 0;
   bool loadingException = false;
+  String loadingExceptionMessage = '';
 
   double calculatePadding() {
     if (MediaQuery.of(context).size.width > 1000) {
@@ -109,6 +110,7 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
             : LoadingContainer(
                 step: (percent: loadingPercent, step: loadingStep, oldPercent: oldLoadingPercent),
                 exceptionReceived: loadingException,
+                exceptionMessage: loadingExceptionMessage,
                 onTryAgainPressed: tryAgain,
                 onServerChangePressed: serverChange,
               ),
@@ -279,8 +281,9 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
           _loaded = true;
         });
       });
-    } catch (e) {
+    } catch (e, stacktrace) {
       loadingException = true;
+      loadingExceptionMessage = e.toString()+"\n\n"+stacktrace.toString();
       setState(() {});
       rethrow;
     }

@@ -30,38 +30,37 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  fluent_ui: 4.9.1
-  flutter_flavor: 3.1.1
-  http: 0.13.5
-  shared_preferences: 2.1.0
-  flutter_staggered_grid_view: 0.6.2
-  palette_generator: 0.3.3+2
-  cached_network_image: 3.3.1
-  dio: 4.0.6
-  flutter_markdown: 0.6.13+1
-  url_launcher: 6.1.9
-  lottie: 2.2.0
-  package_info_plus: 4.0.2
+  fluent_ui: 4.12.0
+  flutter_flavor: 3.1.4
+  http: 1.5.0
+  shared_preferences: 2.5.3
+  flutter_staggered_grid_view: 0.7.0
+  cached_network_image: 3.4.0
+  dio: 5.9.0
+  flutter_markdown: 0.7.7+1
+  url_launcher: 6.3.2
+  lottie: 3.3.1
+  package_info_plus: 8.3.1
   windows_taskbar: ^1.1.1
-  window_manager : 0.3.5
-  win32_registry: 1.1.5
-  font_awesome_flutter: 10.4.0
-  flutter_blurhash: 0.8.2
-  carousel_slider: 5.0.0
-  file_picker: 8.1.2
-  logger: 1.3.0
-  audioplayers: 4.1.0
+  window_manager : 0.5.1
+  win32_registry: 2.1.0
+  font_awesome_flutter: 10.9.0
+  flutter_blurhash: 0.9.1
+  carousel_slider: 5.1.1
+  file_picker: 10.3.1
+  logger: 2.6.1
+  audioplayers: 6.5.0
   dart_discord_rpc:
     git:
-      url: https://github.com/AlexisL61/dart_discord_rpc.git
+      url: https://github.com/alexmercerind/dart_discord_rpc.git
+      ref: harmonoid
   timeline_tile: 2.0.0
-  shelf: 1.4.1
+  shelf: 1.4.2
   shelf_router: 1.1.4
-  shelf_web_socket: 1.0.4
+  shelf_web_socket: 3.0.0
   crypto: 3.0.3
-  sentry_flutter: 8.9.0
-  path_provider: 2.1.1
-  local_hero:
+  sentry_flutter: 9.6.0
+  path_provider: 2.1.5
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -79,7 +78,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.0
+  flutter_lints: ^6.0.0
   flutter_launcher_icons: 
 
 flutter_launcher_icons:

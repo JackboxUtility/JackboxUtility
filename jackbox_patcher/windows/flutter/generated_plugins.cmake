@@ -5,14 +5,15 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   audioplayers_windows
   dart_discord_rpc
-  screen_retriever
+  screen_retriever_windows
+  sentry_flutter
   url_launcher_windows
   window_manager
   windows_taskbar
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST
-  sentry_flutter
+  jni
 )
 
 set(PLUGIN_BUNDLED_LIBRARIES)

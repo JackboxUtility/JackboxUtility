@@ -5,7 +5,6 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:jackbox_patcher/model/patchs_category.dart';
 import 'package:jackbox_patcher/model/user_model/interface/installable_patch.dart';
-import 'package:palette_generator/palette_generator.dart';
 
 import '../../components/dialogs/download_patch_dialog.dart';
 import '../../model/user_model/user_jackbox_game_patch.dart';

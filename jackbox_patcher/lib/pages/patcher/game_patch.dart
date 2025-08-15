@@ -9,7 +9,6 @@ import 'package:jackbox_patcher/model/user_model/user_jackbox_pack_patch.dart';
 import 'package:jackbox_patcher/pages/game_ui/gameinfo_view_model.dart';
 import 'package:jackbox_patcher/services/error/error.dart';
 import 'package:jackbox_patcher/services/launcher/launcher.dart';
-import 'package:palette_generator/palette_generator.dart';
 
 import '../../model/user_model/user_jackbox_game.dart';
 import '../../model/user_model/user_jackbox_pack.dart';

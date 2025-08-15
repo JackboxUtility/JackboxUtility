@@ -2,9 +2,8 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
-import 'package:dio/native_imp.dart';
+import 'package:dio/io.dart';
 
 Dio createDio([BaseOptions? baseOptions]) => DioForJackboxUtility(baseOptions);
 
@@ -27,11 +26,11 @@ class DioForJackboxUtility extends DioForNative implements Dio {
       CancelToken? cancelToken,
       bool deleteOnError = true,
       bool deleteOnCancel = true,
-      bool appendData = false,
       String lengthHeader = Headers.contentLengthHeader,
       data,
+      FileAccessMode fileAccessMode = FileAccessMode.write,
       Options? options}) async {
-    options = DioMixin.checkOptions('GET', options);
+    options = (options ?? Options())..method = 'GET';
 
     options.responseType = ResponseType.stream;
     Response<ResponseBody> response;
@@ -40,12 +39,12 @@ class DioForJackboxUtility extends DioForNative implements Dio {
         urlPath,
         data: data,
         // Disable fetch timeout because that triggers even though data is transferred
-        options: options.copyWith(receiveTimeout: 0),
+        options: options.copyWith(receiveTimeout: Duration()),
         queryParameters: queryParameters,
         cancelToken: cancelToken ?? CancelToken(),
       );
-    } on DioError catch (e) {
-      if (e.type == DioErrorType.response) {
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.badResponse) {
         if (e.response!.requestOptions.receiveDataWhenStatusError == true) {
           var res = await transformer.transformResponse(
             e.response!.requestOptions..responseType = ResponseType.json,
@@ -78,7 +77,9 @@ class DioForJackboxUtility extends DioForNative implements Dio {
     file.createSync(recursive: true);
 
     RandomAccessFile raf = file.openSync(
-        mode: appendData ? FileMode.writeOnlyAppend : FileMode.writeOnly);
+        mode: fileAccessMode == FileAccessMode.append
+            ? FileMode.writeOnlyAppend
+            : FileMode.writeOnly);
 
     Completer<Response> completer = Completer();
     Timer? checker;
@@ -132,7 +133,7 @@ class DioForJackboxUtility extends DioForNative implements Dio {
           checker?.cancel();
           await subscription.cancel();
         } finally {
-          completer.completeError(DioMixin.assureDioError(
+          completer.completeError(DioMixin.assureDioException(
             err,
             requestOptions,
           ));
@@ -144,7 +145,7 @@ class DioForJackboxUtility extends DioForNative implements Dio {
         await close(false);
         completer.complete(response);
       } catch (e) {
-        completer.completeError(DioMixin.assureDioError(
+        completer.completeError(DioMixin.assureDioException(
           e,
           requestOptions,
         ));
@@ -154,7 +155,7 @@ class DioForJackboxUtility extends DioForNative implements Dio {
         checker?.cancel();
         await close(deleteOnError);
       } finally {
-        completer.completeError(DioMixin.assureDioError(
+        completer.completeError(DioMixin.assureDioException(
           e,
           requestOptions,
         ));
@@ -171,9 +172,9 @@ class DioForJackboxUtility extends DioForNative implements Dio {
       forwarderCancelToken.cancel();
     });
 
-    if (requestOptions.receiveTimeout > 0) {
+    if (requestOptions.receiveTimeout != null && requestOptions.receiveTimeout!.inSeconds > 0) {
       checker = Timer.periodic(
-          Duration(milliseconds: requestOptions.receiveTimeout), (timer) async {
+          requestOptions.receiveTimeout!, (timer) async {
         int receivedRightNow = received;
         if (receivedOnLastCheck != receivedRightNow) {
           receivedOnLastCheck = receivedRightNow;
@@ -181,10 +182,10 @@ class DioForJackboxUtility extends DioForNative implements Dio {
           timer.cancel();
           await subscription.cancel();
           await close(deleteOnError);
-          completer.completeError(DioError(
+          completer.completeError(DioException(
             requestOptions: requestOptions,
             error: 'Receiving data timeout[${requestOptions.receiveTimeout}ms]',
-            type: DioErrorType.receiveTimeout,
+            type: DioExceptionType.receiveTimeout,
           ));
         }
       });
@@ -200,16 +201,16 @@ class DioForJackboxUtility extends DioForNative implements Dio {
       CancelToken? cancelToken,
       bool deleteOnError = true,
       bool deleteOnCancel = true,
-      bool appendData = false,
       lengthHeader = Headers.contentLengthHeader,
       data,
+      FileAccessMode fileAccessMode = FileAccessMode.write,
       Options? options}) {
     return download(uri.toString(), savePath,
         onReceiveProgress: onReceiveProgress,
         lengthHeader: lengthHeader,
         deleteOnError: deleteOnError,
         deleteOnCancel: deleteOnCancel,
-        appendData: appendData,
+        fileAccessMode: fileAccessMode,
         cancelToken: cancelToken,
         data: data,
         options: options);

@@ -66,7 +66,7 @@ class RestApiRouter {
     }
 
     // Adding ws handlers
-    httpApp.add("GET", "/ws", webSocketHandler((WebSocketChannel ws) {
+    httpApp.add("GET", "/ws", webSocketHandler((WebSocketChannel ws, String? subprotocol) {
       ws.stream.listen((message) {
         _handleWsRequest(ws, message);
       });

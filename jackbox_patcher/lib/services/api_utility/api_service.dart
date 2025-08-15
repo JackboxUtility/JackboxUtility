@@ -429,14 +429,14 @@ class APIService {
                     // Request all bytes, starting from the beginning
                     : {},
                 responseType: ResponseType.bytes,
-                receiveTimeout: 10000, // 10s continuously no data transmission
+                receiveTimeout: Duration(seconds: 10), // 10s continuously no data transmission
                 validateStatus: (status) {
                   return status == HttpStatus.ok ||
                       status == HttpStatus.partialContent;
                 }),
             deleteOnError: false,
             deleteOnCancel: true,
-            appendData: true,
+            fileAccessMode: FileAccessMode.append,
             cancelToken: cancelToken,
             onReceiveProgress: (receivedBytes, totalBytes) {
           if (progressCallback != null) {
@@ -474,15 +474,15 @@ class APIService {
           // Download cancelled by user
           JULogger().i("[API Service] Download cancelled");
           rethrow;
-        } else if (e.type == DioErrorType.other &&
+        } else if (e.type == DioExceptionType.connectionError &&
             receivedBytes > 0 &&
-            e.message.startsWith(
-                "HttpException: Connection closed while receiving data")) {
+            e.message?.startsWith(
+                "HttpException: Connection closed while receiving data") == true) {
           // Http connection close during data transfer (can happen on bad connections)
           JULogger().w(
               "[API Service] HTTP connection closed while receiving data; attempting to reconnect.");
           resume = true;
-        } else if (e.type == DioErrorType.receiveTimeout && receivedBytes > 0) {
+        } else if (e.type == DioExceptionType.receiveTimeout && receivedBytes > 0) {
           // No data transfer between server and client
           JULogger().w(
               "[API Service] Timeout while receiving data; attempting to reconnect.");

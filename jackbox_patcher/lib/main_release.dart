@@ -15,14 +15,12 @@ import 'services/logger/logger.dart';
 void initRetrievingErrors() {
   FlutterError.onError = (details) {
     FlutterError.presentError(details);
-    JULogger()
-        .e("[ON ERROR] $details", details.exception.toString(), details.stack);
+    JULogger().e("[ON ERROR] $details", error: details.exception, stackTrace: details.stack);
   };
   PlatformDispatcher.instance.onError = (error, stack) {
-    bool ifIsOverflowError =
-        error.toString().contains("A RenderFlex overflowed by");
+    bool ifIsOverflowError = error.toString().contains("A RenderFlex overflowed by");
 
-    if (!ifIsOverflowError) JULogger().e("[ON ERROR] $error", "", stack);
+    if (!ifIsOverflowError) JULogger().e("[ON ERROR] $error", error: error, stackTrace: stack);
     return true;
   };
 }
@@ -31,9 +29,8 @@ void main(List<String> arguments) async {
   FlavorConfig(
       name: "RELEASE",
       color: Colors.orange,
-      variables: {"masterServerUrl": MAIN_SERVER_URL["RELEASE_SERVER_URL"], 
-      "loggerLevel": Level.error});
-      
+      variables: {"masterServerUrl": MAIN_SERVER_URL["RELEASE_SERVER_URL"], "loggerLevel": Level.error});
+
   await InitialLoad.preInit();
 
   if (await ArgumentsHandler().handle(arguments)) {
@@ -43,8 +40,7 @@ void main(List<String> arguments) async {
   await SentryFlutter.init(
     (options) {
       options.environment = "production";
-      options.dsn =
-          'https://bc7660c906ba4f24ad2e37530bfa4c39@o518501.ingest.sentry.io/4504978536988672';
+      options.dsn = 'https://bc7660c906ba4f24ad2e37530bfa4c39@o518501.ingest.sentry.io/4504978536988672';
     },
     // Init your App.
     appRunner: () => runApp(MyApp()),
