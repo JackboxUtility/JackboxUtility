@@ -61,7 +61,7 @@ jobs:
        working-directory: .
        run: |
         copy .\libs\windows\* .\jackbox_patcher\build\windows\x64\runner\Release\
-     - uses: actions/upload-artifact@v3
+     - uses: actions/upload-artifact@v4
        with:
           name: build_windows
           path: ./jackbox_patcher/build/windows/x64/runner/Release
@@ -89,7 +89,7 @@ jobs:
      - name: Build linux
        working-directory: ./jackbox_patcher
        run: flutter build linux --build-name ${{ needs.retrievingVersion.outputs.version }} -t ./lib/main_release.dart
-     - uses: actions/upload-artifact@v3
+     - uses: actions/upload-artifact@v4
        with:
           name: build_linux
           path: ./jackbox_patcher/build/linux/x64/release/bundle

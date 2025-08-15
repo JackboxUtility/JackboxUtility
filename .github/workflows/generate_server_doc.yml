@@ -61,7 +61,7 @@ jobs:
       working-directory: ./documentation/server
     - run : find docs -name "*.md" | xargs rm
       working-directory: ./documentation/server
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
       with:
           name: documentation
           path: ./documentation/server/docs
