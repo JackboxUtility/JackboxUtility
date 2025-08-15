@@ -1,0 +1,69 @@
+{
+  "quit": "sair",
+  "@quit": {},
+  "yes": "Sim",
+  "@yes": {},
+  "close": "Fechar",
+  "@close": {},
+  "cancel": "Cancelar",
+  "@cancel": {},
+  "page_continue": "Continuar",
+  "@page_continue": {},
+  "confirm": "Confirmar",
+  "@confirm": {},
+  "jackbox_utility": "Jackbox Utility",
+  "@jackbox_utility": {},
+  "settings": "Configurações",
+  "@settings": {},
+  "installing_a_patch": "Instalando o Patch",
+  "@installing_a_patch": {},
+  "can_close_popup": "Você pode fechar este pop-up",
+  "@can_close_popup": {},
+  "patch_unavailable": "Patch indisponível",
+  "@patch_unavailable": {},
+  "patch_installed": "{count, plural, one {Patch instalado} other {Patches instalados}}",
+  "@patch_installed": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "example": "1"
+      }
+    }
+  },
+  "delete_version": "Deletar patch",
+  "@delete_version": {},
+  "no": "Não",
+  "@no": {},
+  "ok": "OK",
+  "@ok": {},
+  "notifications": "Notificações",
+  "@notifications": {},
+  "installing_a_patch_description": "Você instalará o patch. Essa ação é irreversível.",
+  "@installing_a_patch_description": {},
+  "patch_outdated": "{count, plural, one {Atualizar patch} other {Atualizar patches}}",
+  "@patch_outdated": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "example": "1"
+      }
+    }
+  },
+  "patch_not_installed": "{count, plural, one {Instalar patch} other {Instalar patches}}",
+  "@patch_not_installed": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "example": "1"
+      }
+    }
+  },
+  "description": "Descrição",
+  "@description": {},
+  "filter_translated": "Traduzido",
+  "@filter_translated": {},
+  "special_thanks": "Agradecimentos especiais",
+  "@special_thanks": {},
+  "filter_dubbed": "Dublado",
+  "@filter_dubbed": {}
+}
