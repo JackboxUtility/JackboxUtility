@@ -157,19 +157,19 @@ jobs:
           fromTag: ${{ needs.retrievingVersion.outputs.version }}
           toTag: ${{ needs.retrievingVersion.outputs.previousTag }}
       - run: mkdir -p dist
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: build_windows
           path: dist/JackboxUtility_Windows
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: build_linux
           path: dist/JackboxUtility_Linux
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: build_linux_light
           path: dist/JackboxUtility_Linux_Light
-      # - uses: actions/download-artifact@v3
+      # - uses: actions/download-artifact@v4
       #   with:
       #     name: build_macos
       #     path: dist/JackboxUtility_MacOS
