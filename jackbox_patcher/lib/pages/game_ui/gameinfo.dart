@@ -395,7 +395,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> implements EventObserve
                 children: [
                   Expanded(
                       child: _buildStoreLinkButton(
-                          storeName: "Jackbox Games Srote",
+                          storeName: "Jackbox Games Store",
                           storeLink: storeLinks.jackboxGamesStore!,
                           icon: Icon(FontAwesomeIcons.boxOpen))),
                 ],
