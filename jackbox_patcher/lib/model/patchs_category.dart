@@ -78,6 +78,7 @@ class PatchCategory {
       }
       PackAvailablePatchs packAvailablePatchs =
           availablePatchs.firstWhere((element) => element.pack.pack.id == pack.pack.id);
+      if (pack.patches.contains(packPatch) == false) continue;
       packAvailablePatchs.packPatchs.add(packPatch);
     }
     for (UserJackboxGamePatch gamePatch in gamePatches) {
