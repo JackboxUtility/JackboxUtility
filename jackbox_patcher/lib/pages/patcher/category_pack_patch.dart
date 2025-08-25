@@ -32,12 +32,12 @@ class _CategoryPackPatchState extends State<CategoryPackPatch> {
   @override
   void initState() {
     _buildInstallableList();
+    _getPatchStatus();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    _getPatchStatus();
     return Padding(
         padding: const EdgeInsets.all(12),
         child: Column(
@@ -53,6 +53,7 @@ class _CategoryPackPatchState extends State<CategoryPackPatch> {
                               return DownloadPatchDialogComponent(
                                   localPaths: installablePatchPaths, patchs: installablePatchs);
                             });
+                        _getPatchStatus();
                         setState(() {});
                       }
                     : null,
@@ -179,7 +180,6 @@ class PackInCategoryCard extends StatefulWidget {
 }
 
 class _PackInCategoryCardState extends State<PackInCategoryCard> {
-
   @override
   void initState() {
     super.initState();
