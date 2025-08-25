@@ -132,7 +132,8 @@ class _CategoryPackPatchState extends State<CategoryPackPatch> {
     for (var element in widget.category.packPatches) {
       if (element.getPack().owned &&
           element.getPack().path != null &&
-          element.getInstalledStatus() != UserInstalledPatchStatus.INSTALLED) {
+          element.getInstalledStatus() != UserInstalledPatchStatus.INSTALLED &&
+          element.getPack().patches.contains(element)) {
         installablePatchs.add(element);
         installablePatchPaths.add(element.getPack().path!);
       }
