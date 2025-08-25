@@ -103,11 +103,11 @@ class _AppInfoWidgetState extends State<AppInfoWidget> {
                     backgroundColor: WidgetStateProperty.all(Colors.red.lighter),
                     foregroundColor: WidgetStateProperty.all(Colors.white)),
                 child: Row(children: [
-                  FaIcon(FontAwesomeIcons.heart, color: Colors.red.lighter),
+                  FaIcon(FontAwesomeIcons.heart, color: Colors.white),
                   SizedBox(
                     width: 10,
                   ),
-                  Text(TranslationsHelper().appLocalizations!.donate, style: TextStyle(color: Colors.red.lighter))
+                  Text(TranslationsHelper().appLocalizations!.donate, style: TextStyle(color: Colors.white))
                 ]),
                 onPressed: () async {
                   await launchUrl(Uri.parse("https://github.com/sponsors/AlexisL61"));
