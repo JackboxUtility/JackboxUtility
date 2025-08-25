@@ -50,7 +50,7 @@ class PatchCategory {
 
   UserInstalledPatchStatus getInstalledStatus() {
     UserInstalledPatchStatus status = UserInstalledPatchStatus.INSTALLED;
-    List<UserJackboxPackPatch> availablePackPatches = packPatches.where((element) => element.getPack().patches.contains(element.patch)).toList();
+    List<UserJackboxPackPatch> availablePackPatches = packPatches.where((element) => element.getPack().patches.any((patch) => patch.patch == element.patch)).toList();
     for (UserJackboxPackPatch packPatch in availablePackPatches) {
       if (packPatch.getInstalledStatus() == UserInstalledPatchStatus.NOT_INSTALLED) {
         return UserInstalledPatchStatus.NOT_INSTALLED;
