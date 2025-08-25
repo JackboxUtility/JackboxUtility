@@ -97,9 +97,7 @@ class UserData {
 
         // Load every patches in the pack
         for (var patch in pack.patches) {
-          if (patch.supportedLaunchers.contains(userPack.origin)) {
-            userPack.patches.add(UserJackboxPackPatch(patch: patch, installedVersion: patchVersionInstalled));
-          }
+          userPack.addPatch(UserJackboxPackPatch(patch: patch, installedVersion: patchVersionInstalled));
         }
 
         // Do the same for the fixes
@@ -137,15 +135,15 @@ class UserData {
     }
     String versionFile;
     if (Platform.isMacOS) {
-      //stupid mac app file structure 
-      versionFile = "${userPack.pack.name}.app/Contents/Resources/macos/${userPack.pack.configuration!.versionFile.fromLauncher(userPack.origin)}";
+      //stupid mac app file structure
+      versionFile =
+          "${userPack.pack.name}.app/Contents/Resources/macos/${userPack.pack.configuration!.versionFile.fromLauncher(userPack.origin)}";
     } else {
       versionFile = userPack.pack.configuration!.versionFile.fromLauncher(userPack.origin);
     }
     JULogger().i("Version file detected for pack ${userPack.pack.name} with origin ${userPack.origin} : $versionFile");
     if (userPack.path == null) {
       return null;
-
     }
     File configurationFile = File("${userPack.path!}${Platform.pathSeparator}$versionFile");
     JULogger().i("Configuration file path : ${userPack.path!}${Platform.pathSeparator}${configurationFile.path}");
