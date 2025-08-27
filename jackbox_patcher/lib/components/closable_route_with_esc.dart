@@ -12,6 +12,7 @@ class ClosableRouteWithEsc extends StatefulWidget {
       required this.child,
       this.leftEvent,
       this.rightEvent,
+      this.close = true,
       this.closeSFX = false,
       this.pressingSpacePauseVideo = false,
       this.stopVideo = true})
@@ -23,6 +24,7 @@ class ClosableRouteWithEsc extends StatefulWidget {
   final bool closeSFX;
   final bool pressingSpacePauseVideo;
   final bool stopVideo;
+  final bool close;
 
   @override
   State<ClosableRouteWithEsc> createState() => _ClosableRouteWithEscState();
@@ -47,26 +49,25 @@ class _ClosableRouteWithEscState extends State<ClosableRouteWithEsc> {
   Widget build(BuildContext context) {
     return Focus(
       autofocus: true,
-      onKey: (node, event) {
-        if (event.isKeyPressed(LogicalKeyboardKey.escape) ||
-            event.isKeyPressed(LogicalKeyboardKey.backspace)) {
-          if (_handleNavigateBack(context)) {
+      onKeyEvent: (node, event) {
+        if (event.logicalKey == LogicalKeyboardKey.escape || event.logicalKey == LogicalKeyboardKey.backspace) {
+          if (widget.close && _handleNavigateBack(context)) {
             return KeyEventResult.handled;
           }
         }
-        if (event.isKeyPressed(LogicalKeyboardKey.arrowLeft)) {
+        if (event.logicalKey == LogicalKeyboardKey.arrowLeft) {
           if (widget.leftEvent != null) {
             widget.leftEvent!();
             return KeyEventResult.handled;
           }
         }
-        if (event.isKeyPressed(LogicalKeyboardKey.arrowRight)) {
+        if (event.logicalKey == LogicalKeyboardKey.arrowRight) {
           if (widget.rightEvent != null) {
             widget.rightEvent!();
             return KeyEventResult.handled;
           }
         }
-        if (event.isKeyPressed(LogicalKeyboardKey.space)) {
+        if (event.logicalKey == LogicalKeyboardKey.space) {
           if (widget.pressingSpacePauseVideo) {
             VideoService.playPause();
             return KeyEventResult.handled;
@@ -76,11 +77,9 @@ class _ClosableRouteWithEscState extends State<ClosableRouteWithEsc> {
       },
       child: RawGestureDetector(
         gestures: <Type, GestureRecognizerFactory>{
-          MouseBackButtonRecognizer:
-              GestureRecognizerFactoryWithHandlers<MouseBackButtonRecognizer>(
+          MouseBackButtonRecognizer: GestureRecognizerFactoryWithHandlers<MouseBackButtonRecognizer>(
             () => MouseBackButtonRecognizer(),
-            (instance) =>
-                instance.onTapDown = (details) => _handleNavigateBack(context),
+            (instance) => instance.onTapDown = (details) => _handleNavigateBack(context),
           ),
         },
         child: widget.child,
