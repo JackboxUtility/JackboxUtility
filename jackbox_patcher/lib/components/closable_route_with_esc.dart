@@ -31,6 +31,8 @@ class ClosableRouteWithEsc extends StatefulWidget {
 }
 
 class _ClosableRouteWithEscState extends State<ClosableRouteWithEsc> {
+  FocusNode focusNode = FocusNode(debugLabel: DateTime.now().toString());
+
   bool _handleNavigateBack(BuildContext context) {
     if (Navigator.of(context).canPop()) {
       if (widget.stopVideo) {
@@ -46,12 +48,25 @@ class _ClosableRouteWithEscState extends State<ClosableRouteWithEsc> {
   }
 
   @override
+  void didUpdateWidget(covariant ClosableRouteWithEsc oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.close && !oldWidget.close) {
+      print("Requesting focus");
+      focusNode.requestFocus();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Focus(
-      autofocus: true,
+      focusNode: focusNode,
+      autofocus: widget.close,
       onKeyEvent: (node, event) {
+        if (event is! KeyDownEvent) {
+          return KeyEventResult.ignored;
+        }
         if (event.logicalKey == LogicalKeyboardKey.escape || event.logicalKey == LogicalKeyboardKey.backspace) {
-          if (widget.close && _handleNavigateBack(context)) {
+          if (node == focusNode && widget.close && _handleNavigateBack(context)) {
             return KeyEventResult.handled;
           }
         }

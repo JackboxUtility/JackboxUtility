@@ -340,6 +340,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
       items.add(PaneItemSeparator());
       items.add(PaneItemHeader(
           header: TextBox(
+            //autofocus: true,
         placeholder: TranslationsHelper().appLocalizations!.search,
         suffix: const Icon(FluentIcons.search),
         controller: _searchController,
@@ -349,6 +350,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
           });
         },
         onTapOutside: (event) {
+          print("Tap outside");
           setState(() {
             shouldCloseOnEsc = true;
           });
