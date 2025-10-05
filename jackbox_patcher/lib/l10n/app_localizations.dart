@@ -217,6 +217,18 @@ abstract class AppLocalizations {
   /// **'Installation Complete'**
   String get installing_a_patch_end;
 
+  /// No description provided for @thank_the_team_button.
+  ///
+  /// In en, this message translates to:
+  /// **'Thank the team'**
+  String get thank_the_team_button;
+
+  /// No description provided for @thank_the_team_description.
+  ///
+  /// In en, this message translates to:
+  /// **'Thank the team for the translation'**
+  String get thank_the_team_description;
+
   /// No description provided for @can_close_popup.
   ///
   /// In en, this message translates to:
