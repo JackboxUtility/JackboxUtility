@@ -74,8 +74,8 @@ class AppLocalizationsTa extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'Patches installed',
-      one: 'Patch installed',
+      other: 'ஒட்டுகள் நிறுவப்பட்டது',
+      one: 'ஒட்டு நிறுவப்பட்டது',
     );
     return '$_temp0';
   }
@@ -172,7 +172,7 @@ class AppLocalizationsTa extends AppLocalizations {
   String get launch_informations => 'தகவல்களைத் தொடங்கவும்';
 
   @override
-  String get launching => 'தொடங்குதல் ...';
+  String get launching => 'தொடங்குதல்…';
 
   @override
   String get launched => 'தொடங்கப்பட்டது!';
@@ -239,7 +239,7 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String game_translation_translated_description(String language) {
-    return 'இந்த விளையாட்டுகள் $language.';
+    return 'இந்த விளையாட்டுகள் $language மொழியில் மொழிபெயர்க்கப்பட்டுள்ளன.';
   }
 
   @override
@@ -260,7 +260,7 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String game_translation_not_available_description(String language) {
-    return 'இந்த விளையாட்டுகள் $language.';
+    return 'இந்த விளையாட்டுகள் $language இல் மொழிபெயர்க்கப்படவில்லை.';
   }
 
   @override
@@ -332,7 +332,7 @@ class AppLocalizationsTa extends AppLocalizations {
       'கிடைக்கக்கூடிய சேவையகங்களில் ஒன்றைத் தேர்ந்தெடுக்கவும்';
 
   @override
-  String get select_server_loading => 'சேவையகங்களை ஏற்றுகிறது ...';
+  String get select_server_loading => 'சேவையகங்களை ஏற்றுகிறது…';
 
   @override
   String get select_server_button => 'தேர்ந்தெடு';
@@ -378,9 +378,9 @@ class AppLocalizationsTa extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count games found',
-      one: '1 game found',
-      zero: 'No game found',
+      other: '$count விளையாட்டுகள் கண்டுபிடிக்கப்பட்டது',
+      one: '1 விளையாட்டு கண்டுபிடிக்கப்பட்டது',
+      zero: 'எந்த விளையாட்டும் கிடைக்கவில்லை.',
     );
     return '$_temp0';
   }
@@ -430,9 +430,9 @@ class AppLocalizationsTa extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count games available',
-      one: '1 game available',
-      zero: 'No game available',
+      other: '$count விளையாட்டுகள் கிடைக்கிறது',
+      one: '1 விளையாட்டு கிடைக்கிறது',
+      zero: 'எந்த விளையாட்டும் கிடைக்கவில்லை',
     );
     return '$_temp0';
   }
@@ -623,7 +623,7 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get settings_discord_rich_presence_buttons_description =>
-      'கிதுபிற்கான இணைப்பு பொத்தான்கள் மற்றும் உங்கள் கருத்து வேறுபாடு நிறைந்த பயன்பாட்டின் பயன்பாட்டின் முரண்பாடு ஆகியவற்றைக் காட்டுகிறது.';
+      'உங்கள் முரண்பாடு சிறப்பான இருப்பு இல் அறிவிலிமையத்தில் மற்றும் பயன்பாட்டின் முரண்பாடுக்கான இணைப்பு பொத்தான்களைக் காட்டுகிறது.';
 
   @override
   String get settings_audio_category => 'ஆடியோ';

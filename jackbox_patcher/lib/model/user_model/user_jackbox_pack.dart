@@ -13,7 +13,12 @@ class UserJackboxPack {
   final JackboxPack pack;
   final List<UserJackboxGame> games = [];
   final List<UserJackboxPackPatch> fixes = [];
-  final List<UserJackboxPackPatch> patches = [];
+  final List<UserJackboxPackPatch> _patches = [];
+
+  List<UserJackboxPackPatch> get patches => _patches
+      .where((patch) =>
+          patch.patch.supportedLaunchers.contains(origin) || origin == null || origin == LauncherType.UNKNOWN)
+      .toList();
   UserJackboxLoader? loader;
   String? path;
   bool owned = false;
@@ -75,10 +80,9 @@ class UserJackboxPack {
   }
 
   UserJackboxPackPatch? getInstalledPackPatch() {
-    Iterable<UserJackboxPackPatch> patchesInstalled = patches.where((patch) =>
+    Iterable<UserJackboxPackPatch> patchesInstalled = _patches.where((patch) =>
         patch.getInstalledStatus() == UserInstalledPatchStatus.INSTALLED ||
-        patch.getInstalledStatus() ==
-            UserInstalledPatchStatus.INSTALLED_OUTDATED);
+        patch.getInstalledStatus() == UserInstalledPatchStatus.INSTALLED_OUTDATED);
     if (patchesInstalled.isNotEmpty) {
       return patchesInstalled.first;
     } else {
@@ -89,8 +93,7 @@ class UserJackboxPack {
   UserJackboxPackPatch? getInstalledPackFix() {
     Iterable<UserJackboxPackPatch> patchesInstalled = fixes.where((patch) =>
         patch.getInstalledStatus() == UserInstalledPatchStatus.INSTALLED ||
-        patch.getInstalledStatus() ==
-            UserInstalledPatchStatus.INSTALLED_OUTDATED);
+        patch.getInstalledStatus() == UserInstalledPatchStatus.INSTALLED_OUTDATED);
     if (patchesInstalled.isNotEmpty) {
       return patchesInstalled.first;
     } else {
@@ -112,12 +115,16 @@ class UserJackboxPack {
     return null;
   }
 
+  void addPatch(UserJackboxPackPatch patch) {
+    _patches.add(patch);
+  }
+
   Map<String, dynamic> toJson() {
     return {
       'pack': pack.toJson(),
       'games': games.map((e) => e.toJson()).toList(),
       'fixes': fixes.map((e) => e.toJson()).toList(),
-      'patches': patches.map((e) => e.toJson()).toList(),
+      'patches': _patches.map((e) => e.toJson()).toList(),
       'loader': loader?.toJson(),
       'path': path,
       'owned': owned,

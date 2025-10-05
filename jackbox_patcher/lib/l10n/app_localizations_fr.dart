@@ -172,7 +172,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get launch_informations => 'Informations de lancement';
 
   @override
-  String get launching => 'Launching...';
+  String get launching => 'Lancement…';
 
   @override
   String get launched => 'Launched !';
@@ -329,7 +329,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get select_server_subtitle => 'Choisissez un serveur pour commencer';
 
   @override
-  String get select_server_loading => 'Chargement des serveurs...';
+  String get select_server_loading => 'Chargement des serveurs…';
 
   @override
   String get select_server_button => 'Sélectionner';

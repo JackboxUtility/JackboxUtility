@@ -21,17 +21,13 @@ class UserJackboxPackPatch extends InstallablePatch {
     UserJackboxPack pack = getPack();
     String? packPath = pack.path;
     bool owned = pack.owned;
-    if (patch.latestVersion != "" &&
-        packPath != null &&
-        packPath != "" &&
-        owned) {
+    if (patch.latestVersion != "" && packPath != null && packPath != "" && owned) {
       if (installedVersion != null && installedVersion != "") {
         if (installedVersion == patch.latestVersion) {
           return UserInstalledPatchStatus.INSTALLED;
         } else {
           if (installedVersion!.split("-").length > 1 &&
-              installedVersion!.split("-")[1] ==
-                  patch.latestVersion.split("-")[1]) {
+              installedVersion!.split("-")[1] == patch.latestVersion.split("-")[1]) {
             return UserInstalledPatchStatus.INSTALLED_OUTDATED;
           } else {
             return UserInstalledPatchStatus.NOT_INSTALLED;
@@ -46,24 +42,15 @@ class UserJackboxPackPatch extends InstallablePatch {
   }
 
   /// Overrided callback to call the main callback
-  _downloadPatchCallbackMultiplePatches(
-      void Function(String, String, double?) callback,
-      String title,
-      String description,
-      double? progression,
-      int currentPatch) {
+  _downloadPatchCallbackMultiplePatches(void Function(String, String, double?) callback, String title,
+      String description, double? progression, int currentPatch) {
     if (patch.patchPaths.length == 1) {
       callback(title, description, progression);
     } else {
-      String titleText =
-          "[${currentPatch + 1}/${patch.patchPaths.length}] $title";
+      String titleText = "[${currentPatch + 1}/${patch.patchPaths.length}] $title";
 
-      callback(
-          titleText,
-          description,
-          progression != null
-              ? (progression + currentPatch * 100) / patch.patchPaths.length
-              : null);
+      callback(titleText, description,
+          progression != null ? (progression + currentPatch * 100) / patch.patchPaths.length : null);
     }
   }
 
@@ -74,14 +61,10 @@ class UserJackboxPackPatch extends InstallablePatch {
   /// [cancelToken] is the token to cancel the download
   @override
   Future<void> downloadPatch(
-      String patchUri,
-      void Function(String, String, double?) callback,
-      CancelToken cancelToken,
-      bool resume) async {
+      String patchUri, void Function(String, String, double?) callback, CancelToken cancelToken, bool resume) async {
     String patchUriWithOverride = patchUri;
     if (getPack().pack.resourceLocation != null) {
-      patchUriWithOverride =
-          "$patchUriWithOverride/${getPack().pack.resourceLocation!}";
+      patchUriWithOverride = "$patchUriWithOverride/${getPack().pack.resourceLocation!}";
     }
 
     int currentPatch = 0;
@@ -91,9 +74,7 @@ class UserJackboxPackPatch extends InstallablePatch {
           this,
           patchUriWithOverride,
           patchPath,
-          (String t, String d, double? p) =>
-              _downloadPatchCallbackMultiplePatches(
-                  callback, t, d, p, currentPatch),
+          (String t, String d, double? p) => _downloadPatchCallbackMultiplePatches(callback, t, d, p, currentPatch),
           cancelToken,
           resume);
       currentPatch++;
@@ -111,16 +92,14 @@ class UserJackboxPackPatch extends InstallablePatch {
   UserJackboxPack getPack() {
     List<UserJackboxPack> dataFound = UserData()
         .packs
-        .where((pack) => pack.patches
-            .where((element) => element.patch.id == patch.id)
-            .isNotEmpty)
+        .where((pack) => pack.patches.where((element) => element.patch.id == patch.id).isNotEmpty)
         .toList();
     if (dataFound.isNotEmpty) {
       return dataFound[0];
     } else {
-      return UserData().packs.firstWhere((pack) => pack.fixes
-          .where((element) => element.patch.id == patch.id)
-          .isNotEmpty);
+      return UserData()
+          .packs
+          .firstWhere((pack) => pack.fixes.where((element) => element.patch.id == patch.id).isNotEmpty);
     }
   }
 

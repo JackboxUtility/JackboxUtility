@@ -85,9 +85,7 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
                 icon: const Icon(FontAwesomeIcons.boxArchive),
                 title: Text(showAllPacks == false
                     ? TranslationsHelper().appLocalizations!.show_all_packs
-                    : TranslationsHelper()
-                        .appLocalizations!
-                        .show_owned_packs_only),
+                    : TranslationsHelper().appLocalizations!.show_owned_packs_only),
                 body: Container(),
                 onTap: () {
                   setState(() {
@@ -124,9 +122,8 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
                     category: APIService().cachedCategories[i],
                     showAllPacks: showAllPacks,
                     changeMenuView: _changeMenuView)))));
-    for (var userPack in showAllPacks
-        ? UserData().packs
-        : UserData().packs.where((element) => element.owned).toList()) {
+    for (var userPack
+        in showAllPacks ? UserData().packs : UserData().packs.where((element) => element.owned).toList()) {
       int countPatchs = 0;
       for (var game in userPack.games) {
         if (game.patches.isNotEmpty) {
