@@ -251,13 +251,13 @@ class _DownloadPatchDialogComponentState
       ),
     ];
 
-    if (showThankYou) {
+    if (thankYouUrl != null) {
       actions.insert(
           0,
           HyperlinkButton(
               onPressed: () async {
                 try {
-                  await launchUrl(Uri.parse(thankYouUrl));
+                  await launchUrl(Uri.parse(thankYouUrl!));
                 } catch (e) {
                   // ignore launch errors
                 }
