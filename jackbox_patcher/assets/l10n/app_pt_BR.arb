@@ -40,6 +40,10 @@
   "@notifications": {},
   "installing_a_patch_description": "Você instalará o patch. Essa ação é irreversível.",
   "@installing_a_patch_description": {},
+  "thank_the_team_button": "Agradecer à equipe",
+  "@thank_the_team_button": {},
+  "thank_the_team_description": "Agradeça à equipe pela tradução",
+  "@thank_the_team_description": {},
   "patch_outdated": "{count, plural, one {Atualizar patch} other {Atualizar patches}}",
   "@patch_outdated": {
     "placeholders": {

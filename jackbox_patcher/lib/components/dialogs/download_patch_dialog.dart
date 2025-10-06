@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:url_launcher/url_launcher.dart';
+import '../../services/api_utility/api_service.dart';
 import 'package:jackbox_patcher/model/user_model/interface/installable_patch.dart';
 import 'package:windows_taskbar/windows_taskbar.dart';
 
@@ -232,18 +234,43 @@ class _DownloadPatchDialogComponentState
   }
 
   ContentDialog buildFinishDialog() {
+    // Check server-side configuration to decide whether to show the thank-you button
+    String? thankYouUrl = APIService()
+            .cachedConfigurations
+            ?.getConfiguration("DOWNLOAD", "THANK_YOU_URL");
+
+    List<Widget> actions = [
+      HyperlinkButton(
+        onPressed: () {
+          if (Platform.isWindows) {
+            WindowsTaskbar.setProgressMode(TaskbarProgressMode.noProgress);
+          }
+          Navigator.pop(context);
+        },
+        child: Text(TranslationsHelper().appLocalizations!.close),
+      ),
+    ];
+
+    if (thankYouUrl != null) {
+      actions.insert(
+          0,
+          HyperlinkButton(
+              onPressed: () async {
+                try {
+                  await launchUrl(Uri.parse(thankYouUrl!));
+                } catch (e) {
+                  // ignore launch errors
+                }
+              },
+              child: Row(mainAxisSize: MainAxisSize.min, children: [
+                Image.asset('assets/logos/kofi_symbol.png', height: 16),
+                const SizedBox(width: 8),
+                Text(TranslationsHelper().appLocalizations!.thank_the_team_button)
+              ])));
+    }
+
     return ContentDialog(
-      actions: [
-        HyperlinkButton(
-          onPressed: () {
-            if (Platform.isWindows) {
-              WindowsTaskbar.setProgressMode(TaskbarProgressMode.noProgress);
-            }
-            Navigator.pop(context);
-          },
-          child: Text(TranslationsHelper().appLocalizations!.close),
-        ),
-      ],
+      actions: actions,
       title: Text(TranslationsHelper().appLocalizations!.installing_a_patch),
       content: SizedBox(
           height: 200,
@@ -261,6 +288,11 @@ class _DownloadPatchDialogComponentState
                     style: const TextStyle(fontSize: 20)),
                 Text(TranslationsHelper().appLocalizations!.can_close_popup,
                     style: const TextStyle(fontSize: 16)),
+                if (thankYouUrl != null) ...[
+                  const SizedBox(height: 12),
+                  Text(TranslationsHelper().appLocalizations!.thank_the_team_description,
+                      style: const TextStyle(fontSize: 14))
+                ]
               ]))),
     );
   }

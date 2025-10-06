@@ -457,5 +457,9 @@
     "app_behavior": "Zachowanie aplikacji",
     "@app_behavior": {},
     "settings_app_startup_category": "Uruchamianie aplikacji",
-    "@settings_app_startup_category": {}
+    "@settings_app_startup_category": {},
+    "thank_the_team_button": "Podziękuj zespołowi",
+    "@thank_the_team_button": {},
+    "thank_the_team_description": "Podziękuj zespołowi za tłumaczenie",
+    "@thank_the_team_description": {}
 }

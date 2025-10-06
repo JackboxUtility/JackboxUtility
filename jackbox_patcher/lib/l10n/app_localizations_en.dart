@@ -58,6 +58,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get installing_a_patch_end => 'Installation Complete';
 
   @override
+  String get thank_the_team_button => 'Thank the team';
+
+  @override
+  String get thank_the_team_description => 'Thank the team for the translation';
+
+  @override
   String get can_close_popup => 'You can close this pop-up';
 
   @override
