@@ -288,7 +288,7 @@ class _DownloadPatchDialogComponentState
                     style: const TextStyle(fontSize: 20)),
                 Text(TranslationsHelper().appLocalizations!.can_close_popup,
                     style: const TextStyle(fontSize: 16)),
-                if (showThankYou) ...[
+                if (thankYouUrl != null) ...[
                   const SizedBox(height: 12),
                   Text(TranslationsHelper().appLocalizations!.thank_the_team_description,
                       style: const TextStyle(fontSize: 14))
