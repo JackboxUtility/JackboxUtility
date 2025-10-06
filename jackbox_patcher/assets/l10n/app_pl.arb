@@ -1,461 +1,465 @@
 {
-  "close": "Zamknij",
-  "@close": {},
-  "cancel": "Anuluj",
-  "@cancel": {},
-  "page_continue": "Kontynuuj",
-  "@page_continue": {},
-  "confirm": "Potwierdź",
-  "@confirm": {},
-  "quit": "Wyjdź",
-  "@quit": {},
-  "yes": "Tak",
-  "@yes": {},
-  "no": "Nie",
-  "@no": {},
-  "ok": "OK",
-  "@ok": {},
-  "jackbox_utility": "Jackbox Utility",
-  "@jackbox_utility": {},
-  "launch_search_game": "Uruchom/ Wyszukaj gry",
-  "@launch_search_game": {},
-  "settings": "Ustawienia",
-  "@settings": {},
-  "patch_a_game": "Dodaj patch'a do gry",
-  "@patch_a_game": {},
-  "notifications": "Powiadomienia",
-  "@notifications": {},
-  "installing_a_patch": "Instalowanie łatki",
-  "@installing_a_patch": {},
-  "installing_a_patch_description": "Za chwilę pobierzesz łatkę. Ta akcja jest nieodwracalna.",
-  "@installing_a_patch_description": {},
-  "installing_a_patch_end": "Instalacja ukończona",
-  "@installing_a_patch_end": {},
-  "thank_the_team_button": "Podziękuj zespołowi",
-  "@thank_the_team_button": {},
-  "thank_the_team_description": "Podziękuj zespołowi za tłumaczenie",
-  "@thank_the_team_description": {},
-  "can_close_popup": "Możesz zamknąć te okienko",
-  "@can_close_popup": {},
-  "patch_unavailable": "Łatka nie jest Dostępna",
-  "@patch_unavailable": {},
-  "game_patch_unavailable": "Łatka nie jest dostępna",
-  "@game_patch_unavailable": {},
-  "patch_installed": "{count, plural, one {Łatka zainstalowana} other {Łatki zainstalowane}}",
-  "@patch_installed": {
-    "placeholders": {
-      "count": {
-        "type": "num",
-        "example": "1"
-      }
-    }
-  },
-  "patch_outdated": "{count, plural, one {Zaktualizuj łatkę} other {Zaktualizuj łatki}}",
-  "@patch_outdated": {
-    "placeholders": {
-      "count": {
-        "type": "num",
-        "example": "1"
-      }
-    }
-  },
-  "version": "Wersja",
-  "@version": {},
-  "authors": "Autorzy",
-  "@authors": {},
-  "small_information": "Informacje",
-  "@small_information": {},
-  "more_informations": "Więcej informacji",
-  "@more_informations": {},
-  "launch_game": "Uruchom Grę",
-  "@launch_game": {},
-  "launch_pack": "Uruchom Paczkę",
-  "@launch_pack": {},
-  "patch_missing_before_launching_launch": "Uruchom Grę",
-  "@patch_missing_before_launching_launch": {},
-  "description": "Opis",
-  "@description": {},
-  "small_description": "Opis",
-  "@small_description": {},
-  "in_language_description": "Te gry są dostępne w {language} (albo naturalnie, albo poprzez tłumaczenie społeczności.)",
-  "@in_language_description": {
-    "placeholders": {
-      "language": {
-        "type": "String",
-        "example": "French"
-      }
-    }
-  },
-  "in_language": "Po {language}",
-  "@in_language": {
-    "placeholders": {
-      "language": {
-        "type": "String",
-        "example": "French"
-      }
-    }
-  },
-  "no_game_in_this_category_title": "W tej kategorii nie ma żadnej gry",
-  "@no_game_in_this_category_title": {},
-  "audience": "Publiczność",
-  "@audience": {},
-  "confirmation": "Potwierdzenie",
-  "@confirmation": {},
-  "confirmation_description": "Na pewno chcesz {action}? Tej czynności nie da się cofnąć.",
-  "@confirmation_description": {
-    "placeholders": {
-      "action": {
-        "type": "String",
-        "example": "remove all stars"
-      }
-    }
-  },
-  "fix": "Napraw",
-  "@fix": {},
-  "patch_not_installed": "{count, plural, one {Zainstaluj łatkę} other {Zainstaluj łatki}}",
-  "@patch_not_installed": {
-    "placeholders": {
-      "count": {
-        "type": "num",
-        "example": "1"
-      }
-    }
-  },
-  "delete_version": "Usuwanie wersji",
-  "@delete_version": {},
-  "delete_version_description": "Jeśli zresetujesz grę, możesz usunąć zainstalowaną jej wersję. W ten sposób możesz ponownie zainstalować łatki.",
-  "@delete_version_description": {},
-  "patch_modification": "Modyfikowanie łatki",
-  "@patch_modification": {},
-  "patch_modification_description": "Ta łatka zmienia grę w następujący sposób:",
-  "@patch_modification_description": {},
-  "patch_modification_content_text": "Zmiana tekstu wewnątrz gry",
-  "@patch_modification_content_text": {},
-  "patch_modification_content_internal": "Zmiana wewnętrznych plików gry (zdjęcia, teksty...)",
-  "@patch_modification_content_internal": {},
-  "patch_modification_content_subtitles": "Zmiana napisów",
-  "@patch_modification_content_subtitles": {},
-  "patch_modification_content_website": "Zmiana tekstu wewnątrz klienta Jackbox (tylko dostępne na {website})",
-  "@patch_modification_content_website": {
-    "placeholders": {
-      "website": {
-        "type": "String",
-        "example": "laboxdejack.fr"
-      }
-    }
-  },
-  "patch_modification_content_audios": "Zmiana tekstu mówionego",
-  "@patch_modification_content_audios": {},
-  "launch_game_fast_launcher": "Uruchom grę (Szybki start)",
-  "@launch_game_fast_launcher": {},
-  "launch_pack_description": "Uruchamia grę normalnie",
-  "@launch_pack_description": {},
-  "launching": "Uruchamianie…",
-  "@launching": {},
-  "launched": "Uruchomiono!",
-  "@launched": {},
-  "path_not_found": "Nie znaleziono ścieżki",
-  "@path_not_found": {},
-  "game_translation_not_available_description_en": "Te gry są dostępne tylko w języku angielskim.",
-  "@game_translation_not_available_description_en": {},
-  "downloading": "Pobieranie",
-  "@downloading": {},
-  "starting": "Rozpoczęcie",
-  "@starting": {},
-  "extracting": "Wypakowywanie",
-  "@extracting": {},
-  "finalizing": "Kończenie",
-  "@finalizing": {},
-  "unknown_error": "Nieznany błąd",
-  "@unknown_error": {},
-  "game_translation_not_available": "Po angielsku",
-  "@game_translation_not_available": {},
-  "game_translation_not_available_description": "Te gry nie są przetłumaczone na {language}.",
-  "@game_translation_not_available_description": {
-    "placeholders": {
-      "language": {
-        "type": "String",
-        "example": "French"
-      }
-    }
-  },
-  "game_translation_translated": "Oficjalnie przetłumaczone na {language}",
-  "@game_translation_translated": {
-    "placeholders": {
-      "language": {
-        "type": "String",
-        "example": "French"
-      }
-    }
-  },
-  "game_translation_translated_description_en": "Te gry zostały przetłumaczone na francuski, włoski, niemiecki i hiszpański przez Jackbox Games.",
-  "@game_translation_translated_description_en": {},
-  "players": "gracze",
-  "@players": {},
-  "search_game": "Szukaj gry",
-  "@search_game": {},
-  "search": "Szukaj",
-  "@search": {},
-  "all_games": "Wszystkie gry",
-  "@all_games": {},
-  "selected_server": "Wybrany serwer",
-  "@selected_server": {},
-  "change_server": "Zmień serwer",
-  "@change_server": {},
-  "app_information": "Informacje o aplikacji",
-  "@app_information": {},
-  "automatic_game_finder_button": "Automatycznie wykryj zainstalowane gry",
-  "@automatic_game_finder_button": {},
-  "games_available": "{count, plural, =0 {Brak dostępnych gier} one {1 dostępna gra} other {{count} dostępne gry}}",
-  "@games_available": {
-    "placeholders": {
-      "count": {
-        "type": "num",
-        "example": "1"
-      }
-    }
-  },
-  "author": "Autor",
-  "@author": {},
-  "game_type_team": "Drużynowe",
-  "@game_type_team": {},
-  "game_type_team_description": "W tych grach gracze są podzieleni na drużyny i muszą współpracować, aby wygrać.",
-  "@game_type_team_description": {},
-  "game_translation_translated_description": "Te gry są natywnie dostępne w {language}.",
-  "@game_translation_translated_description": {
-    "placeholders": {
-      "language": {
-        "type": "String",
-        "example": "French"
-      }
-    }
-  },
-  "game_translation_community_translated": "Przetłumaczone przez społeczność",
-  "@game_translation_community_translated": {},
-  "game_translation_community_translated_description": "Te gry zostały przetłumaczone przez społeczność.",
-  "@game_translation_community_translated_description": {},
-  "contact_error": "Skontaktuj się z użytkownikiem marek na Discordzie",
-  "@contact_error": {},
-  "game_patch_available": "Łatka jest dostępna",
-  "@game_patch_available": {},
-  "game_patch_installed": "Ta łapka jest aktualna",
-  "@game_patch_installed": {},
-  "game_patch_outdated": "Dla tej łatki dostępna jest aktualizacja",
-  "@game_patch_outdated": {},
-  "all_games_description": "Wszystkie gry Jackbox w jednym miejscu.",
-  "@all_games_description": {},
-  "search_by_pack": "Szukaj według paczki",
-  "@search_by_pack": {},
-  "search_by_type": "Szukaj według typu",
-  "@search_by_type": {},
-  "search_by_translation": "Szukaj według statusu tłumaczenia",
-  "@search_by_translation": {},
-  "search_by_tags": "Szukaj według etykiet",
-  "@search_by_tags": {},
-  "select_server_subtitle": "Wybierz jeden z dostępnych serwerów",
-  "@select_server_subtitle": {},
-  "select_server_loading": "Ładuję serwery…",
-  "@select_server_loading": {},
-  "select_server_button": "Wybierz",
-  "@select_server_button": {},
-  "connected_to_server": "Połączono z serwerem {server}",
-  "@connected_to_server": {
-    "placeholders": {
-      "server": {
-        "type": "String",
-        "example": "Jackbox France"
-      }
-    }
-  },
-  "connected_to_server_change": "Zmień",
-  "@connected_to_server_change": {},
-  "connection_to_server_failed": "Nie udało się połączyć z serwerem",
-  "@connection_to_server_failed": {},
-  "select_game_location": "Wybierz lokalizację {game}",
-  "@select_game_location": {
-    "placeholders": {
-      "game": {
-        "type": "String",
-        "example": "The Jackbox Party Pack 1"
-      }
-    }
-  },
-  "download_error": "Błąd podczas pobierania",
-  "@download_error": {},
-  "launch_game_fast_launcher_description": "Uruchamia grę w trybie szybkiego uruchamiania, pozwalając na pominięcie całej czołówki paczki oraz wyboru gry. Jest to dostępne tylko w niektórych grach.",
-  "@launch_game_fast_launcher_description": {},
-  "launch_informations": "Informacje dot. uruchomienia",
-  "@launch_informations": {},
-  "path_not_found_small_description": "Ścieżka gry nie została znaleziona.",
-  "@path_not_found_small_description": {},
-  "path_not_found_description": "Ścieżka gry nie została znaleziona. Sprawdź, czy gra jest zainstalowana- oraz czy ścieżka jest poprawna.",
-  "@path_not_found_description": {},
-  "path_inexistant": "Ścieżka nie istnieje",
-  "@path_inexistant": {},
-  "path_inexistant_small_description": "Nie dodałeś/-aś ścieżki do tej paczki.",
-  "@path_inexistant_small_description": {},
-  "path_inexistant_description": "Nie dodałeś/-aś ścieżki do tej paczki. Możesz to zrobić w ustawieniach.",
-  "@path_inexistant_description": {},
-  "pack_path": "Ścieżka gry",
-  "@pack_path": {},
-  "owned_packs": "Posiadane gry",
-  "@owned_packs": {},
-  "add_pack": "Dodaj grę",
-  "@add_pack": {},
-  "choose_pack": "Wybierz grę",
-  "@choose_pack": {},
-  "game_type_coop": "Kooperacyjne",
-  "@game_type_coop": {},
-  "game_type_coop_description": "W tych grach gracze muszą pracować razem, by wygrać.",
-  "@game_type_coop_description": {},
-  "game_type_versus": "Każdy przeciwko każdemu",
-  "@game_type_versus": {},
-  "game_type_versus_description": "W tych grach każdy gra na swój rachunek i musi ograć pozostałych graczy.",
-  "@game_type_versus_description": {},
-  "connection_to_main_server_failed": "Błąd podczas pozyskiwania dostępnych serwerów.",
-  "@connection_to_main_server_failed": {},
-  "quit_while_downloading_title": "Pobieranie w toku",
-  "@quit_while_downloading_title": {},
-  "quit_while_downloading_description": "Pobieranie jest w trakcie. Na pewno chcesz teraz wyjść?",
-  "@quit_while_downloading_description": {},
-  "automatic_game_finder_title": "Znajdź gry automatycznie",
-  "@automatic_game_finder_title": {},
-  "automatic_game_finder_description": "Jackbox Utility może automatycznie wykryć zainstalowane gry na tym komputerze z Steam i Epic Games.\nCzy chcesz skorzystać z tej usługi?",
-  "@automatic_game_finder_description": {},
-  "contributors": "Współtwórcy",
-  "@contributors": {},
-  "automatic_game_finder_finish": "{count, plural, =0 {Nie znaleziono żadnych gier} one {Znaleziono 1 grę} other {Znaleziono {count} gier}}",
-  "@automatic_game_finder_finish": {
-    "placeholders": {
-      "count": {
-        "type": "num",
-        "example": "1"
-      }
-    }
-  },
-  "automatic_server_finder_found": "Znaleziono serwer",
-  "@automatic_server_finder_found": {},
-  "automatic_server_finder_found_description": "Serwer {server} został wybrany na podstawie twojego języka.",
-  "@automatic_server_finder_found_description": {
-    "placeholders": {
-      "server": {
-        "type": "String",
-        "example": "Jackbox France"
-      }
-    }
-  },
-  "show_all_packs": "Pokaż gry, których nie posiadasz",
-  "@show_all_packs": {},
-  "show_owned_packs_only": "Pokaż tylko posiadane gry",
-  "@show_owned_packs_only": {},
-  "all_patches": "Wszystkie łatki",
-  "@all_patches": {},
-  "error_happened": "Wystąpił błąd",
-  "@error_happened": {},
-  "automatic_game_finder_in_progress": "Pobieranie gier, proszę czekać",
-  "@automatic_game_finder_in_progress": {},
-  "jackbox_utility_description": "Aplikacja open-source do pobierania łatek i uruchamiania gier Jackbox.",
-  "@jackbox_utility_description": {},
-  "server_information": "Informacje dot. serwera (Język)",
-  "@server_information": {},
-  "game_community_dubbed_description": "Te gry mają dubbing zaproponowany przez społeczność.",
-  "@game_community_dubbed_description": {},
-  "game_community_dubbed": "Z dubbingiem społeczności",
-  "@game_community_dubbed": {},
-  "game_dubbed": "Z dubbingiem w {language}",
-  "@game_dubbed": {
-    "placeholders": {
-      "language": {
-        "type": "String",
-        "example": "French"
-      }
-    }
-  },
-  "game_dubbed_description": "Te gry mają dubbing od społeczności albo od Jackbox.",
-  "@game_dubbed_description": {},
-  "no_game_in_this_category_description": "W tej kategorii nie ma gier. Spróbuj dodać ich więcej w sekcji Ustawień.",
-  "@no_game_in_this_category_description": {},
-  "game_reset": "Zresetuj grę",
-  "@game_reset": {},
-  "filter_players_number": "Liczba graczy",
-  "@filter_players_number": {},
-  "players_number": "Liczba graczy",
-  "@players_number": {},
-  "download_error_description": "Podczas pobierania gry wystąpił błąd. Sprawdź połączenie z Internetem i spróbuj ponownie.",
-  "@download_error_description": {},
-  "extracting_error": "Błąd podczas wyodrębniania",
-  "@extracting_error": {},
-  "family_friendly": "Dla wszystkich",
-  "@family_friendly": {},
-  "optional": "Opcjonalne",
-  "@optional": {},
-  "subtitles": "Napisy",
-  "@subtitles": {},
-  "fixes_available": "Dostępny fix",
-  "@fixes_available": {},
-  "randomize_button_text": "Spróbujmy jakąś inną!",
-  "@randomize_button_text": {},
-  "filter": "Filtruj",
-  "@filter": {},
-  "show_games_hidden": "Pokaż ukryte gry",
-  "@show_games_hidden": {},
-  "hide_games_hidden": "Ukryj ukryte gry",
-  "@hide_games_hidden": {},
-  "extracting_error_description": "Podczas wyodrębniania gry wystąpił błąd. Sprawdź dostępne miejsce i spróbuj ponownie.",
-  "@extracting_error_description": {},
-  "patreon_subscribers": "Subskrybenci z Patreona",
-  "@patreon_subscribers": {},
-  "stream_friendly": "Możliwe do streamowania",
-  "@stream_friendly": {},
-  "moderation": "Moderacja",
-  "@moderation": {},
-  "feeling_lucky": "Szczęśliwy traf",
-  "@feeling_lucky": {},
-  "sort_by": "Sortuj według {type}",
-  "@sort_by": {
-    "placeholders": {
-      "type": {
-        "type": "String",
-        "example": "Name"
-      }
-    }
-  },
-  "game_reset_description": "Ten proces zweryfikuje wszystkie pliki gry. Jeśli zainstalowałeś/-aś jakieś łatki, zostaną one usunięte. Na pewno chcesz kontynuować?",
-  "@game_reset_description": {},
-  "fixes_available_description": "Dla tej gry są dostępne pliki naprawcze. Czy chcesz je zainstalować? Zawsze możesz je zainstalować z odpowiedniej zakładki gry.",
-  "@fixes_available_description": {},
-  "max_playtime": "Maksymalny czas gry",
-  "@max_playtime": {},
-  "search_by_ranking": "Szukaj według rankingu",
-  "@search_by_ranking": {},
-  "random_game": "Dowolna gra",
-  "@random_game": {},
-  "personal_ranking": "Osobisty ranking",
-  "@personal_ranking": {},
-  "ranked_by_stars": "Sortuj według gwiazdek",
-  "@ranked_by_stars": {},
-  "settings_audio_category": "Audio",
-  "@settings_audio_category": {},
-  "settings_sfx_title": "Uruchom dźwięki",
-  "@settings_sfx_title": {},
-  "rich_presence_application_start_state": "W Menu",
-  "@rich_presence_application_start_state": {},
-  "rich_presence_game_menu_details": "Wybór Gry",
-  "@rich_presence_game_menu_details": {},
-  "rich_presence_game_information_state": "Wybór Gry",
-  "@rich_presence_game_information_state": {},
-  "settings_sfx_description": "Uruchamia dźwięki w aplikacji.",
-  "@settings_sfx_description": {},
-  "stars": "Gwiazdki",
-  "@stars": {},
-  "name": "Nazwa",
-  "@name": {},
-  "games_ranked_by_stars_from_personal_ranking": "Gry posortowane według gwiazdek z Twojego osobistego rankingu.",
-  "@games_ranked_by_stars_from_personal_ranking": {},
-  "unranked": "Niesklasyfikowane",
-  "@unranked": {},
-  "settings_app_reset_stars_title": "Zresetuj gwiazdki",
-  "@settings_app_reset_stars_title": {},
-  "settings_app_reset_stars_button_text": "Zresetuj gwiazdki",
-  "@settings_app_reset_stars_button_text": {}
+    "close": "Zamknij",
+    "@close": {},
+    "cancel": "Anuluj",
+    "@cancel": {},
+    "page_continue": "Kontynuuj",
+    "@page_continue": {},
+    "confirm": "Potwierdź",
+    "@confirm": {},
+    "quit": "Wyjdź",
+    "@quit": {},
+    "yes": "Tak",
+    "@yes": {},
+    "no": "Nie",
+    "@no": {},
+    "ok": "OK",
+    "@ok": {},
+    "jackbox_utility": "Jackbox Utility",
+    "@jackbox_utility": {},
+    "launch_search_game": "Uruchom/ Wyszukaj gry",
+    "@launch_search_game": {},
+    "settings": "Ustawienia",
+    "@settings": {},
+    "patch_a_game": "Dodaj patch'a do gry",
+    "@patch_a_game": {},
+    "notifications": "Powiadomienia",
+    "@notifications": {},
+    "installing_a_patch": "Instalowanie łatki",
+    "@installing_a_patch": {},
+    "installing_a_patch_description": "Za chwilę pobierzesz łatkę. Ta akcja jest nieodwracalna.",
+    "@installing_a_patch_description": {},
+    "installing_a_patch_end": "Instalacja ukończona",
+    "@installing_a_patch_end": {},
+    "can_close_popup": "Możesz zamknąć te okienko",
+    "@can_close_popup": {},
+    "patch_unavailable": "Łatka nie jest Dostępna",
+    "@patch_unavailable": {},
+    "game_patch_unavailable": "Łatka nie jest dostępna",
+    "@game_patch_unavailable": {},
+    "patch_installed": "{count, plural, one {Łatka zainstalowana} other {Łatki zainstalowane}}",
+    "@patch_installed": {
+        "placeholders": {
+            "count": {
+                "type": "num",
+                "example": "1"
+            }
+        }
+    },
+    "patch_outdated": "{count, plural, one {Zaktualizuj łatkę} other {Zaktualizuj łatki}}",
+    "@patch_outdated": {
+        "placeholders": {
+            "count": {
+                "type": "num",
+                "example": "1"
+            }
+        }
+    },
+    "version": "Wersja",
+    "@version": {},
+    "authors": "Autorzy",
+    "@authors": {},
+    "small_information": "Informacje",
+    "@small_information": {},
+    "more_informations": "Więcej informacji",
+    "@more_informations": {},
+    "launch_game": "Uruchom Grę",
+    "@launch_game": {},
+    "launch_pack": "Uruchom Paczkę",
+    "@launch_pack": {},
+    "patch_missing_before_launching_launch": "Uruchom Grę",
+    "@patch_missing_before_launching_launch": {},
+    "description": "Opis",
+    "@description": {},
+    "small_description": "Opis",
+    "@small_description": {},
+    "in_language_description": "Te gry są dostępne w {language} (albo naturalnie, albo poprzez tłumaczenie społeczności.)",
+    "@in_language_description": {
+        "placeholders": {
+            "language": {
+                "type": "String",
+                "example": "French"
+            }
+        }
+    },
+    "in_language": "Po {language}",
+    "@in_language": {
+        "placeholders": {
+            "language": {
+                "type": "String",
+                "example": "French"
+            }
+        }
+    },
+    "no_game_in_this_category_title": "W tej kategorii nie ma żadnej gry",
+    "@no_game_in_this_category_title": {},
+    "audience": "Publiczność",
+    "@audience": {},
+    "confirmation": "Potwierdzenie",
+    "@confirmation": {},
+    "confirmation_description": "Na pewno chcesz {action}? Tej czynności nie da się cofnąć.",
+    "@confirmation_description": {
+        "placeholders": {
+            "action": {
+                "type": "String",
+                "example": "remove all stars"
+            }
+        }
+    },
+    "fix": "Napraw",
+    "@fix": {},
+    "patch_not_installed": "{count, plural, one {Zainstaluj łatkę} other {Zainstaluj łatki}}",
+    "@patch_not_installed": {
+        "placeholders": {
+            "count": {
+                "type": "num",
+                "example": "1"
+            }
+        }
+    },
+    "delete_version": "Usuwanie wersji",
+    "@delete_version": {},
+    "delete_version_description": "Jeśli zresetujesz grę, możesz usunąć zainstalowaną jej wersję. W ten sposób możesz ponownie zainstalować łatki.",
+    "@delete_version_description": {},
+    "patch_modification": "Modyfikowanie łatki",
+    "@patch_modification": {},
+    "patch_modification_description": "Ta łatka zmienia grę w następujący sposób:",
+    "@patch_modification_description": {},
+    "patch_modification_content_text": "Zmiana tekstu wewnątrz gry",
+    "@patch_modification_content_text": {},
+    "patch_modification_content_internal": "Zmiana wewnętrznych plików gry (zdjęcia, teksty...)",
+    "@patch_modification_content_internal": {},
+    "patch_modification_content_subtitles": "Zmiana napisów",
+    "@patch_modification_content_subtitles": {},
+    "patch_modification_content_website": "Zmiana tekstu wewnątrz klienta Jackbox (tylko dostępne na {website})",
+    "@patch_modification_content_website": {
+        "placeholders": {
+            "website": {
+                "type": "String",
+                "example": "laboxdejack.fr"
+            }
+        }
+    },
+    "patch_modification_content_audios": "Zmiana tekstu mówionego",
+    "@patch_modification_content_audios": {},
+    "launch_game_fast_launcher": "Uruchom grę (Szybki start)",
+    "@launch_game_fast_launcher": {},
+    "launch_pack_description": "Uruchamia grę normalnie",
+    "@launch_pack_description": {},
+    "launching": "Uruchamianie…",
+    "@launching": {},
+    "launched": "Uruchomiono!",
+    "@launched": {},
+    "path_not_found": "Nie znaleziono ścieżki",
+    "@path_not_found": {},
+    "game_translation_not_available_description_en": "Te gry są dostępne tylko w języku angielskim.",
+    "@game_translation_not_available_description_en": {},
+    "downloading": "Pobieranie",
+    "@downloading": {},
+    "starting": "Rozpoczęcie",
+    "@starting": {},
+    "extracting": "Wypakowywanie",
+    "@extracting": {},
+    "finalizing": "Kończenie",
+    "@finalizing": {},
+    "unknown_error": "Nieznany błąd",
+    "@unknown_error": {},
+    "game_translation_not_available": "Po angielsku",
+    "@game_translation_not_available": {},
+    "game_translation_not_available_description": "Te gry nie są przetłumaczone na {language}.",
+    "@game_translation_not_available_description": {
+        "placeholders": {
+            "language": {
+                "type": "String",
+                "example": "French"
+            }
+        }
+    },
+    "game_translation_translated": "Oficjalnie przetłumaczone na {language}",
+    "@game_translation_translated": {
+        "placeholders": {
+            "language": {
+                "type": "String",
+                "example": "French"
+            }
+        }
+    },
+    "game_translation_translated_description_en": "Te gry zostały przetłumaczone na francuski, włoski, niemiecki i hiszpański przez Jackbox Games.",
+    "@game_translation_translated_description_en": {},
+    "players": "gracze",
+    "@players": {},
+    "search_game": "Szukaj gry",
+    "@search_game": {},
+    "search": "Szukaj",
+    "@search": {},
+    "all_games": "Wszystkie gry",
+    "@all_games": {},
+    "selected_server": "Wybrany serwer",
+    "@selected_server": {},
+    "change_server": "Zmień serwer",
+    "@change_server": {},
+    "app_information": "Informacje o aplikacji",
+    "@app_information": {},
+    "automatic_game_finder_button": "Automatycznie wykryj zainstalowane gry",
+    "@automatic_game_finder_button": {},
+    "games_available": "{count, plural, =0 {Brak dostępnych gier} one {1 dostępna gra} other {{count} dostępne gry}}",
+    "@games_available": {
+        "placeholders": {
+            "count": {
+                "type": "num",
+                "example": "1"
+            }
+        }
+    },
+    "author": "Autor",
+    "@author": {},
+    "game_type_team": "Drużynowe",
+    "@game_type_team": {},
+    "game_type_team_description": "W tych grach gracze są podzieleni na drużyny i muszą współpracować, aby wygrać.",
+    "@game_type_team_description": {},
+    "game_translation_translated_description": "Te gry są natywnie dostępne w {language}.",
+    "@game_translation_translated_description": {
+        "placeholders": {
+            "language": {
+                "type": "String",
+                "example": "French"
+            }
+        }
+    },
+    "game_translation_community_translated": "Przetłumaczone przez społeczność",
+    "@game_translation_community_translated": {},
+    "game_translation_community_translated_description": "Te gry zostały przetłumaczone przez społeczność.",
+    "@game_translation_community_translated_description": {},
+    "contact_error": "Skontaktuj się z użytkownikiem marek na Discordzie",
+    "@contact_error": {},
+    "game_patch_available": "Łatka jest dostępna",
+    "@game_patch_available": {},
+    "game_patch_installed": "Ta łapka jest aktualna",
+    "@game_patch_installed": {},
+    "game_patch_outdated": "Dla tej łatki dostępna jest aktualizacja",
+    "@game_patch_outdated": {},
+    "all_games_description": "Wszystkie gry Jackbox w jednym miejscu.",
+    "@all_games_description": {},
+    "search_by_pack": "Szukaj według paczki",
+    "@search_by_pack": {},
+    "search_by_type": "Szukaj według typu",
+    "@search_by_type": {},
+    "search_by_translation": "Szukaj według statusu tłumaczenia",
+    "@search_by_translation": {},
+    "search_by_tags": "Szukaj według etykiet",
+    "@search_by_tags": {},
+    "select_server_subtitle": "Wybierz jeden z dostępnych serwerów",
+    "@select_server_subtitle": {},
+    "select_server_loading": "Ładuję serwery…",
+    "@select_server_loading": {},
+    "select_server_button": "Wybierz",
+    "@select_server_button": {},
+    "connected_to_server": "Połączono z serwerem {server}",
+    "@connected_to_server": {
+        "placeholders": {
+            "server": {
+                "type": "String",
+                "example": "Jackbox France"
+            }
+        }
+    },
+    "connected_to_server_change": "Zmień",
+    "@connected_to_server_change": {},
+    "connection_to_server_failed": "Nie udało się połączyć z serwerem",
+    "@connection_to_server_failed": {},
+    "select_game_location": "Wybierz lokalizację {game}",
+    "@select_game_location": {
+        "placeholders": {
+            "game": {
+                "type": "String",
+                "example": "The Jackbox Party Pack 1"
+            }
+        }
+    },
+    "download_error": "Błąd podczas pobierania",
+    "@download_error": {},
+    "launch_game_fast_launcher_description": "Uruchamia grę w trybie szybkiego uruchamiania, pozwalając na pominięcie całej czołówki paczki oraz wyboru gry. Jest to dostępne tylko w niektórych grach.",
+    "@launch_game_fast_launcher_description": {},
+    "launch_informations": "Informacje dot. uruchomienia",
+    "@launch_informations": {},
+    "path_not_found_small_description": "Ścieżka gry nie została znaleziona.",
+    "@path_not_found_small_description": {},
+    "path_not_found_description": "Ścieżka gry nie została znaleziona. Sprawdź, czy gra jest zainstalowana- oraz czy ścieżka jest poprawna.",
+    "@path_not_found_description": {},
+    "path_inexistant": "Ścieżka nie istnieje",
+    "@path_inexistant": {},
+    "path_inexistant_small_description": "Nie dodałeś/-aś ścieżki do tej paczki.",
+    "@path_inexistant_small_description": {},
+    "path_inexistant_description": "Nie dodałeś/-aś ścieżki do tej paczki. Możesz to zrobić w ustawieniach.",
+    "@path_inexistant_description": {},
+    "pack_path": "Ścieżka gry",
+    "@pack_path": {},
+    "owned_packs": "Posiadane gry",
+    "@owned_packs": {},
+    "add_pack": "Dodaj grę",
+    "@add_pack": {},
+    "choose_pack": "Wybierz grę",
+    "@choose_pack": {},
+    "game_type_coop": "Kooperacyjne",
+    "@game_type_coop": {},
+    "game_type_coop_description": "W tych grach gracze muszą pracować razem, by wygrać.",
+    "@game_type_coop_description": {},
+    "game_type_versus": "Każdy przeciwko każdemu",
+    "@game_type_versus": {},
+    "game_type_versus_description": "W tych grach każdy gra na swój rachunek i musi ograć pozostałych graczy.",
+    "@game_type_versus_description": {},
+    "connection_to_main_server_failed": "Błąd podczas pozyskiwania dostępnych serwerów.",
+    "@connection_to_main_server_failed": {},
+    "quit_while_downloading_title": "Pobieranie w toku",
+    "@quit_while_downloading_title": {},
+    "quit_while_downloading_description": "Pobieranie jest w trakcie. Na pewno chcesz teraz wyjść?",
+    "@quit_while_downloading_description": {},
+    "automatic_game_finder_title": "Znajdź gry automatycznie",
+    "@automatic_game_finder_title": {},
+    "automatic_game_finder_description": "Jackbox Utility może automatycznie wykryć zainstalowane gry na tym komputerze z Steam i Epic Games.\nCzy chcesz skorzystać z tej usługi?",
+    "@automatic_game_finder_description": {},
+    "contributors": "Współtwórcy",
+    "@contributors": {},
+    "automatic_game_finder_finish": "{count, plural, =0 {Nie znaleziono żadnych gier} one {Znaleziono 1 grę} other {Znaleziono {count} gier}}",
+    "@automatic_game_finder_finish": {
+        "placeholders": {
+            "count": {
+                "type": "num",
+                "example": "1"
+            }
+        }
+    },
+    "automatic_server_finder_found": "Znaleziono serwer",
+    "@automatic_server_finder_found": {},
+    "automatic_server_finder_found_description": "Serwer {server} został wybrany na podstawie twojego języka.",
+    "@automatic_server_finder_found_description": {
+        "placeholders": {
+            "server": {
+                "type": "String",
+                "example": "Jackbox France"
+            }
+        }
+    },
+    "show_all_packs": "Pokaż gry, których nie posiadasz",
+    "@show_all_packs": {},
+    "show_owned_packs_only": "Pokaż tylko posiadane gry",
+    "@show_owned_packs_only": {},
+    "all_patches": "Wszystkie łatki",
+    "@all_patches": {},
+    "error_happened": "Wystąpił błąd",
+    "@error_happened": {},
+    "automatic_game_finder_in_progress": "Pobieranie gier, proszę czekać",
+    "@automatic_game_finder_in_progress": {},
+    "jackbox_utility_description": "Aplikacja open-source do pobierania łatek i uruchamiania gier Jackbox.",
+    "@jackbox_utility_description": {},
+    "server_information": "Informacje dot. serwera (Język)",
+    "@server_information": {},
+    "game_community_dubbed_description": "Te gry mają dubbing zaproponowany przez społeczność.",
+    "@game_community_dubbed_description": {},
+    "game_community_dubbed": "Z dubbingiem społeczności",
+    "@game_community_dubbed": {},
+    "game_dubbed": "Z dubbingiem w {language}",
+    "@game_dubbed": {
+        "placeholders": {
+            "language": {
+                "type": "String",
+                "example": "French"
+            }
+        }
+    },
+    "game_dubbed_description": "Te gry mają dubbing od społeczności albo od Jackbox.",
+    "@game_dubbed_description": {},
+    "no_game_in_this_category_description": "W tej kategorii nie ma gier. Spróbuj dodać ich więcej w sekcji Ustawień.",
+    "@no_game_in_this_category_description": {},
+    "game_reset": "Zresetuj grę",
+    "@game_reset": {},
+    "filter_players_number": "Liczba graczy",
+    "@filter_players_number": {},
+    "players_number": "Liczba graczy",
+    "@players_number": {},
+    "download_error_description": "Podczas pobierania gry wystąpił błąd. Sprawdź połączenie z Internetem i spróbuj ponownie.",
+    "@download_error_description": {},
+    "extracting_error": "Błąd podczas wyodrębniania",
+    "@extracting_error": {},
+    "family_friendly": "Dla wszystkich",
+    "@family_friendly": {},
+    "optional": "Opcjonalne",
+    "@optional": {},
+    "subtitles": "Napisy",
+    "@subtitles": {},
+    "fixes_available": "Dostępny fix",
+    "@fixes_available": {},
+    "randomize_button_text": "Spróbujmy jakąś inną!",
+    "@randomize_button_text": {},
+    "filter": "Filtruj",
+    "@filter": {},
+    "show_games_hidden": "Pokaż ukryte gry",
+    "@show_games_hidden": {},
+    "hide_games_hidden": "Ukryj ukryte gry",
+    "@hide_games_hidden": {},
+    "extracting_error_description": "Podczas wyodrębniania gry wystąpił błąd. Sprawdź dostępne miejsce i spróbuj ponownie.",
+    "@extracting_error_description": {},
+    "patreon_subscribers": "Subskrybenci z Patreona",
+    "@patreon_subscribers": {},
+    "stream_friendly": "Możliwe do streamowania",
+    "@stream_friendly": {},
+    "moderation": "Moderacja",
+    "@moderation": {},
+    "feeling_lucky": "Szczęśliwy traf",
+    "@feeling_lucky": {},
+    "sort_by": "Sortuj według {type}",
+    "@sort_by": {
+        "placeholders": {
+            "type": {
+                "type": "String",
+                "example": "Name"
+            }
+        }
+    },
+    "game_reset_description": "Ten proces zweryfikuje wszystkie pliki gry. Jeśli zainstalowałeś/-aś jakieś łatki, zostaną one usunięte. Na pewno chcesz kontynuować?",
+    "@game_reset_description": {},
+    "fixes_available_description": "Dla tej gry są dostępne pliki naprawcze. Czy chcesz je zainstalować? Zawsze możesz je zainstalować z odpowiedniej zakładki gry.",
+    "@fixes_available_description": {},
+    "max_playtime": "Maksymalny czas gry",
+    "@max_playtime": {},
+    "search_by_ranking": "Szukaj według rankingu",
+    "@search_by_ranking": {},
+    "random_game": "Dowolna gra",
+    "@random_game": {},
+    "personal_ranking": "Osobisty ranking",
+    "@personal_ranking": {},
+    "ranked_by_stars": "Sortuj według gwiazdek",
+    "@ranked_by_stars": {},
+    "settings_audio_category": "Audio",
+    "@settings_audio_category": {},
+    "settings_sfx_title": "Uruchom dźwięki",
+    "@settings_sfx_title": {},
+    "rich_presence_application_start_state": "W Menu",
+    "@rich_presence_application_start_state": {},
+    "rich_presence_game_menu_details": "Wybór Gry",
+    "@rich_presence_game_menu_details": {},
+    "rich_presence_game_information_state": "Wybór Gry",
+    "@rich_presence_game_information_state": {},
+    "settings_sfx_description": "Uruchamia dźwięki w aplikacji.",
+    "@settings_sfx_description": {},
+    "stars": "Gwiazdki",
+    "@stars": {},
+    "name": "Nazwa",
+    "@name": {},
+    "games_ranked_by_stars_from_personal_ranking": "Gry posortowane według gwiazdek z Twojego osobistego rankingu.",
+    "@games_ranked_by_stars_from_personal_ranking": {},
+    "unranked": "Niesklasyfikowane",
+    "@unranked": {},
+    "settings_app_reset_stars_title": "Zresetuj gwiazdki",
+    "@settings_app_reset_stars_title": {},
+    "settings_app_reset_stars_button_text": "Zresetuj gwiazdki",
+    "@settings_app_reset_stars_button_text": {},
+    "app_behavior": "Zachowanie aplikacji",
+    "@app_behavior": {},
+    "settings_app_startup_category": "Uruchamianie aplikacji",
+    "@settings_app_startup_category": {},
+    "thank_the_team_button": "Podziękuj zespołowi",
+    "@thank_the_team_button": {},
+    "thank_the_team_description": "Podziękuj zespołowi za tłumaczenie",
+    "@thank_the_team_description": {}
 }
