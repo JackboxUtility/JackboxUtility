@@ -235,14 +235,9 @@ class _DownloadPatchDialogComponentState
 
   ContentDialog buildFinishDialog() {
     // Check server-side configuration to decide whether to show the thank-you button
-    bool showThankYou = APIService()
+    String? thankYouUrl = APIService()
             .cachedConfigurations
-            ?.getConfiguration("DOWNLOAD", "SHOW_THANK_YOU") ==
-        true;
-    String thankYouUrl = APIService()
-            .cachedConfigurations
-            ?.getConfiguration("DOWNLOAD", "THANK_YOU_URL") ??
-        "https://ko-fi.com/";
+            ?.getConfiguration("DOWNLOAD", "THANK_YOU_URL");
 
     List<Widget> actions = [
       HyperlinkButton(
