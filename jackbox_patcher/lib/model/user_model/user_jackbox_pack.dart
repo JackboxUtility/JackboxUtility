@@ -80,7 +80,7 @@ class UserJackboxPack {
   }
 
   UserJackboxPackPatch? getInstalledPackPatch() {
-    Iterable<UserJackboxPackPatch> patchesInstalled = _patches.where((patch) =>
+    Iterable<UserJackboxPackPatch> patchesInstalled = patches.where((patch) =>
         patch.getInstalledStatus() == UserInstalledPatchStatus.INSTALLED ||
         patch.getInstalledStatus() == UserInstalledPatchStatus.INSTALLED_OUTDATED);
     if (patchesInstalled.isNotEmpty) {
