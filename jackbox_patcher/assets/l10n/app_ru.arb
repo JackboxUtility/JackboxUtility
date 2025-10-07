@@ -31,6 +31,10 @@
   "@installing_a_patch_description": {},
   "installing_a_patch_end": "Установка Завершена",
   "@installing_a_patch_end": {},
+  "thank_the_team_button": "Поблагодарить команду",
+  "@thank_the_team_button": {},
+  "thank_the_team_description": "Поблагодарите команду за перевод",
+  "@thank_the_team_description": {},
   "can_close_popup": "Вы можете закрыть это окно",
   "@can_close_popup": {},
   "patch_unavailable": "Патч недоступен",
@@ -583,5 +587,13 @@
   "hidden_button_tooltip": "Нажмите чтобы спрятать игру из списка игр.",
   "@hidden_button_tooltip": {},
   "hidden_button_hidden_tooltip": "Нажмите чтобы показать игру в списке игр.",
-  "@hidden_button_hidden_tooltip": {}
+  "@hidden_button_hidden_tooltip": {},
+  "patch_missing_before_launching_install": "Установить обновление",
+  "@patch_missing_before_launching_install": {},
+  "patch_missing_before_launching_launch": "Запустить игру",
+  "@patch_missing_before_launching_launch": {},
+  "patch_missing_before_launching_description": "Обнаружено обновление для этой игры. Вы хотите установить его перед запуском игры?",
+  "@patch_missing_before_launching_description": {},
+  "patch_missing_before_launching_title": "Патч отсутствует",
+  "@patch_missing_before_launching_title": {}
 }

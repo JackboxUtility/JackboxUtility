@@ -2,8 +2,9 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:url_launcher/url_launcher.dart';
+import '../../services/api_utility/api_service.dart';
 import 'package:jackbox_patcher/model/user_model/interface/installable_patch.dart';
-import 'package:jackbox_patcher/model/user_model/user_jackbox_game_patch.dart';
 import 'package:windows_taskbar/windows_taskbar.dart';
 
 import '../../services/translations/translations_helper.dart';
@@ -32,7 +33,7 @@ class _DownloadPatchDialogComponentState
     extends State<DownloadPatchDialogComponent> {
   String status = "";
   String substatus = "";
-  double progression = 0;
+  double? progression;
   CancelToken cancelToken = CancelToken();
   bool downloadCancelled = false;
   String error = "Unknown error";
@@ -43,13 +44,16 @@ class _DownloadPatchDialogComponentState
 
   @override
   void initState() {
-    _startDownload();
+    _startDownload(false);
     super.initState();
   }
 
-  void _startDownload() async {
+  void _startDownload(bool resume) async {
     downloadingProgress = DownloadPatchDialogState.DOWNLOADING;
     setState(() {});
+    if (Platform.isWindows) {
+      WindowsTaskbar.setProgressMode(TaskbarProgressMode.indeterminate);
+    }
 
     try {
       while (currentPatchDownloading < widget.patchs.length) {
@@ -59,28 +63,32 @@ class _DownloadPatchDialogComponentState
               (stat, substat, progress) async {
             status = stat;
             substatus = substat;
-            if (progression.toInt() != progress.toInt()) {
-              if (Platform.isWindows) {
+            if (Platform.isWindows && progress != null) {
+              if (progression == null ||
+                  progression!.toInt() != progress.toInt()) {
                 WindowsTaskbar.setProgress(
-                    progress.toInt() + (currentPatchDownloading) * 100,
+                    progress.ceil() + currentPatchDownloading * 100,
                     100 * widget.patchs.length);
               }
             }
             progression = progress;
             setState(() {});
-          }, cancelToken);
+          }, cancelToken, resume);
           currentPatchDownloading++;
         }
       }
-    } catch (e) {
-      print(e);
-      downloadingProgress = DownloadPatchDialogState.ERROR;
-      error = e.toString();
+      downloadingProgress = DownloadPatchDialogState.FINISH;
       setState(() {});
-      rethrow;
+    } catch (e) {
+      if (e is DioError && e.type == DioErrorType.cancel) {
+        downloadCancelled = true;
+      } else {
+        print(e);
+        downloadingProgress = DownloadPatchDialogState.ERROR;
+        error = e.toString();
+        setState(() {});
+      }
     }
-    downloadingProgress = DownloadPatchDialogState.FINISH;
-    setState(() {});
   }
 
   @override
@@ -114,11 +122,9 @@ class _DownloadPatchDialogComponentState
   }
 
   ContentDialog buildDownloadingPatchDialog(
-      String status, String substatus, double progression) {
+      String status, String substatus, double? progression) {
     InstallablePatch currentPatch = widget.patchs[currentPatchDownloading];
-    String currentPatchName = currentPatch is UserJackboxGamePatch
-        ? (currentPatch as UserJackboxGamePatch).getGame().game.name
-        : currentPatch.getPack().pack.name;
+    String currentPatchName = currentPatch.getName();
     if (widget.patchs.length > 1) {
       currentPatchName =
           "[${currentPatchDownloading + 1}/${widget.patchs.length}] $currentPatchName";
@@ -132,12 +138,29 @@ class _DownloadPatchDialogComponentState
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                ProgressRing(value: progression),
+                SizedBox(
+                    height: 50,
+                    width: 50,
+                    child: Column(children: [
+                      Expanded(
+                          child: Stack(
+                              alignment: Alignment.center,
+                              fit: StackFit.expand,
+                              children: [
+                            ProgressRing(value: progression),
+                            Center(
+                                child: progression != null
+                                    ? Text("${progression.round()}%",
+                                        style: const TextStyle(fontSize: 16),
+                                        textAlign: TextAlign.center)
+                                    : null)
+                          ]))
+                    ])),
                 const SizedBox(height: 10),
                 Text(currentPatchName, style: const TextStyle(fontSize: 20)),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Text(status, style: const TextStyle(fontSize: 20)),
-                SizedBox(height: 2),
+                const SizedBox(height: 2),
                 Text(substatus, style: const TextStyle(fontSize: 16)),
               ]))),
       actions: progression == 0 ||
@@ -149,7 +172,7 @@ class _DownloadPatchDialogComponentState
                     WindowsTaskbar.setProgressMode(
                         TaskbarProgressMode.noProgress);
                   }
-                  if (progression != 0) {
+                  if (downloadCancelled == false) {
                     cancelToken.cancel();
                     downloadCancelled = true;
                   }
@@ -176,10 +199,7 @@ class _DownloadPatchDialogComponentState
         ),
         HyperlinkButton(
           onPressed: () {
-            if (Platform.isWindows) {
-              WindowsTaskbar.setProgressMode(TaskbarProgressMode.noProgress);
-            }
-            _startDownload();
+            _startDownload(true);
           },
           child: Text(TranslationsHelper().appLocalizations!.loading_try_again),
         ),
@@ -202,31 +222,55 @@ class _DownloadPatchDialogComponentState
                         .appLocalizations!
                         .download_error_description,
                     style: const TextStyle(fontSize: 16)),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 SizedBox(
                     height: 200,
                     child: SingleChildScrollView(
                         child: SelectableText(error,
                             style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.red.normal)))),
+                                fontSize: 16, color: Colors.red.normal)))),
               ]))),
     );
   }
 
   ContentDialog buildFinishDialog() {
+    // Check server-side configuration to decide whether to show the thank-you button
+    String? thankYouUrl = APIService()
+            .cachedConfigurations
+            ?.getConfiguration("DOWNLOAD", "THANK_YOU_URL");
+
+    List<Widget> actions = [
+      HyperlinkButton(
+        onPressed: () {
+          if (Platform.isWindows) {
+            WindowsTaskbar.setProgressMode(TaskbarProgressMode.noProgress);
+          }
+          Navigator.pop(context);
+        },
+        child: Text(TranslationsHelper().appLocalizations!.close),
+      ),
+    ];
+
+    if (thankYouUrl != null) {
+      actions.insert(
+          0,
+          HyperlinkButton(
+              onPressed: () async {
+                try {
+                  await launchUrl(Uri.parse(thankYouUrl!));
+                } catch (e) {
+                  // ignore launch errors
+                }
+              },
+              child: Row(mainAxisSize: MainAxisSize.min, children: [
+                Image.asset('assets/logos/kofi_symbol.png', height: 16),
+                const SizedBox(width: 8),
+                Text(TranslationsHelper().appLocalizations!.thank_the_team_button)
+              ])));
+    }
+
     return ContentDialog(
-      actions: [
-        HyperlinkButton(
-          onPressed: () {
-            if (Platform.isWindows) {
-              WindowsTaskbar.setProgressMode(TaskbarProgressMode.noProgress);
-            }
-            Navigator.pop(context);
-          },
-          child: Text(TranslationsHelper().appLocalizations!.close),
-        ),
-      ],
+      actions: actions,
       title: Text(TranslationsHelper().appLocalizations!.installing_a_patch),
       content: SizedBox(
           height: 200,
@@ -244,6 +288,11 @@ class _DownloadPatchDialogComponentState
                     style: const TextStyle(fontSize: 20)),
                 Text(TranslationsHelper().appLocalizations!.can_close_popup,
                     style: const TextStyle(fontSize: 16)),
+                if (thankYouUrl != null) ...[
+                  const SizedBox(height: 12),
+                  Text(TranslationsHelper().appLocalizations!.thank_the_team_description,
+                      style: const TextStyle(fontSize: 14))
+                ]
               ]))),
     );
   }

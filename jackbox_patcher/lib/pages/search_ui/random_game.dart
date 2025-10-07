@@ -13,10 +13,7 @@ import '../../services/games/games_service.dart';
 import '../../services/translations/translations_helper.dart';
 
 class RandomGameWidget extends StatefulWidget {
-  RandomGameWidget(
-      {Key? key,
-      required Function(UserJackboxPack, UserJackboxGame) this.filter})
-      : super(key: key);
+  RandomGameWidget({Key? key, required Function(UserJackboxPack, UserJackboxGame) this.filter}) : super(key: key);
 
   final Function(UserJackboxPack, UserJackboxGame) filter;
 
@@ -44,8 +41,7 @@ class _RandomGameWidgetState extends State<RandomGameWidget> {
               right: 0,
               bottom: 0,
               child: CachedNetworkImage(
-                imageUrl: APIService()
-                    .assetLink(selectedGame!.getPack().pack.background),
+                imageUrl: APIService().assetLink(selectedGame!.getPack().pack.background),
                 fit: BoxFit.cover,
               ),
             ),
@@ -55,18 +51,13 @@ class _RandomGameWidgetState extends State<RandomGameWidget> {
                 right: 0,
                 bottom: 0,
                 child: TweenAnimationBuilder<double>(
-                    tween: Tween<double>(
-                        begin: showGameBackground ? 1 : 0.96,
-                        end: showGameBackground ? 0.96 : 1),
+                    tween: Tween<double>(begin: showGameBackground ? 1 : 0.96, end: showGameBackground ? 0.96 : 1),
                     curve: Curves.easeOut,
-                    duration: showGameBackground
-                        ? const Duration(milliseconds: 1000)
-                        : const Duration(milliseconds: 200),
-                    builder: (BuildContext context, double animation,
-                        Widget? child) {
+                    duration:
+                        showGameBackground ? const Duration(milliseconds: 1000) : const Duration(milliseconds: 200),
+                    builder: (BuildContext context, double animation, Widget? child) {
                       return Container(
-                        color: const Color.fromARGB(1, 32, 32, 32)
-                            .withOpacity(animation),
+                        color: const Color.fromARGB(1, 32, 32, 32).withOpacity(animation),
                       );
                     })),
             Center(
@@ -77,50 +68,41 @@ class _RandomGameWidgetState extends State<RandomGameWidget> {
                   height: 20,
                 ),
                 TweenAnimationBuilder<double>(
-                    tween: Tween<double>(
-                        begin: showGameBackground ? 0.18 : 0.2,
-                        end: showGameBackground ? 0.2 : 0.18),
+                    tween: Tween<double>(begin: showGameBackground ? 0.18 : 0.2, end: showGameBackground ? 0.2 : 0.18),
                     curve: Curves.easeOut,
                     duration: const Duration(milliseconds: 200),
-                    builder: (BuildContext context, double animation,
-                        Widget? child) {
+                    builder: (BuildContext context, double animation, Widget? child) {
                       return SizedBox(
-                          height:
-                              MediaQuery.of(context).size.height * animation,
+                          height: MediaQuery.of(context).size.height * animation,
                           child: SearchGameGameWidget(
-                              disableHero: true,
-                              pack: selectedGame!.getPack(),
-                              game: selectedGame!,
-                              showAllPacks: false));
+                            disableHero: true,
+                            pack: selectedGame!.getPack(),
+                            game: selectedGame!,
+                            showAllPacks: false,
+                            allAvailableGames: [(g: selectedGame!, p: selectedGame!.getPack())],
+                          ));
                     }),
                 SizedBox(
                   height: 20,
                 ),
                 TweenAnimationBuilder<double>(
-                    tween: Tween<double>(
-                        begin: showGameBackground ? 0 : 1,
-                        end: showGameBackground ? 1 : 0),
+                    tween: Tween<double>(begin: showGameBackground ? 0 : 1, end: showGameBackground ? 1 : 0),
                     curve: Curves.easeOut,
                     duration: const Duration(milliseconds: 200),
-                    builder: (BuildContext context, double animation,
-                        Widget? child) {
+                    builder: (BuildContext context, double animation, Widget? child) {
                       return Opacity(
                         opacity: animation,
                         child: SizedBox(
                             width: 200,
                             child: FilledButton(
                               onPressed: () => _selectRandomGame(),
-                              child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Icon(FontAwesomeIcons.dice),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    Text(TranslationsHelper()
-                                        .appLocalizations!
-                                        .randomize_button_text),
-                                  ]),
+                              child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                                const Icon(FontAwesomeIcons.dice),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Text(TranslationsHelper().appLocalizations!.randomize_button_text),
+                              ]),
                             )),
                       );
                     }),
@@ -128,28 +110,21 @@ class _RandomGameWidgetState extends State<RandomGameWidget> {
                   height: 20,
                 ),
                 TweenAnimationBuilder<double>(
-                    tween: Tween<double>(
-                        begin: showGameBackground ? 0 : 1,
-                        end: showGameBackground ? 1 : 0),
+                    tween: Tween<double>(begin: showGameBackground ? 0 : 1, end: showGameBackground ? 1 : 0),
                     curve: Curves.easeOut,
                     duration: const Duration(milliseconds: 200),
-                    builder: (BuildContext context, double animation,
-                        Widget? child) {
+                    builder: (BuildContext context, double animation, Widget? child) {
                       return Opacity(
                           opacity: animation,
                           child: SizedBox(
                             width: 200,
                             child: FilledButton(
                                 onPressed: () => _launchRandomGame(),
-                                child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(FontAwesomeIcons.clover),
-                                      SizedBox(width: 10),
-                                      Text(TranslationsHelper()
-                                          .appLocalizations!
-                                          .feeling_lucky)
-                                    ])),
+                                child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                                  Icon(FontAwesomeIcons.clover),
+                                  SizedBox(width: 10),
+                                  Text(TranslationsHelper().appLocalizations!.feeling_lucky)
+                                ])),
                           ));
                     }),
               ],
@@ -163,17 +138,12 @@ class _RandomGameWidgetState extends State<RandomGameWidget> {
               cacheHeight: 200,
             ),
             Text(
-              TranslationsHelper()
-                  .appLocalizations!
-                  .no_game_in_this_category_title,
+              TranslationsHelper().appLocalizations!.no_game_in_this_category_title,
               style: const TextStyle(fontSize: 20),
             ),
             Text(
-              TranslationsHelper()
-                  .appLocalizations!
-                  .no_game_in_this_category_description,
-              style:
-                  TextStyle(fontSize: 14, color: Colors.white.withOpacity(0.8)),
+              TranslationsHelper().appLocalizations!.no_game_in_this_category_description,
+              style: TextStyle(fontSize: 14, color: Colors.white.withOpacity(0.8)),
             ),
           ]);
   }
@@ -196,8 +166,7 @@ class _RandomGameWidgetState extends State<RandomGameWidget> {
 
   void _launchRandomGame() {
     UserJackboxGame randomGame = GamesService().chooseRandomGame(
-        (UserJackboxPack pack, UserJackboxGame game) =>
-            widget.filter(pack, game) && game.getPack().owned);
+        (UserJackboxPack pack, UserJackboxGame game) => widget.filter(pack, game) && game.getPack().owned);
     Launcher.launchGame(randomGame.getPack(), randomGame);
   }
 }

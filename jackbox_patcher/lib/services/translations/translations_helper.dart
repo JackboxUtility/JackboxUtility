@@ -1,7 +1,7 @@
 import 'dart:ui';
 
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:jackbox_patcher/app_configuration.dart';
+import 'package:jackbox_patcher/l10n/app_localizations.dart';
 
 /// Translations helper class used to access translations from anywhere (without the context)
 class TranslationsHelper {

@@ -9,7 +9,7 @@ import 'package:jackbox_patcher/services/translations/translations_helper.dart';
 import '../../services/user/user_data.dart';
 import '../jackbox/jackbox_game_patch.dart';
 
-class UserJackboxGamePatch extends InstallablePatch{
+class UserJackboxGamePatch extends InstallablePatch {
   final JackboxGamePatch patch;
   String? installedVersion;
 
@@ -35,23 +35,34 @@ class UserJackboxGamePatch extends InstallablePatch{
     }
   }
 
+  @override
   UserJackboxPack getPack() {
-    return UserData().packs.firstWhere((pack) => pack.games.where((game) => game.patches.where((p) => p.patch.id == patch.id).isNotEmpty).isNotEmpty);
+    return UserData().packs.firstWhere((pack) => pack.games
+        .where((game) =>
+            game.patches.where((p) => p.patch.id == patch.id).isNotEmpty)
+        .isNotEmpty);
   }
 
-  UserJackboxGame getGame(){
-    return getPack().games.firstWhere((game) => game.patches.where((p) => p.patch.id == patch.id).isNotEmpty);
+  UserJackboxGame getGame() {
+    return getPack().games.firstWhere(
+        (game) => game.patches.where((p) => p.patch.id == patch.id).isNotEmpty);
   }
 
-  Future<void> downloadPatch(String patchUri,
-      void Function(String, String, double) callback, CancelToken cancelToken) async {
+  @override
+  Future<void> downloadPatch(
+      String patchUri,
+      void Function(String, String, double?) callback,
+      CancelToken cancelToken,
+      bool resume) async {
     String patchUriWithOverride = patchUri;
-    if (getPack().pack.resourceLocation != null){
-      patchUriWithOverride = "$patchUriWithOverride/${getPack().pack.resourceLocation!}";
+    if (getPack().pack.resourceLocation != null) {
+      patchUriWithOverride =
+          "$patchUriWithOverride/${getPack().pack.resourceLocation!}";
     }
-    await DownloaderService.downloadPatch(patchUriWithOverride, patch.patchPath!, callback, cancelToken);
+    await DownloaderService.downloadPatch(this, patchUriWithOverride,
+        patch.patchPath!, callback, cancelToken, resume);
     installedVersion = patch.latestVersion;
-      await UserData().savePatch(this);
+    await UserData().savePatch(this);
   }
 
   Future<void> removePatch() async {

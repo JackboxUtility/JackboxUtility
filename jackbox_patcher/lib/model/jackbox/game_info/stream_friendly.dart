@@ -16,4 +16,15 @@ extension GameInfoStreamFriendlyExtension on GameInfoStreamFriendly {
     }
     return GameInfoStreamFriendly.NOT_PLAYABLE;
   }
+
+  String toValue() {
+    switch (this) {
+      case GameInfoStreamFriendly.PLAYABLE:
+        return 'PLAYABLE';
+      case GameInfoStreamFriendly.MIDLY_PLAYABLE:
+        return 'MIDLY_PLAYABLE';
+      case GameInfoStreamFriendly.NOT_PLAYABLE:
+        return 'NOT_PLAYABLE';
+    }
+  }
 }

@@ -59,8 +59,7 @@ class JackboxGameInfo {
       smallDescription: json['small_description'],
       type: JackboxGameType.fromString(json['type']),
       internalTranslation: GameInfoTranslation.fromString(json['translation']),
-      images:
-          (json['images'] as List<dynamic>).map((e) => e.toString()).toList(),
+      images: (json['images'] as List<dynamic>).map((e) => e.toString()).toList(),
       tags: json['tags'] != null
           ? (json['tags'] as List<dynamic>).map((e) {
               return GameTag.fromId(e);
@@ -68,12 +67,10 @@ class JackboxGameInfo {
           : [],
       players: JackboxGameMinMaxInfo.fromJson(json['players']),
       playtime: JackboxGameMinMaxInfo.fromJson(json['playtime']),
-      familyFriendly:
-          GameInfoFamilyFriendlyExtension.fromValue(json['family_friendly']),
+      familyFriendly: GameInfoFamilyFriendlyExtension.fromValue(json['family_friendly']),
       audience: json['audience'],
       audienceDescription: json['audience_description'],
-      streamFriendly:
-          GameInfoStreamFriendlyExtension.fromValue(json['stream_friendly']),
+      streamFriendly: GameInfoStreamFriendlyExtension.fromValue(json['stream_friendly']),
       streamFriendlyDescription: json['stream_friendly_description'],
       moderation: GameInfoModerationExtension.fromValue(json['moderation']),
       moderationDescription: json['moderation_description'],
@@ -84,15 +81,12 @@ class JackboxGameInfo {
   GameInfoTranslation get translation {
     if (internalTranslation == GameInfoTranslation.COMMUNITY_TRANSLATED ||
         internalTranslation == GameInfoTranslation.NATIVELY_TRANSLATED) {
-      UserJackboxGame? correspondingUserGame =
-          GamesService().getUserJackboxGameById(this.internalGameId);
+      UserJackboxGame? correspondingUserGame = GamesService().getUserJackboxGameById(this.internalGameId);
       if (correspondingUserGame == null) {
         return internalTranslation;
       }
-      for (UserJackboxPackPatch patch
-          in correspondingUserGame.getPack().patches) {
-        JackboxPackPatchComponent? component =
-            patch.patch.getComponentByGameId(this.internalGameId);
+      for (UserJackboxPackPatch patch in correspondingUserGame.getPack().patches) {
+        JackboxPackPatchComponent? component = patch.patch.getComponentByGameId(this.internalGameId);
         if (component != null && component.patchType!.audios) {
           return GameInfoTranslation.COMMUNITY_DUBBED;
         }
@@ -112,12 +106,12 @@ class JackboxGameInfo {
       "images": images,
       "players": players.toJson(),
       "playtime": playtime.toJson(),
-      "family_friendly": familyFriendly.name,
+      "family_friendly": familyFriendly.toValue(),
       "audience": audience,
       "audience_description": audienceDescription,
-      "stream_friendly": streamFriendly.name,
+      "stream_friendly": streamFriendly.toValue(),
       "stream_friendly_description": streamFriendlyDescription,
-      "moderation": moderation.name,
+      "moderation": moderation.toValue(),
       "moderation_description": moderationDescription,
       "subtitles": subtitles,
     };

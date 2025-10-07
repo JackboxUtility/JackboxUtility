@@ -1,12 +1,12 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/app_configuration.dart';
+import 'package:jackbox_patcher/l10n/app_localizations.dart';
 import 'package:jackbox_patcher/pages/main_container.dart';
 import 'package:jackbox_patcher/pages/settings/menu.dart';
 import 'package:jackbox_patcher/pages/search_ui/search_games.dart';
 import 'package:jackbox_patcher/pages/search_ui/search_games_menu.dart';
 import 'package:jackbox_patcher/pages/select_server/select_server.dart';
 import 'package:jackbox_patcher/services/api_utility/api_service.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'pages/game_ui/gameinfo.dart';
 import 'pages/settings/packs.dart';
@@ -38,18 +38,12 @@ class MyApp extends StatelessWidget {
         '/': (context) => const MainContainer(),
         '/serverSelect': (context) => const SelectServerPage(),
         // When navigating to the "/second" route, build the SecondScreen widget.
-        '/settings': (context) =>
-            showMainContainerIfNotLoaded(const ParametersRoute()),
-        '/settings/packs': (context) =>
-            showMainContainerIfNotLoaded(const ParametersPackRoute()),
-        '/game': (context) =>
-            showMainContainerIfNotLoaded(const GameInfoRoute()),
-        '/search': (context) =>
-            showMainContainerIfNotLoaded(const SearchGameRoute()),
-        '/searchMenu': (context) =>
-            showMainContainerIfNotLoaded(const SearchGameMenuWidget()),
-        '/patch': (context) =>
-            showMainContainerIfNotLoaded(const PatcherMenuWidget())
+        '/settings': (context) => showMainContainerIfNotLoaded(const ParametersRoute()),
+        '/settings/packs': (context) => showMainContainerIfNotLoaded(const ParametersPackRoute()),
+        '/game': (context) => showMainContainerIfNotLoaded(const GameInfoRoute()),
+        '/search': (context) => showMainContainerIfNotLoaded(const SearchGameRoute()),
+        '/searchMenu': (context) => showMainContainerIfNotLoaded(const SearchGameMenuWidget()),
+        '/patch': (context) => showMainContainerIfNotLoaded(const PatcherMenuWidget())
       },
       themeMode: ThemeMode.dark,
       title: 'Jackbox Utility',
@@ -57,8 +51,6 @@ class MyApp extends StatelessWidget {
   }
 
   Widget showMainContainerIfNotLoaded(Widget widgetIfLoaded) {
-    return APIService().cachedPacks.isNotEmpty
-        ? widgetIfLoaded
-        : const MainContainer();
+    return APIService().cachedPacks.isNotEmpty ? widgetIfLoaded : const MainContainer();
   }
 }

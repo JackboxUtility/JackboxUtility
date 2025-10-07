@@ -10,12 +10,14 @@ class LoadingContainer extends StatefulWidget {
       {Key? key,
       required this.step,
       required this.exceptionReceived,
+      required this.exceptionMessage,
       required this.onTryAgainPressed,
       required this.onServerChangePressed})
       : super(key: key);
 
   final ({int step, double percent, double oldPercent}) step;
   final bool exceptionReceived;
+  final String exceptionMessage;
   final Function() onTryAgainPressed;
   final Function() onServerChangePressed;
   @override
@@ -84,12 +86,8 @@ class _LoadingContainerState extends State<LoadingContainer> {
         TweenAnimationBuilder<double>(
             duration: Duration(milliseconds: 200),
             tween: Tween<double>(
-              begin: widget.step.step < step!
-                  ? 0.0
-                  : (widget.step.step > step ? 100 : widget.step.oldPercent),
-              end: widget.step.step < step
-                  ? 0.0
-                  : (widget.step.step > step ? 100 : widget.step.percent),
+              begin: widget.step.step < step! ? 0.0 : (widget.step.step > step ? 100 : widget.step.oldPercent),
+              end: widget.step.step < step ? 0.0 : (widget.step.step > step ? 100 : widget.step.percent),
             ),
             builder: (context, double progress, w) {
               return widget.exceptionReceived && widget.step.step == step
@@ -161,39 +159,43 @@ class _LoadingContainerState extends State<LoadingContainer> {
             : Container(),
         widget.step.step == 3 || widget.step.step == 1
             ? Row(
-              children: [
-                FilledButton(
-                    child: Row(
-                      children: [
-                        Icon(FontAwesomeIcons.discord),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Text("Discord"),
-                      ],
-                    ),
-                    onPressed: () {
-                      launchUrl(Uri.parse(APP_LINKS["DISCORD"]!));
-                    }), 
-                const SizedBox(
-                  width: 10,
-                ),
-                FilledButton(
-                    child: Row(
-                      children: [
-                        Icon(FontAwesomeIcons.github),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Text("GitHub"),
-                      ],
-                    ),
-                    onPressed: () {
-                      launchUrl(Uri.parse(APP_LINKS["GITHUB"]!));
-                    }), 
-              ],
-            )
+                children: [
+                  FilledButton(
+                      child: Row(
+                        children: [
+                          Icon(FontAwesomeIcons.discord),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Text("Discord"),
+                        ],
+                      ),
+                      onPressed: () {
+                        launchUrl(Uri.parse(APP_LINKS["DISCORD"]!));
+                      }),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  FilledButton(
+                      child: Row(
+                        children: [
+                          Icon(FontAwesomeIcons.github),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Text("GitHub"),
+                        ],
+                      ),
+                      onPressed: () {
+                        launchUrl(Uri.parse(APP_LINKS["GITHUB"]!));
+                      }),
+                ],
+              )
             : Container(),
+        const SizedBox(
+          height: 10,
+        ),
+        widget.exceptionMessage != "" ? _buildExceptionMessage() : Container()
       ],
     );
   }
@@ -232,5 +234,17 @@ class _LoadingContainerState extends State<LoadingContainer> {
         ),
       ],
     );
+  }
+
+  Widget _buildExceptionMessage() {
+    return Container(
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+          color: Colors.red.withValues(alpha: 0.1),
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: Colors.red, width: 1)),
+        height: 100,
+        child: SingleChildScrollView(
+            child: SelectableText(widget.exceptionMessage, style: TextStyle(fontSize: 16, color: Colors.red.normal))));
   }
 }

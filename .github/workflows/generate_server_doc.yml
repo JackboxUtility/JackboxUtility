@@ -61,14 +61,14 @@ jobs:
       working-directory: ./documentation/server
     - run : find docs -name "*.md" | xargs rm
       working-directory: ./documentation/server
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
       with:
           name: documentation
           path: ./documentation/server/docs
     - name: Setup Pages
       uses: actions/configure-pages@v3
     - name: Upload artifact
-      uses: actions/upload-pages-artifact@v1
+      uses: actions/upload-pages-artifact@v3
       with:
           # Upload entire repository
           path: './documentation/server/docs'

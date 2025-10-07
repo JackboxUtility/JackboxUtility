@@ -22,7 +22,7 @@ class _NotificationCarousselState extends State<NotificationCaroussel> {
 
   List<String> images = [];
 
-  final CarouselController _controller = CarouselController();
+  final CarouselSliderController _controller = CarouselSliderController();
 
   @override
   void initState() {

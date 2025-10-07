@@ -1,5 +1,5 @@
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-11-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-12-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 [![Discord](https://img.shields.io/discord/1108095925366308954?color=%235865F2&label=discord&logo=discord&style=flat-square)](https://discord.gg/jUQzjjaxQP)
 ![GitHub release](https://img.shields.io/github/v/release/AlexisL61/JackboxUtility?style=flat-square)
@@ -12,7 +12,7 @@ With this app, you will be able to download translation patches for your Jackbox
 
 ## Features
 
-- Includes **<img src="https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/gb.svg" width="12" height="12" /> English**, 
+- Includes **<img src="https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/gb.svg" width="12" height="12" /> English**,
 **<img src="https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/fr.svg" width="12" height="12" /> French**, 
 **<img src="https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/de.svg" width="12" height="12" /> German**, 
 **<img src="https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/es.svg" width="12" height="12" /> Spanish**, 
@@ -21,10 +21,10 @@ With this app, you will be able to download translation patches for your Jackbox
 **<img src="https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/by.svg" width="12" height="12" /> Belarusian**,
 **<img src="https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/ru.svg" width="12" height="12" /> Russian** and
 **<img src="https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/tr.svg" width="12" height="12" /> Turkish** servers
-- Detect automatically your installed games
-- Download translation patches for your games
-- Launch the games directly, skipping the intros and menus entirely
-- Search the games using different tags
+- Detect your installed games automatically
+- Download and install translation patches for your games
+- Launch specific games directly, skipping the intros and menus entirely
+- Search your games using different tags
 - Set ratings to your favorite games, from 1-5 stars
 - Filter the games in many ways, like by number of players, family friendly, moderation and many more!
 - All the game tabs are packed with all the info you need
@@ -53,19 +53,32 @@ We are using [Weblate](https://hosted.weblate.org/) to translate the app. You ca
 
 ## Contribution
 
-Clone the repo:
+### Requirements
+
+- Flutter version 3.24
+- Dart (bundled with Flutter)
+- C++ build tools
+
+Clone the repo and navigate into the `jackbox_patcher` folder:
 ```
-git clone https://github.com/AlexisL61/JackboxUtility.git
+git clone https://github.com/JackboxUtility/JackboxUtility.git
+
+cd jackbox_patcher/
+```
+
+Download the dependencies:
+```
+flutter pub get
 ```
 
 Launch the app:
 ```
-flutter run --flavor beta -t ./lib/main_beta.dart
+flutter run ./lib/main_release.dart
 ```
 
 Build the app:
 ```
-flutter build -t ./lib/main_beta.dart <OS>
+flutter build <OS> ./lib/main_release.dart
 ```
 
 ## Contributors
@@ -89,6 +102,7 @@ flutter build -t ./lib/main_beta.dart <OS>
       <td align="center" valign="top" width="14.28%"><a href="https://ytube101.com"><img src="https://avatars.githubusercontent.com/u/76653533?v=4?s=100" width="100px;" alt="YouTube 101"/><br /><sub><b>YouTube 101</b></sub></a><br /><a href="#translation-YouTube-101" title="Translation">🌍</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Merthan"><img src="https://avatars.githubusercontent.com/u/27968148?v=4?s=100" width="100px;" alt="Merthan Erdem"/><br /><sub><b>Merthan Erdem</b></sub></a><br /><a href="https://github.com/JackboxUtility/JackboxUtility/commits?author=Merthan" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/jWalker92"><img src="https://avatars.githubusercontent.com/u/4966636?v=4?s=100" width="100px;" alt="jWalker92"/><br /><sub><b>jWalker92</b></sub></a><br /><a href="https://github.com/JackboxUtility/JackboxUtility/commits?author=jWalker92" title="Tests">⚠️</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/ACertainCoder"><img src="https://avatars.githubusercontent.com/u/47316898?v=4?s=100" width="100px;" alt="ACertainCoder"/><br /><sub><b>ACertainCoder</b></sub></a><br /><a href="https://github.com/JackboxUtility/JackboxUtility/commits?author=ACertainCoder" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>

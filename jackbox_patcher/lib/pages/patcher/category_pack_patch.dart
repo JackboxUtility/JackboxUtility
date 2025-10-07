@@ -5,7 +5,6 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:jackbox_patcher/model/patchs_category.dart';
 import 'package:jackbox_patcher/model/user_model/interface/installable_patch.dart';
-import 'package:palette_generator/palette_generator.dart';
 
 import '../../components/dialogs/download_patch_dialog.dart';
 import '../../model/user_model/user_jackbox_game_patch.dart';
@@ -33,12 +32,12 @@ class _CategoryPackPatchState extends State<CategoryPackPatch> {
   @override
   void initState() {
     _buildInstallableList();
+    _getPatchStatus();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    _getPatchStatus();
     return Padding(
         padding: const EdgeInsets.all(12),
         child: Column(
@@ -54,6 +53,7 @@ class _CategoryPackPatchState extends State<CategoryPackPatch> {
                               return DownloadPatchDialogComponent(
                                   localPaths: installablePatchPaths, patchs: installablePatchs);
                             });
+                        _getPatchStatus();
                         setState(() {});
                       }
                     : null,
@@ -133,7 +133,8 @@ class _CategoryPackPatchState extends State<CategoryPackPatch> {
     for (var element in widget.category.packPatches) {
       if (element.getPack().owned &&
           element.getPack().path != null &&
-          element.getInstalledStatus() != UserInstalledPatchStatus.INSTALLED) {
+          element.getInstalledStatus() != UserInstalledPatchStatus.INSTALLED &&
+          element.getPack().patches.contains(element)) {
         installablePatchs.add(element);
         installablePatchPaths.add(element.getPack().path!);
       }
@@ -179,7 +180,6 @@ class PackInCategoryCard extends StatefulWidget {
 }
 
 class _PackInCategoryCardState extends State<PackInCategoryCard> {
-
   @override
   void initState() {
     super.initState();

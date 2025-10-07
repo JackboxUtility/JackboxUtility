@@ -17,13 +17,13 @@ void initRetrievingErrors() {
   FlutterError.onError = (details) {
     FlutterError.presentError(details);
     JULogger()
-        .e("[ON ERROR] $details", details.exception.toString(), details.stack);
+        .e("[ON ERROR] $details", error: details.exception, stackTrace: details.stack);
   };
   PlatformDispatcher.instance.onError = (error, stack) {
     bool ifIsOverflowError =
         error.toString().contains("A RenderFlex overflowed by");
 
-    if (!ifIsOverflowError) JULogger().e("[ON ERROR] $error", "", stack);
+    if (!ifIsOverflowError) JULogger().e("[ON ERROR] $error", error: error, stackTrace: stack);
     return true;
   };
 }
