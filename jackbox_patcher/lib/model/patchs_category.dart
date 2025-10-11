@@ -86,8 +86,11 @@ class PatchCategory {
       PackAvailablePatchs packAvailablePatchs =
           availablePatchs.firstWhere((element) => element.pack.pack.id == pack.pack.id);
       JULogger().i("${pack.pack.name} has ${packAvailablePatchs.packPatchs.length} available pack patches");
-      JULogger().i("Does ${pack.pack.name} contain patch ${packPatch.patch.id} ? ${pack.patches.contains(packPatch)}");
-      if (pack.patches.contains(packPatch) == false) continue;
+      for (var p in packAvailablePatchs.packPatchs) {
+        JULogger().i(" - ${p.patch.name}");
+      }
+      JULogger().i("Does ${pack.pack.name} contain patch ${packPatch.patch.id} ? ${pack.patches.any((element) => element.patch.id == packPatch.patch.id)}");
+      if (pack.patches.any((element) => element.patch.id == packPatch.patch.id) == false) continue;
       JULogger().i("Adding patch ${packPatch.patch.name} to pack ${pack.pack.name}");
       packAvailablePatchs.packPatchs.add(packPatch);
     }
