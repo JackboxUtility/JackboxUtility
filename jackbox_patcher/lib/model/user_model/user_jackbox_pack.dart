@@ -17,7 +17,7 @@ class UserJackboxPack {
 
   List<UserJackboxPackPatch> get patches => _patches
       .where((patch) =>
-          patch.patch.supportedLaunchers.contains(origin) || origin == null || origin == LauncherType.UNKNOWN)
+          patch.patch.supportedLaunchers.contains(origin) || origin == null)
       .toList();
   UserJackboxLoader? loader;
   String? path;
