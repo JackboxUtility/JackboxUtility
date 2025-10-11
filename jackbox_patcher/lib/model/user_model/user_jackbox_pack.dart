@@ -13,9 +13,9 @@ class UserJackboxPack {
   final JackboxPack pack;
   final List<UserJackboxGame> games = [];
   final List<UserJackboxPackPatch> fixes = [];
-  final List<UserJackboxPackPatch> _patches = [];
+  final List<UserJackboxPackPatch> allPatches = [];
 
-  List<UserJackboxPackPatch> get patches => _patches
+  List<UserJackboxPackPatch> get patches => allPatches
       .where((patch) =>
           patch.patch.supportedLaunchers.contains(origin) || origin == null)
       .toList();
@@ -116,7 +116,7 @@ class UserJackboxPack {
   }
 
   void addPatch(UserJackboxPackPatch patch) {
-    _patches.add(patch);
+    allPatches.add(patch);
   }
 
   Map<String, dynamic> toJson() {
@@ -124,7 +124,7 @@ class UserJackboxPack {
       'pack': pack.toJson(),
       'games': games.map((e) => e.toJson()).toList(),
       'fixes': fixes.map((e) => e.toJson()).toList(),
-      'patches': _patches.map((e) => e.toJson()).toList(),
+      'patches': allPatches.map((e) => e.toJson()).toList(),
       'loader': loader?.toJson(),
       'path': path,
       'owned': owned,

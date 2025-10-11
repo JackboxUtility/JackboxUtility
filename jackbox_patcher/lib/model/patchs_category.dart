@@ -34,7 +34,7 @@ class PatchCategory {
   void addPatchs(List<UserJackboxPack> packs) {
     for (String patchId in patchsIncluded) {
       for (UserJackboxPack pack in packs) {
-        for (UserJackboxPackPatch packPatch in pack.patches) {
+        for (UserJackboxPackPatch packPatch in pack.allPatches) {
           if (packPatch.patch.id == patchId) {
             packPatches.add(packPatch);
           }

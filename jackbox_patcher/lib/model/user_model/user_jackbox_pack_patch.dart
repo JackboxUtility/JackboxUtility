@@ -92,7 +92,7 @@ class UserJackboxPackPatch extends InstallablePatch {
   UserJackboxPack getPack() {
     List<UserJackboxPack> dataFound = UserData()
         .packs
-        .where((pack) => pack.patches.where((element) => element.patch.id == patch.id).isNotEmpty)
+        .where((pack) => pack.allPatches.where((element) => element.patch.id == patch.id).isNotEmpty)
         .toList();
     if (dataFound.isNotEmpty) {
       return dataFound[0];
