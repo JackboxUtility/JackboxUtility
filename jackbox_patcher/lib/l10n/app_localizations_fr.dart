@@ -58,10 +58,11 @@ class AppLocalizationsFr extends AppLocalizations {
   String get installing_a_patch_end => 'Installation terminée';
 
   @override
-  String get thank_the_team_button => 'Thank the team';
+  String get thank_the_team_button => 'Remercier l\'équipe';
 
   @override
-  String get thank_the_team_description => 'Thank the team for the translation';
+  String get thank_the_team_description =>
+      'Remerciez l\'équipe pour la traduction';
 
   @override
   String get can_close_popup => 'Vous pouvez fermer cette pop-up';
@@ -172,7 +173,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get launch_informations => 'Informations de lancement';
 
   @override
-  String get launching => 'Lancement…';
+  String get launching => 'Launching...';
 
   @override
   String get launched => 'Launched !';
@@ -329,7 +330,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get select_server_subtitle => 'Choisissez un serveur pour commencer';
 
   @override
-  String get select_server_loading => 'Chargement des serveurs…';
+  String get select_server_loading => 'Chargement des serveurs...';
 
   @override
   String get select_server_button => 'Sélectionner';

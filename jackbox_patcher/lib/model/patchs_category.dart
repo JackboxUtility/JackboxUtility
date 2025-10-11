@@ -2,6 +2,8 @@ import 'package:jackbox_patcher/model/user_model/user_jackbox_game.dart';
 import 'package:jackbox_patcher/model/user_model/user_jackbox_game_patch.dart';
 import 'package:jackbox_patcher/model/user_model/user_jackbox_pack.dart';
 import 'package:jackbox_patcher/model/user_model/user_jackbox_pack_patch.dart';
+import 'package:jackbox_patcher/services/logger/logger.dart';
+import 'package:logger/logger.dart';
 
 class PatchCategory {
   String id;
@@ -74,12 +76,19 @@ class PatchCategory {
     List<PackAvailablePatchs> availablePatchs = [];
     for (UserJackboxPackPatch packPatch in packPatches) {
       UserJackboxPack pack = packPatch.getPack();
+      JULogger().i("GET AVAILABLE PATCHS FOR PACK ${pack.pack.name}");
       if (availablePatchs.where((element) => element.pack.pack.id == pack.pack.id).isEmpty) {
         availablePatchs.add(PackAvailablePatchs(pack: pack, packPatchs: [], gamePatchs: []));
       }
+      JULogger().i("${pack.pack.name} origin is ${pack.origin}");
+      JULogger().i("${pack.pack.name} has ${availablePatchs.length} entries in the patch category");
+      JULogger().i("${pack.pack.name} has ${pack.patches.length} pack patches");
       PackAvailablePatchs packAvailablePatchs =
           availablePatchs.firstWhere((element) => element.pack.pack.id == pack.pack.id);
+      JULogger().i("${pack.pack.name} has ${packAvailablePatchs.packPatchs.length} available pack patches");
+      JULogger().i("Does ${pack.pack.name} contain patch ${packPatch.patch.id} ? ${pack.patches.contains(packPatch)}");
       if (pack.patches.contains(packPatch) == false) continue;
+      JULogger().i("Adding patch ${packPatch.patch.name} to pack ${pack.pack.name}");
       packAvailablePatchs.packPatchs.add(packPatch);
     }
     for (UserJackboxGamePatch gamePatch in gamePatches) {

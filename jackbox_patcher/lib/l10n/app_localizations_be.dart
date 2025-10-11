@@ -58,10 +58,10 @@ class AppLocalizationsBe extends AppLocalizations {
   String get installing_a_patch_end => 'Усталяванне скончана';
 
   @override
-  String get thank_the_team_button => 'Thank the team';
+  String get thank_the_team_button => 'Падзяка камандзе';
 
   @override
-  String get thank_the_team_description => 'Thank the team for the translation';
+  String get thank_the_team_description => 'Падзякуйце камандзе за пераклад';
 
   @override
   String get can_close_popup => 'Вы можаце зачыніць гэтае акно';
