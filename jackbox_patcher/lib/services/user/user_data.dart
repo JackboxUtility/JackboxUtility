@@ -92,24 +92,30 @@ class UserData {
             currentGame.patches.add(UserJackboxGamePatch(patch: patch, installedVersion: patchVersionInstalled));
           }
         }
+      }
+    }
 
-        String? patchVersionInstalled = getInstalledVersion(userPack);
+    for (var userPack in packs) {
+      // Updating the patch version
+      String? patchVersionInstalled = getInstalledVersion(userPack);
 
-        // Load every patches in the pack
-        for (var patch in pack.patches) {
-          userPack.addPatch(UserJackboxPackPatch(patch: patch, installedVersion: patchVersionInstalled));
-        }
-
-        // Do the same for the fixes
-        for (var patch in pack.fixes) {
-          userPack.fixes.add(UserJackboxPackPatch(patch: patch, installedVersion: patchVersionInstalled));
-        }
+      // Load every patches in the pack
+      for (var patch in userPack.pack.patches) {
+        userPack.addPatch(UserJackboxPackPatch(patch: patch, installedVersion: patchVersionInstalled));
       }
 
-      for (var element in APIService().cachedCategories) {
-        element.addPatchs(packs);
+      // Do the same for the fixes
+      for (var patch in userPack.pack.fixes) {
+        userPack.fixes.add(UserJackboxPackPatch(patch: patch, installedVersion: patchVersionInstalled));
       }
-      APIService().internalCache.notifyListeners();
+    }
+    syncCategories();
+    APIService().internalCache.notifyListeners();
+  }
+
+  void syncCategories() {
+    for (var element in APIService().cachedCategories) {
+      element.addPatchs(packs);
     }
   }
 

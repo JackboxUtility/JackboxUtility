@@ -5,6 +5,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:jackbox_patcher/model/patchs_category.dart';
 import 'package:jackbox_patcher/model/user_model/interface/installable_patch.dart';
+import 'package:jackbox_patcher/services/user/user_data.dart';
 
 import '../../components/dialogs/download_patch_dialog.dart';
 import '../../model/user_model/user_jackbox_game_patch.dart';
@@ -28,9 +29,11 @@ class _CategoryPackPatchState extends State<CategoryPackPatch> {
   bool installButtonDisabled = false;
   List<InstallablePatch> installablePatchs = [];
   List<String> installablePatchPaths = [];
+  late PatchCategory currentCategory;
 
   @override
   void initState() {
+    currentCategory = widget.category;
     _buildInstallableList();
     _getPatchStatus();
     super.initState();
@@ -72,10 +75,10 @@ class _CategoryPackPatchState extends State<CategoryPackPatch> {
                                     child: Padding(
                                   padding: const EdgeInsets.symmetric(horizontal: 12),
                                   child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                                    Text(widget.category.name,
+                                    Text(currentCategory.name,
                                         overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 25)),
                                     Text(
-                                      widget.category.smallDescription,
+                                      currentCategory.smallDescription,
                                     ),
                                     const SizedBox(height: 10),
                                     StaggeredGrid.count(
@@ -84,8 +87,8 @@ class _CategoryPackPatchState extends State<CategoryPackPatch> {
                                         crossAxisCount: 3,
                                         children: List.generate(
                                             widget.showAllPacks
-                                                ? widget.category.getAvailablePatchs().length
-                                                : widget.category
+                                                ? currentCategory.getAvailablePatchs().length
+                                                : currentCategory
                                                     .getAvailablePatchs()
                                                     .where((element) => element.pack.owned)
                                                     .length,
@@ -106,7 +109,7 @@ class _CategoryPackPatchState extends State<CategoryPackPatch> {
   }
 
   List<PackAvailablePatchs> _sortAvailablePatchs() {
-    List<PackAvailablePatchs> availablePatchs = widget.category.getAvailablePatchs();
+    List<PackAvailablePatchs> availablePatchs = currentCategory.getAvailablePatchs();
     availablePatchs.sort((a, b) {
       if (a.installedStatus().index > b.installedStatus().index) {
         return 1;
@@ -122,7 +125,7 @@ class _CategoryPackPatchState extends State<CategoryPackPatch> {
   void _buildInstallableList() {
     installablePatchs = [];
     installablePatchPaths = [];
-    for (var element in widget.category.gamePatches) {
+    for (var element in currentCategory.gamePatches) {
       if (element.getPack().owned &&
           element.getPack().path != null &&
           element.getInstalledStatus() != UserInstalledPatchStatus.INSTALLED) {
@@ -130,7 +133,7 @@ class _CategoryPackPatchState extends State<CategoryPackPatch> {
         installablePatchPaths.add(element.getPack().path!);
       }
     }
-    for (var element in widget.category.packPatches) {
+    for (var element in currentCategory.packPatches) {
       if (element.getPack().owned &&
           element.getPack().path != null &&
           element.getInstalledStatus() != UserInstalledPatchStatus.INSTALLED &&
@@ -142,22 +145,24 @@ class _CategoryPackPatchState extends State<CategoryPackPatch> {
   }
 
   void _getPatchStatus() {
-    switch (widget.category.getInstalledStatus()) {
+    currentCategory = APIService().cachedCategories
+        .firstWhere((element) => element.id == currentCategory.id, orElse: () => currentCategory);
+    switch (currentCategory.getInstalledStatus()) {
       case UserInstalledPatchStatus.INEXISTANT:
         buttonText = TranslationsHelper().appLocalizations!.patch_unavailable;
         installButtonDisabled = true;
         break;
       case UserInstalledPatchStatus.INSTALLED:
-        buttonText = TranslationsHelper().appLocalizations!.patch_installed(widget.category.packPatches.length);
+        buttonText = TranslationsHelper().appLocalizations!.patch_installed(currentCategory.packPatches.length);
         installButtonDisabled = true;
         break;
       case UserInstalledPatchStatus.INSTALLED_OUTDATED:
-        buttonText = TranslationsHelper().appLocalizations!.patch_outdated(widget.category.packPatches
+        buttonText = TranslationsHelper().appLocalizations!.patch_outdated(currentCategory.packPatches
             .where((element) => element.getInstalledStatus() == UserInstalledPatchStatus.INSTALLED_OUTDATED)
             .length);
         break;
       case UserInstalledPatchStatus.NOT_INSTALLED:
-        buttonText = TranslationsHelper().appLocalizations!.patch_not_installed(widget.category.packPatches
+        buttonText = TranslationsHelper().appLocalizations!.patch_not_installed(currentCategory.packPatches
             .where((element) =>
                 element.getInstalledStatus() == UserInstalledPatchStatus.INSTALLED_OUTDATED ||
                 element.getInstalledStatus() == UserInstalledPatchStatus.NOT_INSTALLED)

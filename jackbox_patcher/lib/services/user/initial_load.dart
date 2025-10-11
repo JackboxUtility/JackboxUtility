@@ -91,12 +91,17 @@ class InitialLoad {
       }
       await precacheImage(
           Image.network(APIService().assetLink(APIService().cachedSelectedServer!.image)).image, context);
-      callback(step: 3, percent: 50);
+      callback(step: 3, percent: 25);
       _precacheImages(context);
       if (isFirstTimeOpening) {
         await _launchAutomaticGameFinder(context, automaticGameFindNotificationAvailable);
+        callback(step: 3, percent: 50);
+        await _loadPacks((double percent) {
+          callback(step: 3, percent: percent/4 + 50);
+        });
         AutomaticReload.startAutomaticReload();
       }
+      callback(step: 3, percent: 75);
       await detectFixesAvailable(context);
       callback(step: 3, percent: 100);
       if (isFirstTimeOpening && UserData().settings.isOpenLauncherOnStartupActivated) {
@@ -149,6 +154,9 @@ class InitialLoad {
 
   static Future<void> _loadPacks(Function(double) callback) async {
     await UserData().syncPacks(callback);
+  }
+
+  static void _loadCategories() {
   }
 
   static Future<void> _loadBlurHashes() async {
