@@ -134,7 +134,7 @@ class _CategoryPackPatchState extends State<CategoryPackPatch> {
       if (element.getPack().owned &&
           element.getPack().path != null &&
           element.getInstalledStatus() != UserInstalledPatchStatus.INSTALLED &&
-          element.getPack().patches.contains(element)) {
+          element.getPack().patches.any ((p) => p.patch.id == element.patch.id)) {
         installablePatchs.add(element);
         installablePatchPaths.add(element.getPack().path!);
       }
