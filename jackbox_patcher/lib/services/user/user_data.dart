@@ -101,11 +101,17 @@ class UserData {
 
       // Load every patches in the pack
       for (var patch in userPack.pack.patches) {
+        if (userPack.allPatches.where((element) => element.patch.id == patch.id).isNotEmpty) {
+          continue;
+        }
         userPack.addPatch(UserJackboxPackPatch(patch: patch, installedVersion: patchVersionInstalled));
       }
 
       // Do the same for the fixes
       for (var patch in userPack.pack.fixes) {
+        if (userPack.fixes.where((element) => element.patch.id == patch.id).isNotEmpty) {
+          continue;
+        }
         userPack.fixes.add(UserJackboxPackPatch(patch: patch, installedVersion: patchVersionInstalled));
       }
     }
