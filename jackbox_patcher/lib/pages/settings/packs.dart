@@ -125,12 +125,11 @@ class _ParametersWidgetState extends State<ParametersWidget> {
     UserJackboxPack? packSelected = await showDialog<UserJackboxPack?>(
         context: context,
         builder: (context) => ContentDialog(
-              constraints: BoxConstraints(minWidth: 450, maxWidth: 450),
+              constraints: BoxConstraints(minWidth: 200, maxWidth: 400),
               title: Text(TranslationsHelper().appLocalizations!.add_pack),
-              content: SizedBox(
-                  child: Row(children: [
-                Expanded(
-                  child: ComboBox<UserJackboxPack>(
+              content: 
+                    ComboBox<UserJackboxPack>(
+                      isExpanded: true,
                     value: selectedPack,
                     items: List.generate(
                         notOwnedPacks.length,
@@ -149,10 +148,8 @@ class _ParametersWidgetState extends State<ParametersWidget> {
                     onChanged: (pack) async {
                       Navigator.pop(context, pack);
                     },
-                    placeholder: Text(TranslationsHelper().appLocalizations!.choose_pack),
+                    placeholder: Text("Test"),
                   ),
-                )
-              ])),
               actions: [
                 HyperlinkButton(
                     child: Text(TranslationsHelper().appLocalizations!.cancel),

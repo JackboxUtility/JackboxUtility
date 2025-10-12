@@ -58,7 +58,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get installing_a_patch_end => 'Instalación completada';
 
   @override
-  String get thank_the_team_button => 'Agradecer al equipo';
+  String get thank_the_team_button => 'Donar';
 
   @override
   String get thank_the_team_description =>
