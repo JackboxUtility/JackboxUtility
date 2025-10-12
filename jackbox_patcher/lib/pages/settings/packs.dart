@@ -148,7 +148,7 @@ class _ParametersWidgetState extends State<ParametersWidget> {
                     onChanged: (pack) async {
                       Navigator.pop(context, pack);
                     },
-                    placeholder: Text("Test"),
+                    placeholder: Text(TranslationsHelper().appLocalizations!.choose_pack),
                   ),
               actions: [
                 HyperlinkButton(
