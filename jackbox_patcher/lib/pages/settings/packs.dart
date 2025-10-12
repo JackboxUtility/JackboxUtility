@@ -5,6 +5,7 @@ import 'package:jackbox_patcher/components/dialogs/reset_pack_dialog.dart';
 import 'package:jackbox_patcher/model/misc/launchers.dart';
 import 'package:jackbox_patcher/model/user_model/user_jackbox_pack.dart';
 import 'package:jackbox_patcher/services/api_utility/api_service.dart';
+import 'package:jackbox_patcher/services/logger/logger.dart';
 import 'package:jackbox_patcher/services/user/user_data.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -32,11 +33,8 @@ class _ParametersPackRouteState extends State<ParametersPackRoute> {
                   child: const Icon(FluentIcons.chevron_left),
                   onTap: () => Navigator.pop(context),
                 ),
-                title:
-                    Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
-                  const Padding(
-                      padding: EdgeInsets.only(bottom: 4),
-                      child: Icon(FluentIcons.settings, size: 25)),
+                title: Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
+                  const Padding(padding: EdgeInsets.only(bottom: 4), child: Icon(FluentIcons.settings, size: 25)),
                   const SizedBox(width: 10),
                   Text(
                     TranslationsHelper().appLocalizations!.settings,
@@ -80,19 +78,15 @@ class _ParametersWidgetState extends State<ParametersWidget> {
             padding: EdgeInsets.symmetric(
               horizontal: calculatePadding(),
             ),
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               const SizedBox(
                 height: 30,
               ),
               Row(children: [
-                Text(TranslationsHelper().appLocalizations!.owned_packs,
-                    style: typography.title),
+                Text(TranslationsHelper().appLocalizations!.owned_packs, style: typography.title),
                 const Spacer(),
                 FilledButton(
-                    child: Text(TranslationsHelper()
-                        .appLocalizations!
-                        .automatic_game_finder_button),
+                    child: Text(TranslationsHelper().appLocalizations!.automatic_game_finder_button),
                     onPressed: () async {
                       await _launchAutomaticGameFinder(true);
                       setState(() {});
@@ -102,8 +96,7 @@ class _ParametersWidgetState extends State<ParametersWidget> {
                 height: 10,
               ),
               _showOwnedPack(),
-              if (UserData().packs.length !=
-                  UserData().packs.where((element) => element.owned).length)
+              if (UserData().packs.length != UserData().packs.where((element) => element.owned).length)
                 ListTile(
                   title: Text(TranslationsHelper().appLocalizations!.add_pack),
                   leading: const Icon(FluentIcons.add),
@@ -120,21 +113,15 @@ class _ParametersWidgetState extends State<ParametersWidget> {
   }
 
   Future<void> _launchAutomaticGameFinder(bool showNotification) async {
-    int gamesFound =
-        await AutomaticGameFinderService.findGames(UserData().packs);
+    int gamesFound = await AutomaticGameFinderService.findGames(UserData().packs);
     if (showNotification) {
-      InfoBarService.showInfo(
-          context,
-          TranslationsHelper().appLocalizations!.automatic_game_finder_title,
-          TranslationsHelper()
-              .appLocalizations!
-              .automatic_game_finder_finish(gamesFound));
+      InfoBarService.showInfo(context, TranslationsHelper().appLocalizations!.automatic_game_finder_title,
+          TranslationsHelper().appLocalizations!.automatic_game_finder_finish(gamesFound));
     }
   }
 
   _showAddPackDialog() async {
-    List<UserJackboxPack> notOwnedPacks =
-        UserData().packs.where((element) => !element.owned).toList();
+    List<UserJackboxPack> notOwnedPacks = UserData().packs.where((element) => !element.owned).toList();
     UserJackboxPack? packSelected = await showDialog<UserJackboxPack?>(
         context: context,
         builder: (context) => ContentDialog(
@@ -152,8 +139,7 @@ class _ParametersWidgetState extends State<ParametersWidget> {
                             onTap: () {},
                             child: Row(children: [
                               CachedNetworkImage(
-                                  imageUrl: APIService().assetLink(
-                                      notOwnedPacks[index].pack.icon),
+                                  imageUrl: APIService().assetLink(notOwnedPacks[index].pack.icon),
                                   height: 30,
                                   memCacheHeight: 30,
                                   width: 30),
@@ -163,8 +149,7 @@ class _ParametersWidgetState extends State<ParametersWidget> {
                     onChanged: (pack) async {
                       Navigator.pop(context, pack);
                     },
-                    placeholder: Text(
-                        TranslationsHelper().appLocalizations!.choose_pack),
+                    placeholder: Text(TranslationsHelper().appLocalizations!.choose_pack),
                   ),
                 )
               ])),
@@ -179,13 +164,12 @@ class _ParametersWidgetState extends State<ParametersWidget> {
     if (packSelected != null) {
       setState(() {});
       String? path = await FilePicker.platform.getDirectoryPath(
-          dialogTitle: TranslationsHelper()
-              .appLocalizations!
-              .select_game_location(packSelected.pack.name),
+          dialogTitle: TranslationsHelper().appLocalizations!.select_game_location(packSelected.pack.name),
           lockParentWindow: true);
       if (path != null) {
         packSelected.setOwned(true);
-        packSelected.setPath(path);
+        await packSelected.setPath(path);
+        packSelected.setLauncher(await AutomaticGameFinderService.detectLauncherFromPath(packSelected));
         setState(() {});
       }
     }
@@ -193,10 +177,8 @@ class _ParametersWidgetState extends State<ParametersWidget> {
 
   Widget _showOwnedPack() {
     return Column(
-        children: List.generate(
-            UserData().packs.where((element) => element.owned).length, (index) {
-      return _buildOwnedPack(
-          UserData().packs.where((element) => element.owned).toList()[index]);
+        children: List.generate(UserData().packs.where((element) => element.owned).length, (index) {
+      return _buildOwnedPack(UserData().packs.where((element) => element.owned).toList()[index]);
     }));
   }
 
@@ -261,34 +243,25 @@ class _PackInParametersWidgetState extends State<PackInParametersWidget> {
       ]),
       title: Text(widget.pack.pack.name),
       subtitle: packStatus == "NOT_FOUND"
-          ? Text(
-              TranslationsHelper()
-                  .appLocalizations!
-                  .path_not_found_small_description,
+          ? Text(TranslationsHelper().appLocalizations!.path_not_found_small_description,
               style: TextStyle(color: Colors.red))
           : (widget.pack.path != null && widget.pack.path != "")
               ? MouseRegion(
                   cursor: SystemMouseCursors.click,
                   child: HyperlinkButton(
                     style: ButtonStyle(
-                        padding: ButtonState.resolveWith(
-                            (states) => const EdgeInsets.all(0)),
-                        textStyle: ButtonState.resolveWith((states) =>
-                            const TextStyle(fontWeight: FontWeight.normal))),
+                        padding: ButtonState.resolveWith((states) => const EdgeInsets.all(0)),
+                        textStyle: ButtonState.resolveWith((states) => const TextStyle(fontWeight: FontWeight.normal))),
                     child: Text(
                       widget.pack.path!,
                       style: const TextStyle(color: Colors.white),
                     ),
                     onPressed: () {
-                      launchUrlString(
-                          "file:///${widget.pack.path!.replaceAll("\\", "/")}");
+                      launchUrlString("file:///${widget.pack.path!.replaceAll("\\", "/")}");
                     },
                   ),
                 )
-              : Text(
-                  TranslationsHelper()
-                      .appLocalizations!
-                      .path_inexistant_small_description,
+              : Text(TranslationsHelper().appLocalizations!.path_inexistant_small_description,
                   style: TextStyle(color: Colors.yellow)),
       trailing: Row(children: [
         if (widget.pack.pack.launchersId != null &&
@@ -298,22 +271,19 @@ class _PackInParametersWidgetState extends State<PackInParametersWidget> {
             icon: const Icon(FluentIcons.update_restore),
             onPressed: () async {
               await showDialog(
-                  context: context,
-                  builder: (context) => ResetPackDialog(
-                      appId: widget.pack.pack.launchersId!.steam!));
+                  context: context, builder: (context) => ResetPackDialog(appId: widget.pack.pack.launchersId!.steam!));
             },
           ),
         IconButton(
           icon: const Icon(FluentIcons.folder_open),
           onPressed: () async {
             String? path = await FilePicker.platform.getDirectoryPath(
-                dialogTitle: TranslationsHelper()
-                    .appLocalizations!
-                    .select_game_location(widget.pack.pack.name),
+                dialogTitle: TranslationsHelper().appLocalizations!.select_game_location(widget.pack.pack.name),
                 lockParentWindow: true);
             if (path != null) {
               pathController.text = path;
-              widget.pack.setPath(path);
+              await widget.pack.setPath(path);
+              widget.pack.setLauncher(await AutomaticGameFinderService.detectLauncherFromPath(widget.pack));
               setState(() {});
             }
           },
@@ -338,39 +308,39 @@ class _PackInParametersWidgetState extends State<PackInParametersWidget> {
               title: Text(TranslationsHelper().appLocalizations!.add_pack),
               content: SizedBox(
                   height: 100,
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(TranslationsHelper().appLocalizations!.pack_path),
-                        const SizedBox(
-                          height: 6,
-                        ),
-                        Row(children: [
-                          Expanded(
-                              child: TextBox(
-                            controller: pathController,
-                            onChanged: (value) {
-                              widget.pack.setPath(value);
-                            },
-                          )),
-                          IconButton(
-                            icon: const Icon(FluentIcons.folder_open),
-                            onPressed: () async {
-                              String? path = await FilePicker.platform
-                                  .getDirectoryPath(
-                                      dialogTitle: TranslationsHelper()
-                                          .appLocalizations!
-                                          .select_game_location(
-                                              widget.pack.pack.name),
-                                      lockParentWindow: true);
-                              if (path != null) {
-                                pathController.text = path;
-                                widget.pack.setPath(path);
-                              }
-                            },
-                          ),
-                        ])
-                      ])),
+                  child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                    Text(TranslationsHelper().appLocalizations!.pack_path),
+                    const SizedBox(
+                      height: 6,
+                    ),
+                    Row(children: [
+                      Expanded(
+                          child: TextBox(
+                        controller: pathController,
+                        onChanged: (value) {
+                          widget.pack.setPath(value);
+                        },
+                      )),
+                      IconButton(
+                        icon: const Icon(FluentIcons.folder_open),
+                        onPressed: () async {
+                          String? path = await FilePicker.platform.getDirectoryPath(
+                              dialogTitle:
+                                  TranslationsHelper().appLocalizations!.select_game_location(widget.pack.pack.name),
+                              lockParentWindow: true);
+                          JULogger().i("Path selected : $path");
+                          if (path != null) {
+                            pathController.text = path;
+                            await widget.pack.setPath(path);
+                            JULogger().i(await AutomaticGameFinderService.detectLauncherFromPath(widget.pack));
+                            widget.pack
+                                .setLauncher(await AutomaticGameFinderService.detectLauncherFromPath(widget.pack));
+                            setState(() {});
+                          }
+                        },
+                      ),
+                    ])
+                  ])),
               actions: [
                 HyperlinkButton(
                     child: Text(TranslationsHelper().appLocalizations!.cancel),
