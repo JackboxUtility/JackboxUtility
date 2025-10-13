@@ -20,6 +20,8 @@
     "installing_a_patch",
     "installing_a_patch_description",
     "installing_a_patch_end",
+    "thank_the_team_button",
+    "thank_the_team_description",
     "can_close_popup",
     "patch_unavailable",
     "patch_installed",
@@ -244,8 +246,6 @@
   ],
 
   "pl": [
-    "app_behavior",
-    "settings_app_startup_category",
     "settings_app_startup_title",
     "settings_app_startup_description",
     "settings_discord_rich_presence_category",
@@ -332,6 +332,8 @@
     "installing_a_patch",
     "installing_a_patch_description",
     "installing_a_patch_end",
+    "thank_the_team_button",
+    "thank_the_team_description",
     "can_close_popup",
     "patch_unavailable",
     "patch_installed",

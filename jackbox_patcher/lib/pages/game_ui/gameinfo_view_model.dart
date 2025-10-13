@@ -58,7 +58,7 @@ class GameinfoViewModel extends EventViewModel {
 
   /// To know if a user can open the next or previous game using arrows
   bool canOpenOtherGame() {
-    return availableGames != null && availableGames!.length > 1 && launchingStatus == GameInfoLaunchingStatus.WAITING;
+    return availableGames != null && availableGames!.length > 1;
   }
 
   /// Open previous game available

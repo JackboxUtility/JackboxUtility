@@ -58,10 +58,10 @@ class AppLocalizationsUk extends AppLocalizations {
   String get installing_a_patch_end => 'Встановлення завершено';
 
   @override
-  String get thank_the_team_button => 'Thank the team';
+  String get thank_the_team_button => 'Подякувати команді';
 
   @override
-  String get thank_the_team_description => 'Thank the team for the translation';
+  String get thank_the_team_description => 'Подякуйте команді за переклад';
 
   @override
   String get can_close_popup => 'Ви можете закрити це вікно';

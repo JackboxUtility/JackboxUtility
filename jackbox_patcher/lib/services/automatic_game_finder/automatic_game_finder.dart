@@ -13,8 +13,7 @@ class AutomaticGameFinderService {
   /// This function will find games installed on the user's computer and link them to the packs
   static Future<int> findGames(List<UserJackboxPack> packs) async {
     for (UserJackboxPack pack in packs) {
-      if (pack.origin == LauncherType.STEAM ||
-          pack.origin == LauncherType.EPIC) {
+      if (pack.origin == LauncherType.STEAM || pack.origin == LauncherType.EPIC) {
         pack.origin = null;
         await pack.setOwned(false);
       }
@@ -44,11 +43,9 @@ class AutomaticGameFinderService {
     String? steamLocation = await _getSteamLocation();
     JULogger().i("[AutomaticGameFinderService] Steam location: $steamLocation");
     if (steamLocation != null) {
-      Map<String, List<String>> steamFolderWithAppId =
-          _getSteamFoldersWithAppId(steamLocation);
+      Map<String, List<String>> steamFolderWithAppId = _getSteamFoldersWithAppId(steamLocation);
       JULogger().i("[AutomaticGameFinderService] Steam folders: $steamFolderWithAppId");
-      numberGamesFound =
-          await _linkSteamFolderWithPack(steamFolderWithAppId, packs);
+      numberGamesFound = await _linkSteamFolderWithPack(steamFolderWithAppId, packs);
       JULogger().i("[AutomaticGameFinderService] Steam games found: $numberGamesFound");
     }
     return numberGamesFound;
@@ -57,10 +54,10 @@ class AutomaticGameFinderService {
   static Future<int> _findEpicGamesGames(List<UserJackboxPack> packs) async {
     int numberGamesFound = 0;
     String? epicLocation = await _getEpicLocation();
-      if (epicLocation != null) {
-        List<dynamic> epicApps = await _getEpicInstalledApps(epicLocation);
-        numberGamesFound = await _linkEpicAppsWithPacks(epicApps, packs);
-      }
+    if (epicLocation != null) {
+      List<dynamic> epicApps = await _getEpicInstalledApps(epicLocation);
+      numberGamesFound = await _linkEpicAppsWithPacks(epicApps, packs);
+    }
     return numberGamesFound;
   }
 
@@ -94,8 +91,7 @@ class AutomaticGameFinderService {
 
   static Future<String?> _getSteamLocationWindows() async {
     try {
-      final key = Registry.openPath(RegistryHive.localMachine,
-          path: 'SOFTWARE\\WOW6432Node\\Valve\\Steam');
+      final key = Registry.openPath(RegistryHive.localMachine, path: 'SOFTWARE\\WOW6432Node\\Valve\\Steam');
       final steamLocation = key.getValueAsString("InstallPath");
       return steamLocation;
     } catch (e) {
@@ -105,16 +101,14 @@ class AutomaticGameFinderService {
 
   static Future<String?> _getSteamLocationLinux() async {
     for (String location in STEAM_LINUX_LOCATIONS) {
-      if (await Directory("${Platform.environment["HOME"]!}$location")
-          .exists()) {
+      if (await Directory("${Platform.environment["HOME"]!}$location").exists()) {
         return "${Platform.environment["HOME"]!}$location";
       }
     }
     return null;
   }
 
-  static Map<String, List<String>> _getSteamFoldersWithAppId(
-      String steamLocation) {
+  static Map<String, List<String>> _getSteamFoldersWithAppId(String steamLocation) {
     Map<String, List<String>> folderWithApps = {};
     File file;
     if (Platform.isWindows) {
@@ -136,21 +130,16 @@ class AutomaticGameFinderService {
           .where((element) => element.trim() != "")
           .map((e) => e.split('"')[1])
           .toList();
-      folderWithApps[line.split('"')[3].replaceAll("\\\\", "\\")] =
-          thisFolderApps;
+      folderWithApps[line.split('"')[3].replaceAll("\\\\", "\\")] = thisFolderApps;
     }
     return folderWithApps;
   }
 
-  static _getSteamGamePathFromFolderAndAppId(String folder, String appId) {
-    final file = File("$folder" +
-        Platform.pathSeparator +
-        "steamapps" +
-        Platform.pathSeparator +
-        "appmanifest_$appId.acf");
+  static String _getSteamGamePathFromFolderAndAppId(String folder, String appId) {
+    final file =
+        File("$folder" + Platform.pathSeparator + "steamapps" + Platform.pathSeparator + "appmanifest_$appId.acf");
     final fileLines = file.readAsLinesSync();
-    final pathLines =
-        fileLines.where((element) => element.contains('"installdir"'));
+    final pathLines = fileLines.where((element) => element.contains('"installdir"'));
     return "$folder" +
         Platform.pathSeparator +
         "steamapps" +
@@ -161,12 +150,10 @@ class AutomaticGameFinderService {
   }
 
   static Future<int> _linkSteamFolderWithPack(
-      Map<String, List<String>> steamFoldersWithAppId,
-      List<UserJackboxPack> userPacks) async {
+      Map<String, List<String>> steamFoldersWithAppId, List<UserJackboxPack> userPacks) async {
     int numberGamesFound = 0;
     for (UserJackboxPack userPack in userPacks) {
-      if (userPack.pack.launchersId != null &&
-          userPack.pack.launchersId!.steam != null) {
+      if (userPack.pack.launchersId != null && userPack.pack.launchersId!.steam != null) {
         for (var folder in steamFoldersWithAppId.keys) {
           if (await File("$folder" +
                   Platform.pathSeparator +
@@ -176,8 +163,7 @@ class AutomaticGameFinderService {
               .exists()) {
             numberGamesFound++;
             await userPack.setOwned(true);
-            await userPack.setPath(_getSteamGamePathFromFolderAndAppId(
-                folder, userPack.pack.launchersId!.steam!));
+            await userPack.setPath(_getSteamGamePathFromFolderAndAppId(folder, userPack.pack.launchersId!.steam!));
             await userPack.setLauncher(LauncherType.STEAM);
           }
         }
@@ -199,8 +185,8 @@ class AutomaticGameFinderService {
 
   static Future<String?> _getEpicLocationWindows() async {
     try {
-      final key = Registry.openPath(RegistryHive.localMachine,
-          path: 'SOFTWARE\\WOW6432Node\\Epic Games\\EpicGamesLauncher');
+      final key =
+          Registry.openPath(RegistryHive.localMachine, path: 'SOFTWARE\\WOW6432Node\\Epic Games\\EpicGamesLauncher');
       final epicLocation = key.getValueAsString("AppDataPath");
       return epicLocation;
     } catch (e) {
@@ -223,8 +209,7 @@ class AutomaticGameFinderService {
     return null;
   }
 
-  static Future<List<dynamic>> _getEpicInstalledApps(
-      String epicLocation) async {
+  static Future<List<dynamic>> _getEpicInstalledApps(String epicLocation) async {
     File file;
     if (Platform.isWindows) {
       file = File("$epicLocation\\..\\..\\UnrealEngineLauncher\\LauncherInstalled.dat");
@@ -232,17 +217,14 @@ class AutomaticGameFinderService {
       file = File("$epicLocation/UnrealEngineLauncher/LauncherInstalled.dat");
     }
     String fileData = await file.readAsString();
-    List<dynamic> installationList =
-        jsonDecode(fileData)["InstallationList"] as List<dynamic>;
+    List<dynamic> installationList = jsonDecode(fileData)["InstallationList"] as List<dynamic>;
     return installationList;
   }
 
-  static Future<int> _linkEpicAppsWithPacks(
-      List<dynamic> apps, List<UserJackboxPack> packs) async {
+  static Future<int> _linkEpicAppsWithPacks(List<dynamic> apps, List<UserJackboxPack> packs) async {
     int numberGamesFound = 0;
     for (UserJackboxPack userPack in packs) {
-      if (userPack.pack.launchersId != null &&
-          userPack.pack.launchersId!.epic != null) {
+      if (userPack.pack.launchersId != null && userPack.pack.launchersId!.epic != null) {
         for (var app in apps) {
           if (app["AppName"] == userPack.pack.launchersId!.epic) {
             numberGamesFound++;
@@ -254,5 +236,46 @@ class AutomaticGameFinderService {
       }
     }
     return numberGamesFound;
+  }
+
+  static Future<LauncherType> detectLauncherFromPath(UserJackboxPack userPack) async {
+    // Check steam
+    String? steamLocation = await _getSteamLocation();
+    if (steamLocation != null) {
+      Map<String, List<String>> steamFolderWithAppId = _getSteamFoldersWithAppId(steamLocation);
+      for (String folder in steamFolderWithAppId.keys) {
+        if (userPack.pack.launchersId != null && userPack.pack.launchersId!.steam != null) {
+          for (var folder in steamFolderWithAppId.keys) {
+            if (await File("$folder" +
+                    Platform.pathSeparator +
+                    "steamapps" +
+                    Platform.pathSeparator +
+                    "appmanifest_${userPack.pack.launchersId!.steam!}.acf")
+                .exists()) {
+              if (userPack.pack.launchersId?.steam != null) {
+                String steamFolder = _getSteamGamePathFromFolderAndAppId(folder, userPack.pack.launchersId!.steam!);
+                if (steamFolder == userPack.path) {
+                  return LauncherType.STEAM;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // Check epic
+    String? epicLocation = await _getEpicLocation();
+    if (epicLocation != null) {
+      List<dynamic> epicApps = await _getEpicInstalledApps(epicLocation);
+      for (var app in epicApps) {
+        if (userPack.pack.launchersId != null && userPack.pack.launchersId!.epic != null) {
+          if (app["AppName"] == userPack.pack.launchersId!.epic && app["InstallLocation"]! == userPack.path) {
+            return LauncherType.EPIC;
+          }
+        }
+      }
+    }
+    return LauncherType.UNKNOWN;
   }
 }

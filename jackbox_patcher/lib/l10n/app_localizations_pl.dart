@@ -58,10 +58,10 @@ class AppLocalizationsPl extends AppLocalizations {
   String get installing_a_patch_end => 'Instalacja ukończona';
 
   @override
-  String get thank_the_team_button => 'Thank the team';
+  String get thank_the_team_button => 'Podziękuj zespołowi';
 
   @override
-  String get thank_the_team_description => 'Thank the team for the translation';
+  String get thank_the_team_description => 'Podziękuj zespołowi za tłumaczenie';
 
   @override
   String get can_close_popup => 'Możesz zamknąć te okienko';
@@ -582,10 +582,10 @@ class AppLocalizationsPl extends AppLocalizations {
   String get unranked => 'Niesklasyfikowane';
 
   @override
-  String get app_behavior => 'App Behavior';
+  String get app_behavior => 'Zachowanie aplikacji';
 
   @override
-  String get settings_app_startup_category => 'App Startup';
+  String get settings_app_startup_category => 'Uruchamianie aplikacji';
 
   @override
   String get settings_app_startup_title => 'Open Launcher on App Startup';

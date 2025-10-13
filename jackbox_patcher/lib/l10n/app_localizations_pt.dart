@@ -897,6 +897,12 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
       'Você instalará o patch. Essa ação é irreversível.';
 
   @override
+  String get thank_the_team_button => 'Agradecer à equipe';
+
+  @override
+  String get thank_the_team_description => 'Agradeça à equipe pela tradução';
+
+  @override
   String get can_close_popup => 'Você pode fechar este pop-up';
 
   @override

@@ -30,9 +30,11 @@ class PatchCategory {
   }
 
   void addPatchs(List<UserJackboxPack> packs) {
+    packPatches = [];
+    gamePatches = [];
     for (String patchId in patchsIncluded) {
       for (UserJackboxPack pack in packs) {
-        for (UserJackboxPackPatch packPatch in pack.patches) {
+        for (UserJackboxPackPatch packPatch in pack.allPatches) {
           if (packPatch.patch.id == patchId) {
             packPatches.add(packPatch);
           }
@@ -50,7 +52,7 @@ class PatchCategory {
 
   UserInstalledPatchStatus getInstalledStatus() {
     UserInstalledPatchStatus status = UserInstalledPatchStatus.INSTALLED;
-    List<UserJackboxPackPatch> availablePackPatches = packPatches.where((element) => element.getPack().patches.any((patch) => patch.patch == element.patch)).toList();
+    List<UserJackboxPackPatch> availablePackPatches = packPatches.where((element) => element.getPack().patches.any((patch) => patch.patch.id == element.patch.id)).toList();
     for (UserJackboxPackPatch packPatch in availablePackPatches) {
       if (packPatch.getInstalledStatus() == UserInstalledPatchStatus.NOT_INSTALLED) {
         return UserInstalledPatchStatus.NOT_INSTALLED;
@@ -74,12 +76,12 @@ class PatchCategory {
     List<PackAvailablePatchs> availablePatchs = [];
     for (UserJackboxPackPatch packPatch in packPatches) {
       UserJackboxPack pack = packPatch.getPack();
+      if (pack.patches.any((element) => element.patch.id == packPatch.patch.id) == false) continue;
       if (availablePatchs.where((element) => element.pack.pack.id == pack.pack.id).isEmpty) {
         availablePatchs.add(PackAvailablePatchs(pack: pack, packPatchs: [], gamePatchs: []));
       }
       PackAvailablePatchs packAvailablePatchs =
           availablePatchs.firstWhere((element) => element.pack.pack.id == pack.pack.id);
-      if (pack.patches.contains(packPatch) == false) continue;
       packAvailablePatchs.packPatchs.add(packPatch);
     }
     for (UserJackboxGamePatch gamePatch in gamePatches) {

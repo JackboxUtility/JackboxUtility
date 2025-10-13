@@ -58,10 +58,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String get installing_a_patch_end => 'Yükleme Tamamlandı';
 
   @override
-  String get thank_the_team_button => 'Thank the team';
+  String get thank_the_team_button => 'Ekibe teşekkür et';
 
   @override
-  String get thank_the_team_description => 'Thank the team for the translation';
+  String get thank_the_team_description => 'Çeviri için ekibe teşekkür edin';
 
   @override
   String get can_close_popup => 'Bu mesaj kutusunu kapatabilirsiniz';
