@@ -4,6 +4,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.1] - 2025-10-13
+### :sparkles: New Features
+- [`d8c065e`](https://github.com/JackboxUtility/JackboxUtility/commit/d8c065e81e3fbe45dc2998d5eeed57255e9ef342) - Add game finder from path *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+
+### :bug: Bug Fixes
+- [`084f641`](https://github.com/JackboxUtility/JackboxUtility/commit/084f64173d9a96fe77e02a94337c7a4492cb1b9c) - Add native to supported launchers *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`4519538`](https://github.com/JackboxUtility/JackboxUtility/commit/451953870fe3edd0334fe70267bec526f44450ed) - patch not installing in category *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`a9b0f9c`](https://github.com/JackboxUtility/JackboxUtility/commit/a9b0f9cc1b5dd66be7d329cea7204edff9a590dd) - Try to fix the category problem *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`6e31af4`](https://github.com/JackboxUtility/JackboxUtility/commit/6e31af4b670feb28e350212e6dba9d4675c0f2f3) - Fix categories not updating *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`ea6106c`](https://github.com/JackboxUtility/JackboxUtility/commit/ea6106cb39046adbd3bf706a996548d44e2ae1d5) - Remove duplicate patches in categories *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`9bf7322`](https://github.com/JackboxUtility/JackboxUtility/commit/9bf73226b45aa9605314f6ea97611fc739ff5875) - Ui fix *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`cb09f6c`](https://github.com/JackboxUtility/JackboxUtility/commit/cb09f6c82f3fc640afdb2d893f4bebd234347fb3) - Add back choose pack text *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+
+### :wrench: Chores
+- [`af3ca13`](https://github.com/JackboxUtility/JackboxUtility/commit/af3ca13aff94a916d209e8775b57454d77607b62) - Debugging pack available patchs *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`cea123c`](https://github.com/JackboxUtility/JackboxUtility/commit/cea123c9ac41586755798ac6110f334d0b8f1b5c) - Add more logs *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`ee4f587`](https://github.com/JackboxUtility/JackboxUtility/commit/ee4f5875238e1681256cf75176a9df2d230e0ada) - Update app icon on windows *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`25719fb`](https://github.com/JackboxUtility/JackboxUtility/commit/25719fbb394011e74ec7b8d554909fab74fd5682) - Update version *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+
+
 ## [1.5.0] - 2025-10-08
 ### :sparkles: New Features
 - [`edc6cb0`](https://github.com/JackboxUtility/JackboxUtility/commit/edc6cb0239ad8eb589e67d570279c06a959b8e12) - Add Mac support *(PR [#171](https://github.com/JackboxUtility/JackboxUtility/pull/171) by [@greiner-petter](https://github.com/greiner-petter))*
@@ -230,3 +250,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [1.4.2+1]: https://github.com/JackboxUtility/JackboxUtility/compare/1.4.2...1.4.2+1
 [1.4.2+2]: https://github.com/JackboxUtility/JackboxUtility/compare/1.4.2+1...1.4.2+2
 [1.5.0]: https://github.com/JackboxUtility/JackboxUtility/compare/1.4.2+2...1.5.0
+[1.5.1]: https://github.com/JackboxUtility/JackboxUtility/compare/1.5.0...1.5.1
