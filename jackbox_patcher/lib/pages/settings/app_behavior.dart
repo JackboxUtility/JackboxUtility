@@ -7,6 +7,7 @@ import 'package:jackbox_patcher/services/translations/translations_helper.dart';
 
 import '../../components/settings/boolean_setting.dart';
 import '../../components/settings/column_setting.dart';
+import '../../components/settings/text_setting.dart';
 import '../../services/user/user_data.dart';
 
 class AppBehaviorSettings extends StatefulWidget {
@@ -44,25 +45,25 @@ class _AppBehaviorSettingsState extends State<AppBehaviorSettings> {
                   style: FluentTheme.of(context).typography.title),
               const SizedBox(height: 10),
               BooleanSetting(
-                  title: TranslationsHelper()
-                      .appLocalizations!
-                      .settings_app_startup_title,
-                  description: TranslationsHelper()
-                      .appLocalizations!
-                      .settings_app_startup_description,
+                title: TranslationsHelper()
+                    .appLocalizations!
+                    .settings_app_startup_title,
+                description: TranslationsHelper()
+                    .appLocalizations!
+                    .settings_app_startup_description,
                   isChecked:
                       UserData().settings.isOpenLauncherOnStartupActivated,
-                  setter: UserData().settings.setOpenLauncherOnStartup,
+                setter: UserData().settings.setOpenLauncherOnStartup,
                   parentReload: () => setState(() {})),
               const SizedBox(height: 10),
               BooleanSetting(
-                  title:
-                      TranslationsHelper().appLocalizations!.settings_sfx_title,
-                  description: TranslationsHelper()
-                      .appLocalizations!
-                      .settings_sfx_description,
-                  isChecked: UserData().settings.isAudioActivated,
-                  setter: UserData().settings.setAudio,
+                title:
+                    TranslationsHelper().appLocalizations!.settings_sfx_title,
+                description: TranslationsHelper()
+                    .appLocalizations!
+                    .settings_sfx_description,
+                isChecked: UserData().settings.isAudioActivated,
+                setter: UserData().settings.setAudio,
                   parentReload: () => setState(() {})),
               // const SizedBox(height: 30),
               // Text(
@@ -73,26 +74,49 @@ class _AppBehaviorSettingsState extends State<AppBehaviorSettings> {
               SizedBox(height: (Platform.isMacOS ? 0 : 10)),
               // remove discord toggle when on mac
               !Platform.isMacOS ? BooleanSetting(
-                  title: TranslationsHelper()
-                      .appLocalizations!
-                      .settings_discord_rich_presence_title,
-                  description: TranslationsHelper()
-                      .appLocalizations!
-                      .settings_discord_rich_presence_description,
-                  isChecked: UserData().settings.isDiscordRPCActivated,
-                  setter: UserData().settings.setDiscordRPC,
+                      title: TranslationsHelper()
+                          .appLocalizations!
+                          .settings_discord_rich_presence_title,
+                      description: TranslationsHelper()
+                          .appLocalizations!
+                          .settings_discord_rich_presence_description,
+                      isChecked: UserData().settings.isDiscordRPCActivated,
+                      setter: UserData().settings.setDiscordRPC,
                   parentReload: () => setState(() {})) : const SizedBox(height: 0),
               const SizedBox(height: 10),
               BooleanSetting(
-                  title: TranslationsHelper()
-                      .appLocalizations!
-                      .settings_anonymous_data_title, 
-                  description: TranslationsHelper()
-                      .appLocalizations!
-                      .settings_anonymous_data_description,
-                  isChecked: UserData().settings.isAnonymousDataActivated,
-                  setter: UserData().settings.setAnonymousData,
-                  parentReload: () => setState(() {})),
+                title: TranslationsHelper()
+                    .appLocalizations!
+                    .settings_anonymous_data_title,
+                description: TranslationsHelper()
+                    .appLocalizations!
+                    .settings_anonymous_data_description,
+                isChecked: UserData().settings.isAnonymousDataActivated,
+                setter: UserData().settings.setAnonymousData,
+                parentReload: () => setState(() {}),
+              ),
+              const SizedBox(height: 30),
+              Text(
+                TranslationsHelper()
+                    .appLocalizations!
+                    .settings_custom_server_url_title,
+                style: FluentTheme.of(context).typography.title,
+              ),
+              const SizedBox(height: 10),
+              TextSetting(
+                title: TranslationsHelper()
+                    .appLocalizations!
+                    .settings_custom_server_url_title,
+                description: TranslationsHelper()
+                    .appLocalizations!
+                    .settings_custom_server_url_description,
+                value: UserData().settings.customServerUrl,
+                placeholder: TranslationsHelper()
+                    .appLocalizations!
+                    .settings_custom_server_url_placeholder,
+                setter: UserData().settings.setCustomServerUrl,
+                parentReload: () => setState(() {}),
+              ),
               // const SizedBox(height: 10),
               // BooleanSetting(
               //     title: TranslationsHelper()
@@ -112,13 +136,13 @@ class _AppBehaviorSettingsState extends State<AppBehaviorSettings> {
               //     parentReload: () => setState(() {})),
               const SizedBox(height: 30),
               Text(
-                  TranslationsHelper()
-                      .appLocalizations!
-                      .settings_app_saves_category,
+                TranslationsHelper()
+                    .appLocalizations!
+                    .settings_app_saves_category,
                   style: FluentTheme.of(context).typography.title),
               const SizedBox(height: 10),
               ColumnSetting(color: Colors.red, children: [
-                ButtonSetting(
+                  ButtonSetting(
                     title: TranslationsHelper()
                         .appLocalizations!
                         .settings_app_reset_stars_title,
@@ -130,23 +154,23 @@ class _AppBehaviorSettingsState extends State<AppBehaviorSettings> {
                         .settings_app_reset_stars_button_text,
                     onClick: () {
                       showDialog(
-                          context: context,
-                          builder: (context) => ConfirmationDialog(
-                              toConfirm: TranslationsHelper()
-                                  .appLocalizations!
-                                  .settings_app_reset_stars_action,
-                              todoWhenConfirmed: () {
-                                UserData().resetStars();
-                                setState(() {});
+                        context: context,
+                        builder: (context) => ConfirmationDialog(
+                          toConfirm: TranslationsHelper()
+                              .appLocalizations!
+                              .settings_app_reset_stars_action,
+                          todoWhenConfirmed: () {
+                            UserData().resetStars();
+                            setState(() {});
                               }));
                       setState(() {});
                     },
                     style: ButtonSettingStyle.DANGER),
-                Divider(
+                  Divider(
                     style:
                         DividerThemeData(horizontalMargin: EdgeInsets.all(12)),
                     size: double.infinity),
-                ButtonSetting(
+                  ButtonSetting(
                     title: TranslationsHelper()
                         .appLocalizations!
                         .settings_app_reset_hidden_title,
@@ -158,14 +182,14 @@ class _AppBehaviorSettingsState extends State<AppBehaviorSettings> {
                         .settings_app_reset_hidden_button_text,
                     onClick: () {
                       showDialog(
-                          context: context,
-                          builder: (context) => ConfirmationDialog(
-                              toConfirm: TranslationsHelper()
-                                  .appLocalizations!
-                                  .settings_app_reset_hidden_action,
-                              todoWhenConfirmed: () {
-                                UserData().resetHiddenGames();
-                                setState(() {});
+                        context: context,
+                        builder: (context) => ConfirmationDialog(
+                          toConfirm: TranslationsHelper()
+                              .appLocalizations!
+                              .settings_app_reset_hidden_action,
+                          todoWhenConfirmed: () {
+                            UserData().resetHiddenGames();
+                            setState(() {});
                               }));
                     },
                     style: ButtonSettingStyle.DANGER)

@@ -827,6 +827,18 @@ class AppLocalizationsRu extends AppLocalizations {
       'Помогите нам улучшить приложение, отправив анонимные данные о том, как вы используете приложение.';
 
   @override
+  String get settings_custom_server_url_title =>
+      'Пользовательский URL игрового сервера';
+
+  @override
+  String get settings_custom_server_url_description =>
+      'Установите пользовательский serverUrl для запуска игр (например, jb-ecast.klucva.ru). Оставьте пустым для использования стандартных серверов игры.';
+
+  @override
+  String get settings_custom_server_url_placeholder =>
+      'например, jb-ecast.klucva.ru';
+
+  @override
   String get privacy_info => 'Примечание о конфиденциальности';
 
   @override

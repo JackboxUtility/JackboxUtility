@@ -824,6 +824,18 @@ class AppLocalizationsPt extends AppLocalizations {
       'Help us improve the app by sending anonymous data about your usage of the app.';
 
   @override
+  String get settings_custom_server_url_title =>
+      'URL personalizada do servidor de jogo';
+
+  @override
+  String get settings_custom_server_url_description =>
+      'Defina uma serverUrl personalizada para iniciar jogos (por exemplo, jb-ecast.klucva.ru). Deixe em branco para usar os servidores padrão.';
+
+  @override
+  String get settings_custom_server_url_placeholder =>
+      'por exemplo, jb-ecast.klucva.ru';
+
+  @override
   String get privacy_info => 'Privacy notice';
 
   @override
@@ -955,4 +967,16 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String get special_thanks => 'Agradecimentos especiais';
+
+  @override
+  String get settings_custom_server_url_title =>
+      'URL personalizada do servidor de jogo';
+
+  @override
+  String get settings_custom_server_url_description =>
+      'Defina uma serverUrl personalizada para iniciar jogos (por exemplo, jb-ecast.klucva.ru). Deixe em branco para usar os servidores padrão.';
+
+  @override
+  String get settings_custom_server_url_placeholder =>
+      'por exemplo, jb-ecast.klucva.ru';
 }

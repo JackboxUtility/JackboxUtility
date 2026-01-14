@@ -824,6 +824,17 @@ class AppLocalizationsPl extends AppLocalizations {
       'Help us improve the app by sending anonymous data about your usage of the app.';
 
   @override
+  String get settings_custom_server_url_title =>
+      'Niestandardowy URL serwera gry';
+
+  @override
+  String get settings_custom_server_url_description =>
+      'Ustaw niestandardowy serverUrl do uruchamiania gier (np. jb-ecast.klucva.ru). Zostaw puste, aby użyć domyślnych serwerów.';
+
+  @override
+  String get settings_custom_server_url_placeholder => 'np. jb-ecast.klucva.ru';
+
+  @override
   String get privacy_info => 'Privacy notice';
 
   @override

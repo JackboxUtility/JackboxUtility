@@ -849,6 +849,17 @@ class AppLocalizationsTa extends AppLocalizations {
       'பயன்பாட்டின் உங்கள் பயன்பாடு குறித்து அநாமதேய தரவை அனுப்புவதன் மூலம் பயன்பாட்டை மேம்படுத்த எங்களுக்கு உதவுங்கள்.';
 
   @override
+  String get settings_custom_server_url_title => 'Custom Game Server URL';
+
+  @override
+  String get settings_custom_server_url_description =>
+      'Set a custom serverUrl for launching games (e.g., jb-ecast.klucva.ru). Leave empty to use default game servers.';
+
+  @override
+  String get settings_custom_server_url_placeholder =>
+      'e.g., jb-ecast.klucva.ru';
+
+  @override
   String get privacy_info => 'தனியுரிமை அறிவிப்பு';
 
   @override

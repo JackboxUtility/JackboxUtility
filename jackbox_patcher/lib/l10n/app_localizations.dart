@@ -1507,6 +1507,24 @@ abstract class AppLocalizations {
   /// **'Help us improve the app by sending anonymous data about your usage of the app.'**
   String get settings_anonymous_data_description;
 
+  /// No description provided for @settings_custom_server_url_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom Game Server URL'**
+  String get settings_custom_server_url_title;
+
+  /// No description provided for @settings_custom_server_url_description.
+  ///
+  /// In en, this message translates to:
+  /// **'Set a custom serverUrl for launching games (e.g., jb-ecast.klucva.ru). Leave empty to use default game servers.'**
+  String get settings_custom_server_url_description;
+
+  /// No description provided for @settings_custom_server_url_placeholder.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g., jb-ecast.klucva.ru'**
+  String get settings_custom_server_url_placeholder;
+
   /// No description provided for @privacy_info.
   ///
   /// In en, this message translates to:
