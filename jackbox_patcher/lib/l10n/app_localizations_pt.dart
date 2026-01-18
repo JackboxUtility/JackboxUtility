@@ -829,11 +829,11 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get settings_custom_server_url_description =>
-      'Defina uma serverUrl personalizada para iniciar jogos (por exemplo, jb-ecast.klucva.ru). Deixe em branco para usar os servidores padrão.';
+      'Defina uma serverUrl personalizada para iniciar jogos (por exemplo, ecast.jackboxgames.com). Deixe em branco para usar os servidores padrão.';
 
   @override
   String get settings_custom_server_url_placeholder =>
-      'por exemplo, jb-ecast.klucva.ru';
+      'por exemplo, ecast.jackboxgames.com';
 
   @override
   String get privacy_info => 'Privacy notice';
@@ -974,9 +974,9 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String get settings_custom_server_url_description =>
-      'Defina uma serverUrl personalizada para iniciar jogos (por exemplo, jb-ecast.klucva.ru). Deixe em branco para usar os servidores padrão.';
+      'Defina uma serverUrl personalizada para iniciar jogos (por exemplo, ecast.jackboxgames.com). Deixe em branco para usar os servidores padrão.';
 
   @override
   String get settings_custom_server_url_placeholder =>
-      'por exemplo, jb-ecast.klucva.ru';
+      'por exemplo, ecast.jackboxgames.com';
 }

@@ -828,11 +828,11 @@ class AppLocalizationsNb extends AppLocalizations {
 
   @override
   String get settings_custom_server_url_description =>
-      'Set a custom serverUrl for launching games (e.g., jb-ecast.klucva.ru). Leave empty to use default game servers.';
+      'Set a custom serverUrl for launching games (e.g., ecast.jackboxgames.com). Leave empty to use default game servers.';
 
   @override
   String get settings_custom_server_url_placeholder =>
-      'e.g., jb-ecast.klucva.ru';
+      'e.g., ecast.jackboxgames.com';
 
   @override
   String get privacy_info => 'Privacy notice';

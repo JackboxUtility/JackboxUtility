@@ -834,11 +834,11 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get settings_custom_server_url_description =>
-      'Oyunları başlatmak için özel bir serverUrl ayarlayın (örn. jb-ecast.klucva.ru). Varsayılan sunucuları kullanmak için boş bırakın.';
+      'Oyunları başlatmak için özel bir serverUrl ayarlayın (örn. ecast.jackboxgames.com). Varsayılan sunucuları kullanmak için boş bırakın.';
 
   @override
   String get settings_custom_server_url_placeholder =>
-      'örn. jb-ecast.klucva.ru';
+      'örn. ecast.jackboxgames.com';
 
   @override
   String get privacy_info => 'Gizlilik notu';

@@ -840,11 +840,11 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get settings_custom_server_url_description =>
-      'Lege eine benutzerdefinierte serverUrl für das Starten von Spielen fest (z.B. jb-ecast.klucva.ru). Leer lassen, um die Standard-Server zu verwenden.';
+      'Lege eine benutzerdefinierte serverUrl für das Starten von Spielen fest (z.B. ecast.jackboxgames.com). Leer lassen, um die Standard-Server zu verwenden.';
 
   @override
   String get settings_custom_server_url_placeholder =>
-      'z.B. jb-ecast.klucva.ru';
+      'z.B. ecast.jackboxgames.com';
 
   @override
   String get privacy_info => 'Datenschutz-Hinweis';

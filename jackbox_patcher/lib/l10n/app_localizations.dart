@@ -1516,13 +1516,13 @@ abstract class AppLocalizations {
   /// No description provided for @settings_custom_server_url_description.
   ///
   /// In en, this message translates to:
-  /// **'Set a custom serverUrl for launching games (e.g., jb-ecast.klucva.ru). Leave empty to use default game servers.'**
+  /// **'Set a custom serverUrl for launching games (e.g., ecast.jackboxgames.com). Leave empty to use default game servers.'**
   String get settings_custom_server_url_description;
 
   /// No description provided for @settings_custom_server_url_placeholder.
   ///
   /// In en, this message translates to:
-  /// **'e.g., jb-ecast.klucva.ru'**
+  /// **'e.g., ecast.jackboxgames.com'**
   String get settings_custom_server_url_placeholder;
 
   /// No description provided for @privacy_info.

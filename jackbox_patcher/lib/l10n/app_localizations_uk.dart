@@ -836,11 +836,11 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get settings_custom_server_url_description =>
-      'Встановіть користувацьку serverUrl для запуску ігор (наприклад, jb-ecast.klucva.ru). Залиште порожнім для використання стандартних серверів.';
+      'Встановіть користувацьку serverUrl для запуску ігор (наприклад, ecast.jackboxgames.com). Залиште порожнім для використання стандартних серверів.';
 
   @override
   String get settings_custom_server_url_placeholder =>
-      'наприклад, jb-ecast.klucva.ru';
+      'наприклад, ecast.jackboxgames.com';
 
   @override
   String get privacy_info => 'Приватність';
