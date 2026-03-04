@@ -835,6 +835,18 @@ class AppLocalizationsFr extends AppLocalizations {
       'Aidez-nous à améliorer l\'application en envoyant des données anonymes de votre utilisation.';
 
   @override
+  String get settings_custom_server_url_title =>
+      'URL personnalisée du serveur de jeu';
+
+  @override
+  String get settings_custom_server_url_description =>
+      'Définir une serverUrl personnalisée pour lancer des jeux (par exemple, ecast.jackboxgames.com). Laissez vide pour utiliser les serveurs par défaut.';
+
+  @override
+  String get settings_custom_server_url_placeholder =>
+      'par exemple, ecast.jackboxgames.com';
+
+  @override
   String get privacy_info => 'Confidentialité';
 
   @override

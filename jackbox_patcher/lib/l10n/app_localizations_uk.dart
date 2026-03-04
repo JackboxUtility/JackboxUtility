@@ -831,6 +831,18 @@ class AppLocalizationsUk extends AppLocalizations {
       'Допоможіть покращити застосунок, надсилаючи анонімні дані про те, як ви його використовуєте.';
 
   @override
+  String get settings_custom_server_url_title =>
+      'Користувацька URL ігрового сервера';
+
+  @override
+  String get settings_custom_server_url_description =>
+      'Встановіть користувацьку serverUrl для запуску ігор (наприклад, ecast.jackboxgames.com). Залиште порожнім для використання стандартних серверів.';
+
+  @override
+  String get settings_custom_server_url_placeholder =>
+      'наприклад, ecast.jackboxgames.com';
+
+  @override
   String get privacy_info => 'Приватність';
 
   @override
