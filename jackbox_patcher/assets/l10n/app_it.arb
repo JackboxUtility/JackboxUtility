@@ -1,1 +1,11 @@
-{}
+{
+    "close": "Chiudi",
+    "cancel": "Annulla",
+    "page_continue": "Continua",
+    "confirm": "Conferma",
+    "quit": "Esci",
+    "yes": "Si",
+    "no": "No",
+    "ok": "OK",
+    "jackbox_utility": "Jackbox Utility"
+}
