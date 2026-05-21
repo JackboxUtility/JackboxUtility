@@ -44,7 +44,7 @@ dependencies:
   windows_taskbar: ^1.1.1
   window_manager : 0.5.1
   win32_registry: 2.1.0
-  font_awesome_flutter: 10.9.0
+  font_awesome_flutter: 11.0.0
   flutter_blurhash: 0.9.1
   carousel_slider: 5.1.1
   file_picker: 10.3.1
