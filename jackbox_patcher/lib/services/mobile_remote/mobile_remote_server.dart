@@ -7,6 +7,7 @@ import 'package:jackbox_patcher/services/launcher/launcher.dart';
 import 'package:jackbox_patcher/services/logger/logger.dart';
 import 'package:jackbox_patcher/services/mobile_remote/mobile_remote_state.dart';
 import 'package:jackbox_patcher/services/mobile_remote/mobile_spa.dart';
+import 'package:jackbox_patcher/model/user_model/user_jackbox_pack.dart';
 import 'package:jackbox_patcher/services/user/user_data.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;
