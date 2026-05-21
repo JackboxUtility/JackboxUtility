@@ -10,7 +10,7 @@ import '../../services/translations/translations_helper.dart';
 
 typedef SpecialGameInfo = ({
   String name,
-  IconData icon,
+  Widget icon,
   String Function(JackboxGameInfo) subname,
   Color Function(JackboxGameInfo) color,
   String? Function(JackboxGameInfo) description,
@@ -26,7 +26,7 @@ class SpecialGameAllInfoWidget extends StatelessWidget {
   static List<SpecialGameInfo> allInfoList = [
     (
       name: TranslationsHelper().appLocalizations!.family_friendly,
-      icon: FontAwesomeIcons.child,
+      icon: const FaIcon(FontAwesomeIcons.child),
       tooltip: TranslationsHelper().appLocalizations!.family_friendly_tooltip,
       subname: (JackboxGameInfo gI) {
         switch (gI.familyFriendly) {
@@ -54,7 +54,7 @@ class SpecialGameAllInfoWidget extends StatelessWidget {
     ),
     (
       name: TranslationsHelper().appLocalizations!.audience,
-      icon: FontAwesomeIcons.userPlus,
+      icon: const FaIcon(FontAwesomeIcons.userPlus),
       tooltip: TranslationsHelper().appLocalizations!.audience_tooltip,
       subname: (JackboxGameInfo gI) {
         return "";
@@ -72,7 +72,7 @@ class SpecialGameAllInfoWidget extends StatelessWidget {
     ),
     (
       name: TranslationsHelper().appLocalizations!.subtitles,
-      icon: FontAwesomeIcons.closedCaptioning,
+      icon: const FaIcon(FontAwesomeIcons.closedCaptioning),
       tooltip: TranslationsHelper().appLocalizations!.subtitles_tooltip,
       subname: (JackboxGameInfo gI) {
         return "";
@@ -90,7 +90,7 @@ class SpecialGameAllInfoWidget extends StatelessWidget {
     ),
     (
       name: TranslationsHelper().appLocalizations!.stream_friendly,
-      icon: FluentIcons.screen_cast,
+      icon: const Icon(FluentIcons.screen_cast),
       tooltip: TranslationsHelper().appLocalizations!.stream_friendly_tooltip,
       subname: (JackboxGameInfo gI) {
         return "";
@@ -113,7 +113,7 @@ class SpecialGameAllInfoWidget extends StatelessWidget {
     ),
     (
       name: TranslationsHelper().appLocalizations!.moderation,
-      icon: FontAwesomeIcons.userShield,
+      icon: const FaIcon(FontAwesomeIcons.userShield),
       tooltip: TranslationsHelper().appLocalizations!.moderation_tooltip,
       subname: (JackboxGameInfo gI) {
         return "";
@@ -181,7 +181,7 @@ class SpecialGameInfoWidget extends StatelessWidget {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Icon(specialGameInfo.icon),
+                                child: specialGameInfo.icon,
                               ),
                               SizedBox(width: 6),
                               Text(specialGameInfo.name),

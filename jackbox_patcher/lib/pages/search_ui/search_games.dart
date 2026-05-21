@@ -186,7 +186,7 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
                           children: [
                             MouseRegion(
                                 child: GestureDetector(
-                                    child: Icon(sortAscending ? FontAwesomeIcons.sortDown : FontAwesomeIcons.sortUp),
+                                    child: FaIcon(sortAscending ? FontAwesomeIcons.sortDown : FontAwesomeIcons.sortUp),
                                     onTap: () {
                                       SFXService().playSFX(SFX.CLICK);
                                       key = UniqueKey();
@@ -594,7 +594,7 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                                                     style: ButtonStyle(
                                                       backgroundColor: ButtonState.all<Color>(Colors.green),
                                                     ),
-                                                    child: Icon(FontAwesomeIcons.play),
+                                                    child: FaIcon(FontAwesomeIcons.play),
                                                     onPressed: () {
                                                       Launcher.launchGame(widget.pack, widget.game);
                                                     },

@@ -199,7 +199,7 @@ extension FilterTypeExtension on FilterType {
     }
   }
 
-  IconData get icon {
+  dynamic get icon {
     switch (this) {
       case FilterType.FAMILY_FRIENDLY:
         return FontAwesomeIcons.child;

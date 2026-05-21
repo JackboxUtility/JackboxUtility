@@ -48,7 +48,7 @@ enum JackboxGameType {
     }
   }
 
-  IconData get icon {
+  FaIconData get icon {
     switch (this) {
       case JackboxGameType.VERSUS:
         return FontAwesomeIcons.users;

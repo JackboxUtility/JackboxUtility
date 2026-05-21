@@ -168,7 +168,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                         SFXService().playSFX(SFX.FILTER_UP);
                       }
                     },
-                    icon: Icon(FontAwesomeIcons.filter),
+                    icon: FaIcon(FontAwesomeIcons.filter),
                     title: Text(TranslationsHelper().appLocalizations!.filter),
                     infoBadge: filters.where((element) => element.activated).length > 0 ||
                             intFilters.where((element) => element.activated).length > 0
@@ -199,7 +199,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                     body: Container()),
                 if (UserJackboxGame.countHiddenGames(UserData().packs) >= 1)
                   PaneItem(
-                    icon: Icon(showHidden ? FontAwesomeIcons.eyeSlash : FontAwesomeIcons.eye),
+                    icon: FaIcon(showHidden ? FontAwesomeIcons.eyeSlash : FontAwesomeIcons.eye),
                     title: Text(showHidden == false
                         ? TranslationsHelper().appLocalizations!.show_games_hidden
                         : TranslationsHelper().appLocalizations!.hide_games_hidden),
@@ -213,7 +213,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                   ),
                 if (UserJackboxPack.countUnownedPack(UserData().packs) >= 1)
                   PaneItem(
-                    icon: const Icon(FontAwesomeIcons.boxArchive),
+                    icon: const FaIcon(FontAwesomeIcons.boxArchive),
                     title: Text(showAllPacks == false
                         ? TranslationsHelper().appLocalizations!.show_all_packs
                         : TranslationsHelper().appLocalizations!.show_owned_packs_only),
@@ -388,7 +388,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
           onTap: () {
             SFXService().playSFX(SFX.OPEN_GAME_LIST);
           },
-          icon: Icon(type.icon),
+          icon: FaIcon(type.icon),
           title: Text(type.name),
           body: SearchGameWidget(
               filter: (UserJackboxPack pack, UserJackboxGame game) =>
@@ -438,7 +438,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
           onTap: () {
             SFXService().playSFX(SFX.OPEN_GAME_LIST);
           },
-          icon: const Icon(FontAwesomeIcons.gamepad),
+          icon: const FaIcon(FontAwesomeIcons.gamepad),
           title: Text(TranslationsHelper().appLocalizations!.all_games),
           body: SearchGameWidget(
               filter: (UserJackboxPack pack, UserJackboxGame game) =>
@@ -454,7 +454,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
               icon: null,
               parentReload: () => setState(() {}))));
       items.add(PaneItemExpander(
-        icon: const Icon(FontAwesomeIcons.boxOpen),
+        icon: const FaIcon(FontAwesomeIcons.boxOpen),
         body: Container(),
         title: Text(TranslationsHelper().appLocalizations!.search_by_pack),
         items: packItems,
@@ -469,7 +469,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
       List<NavigationPaneItem> starsItem = _buildStarsPaneItem();
 
       items.add(PaneItemExpander(
-        icon: const Icon(FontAwesomeIcons.tag),
+        icon: const FaIcon(FontAwesomeIcons.tag),
         body: Container(),
         title: Text(TranslationsHelper().appLocalizations!.search_by_tags),
         items: tagItem,
@@ -482,7 +482,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
       ));
 
       items.add(PaneItemExpander(
-        icon: const Icon(FontAwesomeIcons.solidStar),
+        icon: const FaIcon(FontAwesomeIcons.solidStar),
         body: Container(),
         title: Text(TranslationsHelper().appLocalizations!.search_by_ranking),
         items: starsItem,
@@ -495,7 +495,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
       ));
 
       items.add(PaneItem(
-          icon: Icon(FontAwesomeIcons.dice),
+          icon: FaIcon(FontAwesomeIcons.dice),
           title: Text(TranslationsHelper().appLocalizations!.random_game),
           body: RandomGameWidget(
             filter: (UserJackboxPack pack, UserJackboxGame game) =>

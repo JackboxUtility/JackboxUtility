@@ -196,7 +196,7 @@ class _SelectServerPageState extends State<SelectServerPage> {
         child: Padding(
             padding: const EdgeInsets.all(8),
             child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  Container(child: Icon(FontAwesomeIcons.gear, size: 34,), margin: EdgeInsets.only(top:24),)
+                  Container(child: FaIcon(FontAwesomeIcons.gear, size: 34,), margin: EdgeInsets.only(top:24),)
             ])));
   }
 

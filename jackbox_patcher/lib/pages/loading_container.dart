@@ -163,7 +163,7 @@ class _LoadingContainerState extends State<LoadingContainer> {
                   FilledButton(
                       child: Row(
                         children: [
-                          Icon(FontAwesomeIcons.discord),
+                          FaIcon(FontAwesomeIcons.discord),
                           const SizedBox(
                             width: 5,
                           ),
@@ -179,7 +179,7 @@ class _LoadingContainerState extends State<LoadingContainer> {
                   FilledButton(
                       child: Row(
                         children: [
-                          Icon(FontAwesomeIcons.github),
+                          FaIcon(FontAwesomeIcons.github),
                           const SizedBox(
                             width: 5,
                           ),

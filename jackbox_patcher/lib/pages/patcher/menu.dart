@@ -82,7 +82,7 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
           footerItems: [
             if (UserJackboxPack.countUnownedPack(UserData().packs) >= 1)
               PaneItem(
-                icon: const Icon(FontAwesomeIcons.boxArchive),
+                icon: const FaIcon(FontAwesomeIcons.boxArchive),
                 title: Text(showAllPacks == false
                     ? TranslationsHelper().appLocalizations!.show_all_packs
                     : TranslationsHelper().appLocalizations!.show_owned_packs_only),

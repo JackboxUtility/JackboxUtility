@@ -118,7 +118,7 @@ class _MobileRemoteSettingsWidgetState
 }
 
 class _FeatureTile extends StatelessWidget {
-  final IconData icon;
+  final FaIconData icon;
   final String label;
 
   const _FeatureTile({required this.icon, required this.label});
@@ -129,7 +129,7 @@ class _FeatureTile extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
         children: [
-          Icon(icon, size: 14),
+          FaIcon(icon, size: 14),
           const SizedBox(width: 8),
           Text(label, style: FluentTheme.of(context).typography.body),
         ],
