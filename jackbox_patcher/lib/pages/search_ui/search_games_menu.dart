@@ -13,6 +13,8 @@ import 'package:jackbox_patcher/model/user_model/user_jackbox_game.dart';
 import 'package:jackbox_patcher/pages/search_ui/random_game.dart';
 import 'package:jackbox_patcher/pages/search_ui/search_games.dart';
 import 'package:jackbox_patcher/services/audio/sfx_service.dart';
+import 'package:jackbox_patcher/services/mobile_remote/mobile_remote_server.dart';
+import 'package:jackbox_patcher/services/mobile_remote/mobile_remote_state.dart';
 
 import '../../components/filters/enum_filter_pane_item.dart';
 import '../../model/user_model/user_jackbox_pack.dart';
@@ -52,9 +54,75 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
     intFilters.add((activated: false, selected: 30, type: "maxPlaytime"));
     UserData().gameList.loadFilters(filters);
     UserData().gameList.loadIntFilters(intFilters);
+    MobileRemoteServer().stateFromPhone.addListener(_onPhoneStateChanged);
     super.initState();
     Future.delayed(
         Duration(milliseconds: 500), () => UserData().tips.getTip(TipAvailable.LAUNCHER_ON_STARTUP).activate(context));
+  }
+
+  @override
+  void dispose() {
+    MobileRemoteServer().stateFromPhone.removeListener(_onPhoneStateChanged);
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  /// Called whenever the phone changes search/filter state over the LAN.
+  void _onPhoneStateChanged() {
+    final s = MobileRemoteServer().stateFromPhone.value;
+    setState(() {
+      _searchController.text = s.searchText;
+      for (final f in s.filters) {
+        final filterType = FilterType.values.firstWhere(
+          (e) => e.toString().split('.').last == f['filterType'],
+          orElse: () => filters.first.type,
+        );
+        final index = filters.indexWhere((e) => e.type == filterType);
+        if (index != -1) {
+          final filterValue = filterType.values.firstWhere(
+            (v) => v.toString().split('.').last == f['selected'],
+            orElse: () => filterType.values.first,
+          );
+          filters[index] = (
+            activated: f['activated'] as bool? ?? false,
+            selected: filterValue,
+            type: filterType,
+          );
+          UserData().gameList.saveFilter(filters[index]);
+        }
+      }
+      for (final f in s.intFilters) {
+        final index = intFilters.indexWhere((e) => e.type == f['type']);
+        if (index != -1) {
+          intFilters[index] = (
+            activated: f['activated'] as bool? ?? false,
+            selected: (f['selected'] as num?)?.toInt() ?? intFilters[index].selected,
+            type: intFilters[index].type,
+          );
+          UserData().gameList.saveIntFilter(intFilters[index]);
+        }
+      }
+    });
+  }
+
+  MobileRemoteState _buildCurrentMobileState() {
+    return MobileRemoteState(
+      searchText: _searchController.text,
+      filters: filters
+          .map((f) => {
+                'filterType': f.type.toString().split('.').last,
+                'activated': f.activated,
+                'selected': f.selected.toString().split('.').last,
+              })
+          .toList(),
+      intFilters: intFilters
+          .map((f) => {
+                'type': f.type,
+                'activated': f.activated,
+                'selected': f.selected,
+              })
+          .toList(),
+    );
   }
 
   @override
@@ -250,10 +318,12 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
 
   void _saveFilter(Filter filter) {
     UserData().gameList.saveFilter(filter);
+    MobileRemoteServer().pushStateToPhones(_buildCurrentMobileState());
   }
 
   void _saveIntFilter(IntFilter filter) {
     UserData().gameList.saveIntFilter(filter);
+    MobileRemoteServer().pushStateToPhones(_buildCurrentMobileState());
   }
 
   bool _filterGameBasedOnActiveFilters(UserJackboxPack pack, UserJackboxGame game) {
