@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:jackbox_patcher/app_configuration.dart';
 import 'package:jackbox_patcher/services/api_utility/api_service.dart';
 import 'package:jackbox_patcher/services/launcher/launcher.dart';
@@ -34,6 +36,14 @@ class MobileRemoteServer {
   // ── state ──────────────────────────────────────────────────────────────────
   /// Fires whenever the phone sends a state update so the desktop UI can react.
   final MobileRemoteStateNotifier stateFromPhone = MobileRemoteStateNotifier();
+
+  /// Fires when an admin phone requests to "show" a specific game on the desktop.
+  /// The value is the game ID to navigate to. Reset to null after handling.
+  final ValueNotifier<String?> showGameNotifier = ValueNotifier<String?>(null);
+
+  /// Fires when an admin phone requests SFX mute state change.
+  /// The value is the desired muted state.
+  final ValueNotifier<bool?> sfxMuteNotifier = ValueNotifier<bool?>(null);
 
   final List<WebSocketChannel> _phoneClients = [];
 
@@ -96,6 +106,7 @@ class MobileRemoteServer {
               'id': p.pack.id,
               'name': p.pack.name,
               'icon': APIService().assetLink(p.pack.icon),
+              'background': APIService().assetLink(p.pack.background),
               'owned': p.owned,
               'games': p.games
                   .where((g) => !g.hidden)
@@ -103,10 +114,30 @@ class MobileRemoteServer {
                         'id': g.game.id,
                         'name': g.game.name,
                         'thumbnail': APIService().assetLink(g.game.background),
+                        'tagline': g.game.info.tagline,
+                        'description': g.game.info.description,
+                        'smallDescription': g.game.info.smallDescription,
+                        'images': g.game.info.images
+                            .map((img) => APIService().assetLink(img))
+                            .toList(),
+                        'type': g.game.info.type.toString().split('.').last,
                         'players': {
                           'min': g.game.info.players.min,
                           'max': g.game.info.players.max,
                         },
+                        'playtime': {
+                          'min': g.game.info.playtime.min,
+                          'max': g.game.info.playtime.max,
+                        },
+                        'familyFriendly':
+                            g.game.info.familyFriendly.toString().split('.').last,
+                        'audience': g.game.info.audience,
+                        'streamFriendly':
+                            g.game.info.streamFriendly.toString().split('.').last,
+                        'moderation':
+                            g.game.info.moderation.toString().split('.').last,
+                        'subtitles': g.game.info.subtitles,
+                        'tags': g.game.info.tags.map((t) => t.id).toList(),
                       })
                   .toList(),
             })
@@ -173,6 +204,9 @@ class MobileRemoteServer {
             Launcher.launchGame(game.getPack(), game);
           }
         }
+      } else if (type == 'navigate') {
+        // Admin navigated to a game — broadcast to all other clients
+        _broadcastToPhones(jsonEncode(json), except: ws);
       }
     } catch (e) {
       JULogger().w('[MobileRemote] Could not parse WS message: $e');
