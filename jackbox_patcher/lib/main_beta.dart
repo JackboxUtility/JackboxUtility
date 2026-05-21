@@ -6,6 +6,7 @@ import 'package:flutter_flavor/flutter_flavor.dart';
 import 'package:jackbox_patcher/main.dart';
 import 'package:jackbox_patcher/services/arguments_handler/arguments_handler.dart';
 import 'package:jackbox_patcher/services/internal_api/rest_api_router.dart';
+import 'package:jackbox_patcher/services/mobile_remote/mobile_remote_server.dart';
 import 'package:jackbox_patcher/services/logger/logger.dart';
 import 'package:jackbox_patcher/services/user/initial_load.dart';
 import 'package:logger/logger.dart';
@@ -43,6 +44,7 @@ void main(List<String> arguments) async {
   }
 
   RestApiRouter().startRouter();
+  MobileRemoteServer().start();
   initRetrievingErrors();
 
   if (kDebugMode) {
