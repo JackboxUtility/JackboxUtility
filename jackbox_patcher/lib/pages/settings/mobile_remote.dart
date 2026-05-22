@@ -2,6 +2,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jackbox_patcher/app_configuration.dart';
 import 'package:jackbox_patcher/services/mobile_remote/mobile_remote_server.dart';
+import 'package:jackbox_patcher/services/user/user_data.dart';
 
 import '../../services/translations/translations_helper.dart';
 
@@ -17,11 +18,14 @@ class _MobileRemoteSettingsWidgetState
     extends State<MobileRemoteSettingsWidget> {
   String? _lanIp;
   bool _loading = true;
+  bool _adminLockEnabled = false;
+  String _adminPattern = '';
 
   @override
   void initState() {
     super.initState();
     _resolveIp();
+    _loadAdminLockSettings();
   }
 
   Future<void> _resolveIp() async {
@@ -32,6 +36,45 @@ class _MobileRemoteSettingsWidgetState
         _loading = false;
       });
     }
+  }
+
+  Future<void> _loadAdminLockSettings() async {
+    _adminLockEnabled = UserData().settings.isPhoneAdminPatternEnabled;
+    _adminPattern = UserData().settings.phoneAdminPattern;
+    if (_adminPattern.isEmpty) {
+      _adminPattern = await UserData().settings.regeneratePhoneAdminPattern();
+    }
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
+  Future<void> _setAdminLockEnabled(bool enabled) async {
+    await UserData().settings.setPhoneAdminPatternEnabled(enabled);
+    if (mounted) {
+      setState(() {
+        _adminLockEnabled = enabled;
+      });
+    }
+  }
+
+  Future<void> _regenerateAdminPattern() async {
+    final pattern = await UserData().settings.regeneratePhoneAdminPattern();
+    if (mounted) {
+      setState(() {
+        _adminPattern = pattern;
+      });
+    }
+  }
+
+  List<int> _patternIndexes(String pattern) {
+    if (pattern.isEmpty) return const [];
+    return pattern
+        .split(',')
+        .map((e) => int.tryParse(e.trim()))
+        .whereType<int>()
+        .where((v) => v >= 0 && v < 81)
+        .toList();
   }
 
   double _calculatePadding(BuildContext context) {
@@ -111,7 +154,80 @@ class _MobileRemoteSettingsWidgetState
               icon: FontAwesomeIcons.filter, label: 'Filters sync in real-time with the desktop'),
           const _FeatureTile(
               icon: FontAwesomeIcons.rocket, label: 'Launch games directly from your phone'),
+          const SizedBox(height: 32),
+          Text('Admin Lock Pattern (Insecure)', style: typography.bodyStrong),
+          const SizedBox(height: 8),
+          const Text(
+            'This is intentionally insecure and only meant to stop casual access. The pattern is sent to the phone client.',
+          ),
+          const SizedBox(height: 10),
+          ToggleSwitch(
+            checked: _adminLockEnabled,
+            content: const Text('Require admin pattern on phone remote'),
+            onChanged: (enabled) async {
+              await _setAdminLockEnabled(enabled);
+            },
+          ),
+          const SizedBox(height: 10),
+          Row(
+            children: [
+              FilledButton(
+                onPressed: () async {
+                  await _regenerateAdminPattern();
+                },
+                child: const Text('Regenerate Pattern'),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  _patternIndexes(_adminPattern).isEmpty
+                      ? 'No pattern generated yet.'
+                      : 'Tap order: ${_patternIndexes(_adminPattern).map((i) => '#${i + 1}').join(' -> ')}',
+                  style: typography.caption,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          _PatternPreviewGrid(indexes: _patternIndexes(_adminPattern)),
         ],
+      ),
+    );
+  }
+}
+
+class _PatternPreviewGrid extends StatelessWidget {
+  final List<int> indexes;
+
+  const _PatternPreviewGrid({required this.indexes});
+
+  @override
+  Widget build(BuildContext context) {
+    final orderByIndex = <int, int>{};
+    for (int i = 0; i < indexes.length; i++) {
+      orderByIndex[indexes[i]] = i + 1;
+    }
+
+    return SizedBox(
+      width: 320,
+      child: Wrap(
+        spacing: 4,
+        runSpacing: 4,
+        children: List.generate(81, (index) {
+          final order = orderByIndex[index];
+          final on = order != null;
+          return Container(
+            width: 30,
+            height: 30,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(4),
+              border: Border.all(color: on ? Colors.blue : Colors.grey),
+              color: on ? Colors.blue.withOpacity(0.25) : Colors.transparent,
+            ),
+            child: Text(on ? '$order' : '', style: const TextStyle(fontSize: 11)),
+          );
+        }),
       ),
     );
   }

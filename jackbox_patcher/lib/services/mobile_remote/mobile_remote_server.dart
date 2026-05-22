@@ -105,6 +105,9 @@ class MobileRemoteServer {
   }
 
   Future<Response> _handleGetGames(Request _) async {
+    final adminPattern = UserData().settings.phoneAdminPattern;
+    final adminLockEnabled = UserData().settings.isPhoneAdminPatternEnabled && adminPattern.isNotEmpty;
+
     final packs = UserData()
         .packs
         .map((p) => {
@@ -152,7 +155,14 @@ class MobileRemoteServer {
         .toList();
 
     return Response.ok(
-      jsonEncode({'packs': packs, 'state': stateFromPhone.value.toJson()}),
+      jsonEncode({
+        'packs': packs,
+        'state': stateFromPhone.value.toJson(),
+        'adminLock': {
+          'enabled': adminLockEnabled,
+          'pattern': adminPattern,
+        },
+      }),
       headers: _jsonHeaders,
     );
   }

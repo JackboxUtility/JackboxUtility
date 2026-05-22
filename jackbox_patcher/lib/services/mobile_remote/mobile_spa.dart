@@ -262,6 +262,22 @@ html,body{height:100%;overflow:hidden;background:#0d0e1c;color:#e8e9f0;font-fami
 .rand-name{font-size:17px;font-weight:700;color:#a0b4f5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 8px}
 .rand-hint{font-size:13px;color:var(--mu)}
 .rand-winner{font-size:22px;font-weight:800;color:var(--grn);text-align:center;padding:0 16px;line-height:1.35}
+/* ADMIN LOCK */
+#adminLock{position:fixed;inset:0;z-index:350;display:none;align-items:center;justify-content:center;
+  background:rgba(7,8,18,.95);backdrop-filter:blur(10px);padding:20px}
+#adminLock.show{display:flex}
+.al-panel{width:min(94vw,540px);background:var(--sf);border:1px solid var(--bd);border-radius:14px;padding:14px}
+.al-title{font-size:18px;font-weight:800;margin-bottom:6px}
+.al-sub{font-size:13px;color:var(--mu);margin-bottom:8px}
+.al-picked{font-size:12px;color:#a0b4f5;min-height:18px;margin-bottom:10px}
+.al-grid{display:grid;grid-template-columns:repeat(9,1fr);gap:4px}
+.al-cell{height:28px;border-radius:6px;border:1px solid var(--bd);background:var(--sf2);
+  color:var(--tx);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
+.al-cell.on{background:rgba(74,110,245,.25);border-color:rgba(74,110,245,.6)}
+.al-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:12px}
+.al-btn{background:var(--sf2);border:1px solid var(--bd);border-radius:8px;padding:8px 12px;color:var(--tx);cursor:pointer}
+.al-btn.primary{background:var(--ac);border-color:rgba(74,110,245,.6);color:#fff}
 /* TOAST */
 #toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(80px);
   background:rgba(30,34,64,.97);color:#fff;padding:10px 18px;border-radius:24px;
@@ -291,6 +307,21 @@ html,body{height:100%;overflow:hidden;background:#0d0e1c;color:#e8e9f0;font-fami
   <div class="wstat">
     <div class="wdot" id="wsDot"></div>
     <span id="wsTxt">Connecting&#8230;</span>
+  </div>
+</div>
+
+<!-- ADMIN LOCK MODAL -->
+<div id="adminLock">
+  <div class="al-panel">
+    <div class="al-title">Admin Pattern Required</div>
+    <div class="al-sub">Tap 4 cells in the configured order.</div>
+    <div class="al-picked" id="alPicked"></div>
+    <div class="al-grid" id="alGrid"></div>
+    <div class="al-actions">
+      <button class="al-btn" id="alClear">Clear</button>
+      <button class="al-btn" id="alCancel">Cancel</button>
+      <button class="al-btn primary" id="alSubmit">Unlock</button>
+    </div>
   </div>
 </div>
 
@@ -470,6 +501,9 @@ const S = {
   sortOrder:'PACK', sortAscending:true,
   showAllPacks:false, showHidden:false,
   alwaysCardOverlay:false,
+  adminLockEnabled:false,
+  adminPattern:[],
+  adminAttempt:[],
   groupByPack:true,
   ws:null, wsOk:false,
   draft:null,
@@ -536,6 +570,9 @@ async function loadGames(){
     const [gr,tr]=await Promise.all([fetch('/api/games'),fetch('/api/tags').catch(()=>null)]);
     const gd=await gr.json();
     S.packs=gd.packs||[];
+    const lock=gd.adminLock||{};
+    S.adminLockEnabled=!!lock.enabled;
+    S.adminPattern=String(lock.pattern||'').split(',').map(v=>parseInt(v,10)).filter(v=>Number.isInteger(v)&&v>=0&&v<81);
     if(gd.state)applyDesktopState(gd.state,true);
     if(tr){const td=await tr.json();S.allTags=td.tags||[];}
     buildFlat();applyFilter();renderBrowse();
@@ -645,6 +682,11 @@ function pushState(){
 }
 
 /* ROLE / VIEWS */
+function requestAdminRole(){
+  if(!S.adminLockEnabled||S.adminPattern.length!==4){setRole('admin');return;}
+  openAdminLock();
+}
+
 function setRole(role){
   S.role=role;
   const rb=document.getElementById('roleBadge');
@@ -654,6 +696,45 @@ function setRole(role){
   document.getElementById('chipRand').style.display=role==='admin'?'':'none';
   showView('vb');loadGames();
 }
+
+function openAdminLock(){
+  S.adminAttempt=[];
+  renderAdminLock();
+  document.getElementById('adminLock').classList.add('show');
+}
+
+function closeAdminLock(){
+  document.getElementById('adminLock').classList.remove('show');
+}
+
+function renderAdminLock(){
+  const order={};
+  S.adminAttempt.forEach((idx,i)=>order[idx]=i+1);
+  document.getElementById('alGrid').innerHTML=Array.from({length:81},(_,idx)=>
+    `<div class="al-cell${order[idx]?' on':''}" data-idx="${idx}">${order[idx]||''}</div>`
+  ).join('');
+  document.getElementById('alPicked').textContent=S.adminAttempt.length?`Selected: ${S.adminAttempt.map(v=>'#'+(v+1)).join(' -> ')}`:'Selected: none';
+}
+
+function adminCellTap(idx){
+  if(S.adminAttempt.includes(idx)||S.adminAttempt.length>=4)return;
+  S.adminAttempt.push(idx);
+  renderAdminLock();
+}
+
+function submitAdminLock(){
+  if(S.adminAttempt.length!==4){toast('Pick 4 cells');return;}
+  const ok=S.adminAttempt.every((v,i)=>v===S.adminPattern[i]);
+  if(!ok){
+    toast('Pattern incorrect');
+    S.adminAttempt=[];
+    renderAdminLock();
+    return;
+  }
+  closeAdminLock();
+  setRole('admin');
+}
+
 function isView(id){return document.getElementById(id).classList.contains('active');}
 function showView(id){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));document.getElementById(id).classList.add('active');}
 function showBrowse(){
@@ -1135,7 +1216,7 @@ document.addEventListener('keydown',e=>{
 });
 
 /* WIRE */
-document.getElementById('btnAdmin').onclick=()=>setRole('admin');
+document.getElementById('btnAdmin').onclick=requestAdminRole;
 document.getElementById('btnGuest').onclick=()=>setRole('guest');
 document.getElementById('roleBadge').onclick=()=>showView('vw');
 // Prevent logo link from navigating (it's decorative on phone, clickable on desktop)
@@ -1185,6 +1266,14 @@ document.getElementById('pDec').onclick=()=>playerStepBy(-1);
 document.getElementById('pInc').onclick=()=>playerStepBy(1);
 document.getElementById('pClr').onclick=clearPlayerMin;
 document.getElementById('randOv').onclick=hideRandOverlay;
+document.getElementById('alGrid').onclick=e=>{
+  const cell=e.target.closest('.al-cell');
+  if(!cell)return;
+  adminCellTap(parseInt(cell.dataset.idx,10));
+};
+document.getElementById('alClear').onclick=()=>{S.adminAttempt=[];renderAdminLock();};
+document.getElementById('alCancel').onclick=closeAdminLock;
+document.getElementById('alSubmit').onclick=submitAdminLock;
 
 /* BOOT */
 wsConnect();
