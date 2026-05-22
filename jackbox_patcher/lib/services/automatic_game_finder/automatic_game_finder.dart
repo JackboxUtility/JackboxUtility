@@ -37,6 +37,48 @@ class AutomaticGameFinderService {
     }
   }
 
+  static Future<int> findGamesInFolderRelative(List<UserJackboxPack> packs, String rootPath) async {
+    final root = Directory(rootPath);
+    if (!await root.exists()) {
+      return 0;
+    }
+
+    final Map<String, List<UserJackboxPack>> packsByExecutable = {};
+    for (final pack in packs) {
+      final executable = pack.pack.executable;
+      if (executable == null || executable.trim().isEmpty) continue;
+      final executableName = _fileName(executable).toLowerCase();
+      packsByExecutable.putIfAbsent(executableName, () => <UserJackboxPack>[]).add(pack);
+    }
+
+    final Set<String> foundPackIds = {};
+    var numberGamesFound = 0;
+
+    await for (final entity in root.list(recursive: true, followLinks: false)) {
+      if (entity is! File) continue;
+      final fileName = _fileName(entity.path).toLowerCase();
+      final matchingPacks = packsByExecutable[fileName];
+      if (matchingPacks == null || matchingPacks.isEmpty) continue;
+
+      final gameFolderPath = entity.parent.path;
+      for (final pack in matchingPacks) {
+        if (foundPackIds.contains(pack.pack.id)) continue;
+        foundPackIds.add(pack.pack.id);
+        numberGamesFound++;
+        await pack.setOwned(true);
+        await pack.setPath(gameFolderPath, forceRelativeStorage: true);
+        await pack.setLauncher(LauncherType.UNKNOWN);
+      }
+    }
+
+    return numberGamesFound;
+  }
+
+  static String _fileName(String path) {
+    final parts = path.split(RegExp(r'[\\/]'));
+    return parts.isEmpty ? path : parts.last;
+  }
+
   static Future<int> _findSteamGames(List<UserJackboxPack> packs) async {
     JULogger().i("[AutomaticGameFinderService] Looking for Steam games");
     int numberGamesFound = 0;

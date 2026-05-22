@@ -65,9 +65,9 @@ class UserJackboxPack {
     }
   }
 
-  Future<void> setPath(String p) async {
+  Future<void> setPath(String p, {bool forceRelativeStorage = false}) async {
     path = p;
-    await UserData().savePack(this);
+    await UserData().savePack(this, forceRelativeStorage: forceRelativeStorage);
   }
 
   Future<void> setOwned(bool o) async {

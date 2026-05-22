@@ -180,9 +180,9 @@ class UserData {
   }
 
   /// Save pack (mostly used when the path parameter is changed)
-  Future<void> savePack(UserJackboxPack pack) async {
+  Future<void> savePack(UserJackboxPack pack, {bool forceRelativeStorage = false}) async {
     if (pack.path != null) {
-      await preferences.setString("${pack.pack.id}_path", _normalizePackPathForStorage(pack.path!));
+      await savePackPath(pack, pack.path!, forceRelativeStorage: forceRelativeStorage);
     } else {
       await preferences.remove("${pack.pack.id}_path");
     }
@@ -311,8 +311,34 @@ class UserData {
     return File(Platform.resolvedExecutable).parent.path;
   }
 
-  String _normalizePackPathForStorage(String path) {
-    if (!settings.isRelativePathsActivated) return path;
+  String getPortableBaseDirectory() {
+    return _portableBaseDirectory();
+  }
+
+  String? getStoredPackPathRaw(UserJackboxPack pack) {
+    return preferences.getString("${pack.pack.id}_path");
+  }
+
+  bool isPackPathStoredRelative(UserJackboxPack pack) {
+    final stored = getStoredPackPathRaw(pack);
+    return stored != null && stored.startsWith(_relativePathPrefix);
+  }
+
+  String? getStoredPackRelativePart(UserJackboxPack pack) {
+    final stored = getStoredPackPathRaw(pack);
+    if (stored == null || !stored.startsWith(_relativePathPrefix)) return null;
+    return stored.substring(_relativePathPrefix.length);
+  }
+
+  Future<void> savePackPath(UserJackboxPack pack, String path, {bool forceRelativeStorage = false}) async {
+    await preferences.setString(
+      "${pack.pack.id}_path",
+      _normalizePackPathForStorage(path, forceRelativeStorage: forceRelativeStorage),
+    );
+  }
+
+  String _normalizePackPathForStorage(String path, {bool forceRelativeStorage = false}) {
+    if (!settings.isRelativePathsActivated && !forceRelativeStorage) return path;
 
     final String abs = path.replaceAll('/', Platform.pathSeparator);
     final String base = _portableBaseDirectory().replaceAll('/', Platform.pathSeparator);
