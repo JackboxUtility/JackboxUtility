@@ -86,6 +86,13 @@ class _ParametersWidgetState extends State<ParametersWidget> {
                 Text(TranslationsHelper().appLocalizations!.owned_packs, style: typography.title),
                 const Spacer(),
                 FilledButton(
+                    child: const Text('Scan App Folder'),
+                    onPressed: () async {
+                      await _launchPortableBaseFolderScanner(true);
+                      setState(() {});
+                    }),
+                const SizedBox(width: 8),
+                FilledButton(
                     child: const Text('Scan Folder (Relative)'),
                     onPressed: () async {
                       await _launchRelativeFolderScanner(true);
@@ -140,6 +147,18 @@ class _ParametersWidgetState extends State<ParametersWidget> {
         context,
         'Portable folder scan complete',
         'Found $gamesFound game folder(s). Paths were stored relative when possible.',
+      );
+    }
+  }
+
+  Future<void> _launchPortableBaseFolderScanner(bool showNotification) async {
+    final String basePath = UserData().getPortableBaseDirectory();
+    int gamesFound = await AutomaticGameFinderService.findGamesInFolderRelative(UserData().packs, basePath);
+    if (showNotification && mounted) {
+      InfoBarService.showInfo(
+        context,
+        'Portable app folder scan complete',
+        'Scanned $basePath and linked $gamesFound game folder(s).',
       );
     }
   }
