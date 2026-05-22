@@ -110,8 +110,7 @@ class _MobileRemoteSettingsWidgetState
       if (mounted) {
         InfoBarService.showError(
           context,
-          'Invalid pattern',
-          'Enter exactly 4 unique numbers between 1 and 25, comma-separated.',
+          'Invalid pattern. Enter exactly 4 unique numbers between 1 and 25, comma-separated.',
         );
       }
       return;
