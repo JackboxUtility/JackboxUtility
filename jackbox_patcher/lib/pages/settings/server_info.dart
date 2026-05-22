@@ -183,7 +183,7 @@ class _ServerInfoWidgetState extends State<ServerInfoWidget> {
               children: [
                 Row(
                   children: [
-                    const Icon(FontAwesomeIcons.patreon),
+                    const FaIcon(FontAwesomeIcons.patreon),
                     const SizedBox(width: 12),
                     Text(
                         TranslationsHelper()

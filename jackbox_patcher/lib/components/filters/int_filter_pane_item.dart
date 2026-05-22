@@ -28,7 +28,7 @@ class IntFilterPaneItem extends PaneItemHeader {
                 step: step,
                 activated: activated));
 
-  final IconData icon;
+  final dynamic icon;
   final String name;
   final ValueChanged<int> onChanged;
   final ValueChanged<bool> onActivationChanged;
@@ -53,7 +53,7 @@ class IntFilterPaneItemTitle extends StatefulWidget {
       required this.activated})
       : super(key: key);
 
-  final IconData icon;
+  final dynamic icon;
   final String name;
   final ValueChanged<int> onChanged;
   final ValueChanged<bool> onActivationChanged;
@@ -99,8 +99,11 @@ class _IntFilterPaneItemTitleState extends State<IntFilterPaneItemTitle> {
               }),
         ),
         SizedBox(width: 8),
-        Icon(widget.icon,
-            color: activated ? null : const Color.fromARGB(255, 130, 130, 130)),
+        widget.icon is FaIconData
+            ? FaIcon(widget.icon as FaIconData,
+                color: activated ? null : const Color.fromARGB(255, 130, 130, 130))
+            : Icon(widget.icon as IconData,
+                color: activated ? null : const Color.fromARGB(255, 130, 130, 130)),
         SizedBox(width: 10),
         Text(widget.name,
             style: TextStyle(
@@ -119,7 +122,7 @@ class _IntFilterPaneItemTitleState extends State<IntFilterPaneItemTitle> {
                 }
               }
             },
-            child: Icon(FontAwesomeIcons.minus,
+            child: FaIcon(FontAwesomeIcons.minus,
                 color: activated && currentValue != widget.min
                     ? null
                     : Colors.grey)),
@@ -143,7 +146,7 @@ class _IntFilterPaneItemTitleState extends State<IntFilterPaneItemTitle> {
                 }
               }
             },
-            child: Icon(FontAwesomeIcons.plus,
+            child: FaIcon(FontAwesomeIcons.plus,
                 color: activated && currentValue != widget.max
                     ? null
                     : Colors.grey)),

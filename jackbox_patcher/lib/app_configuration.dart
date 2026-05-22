@@ -36,3 +36,7 @@ const List<String> STEAM_LINUX_LOCATIONS = [
 ];
 
 const int REST_API_PORT = 6480;
+
+// LAN-accessible server for the phone remote control web app.
+// Binds to 0.0.0.0 so devices on the same network can reach it.
+const int MOBILE_REMOTE_PORT = 6481;

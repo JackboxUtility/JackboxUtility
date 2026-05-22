@@ -374,7 +374,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> implements EventObserve
                     child: _buildStoreLinkButton(
                   storeName: "Steam",
                   storeLink: storeLinks.steam!,
-                  icon: Icon(FontAwesomeIcons.steam),
+                  icon: FaIcon(FontAwesomeIcons.steam),
                 )),
               if (storeLinks.steam != null && storeLinks.epic != null) SizedBox(width: 4),
               if (storeLinks.epic != null)
@@ -397,7 +397,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> implements EventObserve
                       child: _buildStoreLinkButton(
                           storeName: "Jackbox Games Store",
                           storeLink: storeLinks.jackboxGamesStore!,
-                          icon: Icon(FontAwesomeIcons.boxOpen))),
+                          icon: FaIcon(FontAwesomeIcons.boxOpen))),
                 ],
               )
           ]);
@@ -429,7 +429,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> implements EventObserve
           icon: SizedBox(
               width: 16,
               height: 16,
-              child: Icon(viewModel.selectedUserGame.hidden ? FontAwesomeIcons.eyeSlash : FontAwesomeIcons.eye,
+              child: FaIcon(viewModel.selectedUserGame.hidden ? FontAwesomeIcons.eyeSlash : FontAwesomeIcons.eye,
                   key: UniqueKey(), size: viewModel.selectedUserGame.hidden ? 15 : 16)),
           onPressed: () {
             viewModel.toggleHideGameButton();
@@ -577,7 +577,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> implements EventObserve
     }
   }
 
-  Widget _buildGameTag(IconData icon, String text,
+  Widget _buildGameTag(dynamic icon, String text,
       {bool isLink = false,
       bool Function(UserJackboxPack, UserJackboxGame)? filter,
       UserJackboxPack? linkedPack,
@@ -592,7 +592,7 @@ class _GameInfoWidgetState extends State<GameInfoWidget> implements EventObserve
         child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
             child: Row(children: [
-              Icon(icon),
+              icon is FaIconData ? FaIcon(icon as FaIconData) : Icon(icon as IconData),
               const SizedBox(width: 10),
               Expanded(child: Text(text, style: isLink ? const TextStyle(decoration: TextDecoration.underline) : null))
             ])));

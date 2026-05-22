@@ -1,5 +1,6 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/gestures.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jackbox_patcher/model/misc/filter_enum.dart';
 
 import '../../model/misc/audio/SFXEnum.dart';
@@ -24,7 +25,7 @@ class EnumFilterPaneItem extends PaneItemHeader {
                 availableValues: availableValues,
                 activated: activated));
 
-  final IconData icon;
+  final dynamic icon;
   final String name;
   final ValueChanged<FilterValue> onChanged;
   final ValueChanged<bool> onActivationChanged;
@@ -45,7 +46,7 @@ class EnumFilterPaneItemTitle extends StatefulWidget {
       required this.activated})
       : super(key: key);
 
-  final IconData icon;
+  final dynamic icon;
   final String name;
   final ValueChanged<FilterValue> onChanged;
   final ValueChanged<bool> onActivationChanged;
@@ -90,8 +91,11 @@ class _EnumFilterPaneItemTitleState extends State<EnumFilterPaneItemTitle> {
               }),
         ),
         SizedBox(width: 8),
-        Icon(widget.icon,
-            color: activated ? null : const Color.fromARGB(255, 130, 130, 130)),
+        widget.icon is FaIconData
+            ? FaIcon(widget.icon as FaIconData,
+                color: activated ? null : const Color.fromARGB(255, 130, 130, 130))
+            : Icon(widget.icon as IconData,
+                color: activated ? null : const Color.fromARGB(255, 130, 130, 130)),
         SizedBox(width: 10),
         Text(widget.name,
             style: TextStyle(

@@ -2,6 +2,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jackbox_patcher/pages/settings/app_behavior.dart';
 import 'package:jackbox_patcher/pages/settings/app_info.dart';
+import 'package:jackbox_patcher/pages/settings/mobile_remote.dart';
 import 'package:jackbox_patcher/pages/settings/packs.dart';
 import 'package:jackbox_patcher/pages/settings/server_info.dart';
 import 'package:jackbox_patcher/services/discord/discord_service.dart';
@@ -84,9 +85,14 @@ class _ParametersMenuWidgetState extends State<ParametersMenuWidget> {
                     TranslationsHelper().appLocalizations!.server_information),
                 body: ServerInfoWidget()),
             PaneItem(
-              icon: const Icon(FontAwesomeIcons.play),
+              icon: FaIcon(FontAwesomeIcons.play),
               title: Text(TranslationsHelper().appLocalizations!.app_behavior),
               body: AppBehaviorSettings(),
+            ),
+            PaneItem(
+              icon: const Icon(FluentIcons.cell_phone),
+              title: const Text('Phone Remote'),
+              body: const MobileRemoteSettingsWidget(),
             )
           ],
           footerItems: [

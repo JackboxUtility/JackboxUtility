@@ -14,6 +14,7 @@ import 'package:jackbox_patcher/services/downloader/precache_service.dart';
 import 'package:jackbox_patcher/services/error/error.dart';
 import 'package:jackbox_patcher/services/files/folder_service.dart';
 import 'package:jackbox_patcher/services/internal_api/rest_api_router.dart';
+import 'package:jackbox_patcher/services/mobile_remote/mobile_remote_server.dart';
 import 'package:jackbox_patcher/services/libs/media_kit_remover_service.dart';
 import 'package:jackbox_patcher/services/statistics/statistics_sender.dart';
 import 'package:jackbox_patcher/services/translations/translations_helper.dart';
@@ -51,6 +52,9 @@ class InitialLoad {
 
       /// Give context to the RestApi so it can ask the user if he wants to accept an app
       RestApiRouter().context = context;
+
+      // Start the LAN-facing server for the phone remote control
+      MobileRemoteServer().start();
     }
     UserData().packs = [];
     APIService().resetCache();

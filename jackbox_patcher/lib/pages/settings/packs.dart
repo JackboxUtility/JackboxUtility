@@ -86,6 +86,20 @@ class _ParametersWidgetState extends State<ParametersWidget> {
                 Text(TranslationsHelper().appLocalizations!.owned_packs, style: typography.title),
                 const Spacer(),
                 FilledButton(
+                    child: const Text('Scan App Folder'),
+                    onPressed: () async {
+                      await _launchPortableBaseFolderScanner(true);
+                      setState(() {});
+                    }),
+                const SizedBox(width: 8),
+                FilledButton(
+                    child: const Text('Scan Folder (Relative)'),
+                    onPressed: () async {
+                      await _launchRelativeFolderScanner(true);
+                      setState(() {});
+                    }),
+                const SizedBox(width: 8),
+                FilledButton(
                     child: Text(TranslationsHelper().appLocalizations!.automatic_game_finder_button),
                     onPressed: () async {
                       await _launchAutomaticGameFinder(true);
@@ -117,6 +131,35 @@ class _ParametersWidgetState extends State<ParametersWidget> {
     if (showNotification) {
       InfoBarService.showInfo(context, TranslationsHelper().appLocalizations!.automatic_game_finder_title,
           TranslationsHelper().appLocalizations!.automatic_game_finder_finish(gamesFound));
+    }
+  }
+
+  Future<void> _launchRelativeFolderScanner(bool showNotification) async {
+    String? path = await FilePicker.platform.getDirectoryPath(
+      dialogTitle: 'Select folder to recursively scan for game executables',
+      lockParentWindow: true,
+    );
+    if (path == null) return;
+
+    int gamesFound = await AutomaticGameFinderService.findGamesInFolderRelative(UserData().packs, path);
+    if (showNotification && mounted) {
+      InfoBarService.showInfo(
+        context,
+        'Portable folder scan complete',
+        'Found $gamesFound game folder(s). Paths were stored relative when possible.',
+      );
+    }
+  }
+
+  Future<void> _launchPortableBaseFolderScanner(bool showNotification) async {
+    final String basePath = UserData().getPortableBaseDirectory();
+    int gamesFound = await AutomaticGameFinderService.findGamesInFolderRelative(UserData().packs, basePath);
+    if (showNotification && mounted) {
+      InfoBarService.showInfo(
+        context,
+        'Portable app folder scan complete',
+        'Scanned $basePath and linked $gamesFound game folder(s).',
+      );
     }
   }
 
@@ -224,6 +267,8 @@ class _PackInParametersWidgetState extends State<PackInParametersWidget> {
   @override
   Widget build(BuildContext context) {
     _loadPackPathStatus();
+    final bool isRelativeStorage = UserData().isPackPathStoredRelative(widget.pack);
+    final String? relativePart = UserData().getStoredPackRelativePart(widget.pack);
     return ListTile(
       leading: Row(children: [
         packStatus == "NOT_FOUND"
@@ -243,20 +288,31 @@ class _PackInParametersWidgetState extends State<PackInParametersWidget> {
           ? Text(TranslationsHelper().appLocalizations!.path_not_found_small_description,
               style: TextStyle(color: Colors.red))
           : (widget.pack.path != null && widget.pack.path != "")
-              ? MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  child: HyperlinkButton(
-                    style: ButtonStyle(
-                        padding: ButtonState.resolveWith((states) => const EdgeInsets.all(0)),
-                        textStyle: ButtonState.resolveWith((states) => const TextStyle(fontWeight: FontWeight.normal))),
-                    child: Text(
-                      widget.pack.path!,
-                      style: const TextStyle(color: Colors.white),
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: HyperlinkButton(
+                        style: ButtonStyle(
+                            padding: ButtonState.resolveWith((states) => const EdgeInsets.all(0)),
+                            textStyle: ButtonState.resolveWith((states) => const TextStyle(fontWeight: FontWeight.normal))),
+                        child: Text(
+                          widget.pack.path!,
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                        onPressed: () {
+                          launchUrlString("file:///${widget.pack.path!.replaceAll("\\", "/")}");
+                        },
+                      ),
                     ),
-                    onPressed: () {
-                      launchUrlString("file:///${widget.pack.path!.replaceAll("\\", "/")}");
-                    },
-                  ),
+                    Text(
+                      isRelativeStorage
+                          ? 'Stored as Relative${relativePart != null && relativePart.isNotEmpty ? ': .\\$relativePart' : ': .\\'}'
+                          : 'Stored as Absolute',
+                      style: TextStyle(color: isRelativeStorage ? Colors.green : Colors.orange),
+                    ),
+                  ],
                 )
               : Text(TranslationsHelper().appLocalizations!.path_inexistant_small_description,
                   style: TextStyle(color: Colors.yellow)),

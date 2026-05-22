@@ -141,7 +141,7 @@ class GameinfoViewModel extends EventViewModel {
     });
   }
 
-  void handleOpenTag(BuildContext context, IconData icon, String text,
+  void handleOpenTag(BuildContext context, dynamic icon, String text,
       {bool isLink = false,
       bool Function(UserJackboxPack, UserJackboxGame)? filter,
       UserJackboxPack? linkedPack,

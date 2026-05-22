@@ -50,7 +50,7 @@ class _StarsRateWidgetState extends State<StarsRateWidget> {
                 },
                 child: IconButton(
                     iconButtonMode: IconButtonMode.large,
-                    icon: Icon(
+                    icon: FaIcon(
                       size: 24,
                       i < stars
                           ? FontAwesomeIcons.solidStar
@@ -77,7 +77,7 @@ class _StarsRateWidgetState extends State<StarsRateWidget> {
                     }),
               )
             : Row(children: [
-                Icon(
+                FaIcon(
                   size: 18,
                   i < stars
                       ? FontAwesomeIcons.solidStar

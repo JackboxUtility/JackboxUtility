@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:jackbox_patcher/components/closable_route_with_esc.dart';
 import 'package:jackbox_patcher/components/filters/int_filter_pane_item.dart';
 import 'package:jackbox_patcher/components/stars_rate.dart';
@@ -13,8 +15,11 @@ import 'package:jackbox_patcher/model/user_model/user_jackbox_game.dart';
 import 'package:jackbox_patcher/pages/search_ui/random_game.dart';
 import 'package:jackbox_patcher/pages/search_ui/search_games.dart';
 import 'package:jackbox_patcher/services/audio/sfx_service.dart';
+import 'package:jackbox_patcher/services/mobile_remote/mobile_remote_server.dart';
+import 'package:jackbox_patcher/services/mobile_remote/mobile_remote_state.dart';
 
 import '../../components/filters/enum_filter_pane_item.dart';
+import '../../app_configuration.dart';
 import '../../model/user_model/user_jackbox_pack.dart';
 import '../../services/api_utility/api_service.dart';
 import '../../services/translations/translations_helper.dart';
@@ -35,16 +40,21 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
   late TextEditingController _searchController;
   bool showAllPacks = false;
   bool showHidden = false;
+  bool alwaysCardOverlay = false;
+  int overlayRefreshVersion = 0;
   num maxSelectableView = 0;
   List<Filter> filters = [];
   List<IntFilter> intFilters = [];
   Key gamePaneKey = UniqueKey();
   bool filterPanedExpanded = false;
   bool shouldCloseOnEsc = true;
+  final FlyoutController _qrFlyoutController = FlyoutController();
+  String? _lanIp;
 
   @override
   void initState() {
     _searchController = TextEditingController();
+    alwaysCardOverlay = UserData().settings.isAlwaysCardOverlayActivated;
     FilterType.values.forEach((element) {
       filters.add((activated: false, selected: element.values.first, type: element));
     });
@@ -52,9 +62,190 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
     intFilters.add((activated: false, selected: 30, type: "maxPlaytime"));
     UserData().gameList.loadFilters(filters);
     UserData().gameList.loadIntFilters(intFilters);
+    MobileRemoteServer().stateFromPhone.addListener(_onPhoneStateChanged);
+    MobileRemoteServer().showGameNotifier.addListener(_onShowGameRequest);
+    MobileRemoteServer().closeDetailNotifier.addListener(_onCloseDetailRequest);
+    MobileRemoteServer().sfxMuteNotifier.addListener(_onSfxMuteRequest);
+    MobileRemoteServer.getLanIpAddress().then((ip) {
+      if (mounted) setState(() => _lanIp = ip);
+    });
     super.initState();
     Future.delayed(
         Duration(milliseconds: 500), () => UserData().tips.getTip(TipAvailable.LAUNCHER_ON_STARTUP).activate(context));
+  }
+
+  @override
+  void dispose() {
+    MobileRemoteServer().stateFromPhone.removeListener(_onPhoneStateChanged);
+    MobileRemoteServer().showGameNotifier.removeListener(_onShowGameRequest);
+    MobileRemoteServer().closeDetailNotifier.removeListener(_onCloseDetailRequest);
+    MobileRemoteServer().sfxMuteNotifier.removeListener(_onSfxMuteRequest);
+    _qrFlyoutController.dispose();
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  void _onShowGameRequest() {
+    final gameId = MobileRemoteServer().showGameNotifier.value;
+    if (gameId == null || !mounted) return;
+    MobileRemoteServer().showGameNotifier.value = null;
+    UserJackboxPack? foundPack;
+    UserJackboxGame? foundGame;
+    for (final p in UserData().packs) {
+      for (final g in p.games) {
+        if (g.game.id == gameId) {
+          foundPack = p;
+          foundGame = g;
+          break;
+        }
+      }
+      if (foundGame != null) break;
+    }
+    if (foundGame != null && foundPack != null) {
+      final allGames = UserData().packs
+          .expand((p) => p.games.map((g) => (g: g, p: p)))
+          .toList();
+      // Pop any stacked /game routes to prevent layering
+      Navigator.of(context).popUntil((route) => route.settings.name != '/game');
+      Navigator.pushNamed(context, '/game',
+          arguments: [foundPack, foundGame, showAllPacks, allGames]);
+    }
+  }
+
+  void _onCloseDetailRequest() {
+    final timestamp = MobileRemoteServer().closeDetailNotifier.value;
+    if (timestamp == null || !mounted) return;
+    MobileRemoteServer().closeDetailNotifier.value = null;
+    // Close any open game detail views
+    Navigator.of(context).popUntil((route) => route.settings.name != '/game');
+  }
+
+  void _onSfxMuteRequest() {
+    final muted = MobileRemoteServer().sfxMuteNotifier.value;
+    if (muted == null) return;
+    MobileRemoteServer().sfxMuteNotifier.value = null;
+    UserData().settings.setAudio(!muted);
+  }
+
+  /// Called whenever the phone changes search/filter state over the LAN.
+  void _onPhoneStateChanged() {
+    final s = MobileRemoteServer().stateFromPhone.value;
+    setState(() {
+      _searchController.text = s.searchText;
+      for (final f in s.filters) {
+        final filterType = FilterType.values.firstWhere(
+          (e) => e.toString().split('.').last == f['filterType'],
+          orElse: () => filters.first.type,
+        );
+        final index = filters.indexWhere((e) => e.type == filterType);
+        if (index != -1) {
+          final filterValue = filterType.values.firstWhere(
+            (v) => v.toString().split('.').last == f['selected'],
+            orElse: () => filterType.values.first,
+          );
+          filters[index] = (
+            activated: f['activated'] as bool? ?? false,
+            selected: filterValue,
+            type: filterType,
+          );
+          UserData().gameList.saveFilter(filters[index]);
+        }
+      }
+      for (final f in s.intFilters) {
+        final index = intFilters.indexWhere((e) => e.type == f['type']);
+        if (index != -1) {
+          intFilters[index] = (
+            activated: f['activated'] as bool? ?? false,
+            selected: (f['selected'] as num?)?.toInt() ?? intFilters[index].selected,
+            type: intFilters[index].type,
+          );
+          UserData().gameList.saveIntFilter(intFilters[index]);
+        }
+      }
+      // Sync new state fields from phone
+      if (s.showAllPacks != showAllPacks) showAllPacks = s.showAllPacks;
+      if (s.showHidden != showHidden) showHidden = s.showHidden;
+      if (s.alwaysCardOverlay != alwaysCardOverlay) {
+        alwaysCardOverlay = s.alwaysCardOverlay;
+        UserData().settings.setAlwaysCardOverlay(alwaysCardOverlay);
+        overlayRefreshVersion++;
+      }
+    });
+  }
+
+  MobileRemoteState _buildCurrentMobileState() {
+    return MobileRemoteState(
+      searchText: _searchController.text,
+      filters: filters
+          .map((f) => {
+                'filterType': f.type.toString().split('.').last,
+                'activated': f.activated,
+                'selected': f.selected.toString().split('.').last,
+              })
+          .toList(),
+      intFilters: intFilters
+          .map((f) => {
+                'type': f.type,
+                'activated': f.activated,
+                'selected': f.selected,
+              })
+          .toList(),
+      showAllPacks: showAllPacks,
+      showHidden: showHidden,
+      alwaysCardOverlay: alwaysCardOverlay,
+    );
+  }
+
+  Widget _buildQrFlyout() {
+    final ip = _lanIp;
+    final url = ip != null ? 'http://$ip:$MOBILE_REMOTE_PORT' : null;
+    return FlyoutContent(
+      child: Container(
+        width: 260,
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text('Phone Remote', style: FluentTheme.of(context).typography.subtitle),
+            const SizedBox(height: 12),
+            if (url != null) ...[  
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                padding: const EdgeInsets.all(8),
+                child: QrImageView(
+                  data: url,
+                  version: QrVersions.auto,
+                  size: 180,
+                  backgroundColor: Colors.white,
+                ),
+              ),
+              const SizedBox(height: 12),
+              Text(url, style: const TextStyle(fontSize: 11), textAlign: TextAlign.center),
+              const SizedBox(height: 8),
+              Button(
+                child: const Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    FaIcon(FontAwesomeIcons.copy, size: 12),
+                    SizedBox(width: 6),
+                    Text('Copy URL'),
+                  ],
+                ),
+                onPressed: () {
+                  Clipboard.setData(ClipboardData(text: url));
+                  _qrFlyoutController.close();
+                },
+              ),
+            ] else
+              const Text('Starting server...', style: TextStyle(fontSize: 12)),
+          ],
+        ),
+      ),
+    );
   }
 
   @override
@@ -73,9 +264,27 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                   Navigator.pop(context);
                 },
               ),
-              title: Text(
-                TranslationsHelper().appLocalizations!.search_game,
-                style: typography.title,
+              title: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      TranslationsHelper().appLocalizations!.search_game,
+                      style: typography.title,
+                    ),
+                  ),
+                  FlyoutTarget(
+                    controller: _qrFlyoutController,
+                    child: Tooltip(
+                      message: 'Phone Remote QR Code',
+                      child: IconButton(
+                        icon: const FaIcon(FontAwesomeIcons.qrcode, size: 18),
+                        onPressed: () => _qrFlyoutController.showFlyout(
+                          builder: (ctx) => _buildQrFlyout(),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               )),
           pane: NavigationPane(
               size: NavigationPaneSize(openWidth: 400),
@@ -100,7 +309,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                         SFXService().playSFX(SFX.FILTER_UP);
                       }
                     },
-                    icon: Icon(FontAwesomeIcons.filter),
+                    icon: FaIcon(FontAwesomeIcons.filter),
                     title: Text(TranslationsHelper().appLocalizations!.filter),
                     infoBadge: filters.where((element) => element.activated).length > 0 ||
                             intFilters.where((element) => element.activated).length > 0
@@ -131,7 +340,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                     body: Container()),
                 if (UserJackboxGame.countHiddenGames(UserData().packs) >= 1)
                   PaneItem(
-                    icon: Icon(showHidden ? FontAwesomeIcons.eyeSlash : FontAwesomeIcons.eye),
+                    icon: FaIcon(showHidden ? FontAwesomeIcons.eyeSlash : FontAwesomeIcons.eye),
                     title: Text(showHidden == false
                         ? TranslationsHelper().appLocalizations!.show_games_hidden
                         : TranslationsHelper().appLocalizations!.hide_games_hidden),
@@ -141,11 +350,12 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                       setState(() {
                         showHidden = !showHidden;
                       });
+                      MobileRemoteServer().pushStateToPhones(_buildCurrentMobileState());
                     },
                   ),
                 if (UserJackboxPack.countUnownedPack(UserData().packs) >= 1)
                   PaneItem(
-                    icon: const Icon(FontAwesomeIcons.boxArchive),
+                    icon: const FaIcon(FontAwesomeIcons.boxArchive),
                     title: Text(showAllPacks == false
                         ? TranslationsHelper().appLocalizations!.show_all_packs
                         : TranslationsHelper().appLocalizations!.show_owned_packs_only),
@@ -176,8 +386,23 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                       setState(() {
                         showAllPacks = !showAllPacks;
                       });
+                      MobileRemoteServer().pushStateToPhones(_buildCurrentMobileState());
                     },
-                  )
+                  ),
+                PaneItem(
+                  icon: FaIcon(alwaysCardOverlay ? FontAwesomeIcons.eye : FontAwesomeIcons.eyeSlash),
+                  title: Text(alwaysCardOverlay ? 'Overlay Always On' : 'Overlay On Hover Only'),
+                  body: Container(),
+                  onTap: () {
+                    SFXService().playSFX(SFX.CLICK);
+                    setState(() {
+                      alwaysCardOverlay = !alwaysCardOverlay;
+                      overlayRefreshVersion++;
+                    });
+                    UserData().settings.setAlwaysCardOverlay(alwaysCardOverlay);
+                    MobileRemoteServer().pushStateToPhones(_buildCurrentMobileState());
+                  },
+                )
               ]),
         ));
   }
@@ -250,10 +475,12 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
 
   void _saveFilter(Filter filter) {
     UserData().gameList.saveFilter(filter);
+    MobileRemoteServer().pushStateToPhones(_buildCurrentMobileState());
   }
 
   void _saveIntFilter(IntFilter filter) {
     UserData().gameList.saveIntFilter(filter);
+    MobileRemoteServer().pushStateToPhones(_buildCurrentMobileState());
   }
 
   bool _filterGameBasedOnActiveFilters(UserJackboxPack pack, UserJackboxGame game) {
@@ -296,6 +523,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
               memCacheHeight: 40),
           title: Text(userPack.pack.name),
           body: SearchGameWidget(
+            key: ValueKey('sgw_pack_${userPack.pack.id}_$overlayRefreshVersion'),
             filter: (UserJackboxPack pack, UserJackboxGame game) =>
                 pack.pack.id == userPack.pack.id &&
                 game.game.name.toLowerCase().contains(_searchController.text.toLowerCase()) &&
@@ -318,9 +546,10 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
           onTap: () {
             SFXService().playSFX(SFX.OPEN_GAME_LIST);
           },
-          icon: Icon(type.icon),
+          icon: FaIcon(type.icon),
           title: Text(type.name),
           body: SearchGameWidget(
+              key: ValueKey('sgw_type_${type.name}_$overlayRefreshVersion'),
               filter: (UserJackboxPack pack, UserJackboxGame game) =>
                   game.game.info.type == type &&
                   game.game.name.toLowerCase().contains(_searchController.text.toLowerCase()) &&
@@ -368,9 +597,10 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
           onTap: () {
             SFXService().playSFX(SFX.OPEN_GAME_LIST);
           },
-          icon: const Icon(FontAwesomeIcons.gamepad),
+          icon: const FaIcon(FontAwesomeIcons.gamepad),
           title: Text(TranslationsHelper().appLocalizations!.all_games),
           body: SearchGameWidget(
+              key: ValueKey('sgw_all_$overlayRefreshVersion'),
               filter: (UserJackboxPack pack, UserJackboxGame game) =>
                   game.game.name.toLowerCase().contains(_searchController.text.toLowerCase()) &&
                   (showAllPacks || pack.owned) &&
@@ -384,7 +614,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
               icon: null,
               parentReload: () => setState(() {}))));
       items.add(PaneItemExpander(
-        icon: const Icon(FontAwesomeIcons.boxOpen),
+        icon: const FaIcon(FontAwesomeIcons.boxOpen),
         body: Container(),
         title: Text(TranslationsHelper().appLocalizations!.search_by_pack),
         items: packItems,
@@ -399,7 +629,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
       List<NavigationPaneItem> starsItem = _buildStarsPaneItem();
 
       items.add(PaneItemExpander(
-        icon: const Icon(FontAwesomeIcons.tag),
+        icon: const FaIcon(FontAwesomeIcons.tag),
         body: Container(),
         title: Text(TranslationsHelper().appLocalizations!.search_by_tags),
         items: tagItem,
@@ -412,7 +642,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
       ));
 
       items.add(PaneItemExpander(
-        icon: const Icon(FontAwesomeIcons.solidStar),
+        icon: const FaIcon(FontAwesomeIcons.solidStar),
         body: Container(),
         title: Text(TranslationsHelper().appLocalizations!.search_by_ranking),
         items: starsItem,
@@ -425,7 +655,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
       ));
 
       items.add(PaneItem(
-          icon: Icon(FontAwesomeIcons.dice),
+          icon: FaIcon(FontAwesomeIcons.dice),
           title: Text(TranslationsHelper().appLocalizations!.random_game),
           body: RandomGameWidget(
             filter: (UserJackboxPack pack, UserJackboxGame game) =>
@@ -456,6 +686,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
           icon: Icon(FluentIcons.allIcons[tag.icon]),
           title: Text(tag.name),
           body: SearchGameWidget(
+              key: ValueKey('sgw_tag_${tag.id}_$overlayRefreshVersion'),
               filter: (UserJackboxPack pack, UserJackboxGame game) =>
                   game.game.info.tags.where((t) => t.id == tag.id).isNotEmpty &&
                   game.game.name.toLowerCase().contains(_searchController.text.toLowerCase()) &&
@@ -484,6 +715,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
         icon: Container(),
         title: Text(TranslationsHelper().appLocalizations!.personal_ranking),
         body: SearchGameWidget(
+          key: ValueKey('sgw_stars_$overlayRefreshVersion'),
           filter: (UserJackboxPack pack, UserJackboxGame game) =>
               game.game.name.toLowerCase().contains(_searchController.text.toLowerCase()) &&
               (showAllPacks || pack.owned) &&

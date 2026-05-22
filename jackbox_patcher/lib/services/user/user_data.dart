@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:jackbox_patcher/model/jackbox/jackbox_pack.dart';
+import 'package:path/path.dart' as p;
 import 'package:jackbox_patcher/model/misc/window_information.dart';
 import 'package:jackbox_patcher/model/user_model/user_jackbox_game_patch.dart';
 import 'package:jackbox_patcher/services/api_utility/api_service.dart';
@@ -18,6 +19,7 @@ import '../../model/user_model/user_jackbox_pack_patch.dart';
 
 class UserData {
   static final UserData _instance = UserData._internal();
+  static const String _relativePathPrefix = '__REL__';
   late SharedPreferences preferences;
   late UserSettings settings;
   late UserGameList gameList;
@@ -64,7 +66,8 @@ class UserData {
               version: preferences.getString("${pack.id}_loader_version"));
         }
 
-        final String? packPath = preferences.getString("${pack.id}_path");
+        final String? storedPackPath = preferences.getString("${pack.id}_path");
+        final String? packPath = _resolveStoredPackPath(storedPackPath);
         final bool packOwned = preferences.getBool("${pack.id}_owned") ?? false;
         final LauncherType packLauncher = LauncherType.fromName(preferences.getString("${pack.id}_origin") ?? "");
         UserJackboxPack userPack =
@@ -178,9 +181,9 @@ class UserData {
   }
 
   /// Save pack (mostly used when the path parameter is changed)
-  Future<void> savePack(UserJackboxPack pack) async {
+  Future<void> savePack(UserJackboxPack pack, {bool forceRelativeStorage = false}) async {
     if (pack.path != null) {
-      await preferences.setString("${pack.pack.id}_path", pack.path!);
+      await savePackPath(pack, pack.path!, forceRelativeStorage: forceRelativeStorage);
     } else {
       await preferences.remove("${pack.pack.id}_path");
     }
@@ -303,5 +306,85 @@ class UserData {
       return null;
     }
     return packs.firstWhere((element) => element.pack.id == id);
+  }
+
+  String _portableBaseDirectory() {
+    return File(Platform.resolvedExecutable).parent.path;
+  }
+
+  String getPortableBaseDirectory() {
+    return _portableBaseDirectory();
+  }
+
+  String? getStoredPackPathRaw(UserJackboxPack pack) {
+    return preferences.getString("${pack.pack.id}_path");
+  }
+
+  bool isPackPathStoredRelative(UserJackboxPack pack) {
+    final stored = getStoredPackPathRaw(pack);
+    return stored != null && stored.startsWith(_relativePathPrefix);
+  }
+
+  String? getStoredPackRelativePart(UserJackboxPack pack) {
+    final stored = getStoredPackPathRaw(pack);
+    if (stored == null || !stored.startsWith(_relativePathPrefix)) return null;
+    return stored.substring(_relativePathPrefix.length);
+  }
+
+  Future<void> savePackPath(UserJackboxPack pack, String path, {bool forceRelativeStorage = false}) async {
+    await preferences.setString(
+      "${pack.pack.id}_path",
+      _normalizePackPathForStorage(path, forceRelativeStorage: forceRelativeStorage),
+    );
+  }
+
+  String _normalizePackPathForStorage(String path, {bool forceRelativeStorage = false}) {
+    if (!settings.isRelativePathsActivated && !forceRelativeStorage) return path;
+
+    final context = p.Context(style: Platform.isWindows ? p.Style.windows : p.Style.posix);
+    final String abs = context.normalize(path.replaceAll('/', Platform.pathSeparator));
+    final String base = context.normalize(_portableBaseDirectory().replaceAll('/', Platform.pathSeparator));
+
+    final String absCmp = Platform.isWindows ? abs.toLowerCase() : abs;
+    final String baseCmp = Platform.isWindows ? base.toLowerCase() : base;
+
+    if (absCmp == baseCmp) {
+      return _relativePathPrefix;
+    }
+
+    // Support sibling/cousin portable folders (e.g. ..\JackboxGames) on the same drive/root.
+    final String absRoot = context.rootPrefix(abs);
+    final String baseRoot = context.rootPrefix(base);
+    final String absRootCmp = Platform.isWindows ? absRoot.toLowerCase() : absRoot;
+    final String baseRootCmp = Platform.isWindows ? baseRoot.toLowerCase() : baseRoot;
+
+    if (absRootCmp == baseRootCmp) {
+      final String rel = context.relative(abs, from: base);
+      if (rel == '.' || rel.isEmpty) {
+        return _relativePathPrefix;
+      }
+      return '$_relativePathPrefix$rel';
+    }
+
+    // Keep absolute if path is outside the current drive/root.
+    return path;
+  }
+
+  String? _resolveStoredPackPath(String? storedPath) {
+    if (storedPath == null) return null;
+    if (!storedPath.startsWith(_relativePathPrefix)) return storedPath;
+
+    final context = p.Context(style: Platform.isWindows ? p.Style.windows : p.Style.posix);
+    final String rel = storedPath.substring(_relativePathPrefix.length);
+    final String base = context.normalize(_portableBaseDirectory());
+    if (rel.isEmpty) return base;
+    return context.normalize(context.join(base, rel));
+  }
+
+  Future<void> migratePackPathStorageMode() async {
+    // Re-save packs to convert stored paths to current mode (absolute <-> relative).
+    for (final pack in packs) {
+      await savePack(pack);
+    }
   }
 }

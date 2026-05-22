@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:jackbox_patcher/services/api_utility/api_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -38,5 +40,40 @@ class UserSettings {
 
   Future<void> setAnonymousData(bool activation) async {
     await preferences.setBool("anonymous_data", activation);
+  }
+
+  bool get isRelativePathsActivated => preferences.getBool("relative_paths") ?? false;
+
+  Future<void> setRelativePaths(bool activation) async {
+    await preferences.setBool("relative_paths", activation);
+  }
+
+  bool get isAlwaysCardOverlayActivated => preferences.getBool("always_card_overlay") ?? false;
+
+  Future<void> setAlwaysCardOverlay(bool activation) async {
+    await preferences.setBool("always_card_overlay", activation);
+  }
+
+  bool get isPhoneAdminPatternEnabled => preferences.getBool("phone_admin_pattern_enabled") ?? false;
+
+  Future<void> setPhoneAdminPatternEnabled(bool activation) async {
+    await preferences.setBool("phone_admin_pattern_enabled", activation);
+  }
+
+  String get phoneAdminPattern => preferences.getString("phone_admin_pattern") ?? "";
+
+  Future<void> setPhoneAdminPattern(String pattern) async {
+    await preferences.setString("phone_admin_pattern", pattern);
+  }
+
+  Future<String> regeneratePhoneAdminPattern() async {
+    final random = Random();
+    final picked = <int>{};
+    while (picked.length < 4) {
+      picked.add(random.nextInt(25));
+    }
+    final pattern = picked.join(',');
+    await setPhoneAdminPattern(pattern);
+    return pattern;
   }
 }
