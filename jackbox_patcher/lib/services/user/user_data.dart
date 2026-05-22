@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:jackbox_patcher/model/jackbox/jackbox_pack.dart';
+import 'package:path/path.dart' as p;
 import 'package:jackbox_patcher/model/misc/window_information.dart';
 import 'package:jackbox_patcher/model/user_model/user_jackbox_game_patch.dart';
 import 'package:jackbox_patcher/services/api_utility/api_service.dart';
@@ -340,8 +341,9 @@ class UserData {
   String _normalizePackPathForStorage(String path, {bool forceRelativeStorage = false}) {
     if (!settings.isRelativePathsActivated && !forceRelativeStorage) return path;
 
-    final String abs = path.replaceAll('/', Platform.pathSeparator);
-    final String base = _portableBaseDirectory().replaceAll('/', Platform.pathSeparator);
+    final context = p.Context(style: Platform.isWindows ? p.Style.windows : p.Style.posix);
+    final String abs = context.normalize(path.replaceAll('/', Platform.pathSeparator));
+    final String base = context.normalize(_portableBaseDirectory().replaceAll('/', Platform.pathSeparator));
 
     final String absCmp = Platform.isWindows ? abs.toLowerCase() : abs;
     final String baseCmp = Platform.isWindows ? base.toLowerCase() : base;
@@ -350,15 +352,21 @@ class UserData {
       return _relativePathPrefix;
     }
 
-    final String baseWithSep = '$base${Platform.pathSeparator}';
-    final String baseWithSepCmp = Platform.isWindows ? baseWithSep.toLowerCase() : baseWithSep;
+    // Support sibling/cousin portable folders (e.g. ..\JackboxGames) on the same drive/root.
+    final String absRoot = context.rootPrefix(abs);
+    final String baseRoot = context.rootPrefix(base);
+    final String absRootCmp = Platform.isWindows ? absRoot.toLowerCase() : absRoot;
+    final String baseRootCmp = Platform.isWindows ? baseRoot.toLowerCase() : baseRoot;
 
-    if (absCmp.startsWith(baseWithSepCmp)) {
-      final String rel = abs.substring(baseWithSep.length);
+    if (absRootCmp == baseRootCmp) {
+      final String rel = context.relative(abs, from: base);
+      if (rel == '.' || rel.isEmpty) {
+        return _relativePathPrefix;
+      }
       return '$_relativePathPrefix$rel';
     }
 
-    // Keep absolute if path is outside the portable base directory.
+    // Keep absolute if path is outside the current drive/root.
     return path;
   }
 
@@ -366,10 +374,11 @@ class UserData {
     if (storedPath == null) return null;
     if (!storedPath.startsWith(_relativePathPrefix)) return storedPath;
 
+    final context = p.Context(style: Platform.isWindows ? p.Style.windows : p.Style.posix);
     final String rel = storedPath.substring(_relativePathPrefix.length);
-    final String base = _portableBaseDirectory();
+    final String base = context.normalize(_portableBaseDirectory());
     if (rel.isEmpty) return base;
-    return '$base${Platform.pathSeparator}$rel';
+    return context.normalize(context.join(base, rel));
   }
 
   Future<void> migratePackPathStorageMode() async {

@@ -22,6 +22,7 @@ class _MobileRemoteSettingsWidgetState
   bool _loading = true;
   bool _adminLockEnabled = false;
   String _adminPattern = '';
+  List<int> _editingPatternIndexes = [];
   final TextEditingController _patternController = TextEditingController();
 
   @override
@@ -53,6 +54,7 @@ class _MobileRemoteSettingsWidgetState
     if (_adminPattern.isEmpty) {
       _adminPattern = await UserData().settings.regeneratePhoneAdminPattern();
     }
+    _editingPatternIndexes = _patternIndexes(_adminPattern).take(4).toList();
     _patternController.text = _toHumanPattern(_adminPattern);
     if (mounted) {
       setState(() {});
@@ -75,6 +77,7 @@ class _MobileRemoteSettingsWidgetState
     if (mounted) {
       setState(() {
         _adminPattern = pattern;
+        _editingPatternIndexes = _patternIndexes(pattern).take(4).toList();
         _patternController.text = _toHumanPattern(_adminPattern);
       });
     }
@@ -120,6 +123,8 @@ class _MobileRemoteSettingsWidgetState
     if (mounted) {
       setState(() {
         _adminPattern = stored;
+        _editingPatternIndexes = _patternIndexes(stored).take(4).toList();
+        _patternController.text = _toHumanPattern(stored);
       });
       InfoBarService.showInfo(context, 'Pattern saved', 'Custom admin pattern updated.');
     }
@@ -132,6 +137,7 @@ class _MobileRemoteSettingsWidgetState
     if (mounted) {
       setState(() {
         _adminPattern = '';
+        _editingPatternIndexes = [];
         _adminLockEnabled = false;
         _patternController.clear();
       });
@@ -145,8 +151,30 @@ class _MobileRemoteSettingsWidgetState
         .split(',')
         .map((e) => int.tryParse(e.trim()))
         .whereType<int>()
-      .where((v) => v >= 0 && v < 25)
+        .where((v) => v >= 0 && v < 25)
         .toList();
+  }
+
+  void _toggleEditingPatternIndex(int index) {
+    if (_editingPatternIndexes.contains(index)) {
+      setState(() {
+        _editingPatternIndexes.remove(index);
+        _patternController.text =
+            _editingPatternIndexes.map((v) => (v + 1).toString()).join(',');
+      });
+      return;
+    }
+
+    if (_editingPatternIndexes.length >= 4) {
+      InfoBarService.showError(context, 'Only 4 cells can be selected. Deselect one first.');
+      return;
+    }
+
+    setState(() {
+      _editingPatternIndexes.add(index);
+      _patternController.text =
+          _editingPatternIndexes.map((v) => (v + 1).toString()).join(',');
+    });
   }
 
   double _calculatePadding(BuildContext context) {
@@ -275,9 +303,9 @@ class _MobileRemoteSettingsWidgetState
               const SizedBox(width: 12),
               Expanded(
                 child: Text(
-                  _patternIndexes(_adminPattern).isEmpty
+                  _editingPatternIndexes.isEmpty
                       ? 'No pattern generated yet.'
-                      : 'Tap order: ${_patternIndexes(_adminPattern).map((i) => (i + 1).toString()).join(' -> ')}',
+                      : 'Tap order: ${_editingPatternIndexes.map((i) => (i + 1).toString()).join(' -> ')}',
                   style: typography.caption,
                 ),
               ),
@@ -302,17 +330,26 @@ class _MobileRemoteSettingsWidgetState
             ],
           ),
           const SizedBox(height: 10),
-          _PatternPreviewGrid(indexes: _patternIndexes(_adminPattern)),
+          Text(
+            'Tap cells below to build your pattern. Press Save Pattern to apply it.',
+            style: typography.caption,
+          ),
+          const SizedBox(height: 8),
+          _PatternEditorGrid(
+            indexes: _editingPatternIndexes,
+            onTap: _toggleEditingPatternIndex,
+          ),
         ],
       ),
     );
   }
 }
 
-class _PatternPreviewGrid extends StatelessWidget {
+class _PatternEditorGrid extends StatelessWidget {
   final List<int> indexes;
+  final void Function(int index) onTap;
 
-  const _PatternPreviewGrid({required this.indexes});
+  const _PatternEditorGrid({required this.indexes, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -322,25 +359,41 @@ class _PatternPreviewGrid extends StatelessWidget {
     }
 
     return SizedBox(
-      width: 320,
-      child: Wrap(
-        spacing: 4,
-        runSpacing: 4,
-        children: List.generate(25, (index) {
-          final order = orderByIndex[index];
-          final on = order != null;
-          return Container(
-            width: 30,
-            height: 30,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(4),
-              border: Border.all(color: on ? Colors.blue : Colors.grey),
-              color: on ? Colors.blue.withOpacity(0.25) : Colors.transparent,
-            ),
-            child: Text(on ? '$order' : '', style: const TextStyle(fontSize: 11)),
-          );
-        }),
+      width: 360,
+      child: AspectRatio(
+        aspectRatio: 1,
+        child: GridView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: 25,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 5,
+            crossAxisSpacing: 6,
+            mainAxisSpacing: 6,
+          ),
+          itemBuilder: (context, index) {
+            final order = orderByIndex[index];
+            final on = order != null;
+            return GestureDetector(
+              onTap: () => onTap(index),
+              child: Container(
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: on ? Colors.blue : Colors.grey),
+                  color: on ? Colors.blue.withOpacity(0.25) : Colors.transparent,
+                ),
+                child: Text(
+                  on ? '$order' : '${index + 1}',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: on ? Colors.blue : Colors.grey,
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
       ),
     );
   }

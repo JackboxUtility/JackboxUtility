@@ -270,8 +270,8 @@ html,body{height:100%;overflow:hidden;background:#0d0e1c;color:#e8e9f0;font-fami
 .al-title{font-size:18px;font-weight:800;margin-bottom:6px}
 .al-sub{font-size:13px;color:var(--mu);margin-bottom:8px}
 .al-picked{font-size:12px;color:#a0b4f5;min-height:18px;margin-bottom:10px}
-.al-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
-.al-cell{height:28px;border-radius:6px;border:1px solid var(--bd);background:var(--sf2);
+.al-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.al-cell{aspect-ratio:1/1;min-height:42px;height:auto;border-radius:8px;border:1px solid var(--bd);background:var(--sf2);
   color:var(--tx);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;
   cursor:pointer;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
 .al-cell.on{background:rgba(74,110,245,.25);border-color:rgba(74,110,245,.6)}
