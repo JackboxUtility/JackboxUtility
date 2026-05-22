@@ -270,7 +270,7 @@ html,body{height:100%;overflow:hidden;background:#0d0e1c;color:#e8e9f0;font-fami
 .al-title{font-size:18px;font-weight:800;margin-bottom:6px}
 .al-sub{font-size:13px;color:var(--mu);margin-bottom:8px}
 .al-picked{font-size:12px;color:#a0b4f5;min-height:18px;margin-bottom:10px}
-.al-grid{display:grid;grid-template-columns:repeat(9,1fr);gap:4px}
+.al-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
 .al-cell{height:28px;border-radius:6px;border:1px solid var(--bd);background:var(--sf2);
   color:var(--tx);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;
   cursor:pointer;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
@@ -314,7 +314,7 @@ html,body{height:100%;overflow:hidden;background:#0d0e1c;color:#e8e9f0;font-fami
 <div id="adminLock">
   <div class="al-panel">
     <div class="al-title">Admin Pattern Required</div>
-    <div class="al-sub">Tap 4 cells in the configured order.</div>
+    <div class="al-sub">Tap 4 cells in the configured order (5x5).</div>
     <div class="al-picked" id="alPicked"></div>
     <div class="al-grid" id="alGrid"></div>
     <div class="al-actions">
@@ -504,6 +504,7 @@ const S = {
   adminLockEnabled:false,
   adminPattern:[],
   adminAttempt:[],
+  configLoaded:false,
   groupByPack:true,
   ws:null, wsOk:false,
   draft:null,
@@ -572,11 +573,13 @@ async function loadGames(){
     S.packs=gd.packs||[];
     const lock=gd.adminLock||{};
     S.adminLockEnabled=!!lock.enabled;
-    S.adminPattern=String(lock.pattern||'').split(',').map(v=>parseInt(v,10)).filter(v=>Number.isInteger(v)&&v>=0&&v<81);
+    S.adminPattern=String(lock.pattern||'').split(',').map(v=>parseInt(v,10)).filter(v=>Number.isInteger(v)&&v>=0&&v<25);
+    S.configLoaded=true;
     if(gd.state)applyDesktopState(gd.state,true);
     if(tr){const td=await tr.json();S.allTags=td.tags||[];}
     buildFlat();applyFilter();renderBrowse();
-  }catch(e){toast('Could not load games');}
+    return true;
+  }catch(e){toast('Could not load games');return false;}
 }
 
 function buildFlat(){
@@ -682,7 +685,11 @@ function pushState(){
 }
 
 /* ROLE / VIEWS */
-function requestAdminRole(){
+async function requestAdminRole(){
+  if(!S.configLoaded){
+    const ok=await loadGames();
+    if(!ok)return;
+  }
   if(!S.adminLockEnabled||S.adminPattern.length!==4){setRole('admin');return;}
   openAdminLock();
 }
@@ -710,7 +717,7 @@ function closeAdminLock(){
 function renderAdminLock(){
   const order={};
   S.adminAttempt.forEach((idx,i)=>order[idx]=i+1);
-  document.getElementById('alGrid').innerHTML=Array.from({length:81},(_,idx)=>
+  document.getElementById('alGrid').innerHTML=Array.from({length:25},(_,idx)=>
     `<div class="al-cell${order[idx]?' on':''}" data-idx="${idx}">${order[idx]||''}</div>`
   ).join('');
   document.getElementById('alPicked').textContent=S.adminAttempt.length?`Selected: ${S.adminAttempt.map(v=>'#'+(v+1)).join(' -> ')}`:'Selected: none';
@@ -1277,6 +1284,7 @@ document.getElementById('alSubmit').onclick=submitAdminLock;
 
 /* BOOT */
 wsConnect();
+loadGames();
 </script>
 </body>
 </html>

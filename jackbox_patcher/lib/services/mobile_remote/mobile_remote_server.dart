@@ -52,6 +52,7 @@ class MobileRemoteServer {
   final List<WebSocketChannel> _phoneClients = [];
 
   bool _running = false;
+  HttpServer? _httpServer;
 
   // ── lifecycle ──────────────────────────────────────────────────────────────
   Future<void> start() async {
@@ -92,21 +93,52 @@ class MobileRemoteServer {
 
     final handler = const Pipeline().addMiddleware(_corsHeaders()).addHandler(router.call);
 
-    await shelf_io.serve(handler, InternetAddress.anyIPv4, MOBILE_REMOTE_PORT, shared: true);
+    _httpServer = await shelf_io.serve(handler, InternetAddress.anyIPv4, MOBILE_REMOTE_PORT, shared: true);
     JULogger().i('[MobileRemote] Server started on 0.0.0.0:$MOBILE_REMOTE_PORT');
+  }
+
+  Future<void> stop() async {
+    if (!_running) return;
+    _running = false;
+    for (final client in List<WebSocketChannel>.from(_phoneClients)) {
+      try {
+        await client.sink.close();
+      } catch (_) {}
+    }
+    _phoneClients.clear();
+    await _httpServer?.close(force: true);
+    _httpServer = null;
+    JULogger().i('[MobileRemote] Server stopped');
+  }
+
+  Future<void> restart() async {
+    await stop();
+    await start();
   }
 
   // ── HTTP handlers ──────────────────────────────────────────────────────────
   Future<Response> _handleRoot(Request _) async {
     return Response.ok(
       kMobileSpaHtml,
-      headers: {'Content-Type': 'text/html; charset=utf-8'},
+      headers: {
+        'Content-Type': 'text/html; charset=utf-8',
+        'Cache-Control': 'no-store, no-cache, must-revalidate, max-age=0',
+        'Pragma': 'no-cache',
+        'Expires': '0',
+      },
     );
   }
 
   Future<Response> _handleGetGames(Request _) async {
     final adminPattern = UserData().settings.phoneAdminPattern;
-    final adminLockEnabled = UserData().settings.isPhoneAdminPatternEnabled && adminPattern.isNotEmpty;
+    final parts = adminPattern
+        .split(',')
+        .map((e) => int.tryParse(e.trim()))
+        .whereType<int>()
+        .where((v) => v >= 0 && v < 25)
+        .toList();
+    final adminLockEnabled =
+        UserData().settings.isPhoneAdminPatternEnabled && parts.length == 4 && parts.toSet().length == 4;
 
     final packs = UserData()
         .packs

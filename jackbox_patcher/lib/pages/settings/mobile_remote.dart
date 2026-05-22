@@ -1,9 +1,11 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter/services.dart';
 import 'package:jackbox_patcher/app_configuration.dart';
 import 'package:jackbox_patcher/services/mobile_remote/mobile_remote_server.dart';
 import 'package:jackbox_patcher/services/user/user_data.dart';
 
+import '../../services/error/error.dart';
 import '../../services/translations/translations_helper.dart';
 
 class MobileRemoteSettingsWidget extends StatefulWidget {
@@ -20,12 +22,19 @@ class _MobileRemoteSettingsWidgetState
   bool _loading = true;
   bool _adminLockEnabled = false;
   String _adminPattern = '';
+  final TextEditingController _patternController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     _resolveIp();
     _loadAdminLockSettings();
+  }
+
+  @override
+  void dispose() {
+    _patternController.dispose();
+    super.dispose();
   }
 
   Future<void> _resolveIp() async {
@@ -44,6 +53,7 @@ class _MobileRemoteSettingsWidgetState
     if (_adminPattern.isEmpty) {
       _adminPattern = await UserData().settings.regeneratePhoneAdminPattern();
     }
+    _patternController.text = _toHumanPattern(_adminPattern);
     if (mounted) {
       setState(() {});
     }
@@ -51,6 +61,7 @@ class _MobileRemoteSettingsWidgetState
 
   Future<void> _setAdminLockEnabled(bool enabled) async {
     await UserData().settings.setPhoneAdminPatternEnabled(enabled);
+    await MobileRemoteServer().restart();
     if (mounted) {
       setState(() {
         _adminLockEnabled = enabled;
@@ -60,10 +71,72 @@ class _MobileRemoteSettingsWidgetState
 
   Future<void> _regenerateAdminPattern() async {
     final pattern = await UserData().settings.regeneratePhoneAdminPattern();
+    await MobileRemoteServer().restart();
     if (mounted) {
       setState(() {
         _adminPattern = pattern;
+        _patternController.text = _toHumanPattern(_adminPattern);
       });
+    }
+  }
+
+  String _toHumanPattern(String raw) {
+    if (raw.isEmpty) return '';
+    return raw
+        .split(',')
+        .map((e) => int.tryParse(e.trim()))
+        .whereType<int>()
+        .where((v) => v >= 0 && v < 25)
+        .map((v) => (v + 1).toString())
+        .join(',');
+  }
+
+  String? _toStoredPattern(String humanInput) {
+    final parsed = humanInput
+        .split(',')
+        .map((e) => int.tryParse(e.trim()))
+        .whereType<int>()
+        .toList();
+    if (parsed.length != 4) return null;
+    final unique = parsed.toSet();
+    if (unique.length != 4) return null;
+    if (parsed.any((v) => v < 1 || v > 25)) return null;
+    return parsed.map((v) => (v - 1).toString()).join(',');
+  }
+
+  Future<void> _saveCustomPattern() async {
+    final stored = _toStoredPattern(_patternController.text);
+    if (stored == null) {
+      if (mounted) {
+        InfoBarService.showError(
+          context,
+          'Invalid pattern',
+          'Enter exactly 4 unique numbers between 1 and 25, comma-separated.',
+        );
+      }
+      return;
+    }
+    await UserData().settings.setPhoneAdminPattern(stored);
+    await MobileRemoteServer().restart();
+    if (mounted) {
+      setState(() {
+        _adminPattern = stored;
+      });
+      InfoBarService.showInfo(context, 'Pattern saved', 'Custom admin pattern updated.');
+    }
+  }
+
+  Future<void> _clearPattern() async {
+    await UserData().settings.setPhoneAdminPattern('');
+    await UserData().settings.setPhoneAdminPatternEnabled(false);
+    await MobileRemoteServer().restart();
+    if (mounted) {
+      setState(() {
+        _adminPattern = '';
+        _adminLockEnabled = false;
+        _patternController.clear();
+      });
+      InfoBarService.showInfo(context, 'Pattern cleared', 'Admin lock requirement has been disabled.');
     }
   }
 
@@ -73,7 +146,7 @@ class _MobileRemoteSettingsWidgetState
         .split(',')
         .map((e) => int.tryParse(e.trim()))
         .whereType<int>()
-        .where((v) => v >= 0 && v < 81)
+      .where((v) => v >= 0 && v < 25)
         .toList();
   }
 
@@ -122,6 +195,20 @@ class _MobileRemoteSettingsWidgetState
                   ),
                   const Spacer(),
                   Tooltip(
+                    message: 'Copy Link',
+                    child: IconButton(
+                      icon: const Icon(FluentIcons.copy),
+                      onPressed: () async {
+                        await Clipboard.setData(
+                          ClipboardData(text: 'http://$_lanIp:$MOBILE_REMOTE_PORT'),
+                        );
+                        if (mounted) {
+                          InfoBarService.showInfo(context, 'Copied', 'Remote link copied to clipboard.');
+                        }
+                      },
+                    ),
+                  ),
+                  Tooltip(
                     message: 'Refresh IP',
                     child: IconButton(
                       icon: const Icon(FluentIcons.refresh),
@@ -155,11 +242,13 @@ class _MobileRemoteSettingsWidgetState
           const _FeatureTile(
               icon: FontAwesomeIcons.rocket, label: 'Launch games directly from your phone'),
           const SizedBox(height: 32),
-          Text('Admin Lock Pattern (Insecure)', style: typography.bodyStrong),
+          Text('Admin Lock Pattern (Insecure, 5x5)', style: typography.bodyStrong),
           const SizedBox(height: 8),
           const Text(
             'This is intentionally insecure and only meant to stop casual access. The pattern is sent to the phone client.',
           ),
+          const SizedBox(height: 8),
+          const Text('Set your own pattern using 4 unique numbers from 1 to 25 (left-to-right, top-to-bottom).'),
           const SizedBox(height: 10),
           ToggleSwitch(
             checked: _adminLockEnabled,
@@ -177,14 +266,39 @@ class _MobileRemoteSettingsWidgetState
                 },
                 child: const Text('Regenerate Pattern'),
               ),
+              const SizedBox(width: 8),
+              Button(
+                onPressed: () async {
+                  await _clearPattern();
+                },
+                child: const Text('Clear'),
+              ),
               const SizedBox(width: 12),
               Expanded(
                 child: Text(
                   _patternIndexes(_adminPattern).isEmpty
                       ? 'No pattern generated yet.'
-                      : 'Tap order: ${_patternIndexes(_adminPattern).map((i) => '#${i + 1}').join(' -> ')}',
+                      : 'Tap order: ${_patternIndexes(_adminPattern).map((i) => (i + 1).toString()).join(' -> ')}',
                   style: typography.caption,
                 ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Row(
+            children: [
+              Expanded(
+                child: TextBox(
+                  controller: _patternController,
+                  placeholder: 'Example: 1,7,13,25',
+                ),
+              ),
+              const SizedBox(width: 8),
+              FilledButton(
+                onPressed: () async {
+                  await _saveCustomPattern();
+                },
+                child: const Text('Save Pattern'),
               ),
             ],
           ),
@@ -213,7 +327,7 @@ class _PatternPreviewGrid extends StatelessWidget {
       child: Wrap(
         spacing: 4,
         runSpacing: 4,
-        children: List.generate(81, (index) {
+        children: List.generate(25, (index) {
           final order = orderByIndex[index];
           final on = order != null;
           return Container(

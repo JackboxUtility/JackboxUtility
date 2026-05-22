@@ -70,7 +70,7 @@ class UserSettings {
     final random = Random();
     final picked = <int>{};
     while (picked.length < 4) {
-      picked.add(random.nextInt(81));
+      picked.add(random.nextInt(25));
     }
     final pattern = picked.join(',');
     await setPhoneAdminPattern(pattern);
