@@ -39,4 +39,10 @@ class UserSettings {
   Future<void> setAnonymousData(bool activation) async {
     await preferences.setBool("anonymous_data", activation);
   }
+
+  bool get isAlwaysCardOverlayActivated => preferences.getBool("always_card_overlay") ?? false;
+
+  Future<void> setAlwaysCardOverlay(bool activation) async {
+    await preferences.setBool("always_card_overlay", activation);
+  }
 }

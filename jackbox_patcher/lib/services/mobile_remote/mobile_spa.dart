@@ -411,6 +411,10 @@ html,body{height:100%;overflow:hidden;background:#0d0e1c;color:#e8e9f0;font-fami
           <div><div class="trow-l">Show All Packs</div><div class="trow-s">Include unowned packs</div></div>
           <div class="tog" id="packTog"></div>
         </div>
+        <div class="trow" id="overlayTogRow">
+          <div><div class="trow-l">Always Show Overlay</div><div class="trow-s">Show card stats without hover</div></div>
+          <div class="tog" id="overlayTog"></div>
+        </div>
         <div class="trow" id="hiddenTogRow">
           <div><div class="trow-l">Show Hidden</div><div class="trow-s">Include hidden games</div></div>
           <div class="tog" id="hiddenTog"></div>
@@ -462,6 +466,7 @@ const S = {
   activeTags:new Set(),
   sortOrder:'PACK', sortAscending:true,
   showAllPacks:false, showHidden:false,
+  alwaysCardOverlay:false,
   groupByPack:true,
   ws:null, wsOk:false,
   draft:null,
@@ -615,6 +620,7 @@ function applyDesktopState(m,force){
   if(m.sortAscending!==undefined)S.sortAscending=m.sortAscending;
   if(m.showAllPacks!==undefined)S.showAllPacks=m.showAllPacks;
   if(m.showHidden!==undefined)S.showHidden=m.showHidden;
+  if(m.alwaysCardOverlay!==undefined)S.alwaysCardOverlay=m.alwaysCardOverlay;
   updateTypeChips();
   applyFilter();
   if(isView('vb'))renderBrowse();
@@ -631,7 +637,8 @@ function pushState(){
       {type:'minPlayers',activated:S.intFilters.minPlayers.activated,selected:S.intFilters.minPlayers.selected},
       {type:'maxPlaytime',activated:S.intFilters.maxPlaytime.activated,selected:S.intFilters.maxPlaytime.selected},
     ],
-    showAllPacks:S.showAllPacks,showHidden:S.showHidden});
+    showAllPacks:S.showAllPacks,showHidden:S.showHidden,
+    alwaysCardOverlay:S.alwaysCardOverlay});
 }
 
 /* ROLE / VIEWS */
@@ -851,6 +858,7 @@ function openFilterModal(){
     intFilters:JSON.parse(JSON.stringify(S.intFilters)),
     activeTags:new Set(S.activeTags),
     showAllPacks:S.showAllPacks,showHidden:S.showHidden,
+    alwaysCardOverlay:S.alwaysCardOverlay,
   };
   renderFilterModal();
   document.getElementById('fmodal').classList.add('open');
@@ -872,6 +880,7 @@ function renderFilterModal(){
   document.getElementById('ptSl').value=pt.selected;
   document.getElementById('ptSlVal').textContent=pt.selected+' min';
   document.getElementById('packTog').className='tog'+(d.showAllPacks?' on':'');
+  document.getElementById('overlayTog').className='tog'+(d.alwaysCardOverlay?' on':'');
   document.getElementById('hiddenTog').className='tog'+(d.showHidden?' on':'');
   const cfDefs=[
     {k:'FAMILY_FRIENDLY',label:'Family Friendly',opts:[{v:'FAMILY_FRIENDLY_AVAILABLE',l:'Available'}]},
@@ -917,6 +926,7 @@ function dTogglePT(){const f=S.draft.intFilters.maxPlaytime;f.activated=!f.activ
 function dToggleCF(k,v){const f=S.draft.filters[k];if(f.activated&&f.selected===v)f.activated=false;else{f.activated=true;f.selected=v;}renderFilterModal();}
 function dToggleTag(t){if(S.draft.activeTags.has(t))S.draft.activeTags.delete(t);else S.draft.activeTags.add(t);renderFilterModal();}
 function dTogglePack(){S.draft.showAllPacks=!S.draft.showAllPacks;renderFilterModal();}
+function dToggleOverlay(){S.draft.alwaysCardOverlay=!S.draft.alwaysCardOverlay;renderFilterModal();}
 function dToggleHidden(){S.draft.showHidden=!S.draft.showHidden;renderFilterModal();}
 
 function applyModal(){
@@ -926,6 +936,7 @@ function applyModal(){
   Object.assign(S.intFilters,JSON.parse(JSON.stringify(d.intFilters)));
   S.activeTags=new Set(d.activeTags);
   S.showAllPacks=d.showAllPacks;S.showHidden=d.showHidden;
+  S.alwaysCardOverlay=d.alwaysCardOverlay;
   closeFilterModal();applyFilter();renderBrowse();pushState();
 }
 
@@ -941,7 +952,7 @@ function resetModal(){
       TRANSLATION:{activated:false,selected:'TRANSLATION_TRANSLATED'},
     },
     intFilters:{minPlayers:{activated:false,selected:2},maxPlaytime:{activated:false,selected:60}},
-    activeTags:new Set(),showAllPacks:false,showHidden:false,
+    activeTags:new Set(),showAllPacks:false,showHidden:false,alwaysCardOverlay:false,
   };
   renderFilterModal();
 }
@@ -1160,6 +1171,7 @@ document.getElementById('fmReset').onclick=resetModal;
 document.getElementById('sortDirRow').onclick=dToggleSortDir;
 document.getElementById('ptTogRow').onclick=dTogglePT;
 document.getElementById('packTogRow').onclick=dTogglePack;
+document.getElementById('overlayTogRow').onclick=dToggleOverlay;
 document.getElementById('hiddenTogRow').onclick=dToggleHidden;
 document.getElementById('ptSl').addEventListener('input',e=>{
   S.draft.intFilters.maxPlaytime.selected=+e.target.value;

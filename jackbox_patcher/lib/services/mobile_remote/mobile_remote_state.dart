@@ -23,6 +23,9 @@ class MobileRemoteState {
   // Whether to show hidden games
   final bool showHidden;
 
+  // Whether desktop cards should always show the stats overlay
+  final bool alwaysCardOverlay;
+
   const MobileRemoteState({
     this.searchText = '',
     this.filters = const [],
@@ -31,6 +34,7 @@ class MobileRemoteState {
     this.sortAscending = true,
     this.showAllPacks = false,
     this.showHidden = false,
+    this.alwaysCardOverlay = false,
   });
 
   MobileRemoteState copyWith({
@@ -41,6 +45,7 @@ class MobileRemoteState {
     bool? sortAscending,
     bool? showAllPacks,
     bool? showHidden,
+    bool? alwaysCardOverlay,
   }) {
     return MobileRemoteState(
       searchText: searchText ?? this.searchText,
@@ -50,6 +55,7 @@ class MobileRemoteState {
       sortAscending: sortAscending ?? this.sortAscending,
       showAllPacks: showAllPacks ?? this.showAllPacks,
       showHidden: showHidden ?? this.showHidden,
+      alwaysCardOverlay: alwaysCardOverlay ?? this.alwaysCardOverlay,
     );
   }
 
@@ -62,6 +68,7 @@ class MobileRemoteState {
         'sortAscending': sortAscending,
         'showAllPacks': showAllPacks,
         'showHidden': showHidden,
+        'alwaysCardOverlay': alwaysCardOverlay,
       };
 
   factory MobileRemoteState.fromJson(Map<String, dynamic> json) {
@@ -79,6 +86,7 @@ class MobileRemoteState {
       sortAscending: (json['sortAscending'] as bool?) ?? true,
       showAllPacks: (json['showAllPacks'] as bool?) ?? false,
       showHidden: (json['showHidden'] as bool?) ?? false,
+      alwaysCardOverlay: (json['alwaysCardOverlay'] as bool?) ?? false,
     );
   }
 }

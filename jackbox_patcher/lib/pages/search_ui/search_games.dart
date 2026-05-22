@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:jackbox_patcher/model/jackbox/game_info/family_friendly.dart';
 import 'package:jackbox_patcher/model/misc/sort_order.dart';
 import 'package:jackbox_patcher/model/user_model/user_jackbox_game.dart';
 import 'package:jackbox_patcher/model/user_model/user_jackbox_pack.dart';
@@ -472,9 +473,44 @@ class SearchGameGameWidget extends StatefulWidget {
 class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
   bool isFirstTime = true;
   bool smallInfoVisible = false;
+
+  FaIconData _familyFriendlyIcon(GameInfoFamilyFriendly familyFriendly) {
+    switch (familyFriendly) {
+      case GameInfoFamilyFriendly.FAMILY_FRIENDLY:
+        return FontAwesomeIcons.child;
+      case GameInfoFamilyFriendly.OPTIONAL:
+        return FontAwesomeIcons.circleQuestion;
+      case GameInfoFamilyFriendly.NOT_FAMILY_FRIENDLY:
+        return FontAwesomeIcons.triangleExclamation;
+    }
+  }
+
+  Color _familyFriendlyColor(GameInfoFamilyFriendly familyFriendly) {
+    switch (familyFriendly) {
+      case GameInfoFamilyFriendly.FAMILY_FRIENDLY:
+        return Colors.green;
+      case GameInfoFamilyFriendly.OPTIONAL:
+        return Colors.orange;
+      case GameInfoFamilyFriendly.NOT_FAMILY_FRIENDLY:
+        return Colors.red;
+    }
+  }
+
+  String _familyFriendlyTooltip(GameInfoFamilyFriendly familyFriendly) {
+    switch (familyFriendly) {
+      case GameInfoFamilyFriendly.FAMILY_FRIENDLY:
+        return 'Family friendly';
+      case GameInfoFamilyFriendly.OPTIONAL:
+        return 'Family friendly (optional)';
+      case GameInfoFamilyFriendly.NOT_FAMILY_FRIENDLY:
+        return 'Not family friendly';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var gameInfo = widget.game.game.info;
+    final alwaysCardOverlay = UserData().settings.isAlwaysCardOverlayActivated;
     return MouseRegion(
         cursor: SystemMouseCursors.click,
         child: AspectRatio(
@@ -483,8 +519,8 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
               borderRadius: BorderRadius.circular(8.0),
               child: TweenAnimationBuilder<double>(
                   tween: Tween<double>(
-                    begin: isFirstTime ? 0 : (smallInfoVisible ? 0 : 1),
-                    end: isFirstTime ? 0 : (smallInfoVisible ? 1 : 0),
+                    begin: isFirstTime ? 0 : ((smallInfoVisible || alwaysCardOverlay) ? 0 : 1),
+                    end: isFirstTime ? 0 : ((smallInfoVisible || alwaysCardOverlay) ? 1 : 0),
                   ),
                   duration: const Duration(milliseconds: 200),
                   builder: (BuildContext context, double opacity, Widget? child) {
@@ -525,6 +561,23 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                                   Colors.black.withOpacity(opacity / 2),
                                   Colors.black.withOpacity(opacity)
                                 ]))),
+                            Positioned(
+                                top: 8,
+                                right: 8,
+                                child: Opacity(
+                                    opacity: opacity,
+                                    child: Tooltip(
+                                        message: _familyFriendlyTooltip(gameInfo.familyFriendly),
+                                        child: Container(
+                                            padding: const EdgeInsets.all(6),
+                                            decoration: BoxDecoration(
+                                                color: Colors.black.withOpacity(0.65),
+                                                borderRadius: BorderRadius.circular(999)),
+                                            child: FaIcon(
+                                              _familyFriendlyIcon(gameInfo.familyFriendly),
+                                              size: 12,
+                                              color: _familyFriendlyColor(gameInfo.familyFriendly),
+                                            ))))),
                             Padding(
                               padding: const EdgeInsets.only(bottom: 8, left: 8),
                               child: Column(

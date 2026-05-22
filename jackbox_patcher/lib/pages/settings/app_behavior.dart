@@ -93,6 +93,13 @@ class _AppBehaviorSettingsState extends State<AppBehaviorSettings> {
                   isChecked: UserData().settings.isAnonymousDataActivated,
                   setter: UserData().settings.setAnonymousData,
                   parentReload: () => setState(() {})),
+                  const SizedBox(height: 10),
+                  BooleanSetting(
+                    title: 'Always show game card overlays',
+                    description: 'Show stats overlay on every card without hovering.',
+                    isChecked: UserData().settings.isAlwaysCardOverlayActivated,
+                    setter: UserData().settings.setAlwaysCardOverlay,
+                    parentReload: () => setState(() {})),
               // const SizedBox(height: 10),
               // BooleanSetting(
               //     title: TranslationsHelper()

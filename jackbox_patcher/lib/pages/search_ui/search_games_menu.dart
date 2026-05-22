@@ -40,6 +40,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
   late TextEditingController _searchController;
   bool showAllPacks = false;
   bool showHidden = false;
+  bool alwaysCardOverlay = false;
   num maxSelectableView = 0;
   List<Filter> filters = [];
   List<IntFilter> intFilters = [];
@@ -52,6 +53,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
   @override
   void initState() {
     _searchController = TextEditingController();
+    alwaysCardOverlay = UserData().settings.isAlwaysCardOverlayActivated;
     FilterType.values.forEach((element) {
       filters.add((activated: false, selected: element.values.first, type: element));
     });
@@ -162,6 +164,10 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
       // Sync new state fields from phone
       if (s.showAllPacks != showAllPacks) showAllPacks = s.showAllPacks;
       if (s.showHidden != showHidden) showHidden = s.showHidden;
+      if (s.alwaysCardOverlay != alwaysCardOverlay) {
+        alwaysCardOverlay = s.alwaysCardOverlay;
+        UserData().settings.setAlwaysCardOverlay(alwaysCardOverlay);
+      }
     });
   }
 
@@ -184,6 +190,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
           .toList(),
       showAllPacks: showAllPacks,
       showHidden: showHidden,
+      alwaysCardOverlay: alwaysCardOverlay,
     );
   }
 
@@ -341,6 +348,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                       setState(() {
                         showHidden = !showHidden;
                       });
+                      MobileRemoteServer().pushStateToPhones(_buildCurrentMobileState());
                     },
                   ),
                 if (UserJackboxPack.countUnownedPack(UserData().packs) >= 1)
@@ -376,8 +384,22 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                       setState(() {
                         showAllPacks = !showAllPacks;
                       });
+                      MobileRemoteServer().pushStateToPhones(_buildCurrentMobileState());
                     },
-                  )
+                  ),
+                PaneItem(
+                  icon: FaIcon(alwaysCardOverlay ? FontAwesomeIcons.eye : FontAwesomeIcons.eyeSlash),
+                  title: Text(alwaysCardOverlay ? 'Overlay Always On' : 'Overlay On Hover Only'),
+                  body: Container(),
+                  onTap: () {
+                    SFXService().playSFX(SFX.CLICK);
+                    setState(() {
+                      alwaysCardOverlay = !alwaysCardOverlay;
+                    });
+                    UserData().settings.setAlwaysCardOverlay(alwaysCardOverlay);
+                    MobileRemoteServer().pushStateToPhones(_buildCurrentMobileState());
+                  },
+                )
               ]),
         ));
   }
