@@ -18,6 +18,7 @@ import '../../model/user_model/user_jackbox_pack_patch.dart';
 
 class UserData {
   static final UserData _instance = UserData._internal();
+  static const String _relativePathPrefix = '__REL__';
   late SharedPreferences preferences;
   late UserSettings settings;
   late UserGameList gameList;
@@ -64,7 +65,8 @@ class UserData {
               version: preferences.getString("${pack.id}_loader_version"));
         }
 
-        final String? packPath = preferences.getString("${pack.id}_path");
+        final String? storedPackPath = preferences.getString("${pack.id}_path");
+        final String? packPath = _resolveStoredPackPath(storedPackPath);
         final bool packOwned = preferences.getBool("${pack.id}_owned") ?? false;
         final LauncherType packLauncher = LauncherType.fromName(preferences.getString("${pack.id}_origin") ?? "");
         UserJackboxPack userPack =
@@ -180,7 +182,7 @@ class UserData {
   /// Save pack (mostly used when the path parameter is changed)
   Future<void> savePack(UserJackboxPack pack) async {
     if (pack.path != null) {
-      await preferences.setString("${pack.pack.id}_path", pack.path!);
+      await preferences.setString("${pack.pack.id}_path", _normalizePackPathForStorage(pack.path!));
     } else {
       await preferences.remove("${pack.pack.id}_path");
     }
@@ -303,5 +305,51 @@ class UserData {
       return null;
     }
     return packs.firstWhere((element) => element.pack.id == id);
+  }
+
+  String _portableBaseDirectory() {
+    return File(Platform.resolvedExecutable).parent.path;
+  }
+
+  String _normalizePackPathForStorage(String path) {
+    if (!settings.isRelativePathsActivated) return path;
+
+    final String abs = path.replaceAll('/', Platform.pathSeparator);
+    final String base = _portableBaseDirectory().replaceAll('/', Platform.pathSeparator);
+
+    final String absCmp = Platform.isWindows ? abs.toLowerCase() : abs;
+    final String baseCmp = Platform.isWindows ? base.toLowerCase() : base;
+
+    if (absCmp == baseCmp) {
+      return _relativePathPrefix;
+    }
+
+    final String baseWithSep = '$base${Platform.pathSeparator}';
+    final String baseWithSepCmp = Platform.isWindows ? baseWithSep.toLowerCase() : baseWithSep;
+
+    if (absCmp.startsWith(baseWithSepCmp)) {
+      final String rel = abs.substring(baseWithSep.length);
+      return '$_relativePathPrefix$rel';
+    }
+
+    // Keep absolute if path is outside the portable base directory.
+    return path;
+  }
+
+  String? _resolveStoredPackPath(String? storedPath) {
+    if (storedPath == null) return null;
+    if (!storedPath.startsWith(_relativePathPrefix)) return storedPath;
+
+    final String rel = storedPath.substring(_relativePathPrefix.length);
+    final String base = _portableBaseDirectory();
+    if (rel.isEmpty) return base;
+    return '$base${Platform.pathSeparator}$rel';
+  }
+
+  Future<void> migratePackPathStorageMode() async {
+    // Re-save packs to convert stored paths to current mode (absolute <-> relative).
+    for (final pack in packs) {
+      await savePack(pack);
+    }
   }
 }

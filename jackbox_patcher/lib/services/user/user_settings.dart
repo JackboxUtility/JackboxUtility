@@ -40,6 +40,12 @@ class UserSettings {
     await preferences.setBool("anonymous_data", activation);
   }
 
+  bool get isRelativePathsActivated => preferences.getBool("relative_paths") ?? false;
+
+  Future<void> setRelativePaths(bool activation) async {
+    await preferences.setBool("relative_paths", activation);
+  }
+
   bool get isAlwaysCardOverlayActivated => preferences.getBool("always_card_overlay") ?? false;
 
   Future<void> setAlwaysCardOverlay(bool activation) async {

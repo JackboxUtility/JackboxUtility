@@ -95,6 +95,17 @@ class _AppBehaviorSettingsState extends State<AppBehaviorSettings> {
                   parentReload: () => setState(() {})),
                   const SizedBox(height: 10),
                   BooleanSetting(
+                    title: 'Use Relative Paths (Portable Mode)',
+                    description:
+                      'Store game folders relative to this executable so the folder can be moved (for example on a thumb drive).',
+                    isChecked: UserData().settings.isRelativePathsActivated,
+                    setter: (enabled) async {
+                    await UserData().settings.setRelativePaths(enabled);
+                    await UserData().migratePackPathStorageMode();
+                    },
+                    parentReload: () => setState(() {})),
+                  const SizedBox(height: 10),
+                  BooleanSetting(
                     title: 'Always show game card overlays',
                     description: 'Show stats overlay on every card without hovering.',
                     isChecked: UserData().settings.isAlwaysCardOverlayActivated,
