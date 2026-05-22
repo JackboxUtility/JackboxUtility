@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:jackbox_patcher/components/closable_route_with_esc.dart';
 import 'package:jackbox_patcher/components/filters/int_filter_pane_item.dart';
 import 'package:jackbox_patcher/components/stars_rate.dart';
@@ -17,6 +19,7 @@ import 'package:jackbox_patcher/services/mobile_remote/mobile_remote_server.dart
 import 'package:jackbox_patcher/services/mobile_remote/mobile_remote_state.dart';
 
 import '../../components/filters/enum_filter_pane_item.dart';
+import '../../app_configuration.dart';
 import '../../model/user_model/user_jackbox_pack.dart';
 import '../../services/api_utility/api_service.dart';
 import '../../services/translations/translations_helper.dart';
@@ -43,6 +46,8 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
   Key gamePaneKey = UniqueKey();
   bool filterPanedExpanded = false;
   bool shouldCloseOnEsc = true;
+  final FlyoutController _qrFlyoutController = FlyoutController();
+  String? _lanIp;
 
   @override
   void initState() {
@@ -55,6 +60,11 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
     UserData().gameList.loadFilters(filters);
     UserData().gameList.loadIntFilters(intFilters);
     MobileRemoteServer().stateFromPhone.addListener(_onPhoneStateChanged);
+    MobileRemoteServer().showGameNotifier.addListener(_onShowGameRequest);
+    MobileRemoteServer().sfxMuteNotifier.addListener(_onSfxMuteRequest);
+    MobileRemoteServer.getLanIpAddress().then((ip) {
+      if (mounted) setState(() => _lanIp = ip);
+    });
     super.initState();
     Future.delayed(
         Duration(milliseconds: 500), () => UserData().tips.getTip(TipAvailable.LAUNCHER_ON_STARTUP).activate(context));
@@ -63,8 +73,45 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
   @override
   void dispose() {
     MobileRemoteServer().stateFromPhone.removeListener(_onPhoneStateChanged);
+    MobileRemoteServer().showGameNotifier.removeListener(_onShowGameRequest);
+    MobileRemoteServer().sfxMuteNotifier.removeListener(_onSfxMuteRequest);
+    _qrFlyoutController.dispose();
     _searchController.dispose();
     super.dispose();
+  }
+
+  void _onShowGameRequest() {
+    final gameId = MobileRemoteServer().showGameNotifier.value;
+    if (gameId == null || !mounted) return;
+    MobileRemoteServer().showGameNotifier.value = null;
+    UserJackboxPack? foundPack;
+    UserJackboxGame? foundGame;
+    for (final p in UserData().packs) {
+      for (final g in p.games) {
+        if (g.game.id == gameId) {
+          foundPack = p;
+          foundGame = g;
+          break;
+        }
+      }
+      if (foundGame != null) break;
+    }
+    if (foundGame != null && foundPack != null) {
+      final allGames = UserData().packs
+          .expand((p) => p.games.map((g) => (g: g, p: p)))
+          .toList();
+      // Pop any stacked /game routes to prevent layering
+      Navigator.of(context).popUntil((route) => route.settings.name != '/game');
+      Navigator.pushNamed(context, '/game',
+          arguments: [foundPack, foundGame, showAllPacks, allGames]);
+    }
+  }
+
+  void _onSfxMuteRequest() {
+    final muted = MobileRemoteServer().sfxMuteNotifier.value;
+    if (muted == null) return;
+    MobileRemoteServer().sfxMuteNotifier.value = null;
+    UserData().settings.setAudio(!muted);
   }
 
   /// Called whenever the phone changes search/filter state over the LAN.
@@ -102,6 +149,9 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
           UserData().gameList.saveIntFilter(intFilters[index]);
         }
       }
+      // Sync new state fields from phone
+      if (s.showAllPacks != showAllPacks) showAllPacks = s.showAllPacks;
+      if (s.showHidden != showHidden) showHidden = s.showHidden;
     });
   }
 
@@ -122,6 +172,60 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                 'selected': f.selected,
               })
           .toList(),
+      showAllPacks: showAllPacks,
+      showHidden: showHidden,
+    );
+  }
+
+  Widget _buildQrFlyout() {
+    final ip = _lanIp;
+    final url = ip != null ? 'http://$ip:$MOBILE_REMOTE_PORT' : null;
+    return FlyoutContent(
+      child: Container(
+        width: 260,
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text('Phone Remote', style: FluentTheme.of(context).typography.subtitle),
+            const SizedBox(height: 12),
+            if (url != null) ...[  
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                padding: const EdgeInsets.all(8),
+                child: QrImageView(
+                  data: url,
+                  version: QrVersions.auto,
+                  size: 180,
+                  backgroundColor: Colors.white,
+                ),
+              ),
+              const SizedBox(height: 12),
+              Text(url, style: const TextStyle(fontSize: 11), textAlign: TextAlign.center),
+              const SizedBox(height: 8),
+              Button(
+                child: const Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    FaIcon(FontAwesomeIcons.copy, size: 12),
+                    SizedBox(width: 6),
+                    Text('Copy URL'),
+                  ],
+                ),
+                onPressed: () {
+                  Clipboard.setData(ClipboardData(text: url));
+                  _qrFlyoutController.close();
+                },
+              ),
+            ] else
+              const Text('Starting server...', style: TextStyle(fontSize: 12)),
+          ],
+        ),
+      ),
     );
   }
 
@@ -141,9 +245,27 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                   Navigator.pop(context);
                 },
               ),
-              title: Text(
-                TranslationsHelper().appLocalizations!.search_game,
-                style: typography.title,
+              title: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      TranslationsHelper().appLocalizations!.search_game,
+                      style: typography.title,
+                    ),
+                  ),
+                  FlyoutTarget(
+                    controller: _qrFlyoutController,
+                    child: Tooltip(
+                      message: 'Phone Remote QR Code',
+                      child: IconButton(
+                        icon: const FaIcon(FontAwesomeIcons.qrcode, size: 18),
+                        onPressed: () => _qrFlyoutController.showFlyout(
+                          builder: (ctx) => _buildQrFlyout(),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               )),
           pane: NavigationPane(
               size: NavigationPaneSize(openWidth: 400),
