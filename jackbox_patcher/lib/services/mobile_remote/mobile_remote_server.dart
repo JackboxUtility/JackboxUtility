@@ -137,6 +137,8 @@ class MobileRemoteServer {
                         'moderation':
                             g.game.info.moderation.toString().split('.').last,
                         'subtitles': g.game.info.subtitles,
+                        'translation':
+                            g.game.info.translation.toString().split('.').last,
                         'tags': g.game.info.tags.map((t) => t.id).toList(),
                         'hidden': g.hidden,
                         'stars': g.stars,
@@ -149,6 +151,16 @@ class MobileRemoteServer {
       jsonEncode({'packs': packs, 'state': stateFromPhone.value.toJson()}),
       headers: _jsonHeaders,
     );
+  }
+
+  Future<Response> _handleGetTags(Request _) async {
+    final tags = APIService().getTags().map((t) => {
+          'id': t.id,
+          'name': t.name,
+          'description': t.description,
+          'icon': t.icon,
+        }).toList();
+    return Response.ok(jsonEncode({'tags': tags}), headers: _jsonHeaders);
   }
 
   Future<Response> _handleLaunchGame(Request req, String gameId) async {
@@ -239,6 +251,39 @@ class MobileRemoteServer {
   }
 
   // ── helpers ────────────────────────────────────────────────────────────────
+
+  /// Picks a random game from the available (non-hidden, owned) games and
+  /// sends a navigate message back to the requesting client.
+  void _handleRandomGame(WebSocketChannel ws, Map<String, dynamic> json) {
+    try {
+      final allGames = <Map<String, dynamic>>[];
+      for (final pack in UserData().packs) {
+        if (!pack.owned) continue;
+        for (final game in pack.games) {
+          if (game.hidden) continue;
+          allGames.add({
+            'packId': pack.pack.id,
+            'gameId': game.game.id,
+            'gameName': game.game.name,
+          });
+        }
+      }
+      if (allGames.isEmpty) return;
+      final picked = allGames[Random().nextInt(allGames.length)];
+      final msg = jsonEncode({
+        'type': 'navigate',
+        'gameId': picked['gameId'],
+        'packId': picked['packId'],
+        'random': true,
+      });
+      // Broadcast to ALL phones (including requester) so all see the result
+      _broadcastToPhones(msg);
+      // Also trigger the desktop to show the random game
+      showGameNotifier.value = picked['gameId'] as String;
+    } catch (e) {
+      JULogger().w('[MobileRemote] random_game failed: $e');
+    }
+  }
   void _broadcastToPhones(String message, {WebSocketChannel? except}) {
     final dead = <WebSocketChannel>[];
     for (final client in _phoneClients) {
