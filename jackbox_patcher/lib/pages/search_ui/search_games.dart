@@ -511,6 +511,7 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
   Widget build(BuildContext context) {
     var gameInfo = widget.game.game.info;
     final alwaysCardOverlay = UserData().settings.isAlwaysCardOverlayActivated;
+    final overlayVisible = alwaysCardOverlay || smallInfoVisible;
     return MouseRegion(
         cursor: SystemMouseCursors.click,
         child: AspectRatio(
@@ -519,8 +520,8 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
               borderRadius: BorderRadius.circular(8.0),
               child: TweenAnimationBuilder<double>(
                   tween: Tween<double>(
-                    begin: isFirstTime ? 0 : ((smallInfoVisible || alwaysCardOverlay) ? 0 : 1),
-                    end: isFirstTime ? 0 : ((smallInfoVisible || alwaysCardOverlay) ? 1 : 0),
+                    begin: isFirstTime ? (overlayVisible ? 1 : 0) : (overlayVisible ? 0 : 1),
+                    end: isFirstTime ? (overlayVisible ? 1 : 0) : (overlayVisible ? 1 : 0),
                   ),
                   duration: const Duration(milliseconds: 200),
                   builder: (BuildContext context, double opacity, Widget? child) {
@@ -569,15 +570,17 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                                     child: Tooltip(
                                         message: _familyFriendlyTooltip(gameInfo.familyFriendly),
                                         child: Container(
-                                            padding: const EdgeInsets.all(6),
+                                            width: 28,
+                                            height: 28,
                                             decoration: BoxDecoration(
-                                                color: Colors.black.withOpacity(0.65),
-                                                borderRadius: BorderRadius.circular(999)),
-                                            child: FaIcon(
+                                                color: _familyFriendlyColor(gameInfo.familyFriendly),
+                                                shape: BoxShape.circle),
+                                            child: Center(
+                                                child: FaIcon(
                                               _familyFriendlyIcon(gameInfo.familyFriendly),
                                               size: 12,
-                                              color: _familyFriendlyColor(gameInfo.familyFriendly),
-                                            ))))),
+                                              color: Colors.white,
+                                            )))))),
                             Padding(
                               padding: const EdgeInsets.only(bottom: 8, left: 8),
                               child: Column(
