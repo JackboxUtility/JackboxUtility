@@ -488,7 +488,7 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
   Color _familyFriendlyColor(GameInfoFamilyFriendly familyFriendly) {
     switch (familyFriendly) {
       case GameInfoFamilyFriendly.FAMILY_FRIENDLY:
-        return Colors.lightGreen;
+        return const Color.fromARGB(255, 129, 199, 132);
       case GameInfoFamilyFriendly.OPTIONAL:
         return Colors.green;
       case GameInfoFamilyFriendly.NOT_FAMILY_FRIENDLY:
