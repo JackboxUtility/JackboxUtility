@@ -61,6 +61,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
     UserData().gameList.loadIntFilters(intFilters);
     MobileRemoteServer().stateFromPhone.addListener(_onPhoneStateChanged);
     MobileRemoteServer().showGameNotifier.addListener(_onShowGameRequest);
+    MobileRemoteServer().closeDetailNotifier.addListener(_onCloseDetailRequest);
     MobileRemoteServer().sfxMuteNotifier.addListener(_onSfxMuteRequest);
     MobileRemoteServer.getLanIpAddress().then((ip) {
       if (mounted) setState(() => _lanIp = ip);
@@ -74,6 +75,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
   void dispose() {
     MobileRemoteServer().stateFromPhone.removeListener(_onPhoneStateChanged);
     MobileRemoteServer().showGameNotifier.removeListener(_onShowGameRequest);
+    MobileRemoteServer().closeDetailNotifier.removeListener(_onCloseDetailRequest);
     MobileRemoteServer().sfxMuteNotifier.removeListener(_onSfxMuteRequest);
     _qrFlyoutController.dispose();
     _searchController.dispose();
@@ -105,6 +107,14 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
       Navigator.pushNamed(context, '/game',
           arguments: [foundPack, foundGame, showAllPacks, allGames]);
     }
+  }
+
+  void _onCloseDetailRequest() {
+    final timestamp = MobileRemoteServer().closeDetailNotifier.value;
+    if (timestamp == null || !mounted) return;
+    MobileRemoteServer().closeDetailNotifier.value = null;
+    // Close any open game detail views
+    Navigator.of(context).popUntil((route) => route.settings.name != '/game');
   }
 
   void _onSfxMuteRequest() {
