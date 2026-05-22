@@ -61,6 +61,7 @@ class MobileRemoteServer {
 
     // REST endpoints
     router.get('/api/games', _handleGetGames);
+    router.get('/api/tags', _handleGetTags);
     router.post('/api/games/launch/<gameId>', _handleLaunchGame);
     router.get('/api/state', _handleGetState);
     router.post('/api/state', _handlePostState);
@@ -109,7 +110,6 @@ class MobileRemoteServer {
               'background': APIService().assetLink(p.pack.background),
               'owned': p.owned,
               'games': p.games
-                  .where((g) => !g.hidden)
                   .map((g) => {
                         'id': g.game.id,
                         'name': g.game.name,
@@ -138,6 +138,8 @@ class MobileRemoteServer {
                             g.game.info.moderation.toString().split('.').last,
                         'subtitles': g.game.info.subtitles,
                         'tags': g.game.info.tags.map((t) => t.id).toList(),
+                        'hidden': g.hidden,
+                        'stars': g.stars,
                       })
                   .toList(),
             })
@@ -207,6 +209,22 @@ class MobileRemoteServer {
       } else if (type == 'navigate') {
         // Admin navigated to a game — broadcast to all other clients
         _broadcastToPhones(jsonEncode(json), except: ws);
+      } else if (type == 'show_game') {
+        // Admin wants to push a specific game to the desktop board
+        final gameId = json['gameId'] as String?;
+        if (gameId != null) {
+          showGameNotifier.value = gameId;
+          // Also broadcast to other phone clients
+          _broadcastToPhones(jsonEncode(json), except: ws);
+        }
+      } else if (type == 'mute_sfx') {
+        final muted = json['muted'] as bool?;
+        if (muted != null) {
+          sfxMuteNotifier.value = muted;
+        }
+      } else if (type == 'random_game') {
+        // Pick a random game from the filtered list and respond with navigate
+        _handleRandomGame(ws, json);
       }
     } catch (e) {
       JULogger().w('[MobileRemote] Could not parse WS message: $e');
