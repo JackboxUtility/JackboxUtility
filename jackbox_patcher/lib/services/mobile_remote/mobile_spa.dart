@@ -411,13 +411,16 @@ html,body{height:100%;overflow:hidden;background:#0d0e1c;color:#e8e9f0;font-fami
           <div><div class="trow-l">Show All Packs</div><div class="trow-s">Include unowned packs</div></div>
           <div class="tog" id="packTog"></div>
         </div>
-        <div class="trow" id="overlayTogRow">
-          <div><div class="trow-l">Always Show Overlay</div><div class="trow-s">Show card stats without hover</div></div>
-          <div class="tog" id="overlayTog"></div>
-        </div>
         <div class="trow" id="hiddenTogRow">
           <div><div class="trow-l">Show Hidden</div><div class="trow-s">Include hidden games</div></div>
           <div class="tog" id="hiddenTog"></div>
+        </div>
+      </div>
+      <div class="fmsec">
+        <div class="fmsh">View Settings</div>
+        <div class="trow" id="overlayTogRow">
+          <div><div class="trow-l">Always Show Overlay</div><div class="trow-s">Show card stats without hover</div></div>
+          <div class="tog" id="overlayTog"></div>
         </div>
       </div>
       <div class="fmsec">

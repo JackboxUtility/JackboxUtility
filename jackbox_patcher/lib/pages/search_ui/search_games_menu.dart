@@ -41,6 +41,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
   bool showAllPacks = false;
   bool showHidden = false;
   bool alwaysCardOverlay = false;
+  int overlayRefreshVersion = 0;
   num maxSelectableView = 0;
   List<Filter> filters = [];
   List<IntFilter> intFilters = [];
@@ -167,6 +168,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
       if (s.alwaysCardOverlay != alwaysCardOverlay) {
         alwaysCardOverlay = s.alwaysCardOverlay;
         UserData().settings.setAlwaysCardOverlay(alwaysCardOverlay);
+        overlayRefreshVersion++;
       }
     });
   }
@@ -395,6 +397,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                     SFXService().playSFX(SFX.CLICK);
                     setState(() {
                       alwaysCardOverlay = !alwaysCardOverlay;
+                      overlayRefreshVersion++;
                     });
                     UserData().settings.setAlwaysCardOverlay(alwaysCardOverlay);
                     MobileRemoteServer().pushStateToPhones(_buildCurrentMobileState());
@@ -520,6 +523,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
               memCacheHeight: 40),
           title: Text(userPack.pack.name),
           body: SearchGameWidget(
+            key: ValueKey('sgw_pack_${userPack.pack.id}_$overlayRefreshVersion'),
             filter: (UserJackboxPack pack, UserJackboxGame game) =>
                 pack.pack.id == userPack.pack.id &&
                 game.game.name.toLowerCase().contains(_searchController.text.toLowerCase()) &&
@@ -545,6 +549,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
           icon: FaIcon(type.icon),
           title: Text(type.name),
           body: SearchGameWidget(
+              key: ValueKey('sgw_type_${type.name}_$overlayRefreshVersion'),
               filter: (UserJackboxPack pack, UserJackboxGame game) =>
                   game.game.info.type == type &&
                   game.game.name.toLowerCase().contains(_searchController.text.toLowerCase()) &&
@@ -595,6 +600,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
           icon: const FaIcon(FontAwesomeIcons.gamepad),
           title: Text(TranslationsHelper().appLocalizations!.all_games),
           body: SearchGameWidget(
+              key: ValueKey('sgw_all_$overlayRefreshVersion'),
               filter: (UserJackboxPack pack, UserJackboxGame game) =>
                   game.game.name.toLowerCase().contains(_searchController.text.toLowerCase()) &&
                   (showAllPacks || pack.owned) &&
@@ -680,6 +686,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
           icon: Icon(FluentIcons.allIcons[tag.icon]),
           title: Text(tag.name),
           body: SearchGameWidget(
+              key: ValueKey('sgw_tag_${tag.id}_$overlayRefreshVersion'),
               filter: (UserJackboxPack pack, UserJackboxGame game) =>
                   game.game.info.tags.where((t) => t.id == tag.id).isNotEmpty &&
                   game.game.name.toLowerCase().contains(_searchController.text.toLowerCase()) &&
@@ -708,6 +715,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
         icon: Container(),
         title: Text(TranslationsHelper().appLocalizations!.personal_ranking),
         body: SearchGameWidget(
+          key: ValueKey('sgw_stars_$overlayRefreshVersion'),
           filter: (UserJackboxPack pack, UserJackboxGame game) =>
               game.game.name.toLowerCase().contains(_searchController.text.toLowerCase()) &&
               (showAllPacks || pack.owned) &&
