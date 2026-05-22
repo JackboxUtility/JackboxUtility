@@ -12,7 +12,7 @@ const String kMobileSpaHtml = r"""
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;overflow:hidden;background:#0d0e1c;color:#e8e9f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;-webkit-font-smoothing:antialiased}
 :root{--bg:#0d0e1c;--sf:#141628;--sf2:#1a1e38;--card:#1e2442;
-  --ac:#4a6ef5;--acd:#3a5ce0;--red:#e94560;--grn:#2dd4bf;--yel:#f9c74f;
+  --ac:#3a5ce0;--acd:#2a4cc0;--red:#e94560;--grn:#2dd4bf;--yel:#f9c74f;
   --tx:#e8e9f0;--mu:#7a7d99;--bd:rgba(255,255,255,0.08);--r:12px;--sh:0 4px 24px rgba(0,0,0,.5)}
 .view{position:fixed;inset:0;display:flex;flex-direction:column;overflow:hidden;opacity:0;pointer-events:none;transform:translateY(14px);transition:opacity .22s ease,transform .22s ease}
 .view.active{opacity:1;pointer-events:all;transform:none}
@@ -475,6 +475,9 @@ const S = {
   }catch(_){}
 })();
 
+/* HELPERS */
+function tagStr(t){return typeof t==='string'?t:(t.name||t.id||String(t));}
+
 /* WS */
 function wsConnect(){
   const p=location.protocol==='https:'?'wss:':'ws:';
@@ -507,6 +510,8 @@ function handleMsg(m){
       if(isView('vb'))renderBrowse();
       if(isView('vd'))markHostGame();
     }
+  } else if(m.type==='close_detail'){
+    if(isView('vd'))showBrowse();
   }
 }
 
@@ -551,7 +556,7 @@ function applyFilter(){
       if(f.activated&&!fMatch(g,f.selected))return false;
     }
     if(S.activeTags.size>0){
-      const gt=new Set(g.tags||[]);
+      const gt=new Set((g.tags||[]).map(tagStr));
       for(const t of S.activeTags)if(!gt.has(t))return false;
     }
     return true;
@@ -605,6 +610,7 @@ function applyDesktopState(m,force){
   if(mp){S.intFilters.minPlayers.activated=mp.activated;S.intFilters.minPlayers.selected=mp.selected;savePlayerMin();}
   const pt=(m.intFilters||[]).find(f=>f.type==='maxPlaytime');
   if(pt){S.intFilters.maxPlaytime.activated=pt.activated;S.intFilters.maxPlaytime.selected=pt.selected;}
+  if(m.activeTags){S.activeTags=new Set(m.activeTags);}
   if(m.sortOrder)S.sortOrder=m.sortOrder;
   if(m.sortAscending!==undefined)S.sortAscending=m.sortAscending;
   if(m.showAllPacks!==undefined)S.showAllPacks=m.showAllPacks;
@@ -619,6 +625,7 @@ function pushState(){
   const filters=Object.entries(S.filters).map(([k,f])=>({filterType:k,activated:f.activated,selected:f.selected}));
   filters.push({filterType:'TYPE',activated:!!S.gameType,selected:S.gameType||'VERSUS'});
   wsTx({type:'state_update',search:S.search,filters,
+    activeTags:Array.from(S.activeTags),
     sortOrder:S.sortOrder,sortAscending:S.sortAscending,
     intFilters:[
       {type:'minPlayers',activated:S.intFilters.minPlayers.activated,selected:S.intFilters.minPlayers.selected},
@@ -639,7 +646,13 @@ function setRole(role){
 }
 function isView(id){return document.getElementById(id).classList.contains('active');}
 function showView(id){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));document.getElementById(id).classList.add('active');}
-function showBrowse(){showView('vb');renderBrowse();}
+function showBrowse(){
+  // Notify desktop to close detail if in full sync
+  if(S.role==='admin'&&S.syncMode==='full'&&isView('vd')){
+    wsTx({type:'close_detail'});
+  }
+  showView('vb');renderBrowse();
+}
 
 /* BROWSE */
 function renderBrowse(){
@@ -794,7 +807,7 @@ function renderDetail(){
   ).join('');
   const tags=g.tags||[];
   document.getElementById('tagsRow').innerHTML=tags.map(t=>
-    `<span class="dtag2" onclick="filterByTag('${xe(t)}')" title="Tap to filter">#${xe(t)}</span>`
+    `<span class="dtag2" onclick="filterByTag('${xe(tagStr(t))}')" title="Tap to filter">#${xe(tagStr(t))}</span>`
   ).join('');
   document.getElementById('tagsSec').style.display=tags.length?'':'none';
   renderLaunchBar(g);
@@ -888,9 +901,10 @@ function renderFilterModal(){
   }).join('');
   const tg=document.getElementById('tagsGrid');
   if(S.allTags.length){
-    tg.innerHTML=S.allTags.map(t=>
-      `<div class="tg${d.activeTags.has(t)?' on':''}" onclick="dToggleTag('${xe(t)}')">#${xe(t)}</div>`
-    ).join('');
+    tg.innerHTML=S.allTags.map(t=>{
+      const ts=tagStr(t);
+      return `<div class="tg${d.activeTags.has(ts)?' on':''}" onclick="dToggleTag('${xe(ts)}')">#${xe(ts)}</div>`;
+    }).join('');
     document.getElementById('tagsSection').style.display='';
   } else {
     document.getElementById('tagsSection').style.display='none';
@@ -990,7 +1004,7 @@ function setTypeChip(t){
 function toggleGroup(){
   S.groupByPack=!S.groupByPack;
   document.getElementById('chipGrp').className='chip'+(S.groupByPack?' on':'');
-  document.getElementById('chipGrp').textContent=(S.groupByPack?'&#9783; By Pack':'&#9776; Flat');
+  document.getElementById('chipGrp').innerHTML=(S.groupByPack?'\u2637 By Pack':'\u2630 Flat');
   renderBrowse();
 }
 

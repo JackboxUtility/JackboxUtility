@@ -41,6 +41,10 @@ class MobileRemoteServer {
   /// The value is the game ID to navigate to. Reset to null after handling.
   final ValueNotifier<String?> showGameNotifier = ValueNotifier<String?>(null);
 
+  /// Fires when an admin phone navigates away from detail view in full sync.
+  /// The value is a timestamp. Listeners should close the detail overlay.
+  final ValueNotifier<DateTime?> closeDetailNotifier = ValueNotifier<DateTime?>(null);
+
   /// Fires when an admin phone requests SFX mute state change.
   /// The value is the desired muted state.
   final ValueNotifier<bool?> sfxMuteNotifier = ValueNotifier<bool?>(null);
@@ -237,6 +241,9 @@ class MobileRemoteServer {
       } else if (type == 'random_game') {
         // Pick a random game from the filtered list and respond with navigate
         _handleRandomGame(ws, json);
+      } else if (type == 'close_detail') {
+        // Admin navigated away from detail view — signal desktop to close detail
+        closeDetailNotifier.value = DateTime.now();
       }
     } catch (e) {
       JULogger().w('[MobileRemote] Could not parse WS message: $e');
