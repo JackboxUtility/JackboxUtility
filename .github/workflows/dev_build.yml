@@ -1,0 +1,78 @@
+name: Dev Build (Windows + Linux)
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Branch or commit to build'
+        required: false
+        default: ''
+  push:
+    branches:
+      - 'feat/**'
+      - 'fix/**'
+
+jobs:
+  build_windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.ref || github.ref }}
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.0'
+          channel: 'stable'
+
+      - name: Build Windows
+        working-directory: ./jackbox_patcher
+        run: flutter build windows -t ./lib/main_beta.dart
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: build_windows
+          path: ./jackbox_patcher/build/windows/x64/runner/Release
+          retention-days: 7
+
+  build_linux:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.ref || github.ref }}
+
+      - name: Install Linux build dependencies
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y ninja-build libgtk-3-dev
+          sudo apt-get install -y libunwind-dev \
+            libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev \
+            libgstreamer-plugins-bad1.0-dev \
+            gstreamer1.0-plugins-base gstreamer1.0-plugins-good \
+            gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly \
+            gstreamer1.0-libav gstreamer1.0-tools gstreamer1.0-x \
+            gstreamer1.0-alsa gstreamer1.0-gl gstreamer1.0-gtk3 \
+            gstreamer1.0-pulseaudio
+          sudo apt-get install -y curl libcurl4-openssl-dev
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.0'
+          channel: 'stable'
+
+      - name: Strip media_kit_libs (Linux not supported)
+        working-directory: ./jackbox_patcher
+        run: |
+          cp pubspec.yaml pubspec_orig.yaml
+          grep -v media_kit_libs pubspec_orig.yaml > pubspec.yaml
+
+      - name: Build Linux
+        working-directory: ./jackbox_patcher
+        run: flutter build linux -t ./lib/main_beta.dart
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: build_linux
+          path: ./jackbox_patcher/build/linux/x64/release/bundle
+          retention-days: 7
