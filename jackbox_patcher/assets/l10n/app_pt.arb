@@ -1,1 +1,89 @@
-{}
+{
+    "close": "Fechar",
+    "cancel": "Cancelar",
+    "page_continue": "Continuar",
+    "confirm": "Confirmar",
+    "quit": "sair",
+    "yes": "Sim",
+    "no": "Não",
+    "ok": "OK",
+    "jackbox_utility": "Jackbox Utility",
+    "settings": "Configurações",
+    "notifications": "Notificações",
+    "installing_a_patch": "A instalar o Patch",
+    "installing_a_patch_description": "Instalará o patch. Esta ação é irreversível.",
+    "thank_the_team_button": "Agradecer à equipa",
+    "thank_the_team_description": "Agradeça à equipa pela tradução",
+    "can_close_popup": "Pode fechar este pop-up",
+    "patch_unavailable": "Patch indisponível",
+    "patch_installed": "{count, plural, one {Patch instalado} other {Patches instalados}}",
+    "@patch_installed": {
+        "placeholders": {
+            "count": {
+                "type": "num",
+                "example": "1"
+            }
+        }
+    },
+    "patch_outdated": "{count, plural, one {Atualizar patch} other {Atualizar patches}}",
+    "@patch_outdated": {
+        "placeholders": {
+            "count": {
+                "type": "num",
+                "example": "1"
+            }
+        }
+    },
+    "patch_not_installed": "{count, plural, one {Instalar patch} other {Instalar patches}}",
+    "@patch_not_installed": {
+        "placeholders": {
+            "count": {
+                "type": "num",
+                "example": "1"
+            }
+        }
+    },
+    "delete_version": "Apagar versão",
+    "description": "Descrição",
+    "version": "Versão",
+    "authors": "Autor(es)",
+    "small_information": "Informação",
+    "more_informations": "Mais informações",
+    "add_pack": "Adicionar um Jogo",
+    "choose_pack": "Escolha um jogo",
+    "game_type_team": "Equipas",
+    "game_translation_not_available": "Em Inglês",
+    "downloading": "A descarregar",
+    "extracting": "A extrair",
+    "finalizing": "A finalizar",
+    "unknown_error": "Erro Desconhecido",
+    "players": "jogadores",
+    "search": "Pesquisar",
+    "select_server_loading": "A carregar servidores…",
+    "select_server_button": "Selecionar",
+    "connected_to_server_change": "Mudar",
+    "quit_while_downloading_title": "Descarga em progresso",
+    "author": "Autor",
+    "contributors": "Colaboradores",
+    "download_error": "Erro ao descarregar",
+    "extracting_error": "Erro ao extrair",
+    "small_description": "Descrição",
+    "confirmation": "Confirmação",
+    "optional": "Opcional",
+    "subtitles": "Legendas",
+    "moderation": "Moderação",
+    "filter": "Filtro",
+    "settings_audio_category": "Áudio",
+    "name": "Nome",
+    "donate": "Doar",
+    "filter_available": "Disponível",
+    "filter_translated": "Traduzido",
+    "special_thanks": "Agradecimentos especiais",
+    "custom_server_title": "Servidor personalizado",
+    "loading_try_again": "Tente novamente",
+    "privacy_info": "Informações de privacidade",
+    "installing_a_patch_end": "Instalação Concluída",
+    "delete_version_description": "Se redefinir o seu jogo, pode excluir a versão instalada deste jogo. Isso permitirá que reinstale os patches.",
+    "patch_modification": "Modificação do patch",
+    "patch_modification_description": "Este patch muda o jogo da maneira seguinte:"
+}
