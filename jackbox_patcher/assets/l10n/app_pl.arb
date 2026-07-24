@@ -461,5 +461,21 @@
     "thank_the_team_button": "Podziękuj zespołowi",
     "@thank_the_team_button": {},
     "thank_the_team_description": "Podziękuj zespołowi za tłumaczenie",
-    "@thank_the_team_description": {}
+    "@thank_the_team_description": {},
+    "settings_app_startup_title": "Otwórz Launchera przy uruchamianiu aplikacji",
+    "@settings_app_startup_title": {},
+    "settings_app_startup_description": "Otwórz listę gier przy otwieraniu aplikacji.",
+    "@settings_app_startup_description": {},
+    "settings_discord_rich_presence_category": "Ustawienia Discord Rich Presence",
+    "@settings_discord_rich_presence_category": {},
+    "settings_discord_rich_presence_title": "Discord Rich Presence",
+    "@settings_discord_rich_presence_title": {},
+    "settings_discord_rich_presence_description": "Pokazuje w co grasz na Discordzie. Będzie tylko działać jeśli Discord jest uruchomiony.",
+    "@settings_discord_rich_presence_description": {},
+    "settings_discord_rich_presence_buttons_title": "Pokaż przyciski wsparcia",
+    "@settings_discord_rich_presence_buttons_title": {},
+    "settings_discord_rich_presence_buttons_description": "Wyświetla przyciski z linkami GitHub i Discord aplikacji na Twoim koncie Discord Rich Presence.",
+    "@settings_discord_rich_presence_buttons_description": {},
+    "settings_app_saves_category": "Zapisy Aplikacji",
+    "@settings_app_saves_category": {}
 }
