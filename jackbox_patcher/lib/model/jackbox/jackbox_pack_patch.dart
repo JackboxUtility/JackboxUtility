@@ -3,6 +3,7 @@ import 'package:jackbox_patcher/model/jackbox/jackbox_game.dart';
 import 'package:jackbox_patcher/model/misc/launchers.dart';
 import 'package:jackbox_patcher/services/api_utility/api_service.dart';
 
+import '../base/patch_install_controller.dart';
 import '../base/patch_information.dart';
 import 'jackbox_pack.dart';
 
@@ -16,6 +17,7 @@ class JackboxPackPatch {
   final List<JackboxPackPatchComponent> components;
   final List<AppPlatform> supportedPlatforms;
   final List<LauncherType> supportedLaunchers;
+  final PatchInstallController? installController;
 
   JackboxPackPatch({
     required this.id,
@@ -27,6 +29,7 @@ class JackboxPackPatch {
     required this.components,
     required this.supportedPlatforms,
     required this.supportedLaunchers,
+    this.installController,
   });
 
   factory JackboxPackPatch.fromJson(Map<String, dynamic> json) {
@@ -57,6 +60,9 @@ class JackboxPackPatch {
       supportedLaunchers: json['supported_launchers'] == null
           ? [LauncherType.EPIC, LauncherType.STEAM, LauncherType.UNKNOWN]
           : List<LauncherType>.from(json['supported_launchers'].map((x) => LauncherType.fromName(x))),
+      installController: json['install_controller'] is Map<String, dynamic>
+          ? PatchInstallController.fromJson(json['install_controller'])
+          : null,
     );
   }
 
@@ -75,6 +81,7 @@ class JackboxPackPatch {
       "patch_paths": patchPaths,
       "configuration": configuration?.toJson(),
       "components": List<dynamic>.from(components.map((x) => x.toJson())),
+      if (installController != null) "install_controller": installController!.toJson(),
     };
   }
 }

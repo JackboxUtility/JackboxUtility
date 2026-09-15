@@ -5,6 +5,7 @@ import 'package:jackbox_patcher/model/user_model/user_jackbox_game_patch.dart';
 import 'package:jackbox_patcher/model/user_model/user_jackbox_pack.dart';
 
 import '../../services/downloader/downloader_service.dart';
+import '../../services/patch_install_controller/patch_install_controller_service.dart';
 import '../../services/user/user_data.dart';
 
 class UserJackboxPackPatch extends InstallablePatch {
@@ -79,6 +80,7 @@ class UserJackboxPackPatch extends InstallablePatch {
           resume);
       currentPatch++;
     }
+    await PatchInstallControllerService.run(patch.installController, patchUriWithOverride);
     installedVersion = patch.latestVersion;
   }
 
