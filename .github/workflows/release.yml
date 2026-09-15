@@ -41,7 +41,7 @@ jobs:
         no_verify_tag: "true"
     
  build_windows:
-   runs-on: windows-latest
+   runs-on: windows-2022 
    needs: retrievingVersion
    steps:
      - uses: actions/checkout@v3
