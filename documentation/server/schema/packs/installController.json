@@ -1,0 +1,31 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "packs/installController.json",
+    "title": "InstallController",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "id": {
+            "type": "string",
+            "enum": [
+                "tmp3"
+            ]
+        },
+        "controller_url": {
+            "type": "string",
+            "format": "hostname",
+            "maxLength": 10
+        },
+        "online_service_url": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^https://",
+            "maxLength": 35
+        }
+    },
+    "required": [
+        "id",
+        "controller_url",
+        "online_service_url"
+    ]
+}

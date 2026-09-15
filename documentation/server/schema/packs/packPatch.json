@@ -67,6 +67,9 @@
             "items": {
                 "$ref": "packPatchComponent.json"
             }
+        },
+        "install_controller": {
+            "$ref": "installController.json"
         }
     },
     "required": [
