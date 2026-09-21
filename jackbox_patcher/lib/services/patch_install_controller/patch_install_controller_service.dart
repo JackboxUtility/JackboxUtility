@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:jackbox_patcher/model/base/patch_install_controller.dart';
 
 import 'tmp3_install_controller.dart';
@@ -11,10 +9,6 @@ class PatchInstallControllerService {
 
     switch (controller.id) {
       case 'tmp3':
-        if (!Platform.isWindows) {
-          throw UnsupportedError(
-              'The TMP3 install controller requires Windows.');
-        }
         await Tmp3InstallController.run(
           gameDirectory,
           controller.controllerUrl,
