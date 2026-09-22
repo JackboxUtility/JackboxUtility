@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.2] - 2026-09-15
+### :wrench: Chores
+- [`95bf277`](https://github.com/JackboxUtility/JackboxUtility/commit/95bf2779233b1c401c56072d1dd8796a6e1d7424) - Change Ukrainian server link *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`d554ff0`](https://github.com/JackboxUtility/JackboxUtility/commit/d554ff0dee47ce01af1d88dac0c6a61886378a78) - Update windows version for building *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`0093555`](https://github.com/JackboxUtility/JackboxUtility/commit/00935558df531b11c1154c040c92e2751dd5fee1) - Update to 1.5.2 *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+
+
 ## [1.5.1] - 2025-10-13
 ### :sparkles: New Features
 - [`d8c065e`](https://github.com/JackboxUtility/JackboxUtility/commit/d8c065e81e3fbe45dc2998d5eeed57255e9ef342) - Add game finder from path *(commit by [@AlexisL61](https://github.com/AlexisL61))*
@@ -251,3 +258,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [1.4.2+2]: https://github.com/JackboxUtility/JackboxUtility/compare/1.4.2+1...1.4.2+2
 [1.5.0]: https://github.com/JackboxUtility/JackboxUtility/compare/1.4.2+2...1.5.0
 [1.5.1]: https://github.com/JackboxUtility/JackboxUtility/compare/1.5.0...1.5.1
+[1.5.2]: https://github.com/JackboxUtility/JackboxUtility/compare/1.5.1...1.5.2
