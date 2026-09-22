@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.3] - 2026-09-22
+### :wrench: Chores
+- [`47bc43b`](https://github.com/JackboxUtility/JackboxUtility/commit/47bc43b860a6a065b6484af200489eb1c6a5c049) - Update windows version for building *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`32c4cfc`](https://github.com/JackboxUtility/JackboxUtility/commit/32c4cfc4aec3708537dbe2d0ec4af47ae409155b) - Update to 1.5.2 *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+- [`8125348`](https://github.com/JackboxUtility/JackboxUtility/commit/8125348d6ff2e319ba5193c33baadf8df80a22a9) - Update version to 1.5.3 *(commit by [@AlexisL61](https://github.com/AlexisL61))*
+
+
 ## [1.5.2] - 2026-09-15
 ### :wrench: Chores
 - [`95bf277`](https://github.com/JackboxUtility/JackboxUtility/commit/95bf2779233b1c401c56072d1dd8796a6e1d7424) - Change Ukrainian server link *(commit by [@AlexisL61](https://github.com/AlexisL61))*
@@ -259,3 +266,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [1.5.0]: https://github.com/JackboxUtility/JackboxUtility/compare/1.4.2+2...1.5.0
 [1.5.1]: https://github.com/JackboxUtility/JackboxUtility/compare/1.5.0...1.5.1
 [1.5.2]: https://github.com/JackboxUtility/JackboxUtility/compare/1.5.1...1.5.2
+[1.5.3]: https://github.com/JackboxUtility/JackboxUtility/compare/1.5.2...1.5.3
