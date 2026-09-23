@@ -23,7 +23,7 @@ class UserSettings {
 
   bool get isOpenLauncherOnStartupActivated =>
       preferences.getBool("open_launcher_on_startup") ?? false;
-    
+
   Future<void> setOpenLauncherOnStartup(bool activation) async {
     await preferences.setBool("open_launcher_on_startup", activation);
   }
@@ -38,5 +38,15 @@ class UserSettings {
 
   Future<void> setAnonymousData(bool activation) async {
     await preferences.setBool("anonymous_data", activation);
+  }
+
+  String? get customServerUrl => preferences.getString("custom_server_url");
+
+  Future<void> setCustomServerUrl(String? url) async {
+    if (url == null || url.isEmpty) {
+      await preferences.remove("custom_server_url");
+    } else {
+      await preferences.setString("custom_server_url", url);
+    }
   }
 }
