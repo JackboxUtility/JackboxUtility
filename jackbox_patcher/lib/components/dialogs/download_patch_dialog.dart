@@ -163,8 +163,9 @@ class _DownloadPatchDialogComponentState
                 const SizedBox(height: 2),
                 Text(substatus, style: const TextStyle(fontSize: 16)),
               ]))),
-      actions: progression == 0 ||
-              status != TranslationsHelper().appLocalizations!.extracting
+      actions: (progression == 0 ||
+                  status != TranslationsHelper().appLocalizations!.extracting) &&
+              status != TranslationsHelper().appLocalizations!.finalizing
           ? [
               HyperlinkButton(
                 onPressed: () {
