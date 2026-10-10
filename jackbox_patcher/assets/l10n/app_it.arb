@@ -1,0 +1,377 @@
+{
+    "close": "Chiudi",
+    "cancel": "Annulla",
+    "page_continue": "Continua",
+    "confirm": "Conferma",
+    "quit": "Esci",
+    "yes": "Sì",
+    "no": "No",
+    "ok": "OK",
+    "jackbox_utility": "Jackbox Utility",
+    "launch_search_game": "Avvia / Cerca Giochi",
+    "patch_a_game": "Applica Patch ai Giochi",
+    "settings": "Impostazioni",
+    "notifications": "Notifiche",
+    "installing_a_patch": "Installazione di una Patch",
+    "installing_a_patch_description": "Stai per installare la patch. Questa azione è irreversibile.",
+    "installing_a_patch_end": "Installazione Completata",
+    "thank_the_team_button": "Ringrazia il team",
+    "thank_the_team_description": "Ringrazia il team per la traduzione",
+    "can_close_popup": "Puoi chiudere questo pop-up",
+    "patch_unavailable": "Patch Non Disponibile",
+    "patch_installed": "{count, plural, one {Patch installata} other {Patch installate}}",
+    "@patch_installed": {
+        "placeholders": {
+            "count": {
+                "type": "num",
+                "example": "1"
+            }
+        }
+    },
+    "patch_outdated": "{count, plural, one {Aggiorna patch} other {Aggiorna patch}}",
+    "@patch_outdated": {
+        "placeholders": {
+            "count": {
+                "type": "num",
+                "example": "1"
+            }
+        }
+    },
+    "patch_not_installed": "{count, plural, one {Installa la patch} other {Installa le patch}}",
+    "@patch_not_installed": {
+        "placeholders": {
+            "count": {
+                "type": "num",
+                "example": "1"
+            }
+        }
+    },
+    "delete_version": "Eliminazione versione",
+    "delete_version_description": "Se hai reimpostato il gioco, puoi eliminare la versione installata di questo gioco. Ciò ti permetterà di reinstallare le patch.",
+    "description": "Descrizione",
+    "patch_modification": "Modifica della patch",
+    "patch_modification_description": "Questa patch modifica il gioco nel seguente modo:",
+    "patch_modification_content_text": "Modifica del contenuto testuale del gioco",
+    "patch_modification_content_internal": "Modifica dei file interni del gioco (immagini, testi...)",
+    "patch_modification_content_subtitles": "Modifica dei sottotitoli del gioco",
+    "patch_modification_content_website": "Modifica del contenuto testuale del client jackbox (disponibile solo su {website})",
+    "@patch_modification_content_website": {
+        "placeholders": {
+            "website": {
+                "type": "String",
+                "example": "laboxdejack.fr"
+            }
+        }
+    },
+    "patch_modification_content_audios": "Modifica dell'audio del gioco",
+    "version": "Versione",
+    "authors": "Autore/i",
+    "small_information": "Info",
+    "more_informations": "Ulteriori Informazioni",
+    "launch_game": "Avvia il Gioco",
+    "launch_game_fast_launcher": "Avvia il Gioco (Avvio Rapido)",
+    "launch_game_fast_launcher_description": "Avvia il gioco in modalità avvio rapido, che permette di saltare il video introduttivo del pacchetto e la scelta del gioco. Disponibile solo per alcuni giochi.",
+    "launch_pack": "Avvia il Gioco",
+    "launch_pack_description": "Avvia il pacchetto normalmente",
+    "launch_informations": "Informazioni sull'Avvio",
+    "launching": "Avvio in corso…",
+    "launched": "Avviato!",
+    "path_not_found": "Percorso Non Trovato",
+    "path_not_found_small_description": "Il percorso del gioco non è stato trovato.",
+    "path_not_found_description": "Il percorso del gioco non è stato trovato. Verifica che il gioco sia installato e che il percorso sia corretto.",
+    "path_inexistant": "Percorso inesistente",
+    "path_inexistant_small_description": "Non hai aggiunto il percorso al pacchetto.",
+    "path_inexistant_description": "Non hai aggiunto il percorso al pacchetto. Puoi farlo nelle impostazioni.",
+    "pack_path": "Percorso del gioco",
+    "owned_packs": "Giochi Posseduti",
+    "add_pack": "Aggiungi un Gioco",
+    "choose_pack": "Scegli un Gioco",
+    "game_type_coop": "Cooperativa",
+    "game_type_coop_description": "In questi giochi, i giocatori devono collaborare per vincere.",
+    "game_type_versus": "Tutti contro tutti",
+    "game_type_versus_description": "In questi giochi, ogni giocatore gioca per sé e deve battere gli altri giocatori.",
+    "game_type_team": "A squadre",
+    "game_type_team_description": "In questi giochi, i giocatori sono divisi in squadre e devono collaborare per vincere.",
+    "game_translation_translated": "Ufficialmente Tradotto in {language}",
+    "@game_translation_translated": {
+        "placeholders": {
+            "language": {
+                "type": "String",
+                "example": "French"
+            }
+        }
+    },
+    "game_translation_translated_description": "Questi giochi sono tradotti nativamente in {language}.",
+    "@game_translation_translated_description": {
+        "placeholders": {
+            "language": {
+                "type": "String",
+                "example": "French"
+            }
+        }
+    },
+    "game_translation_translated_description_en": "Questi giochi sono tradotti in francese, italiano, tedesco e spagnolo da Jackbox Games.",
+    "game_translation_community_translated": "Tradotto dalla Community",
+    "game_translation_community_translated_description": "Questi giochi sono tradotti dalla community.",
+    "game_translation_not_available": "In inglese",
+    "game_translation_not_available_description": "Questi giochi non sono tradotti in {language}.",
+    "@game_translation_not_available_description": {
+        "placeholders": {
+            "language": {
+                "type": "String",
+                "example": "French"
+            }
+        }
+    },
+    "game_translation_not_available_description_en": "Questi giochi sono disponibili solo in inglese.",
+    "downloading": "Download in corso",
+    "starting": "Avvio",
+    "extracting": "Estrazione in corso",
+    "finalizing": "Finalizzazione",
+    "unknown_error": "Errore Sconosciuto",
+    "contact_error": "Contatta Alexisl61 su Discord",
+    "game_patch_unavailable": "Patch non disponibile",
+    "game_patch_available": "È disponibile una patch",
+    "game_patch_installed": "La patch è aggiornata",
+    "game_patch_outdated": "È disponibile un aggiornamento per questa patch",
+    "players": "giocatori",
+    "search_game": "Cerca un Gioco",
+    "search": "Cerca",
+    "all_games": "Tutti i Giochi",
+    "all_games_description": "Trova tutti i giochi Jackbox in un unico posto.",
+    "search_by_pack": "Cerca per Pacchetto",
+    "search_by_type": "Cerca per Tipo",
+    "search_by_translation": "Cerca per Traduzione",
+    "search_by_tags": "Cerca per Tag",
+    "select_server_subtitle": "Seleziona uno dei server disponibili",
+    "select_server_loading": "Caricamento server…",
+    "select_server_button": "Seleziona",
+    "connected_to_server": "Connesso al server {server}",
+    "@connected_to_server": {
+        "placeholders": {
+            "server": {
+                "type": "String",
+                "example": "Jackbox France"
+            }
+        }
+    },
+    "connected_to_server_change": "Cambia",
+    "connection_to_server_failed": "Connessione al Server Fallita",
+    "connection_to_main_server_failed": "Errore durante il recupero dei server disponibili.",
+    "quit_while_downloading_title": "Download in Corso",
+    "quit_while_downloading_description": "Un download è in corso. Sei sicuro di voler uscire adesso?",
+    "automatic_game_finder_title": "Rilevamento Automatico dei Giochi",
+    "automatic_game_finder_description": "Jackbox Utility può rilevare i giochi installati su questo computer tramite Steam ed Epic Games.\nVuoi utilizzare questa funzione?",
+    "automatic_game_finder_in_progress": "Recupero dei giochi in corso, attendere",
+    "automatic_game_finder_finish": "{count, plural, =0 {Nessun gioco trovato} one {1 gioco trovato} other {{count} giochi trovati}}",
+    "@automatic_game_finder_finish": {
+        "placeholders": {
+            "count": {
+                "type": "num",
+                "example": "1"
+            }
+        }
+    },
+    "automatic_server_finder_found": "Server Trovato",
+    "automatic_server_finder_found_description": "Il server {server} è stato scelto in base alla tua lingua.",
+    "@automatic_server_finder_found_description": {
+        "placeholders": {
+            "server": {
+                "type": "String",
+                "example": "Jackbox France"
+            }
+        }
+    },
+    "show_all_packs": "Mostra Giochi Non Posseduti",
+    "show_owned_packs_only": "Mostra Solo i Giochi Posseduti",
+    "all_patches": "Tutte le patch",
+    "error_happened": "Si è verificato un errore",
+    "jackbox_utility_description": "Un'app open-source per scaricare patch e avviare giochi Jackbox.",
+    "server_information": "Informazioni Server (Lingua)",
+    "selected_server": "Server Selezionato",
+    "change_server": "Cambia Server",
+    "app_information": "Informazioni sull'App",
+    "automatic_game_finder_button": "Rileva automaticamente i giochi installati",
+    "games_available": "{count, plural, =0 {Nessun gioco disponibile} one {1 gioco disponibile} other {{count} giochi disponibili}}",
+    "@games_available": {
+        "placeholders": {
+            "count": {
+                "type": "num",
+                "example": "1"
+            }
+        }
+    },
+    "author": "Autore",
+    "contributors": "Contributori",
+    "in_language": "In {language}",
+    "@in_language": {
+        "placeholders": {
+            "language": {
+                "type": "String",
+                "example": "French"
+            }
+        }
+    },
+    "in_language_description": "Questi giochi sono disponibili in {language} (nativamente o tradotti dalla community.)",
+    "@in_language_description": {
+        "placeholders": {
+            "language": {
+                "type": "String",
+                "example": "French"
+            }
+        }
+    },
+    "game_community_dubbed": "Doppiato dalla Community",
+    "game_community_dubbed_description": "Questi giochi sono doppiati dalla community.",
+    "game_dubbed": "Doppiato in {language}",
+    "@game_dubbed": {
+        "placeholders": {
+            "language": {
+                "type": "String",
+                "example": "French"
+            }
+        }
+    },
+    "game_dubbed_description": "Questi giochi sono doppiati dalla community o da Jackbox.",
+    "no_game_in_this_category_title": "Nessun gioco in questa categoria",
+    "no_game_in_this_category_description": "Non ci sono giochi in questa categoria. Prova ad aggiungerne altri nella sezione Impostazioni.",
+    "select_game_location": "Seleziona la posizione di {game}",
+    "@select_game_location": {
+        "placeholders": {
+            "game": {
+                "type": "String",
+                "example": "The Jackbox Party Pack 1"
+            }
+        }
+    },
+    "download_error": "Errore durante il download",
+    "download_error_description": "Si è verificato un errore durante il download del gioco. Verifica la tua connessione internet e riprova.",
+    "extracting_error": "Errore durante l'estrazione",
+    "extracting_error_description": "Si è verificato un errore durante l'estrazione del gioco. Controlla se hai abbastanza spazio di archiviazione libero e riprova.",
+    "game_reset": "Reimposta Gioco",
+    "game_reset_description": "Questo verificherà tutti i file di questo gioco. Se hai installato delle patch, verranno eliminate dal gioco. Sei sicuro di voler continuare?",
+    "small_description": "Descrizione",
+    "patreon_subscribers": "Abbonati Patreon",
+    "audience": "Pubblico",
+    "confirmation": "Conferma",
+    "confirmation_description": "Sei sicuro di voler {action}? Questa azione non può essere annullata.",
+    "@confirmation_description": {
+        "placeholders": {
+            "action": {
+                "type": "String",
+                "example": "remove all stars"
+            }
+        }
+    },
+    "fix": "Correggi",
+    "fixes_available": "Fix per YDKJ Vol. 6",
+    "fixes_available_description": "È stato rilevato che You Don't Know Jack Vol. 6 The Lost Gold è uno dei giochi installati. Questo gioco normalmente non funziona su Windows 10/11 e Linux. Vorresti scaricare e installare una patch che lo corregge? Puoi sempre installarla nella scheda delle informazioni del gioco corrispondente.",
+    "filter_players_number": "Numero di Giocatori",
+    "family_friendly": "Per Tutta la Famiglia",
+    "optional": "Opzionale",
+    "subtitles": "Sottotitoli",
+    "stream_friendly": "Adatto allo Streaming",
+    "moderation": "Moderazione",
+    "randomize_button_text": "Proviamo con un altro!",
+    "feeling_lucky": "Mi sento fortunato",
+    "sort_by": "Ordina per {type}",
+    "@sort_by": {
+        "placeholders": {
+            "type": {
+                "type": "String",
+                "example": "Name"
+            }
+        }
+    },
+    "filter": "Filtra",
+    "show_games_hidden": "Mostra i Giochi Nascosti",
+    "hide_games_hidden": "Nascondi i Giochi Nascosti",
+    "max_playtime": "Durata Massima",
+    "search_by_ranking": "Cerca per Classifica",
+    "random_game": "Gioco Casuale",
+    "personal_ranking": "Classifica Personale",
+    "ranked_by_stars": "Classificato per Stelle",
+    "games_ranked_by_stars_from_personal_ranking": "Giochi classificati per stelle dalla tua classifica personale.",
+    "unranked": "Non classificato",
+    "app_behavior": "Comportamento dell'App",
+    "settings_app_startup_category": "Avvio dell'App",
+    "settings_app_startup_title": "Apri l'Avviatore all'Avvio dell'App",
+    "settings_app_startup_description": "Apri la lista dei giochi quando avvii l'app.",
+    "settings_discord_rich_presence_category": "Impostazioni Discord Rich Presence",
+    "settings_discord_rich_presence_title": "Discord Rich Presence",
+    "settings_discord_rich_presence_description": "Mostra a cosa stai giocando su Discord. Funzionerà solo se hai Discord aperto.",
+    "settings_discord_rich_presence_buttons_title": "Mostra Pulsanti di Supporto",
+    "settings_discord_rich_presence_buttons_description": "Mostra i pulsanti con i link a GitHub e al Discord dell'app nel tuo Discord Rich Presence.",
+    "settings_audio_category": "Audio",
+    "settings_sfx_title": "Abilita Effetti Sonori",
+    "settings_sfx_description": "Abilita gli effetti sonori nell'app.",
+    "settings_app_saves_category": "Salvataggi dell'App",
+    "settings_app_reset_stars_title": "Reimposta Stelle",
+    "settings_app_reset_stars_description": "Reimposta tutte le stelle per ogni gioco.",
+    "settings_app_reset_stars_button_text": "Reimposta Stelle",
+    "settings_app_reset_stars_action": "reimpostare tutte le stelle per ogni gioco",
+    "settings_app_reset_hidden_title": "Reimposta Giochi Nascosti",
+    "settings_app_reset_hidden_description": "Reimposta tutti i giochi nascosti come visibili.",
+    "settings_app_reset_hidden_button_text": "Reimposta Giochi Nascosti",
+    "settings_app_reset_hidden_action": "reimpostare tutti i giochi nascosti come visibili",
+    "rich_presence_application_start_details": "Ha appena avviato l'App",
+    "rich_presence_application_start_state": "Nel Menu",
+    "rich_presence_game_menu_details": "Scelta di un Gioco",
+    "rich_presence_game_menu_state": "Nella Lista dei Giochi",
+    "rich_presence_game_information_details": "Lettura delle Informazioni di un Gioco",
+    "rich_presence_game_information_state": "Scelta di un Gioco",
+    "rich_presence_patcher_details": "Applicazione di una Patch a un Gioco",
+    "rich_presence_patcher_state": "Nella Lista delle Patch",
+    "rich_presence_settings_details": "Modifica dell'App",
+    "rich_presence_settings_state": "Nelle Impostazioni",
+    "rich_presence_in_game_details": "In gioco",
+    "open_launcher_on_startup_title_tip": "Apri l'Avviatore all'Avvio",
+    "open_launcher_on_startup_description_tip": "L'app può avviarsi su questa schermata quando si avvia automaticamente. Vuoi attivare questa funzione? (Può sempre essere modificata nelle impostazioni.)",
+    "minutes": "minuti",
+    "translation": "Traduzione",
+    "using_beta_version_text": "Stai usando la versione beta dell'app. Se riscontri dei problemi, segnalali sul server Discord o sul repository GitHub.",
+    "pack": "Pacchetto",
+    "stars": "Stelle",
+    "name": "Nome",
+    "players_number": "Numero di Giocatori",
+    "donate": "Dona",
+    "installed_version": "Versione Installata",
+    "filter_available": "Disponibile",
+    "filter_fully_playable": "Completamente Giocabile",
+    "filter_midly_playable": "Parzialmente Giocabile",
+    "filter_playable": "Giocabile",
+    "filter_full_moderation": "Moderazione Completa",
+    "filter_censoring": "Censura",
+    "filter_moderation_censoring": "Mod. e Censura",
+    "filter_dubbed": "Doppiato",
+    "filter_translated": "Tradotto",
+    "special_thanks": "Ringraziamenti Speciali",
+    "stream_friendly_tooltip": "Se puoi giocare a questo gioco attraverso uno stream, sia su una piattaforma di streaming che condividendo lo schermo tramite Discord, Zoom, Meet, ecc.",
+    "family_friendly_tooltip": "Se questo gioco può essere giocato con tutta la famiglia (bambini inclusi.)",
+    "moderation_tooltip": "Se questo gioco ha un sistema di moderazione (accetta, rifiuta o censura l'input dei giocatori sullo schermo.)",
+    "audience_tooltip": "Se questo gioco accetta membri del pubblico (fino a 10.000, salvo indicazione contraria) per giocare dopo che i giocatori si sono uniti.",
+    "subtitles_tooltip": "Se questo gioco ha sottotitoli da visualizzare sullo schermo.",
+    "custom_server_title": "Server Personalizzato",
+    "custom_server_description": "Usa un link per connetterti a un server personalizzato.",
+    "custom_server_explanation": "Usa un link al file info.json di un server personalizzato per connetterti ad esso.",
+    "custom_server_error": "Impossibile recuperare il server dal link.",
+    "custom_server_warning": "Se qualcuno ti ha chiesto di aggiungere un link qui, è probabile che sia una truffa. Non continuare se non ti fidi del proprietario di questo server.",
+    "custom_server_add_question": "Vuoi usare questo server?",
+    "custom_server_link": "Link del server personalizzato",
+    "loading_initialization_failed": "Inizializzazione dell'app fallita.",
+    "loading_connection_failed": "Connessione al server fallita.",
+    "loading_save_failed": "Impossibile recuperare i tuoi salvataggi.",
+    "loading_open_issue_discord": "Apri un problema su GitHub o segnalalo su Discord.",
+    "loading_check_internet_connection": "Controlla la tua connessione internet e riprova.",
+    "loading_try_again": "Riprova",
+    "settings_anonymous_data_title": "Raccolta dati anonimi",
+    "settings_anonymous_data_description": "Aiutaci a migliorare l'app inviando dati anonimi sul tuo utilizzo dell'app.",
+    "privacy_info": "Informativa sulla privacy",
+    "privacy_description": "Questa app raccoglie statistiche anonime per migliorare l'app. Puoi disabilitarlo nelle impostazioni.",
+    "hidden_button_tooltip": "Clicca per nascondere questo gioco dalla lista dei giochi.",
+    "hidden_button_hidden_tooltip": "Clicca per mostrare questo gioco nella lista dei giochi.",
+    "patch_missing_before_launching_title": "Patch Mancante",
+    "patch_missing_before_launching_description": "Per questo gioco è disponibile una patch. Vuoi installarla prima di avviare il gioco?",
+    "patch_missing_before_launching_install": "Installa Patch",
+    "patch_missing_before_launching_launch": "Avvia il Gioco"
+}
