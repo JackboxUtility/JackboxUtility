@@ -1,0 +1,44 @@
+name: SignPath Windows test
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  sign:
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.35.1'
+          channel: stable
+      - name: Build Windows
+        working-directory: jackbox_patcher
+        run: flutter build windows --release -t lib/main_release.dart
+      - name: Add Windows DLLs
+        run: Copy-Item ./libs/windows/* ./jackbox_patcher/build/windows/x64/runner/Release/
+      - uses: actions/upload-artifact@v4
+        id: unsigned
+        with:
+          name: windows-unsigned
+          path: jackbox_patcher/build/windows/x64/runner/Release
+          if-no-files-found: error
+      - uses: signpath/github-action-submit-signing-request@f6d04783b4569d051e0c80105fe66e82819d0092 # v3
+        with:
+          api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+          organization-id: ${{ vars.SIGNPATH_ORGANIZATION_ID }}
+          project-slug: ${{ vars.SIGNPATH_PROJECT_SLUG }}
+          signing-policy-slug: test-signing
+          artifact-configuration-slug: windows
+          github-artifact-id: ${{ steps.unsigned.outputs.artifact-id }}
+          wait-for-completion: true
+          output-artifact-directory: signed
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows-test-signed
+          path: signed
+          if-no-files-found: error

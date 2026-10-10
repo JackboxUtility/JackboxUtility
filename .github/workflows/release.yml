@@ -43,6 +43,9 @@ jobs:
  build_windows:
    runs-on: windows-2022 
    needs: retrievingVersion
+   permissions:
+     contents: read
+     actions: read
    steps:
      - uses: actions/checkout@v3
      - uses: subosito/flutter-action@v2
@@ -62,9 +65,28 @@ jobs:
        run: |
         copy .\libs\windows\* .\jackbox_patcher\build\windows\x64\runner\Release\
      - uses: actions/upload-artifact@v4
+       id: unsigned
        with:
-          name: build_windows
+          name: ${{ vars.SIGNPATH_PRODUCTION_ENABLED == 'true' && 'windows-unsigned' || 'build_windows' }}
           path: ./jackbox_patcher/build/windows/x64/runner/Release
+          if-no-files-found: error
+     - uses: signpath/github-action-submit-signing-request@f6d04783b4569d051e0c80105fe66e82819d0092 # v3
+       if: vars.SIGNPATH_PRODUCTION_ENABLED == 'true'
+       with:
+         api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+         organization-id: ${{ vars.SIGNPATH_ORGANIZATION_ID }}
+         project-slug: ${{ vars.SIGNPATH_PROJECT_SLUG }}
+         signing-policy-slug: release-signing
+         artifact-configuration-slug: windows
+         github-artifact-id: ${{ steps.unsigned.outputs.artifact-id }}
+         wait-for-completion: true
+         output-artifact-directory: signed
+     - uses: actions/upload-artifact@v4
+       if: vars.SIGNPATH_PRODUCTION_ENABLED == 'true'
+       with:
+         name: build_windows
+         path: signed
+         if-no-files-found: error
           
  build_linux:
    runs-on: ubuntu-24.04 
