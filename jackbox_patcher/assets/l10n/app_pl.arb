@@ -461,5 +461,11 @@
     "thank_the_team_button": "Podziękuj zespołowi",
     "@thank_the_team_button": {},
     "thank_the_team_description": "Podziękuj zespołowi za tłumaczenie",
-    "@thank_the_team_description": {}
+    "@thank_the_team_description": {},
+    "settings_custom_server_url_title": "Niestandardowy URL serwera gry",
+    "@settings_custom_server_url_title": {},
+    "settings_custom_server_url_description": "Ustaw niestandardowy serverUrl do uruchamiania gier (np. ecast.jackboxgames.com). Zostaw puste, aby użyć domyślnych serwerów.",
+    "@settings_custom_server_url_description": {},
+    "settings_custom_server_url_placeholder": "np. ecast.jackboxgames.com",
+    "@settings_custom_server_url_placeholder": {}
 }

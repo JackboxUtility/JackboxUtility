@@ -18,5 +18,11 @@
   "confirm": "Bekreft",
   "@confirm": {},
   "quit": "avslutt",
-  "@quit": {}
+  "@quit": {},
+  "settings_custom_server_url_title": "Custom Game Server URL",
+  "@settings_custom_server_url_title": {},
+  "settings_custom_server_url_description": "Set a custom serverUrl for launching games (e.g., ecast.jackboxgames.com). Leave empty to use default game servers.",
+  "@settings_custom_server_url_description": {},
+  "settings_custom_server_url_placeholder": "e.g., ecast.jackboxgames.com",
+  "@settings_custom_server_url_placeholder": {}
 }

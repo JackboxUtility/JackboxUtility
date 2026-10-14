@@ -830,6 +830,17 @@ class AppLocalizationsTr extends AppLocalizations {
       'Bu uygulamanın kullanımını anonim olarak göndererek bu uygulamayı daha iyi hale getirmemize yardım edin.';
 
   @override
+  String get settings_custom_server_url_title => 'Özel Oyun Sunucusu URL\'si';
+
+  @override
+  String get settings_custom_server_url_description =>
+      'Oyunları başlatmak için özel bir serverUrl ayarlayın (örn. ecast.jackboxgames.com). Varsayılan sunucuları kullanmak için boş bırakın.';
+
+  @override
+  String get settings_custom_server_url_placeholder =>
+      'örn. ecast.jackboxgames.com';
+
+  @override
   String get privacy_info => 'Gizlilik notu';
 
   @override
