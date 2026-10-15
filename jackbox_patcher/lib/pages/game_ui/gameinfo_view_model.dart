@@ -137,6 +137,8 @@ class GameinfoViewModel extends EventViewModel {
       launchingStatus = GameInfoLaunchingStatus.LAUNCHED;
       notify(null);
     }).catchError((error) {
+      // Let the user try again
+      launchingStatus = GameInfoLaunchingStatus.WAITING;
       notify(InfoBarEvent(error.toString()));
     });
   }

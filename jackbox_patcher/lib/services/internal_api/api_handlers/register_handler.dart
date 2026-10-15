@@ -29,14 +29,15 @@ class RegisterHandler extends AbstractHandler {
 
       windowManager.focus();
 
-      bool isExtensionAccepted = await showDialog(
+      // Null when the dialog is closed without choosing (e.g. with Esc)
+      bool? isExtensionAccepted = await showDialog<bool>(
           context: RestApiRouter().context!,
           builder: (context) {
             return ExtensionConnectionDialog(
                 extension: extension, scopes: scopes);
-          }) as bool;
+          });
 
-      if (!isExtensionAccepted) {
+      if (isExtensionAccepted != true) {
         return Response.forbidden(
             jsonEncode({"error": "Extension not accepted"}));
       }

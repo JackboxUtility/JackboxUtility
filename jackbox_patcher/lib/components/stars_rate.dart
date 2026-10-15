@@ -34,6 +34,15 @@ class _StarsRateWidgetState extends State<StarsRateWidget> {
   }
 
   @override
+  void didUpdateWidget(covariant StarsRateWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // The widget isn't always rebuilt from scratch, so the stars must follow the new value
+    if (oldWidget.defaultStars != widget.defaultStars) {
+      stars = widget.defaultStars;
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
       for (int i = 0; i < 5; i++)

@@ -7,12 +7,17 @@ import 'package:jackbox_patcher/model/user_model/user_jackbox_game.dart';
 import 'package:jackbox_patcher/model/user_model/user_jackbox_pack.dart';
 import 'package:jackbox_patcher/services/api_utility/api_service.dart';
 import 'package:jackbox_patcher/services/audio/sfx_service.dart';
+import 'package:jackbox_patcher/services/gamepad/gamepad_service.dart';
 import 'package:jackbox_patcher/services/user/user_data.dart';
 
 import '../../components/closable_route_with_esc.dart';
+import '../../components/focusable_tap.dart';
+import '../../components/pane_page_traversal.dart';
+import '../../components/quick_launch_area.dart';
 import '../../components/stars_rate.dart';
 import '../../model/misc/audio/SFXEnum.dart';
 import '../../services/discord/discord_service.dart';
+import '../../services/error/error.dart';
 import '../../services/launcher/launcher.dart';
 import '../../services/translations/translations_helper.dart';
 
@@ -108,13 +113,14 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(children: [
+    return PanePageTraversal(
+        child: ListView(children: [
       _buildHeader(),
       _buildBottom(),
       SizedBox(
         height: 20,
       )
-    ]);
+    ]));
   }
 
   Widget _buildHeader() {
@@ -185,9 +191,9 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
                         Row(
                           children: [
                             MouseRegion(
-                                child: GestureDetector(
+                                child: FocusableTap(
                                     child: Icon(sortAscending ? FontAwesomeIcons.sortDown : FontAwesomeIcons.sortUp),
-                                    onTap: () {
+                                    onPressed: () {
                                       SFXService().playSFX(SFX.CLICK);
                                       key = UniqueKey();
                                       setState(() => sortAscending = !sortAscending);
@@ -285,6 +291,7 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
                 crossAxisCount: _getGamesByGrid(),
                 children: gamesWithSeparator
                     .map((game) => SearchGameGameWidget(
+                          key: ValueKey((game["game"] as UserJackboxGame).game.id),
                           pack: game["pack"] as UserJackboxPack,
                           game: game["game"] as UserJackboxGame,
                           showAllPacks: widget.showAllPacks,
@@ -295,9 +302,8 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
                                     p: gamesWithSeparator[index]["pack"] as UserJackboxPack
                                   )),
                           parentReload: () {
-                            setState(() {
-                              key = UniqueKey();
-                            });
+                            // The grid isn't rebuilt from scratch, so the focus can come back on the game
+                            setState(() {});
                             if (widget.parentReload != null) {
                               widget.parentReload!();
                             }
@@ -320,9 +326,12 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
                   crossAxisCount: _getGamesByGrid(),
                   children: games
                       .map((game) => SearchGameGameWidget(
+                          key: ValueKey((game["game"] as UserJackboxGame).game.id),
                           pack: game["pack"] as UserJackboxPack,
                           game: game["game"] as UserJackboxGame,
                           showAllPacks: widget.showAllPacks,
+                          // With a controller, start on the first game so it can be opened right away
+                          autofocus: game == games.first && GamepadService().padConnected.value,
                           allAvailableGames: List.generate(
                               games.length,
                               (index) => (
@@ -330,9 +339,8 @@ class _SearchGameWidgetState extends State<SearchGameWidget> {
                                     p: games[index]["pack"] as UserJackboxPack
                                   )),
                           parentReload: () {
-                            setState(() {
-                              key = UniqueKey();
-                            });
+                            // The grid isn't rebuilt from scratch, so the focus can come back on the game
+                            setState(() {});
 
                             if (widget.parentReload != null) {
                               widget.parentReload!();
@@ -456,7 +464,8 @@ class SearchGameGameWidget extends StatefulWidget {
       required this.showAllPacks,
       this.parentReload,
       this.allAvailableGames,
-      this.disableHero})
+      this.disableHero,
+      this.autofocus = false})
       : super(key: key);
 
   final UserJackboxPack pack;
@@ -465,6 +474,7 @@ class SearchGameGameWidget extends StatefulWidget {
   final Function? parentReload;
   final bool? disableHero;
   final List<({UserJackboxGame g, UserJackboxPack p})>? allAvailableGames;
+  final bool autofocus;
   @override
   State<SearchGameGameWidget> createState() => _SearchGameGameWidgetState();
 }
@@ -472,32 +482,42 @@ class SearchGameGameWidget extends StatefulWidget {
 class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
   bool isFirstTime = true;
   bool smallInfoVisible = false;
+  bool focused = false;
   @override
   Widget build(BuildContext context) {
     var gameInfo = widget.game.game.info;
     return MouseRegion(
         cursor: SystemMouseCursors.click,
-        child: AspectRatio(
+        // X on a controller (or Space on the keyboard, Enter opens the game page) launches the focused game without
+        // opening its page, like its small play button
+        child: QuickLaunchArea(
+            enabled: widget.pack.owned,
+            onLaunch: _launchGame,
+            child: FocusableTap(
+                autofocus: widget.autofocus,
+                onPressed: _openGame,
+                // No glow: it would tint the whole banner in blue, and the game info already shows that it's focused
+                focusStyle: const FocusThemeData(glowFactor: 0.0),
+                // Show the game info when it's focused with the keyboard or a controller, like on mouse hover
+                onFocusChange: (bool value) => setState(() {
+                      isFirstTime = false;
+                      focused = value;
+                      if (value) {
+                        SFXService().playSFX(SFX.HOVER_OVER_BANNER);
+                      }
+                    }),
+                child: AspectRatio(
           aspectRatio: 2.17,
           child: ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
               child: TweenAnimationBuilder<double>(
                   tween: Tween<double>(
-                    begin: isFirstTime ? 0 : (smallInfoVisible ? 0 : 1),
-                    end: isFirstTime ? 0 : (smallInfoVisible ? 1 : 0),
+                    begin: isFirstTime ? 0 : (smallInfoVisible || focused ? 0 : 1),
+                    end: isFirstTime ? 0 : (smallInfoVisible || focused ? 1 : 0),
                   ),
                   duration: const Duration(milliseconds: 200),
                   builder: (BuildContext context, double opacity, Widget? child) {
-                    return GestureDetector(
-                        onTap: () async {
-                          await Navigator.pushNamed(context, "/game",
-                              arguments: [widget.pack, widget.game, widget.showAllPacks, widget.allAvailableGames]);
-                          if (widget.parentReload != null) {
-                            widget.parentReload!();
-                          }
-                          _startDiscordrichPresence();
-                        },
-                        child: MouseRegion(
+                    return MouseRegion(
                           onEnter: (a) => setState(() {
                             isFirstTime = false;
                             smallInfoVisible = true;
@@ -590,23 +610,67 @@ class _SearchGameGameWidgetState extends State<SearchGameGameWidget> {
                                               opacity: opacity,
                                               child: Padding(
                                                   padding: EdgeInsets.only(right: 8),
-                                                  child: Button(
-                                                    style: ButtonStyle(
-                                                      backgroundColor: ButtonState.all<Color>(Colors.green),
-                                                    ),
-                                                    child: Icon(FontAwesomeIcons.play),
-                                                    onPressed: () {
-                                                      Launcher.launchGame(widget.pack, widget.game);
-                                                    },
-                                                  ))),
+                                                  child: ValueListenableBuilder<bool>(
+                                                      valueListenable: GamepadService().controllerInUse,
+                                                      builder: (context, controllerInUse, _) {
+                                                        // While the controller is in use, the games show X (which
+                                                        // launches the focused one) instead of the play button, except
+                                                        // another game under the mouse, which shows it to be clicked
+                                                        bool showX = controllerInUse && (focused || !smallInfoVisible);
+                                                        // Pushed in while X or Space is held, then launching
+                                                        return QuickLaunchFeedback(
+                                                            child: Stack(alignment: Alignment.center, children: [
+                                                          // Only hidden, without animation, so its green box is never
+                                                          // seen around X and a click on X still launches the game
+                                                          Opacity(
+                                                              opacity: showX ? 0 : 1,
+                                                              child: Button(
+                                                                // Only for the mouse, X does the same with a controller
+                                                                focusable: false,
+                                                                style: ButtonStyle(
+                                                                  backgroundColor:
+                                                                      ButtonState.all<Color>(Colors.green),
+                                                                ),
+                                                                child: Icon(FontAwesomeIcons.play),
+                                                                onPressed: QuickLaunchArea.of(context).launch,
+                                                              )),
+                                                          if (showX)
+                                                            IgnorePointer(
+                                                                child: Image.asset(
+                                                                    "assets/images/controller/xbox_button_x.png",
+                                                                    // Not taller than the button, so all of X launches
+                                                                    height: 26)),
+                                                        ]));
+                                                      }))),
                                       ],
                                     )
                                   ]),
                             ),
                           ]),
-                        ));
+                        );
                   })),
-        ));
+        ))));
+  }
+
+  /// Launch the game without opening its page, so its patches aren't checked (small play button, or X on a
+  /// controller)
+  Future<void> _launchGame() {
+    return Launcher.launchGame(widget.pack, widget.game).catchError((e) {
+      if (mounted) {
+        InfoBarService.showError(context, e.toString());
+      }
+      // Still failed, so the game isn't shown launching anymore
+      throw e;
+    });
+  }
+
+  Future<void> _openGame() async {
+    await Navigator.pushNamed(context, "/game",
+        arguments: [widget.pack, widget.game, widget.showAllPacks, widget.allAvailableGames]);
+    if (widget.parentReload != null) {
+      widget.parentReload!();
+    }
+    _startDiscordrichPresence();
   }
 
   void _startDiscordrichPresence() {

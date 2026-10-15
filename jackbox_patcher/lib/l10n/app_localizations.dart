@@ -1554,6 +1554,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Launch Game'**
   String get patch_missing_before_launching_launch;
+
+  /// No description provided for @settings_controller_support_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Controller Support'**
+  String get settings_controller_support_title;
+
+  /// No description provided for @settings_controller_support_description.
+  ///
+  /// In en, this message translates to:
+  /// **'Lets you navigate the app with an Xbox controller.'**
+  String get settings_controller_support_description;
+
+  /// No description provided for @settings_controller_button_bar_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Show Controller Buttons'**
+  String get settings_controller_button_bar_title;
+
+  /// No description provided for @settings_controller_button_bar_description.
+  ///
+  /// In en, this message translates to:
+  /// **'Shows the controller buttons at the bottom. Press View to show or hide them.'**
+  String get settings_controller_button_bar_description;
+
+  /// No description provided for @controller_hint_move.
+  ///
+  /// In en, this message translates to:
+  /// **'Move'**
+  String get controller_hint_move;
+
+  /// No description provided for @controller_hint_select.
+  ///
+  /// In en, this message translates to:
+  /// **'Select'**
+  String get controller_hint_select;
+
+  /// No description provided for @controller_hint_back.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get controller_hint_back;
+
+  /// No description provided for @controller_hint_switch_game.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous / Next Game'**
+  String get controller_hint_switch_game;
+
+  /// No description provided for @controller_hint_scroll.
+  ///
+  /// In en, this message translates to:
+  /// **'Scroll'**
+  String get controller_hint_scroll;
+
+  /// No description provided for @controller_hint_faster.
+  ///
+  /// In en, this message translates to:
+  /// **'Move / Scroll Faster'**
+  String get controller_hint_faster;
+
+  /// No description provided for @controller_hint_hide_buttons.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide Buttons'**
+  String get controller_hint_hide_buttons;
 }
 
 class _AppLocalizationsDelegate

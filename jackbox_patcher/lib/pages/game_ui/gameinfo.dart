@@ -21,10 +21,12 @@ import 'package:jackbox_patcher/mvvm/observer.dart';
 import 'package:jackbox_patcher/pages/game_ui/gameinfo_view_model.dart';
 import 'package:jackbox_patcher/services/audio/sfx_service.dart';
 import 'package:jackbox_patcher/services/error/error.dart';
+import 'package:jackbox_patcher/services/gamepad/gamepad_service.dart';
 import 'package:jackbox_patcher/services/video/video_service.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../components/closable_route_with_esc.dart';
+import '../../components/focusable_tap.dart';
 import '../../components/game_info/special_game_info.dart';
 import '../../model/user_model/user_jackbox_game.dart';
 import '../../model/user_model/user_jackbox_pack.dart';
@@ -316,7 +318,8 @@ class _GameInfoWidgetState extends State<GameInfoWidget> implements EventObserve
                     padding: const EdgeInsets.all(10),
                     child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                       StarsRateWidget(
-                          key: UniqueKey(),
+                          // Only rebuilt when the game changes, so a focused star keeps the focus
+                          key: ValueKey(viewModel.selectedUserGame.game.id),
                           defaultStars: viewModel.selectedUserGame.stars,
                           onStarChanged: (int stars) {
                             setState(() {
@@ -349,8 +352,8 @@ class _GameInfoWidgetState extends State<GameInfoWidget> implements EventObserve
     return !viewModel.selectedUserPack.owned
         ? (viewModel.selectedUserPack.pack.storeLinks != null
             ? _buildStoreLinkButtonsList()
-            : GestureDetector(
-                onTap: () async {
+            : FocusableTap(
+                onPressed: () async {
                   await Navigator.pushNamed(context, "/settings/packs");
                   setState(() {});
                 },
@@ -441,7 +444,14 @@ class _GameInfoWidgetState extends State<GameInfoWidget> implements EventObserve
   Widget _buildLauncherButton() {
     return FilledButton(
         style: ButtonStyle(backgroundColor: ButtonState.all(Colors.green)),
-        onPressed: viewModel.launchingStatus == GameInfoLaunchingStatus.WAITING ? viewModel.launchGame : null,
+        // With a controller, start on this button so the game can be launched right away
+        autofocus: GamepadService().padConnected.value,
+        // Never disabled (a disabled button loses the focus), presses are ignored while launching instead
+        onPressed: () {
+          if (viewModel.launchingStatus == GameInfoLaunchingStatus.WAITING) {
+            viewModel.launchGame();
+          }
+        },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -582,20 +592,23 @@ class _GameInfoWidgetState extends State<GameInfoWidget> implements EventObserve
       bool Function(UserJackboxPack, UserJackboxGame)? filter,
       UserJackboxPack? linkedPack,
       String? description}) {
-    return GestureDetector(
-        onTap: () {
-          if (isLink) {
-            viewModel.handleOpenTag(context, icon, text,
-                isLink: isLink, filter: filter, linkedPack: linkedPack, description: description);
-          }
+    Widget tag = Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+        child: Row(children: [
+          Icon(icon),
+          const SizedBox(width: 10),
+          Expanded(child: Text(text, style: isLink ? const TextStyle(decoration: TextDecoration.underline) : null))
+        ]));
+    if (!isLink) {
+      return tag;
+    }
+    // Can also be opened with the keyboard or a controller
+    return FocusableTap(
+        onPressed: () {
+          viewModel.handleOpenTag(context, icon, text,
+              isLink: isLink, filter: filter, linkedPack: linkedPack, description: description);
         },
-        child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-            child: Row(children: [
-              Icon(icon),
-              const SizedBox(width: 10),
-              Expanded(child: Text(text, style: isLink ? const TextStyle(decoration: TextDecoration.underline) : null))
-            ])));
+        child: tag);
   }
 
   Widget _buildGameFixAvailable(UserJackboxPackPatch fix) {
@@ -645,11 +658,12 @@ class _GameInfoWidgetState extends State<GameInfoWidget> implements EventObserve
       }
       if (event is DialogEvent) {
         if (event.type == DialogEventType.PATCH_AVAILABLE) {
-          bool shouldShowPatchList =
-              await showDialog(context: context, builder: (context) => PatchAvailableDialog()) as bool;
-          if (shouldShowPatchList) {
+          // Null when the dialog is closed without choosing (e.g. with Esc)
+          bool? shouldShowPatchList =
+              await showDialog<bool>(context: context, builder: (context) => PatchAvailableDialog());
+          if (shouldShowPatchList == true) {
             Navigator.pushNamed(context, "/patch");
-          } else {
+          } else if (shouldShowPatchList == false) {
             viewModel.launchGame(force: true);
           }
         }

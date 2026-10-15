@@ -7,6 +7,7 @@ import 'package:jackbox_patcher/pages/loading_container.dart';
 import 'package:jackbox_patcher/services/api_utility/api_service.dart';
 import 'package:jackbox_patcher/services/device/device.dart';
 import 'package:jackbox_patcher/services/downloader/downloader_service.dart';
+import 'package:jackbox_patcher/services/gamepad/gamepad_service.dart';
 import 'package:jackbox_patcher/services/translations/translations_helper.dart';
 import 'package:jackbox_patcher/services/user/initial_load.dart';
 import 'package:jackbox_patcher/services/user/user_data.dart';
@@ -156,6 +157,9 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
                       style: ButtonStyle(
                           backgroundColor: ButtonState.all(Colors.green),
                           shape: ButtonState.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)))),
+                      // With a controller, start on this button. Not if a page is already in front of it (e.g. the
+                      // launcher opened on startup), it would take the focus from that page.
+                      autofocus: GamepadService().padConnected.value && (ModalRoute.isCurrentOf(context) ?? true),
                       onPressed: () async {
                         await Navigator.pushNamed(context, "/searchMenu");
                         DiscordService().launchMenuPresence();
@@ -228,12 +232,39 @@ class _MainContainerState extends State<MainContainer> with WindowListener {
                                     style: const TextStyle(color: Colors.white))
                               ]))))
                   : const SizedBox(height: 0),
+              // Without a mouse or a keyboard, the app couldn't be closed otherwise
+              ValueListenableBuilder<bool>(
+                  valueListenable: GamepadService().padConnected,
+                  builder: (context, padConnected, _) {
+                    return padConnected ? _buildCloseButton() : const SizedBox(height: 0);
+                  }),
               if (APIService().cachedServerMessage != null && APIService().cachedServerMessage!.menuComponent != null)
                 Container(
                     margin: EdgeInsets.only(top: 50),
                     child:
                         CustomServerComponentWidgetFactory(component: APIService().cachedServerMessage!.menuComponent!))
             ])));
+  }
+
+  Widget _buildCloseButton() {
+    return Padding(
+        padding: const EdgeInsets.only(top: 10),
+        child: MouseRegion(
+            cursor: SystemMouseCursors.click,
+            child: FilledButton(
+                style: ButtonStyle(
+                    backgroundColor: ButtonState.all(Colors.grey),
+                    shape: ButtonState.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)))),
+                // Same path as the close button of the window (onWindowClose asks first while downloading)
+                onPressed: () => windowManager.close(),
+                child: SizedBox(
+                    width: 300,
+                    height: 20,
+                    child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                      const Icon(FluentIcons.power_button, color: Colors.white),
+                      const SizedBox(width: 10),
+                      Text(TranslationsHelper().appLocalizations!.close, style: const TextStyle(color: Colors.white))
+                    ])))));
   }
 
   Widget _buildConnectedServer() {

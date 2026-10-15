@@ -2,6 +2,7 @@ import 'package:jackbox_patcher/services/api_utility/api_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../discord/discord_service.dart';
+import '../gamepad/gamepad_service.dart';
 
 class UserSettings {
   final SharedPreferences preferences;
@@ -38,5 +39,19 @@ class UserSettings {
 
   Future<void> setAnonymousData(bool activation) async {
     await preferences.setBool("anonymous_data", activation);
+  }
+
+  bool get isControllerSupportActivated => preferences.getBool("controller_support") ?? true;
+
+  Future<void> setControllerSupport(bool activation) async {
+    await preferences.setBool("controller_support", activation);
+    activation ? GamepadService().init() : GamepadService().stop();
+  }
+
+  bool get isControllerButtonBarActivated => preferences.getBool("controller_button_bar") ?? true;
+
+  Future<void> setControllerButtonBar(bool activation) async {
+    await preferences.setBool("controller_button_bar", activation);
+    GamepadService().setButtonBarEnabled(activation);
   }
 }

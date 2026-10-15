@@ -13,6 +13,7 @@ import 'package:jackbox_patcher/services/discord/discord_service.dart';
 import 'package:jackbox_patcher/services/downloader/precache_service.dart';
 import 'package:jackbox_patcher/services/error/error.dart';
 import 'package:jackbox_patcher/services/files/folder_service.dart';
+import 'package:jackbox_patcher/services/gamepad/gamepad_service.dart';
 import 'package:jackbox_patcher/services/internal_api/rest_api_router.dart';
 import 'package:jackbox_patcher/services/libs/media_kit_remover_service.dart';
 import 'package:jackbox_patcher/services/statistics/statistics_sender.dart';
@@ -65,6 +66,13 @@ class InitialLoad {
     callback(step: 2, percent: 0);
     try {
       await _loadSettings();
+      // The bar of the controller buttons can be hidden in the settings, or with the View button
+      GamepadService().buttonBarEnabled.value = UserData().settings.isControllerButtonBarActivated;
+      GamepadService().onButtonBarToggled = UserData().settings.setControllerButtonBar;
+      // Started before loading from the server, so the controller also works if the loading fails
+      if (UserData().settings.isControllerSupportActivated) {
+        GamepadService().init();
+      }
       await _loadInfo();
       await _loadWelcome();
       await _loadPacks((double percent) {

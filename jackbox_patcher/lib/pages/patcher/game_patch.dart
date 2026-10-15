@@ -10,6 +10,8 @@ import 'package:jackbox_patcher/pages/game_ui/gameinfo_view_model.dart';
 import 'package:jackbox_patcher/services/error/error.dart';
 import 'package:jackbox_patcher/services/launcher/launcher.dart';
 
+import '../../components/focusable_tap.dart';
+import '../../components/quick_launch_area.dart';
 import '../../model/user_model/user_jackbox_game.dart';
 import '../../model/user_model/user_jackbox_pack.dart';
 import '../../services/api_utility/api_service.dart';
@@ -76,7 +78,8 @@ void _openPatchInfo(context, dynamic data, JackboxGame? relatedGame) {
                 ]):Container(),
           ])*/
           ]),
-          content: ListView(children: [
+          // Primary so it can be scrolled with the right stick of a controller while the Close button is focused
+          content: ListView(primary: true, children: [
             data.description != null && data.description != ""
                 ? Text(TranslationsHelper().appLocalizations!.description, style: const TextStyle(fontSize: 20))
                 : Container(),
@@ -387,6 +390,7 @@ class GameImageWithOpener extends StatefulWidget {
 
 class _GameImageWithOpenerState extends State<GameImageWithOpener> {
   bool playButtonVisible = false;
+  bool focused = false;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -394,17 +398,25 @@ class _GameImageWithOpenerState extends State<GameImageWithOpener> {
         child: Padding(
             padding: const EdgeInsets.all(8),
             child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              ClipRRect(
+              // X on a controller (or Space on the keyboard) launches the game, like a right click
+              QuickLaunchArea(
+                  onLaunch: _launchGame,
+                  child: FocusableTap(
+                      onPressed: () => Navigator.pushNamed(context, "/game",
+                          arguments: [widget.pack, widget.game, true, [(g: widget.game, p: widget.pack)]]),
+                      // Show the description when it's focused with the keyboard or a controller, like on mouse hover
+                      onFocusChange: (bool value) => setState(() {
+                            focused = value;
+                          }),
+                      // Pushed in while X or Space is held, then launching
+                      child: QuickLaunchFeedback(
+                          pushedScale: 0.95,
+                          child: ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
                   child: IntrinsicWidth(
-                      child: GestureDetector(
-                          onSecondaryTap: () async {
-                            Launcher.launchGame(widget.pack, widget.game)
-                                .then((value) => setState(() {}))
-                                .catchError((e) => InfoBarService.showError(context, e.toString()));
-                          },
-                          onTap: () =>
-                              Navigator.pushNamed(context, "/game", arguments: [widget.pack, widget.game, true, [(g: widget.game, p: widget.pack)]]),
+                      child: Builder(
+                          builder: (context) => GestureDetector(
+                          onSecondaryTap: QuickLaunchArea.of(context).launch,
                           child: MouseRegion(
                               onEnter: (a) => setState(() {
                                     playButtonVisible = true;
@@ -424,15 +436,19 @@ class _GameImageWithOpenerState extends State<GameImageWithOpener> {
                                   height: 100,
                                   width: double.infinity,
                                   decoration: BoxDecoration(
-                                    color: Colors.blue.withOpacity(playButtonVisible ? 0.9 : 0),
+                                    color: Colors.blue.withOpacity(playButtonVisible || focused ? 0.9 : 0),
                                   ),
                                   child: TweenAnimationBuilder<double>(
                                       tween: Tween<double>(
-                                        begin: playButtonVisible ? 0 : 1,
-                                        end: playButtonVisible ? 1 : 0,
+                                        begin: playButtonVisible || focused ? 0 : 1,
+                                        end: playButtonVisible || focused ? 1 : 0,
                                       ),
                                       duration: const Duration(milliseconds: 200),
                                       builder: (BuildContext context, double opacity, Widget? child) {
+                                        // Only the progress ring is shown on it while it's launching
+                                        if (QuickLaunchArea.of(context).launching) {
+                                          return const SizedBox();
+                                        }
                                         return Column(
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
@@ -451,7 +467,15 @@ class _GameImageWithOpenerState extends State<GameImageWithOpener> {
                                         );
                                       }),
                                 )
-                              ])))))
+                              ])))))))))
             ])));
+  }
+
+  Future<void> _launchGame() {
+    return Launcher.launchGame(widget.pack, widget.game).then((value) => setState(() {})).catchError((e) {
+      InfoBarService.showError(context, e.toString());
+      // Still failed, so the game isn't shown launching anymore
+      throw e;
+    });
   }
 }

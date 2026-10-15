@@ -3,14 +3,78 @@
     "patch_missing_before_launching_title",
     "patch_missing_before_launching_description",
     "patch_missing_before_launching_install",
-    "patch_missing_before_launching_launch"
+    "patch_missing_before_launching_launch",
+    "settings_controller_support_title",
+    "settings_controller_support_description",
+    "settings_controller_button_bar_title",
+    "settings_controller_button_bar_description",
+    "controller_hint_move",
+    "controller_hint_select",
+    "controller_hint_back",
+    "controller_hint_switch_game",
+    "controller_hint_scroll",
+    "controller_hint_faster",
+    "controller_hint_hide_buttons"
   ],
 
   "ca": [
     "patch_missing_before_launching_title",
     "patch_missing_before_launching_description",
     "patch_missing_before_launching_install",
-    "patch_missing_before_launching_launch"
+    "patch_missing_before_launching_launch",
+    "settings_controller_support_title",
+    "settings_controller_support_description",
+    "settings_controller_button_bar_title",
+    "settings_controller_button_bar_description",
+    "controller_hint_move",
+    "controller_hint_select",
+    "controller_hint_back",
+    "controller_hint_switch_game",
+    "controller_hint_scroll",
+    "controller_hint_faster",
+    "controller_hint_hide_buttons"
+  ],
+
+  "de": [
+    "settings_controller_support_title",
+    "settings_controller_support_description",
+    "settings_controller_button_bar_title",
+    "settings_controller_button_bar_description",
+    "controller_hint_move",
+    "controller_hint_select",
+    "controller_hint_back",
+    "controller_hint_switch_game",
+    "controller_hint_scroll",
+    "controller_hint_faster",
+    "controller_hint_hide_buttons"
+  ],
+
+  "es": [
+    "settings_controller_support_title",
+    "settings_controller_support_description",
+    "settings_controller_button_bar_title",
+    "settings_controller_button_bar_description",
+    "controller_hint_move",
+    "controller_hint_select",
+    "controller_hint_back",
+    "controller_hint_switch_game",
+    "controller_hint_scroll",
+    "controller_hint_faster",
+    "controller_hint_hide_buttons"
+  ],
+
+  "fr": [
+    "settings_controller_support_title",
+    "settings_controller_support_description",
+    "settings_controller_button_bar_title",
+    "settings_controller_button_bar_description",
+    "controller_hint_move",
+    "controller_hint_select",
+    "controller_hint_back",
+    "controller_hint_switch_game",
+    "controller_hint_scroll",
+    "controller_hint_faster",
+    "controller_hint_hide_buttons"
   ],
 
   "nb": [
@@ -242,7 +306,18 @@
     "patch_missing_before_launching_title",
     "patch_missing_before_launching_description",
     "patch_missing_before_launching_install",
-    "patch_missing_before_launching_launch"
+    "patch_missing_before_launching_launch",
+    "settings_controller_support_title",
+    "settings_controller_support_description",
+    "settings_controller_button_bar_title",
+    "settings_controller_button_bar_description",
+    "controller_hint_move",
+    "controller_hint_select",
+    "controller_hint_back",
+    "controller_hint_switch_game",
+    "controller_hint_scroll",
+    "controller_hint_faster",
+    "controller_hint_hide_buttons"
   ],
 
   "pl": [
@@ -312,7 +387,18 @@
     "hidden_button_hidden_tooltip",
     "patch_missing_before_launching_title",
     "patch_missing_before_launching_description",
-    "patch_missing_before_launching_install"
+    "patch_missing_before_launching_install",
+    "settings_controller_support_title",
+    "settings_controller_support_description",
+    "settings_controller_button_bar_title",
+    "settings_controller_button_bar_description",
+    "controller_hint_move",
+    "controller_hint_select",
+    "controller_hint_back",
+    "controller_hint_switch_game",
+    "controller_hint_scroll",
+    "controller_hint_faster",
+    "controller_hint_hide_buttons"
   ],
 
   "pt": [
@@ -554,7 +640,18 @@
     "patch_missing_before_launching_title",
     "patch_missing_before_launching_description",
     "patch_missing_before_launching_install",
-    "patch_missing_before_launching_launch"
+    "patch_missing_before_launching_launch",
+    "settings_controller_support_title",
+    "settings_controller_support_description",
+    "settings_controller_button_bar_title",
+    "settings_controller_button_bar_description",
+    "controller_hint_move",
+    "controller_hint_select",
+    "controller_hint_back",
+    "controller_hint_switch_game",
+    "controller_hint_scroll",
+    "controller_hint_faster",
+    "controller_hint_hide_buttons"
   ],
 
   "pt_BR": [
@@ -771,6 +868,73 @@
     "patch_missing_before_launching_title",
     "patch_missing_before_launching_description",
     "patch_missing_before_launching_install",
-    "patch_missing_before_launching_launch"
+    "patch_missing_before_launching_launch",
+    "settings_controller_support_title",
+    "settings_controller_support_description",
+    "settings_controller_button_bar_title",
+    "settings_controller_button_bar_description",
+    "controller_hint_move",
+    "controller_hint_select",
+    "controller_hint_back",
+    "controller_hint_switch_game",
+    "controller_hint_scroll",
+    "controller_hint_faster",
+    "controller_hint_hide_buttons"
+  ],
+
+  "ru": [
+    "settings_controller_support_title",
+    "settings_controller_support_description",
+    "settings_controller_button_bar_title",
+    "settings_controller_button_bar_description",
+    "controller_hint_move",
+    "controller_hint_select",
+    "controller_hint_back",
+    "controller_hint_switch_game",
+    "controller_hint_scroll",
+    "controller_hint_faster",
+    "controller_hint_hide_buttons"
+  ],
+
+  "ta": [
+    "settings_controller_support_title",
+    "settings_controller_support_description",
+    "settings_controller_button_bar_title",
+    "settings_controller_button_bar_description",
+    "controller_hint_move",
+    "controller_hint_select",
+    "controller_hint_back",
+    "controller_hint_switch_game",
+    "controller_hint_scroll",
+    "controller_hint_faster",
+    "controller_hint_hide_buttons"
+  ],
+
+  "tr": [
+    "settings_controller_support_title",
+    "settings_controller_support_description",
+    "settings_controller_button_bar_title",
+    "settings_controller_button_bar_description",
+    "controller_hint_move",
+    "controller_hint_select",
+    "controller_hint_back",
+    "controller_hint_switch_game",
+    "controller_hint_scroll",
+    "controller_hint_faster",
+    "controller_hint_hide_buttons"
+  ],
+
+  "uk": [
+    "settings_controller_support_title",
+    "settings_controller_support_description",
+    "settings_controller_button_bar_title",
+    "settings_controller_button_bar_description",
+    "controller_hint_move",
+    "controller_hint_select",
+    "controller_hint_back",
+    "controller_hint_switch_game",
+    "controller_hint_scroll",
+    "controller_hint_faster",
+    "controller_hint_hide_buttons"
   ]
 }

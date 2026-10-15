@@ -4,6 +4,9 @@ import 'package:flutter/gestures.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jackbox_patcher/components/closable_route_with_esc.dart';
 import 'package:jackbox_patcher/components/filters/int_filter_pane_item.dart';
+import 'package:jackbox_patcher/components/pane_item_focus_nodes.dart';
+import 'package:jackbox_patcher/components/pane_page_traversal.dart';
+import 'package:jackbox_patcher/components/row_focus_node.dart';
 import 'package:jackbox_patcher/components/stars_rate.dart';
 import 'package:jackbox_patcher/model/jackbox/game_info/jackbox_game_type.dart';
 import 'package:jackbox_patcher/model/misc/audio/SFXEnum.dart';
@@ -40,7 +43,12 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
   List<IntFilter> intFilters = [];
   Key gamePaneKey = UniqueKey();
   bool filterPanedExpanded = false;
-  bool shouldCloseOnEsc = true;
+  final PaneItemFocusNodes _paneFocusNodes = PaneItemFocusNodes();
+  // Kept by the page so the Filter item gets the focus back once the filters are cleared
+  final FocusNode _filterFocusNode = _FilterFocusNode();
+  // The filters are created again each time the page is rebuilt, their keys keep them (and the focus of the keyboard
+  // or the controller) when one of them is changed
+  final Map<Object, GlobalKey> _filterKeys = {};
 
   @override
   void initState() {
@@ -58,12 +66,18 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
   }
 
   @override
+  void dispose() {
+    _paneFocusNodes.dispose();
+    _filterFocusNode.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     Typography typography = FluentTheme.of(context).typography;
     return ClosableRouteWithEsc(
-        close: shouldCloseOnEsc,
         closeSFX: true,
-        child: NavigationView(
+        child: PaneTraversal(child: NavigationView(
           appBar: NavigationAppBar(
               automaticallyImplyLeading: false,
               leading: GestureDetector(
@@ -91,6 +105,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
               items: _buildPaneItems(),
               footerItems: [
                 PaneItemExpander(
+                    focusNode: _filterFocusNode,
                     onTap: () {
                       if (filterPanedExpanded) {
                         filterPanedExpanded = false;
@@ -131,6 +146,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                     body: Container()),
                 if (UserJackboxGame.countHiddenGames(UserData().packs) >= 1)
                   PaneItem(
+                    focusNode: _paneFocusNodes.get("show_hidden"),
                     icon: Icon(showHidden ? FontAwesomeIcons.eyeSlash : FontAwesomeIcons.eye),
                     title: Text(showHidden == false
                         ? TranslationsHelper().appLocalizations!.show_games_hidden
@@ -145,6 +161,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                   ),
                 if (UserJackboxPack.countUnownedPack(UserData().packs) >= 1)
                   PaneItem(
+                    focusNode: _paneFocusNodes.get("show_all_packs"),
                     icon: const Icon(FontAwesomeIcons.boxArchive),
                     title: Text(showAllPacks == false
                         ? TranslationsHelper().appLocalizations!.show_all_packs
@@ -179,12 +196,13 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
                     },
                   )
               ]),
-        ));
+        )));
   }
 
   List<NavigationPaneItem> _buildGameFilterPaneItems() {
     List<NavigationPaneItem> items = [];
     items.add(IntFilterPaneItem(
+        key: _filterKeys.putIfAbsent("minPlayers", () => GlobalKey()),
         activated: intFilters.firstWhere((element) => element.type == "minPlayers").activated,
         icon: FluentIcons.people,
         min: 1,
@@ -205,6 +223,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
           setState(() {});
         }));
     items.add(IntFilterPaneItem(
+        key: _filterKeys.putIfAbsent("maxPlaytime", () => GlobalKey()),
         activated: intFilters.firstWhere((element) => element.type == "maxPlaytime").activated,
         icon: FontAwesomeIcons.clock,
         min: 10,
@@ -226,6 +245,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
         }));
     for (var filter in filters) {
       items.add(EnumFilterPaneItem(
+          key: _filterKeys.putIfAbsent(filter.type, () => GlobalKey()),
           activated: filter.activated,
           icon: filter.type.icon,
           defaultValue: filter.selected,
@@ -286,6 +306,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
     }
     for (var userPack in wantedPacks) {
       packItems.add(PaneItem(
+          focusNode: _paneFocusNodes.get("pack_${userPack.pack.id}"),
           onTap: () {
             SFXService().playSFX(SFX.OPEN_GAME_LIST);
           },
@@ -315,6 +336,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
 
     for (var type in JackboxGameType.values) {
       tagItem.add(PaneItem(
+          focusNode: _paneFocusNodes.get("type_${type.name}"),
           onTap: () {
             SFXService().playSFX(SFX.OPEN_GAME_LIST);
           },
@@ -344,17 +366,10 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
         placeholder: TranslationsHelper().appLocalizations!.search,
         suffix: const Icon(FluentIcons.search),
         controller: _searchController,
-        onTap: () {
-          setState(() {
-            shouldCloseOnEsc = false;
-          });
-        },
         onTapOutside: (event) {
           print("Tap outside");
-          setState(() {
-            shouldCloseOnEsc = true;
-          });
-          FocusScope.of(context).unfocus();
+          // Only unfocus the text field, the page must keep the focus to be closed with Esc
+          FocusManager.instance.primaryFocus?.unfocus();
         },
         onChanged: (String value) {
           setState(() {});
@@ -365,6 +380,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
       )));
       items.add(PaneItemSeparator());
       items.add(PaneItem(
+          focusNode: _paneFocusNodes.get("all_games"),
           onTap: () {
             SFXService().playSFX(SFX.OPEN_GAME_LIST);
           },
@@ -384,6 +400,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
               icon: null,
               parentReload: () => setState(() {}))));
       items.add(PaneItemExpander(
+        focusNode: _paneFocusNodes.get("search_by_pack"),
         icon: const Icon(FontAwesomeIcons.boxOpen),
         body: Container(),
         title: Text(TranslationsHelper().appLocalizations!.search_by_pack),
@@ -399,6 +416,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
       List<NavigationPaneItem> starsItem = _buildStarsPaneItem();
 
       items.add(PaneItemExpander(
+        focusNode: _paneFocusNodes.get("search_by_tags"),
         icon: const Icon(FontAwesomeIcons.tag),
         body: Container(),
         title: Text(TranslationsHelper().appLocalizations!.search_by_tags),
@@ -412,6 +430,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
       ));
 
       items.add(PaneItemExpander(
+        focusNode: _paneFocusNodes.get("search_by_ranking"),
         icon: const Icon(FontAwesomeIcons.solidStar),
         body: Container(),
         title: Text(TranslationsHelper().appLocalizations!.search_by_ranking),
@@ -425,14 +444,16 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
       ));
 
       items.add(PaneItem(
+          focusNode: _paneFocusNodes.get("random_game"),
           icon: Icon(FontAwesomeIcons.dice),
           title: Text(TranslationsHelper().appLocalizations!.random_game),
-          body: RandomGameWidget(
+          body: PanePageTraversal(
+              child: RandomGameWidget(
             filter: (UserJackboxPack pack, UserJackboxGame game) =>
                 (showAllPacks || pack.owned) &&
                 (showHidden || !game.hidden) &&
                 _filterGameBasedOnActiveFilters(pack, game),
-          )));
+          ))));
     }
 
     maxSelectableView = 1;
@@ -450,6 +471,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
 
     for (var tag in APIService().getTags()) {
       tagItem.add(PaneItem(
+          focusNode: _paneFocusNodes.get("tag_${tag.id}"),
           onTap: () {
             SFXService().playSFX(SFX.OPEN_GAME_LIST);
           },
@@ -478,6 +500,7 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
     List<PaneItem> starItems = [];
 
     starItems.add(PaneItem(
+        focusNode: _paneFocusNodes.get("personal_ranking"),
         onTap: () {
           SFXService().playSFX(SFX.OPEN_GAME_LIST);
         },
@@ -522,4 +545,16 @@ class _SearchGameMenuWidgetState extends State<SearchGameMenuWidget> {
 
     return starItems;
   }
+}
+
+/// Focus node of the Filter item.
+///
+/// The checkbox clearing the filters is inside the Filter item, so for the arrows and the controller it's never on
+/// its right: it's selected by hand when going right from the Filter item.
+class _FilterFocusNode extends RowFocusNode {
+  _FilterFocusNode() : super(debugLabel: "Filter");
+
+  /// The checkbox clearing the filters, only there while a filter is activated
+  @override
+  FocusNode? get right => traversalDescendants.firstOrNull;
 }

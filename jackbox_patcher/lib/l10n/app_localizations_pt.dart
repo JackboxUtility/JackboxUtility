@@ -850,6 +850,41 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get patch_missing_before_launching_launch => 'Launch Game';
+
+  @override
+  String get settings_controller_support_title => 'Controller Support';
+
+  @override
+  String get settings_controller_support_description =>
+      'Lets you navigate the app with an Xbox controller.';
+
+  @override
+  String get settings_controller_button_bar_title => 'Show Controller Buttons';
+
+  @override
+  String get settings_controller_button_bar_description =>
+      'Shows the controller buttons at the bottom. Press View to show or hide them.';
+
+  @override
+  String get controller_hint_move => 'Move';
+
+  @override
+  String get controller_hint_select => 'Select';
+
+  @override
+  String get controller_hint_back => 'Back';
+
+  @override
+  String get controller_hint_switch_game => 'Previous / Next Game';
+
+  @override
+  String get controller_hint_scroll => 'Scroll';
+
+  @override
+  String get controller_hint_faster => 'Move / Scroll Faster';
+
+  @override
+  String get controller_hint_hide_buttons => 'Hide Buttons';
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).

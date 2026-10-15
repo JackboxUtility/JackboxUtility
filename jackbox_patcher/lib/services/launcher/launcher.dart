@@ -8,6 +8,7 @@ import 'package:jackbox_patcher/services/api_utility/api_service.dart';
 import 'package:jackbox_patcher/services/audio/sfx_service.dart';
 import 'package:jackbox_patcher/services/discord/discord_service.dart';
 import 'package:jackbox_patcher/services/downloader/downloader_service.dart';
+import 'package:jackbox_patcher/services/gamepad/gamepad_service.dart';
 import 'package:jackbox_patcher/services/internal_api/rest_api_router.dart';
 import 'package:jackbox_patcher/services/internal_api/ws_message/game_close_ws_message.dart';
 import 'package:jackbox_patcher/services/internal_api/ws_message/game_open_ws_message.dart';
@@ -74,6 +75,19 @@ class Launcher {
   /// This function will launch the [pack]
   static Future<void> launchPack(UserJackboxPack pack,
       [bool windowLess = false]) async {
+    // Prevents launching twice with the controller while it's launching
+    GamepadService().onLaunchStarted();
+    try {
+      await _launchPack(pack, windowLess);
+      GamepadService().onLaunchSettled();
+    } catch (e) {
+      GamepadService().onLaunchFailed();
+      rethrow;
+    }
+  }
+
+  static Future<void> _launchPack(UserJackboxPack pack,
+      [bool windowLess = false]) async {
     if (pack.path == null) {
       throw Exception("Pack path is null");
     } else {
@@ -103,6 +117,19 @@ class Launcher {
 
   /// This function will launch the [game] from the [pack]
   static Future<void> launchGame(
+      UserJackboxPack pack, UserJackboxGame game) async {
+    // Prevents launching twice with the controller while it's launching
+    GamepadService().onLaunchStarted();
+    try {
+      await _launchGame(pack, game);
+      GamepadService().onLaunchSettled();
+    } catch (e) {
+      GamepadService().onLaunchFailed();
+      rethrow;
+    }
+  }
+
+  static Future<void> _launchGame(
       UserJackboxPack pack, UserJackboxGame game) async {
     if (pack.path == null) {
       throw Exception("Pack path is null");

@@ -44,6 +44,8 @@ dependencies:
   windows_taskbar: ^1.1.1
   window_manager : 0.5.1
   win32_registry: 2.1.0
+  win32: 5.14.0
+  ffi: 2.1.4
   font_awesome_flutter: 10.9.0
   flutter_blurhash: 0.9.1
   carousel_slider: 5.1.1
@@ -105,6 +107,7 @@ flutter:
     - assets/lotties/
     - assets/logos/
     - assets/images/
+    - assets/images/controller/
     - assets/audios/sfx/default/
 
   # An image asset can refer to one or more resolution-specific "variants", see

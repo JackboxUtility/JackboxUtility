@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:flutter/foundation.dart';
 import 'package:jackbox_patcher/app_configuration.dart';
 import 'package:jackbox_patcher/l10n/app_localizations.dart';
 
@@ -21,8 +22,12 @@ class TranslationsHelper {
       currentLanguage = const Locale(DEFAULT_APP_LANGUAGE);
       appLocalizations = lookupAppLocalizations(const Locale(DEFAULT_APP_LANGUAGE));
     }
+    localeChanges.value++;
   }
 
   AppLocalizations? appLocalizations;
+
+  /// Changes each time the language is changed, for the widgets that aren't rebuilt by a page
+  final ValueNotifier<int> localeChanges = ValueNotifier(0);
   TranslationsHelper._internal();
 }

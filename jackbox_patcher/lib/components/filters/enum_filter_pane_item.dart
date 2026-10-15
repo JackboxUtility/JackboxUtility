@@ -4,10 +4,12 @@ import 'package:jackbox_patcher/model/misc/filter_enum.dart';
 
 import '../../model/misc/audio/SFXEnum.dart';
 import '../../services/audio/sfx_service.dart';
+import '../row_focus_node.dart';
 
 class EnumFilterPaneItem extends PaneItemHeader {
   EnumFilterPaneItem(
-      {required this.icon,
+      {super.key,
+      required this.icon,
       required this.name,
       required this.onChanged,
       required this.onActivationChanged,
@@ -62,12 +64,33 @@ class _EnumFilterPaneItemTitleState extends State<EnumFilterPaneItemTitle> {
   bool isChecked = false;
   bool activated = false;
   late FilterValue currentValue;
+  final RowFocusNode _checkboxFocusNode = RowFocusNode(debugLabel: "Filter checkbox");
+  final RowFocusNode _comboBoxFocusNode = RowFocusNode(debugLabel: "Filter combo box");
 
   @override
   void initState() {
     currentValue = widget.defaultValue;
     activated = widget.activated;
+    _checkboxFocusNode.right = _comboBoxFocusNode;
+    _comboBoxFocusNode.left = _checkboxFocusNode;
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _checkboxFocusNode.dispose();
+    _comboBoxFocusNode.dispose();
+    super.dispose();
+  }
+
+  @override
+  void didUpdateWidget(covariant EnumFilterPaneItemTitle oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // The title is kept when the page is rebuilt (the page gives the filter
+    // item a GlobalKey), so it follows the filter, e.g. when all the filters
+    // are cleared
+    activated = widget.activated;
+    currentValue = widget.defaultValue;
   }
 
   @override
@@ -80,6 +103,7 @@ class _EnumFilterPaneItemTitleState extends State<EnumFilterPaneItemTitle> {
             SFXService().playSFX(SFX.HOVER_OVER_STAR_OR_FILTER);
           },
           child: Checkbox(
+              focusNode: _checkboxFocusNode,
               checked: activated,
               onChanged: (value) {
                 widget.onActivationChanged(value!);
@@ -101,6 +125,7 @@ class _EnumFilterPaneItemTitleState extends State<EnumFilterPaneItemTitle> {
         Spacer(),
         widget.availableValues.length > 1
             ? ComboBox(
+                focusNode: _comboBoxFocusNode,
                 onTap: () {
                   SFXService().playSFX(SFX.FILTER_UP);
                 },

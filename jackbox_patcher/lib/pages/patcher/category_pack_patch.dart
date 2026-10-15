@@ -8,6 +8,7 @@ import 'package:jackbox_patcher/model/user_model/interface/installable_patch.dar
 import 'package:jackbox_patcher/services/user/user_data.dart';
 
 import '../../components/dialogs/download_patch_dialog.dart';
+import '../../components/focusable_tap.dart';
 import '../../model/user_model/user_jackbox_game_patch.dart';
 
 import '../../services/api_utility/api_service.dart';
@@ -194,8 +195,8 @@ class _PackInCategoryCardState extends State<PackInCategoryCard> {
   Widget build(BuildContext context) {
     return MouseRegion(
         cursor: SystemMouseCursors.click,
-        child: GestureDetector(
-            onTap: () {
+        child: FocusableTap(
+            onPressed: () {
               widget.changeMenuView(widget.data.pack.pack.id);
             },
             child: Container(

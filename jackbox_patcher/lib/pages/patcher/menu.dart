@@ -5,6 +5,8 @@ import 'package:jackbox_patcher/pages/patcher/category_pack_patch.dart';
 import 'package:jackbox_patcher/services/discord/discord_service.dart';
 
 import '../../components/closable_route_with_esc.dart';
+import '../../components/pane_item_focus_nodes.dart';
+import '../../components/pane_page_traversal.dart';
 import '../../model/user_model/user_jackbox_pack.dart';
 import '../../services/api_utility/api_service.dart';
 import '../../services/translations/translations_helper.dart';
@@ -22,6 +24,7 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
   int _selectedView = 0;
   bool showAllPacks = false;
   List<NavigationPaneItem> items = [];
+  final PaneItemFocusNodes _paneFocusNodes = PaneItemFocusNodes();
 
   @override
   void initState() {
@@ -33,6 +36,7 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
   @override
   void dispose() {
     APIService().internalCache.removeListener(_updateAfterPacksChange);
+    _paneFocusNodes.dispose();
     super.dispose();
   }
 
@@ -53,7 +57,7 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
       _buildPaneItems();
     }
     return ClosableRouteWithEsc(
-        child: NavigationView(
+        child: PaneTraversal(child: NavigationView(
       transitionBuilder: (child, animation) {
         return FadeTransition(
           opacity: animation,
@@ -82,6 +86,7 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
           footerItems: [
             if (UserJackboxPack.countUnownedPack(UserData().packs) >= 1)
               PaneItem(
+                focusNode: _paneFocusNodes.get("show_all_packs"),
                 icon: const Icon(FontAwesomeIcons.boxArchive),
                 title: Text(showAllPacks == false
                     ? TranslationsHelper().appLocalizations!.show_all_packs
@@ -95,15 +100,23 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
                 },
               )
           ]),
-    ));
+    )));
   }
 
   _changeMenuView(String packId) {
+    // The card is only focused when it was opened with the keyboard or a controller (a click doesn't focus it)
+    bool cardFocused =
+        FocusManager.instance.primaryFocus?.context?.findAncestorWidgetOfExactType<PackInCategoryCard>() != null;
     for (var i = 0; i < items.length; i++) {
       if (items[i].key == ValueKey(packId)) {
         setState(() {
           _selectedView = i;
         });
+        // The card used to open the pack disappears with the "All patches" page, the keyboard or the controller
+        // continues from the pack in the pane instead of the top of the pane
+        if (cardFocused) {
+          _paneFocusNodes.requestFocus("pack_$packId");
+        }
         break;
       }
     }
@@ -113,15 +126,21 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
     items = [];
     _selectedView = 0;
     items.add(PaneItem(
+        focusNode: _paneFocusNodes.get("all_patches"),
         icon: const Center(child: Icon(FluentIcons.home)),
         title: Text(TranslationsHelper().appLocalizations!.all_patches),
-        body: ListView(
-            children: List.generate(
-                APIService().cachedCategories.length,
-                (i) => CategoryPackPatch(
-                    category: APIService().cachedCategories[i],
-                    showAllPacks: showAllPacks,
-                    changeMenuView: _changeMenuView)))));
+        // Not a ListView: it only builds the categories close to the screen, so the arrows or a controller couldn't
+        // reach the install button of the next ones
+        body: PanePageTraversal(
+            child: SingleChildScrollView(
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: List.generate(
+                    APIService().cachedCategories.length,
+                    (i) => CategoryPackPatch(
+                        category: APIService().cachedCategories[i],
+                        showAllPacks: showAllPacks,
+                        changeMenuView: _changeMenuView)))))));
     for (var userPack
         in showAllPacks ? UserData().packs : UserData().packs.where((element) => element.owned).toList()) {
       int countPatchs = 0;
@@ -137,6 +156,7 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
       if (countPatchs == 1) {
         items.add(PaneItem(
             key: ValueKey(userPack.pack.id),
+            focusNode: _paneFocusNodes.get("pack_${userPack.pack.id}"),
             icon: CachedNetworkImage(
               fit: BoxFit.fitHeight,
               imageUrl: APIService().assetLink(userPack.pack.icon),
@@ -144,7 +164,7 @@ class _PatcherMenuWidgetState extends State<PatcherMenuWidget> {
               memCacheWidth: 40,
             ),
             title: Text(userPack.pack.name),
-            body: PatcherPackWidget(userPack: userPack)));
+            body: PanePageTraversal(child: PatcherPackWidget(userPack: userPack))));
       }
     }
   }

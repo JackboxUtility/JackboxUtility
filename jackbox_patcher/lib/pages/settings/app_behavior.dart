@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:jackbox_patcher/components/dialogs/confirmation_dialog.dart';
 import 'package:jackbox_patcher/components/settings/button_setting.dart';
+import 'package:jackbox_patcher/services/gamepad/gamepad_service.dart';
 import 'package:jackbox_patcher/services/translations/translations_helper.dart';
 
 import '../../components/settings/boolean_setting.dart';
@@ -82,6 +83,33 @@ class _AppBehaviorSettingsState extends State<AppBehaviorSettings> {
                   isChecked: UserData().settings.isDiscordRPCActivated,
                   setter: UserData().settings.setDiscordRPC,
                   parentReload: () => setState(() {})) : const SizedBox(height: 0),
+              SizedBox(height: (Platform.isWindows ? 10 : 0)),
+              // controller support is only available on Windows
+              Platform.isWindows ? BooleanSetting(
+                  title: TranslationsHelper()
+                      .appLocalizations!
+                      .settings_controller_support_title,
+                  description: TranslationsHelper()
+                      .appLocalizations!
+                      .settings_controller_support_description,
+                  isChecked: UserData().settings.isControllerSupportActivated,
+                  setter: UserData().settings.setControllerSupport,
+                  parentReload: () => setState(() {})) : const SizedBox(height: 0),
+              SizedBox(height: (Platform.isWindows && UserData().settings.isControllerSupportActivated ? 10 : 0)),
+              // the bar of the controller buttons is only there when the controller support is on
+              Platform.isWindows && UserData().settings.isControllerSupportActivated ? ValueListenableBuilder<bool>(
+                  // also changed by the View button of the controller, even while this page is open
+                  valueListenable: GamepadService().buttonBarEnabled,
+                  builder: (context, buttonBarEnabled, _) => BooleanSetting(
+                      title: TranslationsHelper()
+                          .appLocalizations!
+                          .settings_controller_button_bar_title,
+                      description: TranslationsHelper()
+                          .appLocalizations!
+                          .settings_controller_button_bar_description,
+                      isChecked: buttonBarEnabled,
+                      setter: UserData().settings.setControllerButtonBar,
+                      parentReload: () => setState(() {}))) : const SizedBox(height: 0),
               const SizedBox(height: 10),
               BooleanSetting(
                   title: TranslationsHelper()

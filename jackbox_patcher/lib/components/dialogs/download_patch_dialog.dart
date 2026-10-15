@@ -226,7 +226,9 @@ class _DownloadPatchDialogComponentState
                 const SizedBox(height: 20),
                 SizedBox(
                     height: 200,
+                    // Primary so it can be scrolled with the right stick of a controller while a button is focused
                     child: SingleChildScrollView(
+                        primary: true,
                         child: SelectableText(error,
                             style: TextStyle(
                                 fontSize: 16, color: Colors.red.normal)))),

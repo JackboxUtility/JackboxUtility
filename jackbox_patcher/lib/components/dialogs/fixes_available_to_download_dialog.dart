@@ -20,7 +20,9 @@ class _FixesAvailableToDownloadDialogState extends State<FixesAvailableToDownloa
       title: Text(TranslationsHelper().appLocalizations!.fixes_available),
       content: SizedBox(
         height:200,
+        // Primary so it can be scrolled with the right stick of a controller while a button is focused
         child: ListView(
+          primary: true,
           children: [
             Text(TranslationsHelper().appLocalizations!.fixes_available_description),
             SizedBox(height: 10),
