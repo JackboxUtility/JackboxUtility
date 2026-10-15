@@ -7,7 +7,14 @@
 FlutterWindow::FlutterWindow(const flutter::DartProject& project)
     : project_(project) {}
 
-FlutterWindow::~FlutterWindow() {}
+FlutterWindow::~FlutterWindow() {
+  // window_manager's destroy() ends the app with PostQuitMessage, so the window
+  // isn't destroyed (and OnDestroy isn't called) before this. The controller is
+  // cleared before it's deleted, like in OnDestroy: deleting it destroys the
+  // Flutter view, and the messages this sends to the window must not reach the
+  // controller being deleted.
+  flutter_controller_ = nullptr;
+}
 
 bool FlutterWindow::OnCreate() {
   if (!Win32Window::OnCreate()) {
